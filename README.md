@@ -45,6 +45,7 @@ http://127.0.0.1:8000/api/v1/health/db/
 http://127.0.0.1:8000/api/v1/auth/status/
 http://127.0.0.1:8000/api/v1/auth/me
 http://127.0.0.1:8000/api/v1/apps/
+http://127.0.0.1:8000/api/v1/categories/
 ```
 
 ## Environment
@@ -112,14 +113,17 @@ tables, and mini-app auth are intentionally not enabled yet.
 
 The apps catalog module provides public read endpoints for parent/global app
 metadata. It does not connect mini-app databases or migrate existing web logic.
+Parent Apps Catalog data depends on Categories through `Apps.categoryId`.
 
 ```text
 GET /api/v1/apps/
 GET /api/v1/apps/{app_key}
+GET /api/v1/categories/
+GET /api/v1/categories/{category_key_or_slug}
 ```
 
 Pricing, entitlements, and app-specific data are intentionally not part of this
-foundation phase.
+foundation phase. Favorites and Dashboard APIs are intentionally deferred.
 
 ## OpenAPI and Generated Clients
 
@@ -157,4 +161,4 @@ https://api.ansiversa.com
 ```
 
 After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
-`/api/v1/auth/status/`, and `/api/v1/apps/`.
+`/api/v1/auth/status/`, `/api/v1/apps/`, and `/api/v1/categories/`.
