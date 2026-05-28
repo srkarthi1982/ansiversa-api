@@ -136,6 +136,17 @@ Use clear OpenAPI tags.
 
 Keep route files thin. Business logic should live in service files.
 
+## OpenAPI Contract Standard
+
+The full ecosystem OpenAPI schema is not always suitable for mini-app frontends.
+Mini-apps should eventually generate SDKs from module-specific OpenAPI schemas.
+
+Examples:
+
+* Quiz frontend should generate from Quiz schema.
+* Resume Builder frontend should generate from Resume Builder schema.
+* Parent web can generate from Parent/global schema.
+
 ---
 
 ## Environment and Secrets
@@ -335,6 +346,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-05-28: Added stable OpenAPI operation ID generation for future TypeScript clients, documented generated-client strategy in README, and added module-specific OpenAPI schema guidance to this repo contract for Foundation Phase 7.
 * 2026-05-28: Added parent/global auth foundation with `users` table migration, Argon2 password hashing via `pwdlib`, JWT access token helpers, OAuth2 bearer/Swagger Authorize support, register/login/me routes, current-user dependency, README auth/env guidance, and dependency pins; no roles, refresh tokens, session tables, social login, billing, or mini-app auth were added for Foundation Phase 6.
 * 2026-05-28: Added safe auth module skeleton with typed status response, placeholder service, `/api/v1/auth/status/` route, router registration, and README note; no real auth logic, JWT handling, password flow, or auth tables were added for Foundation Phase 5.
 * 2026-05-28: Added parent/global Alembic foundation wired to `ParentBase.metadata` and `PARENT_DATABASE_URL`, created an empty initial parent migration, and documented migration isolation rules and commands for Foundation Phase 4.

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+from app.core.openapi import generate_operation_id
 from app.modules.auth.routes import router as auth_router
 from app.modules.health.routes import router as health_router
 
@@ -42,6 +43,7 @@ def create_app() -> FastAPI:
         title=settings.APP_NAME,
         description="Single source of truth API for the Ansiversa ecosystem.",
         version=settings.APP_VERSION,
+        generate_unique_id_function=generate_operation_id,
     )
 
     register_middleware(app)

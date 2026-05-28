@@ -107,6 +107,33 @@ Current scope includes parent users, password hashing, JWT access tokens, and
 the current-user dependency. Refresh tokens, social login, roles, session
 tables, and mini-app auth are intentionally not enabled yet.
 
+## OpenAPI and Generated Clients
+
+The full OpenAPI schema is available at:
+
+```text
+/openapi.json
+```
+
+Frontend clients can generate TypeScript SDKs and types from OpenAPI contracts.
+Operation IDs are intentionally stable and normalized so generated method names
+remain predictable across releases.
+
+The full ecosystem schema is not always the right input for mini-app frontends.
+Future mini-app SDKs should generate from module-specific schemas once those are
+introduced.
+
+Recommended future schema endpoints:
+
+```text
+/openapi.json
+/openapi/parent.json
+/openapi/quiz.json
+/openapi/resume-builder.json
+```
+
+For now, only the full `/openapi.json` schema is implemented.
+
 ## Deployment
 
 The API is deployed on Vercel and served from:
