@@ -1,19 +1,47 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.core.config import settings
 from app.modules.health.routes import router as health_router
 
-app = FastAPI(
-    title="Ansiversa API",
-    description="Single source of truth API for the Ansiversa ecosystem.",
-    version="0.1.0",
-)
 
-app.include_router(health_router, prefix="/api/v1/health", tags=["Health"])
+def register_middleware(app: FastAPI) -> None:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.CORS_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
-@app.get("/")
-def root():
-    return {
-        "name": "Ansiversa API",
-        "status": "running",
-        "version": "0.1.0",
-    }
+def register_routes(app: FastAPI) -> None:
+    app.include_router(
+        health_router,
+        prefix=f"{settings.API_V1_PREFIX}/health",
+        tags=["Health"],
+    )
+
+    @app.get("/", tags=["Root"])
+    def root() -> dict[str, str]:
+        return {
+            "name": settings.APP_NAME,
+            "status": "running",
+            "version": settings.APP_VERSION,
+        }
+
+
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title=settings.APP_NAME,
+        description="Single source of truth API for the Ansiversa ecosystem.",
+        version=settings.APP_VERSION,
+    )
+
+    register_middleware(app)
+    register_routes(app)
+
+    return app
+
+
+app = create_app()
