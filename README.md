@@ -56,6 +56,25 @@ falls back to SQLite:
 sqlite:///./ansiversa_api.db
 ```
 
+## Migrations
+
+Alembic is configured for the parent/global database only and reads
+`PARENT_DATABASE_URL` from app settings. Parent/global migrations belong to this
+parent Alembic context. Mini-app migrations should be introduced later only when
+needed and kept isolated.
+
+Create a parent/global migration:
+
+```bash
+alembic revision --autogenerate -m "message"
+```
+
+Apply migrations:
+
+```bash
+alembic upgrade head
+```
+
 ## Deployment
 
 The API is deployed on Vercel and served from:
