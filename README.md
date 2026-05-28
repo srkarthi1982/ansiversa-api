@@ -41,12 +41,20 @@ Then open:
 http://127.0.0.1:8000/
 http://127.0.0.1:8000/docs
 http://127.0.0.1:8000/api/v1/health/
+http://127.0.0.1:8000/api/v1/health/db/
 ```
 
 ## Environment
 
 Settings are loaded with `pydantic-settings` from environment variables and `.env`.
 Do not commit secrets. Keep `.env` local only.
+
+`PARENT_DATABASE_URL` controls the parent/global SQLAlchemy engine. Local development
+falls back to SQLite:
+
+```text
+sqlite:///./ansiversa_api.db
+```
 
 ## Deployment
 
@@ -56,4 +64,4 @@ The API is deployed on Vercel and served from:
 https://api.ansiversa.com
 ```
 
-After deployment, verify `/`, `/docs`, and `/api/v1/health/`.
+After deployment, verify `/`, `/docs`, `/api/v1/health/`, and `/api/v1/health/db/`.

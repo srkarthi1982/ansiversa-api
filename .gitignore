@@ -8,6 +8,11 @@ __pycache__/
 # Environment files
 .env
 
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
 # macOS
 .DS_Store
 

@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     APP_ENV: str = "development"
     APP_VERSION: str = "0.1.0"
     API_V1_PREFIX: str = "/api/v1"
+    PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )
