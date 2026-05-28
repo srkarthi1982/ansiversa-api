@@ -5,6 +5,7 @@ from sqlalchemy import engine_from_config, pool
 
 from app.core.config import settings
 from app.core.database import ParentBase
+from app.modules.auth import models  # noqa: F401
 
 config = context.config
 

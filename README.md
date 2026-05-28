@@ -43,6 +43,7 @@ http://127.0.0.1:8000/docs
 http://127.0.0.1:8000/api/v1/health/
 http://127.0.0.1:8000/api/v1/health/db/
 http://127.0.0.1:8000/api/v1/auth/status/
+http://127.0.0.1:8000/api/v1/auth/me
 ```
 
 ## Environment
@@ -56,6 +57,17 @@ falls back to SQLite:
 ```text
 sqlite:///./ansiversa_api.db
 ```
+
+Auth uses these environment variables:
+
+```text
+JWT_SECRET_KEY
+JWT_ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES
+```
+
+Set a strong `JWT_SECRET_KEY` outside source control before enabling auth outside
+local development.
 
 ## Migrations
 
@@ -78,14 +90,22 @@ alembic upgrade head
 
 ## Auth
 
-The auth module currently exposes a skeleton status endpoint only:
+The auth module provides the parent/global authentication foundation only.
+Mini-app-specific auth is intentionally not introduced here.
 
 ```text
 /api/v1/auth/status/
+POST /api/v1/auth/register
+POST /api/v1/auth/login
+GET  /api/v1/auth/me
 ```
 
-Real authentication, login, password handling, JWT issuance, and auth database
-tables are intentionally not enabled yet.
+Use `/api/v1/auth/login` from Swagger `/docs` to get a bearer token, then use
+Authorize to test protected routes such as `/api/v1/auth/me`.
+
+Current scope includes parent users, password hashing, JWT access tokens, and
+the current-user dependency. Refresh tokens, social login, roles, session
+tables, and mini-app auth are intentionally not enabled yet.
 
 ## Deployment
 

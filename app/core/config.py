@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.1.0"
     API_V1_PREFIX: str = "/api/v1"
     PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
+    JWT_SECRET_KEY: str = ""
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )
