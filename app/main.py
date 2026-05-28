@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.openapi import generate_operation_id
+from app.modules.apps.routes import router as apps_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.health.routes import router as health_router
 
@@ -27,6 +28,11 @@ def register_routes(app: FastAPI) -> None:
         auth_router,
         prefix=f"{settings.API_V1_PREFIX}/auth",
         tags=["Auth"],
+    )
+    app.include_router(
+        apps_router,
+        prefix=f"{settings.API_V1_PREFIX}/apps",
+        tags=["Apps"],
     )
 
     @app.get("/", tags=["Root"])

@@ -44,6 +44,7 @@ http://127.0.0.1:8000/api/v1/health/
 http://127.0.0.1:8000/api/v1/health/db/
 http://127.0.0.1:8000/api/v1/auth/status/
 http://127.0.0.1:8000/api/v1/auth/me
+http://127.0.0.1:8000/api/v1/apps/
 ```
 
 ## Environment
@@ -107,6 +108,19 @@ Current scope includes parent users, password hashing, JWT access tokens, and
 the current-user dependency. Refresh tokens, social login, roles, session
 tables, and mini-app auth are intentionally not enabled yet.
 
+## Apps Catalog
+
+The apps catalog module provides public read endpoints for parent/global app
+metadata. It does not connect mini-app databases or migrate existing web logic.
+
+```text
+GET /api/v1/apps/
+GET /api/v1/apps/{app_key}
+```
+
+Pricing, entitlements, and app-specific data are intentionally not part of this
+foundation phase.
+
 ## OpenAPI and Generated Clients
 
 The full OpenAPI schema is available at:
@@ -143,4 +157,4 @@ https://api.ansiversa.com
 ```
 
 After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
-and `/api/v1/auth/status/`.
+`/api/v1/auth/status/`, and `/api/v1/apps/`.
