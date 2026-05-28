@@ -42,6 +42,7 @@ http://127.0.0.1:8000/
 http://127.0.0.1:8000/docs
 http://127.0.0.1:8000/api/v1/health/
 http://127.0.0.1:8000/api/v1/health/db/
+http://127.0.0.1:8000/api/v1/auth/status/
 ```
 
 ## Environment
@@ -75,6 +76,17 @@ Apply migrations:
 alembic upgrade head
 ```
 
+## Auth
+
+The auth module currently exposes a skeleton status endpoint only:
+
+```text
+/api/v1/auth/status/
+```
+
+Real authentication, login, password handling, JWT issuance, and auth database
+tables are intentionally not enabled yet.
+
 ## Deployment
 
 The API is deployed on Vercel and served from:
@@ -83,4 +95,5 @@ The API is deployed on Vercel and served from:
 https://api.ansiversa.com
 ```
 
-After deployment, verify `/`, `/docs`, `/api/v1/health/`, and `/api/v1/health/db/`.
+After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
+and `/api/v1/auth/status/`.
