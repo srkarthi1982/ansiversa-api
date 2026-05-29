@@ -17,6 +17,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
 | Admin foundation | `GET /api/v1/admin/status` | Partially completed with reusable `roleId = 1` admin guard and status verification route; admin CRUD remains deferred |
 | Audit foundation | None public | Completed as model/helper foundation with `AuditLogs` table and reusable write helper; audit listing and admin write integration remain deferred |
+| Admin categories foundation | `GET/POST/PATCH/DELETE /api/v1/admin/categories...` | Completed as admin categories foundation aligned to parent Astro action behavior for pagination, sorting, status filtering, app counts, validation, duplicate blocking, delete blocking, and audit logging; parent web action remains unchanged |
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
 | Public FAQ foundation | `GET /api/v1/faqs` | Completed as public read foundation with published-only filtering, parent/app scoping, search, and pagination; admin FAQ CRUD remains deferred |
@@ -59,8 +60,8 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Media upload | `web/src/pages/api/media/upload.json.ts`; `web/src/lib/r2.ts` | `POST /api/v1/media/uploads` | Yes | `Users` optional metadata | Phase F | Uses R2 and image processing. Do not migrate until storage ownership, size limits, and client upload strategy are approved. |
 | Admin apps list/meta | `web/src/actions/adminApps.ts` `adminApps.list/meta` | `GET /api/v1/admin/apps`, `GET /api/v1/admin/apps/meta` | Admin | `Apps`, `Categories`, `Users` | Phase D | API public apps routes do not replace admin list. Admin route needs filters, pagination, sort, category names, capabilities parsing, and registry normalization. |
 | Admin apps create/update/delete | `web/src/actions/adminApps.ts` `adminApps.create/update/delete` | `POST/PATCH/DELETE /api/v1/admin/apps...` | Admin | `Apps`, `Categories`, `AuditLogs` | Phase D | Must preserve validation for key/slug conflicts, URL normalization, launch/visibility/pricing values, capabilities serialization, and audit events. |
-| Admin categories list | `web/src/actions/adminCategories.ts` `adminCategories.list` | `GET /api/v1/admin/categories` | Admin | `Categories`, `Apps`, `Users` | Phase D | Public categories route is not enough. Admin list includes filters, sorting, pagination, and app counts. |
-| Admin categories create/update/delete | `web/src/actions/adminCategories.ts` `adminCategories.create/update/delete` | `POST/PATCH/DELETE /api/v1/admin/categories...` | Admin | `Categories`, `Apps`, `AuditLogs` | Phase D | Delete must block when apps reference the category. Preserve `cat_` id convention unless Astra changes it. |
+| Admin categories list | `web/src/actions/adminCategories.ts` `adminCategories.list` | `GET /api/v1/admin/categories` | Admin | `Categories`, `Apps`, `Users` | Phase D | Completed as API foundation with `page`, `pageSize`, `q`, `status`, `sort`, `dir`, app counts, and web action sort options. Intentional API addition: `sortBy`/`sortDirection` aliases are accepted, and search also covers `description` per Phase 16 requirement. |
+| Admin categories create/update/delete | `web/src/actions/adminCategories.ts` `adminCategories.create/update/delete` | `POST/PATCH/DELETE /api/v1/admin/categories...` | Admin | `Categories`, `Apps`, `AuditLogs` | Phase D | Completed as API foundation with `cat_` id validation, key/slug normalization, duplicate blocking, `updatedAt` updates, app-reference delete blocking, and audit actions (`admin.categories.create/update/status/delete`). Parent web action remains unchanged. |
 | Admin users list/create/update/delete | `web/src/actions/adminUsers.ts`; `web/src/pages/admin/users.astro` | `GET/POST/PATCH/DELETE /api/v1/admin/users...` | Admin | `Users`, `Roles`, `AuditLogs` | Phase D | Auth model mismatch is addressed, but admin dependencies, role checks, location fields response design, and audit logging are still required before admin user APIs. |
 | Admin roles CRUD | `web/src/actions/adminRoles.ts`; `web/src/pages/admin/roles.astro` | `GET/POST/PATCH/DELETE /api/v1/admin/roles...` | Admin | `Roles`, `Users`, `AuditLogs` | Phase D | Requires role/permission model in API. Preserve permission JSON contract. |
 | Admin permissions dictionary | `web/src/lib/permissionsRegistry.ts`; `web/src/pages/admin/permissions.astro` | `GET /api/v1/admin/permissions` | Admin | None or `Roles` | Phase D | Mostly static registry today. Can be API-backed after roles are migrated. |
@@ -105,6 +106,7 @@ Blocker update: API auth now uses parent `Users` and `Roles`; profile/preference
 
 - Admin foundation partially completed: `require_admin_user` checks active authenticated users and allows `roleId = 1`; `/api/v1/admin/status` exists for verification only.
 - Audit logging foundation completed before admin writes: parent-compatible `AuditLogs` model/migration and reusable `write_audit_log(...)` helper exist.
+- Admin categories foundation completed with parity to `adminCategories` Astro actions where applicable. API search additionally includes `description` to satisfy the Phase 16 API contract.
 - Admin apps registry CRUD.
 - Admin categories CRUD.
 - Admin users CRUD.
@@ -153,4 +155,5 @@ These areas either touch external services, need rate limiting/storage ownership
 - Phase 13 added the protected read-only dashboard foundation in `ansiversa-api`.
 - Phase 14 added the public read-only FAQ foundation in `ansiversa-api`.
 - Phase 15 added reusable admin guard/status verification plus `AuditLogs` model/helper foundation in `ansiversa-api`.
-- Admin CRUD endpoints, audit log listing, permissions registry, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, and billing APIs remain intentionally deferred.
+- Phase 16 added admin categories list/create/update/delete foundation in `ansiversa-api`.
+- Admin Apps, admin users, admin roles, admin FAQ CRUD, audit log listing, permissions registry, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, and billing APIs remain intentionally deferred.

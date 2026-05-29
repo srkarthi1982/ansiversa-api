@@ -54,6 +54,7 @@ http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 http://127.0.0.1:8000/api/v1/faqs
 http://127.0.0.1:8000/api/v1/admin/status
+http://127.0.0.1:8000/api/v1/admin/categories
 ```
 
 ## Environment
@@ -170,6 +171,30 @@ The audit foundation adds the parent-compatible `AuditLogs` table and a reusable
 action, entity, metadata, IP address, user agent, and timestamp. Admin CRUD,
 audit log listing, permissions registry, billing APIs, and destructive
 operations are intentionally deferred.
+
+## Admin Categories
+
+The admin categories module provides protected category management endpoints
+aligned with the parent web `adminCategories` Astro action behavior.
+
+```text
+GET    /api/v1/admin/categories
+POST   /api/v1/admin/categories
+PATCH  /api/v1/admin/categories/{category_id}
+DELETE /api/v1/admin/categories/{category_id}
+```
+
+All routes require an active admin user (`roleId = 1`). Listing uses the web
+action defaults and response shape: `page`, `pageSize`, `q`, `status`, `sort`,
+`dir`, `items`, `total`, and `totalPages`, with `appsCount` included per
+category. Create/update preserve the `cat_` id convention, normalize keys like
+the web action, prevent duplicate key/slug conflicts, update `updatedAt`, and
+write audit logs. Delete is blocked while any app references the category.
+
+Intentional API difference: search also covers `description`, matching the
+Phase 16 API requirement; the current parent web action searches name, id, slug,
+and key. Admin Apps, billing APIs, permissions registry, and audit log listing
+remain deferred.
 
 ## Profile and Preferences
 
@@ -336,4 +361,4 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/me/notifications`, `/api/v1/me/notifications/unread-count`,
 `/api/v1/me/dashboard`, `/api/v1/apps/`, `/api/v1/categories/`, and
 `/api/v1/faqs`, plus protected admin verification at
-`/api/v1/admin/status`.
+`/api/v1/admin/status` and `/api/v1/admin/categories`.
