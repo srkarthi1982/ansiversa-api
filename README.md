@@ -57,6 +57,7 @@ http://127.0.0.1:8000/api/v1/admin/status
 http://127.0.0.1:8000/api/v1/admin/categories
 http://127.0.0.1:8000/api/v1/admin/apps
 http://127.0.0.1:8000/api/v1/admin/apps/meta
+http://127.0.0.1:8000/api/v1/admin/users
 ```
 
 ## Environment
@@ -228,6 +229,29 @@ allowed status/launch/visibility/pricing values and capability options so API
 clients can build forms without hardcoding the parent registry constants.
 Admin users/roles, billing APIs, permissions registry, and audit log listing
 remain deferred.
+
+## Admin Users
+
+The admin users read foundation provides protected user list and detail
+endpoints aligned with the parent web `adminUsers` Astro action behavior.
+
+```text
+GET /api/v1/admin/users
+GET /api/v1/admin/users/{user_id}
+```
+
+All routes require an active admin user (`roleId = 1`). Listing follows the
+web action defaults and response shape with `items`, `total`, `page`,
+`pageSize`, `totalPages`, `sort`, and `dir`, includes role information, and
+returns safe location/profile fields only. Detail returns safe admin-readable
+fields and never exposes `passwordHash`, reset tokens, or raw Stripe customer
+IDs.
+
+Intentional API differences: list search also covers `city`, `countryCode`,
+and `regionCode` per the Phase 18 API requirement; list accepts read-only
+filters for `status`, `plan`, `planStatus`, and `countryCode` plus
+`sortBy`/`sortDirection` aliases. Admin user create/update/delete and admin
+password/reset actions remain deferred.
 
 ## Profile and Preferences
 

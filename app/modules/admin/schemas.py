@@ -4,7 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
-class AdminUserResponse(BaseModel):
+class AdminStatusUserResponse(BaseModel):
     id: str
     email: str
     role_id: int = Field(serialization_alias="roleId")
@@ -13,7 +13,58 @@ class AdminUserResponse(BaseModel):
 class AdminStatusResponse(BaseModel):
     status: str
     service: str
-    admin: AdminUserResponse
+    admin: AdminStatusUserResponse
+
+
+AdminUserStatus = Literal["active", "disabled"]
+
+
+class AdminUserRoleResponse(BaseModel):
+    id: int
+    name: str | None
+    key: str | None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminUserResponse(BaseModel):
+    id: str
+    email: str
+    name: str
+    role_id: int = Field(serialization_alias="roleId")
+    role: AdminUserRoleResponse | None
+    role_name: str | None = Field(default=None, serialization_alias="roleName")
+    status: AdminUserStatus
+    plan: str | None
+    plan_status: str | None = Field(serialization_alias="planStatus")
+    country_code: str | None = Field(serialization_alias="countryCode")
+    region_code: str | None = Field(serialization_alias="regionCode")
+    city: str | None
+    timezone: str | None
+    location_source: str = Field(serialization_alias="locationSource")
+    location_captured_at: datetime | None = Field(serialization_alias="locationCapturedAt")
+    avatar_url: str | None = Field(serialization_alias="avatarUrl")
+    avatar_updated_at: datetime | None = Field(serialization_alias="avatarUpdatedAt")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminUserListResponse(BaseModel):
+    items: list[AdminUserResponse]
+    total: int
+    page: int
+    page_size: int = Field(serialization_alias="pageSize")
+    total_pages: int = Field(serialization_alias="totalPages")
+    sort: str
+    dir: Literal["asc", "desc"]
+    q: str
+    status: str
+    role_id: int | str = Field(serialization_alias="roleId")
+    plan: str
+    plan_status: str = Field(serialization_alias="planStatus")
+    country_code: str = Field(serialization_alias="countryCode")
 
 
 AdminCategoryStatus = Literal["active", "disabled"]
