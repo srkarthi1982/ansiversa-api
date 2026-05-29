@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.1.0"
     API_V1_PREFIX: str = "/api/v1"
     PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
+    TURSO_AUTH_TOKEN: str | None = None
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30

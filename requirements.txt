@@ -13,6 +13,7 @@ h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
 idna==3.16
+libsql-experimental==0.0.55
 Mako==1.3.12
 MarkupSafe==3.0.3
 pwdlib==0.3.0
@@ -24,6 +25,7 @@ PyJWT==2.13.0
 python-dotenv==1.2.2
 python-multipart==0.0.29
 SQLAlchemy==2.0.50
+sqlalchemy-libsql==0.2.0
 starlette==1.2.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
