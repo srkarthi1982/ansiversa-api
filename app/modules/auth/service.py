@@ -29,6 +29,7 @@ from app.modules.auth.schemas import (
 
 DEFAULT_MEMBER_ROLE_ID = 2
 ACTIVE_STATUS = "active"
+BLOCKED_LOGIN_STATUSES = {"disabled", "inactive", "suspended"}
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -38,6 +39,12 @@ def get_auth_status() -> AuthStatusResponse:
         auth_ready=True,
         message="Parent authentication foundation is enabled.",
     )
+
+
+def is_login_allowed_status(value: str | None) -> bool:
+    normalized = (value or ACTIVE_STATUS).strip().lower()
+
+    return normalized not in BLOCKED_LOGIN_STATUSES
 
 
 def get_user_by_email(db: Session, email: str) -> User | None:
@@ -118,7 +125,7 @@ def authenticate_user(db: Session, payload: LoginRequest) -> User | None:
     if not password_valid:
         return None
 
-    if user.status != ACTIVE_STATUS:
+    if not is_login_allowed_status(user.status):
         return None
 
     if is_legacy_hash:
@@ -166,7 +173,7 @@ def get_current_user(
     except InvalidTokenError as exc:
         raise credentials_exception from exc
 
-    if not user or user.status != ACTIVE_STATUS:
+    if not user or not is_login_allowed_status(user.status):
         raise credentials_exception
 
     return user

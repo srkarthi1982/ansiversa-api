@@ -128,6 +128,9 @@ API-created users use Argon2 hashes. Existing parent web users with legacy
 `salt:hash` HMAC-SHA256 password hashes are supported during login; after a
 successful legacy login, the submitted password is rehashed with Argon2 and
 `Users.passwordHash` is upgraded automatically.
+For parent compatibility, missing or empty legacy `Users.status` values are
+treated as active, while `disabled`, `inactive`, and `suspended` users are
+blocked.
 
 Safe auth responses include only parent-compatible user fields:
 
