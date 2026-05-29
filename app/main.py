@@ -7,6 +7,7 @@ from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
+from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 
 
@@ -50,6 +51,11 @@ def register_routes(app: FastAPI) -> None:
         favorites_router,
         prefix=f"{settings.API_V1_PREFIX}/me",
         tags=["Favorites"],
+    )
+    app.include_router(
+        notifications_router,
+        prefix=f"{settings.API_V1_PREFIX}/me",
+        tags=["Notifications"],
     )
 
     @app.get("/", tags=["Root"])

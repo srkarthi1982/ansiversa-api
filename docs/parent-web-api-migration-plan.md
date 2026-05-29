@@ -17,6 +17,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
+| Notifications foundation | `GET /api/v1/me/notifications`, `GET /api/v1/me/notifications/unread-count`, `PATCH /api/v1/me/notifications/{notification_id}`, `POST /api/v1/me/notifications/mark-all-read` | Completed as protected current-user foundation; webhooks remain deferred |
 
 Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth mismatch has been corrected in the API model. Auth now uses parent-compatible `Users` and `Roles` tables with `name`, `passwordHash`, `roleId`, and `status`. Parent web cookie/session parity, billing/session claims, and broader protected APIs remain deferred.
 
@@ -41,11 +42,11 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Dashboard summary | `web/src/actions/dashboard.ts` `dashboard.summary`; `web/src/pages/dashboard.astro`; `web/src/dashboard/summaryRegistry.ts` | `GET /api/v1/me/dashboard` | Yes | `Users`, `Favorites`, `Apps`, `Notifications`, `Dashboard` | Phase C | Current dashboard combines favorites, unread notifications, recommendations, and mini-app summary registry rendering. API should return stable data only; rendering registry stays in web/components. |
 | Quiz dashboard proxy | `web/src/actions/quiz.ts` `quiz.fetchDashboardSummary` | Deferred or `GET /api/v1/me/dashboard/apps/quiz` | Yes | `Apps`; remote quiz action | Phase F | Current parent action fetches the quiz app action server-side. Do not centralize until cross-app ownership boundaries are approved. |
 | Mini-app activity webhooks | `web/src/pages/api/webhooks/*-activity.json.ts`; `web/src/lib/dashboard.ts` | `POST /api/v1/webhooks/{app_key}/activity` | Shared secret | `Dashboard` | Phase C | Existing app-specific validators cover `quiz`, `resume-builder`, `portfolio-creator`, `flashnote`, and `study-planner`. A generic endpoint is tempting but risky; keep per-app schemas or module validators. |
-| Notifications list | `web/src/actions/notifications.ts` `notifications.listNotifications` | `GET /api/v1/me/notifications` | Yes | `Notifications` | Phase C | Current action caps at 50 newest. Include pagination before external clients depend on it. |
-| Mark notification read | `web/src/actions/notifications.ts` `notifications.markNotificationRead` | `PATCH /api/v1/me/notifications/{id}` | Yes | `Notifications` | Phase C | Must scope update by current user. |
-| Mark all notifications read | `web/src/actions/notifications.ts` `notifications.markAllNotificationsRead` | `POST /api/v1/me/notifications/mark-all-read` | Yes | `Notifications` | Phase C | Preserve unread-only update and updated count response. |
-| Unread notification count | `web/src/pages/api/notifications/unread-count.ts`; `web/src/lib/notifications.ts` | `GET /api/v1/me/notifications/unread-count` | Yes | `Notifications` | Phase C | Existing route accepts cookie or bearer token for mini-apps. API should preserve bearer support. |
-| Notification webhook | `web/src/pages/api/webhooks/notifications.json.ts`; `web/src/lib/notifications.ts` | `POST /api/v1/webhooks/notifications` | Shared secret | `Notifications` | Phase C | Preserve `X-Ansiversa-Signature` secret validation and app/type normalization. |
+| Notifications list | `web/src/actions/notifications.ts` `notifications.listNotifications` | `GET /api/v1/me/notifications` | Yes | `Notifications` | Phase C | Completed as API foundation with current-user scoping, newest-first sorting, safe response fields, and default limit 50. Parent web action remains unchanged. |
+| Mark notification read | `web/src/actions/notifications.ts` `notifications.markNotificationRead` | `PATCH /api/v1/me/notifications/{id}` | Yes | `Notifications` | Phase C | Completed as API foundation with current-user scoping, read-state update, `readAt` timestamp, and clean `404` for missing/non-owned notifications. |
+| Mark all notifications read | `web/src/actions/notifications.ts` `notifications.markAllNotificationsRead` | `POST /api/v1/me/notifications/mark-all-read` | Yes | `Notifications` | Phase C | Completed as API foundation with unread-only bulk update and affected count response. |
+| Unread notification count | `web/src/pages/api/notifications/unread-count.ts`; `web/src/lib/notifications.ts` | `GET /api/v1/me/notifications/unread-count` | Yes | `Notifications` | Phase C | Completed as API foundation using bearer auth through existing current-user dependency. Parent cookie/session parity remains deferred. |
+| Notification webhook | `web/src/pages/api/webhooks/notifications.json.ts`; `web/src/lib/notifications.ts` | `POST /api/v1/webhooks/notifications` | Shared secret | `Notifications` | Phase C | Deferred intentionally. Preserve `X-Ansiversa-Signature` secret validation and app/type normalization when approved later. |
 | Public FAQ list | `web/src/actions/faq.ts` `faq.list`; `web/src/pages/api/faqs.json.ts`; `web/src/pages/faq.astro` | `GET /api/v1/faqs?appKey=&q=&page=&pageSize=` | No | `Faqs` | Phase B | Public read API is safe after schema model is added. Preserve `appKey IS NULL` default for parent FAQ and app-specific filtering. |
 | Admin FAQ CRUD | `web/src/actions/faq.ts` `faq.create/update/remove`; `web/src/pages/api/admin/faqs*.ts` | `POST/PATCH/DELETE /api/v1/admin/faqs...` | Admin | `Faqs`, `Users`, `AuditLogs` | Phase D | Requires admin dependency and audit logging first. |
 | Settings profile | `web/src/actions/user.ts` `user.updateProfile`; `web/src/pages/settings.astro` | `GET/PATCH /api/v1/me/profile` | Yes | `Users` | Phase C | Completed as API foundation for safe profile read/update fields (`name`, `countryCode`, `regionCode`, `city`, `timezone`). Parent web action remains unchanged. |
@@ -89,12 +90,12 @@ Safe does not mean schema-free. Add API models only after matching the parent `F
 - Current user/session shape.
 - Profile and preferences foundation completed; avatar metadata remains pending.
 - Favorites list/add/remove foundation completed.
+- Notifications list/read/unread count foundation completed; notification webhooks remain deferred.
 - Dashboard data.
-- Notifications list/read/unread count.
 - Parent notification and activity webhooks authenticated by shared secret.
 - Password change/reset flows.
 
-Blocker update: API auth now uses parent `Users` and `Roles`; profile/preferences and favorites foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, advanced discovery/pricing gating, and protected API contracts still need approval before dashboard, notifications, or avatar uploads move.
+Blocker update: API auth now uses parent `Users` and `Roles`; profile/preferences, favorites, and notifications foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, advanced discovery/pricing gating, dashboard aggregation, notification webhook processing, and avatar uploads still need approval before moving.
 
 ## Phase D: Admin APIs
 
@@ -133,8 +134,8 @@ These areas either touch external services, need rate limiting/storage ownership
 1. Finish parent session/cookie strategy design without changing web runtime.
 2. Finish public catalog parity in the API while keeping Astro actions as callers/compatibility layer.
 3. Add public FAQ read API.
-4. Add the next approved protected user read API only after auth/profile/favorites contracts are accepted; notifications unread count is the likely next candidate.
-5. Add dashboard read API after favorites/notifications contracts stabilize.
+4. Add the next approved protected user API only after auth/profile/favorites/notifications contracts are accepted.
+5. Add dashboard read API after the notification and dashboard aggregation contracts stabilize.
 6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
 7. Treat billing as a separate approved freeze task.
 
@@ -142,4 +143,5 @@ These areas either touch external services, need rate limiting/storage ownership
 
 - Phase 10 added protected profile/preferences runtime endpoints in `ansiversa-api`.
 - Phase 10 did not modify the parent `web` repo.
-- Notifications, dashboard, billing, and admin APIs remain intentionally deferred.
+- Phase 12 added protected notifications runtime endpoints in `ansiversa-api`.
+- Notification webhooks, dashboard, billing, and admin APIs remain intentionally deferred.

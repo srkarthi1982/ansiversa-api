@@ -47,6 +47,8 @@ http://127.0.0.1:8000/api/v1/auth/me
 http://127.0.0.1:8000/api/v1/me/profile
 http://127.0.0.1:8000/api/v1/me/preferences
 http://127.0.0.1:8000/api/v1/me/favorites
+http://127.0.0.1:8000/api/v1/me/notifications
+http://127.0.0.1:8000/api/v1/me/notifications/unread-count
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 ```
@@ -192,6 +194,24 @@ for an existing user/app pair. Phase 11 uses conservative discovery checks only:
 the app must exist, `visibility = public`, `status = live`, and
 `launchStatus = live`. Advanced pricing/entitlement gating is deferred.
 
+## Notifications
+
+The notifications module provides protected current-user notification endpoints
+backed by the parent-compatible `Notifications` table.
+
+```text
+GET   /api/v1/me/notifications
+GET   /api/v1/me/notifications/unread-count
+PATCH /api/v1/me/notifications/{notification_id}
+POST  /api/v1/me/notifications/mark-all-read
+```
+
+Notification responses include safe read-state fields only: `id`, `title`,
+`message`, `type`, `isRead`, `createdAt`, `readAt`, and `metadataJson`. All
+operations are scoped to the authenticated user. Listing is newest first with a
+default limit of 50. Notification webhook/event processing is intentionally
+deferred.
+
 ## Apps Catalog
 
 The apps catalog module provides public read endpoints for parent/global app
@@ -245,5 +265,6 @@ https://api.ansiversa.com
 
 After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/auth/status/`, `/api/v1/auth/me`, `/api/v1/me/profile`,
-`/api/v1/me/preferences`, `/api/v1/me/favorites`, `/api/v1/apps/`, and
-`/api/v1/categories/`.
+`/api/v1/me/preferences`, `/api/v1/me/favorites`,
+`/api/v1/me/notifications`, `/api/v1/me/notifications/unread-count`,
+`/api/v1/apps/`, and `/api/v1/categories/`.
