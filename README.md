@@ -49,6 +49,7 @@ http://127.0.0.1:8000/api/v1/me/preferences
 http://127.0.0.1:8000/api/v1/me/favorites
 http://127.0.0.1:8000/api/v1/me/notifications
 http://127.0.0.1:8000/api/v1/me/notifications/unread-count
+http://127.0.0.1:8000/api/v1/me/dashboard
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 ```
@@ -212,6 +213,24 @@ operations are scoped to the authenticated user. Listing is newest first with a
 default limit of 50. Notification webhook/event processing is intentionally
 deferred.
 
+## Dashboard
+
+The dashboard module provides a protected current-user read foundation backed by
+the parent-compatible `Dashboard` table.
+
+```text
+GET /api/v1/me/dashboard
+```
+
+The response includes the authenticated user, favorite count, unread
+notification count, recent apps, and dashboard items. Dashboard items are
+ordered by newest `lastActivityAt` first and parse `summaryJson` defensively,
+returning an empty summary when stored JSON is missing or invalid.
+
+This phase is read-only and partially complete. Dashboard write APIs, activity
+webhooks, cross-app summary fetching, admin APIs, and billing APIs are
+intentionally deferred.
+
 ## Apps Catalog
 
 The apps catalog module provides public read endpoints for parent/global app
@@ -226,7 +245,7 @@ GET /api/v1/categories/{category_key_or_slug}
 ```
 
 Pricing, entitlements, and app-specific data are intentionally not part of this
-foundation phase. Dashboard APIs remain intentionally deferred.
+foundation phase.
 
 ## OpenAPI and Generated Clients
 

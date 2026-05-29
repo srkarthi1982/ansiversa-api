@@ -7,6 +7,7 @@ from app.core.config import settings
 from app.core.database import ParentBase
 from app.modules.auth import models  # noqa: F401
 from app.modules.apps import models as apps_models  # noqa: F401
+from app.modules.dashboard import models as dashboard_models  # noqa: F401
 from app.modules.favorites import models as favorites_models  # noqa: F401
 from app.modules.notifications import models as notifications_models  # noqa: F401
 

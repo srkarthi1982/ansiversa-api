@@ -18,6 +18,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
 | Notifications foundation | `GET /api/v1/me/notifications`, `GET /api/v1/me/notifications/unread-count`, `PATCH /api/v1/me/notifications/{notification_id}`, `POST /api/v1/me/notifications/mark-all-read` | Completed as protected current-user foundation; webhooks remain deferred |
+| Dashboard read foundation | `GET /api/v1/me/dashboard` | Partially completed as protected current-user read API; write APIs, webhooks, and cross-app summaries remain deferred |
 
 Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth mismatch has been corrected in the API model. Auth now uses parent-compatible `Users` and `Roles` tables with `name`, `passwordHash`, `roleId`, and `status`. Parent web cookie/session parity, billing/session claims, and broader protected APIs remain deferred.
 
@@ -39,7 +40,7 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Favorites list | `web/src/actions/favorites.ts` `favorites.listFavorites` | `GET /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Completed as API foundation with current-user scoping, newest-first sorting, and safe app catalog response fields. Full discovery/pricing gating remains deferred. |
 | Add favorite | `web/src/actions/favorites.ts` `favorites.addFavorite` | `POST /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Completed as API foundation: app must exist and satisfy conservative public/live checks; duplicate adds are idempotent. Parent web action remains unchanged. |
 | Remove favorite | `web/src/actions/favorites.ts` `favorites.removeFavorite` | `DELETE /api/v1/me/favorites/{app_id}` | Yes | `Favorites` | Phase C | Completed as API foundation with current-user scoping and clean `404` for missing user/app favorite relation. Parent web action remains unchanged. |
-| Dashboard summary | `web/src/actions/dashboard.ts` `dashboard.summary`; `web/src/pages/dashboard.astro`; `web/src/dashboard/summaryRegistry.ts` | `GET /api/v1/me/dashboard` | Yes | `Users`, `Favorites`, `Apps`, `Notifications`, `Dashboard` | Phase C | Current dashboard combines favorites, unread notifications, recommendations, and mini-app summary registry rendering. API should return stable data only; rendering registry stays in web/components. |
+| Dashboard summary | `web/src/actions/dashboard.ts` `dashboard.summary`; `web/src/pages/dashboard.astro`; `web/src/dashboard/summaryRegistry.ts` | `GET /api/v1/me/dashboard` | Yes | `Users`, `Favorites`, `Apps`, `Notifications`, `Dashboard` | Phase C | Partially completed as read-only API foundation with current-user scoping, counts, recent apps, dashboard items, newest `lastActivityAt` ordering, and safe `summaryJson` parsing. Parent rendering registry, recommendations parity, webhooks, and cross-app summaries remain deferred. |
 | Quiz dashboard proxy | `web/src/actions/quiz.ts` `quiz.fetchDashboardSummary` | Deferred or `GET /api/v1/me/dashboard/apps/quiz` | Yes | `Apps`; remote quiz action | Phase F | Current parent action fetches the quiz app action server-side. Do not centralize until cross-app ownership boundaries are approved. |
 | Mini-app activity webhooks | `web/src/pages/api/webhooks/*-activity.json.ts`; `web/src/lib/dashboard.ts` | `POST /api/v1/webhooks/{app_key}/activity` | Shared secret | `Dashboard` | Phase C | Existing app-specific validators cover `quiz`, `resume-builder`, `portfolio-creator`, `flashnote`, and `study-planner`. A generic endpoint is tempting but risky; keep per-app schemas or module validators. |
 | Notifications list | `web/src/actions/notifications.ts` `notifications.listNotifications` | `GET /api/v1/me/notifications` | Yes | `Notifications` | Phase C | Completed as API foundation with current-user scoping, newest-first sorting, safe response fields, and default limit 50. Parent web action remains unchanged. |
@@ -91,11 +92,11 @@ Safe does not mean schema-free. Add API models only after matching the parent `F
 - Profile and preferences foundation completed; avatar metadata remains pending.
 - Favorites list/add/remove foundation completed.
 - Notifications list/read/unread count foundation completed; notification webhooks remain deferred.
-- Dashboard data.
+- Dashboard read foundation partially completed; dashboard writes, activity webhooks, recommendations parity, and cross-app summary fetching remain deferred.
 - Parent notification and activity webhooks authenticated by shared secret.
 - Password change/reset flows.
 
-Blocker update: API auth now uses parent `Users` and `Roles`; profile/preferences, favorites, and notifications foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, advanced discovery/pricing gating, dashboard aggregation, notification webhook processing, and avatar uploads still need approval before moving.
+Blocker update: API auth now uses parent `Users` and `Roles`; profile/preferences, favorites, notifications, and dashboard read foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, advanced discovery/pricing gating, dashboard write/webhook flows, cross-app dashboard aggregation, notification webhook processing, and avatar uploads still need approval before moving.
 
 ## Phase D: Admin APIs
 
@@ -135,7 +136,7 @@ These areas either touch external services, need rate limiting/storage ownership
 2. Finish public catalog parity in the API while keeping Astro actions as callers/compatibility layer.
 3. Add public FAQ read API.
 4. Add the next approved protected user API only after auth/profile/favorites/notifications contracts are accepted.
-5. Add dashboard read API after the notification and dashboard aggregation contracts stabilize.
+5. Expand dashboard only after write/webhook contracts and cross-app ownership boundaries are approved.
 6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
 7. Treat billing as a separate approved freeze task.
 
@@ -144,4 +145,5 @@ These areas either touch external services, need rate limiting/storage ownership
 - Phase 10 added protected profile/preferences runtime endpoints in `ansiversa-api`.
 - Phase 10 did not modify the parent `web` repo.
 - Phase 12 added protected notifications runtime endpoints in `ansiversa-api`.
-- Notification webhooks, dashboard, billing, and admin APIs remain intentionally deferred.
+- Phase 13 added the protected read-only dashboard foundation in `ansiversa-api`.
+- Dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, billing, and admin APIs remain intentionally deferred.
