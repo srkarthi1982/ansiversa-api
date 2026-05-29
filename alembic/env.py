@@ -5,6 +5,7 @@ from sqlalchemy import engine_from_config, pool
 
 from app.core.config import settings
 from app.core.database import ParentBase
+from app.modules.audit import models as audit_models  # noqa: F401
 from app.modules.auth import models  # noqa: F401
 from app.modules.apps import models as apps_models  # noqa: F401
 from app.modules.dashboard import models as dashboard_models  # noqa: F401

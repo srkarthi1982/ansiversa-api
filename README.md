@@ -53,6 +53,7 @@ http://127.0.0.1:8000/api/v1/me/dashboard
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 http://127.0.0.1:8000/api/v1/faqs
+http://127.0.0.1:8000/api/v1/admin/status
 ```
 
 ## Environment
@@ -150,6 +151,25 @@ type = access
 
 Billing/session claims, refresh tokens, social login, full role CRUD, session
 tables, and mini-app auth are intentionally not enabled yet.
+
+## Admin and Audit Foundation
+
+The admin foundation adds a reusable admin dependency and a small verification
+route only.
+
+```text
+GET /api/v1/admin/status
+```
+
+Admin access currently means an authenticated active user with `roleId = 1`,
+matching the parent web convention. Unauthenticated or invalid bearer tokens
+continue to return `401`; authenticated non-admin users return `403`.
+
+The audit foundation adds the parent-compatible `AuditLogs` table and a reusable
+`write_audit_log(...)` helper for future admin writes. The helper records actor,
+action, entity, metadata, IP address, user agent, and timestamp. Admin CRUD,
+audit log listing, permissions registry, billing APIs, and destructive
+operations are intentionally deferred.
 
 ## Profile and Preferences
 
@@ -315,4 +335,5 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/me/preferences`, `/api/v1/me/favorites`,
 `/api/v1/me/notifications`, `/api/v1/me/notifications/unread-count`,
 `/api/v1/me/dashboard`, `/api/v1/apps/`, `/api/v1/categories/`, and
-`/api/v1/faqs`.
+`/api/v1/faqs`, plus protected admin verification at
+`/api/v1/admin/status`.

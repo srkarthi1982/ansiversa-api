@@ -15,6 +15,8 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Health | `GET /api/v1/health/` | Present |
 | Auth status | `GET /api/v1/auth/status/` | Present |
 | Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
+| Admin foundation | `GET /api/v1/admin/status` | Partially completed with reusable `roleId = 1` admin guard and status verification route; admin CRUD remains deferred |
+| Audit foundation | None public | Completed as model/helper foundation with `AuditLogs` table and reusable write helper; audit listing and admin write integration remain deferred |
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
 | Public FAQ foundation | `GET /api/v1/faqs` | Completed as public read foundation with published-only filtering, parent/app scoping, search, and pagination; admin FAQ CRUD remains deferred |
@@ -50,7 +52,7 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Unread notification count | `web/src/pages/api/notifications/unread-count.ts`; `web/src/lib/notifications.ts` | `GET /api/v1/me/notifications/unread-count` | Yes | `Notifications` | Phase C | Completed as API foundation using bearer auth through existing current-user dependency. Parent cookie/session parity remains deferred. |
 | Notification webhook | `web/src/pages/api/webhooks/notifications.json.ts`; `web/src/lib/notifications.ts` | `POST /api/v1/webhooks/notifications` | Shared secret | `Notifications` | Phase C | Deferred intentionally. Preserve `X-Ansiversa-Signature` secret validation and app/type normalization when approved later. |
 | Public FAQ list | `web/src/actions/faq.ts` `faq.list`; `web/src/pages/api/faqs.json.ts`; `web/src/pages/faq.astro` | `GET /api/v1/faqs?appKey=&q=&page=&pageSize=` | No | `Faqs` | Phase B | Completed as public read foundation with real parent `Faqs` model, published-only filtering, `appKey IS NULL` parent default, app-specific filtering, audience filter, question/answer search, sorting, and pagination metadata. Parent web action remains unchanged. |
-| Admin FAQ CRUD | `web/src/actions/faq.ts` `faq.create/update/remove`; `web/src/pages/api/admin/faqs*.ts` | `POST/PATCH/DELETE /api/v1/admin/faqs...` | Admin | `Faqs`, `Users`, `AuditLogs` | Phase D | Requires admin dependency and audit logging first. |
+| Admin FAQ CRUD | `web/src/actions/faq.ts` `faq.create/update/remove`; `web/src/pages/api/admin/faqs*.ts` | `POST/PATCH/DELETE /api/v1/admin/faqs...` | Admin | `Faqs`, `Users`, `AuditLogs` | Phase D | Admin guard and audit helper now exist, but CRUD remains deferred until the exact admin FAQ contract is approved. |
 | Settings profile | `web/src/actions/user.ts` `user.updateProfile`; `web/src/pages/settings.astro` | `GET/PATCH /api/v1/me/profile` | Yes | `Users` | Phase C | Completed as API foundation for safe profile read/update fields (`name`, `countryCode`, `regionCode`, `city`, `timezone`). Parent web action remains unchanged. |
 | Settings preferences | `web/src/actions/user.ts` `user.updatePreferences` | `GET/PUT /api/v1/me/preferences` | Yes | `UserPreferences` | Phase C | Completed as API foundation with parent-compatible `UserPreferences` model and create-if-missing/upsert behavior. Parent web action remains unchanged. |
 | Account avatar metadata | `web/src/actions/account.ts` `account.updateAvatar/removeAvatar` | `PUT /api/v1/me/avatar`, `DELETE /api/v1/me/avatar` | Yes | `Users` | Phase C | Metadata update is separate from binary upload. Preserve avatar fields and timestamps. |
@@ -101,6 +103,8 @@ Blocker update: API auth now uses parent `Users` and `Roles`; profile/preference
 
 ## Phase D: Admin APIs
 
+- Admin foundation partially completed: `require_admin_user` checks active authenticated users and allows `roleId = 1`; `/api/v1/admin/status` exists for verification only.
+- Audit logging foundation completed before admin writes: parent-compatible `AuditLogs` model/migration and reusable `write_audit_log(...)` helper exist.
 - Admin apps registry CRUD.
 - Admin categories CRUD.
 - Admin users CRUD.
@@ -109,7 +113,7 @@ Blocker update: API auth now uses parent `Users` and `Roles`; profile/preference
 - Admin FAQ CRUD.
 - Audit log listing and central audit write helper.
 
-Admin migration should start with a shared admin dependency and audit logging. Do not migrate write endpoints before audit logging exists in the API.
+Admin migration now has the shared admin dependency and audit logging foundation. Do not migrate write endpoints before each admin module contract is approved.
 
 ## Phase E: Billing/Payment APIs
 
@@ -138,7 +142,7 @@ These areas either touch external services, need rate limiting/storage ownership
 3. Add public FAQ read API.
 4. Add the next approved protected user API only after auth/profile/favorites/notifications contracts are accepted.
 5. Expand dashboard only after write/webhook contracts and cross-app ownership boundaries are approved.
-6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
+6. Add approved admin read APIs, then admin write APIs only with explicit contracts and audit logging.
 7. Treat billing as a separate approved freeze task.
 
 ## Verification Notes
@@ -148,4 +152,5 @@ These areas either touch external services, need rate limiting/storage ownership
 - Phase 12 added protected notifications runtime endpoints in `ansiversa-api`.
 - Phase 13 added the protected read-only dashboard foundation in `ansiversa-api`.
 - Phase 14 added the public read-only FAQ foundation in `ansiversa-api`.
-- Admin FAQ CRUD, audit logging, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, billing, and admin APIs remain intentionally deferred.
+- Phase 15 added reusable admin guard/status verification plus `AuditLogs` model/helper foundation in `ansiversa-api`.
+- Admin CRUD endpoints, audit log listing, permissions registry, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, and billing APIs remain intentionally deferred.
