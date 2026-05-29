@@ -78,10 +78,13 @@ Auth uses these environment variables:
 JWT_SECRET_KEY
 JWT_ALGORITHM
 ACCESS_TOKEN_EXPIRE_MINUTES
+ANSIVERSA_AUTH_SECRET
 ```
 
 Set a strong `JWT_SECRET_KEY` outside source control before enabling auth outside
-local development.
+local development. `ANSIVERSA_AUTH_SECRET` must match the parent `web`
+`ANSIVERSA_AUTH_SECRET` value so legacy parent `salt:hash` passwords can be
+verified during login.
 
 ## Migrations
 
@@ -121,6 +124,10 @@ Current scope is aligned to the real parent `web` auth schema. The API uses
 parent-compatible `Users` and `Roles` tables, including `Users.name`,
 `Users.passwordHash`, `Users.roleId`, and `Users.status`. Passwords are stored
 with secure hashing, and `passwordHash` is never exposed in API responses.
+API-created users use Argon2 hashes. Existing parent web users with legacy
+`salt:hash` HMAC-SHA256 password hashes are supported during login; after a
+successful legacy login, the submitted password is rehashed with Argon2 and
+`Users.passwordHash` is upgraded automatically.
 
 Safe auth responses include only parent-compatible user fields:
 

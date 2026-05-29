@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, timezone
+from hashlib import sha256
+from hmac import compare_digest, new as hmac_new
 from typing import Any
 
 import jwt
@@ -20,7 +22,31 @@ def get_password_hash(password: str) -> str:
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return password_hash.verify(plain_password, hashed_password)
+    try:
+        return password_hash.verify(plain_password, hashed_password)
+    except Exception:
+        return False
+
+
+def is_legacy_parent_password_hash(hashed_password: str) -> bool:
+    salt, separator, digest = hashed_password.partition(":")
+
+    return bool(separator and salt and digest)
+
+
+def verify_legacy_parent_password(plain_password: str, hashed_password: str) -> bool:
+    salt, separator, digest = hashed_password.partition(":")
+    if not separator or not salt or not digest:
+        return False
+
+    hmac = hmac_new(
+        settings.ANSIVERSA_AUTH_SECRET.encode("utf-8"),
+        digestmod=sha256,
+    )
+    hmac.update(f"{salt}:{plain_password}".encode("utf-8"))
+    check = hmac.hexdigest()
+
+    return compare_digest(check, digest)
 
 
 def create_access_token(

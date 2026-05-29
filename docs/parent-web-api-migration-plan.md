@@ -1,6 +1,6 @@
 # Parent Web API Migration Plan
 
-Date: 2026-05-29
+Date: 2026-05-30
 
 Purpose: map the current parent `web` repo implementation to future `ansiversa-api` endpoints before adding more APIs.
 
@@ -14,7 +14,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | --- | --- | --- |
 | Health | `GET /api/v1/health/` | Present |
 | Auth status | `GET /api/v1/auth/status/` | Present |
-| Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
+| Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; Argon2 and legacy parent `salt:hash` password verification are supported, with successful legacy logins upgraded to Argon2; parent cookie/session parity remains deferred |
 | Admin foundation | `GET /api/v1/admin/status` | Partially completed with reusable `roleId = 1` admin guard and status verification route; admin CRUD remains deferred |
 | Audit foundation | None public | Completed as model/helper foundation with `AuditLogs` table and reusable write helper; audit listing and admin write integration remain deferred |
 | Admin categories foundation | `GET/POST/PATCH/DELETE /api/v1/admin/categories...` | Completed as admin categories foundation aligned to parent Astro action behavior for pagination, sorting, status filtering, app counts, validation, duplicate blocking, delete blocking, and audit logging; parent web action remains unchanged |
@@ -26,7 +26,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Notifications foundation | `GET /api/v1/me/notifications`, `GET /api/v1/me/notifications/unread-count`, `PATCH /api/v1/me/notifications/{notification_id}`, `POST /api/v1/me/notifications/mark-all-read` | Completed as protected current-user foundation; webhooks remain deferred |
 | Dashboard read foundation | `GET /api/v1/me/dashboard` | Partially completed as protected current-user read API; write APIs, webhooks, and cross-app summaries remain deferred |
 
-Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth mismatch has been corrected in the API model. Auth now uses parent-compatible `Users` and `Roles` tables with `name`, `passwordHash`, `roleId`, and `status`. Parent web cookie/session parity, billing/session claims, and broader protected APIs remain deferred.
+Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth mismatch has been corrected in the API model. Auth now uses parent-compatible `Users` and `Roles` tables with `name`, `passwordHash`, `roleId`, and `status`. Phase 19 adds compatibility for parent web legacy `salt:hash` HMAC-SHA256 password hashes using the shared `ANSIVERSA_AUTH_SECRET`; successful legacy logins upgrade `Users.passwordHash` to Argon2. Parent web cookie/session parity, billing/session claims, and broader protected APIs remain deferred.
 
 ## Migration Map
 
@@ -35,7 +35,7 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | API health/root | `ansiversa-api/app/main.py`, `app/modules/health/routes.py` | `GET /`, `GET /api/v1/health/` | No | None | Phase A | Already covered in API. Keep as platform checks. |
 | Auth status | `ansiversa-api/app/modules/auth/routes.py` | `GET /api/v1/auth/status/` | No | None | Phase A | Already covered as readiness/status only. |
 | Register account | `web/src/actions/auth.ts` `auth.register` | `POST /api/v1/auth/register` | No | `Users`, `Roles` | Phase C | API now stores `Users.name`, `passwordHash`, `roleId = 2`, and `status = active`; parent web cookie creation, geo capture, welcome email, and notification remain web-only. |
-| Login session | `web/src/actions/auth.ts` `auth.login`; `web/src/lib/auth.ts`; `web/src/middleware.ts` | `POST /api/v1/auth/login`, later `POST /api/v1/auth/session` or cookie bridge | No | `Users` | Phase C | API now authenticates against `Users.passwordHash` and blocks non-`active` status. It still returns bearer JWT only; parent `ans_session` cookie parity remains deferred. |
+| Login session | `web/src/actions/auth.ts` `auth.login`; `web/src/lib/auth.ts`; `web/src/middleware.ts` | `POST /api/v1/auth/login`, later `POST /api/v1/auth/session` or cookie bridge | No | `Users` | Phase C | API now authenticates Argon2 hashes and parent legacy `salt:hash` HMAC-SHA256 hashes, blocks non-`active` status, and auto-upgrades successful legacy logins to Argon2. It still returns bearer JWT only; parent `ans_session` cookie parity remains deferred. |
 | Current user | `web/src/middleware.ts`; `web/src/lib/auth.ts`; `ansiversa-api/app/modules/auth/routes.py` `GET /me` | `GET /api/v1/auth/me` | Bearer/cookie | `Users`, `Roles` | Phase C | API `/me` now returns safe parent-compatible fields (`id`, `email`, `name`, `roleId`, `status`, `plan`, `planStatus`, `countryCode`, `regionCode`, `city`, `timezone`, `avatarUrl`, `createdAt`, `updatedAt`). Entitlement joins and parent cookie support remain deferred. |
 | Change password | `web/src/actions/auth.ts` `auth.changePassword` | `POST /api/v1/auth/change-password` | Yes | `Users`, `Notifications` | Phase C | Must verify current password, rotate session, send email, create security notification. Keep action until session parity is proven. |
 | Request password reset | `web/src/actions/auth.ts` `auth.requestPasswordReset`; `web/src/lib/password-reset.ts`; `web/src/lib/email.ts` | `POST /api/v1/auth/password-reset/request` | No | `Users`, `PasswordResetTokens` | Phase C | Includes rate limit by recent token count and email dispatch. Needs idempotent response to avoid account enumeration. |
@@ -162,4 +162,5 @@ These areas either touch external services, need rate limiting/storage ownership
 - Phase 16 added admin categories list/create/update/delete foundation in `ansiversa-api`.
 - Phase 17 added admin apps list/meta/create/update/delete foundation in `ansiversa-api`.
 - Phase 18 added admin users read-only list/detail foundation in `ansiversa-api`.
+- Phase 19 added parent web legacy `salt:hash` password verification and successful-login Argon2 upgrade in `ansiversa-api`.
 - Admin user writes, admin roles, admin FAQ CRUD, audit log listing, permissions registry, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, and billing APIs remain intentionally deferred.

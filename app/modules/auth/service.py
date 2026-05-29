@@ -13,7 +13,9 @@ from app.core.security import (
     create_access_token,
     decode_access_token,
     get_password_hash,
+    is_legacy_parent_password_hash,
     oauth2_scheme,
+    verify_legacy_parent_password,
     verify_password,
 )
 from app.modules.auth.models import Role, User
@@ -107,11 +109,23 @@ def authenticate_user(db: Session, payload: LoginRequest) -> User | None:
     if not user:
         return None
 
-    if not verify_password(payload.password, user.password_hash):
+    is_legacy_hash = is_legacy_parent_password_hash(user.password_hash)
+    password_valid = (
+        verify_legacy_parent_password(payload.password, user.password_hash)
+        if is_legacy_hash
+        else verify_password(payload.password, user.password_hash)
+    )
+    if not password_valid:
         return None
 
     if user.status != ACTIVE_STATUS:
         return None
+
+    if is_legacy_hash:
+        user.password_hash = get_password_hash(payload.password)
+        db.add(user)
+        db.commit()
+        db.refresh(user)
 
     return user
 
