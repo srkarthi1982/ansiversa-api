@@ -44,6 +44,8 @@ http://127.0.0.1:8000/api/v1/health/
 http://127.0.0.1:8000/api/v1/health/db/
 http://127.0.0.1:8000/api/v1/auth/status/
 http://127.0.0.1:8000/api/v1/auth/me
+http://127.0.0.1:8000/api/v1/me/profile
+http://127.0.0.1:8000/api/v1/me/preferences
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 ```
@@ -120,8 +122,13 @@ roleId
 status
 plan
 planStatus
+countryCode
+regionCode
+city
+timezone
 avatarUrl
 createdAt
+updatedAt
 ```
 
 Registration stores new users with `status = active` and default `roleId = 2`.
@@ -138,6 +145,34 @@ type = access
 
 Billing/session claims, refresh tokens, social login, full role CRUD, session
 tables, and mini-app auth are intentionally not enabled yet.
+
+## Profile and Preferences
+
+The profile module provides protected current-user profile and settings
+foundation endpoints. These endpoints reuse the auth current-user dependency
+and do not duplicate authentication logic.
+
+```text
+GET   /api/v1/me/profile
+PATCH /api/v1/me/profile
+GET   /api/v1/me/preferences
+PUT   /api/v1/me/preferences
+```
+
+Profile updates are intentionally limited to:
+
+```text
+name
+countryCode
+regionCode
+city
+timezone
+```
+
+Profile endpoints do not allow email, role, status, billing fields, or password
+changes. Preferences use the parent-compatible `UserPreferences` table and
+auto-create a default row when missing (`productUpdates = false`,
+`securityAlerts = true`, `theme = null`).
 
 ## Apps Catalog
 
@@ -191,4 +226,5 @@ https://api.ansiversa.com
 ```
 
 After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
-`/api/v1/auth/status/`, `/api/v1/apps/`, and `/api/v1/categories/`.
+`/api/v1/auth/status/`, `/api/v1/auth/me`, `/api/v1/me/profile`,
+`/api/v1/me/preferences`, `/api/v1/apps/`, and `/api/v1/categories/`.

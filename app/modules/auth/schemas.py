@@ -57,8 +57,13 @@ class UserResponse(BaseModel):
     status: str
     plan: str | None = None
     plan_status: str | None = Field(default=None, serialization_alias="planStatus")
+    country_code: str | None = Field(default=None, serialization_alias="countryCode")
+    region_code: str | None = Field(default=None, serialization_alias="regionCode")
+    city: str | None = None
+    timezone: str | None = None
     avatar_url: str | None = Field(default=None, serialization_alias="avatarUrl")
     created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
 
     model_config = ConfigDict(from_attributes=True)
 

@@ -28,7 +28,7 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Auth status | `ansiversa-api/app/modules/auth/routes.py` | `GET /api/v1/auth/status/` | No | None | Phase A | Already covered as readiness/status only. |
 | Register account | `web/src/actions/auth.ts` `auth.register` | `POST /api/v1/auth/register` | No | `Users`, `Roles` | Phase C | API now stores `Users.name`, `passwordHash`, `roleId = 2`, and `status = active`; parent web cookie creation, geo capture, welcome email, and notification remain web-only. |
 | Login session | `web/src/actions/auth.ts` `auth.login`; `web/src/lib/auth.ts`; `web/src/middleware.ts` | `POST /api/v1/auth/login`, later `POST /api/v1/auth/session` or cookie bridge | No | `Users` | Phase C | API now authenticates against `Users.passwordHash` and blocks non-`active` status. It still returns bearer JWT only; parent `ans_session` cookie parity remains deferred. |
-| Current user | `web/src/middleware.ts`; `web/src/lib/auth.ts`; `ansiversa-api/app/modules/auth/routes.py` `GET /me` | `GET /api/v1/auth/me` | Bearer/cookie | `Users`, `Roles` | Phase C | API `/me` now returns safe parent-compatible fields (`id`, `email`, `name`, `roleId`, `status`, `plan`, `planStatus`, `avatarUrl`, `createdAt`). Entitlement joins and parent cookie support remain deferred. |
+| Current user | `web/src/middleware.ts`; `web/src/lib/auth.ts`; `ansiversa-api/app/modules/auth/routes.py` `GET /me` | `GET /api/v1/auth/me` | Bearer/cookie | `Users`, `Roles` | Phase C | API `/me` now returns safe parent-compatible fields (`id`, `email`, `name`, `roleId`, `status`, `plan`, `planStatus`, `countryCode`, `regionCode`, `city`, `timezone`, `avatarUrl`, `createdAt`, `updatedAt`). Entitlement joins and parent cookie support remain deferred. |
 | Change password | `web/src/actions/auth.ts` `auth.changePassword` | `POST /api/v1/auth/change-password` | Yes | `Users`, `Notifications` | Phase C | Must verify current password, rotate session, send email, create security notification. Keep action until session parity is proven. |
 | Request password reset | `web/src/actions/auth.ts` `auth.requestPasswordReset`; `web/src/lib/password-reset.ts`; `web/src/lib/email.ts` | `POST /api/v1/auth/password-reset/request` | No | `Users`, `PasswordResetTokens` | Phase C | Includes rate limit by recent token count and email dispatch. Needs idempotent response to avoid account enumeration. |
 | Reset password | `web/src/actions/auth.ts` `auth.resetPassword` | `POST /api/v1/auth/password-reset/confirm` | No | `Users`, `PasswordResetTokens` | Phase C | Must preserve token hashing, expiry, single-use behavior, and transactional update. |
@@ -48,8 +48,8 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Notification webhook | `web/src/pages/api/webhooks/notifications.json.ts`; `web/src/lib/notifications.ts` | `POST /api/v1/webhooks/notifications` | Shared secret | `Notifications` | Phase C | Preserve `X-Ansiversa-Signature` secret validation and app/type normalization. |
 | Public FAQ list | `web/src/actions/faq.ts` `faq.list`; `web/src/pages/api/faqs.json.ts`; `web/src/pages/faq.astro` | `GET /api/v1/faqs?appKey=&q=&page=&pageSize=` | No | `Faqs` | Phase B | Public read API is safe after schema model is added. Preserve `appKey IS NULL` default for parent FAQ and app-specific filtering. |
 | Admin FAQ CRUD | `web/src/actions/faq.ts` `faq.create/update/remove`; `web/src/pages/api/admin/faqs*.ts` | `POST/PATCH/DELETE /api/v1/admin/faqs...` | Admin | `Faqs`, `Users`, `AuditLogs` | Phase D | Requires admin dependency and audit logging first. |
-| Settings profile | `web/src/actions/user.ts` `user.updateProfile`; `web/src/pages/settings.astro` | `PATCH /api/v1/me/profile` | Yes | `Users` | Phase C | Simple after parent session/user model parity. |
-| Settings preferences | `web/src/actions/user.ts` `user.updatePreferences` | `PUT /api/v1/me/preferences` | Yes | `UserPreferences` | Phase C | Requires `UserPreferences` API model. Upsert behavior must remain. |
+| Settings profile | `web/src/actions/user.ts` `user.updateProfile`; `web/src/pages/settings.astro` | `GET/PATCH /api/v1/me/profile` | Yes | `Users` | Phase C | Completed as API foundation for safe profile read/update fields (`name`, `countryCode`, `regionCode`, `city`, `timezone`). Parent web action remains unchanged. |
+| Settings preferences | `web/src/actions/user.ts` `user.updatePreferences` | `GET/PUT /api/v1/me/preferences` | Yes | `UserPreferences` | Phase C | Completed as API foundation with parent-compatible `UserPreferences` model and create-if-missing/upsert behavior. Parent web action remains unchanged. |
 | Account avatar metadata | `web/src/actions/account.ts` `account.updateAvatar/removeAvatar` | `PUT /api/v1/me/avatar`, `DELETE /api/v1/me/avatar` | Yes | `Users` | Phase C | Metadata update is separate from binary upload. Preserve avatar fields and timestamps. |
 | Media upload | `web/src/pages/api/media/upload.json.ts`; `web/src/lib/r2.ts` | `POST /api/v1/media/uploads` | Yes | `Users` optional metadata | Phase F | Uses R2 and image processing. Do not migrate until storage ownership, size limits, and client upload strategy are approved. |
 | Admin apps list/meta | `web/src/actions/adminApps.ts` `adminApps.list/meta` | `GET /api/v1/admin/apps`, `GET /api/v1/admin/apps/meta` | Admin | `Apps`, `Categories`, `Users` | Phase D | API public apps routes do not replace admin list. Admin route needs filters, pagination, sort, category names, capabilities parsing, and registry normalization. |
@@ -87,14 +87,14 @@ Safe does not mean schema-free. Add API models only after matching the parent `F
 ## Phase C: Protected User APIs
 
 - Current user/session shape.
-- Profile, preferences, avatar metadata.
+- Profile and preferences foundation completed; avatar metadata remains pending.
 - Favorites list/add/remove.
 - Dashboard data.
 - Notifications list/read/unread count.
 - Parent notification and activity webhooks authenticated by shared secret.
 - Password change/reset flows.
 
-Blocker update: API auth now uses parent `Users` and `Roles`. Cookie/bearer strategy, entitlement claims, and protected user API contracts still need approval before favorites, dashboard, notifications, or settings move.
+Blocker update: API auth now uses parent `Users` and `Roles`, and profile/preferences foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, and protected API contracts still need approval before favorites, dashboard, notifications, or avatar uploads move.
 
 ## Phase D: Admin APIs
 
@@ -133,13 +133,13 @@ These areas either touch external services, need rate limiting/storage ownership
 1. Finish parent session/cookie strategy design without changing web runtime.
 2. Finish public catalog parity in the API while keeping Astro actions as callers/compatibility layer.
 3. Add public FAQ read API.
-4. Add protected user read APIs: notifications unread count, favorites list, and profile/settings only after auth contract approval.
+4. Add the next approved protected user read API only after auth/profile contracts are accepted; likely candidates are notifications unread count or favorites list.
 5. Add dashboard read API after favorites/notifications contracts stabilize.
 6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
 7. Treat billing as a separate approved freeze task.
 
 ## Verification Notes
 
-- This plan did not add runtime endpoints.
-- This plan did not modify the parent `web` repo.
-- Required verification for this documentation task: `python -m compileall app`.
+- Phase 10 added protected profile/preferences runtime endpoints in `ansiversa-api`.
+- Phase 10 did not modify the parent `web` repo.
+- Favorites, notifications, dashboard, billing, and admin APIs remain intentionally deferred.
