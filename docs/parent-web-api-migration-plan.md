@@ -14,11 +14,11 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | --- | --- | --- |
 | Health | `GET /api/v1/health/` | Present |
 | Auth status | `GET /api/v1/auth/status/` | Present |
-| Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Present but not equivalent to parent web sessions/schema |
+| Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
 
-Important mismatch: the API auth module currently uses a lowercase `users` table model with `full_name`/`is_active`, while parent web uses `Users` with `name`, `roleId`, `status`, session cookie claims, Stripe fields, avatar fields, and geo fields. Do not expand auth until the API model is reconciled with the parent schema.
+Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth mismatch has been corrected in the API model. Auth now uses parent-compatible `Users` and `Roles` tables with `name`, `passwordHash`, `roleId`, and `status`. Parent web cookie/session parity, billing/session claims, and broader protected APIs remain deferred.
 
 ## Migration Map
 
@@ -26,9 +26,9 @@ Important mismatch: the API auth module currently uses a lowercase `users` table
 | --- | --- | --- | --- | --- | --- | --- |
 | API health/root | `ansiversa-api/app/main.py`, `app/modules/health/routes.py` | `GET /`, `GET /api/v1/health/` | No | None | Phase A | Already covered in API. Keep as platform checks. |
 | Auth status | `ansiversa-api/app/modules/auth/routes.py` | `GET /api/v1/auth/status/` | No | None | Phase A | Already covered as readiness/status only. |
-| Register account | `web/src/actions/auth.ts` `auth.register` | `POST /api/v1/auth/register` | No | `Users`, `Notifications` | Phase C | API has a register endpoint, but it is not parent-equivalent. Parent registration sets `Users.name`, `roleId`, geo fields, JWT cookie, welcome email, and notification. |
-| Login session | `web/src/actions/auth.ts` `auth.login`; `web/src/lib/auth.ts`; `web/src/middleware.ts` | `POST /api/v1/auth/login`, later `POST /api/v1/auth/session` or cookie bridge | No | `Users`, `PaymentsSubscriptions` | Phase C | API returns bearer JWT only. Parent web creates `ans_session` cookie with role and billing claims. Cutover requires a deliberate web/mobile session contract. |
-| Current user | `web/src/middleware.ts`; `web/src/lib/auth.ts`; `ansiversa-api/app/modules/auth/routes.py` `GET /me` | `GET /api/v1/auth/me` | Bearer/cookie | `Users`, `Roles`, `PaymentsSubscriptions` | Phase C | Existing API `/me` is partial. Parent current-user shape includes role, status, avatar, and entitlement context. |
+| Register account | `web/src/actions/auth.ts` `auth.register` | `POST /api/v1/auth/register` | No | `Users`, `Roles` | Phase C | API now stores `Users.name`, `passwordHash`, `roleId = 2`, and `status = active`; parent web cookie creation, geo capture, welcome email, and notification remain web-only. |
+| Login session | `web/src/actions/auth.ts` `auth.login`; `web/src/lib/auth.ts`; `web/src/middleware.ts` | `POST /api/v1/auth/login`, later `POST /api/v1/auth/session` or cookie bridge | No | `Users` | Phase C | API now authenticates against `Users.passwordHash` and blocks non-`active` status. It still returns bearer JWT only; parent `ans_session` cookie parity remains deferred. |
+| Current user | `web/src/middleware.ts`; `web/src/lib/auth.ts`; `ansiversa-api/app/modules/auth/routes.py` `GET /me` | `GET /api/v1/auth/me` | Bearer/cookie | `Users`, `Roles` | Phase C | API `/me` now returns safe parent-compatible fields (`id`, `email`, `name`, `roleId`, `status`, `plan`, `planStatus`, `avatarUrl`, `createdAt`). Entitlement joins and parent cookie support remain deferred. |
 | Change password | `web/src/actions/auth.ts` `auth.changePassword` | `POST /api/v1/auth/change-password` | Yes | `Users`, `Notifications` | Phase C | Must verify current password, rotate session, send email, create security notification. Keep action until session parity is proven. |
 | Request password reset | `web/src/actions/auth.ts` `auth.requestPasswordReset`; `web/src/lib/password-reset.ts`; `web/src/lib/email.ts` | `POST /api/v1/auth/password-reset/request` | No | `Users`, `PasswordResetTokens` | Phase C | Includes rate limit by recent token count and email dispatch. Needs idempotent response to avoid account enumeration. |
 | Reset password | `web/src/actions/auth.ts` `auth.resetPassword` | `POST /api/v1/auth/password-reset/confirm` | No | `Users`, `PasswordResetTokens` | Phase C | Must preserve token hashing, expiry, single-use behavior, and transactional update. |
@@ -56,7 +56,7 @@ Important mismatch: the API auth module currently uses a lowercase `users` table
 | Admin apps create/update/delete | `web/src/actions/adminApps.ts` `adminApps.create/update/delete` | `POST/PATCH/DELETE /api/v1/admin/apps...` | Admin | `Apps`, `Categories`, `AuditLogs` | Phase D | Must preserve validation for key/slug conflicts, URL normalization, launch/visibility/pricing values, capabilities serialization, and audit events. |
 | Admin categories list | `web/src/actions/adminCategories.ts` `adminCategories.list` | `GET /api/v1/admin/categories` | Admin | `Categories`, `Apps`, `Users` | Phase D | Public categories route is not enough. Admin list includes filters, sorting, pagination, and app counts. |
 | Admin categories create/update/delete | `web/src/actions/adminCategories.ts` `adminCategories.create/update/delete` | `POST/PATCH/DELETE /api/v1/admin/categories...` | Admin | `Categories`, `Apps`, `AuditLogs` | Phase D | Delete must block when apps reference the category. Preserve `cat_` id convention unless Astra changes it. |
-| Admin users list/create/update/delete | `web/src/actions/adminUsers.ts`; `web/src/pages/admin/users.astro` | `GET/POST/PATCH/DELETE /api/v1/admin/users...` | Admin | `Users`, `Roles`, `AuditLogs` | Phase D | API auth model mismatch blocks this. Parent admin users include role/status/location fields. |
+| Admin users list/create/update/delete | `web/src/actions/adminUsers.ts`; `web/src/pages/admin/users.astro` | `GET/POST/PATCH/DELETE /api/v1/admin/users...` | Admin | `Users`, `Roles`, `AuditLogs` | Phase D | Auth model mismatch is addressed, but admin dependencies, role checks, location fields response design, and audit logging are still required before admin user APIs. |
 | Admin roles CRUD | `web/src/actions/adminRoles.ts`; `web/src/pages/admin/roles.astro` | `GET/POST/PATCH/DELETE /api/v1/admin/roles...` | Admin | `Roles`, `Users`, `AuditLogs` | Phase D | Requires role/permission model in API. Preserve permission JSON contract. |
 | Admin permissions dictionary | `web/src/lib/permissionsRegistry.ts`; `web/src/pages/admin/permissions.astro` | `GET /api/v1/admin/permissions` | Admin | None or `Roles` | Phase D | Mostly static registry today. Can be API-backed after roles are migrated. |
 | Admin audit logs | `web/src/actions/adminAuditLogs.ts`; `web/src/lib/auditLog.ts` | `GET /api/v1/admin/audit-logs` | Admin | `AuditLogs`, `Users` | Phase D | Needed before admin writes move, because write endpoints must log centrally. |
@@ -94,7 +94,7 @@ Safe does not mean schema-free. Add API models only after matching the parent `F
 - Parent notification and activity webhooks authenticated by shared secret.
 - Password change/reset flows.
 
-Blocker: API auth must be reconciled with parent `Users`, `Roles`, cookie/bearer strategy, and entitlement claims before these move.
+Blocker update: API auth now uses parent `Users` and `Roles`. Cookie/bearer strategy, entitlement claims, and protected user API contracts still need approval before favorites, dashboard, notifications, or settings move.
 
 ## Phase D: Admin APIs
 
@@ -130,10 +130,10 @@ These areas either touch external services, need rate limiting/storage ownership
 
 ## Recommended Implementation Order
 
-1. Reconcile API parent auth models with the real parent `Users`, `Roles`, and session requirements without changing web runtime.
+1. Finish parent session/cookie strategy design without changing web runtime.
 2. Finish public catalog parity in the API while keeping Astro actions as callers/compatibility layer.
 3. Add public FAQ read API.
-4. Add protected user read APIs: `/me`, notifications unread count, favorites list.
+4. Add protected user read APIs: notifications unread count, favorites list, and profile/settings only after auth contract approval.
 5. Add dashboard read API after favorites/notifications contracts stabilize.
 6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
 7. Treat billing as a separate approved freeze task.

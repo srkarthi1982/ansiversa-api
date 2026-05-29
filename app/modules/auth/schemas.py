@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class AuthStatusResponse(BaseModel):
@@ -10,10 +10,10 @@ class AuthStatusResponse(BaseModel):
     message: str
 
 
-class UserCreate(BaseModel):
+class RegisterRequest(BaseModel):
     email: str = Field(min_length=3, max_length=255)
     password: str = Field(min_length=8, max_length=128)
-    full_name: str = Field(min_length=2, max_length=255)
+    name: str = Field(min_length=2, max_length=255)
 
     @field_validator("email")
     @classmethod
@@ -24,12 +24,12 @@ class UserCreate(BaseModel):
 
         return normalized
 
-    @field_validator("full_name")
+    @field_validator("name")
     @classmethod
-    def normalize_full_name(cls, value: str) -> str:
+    def normalize_name(cls, value: str) -> str:
         normalized = " ".join(value.strip().split())
         if not normalized:
-            raise ValueError("Full name is required.")
+            raise ValueError("Name is required.")
 
         return normalized
 
@@ -49,12 +49,23 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 
-class CurrentUserResponse(BaseModel):
+class UserResponse(BaseModel):
     id: str
     email: str
-    full_name: str
-    is_active: bool
-    created_at: datetime
-    updated_at: datetime
+    name: str
+    role_id: int = Field(serialization_alias="roleId")
+    status: str
+    plan: str | None = None
+    plan_status: str | None = Field(default=None, serialization_alias="planStatus")
+    avatar_url: str | None = Field(default=None, serialization_alias="avatarUrl")
+    created_at: datetime = Field(serialization_alias="createdAt")
 
-    model_config = {"from_attributes": True}
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CurrentUserResponse(UserResponse):
+    pass
+
+
+# Backward-compatible import name for early API code paths.
+UserCreate = RegisterRequest

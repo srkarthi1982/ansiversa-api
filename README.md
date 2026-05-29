@@ -105,8 +105,38 @@ GET  /api/v1/auth/me
 Use `/api/v1/auth/login` from Swagger `/docs` to get a bearer token, then use
 Authorize to test protected routes such as `/api/v1/auth/me`.
 
-Current scope includes parent users, password hashing, JWT access tokens, and
-the current-user dependency. Refresh tokens, social login, roles, session
+Current scope is aligned to the real parent `web` auth schema. The API uses
+parent-compatible `Users` and `Roles` tables, including `Users.name`,
+`Users.passwordHash`, `Users.roleId`, and `Users.status`. Passwords are stored
+with secure hashing, and `passwordHash` is never exposed in API responses.
+
+Safe auth responses include only parent-compatible user fields:
+
+```text
+id
+email
+name
+roleId
+status
+plan
+planStatus
+avatarUrl
+createdAt
+```
+
+Registration stores new users with `status = active` and default `roleId = 2`.
+If the default member role is missing, registration creates an idempotent
+`Roles` row for `id = 2`, `key = member`.
+
+JWT access tokens stay minimal:
+
+```text
+sub
+email
+type = access
+```
+
+Billing/session claims, refresh tokens, social login, full role CRUD, session
 tables, and mini-app auth are intentionally not enabled yet.
 
 ## Apps Catalog

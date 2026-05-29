@@ -16,13 +16,17 @@ from app.core.security import (
     oauth2_scheme,
     verify_password,
 )
-from app.modules.auth.models import User
+from app.modules.auth.models import Role, User
 from app.modules.auth.schemas import (
     AuthStatusResponse,
     LoginRequest,
+    RegisterRequest,
     TokenResponse,
-    UserCreate,
 )
+
+
+DEFAULT_MEMBER_ROLE_ID = 2
+ACTIVE_STATUS = "active"
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -42,17 +46,46 @@ def get_user_by_id(db: Session, user_id: str) -> User | None:
     return db.get(User, user_id)
 
 
-def create_parent_user(db: Session, payload: UserCreate) -> User:
+def ensure_default_member_role(db: Session) -> Role:
+    role = db.get(Role, DEFAULT_MEMBER_ROLE_ID)
+    if role:
+        return role
+
+    role = Role(
+        id=DEFAULT_MEMBER_ROLE_ID,
+        name="Member",
+        key="member",
+        description="Default Ansiversa member role.",
+    )
+    db.add(role)
+
+    try:
+        db.flush()
+    except IntegrityError:
+        db.rollback()
+        existing = db.get(Role, DEFAULT_MEMBER_ROLE_ID)
+        if existing:
+            return existing
+        raise
+
+    return role
+
+
+def create_parent_user(db: Session, payload: RegisterRequest) -> User:
     if get_user_by_email(db, payload.email):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="An account with this email already exists.",
         )
 
+    ensure_default_member_role(db)
+
     user = User(
         email=payload.email,
-        full_name=payload.full_name,
+        name=payload.name,
         password_hash=get_password_hash(payload.password),
+        role_id=DEFAULT_MEMBER_ROLE_ID,
+        status=ACTIVE_STATUS,
     )
     db.add(user)
 
@@ -77,7 +110,7 @@ def authenticate_user(db: Session, payload: LoginRequest) -> User | None:
     if not verify_password(payload.password, user.password_hash):
         return None
 
-    if not user.is_active:
+    if user.status != ACTIVE_STATUS:
         return None
 
     return user
@@ -86,7 +119,7 @@ def authenticate_user(db: Session, payload: LoginRequest) -> User | None:
 def create_user_token(user: User) -> TokenResponse:
     expires_delta = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.id},
+        data={"sub": user.id, "email": user.email, "type": "access"},
         expires_delta=expires_delta,
     )
 
@@ -105,14 +138,21 @@ def get_current_user(
 
     try:
         payload = decode_access_token(token)
+        if payload.get("type") != "access":
+            raise credentials_exception
+
         user_id = payload.get("sub")
-        if not isinstance(user_id, str) or not user_id:
+        email = payload.get("email")
+        if isinstance(user_id, str) and user_id:
+            user = get_user_by_id(db, user_id)
+        elif isinstance(email, str) and email:
+            user = get_user_by_email(db, email)
+        else:
             raise credentials_exception
     except InvalidTokenError as exc:
         raise credentials_exception from exc
 
-    user = get_user_by_id(db, user_id)
-    if not user or not user.is_active:
+    if not user or user.status != ACTIVE_STATUS:
         raise credentials_exception
 
     return user

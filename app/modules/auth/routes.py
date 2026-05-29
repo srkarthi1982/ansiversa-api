@@ -10,8 +10,8 @@ from app.modules.auth.schemas import (
     AuthStatusResponse,
     CurrentUserResponse,
     LoginRequest,
+    RegisterRequest,
     TokenResponse,
-    UserCreate,
 )
 from app.modules.auth.service import (
     authenticate_user,
@@ -35,7 +35,7 @@ def auth_status() -> AuthStatusResponse:
     status_code=status.HTTP_201_CREATED,
 )
 def register_user(
-    payload: UserCreate,
+    payload: RegisterRequest,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> User:
     return create_parent_user(db, payload)
