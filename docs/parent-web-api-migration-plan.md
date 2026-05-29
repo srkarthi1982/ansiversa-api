@@ -35,9 +35,9 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Public apps discovery | `web/src/actions/apps.ts` `apps.getAll`; `web/src/lib/discoveryAccess.ts` | `GET /api/v1/apps?query=...` | Optional | `Apps`, `Categories` | Phase A | API partially lists apps, but does not yet apply parent discovery grouping, metadata search, optional user-aware visibility/pricing gating, launch action labels, logo fallback, or capability details. |
 | Public app detail | `ansiversa-api/app/modules/apps/routes.py` | `GET /api/v1/apps/{app_key}` | No | `Apps` | Phase A | Present. Must confirm whether key-only lookup is enough or slug lookup is needed for clients. |
 | Public categories | `ansiversa-api/app/modules/apps/routes.py` | `GET /api/v1/categories/`, `GET /api/v1/categories/{key_or_slug}` | No | `Categories` | Phase A | Present. Parent admin list has counts/filtering that are not public requirements. |
-| Favorites list | `web/src/actions/favorites.ts` `favorites.listFavorites` | `GET /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Must reuse discovery gating: hide private/internal apps for non-admins and block pro apps for non-entitled users. |
-| Add favorite | `web/src/actions/favorites.ts` `favorites.addFavorite` | `POST /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Current action allows only legacy `Apps.status === "live"`. Future endpoint should reconcile with `launchStatus`/`visibility`/`pricingGate` rules before migration. |
-| Remove favorite | `web/src/actions/favorites.ts` `favorites.removeFavorite` | `DELETE /api/v1/me/favorites/{app_id}` | Yes | `Favorites` | Phase C | Straightforward after auth/session dependency is stable. |
+| Favorites list | `web/src/actions/favorites.ts` `favorites.listFavorites` | `GET /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Completed as API foundation with current-user scoping, newest-first sorting, and safe app catalog response fields. Full discovery/pricing gating remains deferred. |
+| Add favorite | `web/src/actions/favorites.ts` `favorites.addFavorite` | `POST /api/v1/me/favorites` | Yes | `Favorites`, `Apps` | Phase C | Completed as API foundation: app must exist and satisfy conservative public/live checks; duplicate adds are idempotent. Parent web action remains unchanged. |
+| Remove favorite | `web/src/actions/favorites.ts` `favorites.removeFavorite` | `DELETE /api/v1/me/favorites/{app_id}` | Yes | `Favorites` | Phase C | Completed as API foundation with current-user scoping and clean `404` for missing user/app favorite relation. Parent web action remains unchanged. |
 | Dashboard summary | `web/src/actions/dashboard.ts` `dashboard.summary`; `web/src/pages/dashboard.astro`; `web/src/dashboard/summaryRegistry.ts` | `GET /api/v1/me/dashboard` | Yes | `Users`, `Favorites`, `Apps`, `Notifications`, `Dashboard` | Phase C | Current dashboard combines favorites, unread notifications, recommendations, and mini-app summary registry rendering. API should return stable data only; rendering registry stays in web/components. |
 | Quiz dashboard proxy | `web/src/actions/quiz.ts` `quiz.fetchDashboardSummary` | Deferred or `GET /api/v1/me/dashboard/apps/quiz` | Yes | `Apps`; remote quiz action | Phase F | Current parent action fetches the quiz app action server-side. Do not centralize until cross-app ownership boundaries are approved. |
 | Mini-app activity webhooks | `web/src/pages/api/webhooks/*-activity.json.ts`; `web/src/lib/dashboard.ts` | `POST /api/v1/webhooks/{app_key}/activity` | Shared secret | `Dashboard` | Phase C | Existing app-specific validators cover `quiz`, `resume-builder`, `portfolio-creator`, `flashnote`, and `study-planner`. A generic endpoint is tempting but risky; keep per-app schemas or module validators. |
@@ -88,13 +88,13 @@ Safe does not mean schema-free. Add API models only after matching the parent `F
 
 - Current user/session shape.
 - Profile and preferences foundation completed; avatar metadata remains pending.
-- Favorites list/add/remove.
+- Favorites list/add/remove foundation completed.
 - Dashboard data.
 - Notifications list/read/unread count.
 - Parent notification and activity webhooks authenticated by shared secret.
 - Password change/reset flows.
 
-Blocker update: API auth now uses parent `Users` and `Roles`, and profile/preferences foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, and protected API contracts still need approval before favorites, dashboard, notifications, or avatar uploads move.
+Blocker update: API auth now uses parent `Users` and `Roles`; profile/preferences and favorites foundations exist under `/api/v1/me`. Cookie/bearer strategy, entitlement claims, advanced discovery/pricing gating, and protected API contracts still need approval before dashboard, notifications, or avatar uploads move.
 
 ## Phase D: Admin APIs
 
@@ -133,7 +133,7 @@ These areas either touch external services, need rate limiting/storage ownership
 1. Finish parent session/cookie strategy design without changing web runtime.
 2. Finish public catalog parity in the API while keeping Astro actions as callers/compatibility layer.
 3. Add public FAQ read API.
-4. Add the next approved protected user read API only after auth/profile contracts are accepted; likely candidates are notifications unread count or favorites list.
+4. Add the next approved protected user read API only after auth/profile/favorites contracts are accepted; notifications unread count is the likely next candidate.
 5. Add dashboard read API after favorites/notifications contracts stabilize.
 6. Add admin audit log model/helper, then admin read APIs, then admin write APIs.
 7. Treat billing as a separate approved freeze task.
@@ -142,4 +142,4 @@ These areas either touch external services, need rate limiting/storage ownership
 
 - Phase 10 added protected profile/preferences runtime endpoints in `ansiversa-api`.
 - Phase 10 did not modify the parent `web` repo.
-- Favorites, notifications, dashboard, billing, and admin APIs remain intentionally deferred.
+- Notifications, dashboard, billing, and admin APIs remain intentionally deferred.

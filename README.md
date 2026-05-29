@@ -46,6 +46,7 @@ http://127.0.0.1:8000/api/v1/auth/status/
 http://127.0.0.1:8000/api/v1/auth/me
 http://127.0.0.1:8000/api/v1/me/profile
 http://127.0.0.1:8000/api/v1/me/preferences
+http://127.0.0.1:8000/api/v1/me/favorites
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
 ```
@@ -174,6 +175,23 @@ changes. Preferences use the parent-compatible `UserPreferences` table and
 auto-create a default row when missing (`productUpdates = false`,
 `securityAlerts = true`, `theme = null`).
 
+## Favorites
+
+The favorites module provides protected current-user favorites endpoints backed
+by the parent-compatible `Favorites` table.
+
+```text
+GET    /api/v1/me/favorites
+POST   /api/v1/me/favorites
+DELETE /api/v1/me/favorites/{app_id}
+```
+
+Favorites list responses include the favorite id, timestamp, and safe app
+catalog fields needed by web/mobile clients. Adding a favorite is idempotent
+for an existing user/app pair. Phase 11 uses conservative discovery checks only:
+the app must exist, `visibility = public`, `status = live`, and
+`launchStatus = live`. Advanced pricing/entitlement gating is deferred.
+
 ## Apps Catalog
 
 The apps catalog module provides public read endpoints for parent/global app
@@ -188,7 +206,7 @@ GET /api/v1/categories/{category_key_or_slug}
 ```
 
 Pricing, entitlements, and app-specific data are intentionally not part of this
-foundation phase. Favorites and Dashboard APIs are intentionally deferred.
+foundation phase. Dashboard APIs remain intentionally deferred.
 
 ## OpenAPI and Generated Clients
 
@@ -227,4 +245,5 @@ https://api.ansiversa.com
 
 After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/auth/status/`, `/api/v1/auth/me`, `/api/v1/me/profile`,
-`/api/v1/me/preferences`, `/api/v1/apps/`, and `/api/v1/categories/`.
+`/api/v1/me/preferences`, `/api/v1/me/favorites`, `/api/v1/apps/`, and
+`/api/v1/categories/`.
