@@ -6,6 +6,7 @@ from app.core.openapi import generate_operation_id
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.dashboard.routes import router as dashboard_router
+from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
 from app.modules.notifications.routes import router as notifications_router
@@ -42,6 +43,11 @@ def register_routes(app: FastAPI) -> None:
         categories_router,
         prefix=f"{settings.API_V1_PREFIX}/categories",
         tags=["Categories"],
+    )
+    app.include_router(
+        faqs_router,
+        prefix=f"{settings.API_V1_PREFIX}/faqs",
+        tags=["FAQs"],
     )
     app.include_router(
         profile_router,

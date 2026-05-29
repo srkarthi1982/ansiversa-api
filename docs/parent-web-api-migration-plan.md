@@ -17,6 +17,7 @@ This is a documentation-only inspection pass. Do not remove Astro actions during
 | Auth foundation | `POST /api/v1/auth/register`, `POST /api/v1/auth/login`, `GET /api/v1/auth/me` | Partially addressed: model now aligns to parent `Users`/`Roles`; parent cookie/session parity remains deferred |
 | Apps catalog | `GET /api/v1/apps/`, `GET /api/v1/apps/{app_key}` | Partially present |
 | Categories catalog | `GET /api/v1/categories/`, `GET /api/v1/categories/{category_key_or_slug}` | Partially present |
+| Public FAQ foundation | `GET /api/v1/faqs` | Completed as public read foundation with published-only filtering, parent/app scoping, search, and pagination; admin FAQ CRUD remains deferred |
 | Notifications foundation | `GET /api/v1/me/notifications`, `GET /api/v1/me/notifications/unread-count`, `PATCH /api/v1/me/notifications/{notification_id}`, `POST /api/v1/me/notifications/mark-all-read` | Completed as protected current-user foundation; webhooks remain deferred |
 | Dashboard read foundation | `GET /api/v1/me/dashboard` | Partially completed as protected current-user read API; write APIs, webhooks, and cross-app summaries remain deferred |
 
@@ -48,7 +49,7 @@ Phase 9 correction: the previous lowercase `users`/`full_name`/`is_active` auth 
 | Mark all notifications read | `web/src/actions/notifications.ts` `notifications.markAllNotificationsRead` | `POST /api/v1/me/notifications/mark-all-read` | Yes | `Notifications` | Phase C | Completed as API foundation with unread-only bulk update and affected count response. |
 | Unread notification count | `web/src/pages/api/notifications/unread-count.ts`; `web/src/lib/notifications.ts` | `GET /api/v1/me/notifications/unread-count` | Yes | `Notifications` | Phase C | Completed as API foundation using bearer auth through existing current-user dependency. Parent cookie/session parity remains deferred. |
 | Notification webhook | `web/src/pages/api/webhooks/notifications.json.ts`; `web/src/lib/notifications.ts` | `POST /api/v1/webhooks/notifications` | Shared secret | `Notifications` | Phase C | Deferred intentionally. Preserve `X-Ansiversa-Signature` secret validation and app/type normalization when approved later. |
-| Public FAQ list | `web/src/actions/faq.ts` `faq.list`; `web/src/pages/api/faqs.json.ts`; `web/src/pages/faq.astro` | `GET /api/v1/faqs?appKey=&q=&page=&pageSize=` | No | `Faqs` | Phase B | Public read API is safe after schema model is added. Preserve `appKey IS NULL` default for parent FAQ and app-specific filtering. |
+| Public FAQ list | `web/src/actions/faq.ts` `faq.list`; `web/src/pages/api/faqs.json.ts`; `web/src/pages/faq.astro` | `GET /api/v1/faqs?appKey=&q=&page=&pageSize=` | No | `Faqs` | Phase B | Completed as public read foundation with real parent `Faqs` model, published-only filtering, `appKey IS NULL` parent default, app-specific filtering, audience filter, question/answer search, sorting, and pagination metadata. Parent web action remains unchanged. |
 | Admin FAQ CRUD | `web/src/actions/faq.ts` `faq.create/update/remove`; `web/src/pages/api/admin/faqs*.ts` | `POST/PATCH/DELETE /api/v1/admin/faqs...` | Admin | `Faqs`, `Users`, `AuditLogs` | Phase D | Requires admin dependency and audit logging first. |
 | Settings profile | `web/src/actions/user.ts` `user.updateProfile`; `web/src/pages/settings.astro` | `GET/PATCH /api/v1/me/profile` | Yes | `Users` | Phase C | Completed as API foundation for safe profile read/update fields (`name`, `countryCode`, `regionCode`, `city`, `timezone`). Parent web action remains unchanged. |
 | Settings preferences | `web/src/actions/user.ts` `user.updatePreferences` | `GET/PUT /api/v1/me/preferences` | Yes | `UserPreferences` | Phase C | Completed as API foundation with parent-compatible `UserPreferences` model and create-if-missing/upsert behavior. Parent web action remains unchanged. |
@@ -81,7 +82,7 @@ Before expanding Phase A, close the catalog parity gaps: optional query search, 
 
 ## Phase B: Safe Public APIs
 
-- Public FAQ list: `GET /api/v1/faqs`.
+- Public FAQ list foundation completed: `GET /api/v1/faqs`.
 - Possibly public app/category reads after Phase A parity is finished.
 
 Safe does not mean schema-free. Add API models only after matching the parent `Faqs`, `Apps`, and `Categories` table names/fields.
@@ -146,4 +147,5 @@ These areas either touch external services, need rate limiting/storage ownership
 - Phase 10 did not modify the parent `web` repo.
 - Phase 12 added protected notifications runtime endpoints in `ansiversa-api`.
 - Phase 13 added the protected read-only dashboard foundation in `ansiversa-api`.
-- Dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, billing, and admin APIs remain intentionally deferred.
+- Phase 14 added the public read-only FAQ foundation in `ansiversa-api`.
+- Admin FAQ CRUD, audit logging, dashboard write APIs, dashboard/activity webhooks, cross-app summaries, notification webhooks, billing, and admin APIs remain intentionally deferred.

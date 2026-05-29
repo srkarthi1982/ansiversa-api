@@ -52,6 +52,7 @@ http://127.0.0.1:8000/api/v1/me/notifications/unread-count
 http://127.0.0.1:8000/api/v1/me/dashboard
 http://127.0.0.1:8000/api/v1/apps/
 http://127.0.0.1:8000/api/v1/categories/
+http://127.0.0.1:8000/api/v1/faqs
 ```
 
 ## Environment
@@ -247,6 +248,33 @@ GET /api/v1/categories/{category_key_or_slug}
 Pricing, entitlements, and app-specific data are intentionally not part of this
 foundation phase.
 
+## FAQs
+
+The FAQs module provides a public read foundation backed by the parent-compatible
+`Faqs` table.
+
+```text
+GET /api/v1/faqs
+```
+
+Supported query parameters:
+
+```text
+appKey
+q
+page
+pageSize
+audience
+```
+
+The endpoint returns only published FAQs. By default it returns parent FAQs
+where `appKey IS NULL` and `audience = user`. Supplying `appKey` scopes results
+to that app. Search checks `question` and `answer`; results sort by
+`sortOrder ASC`, then `createdAt DESC`, with pagination metadata included.
+
+Admin FAQ CRUD, audit logging, billing, admin APIs, and dashboard changes are
+intentionally deferred.
+
 ## OpenAPI and Generated Clients
 
 The full OpenAPI schema is available at:
@@ -286,4 +314,5 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/auth/status/`, `/api/v1/auth/me`, `/api/v1/me/profile`,
 `/api/v1/me/preferences`, `/api/v1/me/favorites`,
 `/api/v1/me/notifications`, `/api/v1/me/notifications/unread-count`,
-`/api/v1/apps/`, and `/api/v1/categories/`.
+`/api/v1/me/dashboard`, `/api/v1/apps/`, `/api/v1/categories/`, and
+`/api/v1/faqs`.
