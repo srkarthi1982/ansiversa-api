@@ -90,3 +90,161 @@ class CategoryMutationResponse(BaseModel):
 
 class DeleteCategoryResponse(BaseModel):
     ok: bool
+
+
+AdminAppStatus = Literal["alpha", "beta", "live", "archived", "coming-soon"]
+AdminAppLaunchStatus = Literal["live", "beta", "comingSoon", "disabled"]
+AdminAppVisibility = Literal["public", "private", "internal"]
+AdminAppPricingGate = Literal["free", "pro"]
+
+
+class AdminAppResponse(BaseModel):
+    id: str
+    key: str
+    slug: str
+    name: str
+    description: str | None
+    category_id: str = Field(serialization_alias="categoryId")
+    category_name: str | None = Field(default=None, serialization_alias="categoryName")
+    status: AdminAppStatus
+    launch_status: AdminAppLaunchStatus = Field(serialization_alias="launchStatus")
+    visibility: AdminAppVisibility
+    pricing_gate: AdminAppPricingGate = Field(serialization_alias="pricingGate")
+    is_featured: bool = Field(serialization_alias="isFeatured")
+    website_url: str | None = Field(serialization_alias="websiteUrl")
+    admin_url: str | None = Field(serialization_alias="adminUrl")
+    logo_key: str | None = Field(serialization_alias="logoKey")
+    capabilities: list[str]
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminAppListResponse(BaseModel):
+    items: list[AdminAppResponse]
+    total: int
+    page: int
+    page_size: int = Field(serialization_alias="pageSize")
+    total_pages: int = Field(serialization_alias="totalPages")
+    sort: str
+    dir: Literal["asc", "desc"]
+    q: str
+    category_id: str = Field(serialization_alias="categoryId")
+    status: str
+    launch_status: str = Field(serialization_alias="launchStatus")
+    visibility: str
+    pricing_gate: str = Field(serialization_alias="pricingGate")
+    featured_only: bool = Field(serialization_alias="featuredOnly")
+
+
+class AdminAppsMetaCategoryResponse(BaseModel):
+    id: str
+    name: str
+
+
+class AdminAppsMetaCapabilityResponse(BaseModel):
+    key: str
+    label: str
+    icon: str
+    order: int
+
+
+class AdminAppsMetaResponse(BaseModel):
+    categories: list[AdminAppsMetaCategoryResponse]
+    allowed_statuses: list[str] = Field(serialization_alias="allowedStatuses")
+    allowed_launch_statuses: list[str] = Field(serialization_alias="allowedLaunchStatuses")
+    allowed_visibility_values: list[str] = Field(serialization_alias="allowedVisibilityValues")
+    allowed_pricing_gates: list[str] = Field(serialization_alias="allowedPricingGates")
+    capability_options: list[AdminAppsMetaCapabilityResponse] = Field(serialization_alias="capabilityOptions")
+
+
+class CreateAppRequest(BaseModel):
+    name: str = Field(min_length=2)
+    key: str = Field(min_length=2)
+    slug: str = Field(min_length=2)
+    category_id: str = Field(validation_alias="categoryId", min_length=1)
+    description: str | None = None
+    status: str | None = None
+    is_featured: bool | None = Field(default=None, validation_alias="isFeatured")
+    website_url: str | None = Field(default=None, validation_alias="websiteUrl")
+    admin_url: str | None = Field(default=None, validation_alias="adminUrl")
+    capabilities: list[str] | None = None
+    launch_status: str | None = Field(default=None, validation_alias="launchStatus")
+    visibility: str | None = None
+    pricing_gate: str | None = Field(default=None, validation_alias="pricingGate")
+    logo_key: str | None = Field(default=None, validation_alias="logoKey")
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    @field_validator(
+        "name",
+        "key",
+        "slug",
+        "category_id",
+        "description",
+        "status",
+        "website_url",
+        "admin_url",
+        "launch_status",
+        "visibility",
+        "pricing_gate",
+        "logo_key",
+        mode="before",
+    )
+    @classmethod
+    def strip_app_string(cls, value: str | None) -> str | None:
+        if isinstance(value, str):
+            return value.strip()
+
+        return value
+
+
+class UpdateAppRequest(BaseModel):
+    name: str | None = Field(default=None, min_length=2)
+    key: str | None = Field(default=None, min_length=2)
+    slug: str | None = Field(default=None, min_length=2)
+    category_id: str | None = Field(default=None, validation_alias="categoryId")
+    description: str | None = None
+    status: str | None = None
+    is_featured: bool | None = Field(default=None, validation_alias="isFeatured")
+    website_url: str | None = Field(default=None, validation_alias="websiteUrl")
+    admin_url: str | None = Field(default=None, validation_alias="adminUrl")
+    capabilities: list[str] | None = None
+    launch_status: str | None = Field(default=None, validation_alias="launchStatus")
+    visibility: str | None = None
+    pricing_gate: str | None = Field(default=None, validation_alias="pricingGate")
+    logo_key: str | None = Field(default=None, validation_alias="logoKey")
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    @field_validator(
+        "name",
+        "key",
+        "slug",
+        "category_id",
+        "description",
+        "status",
+        "website_url",
+        "admin_url",
+        "launch_status",
+        "visibility",
+        "pricing_gate",
+        "logo_key",
+        mode="before",
+    )
+    @classmethod
+    def strip_app_string(cls, value: str | None) -> str | None:
+        if isinstance(value, str):
+            return value.strip()
+
+        return value
+
+
+class AppMutationResponse(BaseModel):
+    ok: bool
+    id: str
+
+
+class DeleteAppResponse(BaseModel):
+    ok: bool

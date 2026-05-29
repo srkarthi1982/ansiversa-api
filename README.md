@@ -55,6 +55,8 @@ http://127.0.0.1:8000/api/v1/categories/
 http://127.0.0.1:8000/api/v1/faqs
 http://127.0.0.1:8000/api/v1/admin/status
 http://127.0.0.1:8000/api/v1/admin/categories
+http://127.0.0.1:8000/api/v1/admin/apps
+http://127.0.0.1:8000/api/v1/admin/apps/meta
 ```
 
 ## Environment
@@ -193,7 +195,38 @@ write audit logs. Delete is blocked while any app references the category.
 
 Intentional API difference: search also covers `description`, matching the
 Phase 16 API requirement; the current parent web action searches name, id, slug,
-and key. Admin Apps, billing APIs, permissions registry, and audit log listing
+and key. Billing APIs, permissions registry, and audit log listing remain
+deferred.
+
+## Admin Apps
+
+The admin apps module provides protected app registry management endpoints
+aligned with the parent web `adminApps` Astro action behavior.
+
+```text
+GET    /api/v1/admin/apps
+GET    /api/v1/admin/apps/meta
+POST   /api/v1/admin/apps
+PATCH  /api/v1/admin/apps/{app_id}
+DELETE /api/v1/admin/apps/{app_id}
+```
+
+All routes require an active admin user (`roleId = 1`). Listing follows the web
+action response shape with `items`, `total`, `page`, `pageSize`, `totalPages`,
+`sort`, and `dir`, includes `categoryName`, parses capabilities safely, and
+supports web-action sorting values such as `newest`, `name-asc`,
+`category-desc`, `status-asc`, `featured-desc`, and `updated-desc`. Create and
+update normalize key/slug and URLs, validate category existence, prevent
+duplicate key/slug conflicts, serialize capabilities using the parent catalog,
+update `updatedAt`, and write audit logs. Delete follows the current parent web
+action behavior: it deletes the app row and writes an audit log when successful.
+
+Intentional API differences: search also covers `description` per the Phase 17
+API requirement; list accepts `launchStatus`, `visibility`, and `pricingGate`
+filters plus `sortBy`/`sortDirection` aliases; meta returns categories plus
+allowed status/launch/visibility/pricing values and capability options so API
+clients can build forms without hardcoding the parent registry constants.
+Admin users/roles, billing APIs, permissions registry, and audit log listing
 remain deferred.
 
 ## Profile and Preferences
