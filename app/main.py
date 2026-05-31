@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.core.openapi import generate_operation_id
 from app.modules.admin.apps_routes import router as admin_apps_router
 from app.modules.admin.categories_routes import router as admin_categories_router
+from app.modules.admin.faqs_routes import router as admin_faqs_router
 from app.modules.admin.routes import router as admin_router
 from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.apps.routes import apps_router, categories_router
@@ -72,6 +73,11 @@ def register_routes(app: FastAPI) -> None:
         admin_users_router,
         prefix=f"{settings.API_V1_PREFIX}/admin",
         tags=["Admin Users"],
+    )
+    app.include_router(
+        admin_faqs_router,
+        prefix=f"{settings.API_V1_PREFIX}/admin",
+        tags=["Admin FAQs"],
     )
     app.include_router(
         profile_router,

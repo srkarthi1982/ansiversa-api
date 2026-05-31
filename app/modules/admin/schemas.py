@@ -299,3 +299,87 @@ class AppMutationResponse(BaseModel):
 
 class DeleteAppResponse(BaseModel):
     ok: bool
+
+
+class AdminFaqResponse(BaseModel):
+    id: str
+    question: str
+    answer: str
+    answer_md: str | None = None
+    app_key: str | None = Field(default=None, serialization_alias="appKey")
+    audience: str
+    category: str | None
+    sort_order: int = Field(serialization_alias="sortOrder")
+    is_published: bool = Field(serialization_alias="is_published")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminFaqListResponse(BaseModel):
+    items: list[AdminFaqResponse]
+    total: int
+    page: int
+    page_size: int = Field(serialization_alias="pageSize")
+    total_pages: int = Field(serialization_alias="totalPages")
+    sort: str
+    dir: Literal["asc", "desc"]
+    q: str
+    app_key: str = Field(serialization_alias="appKey")
+    audience: str
+    category: str
+    is_published: bool | str = Field(serialization_alias="isPublished")
+
+
+class CreateFaqRequest(BaseModel):
+    question: str = Field(min_length=3, max_length=160)
+    answer: str | None = Field(default=None, min_length=3, max_length=2000)
+    answer_md: str | None = Field(default=None, min_length=3, max_length=2000)
+    app_key: str | None = Field(default=None, validation_alias="appKey")
+    audience: str | None = None
+    category: str | None = Field(default=None, max_length=40)
+    sort_order: int | None = Field(default=None, validation_alias="sortOrder", ge=1)
+    is_published: bool | None = Field(default=None, validation_alias="is_published")
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    @field_validator("question", "answer", "answer_md", "app_key", "audience", "category", mode="before")
+    @classmethod
+    def strip_faq_string(cls, value: str | None) -> str | None:
+        if isinstance(value, str):
+            return value.strip()
+
+        return value
+
+
+class UpdateFaqRequest(BaseModel):
+    question: str | None = Field(default=None, min_length=3, max_length=160)
+    answer: str | None = Field(default=None, min_length=3, max_length=2000)
+    answer_md: str | None = Field(default=None, min_length=3, max_length=2000)
+    app_key: str | None = Field(default=None, validation_alias="appKey")
+    audience: str | None = None
+    category: str | None = Field(default=None, max_length=40)
+    sort_order: int | None = Field(default=None, validation_alias="sortOrder", ge=1)
+    is_published: bool | None = Field(default=None, validation_alias="is_published")
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    @field_validator("question", "answer", "answer_md", "app_key", "audience", "category", mode="before")
+    @classmethod
+    def strip_faq_string(cls, value: str | None) -> str | None:
+        if isinstance(value, str):
+            return value.strip()
+
+        return value
+
+
+class FaqMutationResponse(BaseModel):
+    ok: bool
+    id: str
+    item: AdminFaqResponse | None = None
+
+
+class DeleteFaqResponse(BaseModel):
+    ok: bool
+    id: str
