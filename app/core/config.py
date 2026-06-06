@@ -1,6 +1,6 @@
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal, Self
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     ANSIVERSA_AUTH_SECRET: str = "dev-ansiversa-auth-secret"
+    AUTH_COOKIE_NAME: str = "ansiversa_session"
+    AUTH_COOKIE_DOMAIN: str | None = None
+    AUTH_COOKIE_SECURE: bool | None = None
+    AUTH_COOKIE_SAMESITE: Literal["lax", "strict", "none"] | None = None
+    AUTH_COOKIE_MAX_AGE_SECONDS: int | None = Field(default=None, gt=0)
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )
@@ -42,6 +47,33 @@ class Settings(BaseSettings):
             return [str(origin).strip() for origin in value if str(origin).strip()]
 
         return value
+
+    @field_validator("AUTH_COOKIE_DOMAIN", mode="before")
+    @classmethod
+    def parse_auth_cookie_domain(cls, value: Any) -> Any:
+        if isinstance(value, str) and not value.strip():
+            return None
+
+        return value
+
+    @model_validator(mode="after")
+    def set_auth_cookie_defaults(self) -> Self:
+        is_production = self.APP_ENV.strip().lower() == "production"
+
+        if "*" in self.CORS_ORIGINS:
+            raise ValueError(
+                "CORS_ORIGINS must not contain '*' when credentials are enabled."
+            )
+        if self.AUTH_COOKIE_DOMAIN is None and is_production:
+            self.AUTH_COOKIE_DOMAIN = ".ansiversa.com"
+        if self.AUTH_COOKIE_SECURE is None:
+            self.AUTH_COOKIE_SECURE = is_production
+        if self.AUTH_COOKIE_SAMESITE is None:
+            self.AUTH_COOKIE_SAMESITE = "none" if is_production else "lax"
+        if self.AUTH_COOKIE_MAX_AGE_SECONDS is None:
+            self.AUTH_COOKIE_MAX_AGE_SECONDS = self.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+
+        return self
 
 
 settings = Settings()

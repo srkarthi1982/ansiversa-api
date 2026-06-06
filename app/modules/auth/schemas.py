@@ -49,6 +49,10 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 
+class LogoutResponse(BaseModel):
+    ok: bool
+
+
 class UserResponse(BaseModel):
     id: str
     email: str

@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -10,6 +10,7 @@ from app.modules.auth.schemas import (
     AuthStatusResponse,
     CurrentUserResponse,
     LoginRequest,
+    LogoutResponse,
     RegisterRequest,
     TokenResponse,
 )
@@ -17,8 +18,10 @@ from app.modules.auth.service import (
     authenticate_user,
     create_parent_user,
     create_user_token,
+    clear_auth_cookie,
     get_auth_status,
     get_current_user,
+    set_auth_cookie,
 )
 
 router = APIRouter()
@@ -45,6 +48,7 @@ def register_user(
 def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Annotated[Session, Depends(get_parent_db)],
+    response: Response,
 ) -> TokenResponse:
     user = authenticate_user(
         db,
@@ -57,7 +61,17 @@ def login_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    return create_user_token(user)
+    token_response = create_user_token(user)
+    set_auth_cookie(response, token_response.access_token)
+
+    return token_response
+
+
+@router.post("/logout", response_model=LogoutResponse)
+def logout_user(response: Response) -> LogoutResponse:
+    clear_auth_cookie(response)
+
+    return LogoutResponse(ok=True)
 
 
 @router.get("/me", response_model=CurrentUserResponse)

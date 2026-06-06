@@ -79,12 +79,22 @@ JWT_SECRET_KEY
 JWT_ALGORITHM
 ACCESS_TOKEN_EXPIRE_MINUTES
 ANSIVERSA_AUTH_SECRET
+AUTH_COOKIE_NAME
+AUTH_COOKIE_DOMAIN
+AUTH_COOKIE_SECURE
+AUTH_COOKIE_SAMESITE
+AUTH_COOKIE_MAX_AGE_SECONDS
 ```
 
 Set a strong `JWT_SECRET_KEY` outside source control before enabling auth outside
 local development. `ANSIVERSA_AUTH_SECRET` must match the parent `web`
 `ANSIVERSA_AUTH_SECRET` value so legacy parent `salt:hash` passwords can be
 verified during login.
+
+Local development defaults the auth cookie to HttpOnly, `Secure=false`,
+`SameSite=lax`, and no domain. Production defaults to HttpOnly, `Secure=true`,
+`SameSite=none`, and domain `.ansiversa.com`. Explicit auth cookie environment
+values override these defaults.
 
 ## Migrations
 
@@ -114,11 +124,16 @@ Mini-app-specific auth is intentionally not introduced here.
 /api/v1/auth/status/
 POST /api/v1/auth/register
 POST /api/v1/auth/login
+POST /api/v1/auth/logout
 GET  /api/v1/auth/me
 ```
 
 Use `/api/v1/auth/login` from Swagger `/docs` to get a bearer token, then use
 Authorize to test protected routes such as `/api/v1/auth/me`.
+Successful login responses also set the API-managed HttpOnly
+`ansiversa_session` cookie for browser clients. Protected endpoints prefer an
+explicit bearer token and otherwise use the auth cookie. Logout clears the
+auth cookie.
 
 Current scope is aligned to the real parent `web` auth schema. The API uses
 parent-compatible `Users` and `Roles` tables, including `Users.name`,

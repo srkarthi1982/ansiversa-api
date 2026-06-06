@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, Response, status
 from jwt.exceptions import InvalidTokenError
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -147,8 +147,33 @@ def create_user_token(user: User) -> TokenResponse:
     return TokenResponse(access_token=access_token)
 
 
+def set_auth_cookie(response: Response, token: str) -> None:
+    response.set_cookie(
+        key=settings.AUTH_COOKIE_NAME,
+        value=token,
+        max_age=settings.AUTH_COOKIE_MAX_AGE_SECONDS,
+        httponly=True,
+        secure=bool(settings.AUTH_COOKIE_SECURE),
+        samesite=settings.AUTH_COOKIE_SAMESITE or "lax",
+        domain=settings.AUTH_COOKIE_DOMAIN,
+        path="/",
+    )
+
+
+def clear_auth_cookie(response: Response) -> None:
+    response.delete_cookie(
+        key=settings.AUTH_COOKIE_NAME,
+        httponly=True,
+        secure=bool(settings.AUTH_COOKIE_SECURE),
+        samesite=settings.AUTH_COOKIE_SAMESITE or "lax",
+        domain=settings.AUTH_COOKIE_DOMAIN,
+        path="/",
+    )
+
+
 def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)],
+    request: Request,
+    bearer_token: Annotated[str | None, Depends(oauth2_scheme)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> User:
     credentials_exception = HTTPException(
@@ -156,6 +181,9 @@ def get_current_user(
         detail="Could not validate credentials.",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    token = bearer_token or request.cookies.get(settings.AUTH_COOKIE_NAME)
+    if not token:
+        raise credentials_exception
 
     try:
         payload = decode_access_token(token)
