@@ -10,10 +10,13 @@ Docs: https://api.ansiversa.com/docs
 
 ## Local Setup
 
+Use Python 3.13. The current `libsql-experimental` driver can terminate during
+remote Turso connections under Python 3.14.
+
 Create and activate a virtual environment:
 
 ```bash
-python3 -m venv .venv
+python3.13 -m venv .venv
 source .venv/bin/activate
 ```
 
@@ -72,6 +75,14 @@ falls back to SQLite:
 sqlite:///./ansiversa_api.db
 ```
 
+When `PARENT_DATABASE_URL` uses a `libsql://` Turso database URL, set the
+matching `TURSO_AUTH_TOKEN` before starting the API or running Alembic.
+
+The Quiz API module uses its own database connection. Configure
+`QUIZ_DATABASE_URL` and, for a `libsql://` Turso URL, the matching
+`QUIZ_TURSO_AUTH_TOKEN`. Quiz models and sessions remain isolated from the
+parent/global database and Alembic context.
+
 Auth uses these environment variables:
 
 ```text
@@ -103,6 +114,10 @@ Alembic is configured for the parent/global database only and reads
 parent Alembic context. Mini-app migrations should be introduced later only when
 needed and kept isolated.
 
+Turso migrations also require `TURSO_AUTH_TOKEN`; Alembic reuses the parent
+database engine so the same URL conversion and authentication settings apply to
+the API and migrations.
+
 Create a parent/global migration:
 
 ```bash
@@ -113,6 +128,16 @@ Apply migrations:
 
 ```bash
 alembic upgrade head
+```
+
+Quiz taxonomy routes are read-only and protected by the existing current-user
+dependency:
+
+```text
+GET /api/v1/quiz/platforms
+GET /api/v1/quiz/subjects
+GET /api/v1/quiz/topics
+GET /api/v1/quiz/roadmaps
 ```
 
 ## Auth

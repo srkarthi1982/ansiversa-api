@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
     PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
     TURSO_AUTH_TOKEN: str | None = None
+    QUIZ_DATABASE_URL: str = "sqlite:///./quiz.db"
+    QUIZ_TURSO_AUTH_TOKEN: str | None = None
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
