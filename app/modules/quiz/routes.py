@@ -1,12 +1,17 @@
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Path, Query, status
 from sqlalchemy.orm import Session
 
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
+from app.modules.quiz.attempt_service import resume_attempt, start_attempt, submit_attempt
 from app.modules.quiz.db import get_quiz_db
 from app.modules.quiz.schemas import (
+    QuizAttemptRequest,
+    QuizAttemptResponse,
+    QuizAttemptSubmitRequest,
+    QuizAttemptSubmitResponse,
     QuizPlatformListResponse,
     QuizRoadmapListResponse,
     QuizSubjectListResponse,
@@ -31,6 +36,41 @@ TopicSort = Literal[
 RoadmapSort = Literal[
     "id", "name", "platformId", "subjectId", "topicId", "qCount", "status"
 ]
+
+
+@router.post(
+    "/attempts",
+    response_model=QuizAttemptResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_quiz_attempt(
+    payload: QuizAttemptRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+) -> QuizAttemptResponse:
+    return start_attempt(db, current_user, payload)
+
+
+@router.get("/attempts/{attempt_id}", response_model=QuizAttemptResponse)
+def get_quiz_attempt(
+    attempt_id: Annotated[int, Path(ge=1)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+) -> QuizAttemptResponse:
+    return resume_attempt(db, current_user, attempt_id)
+
+
+@router.post(
+    "/attempts/{attempt_id}/submit",
+    response_model=QuizAttemptSubmitResponse,
+)
+def submit_quiz_attempt(
+    attempt_id: Annotated[int, Path(ge=1)],
+    payload: QuizAttemptSubmitRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+) -> QuizAttemptSubmitResponse:
+    return submit_attempt(db, current_user, attempt_id, payload)
 
 
 @router.get("/platforms", response_model=QuizPlatformListResponse)

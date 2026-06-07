@@ -81,7 +81,8 @@ matching `TURSO_AUTH_TOKEN` before starting the API or running Alembic.
 The Quiz API module uses its own database connection. Configure
 `QUIZ_DATABASE_URL` and, for a `libsql://` Turso URL, the matching
 `QUIZ_TURSO_AUTH_TOKEN`. Quiz models and sessions remain isolated from the
-parent/global database and Alembic context.
+parent/global database and Alembic context. `QUIZ_ATTEMPT_EXPIRE_HOURS`
+controls incomplete-attempt expiry and defaults to `2`.
 
 Auth uses these environment variables:
 
@@ -139,6 +140,26 @@ GET /api/v1/quiz/subjects
 GET /api/v1/quiz/topics
 GET /api/v1/quiz/roadmaps
 ```
+
+The secure Quiz attempt lifecycle is also protected by the existing current-user
+dependency:
+
+```text
+POST /api/v1/quiz/attempts
+GET  /api/v1/quiz/attempts/{attempt_id}
+POST /api/v1/quiz/attempts/{attempt_id}/submit
+```
+
+Quiz attempt tables are intentionally excluded from parent Alembic. After
+reviewing the configured `QUIZ_DATABASE_URL`, create only the isolated attempt
+tables with:
+
+```bash
+python -m scripts.setup_quiz_attempt_tables
+```
+
+The setup command is idempotent. It creates `QuizAttempt` and
+`QuizAttemptQuestion`; it never creates parent/global tables.
 
 ## Auth
 

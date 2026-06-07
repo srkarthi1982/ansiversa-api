@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     TURSO_AUTH_TOKEN: str | None = None
     QUIZ_DATABASE_URL: str = "sqlite:///./quiz.db"
     QUIZ_TURSO_AUTH_TOKEN: str | None = None
+    QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
