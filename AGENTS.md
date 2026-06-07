@@ -346,6 +346,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-07: Consolidated parent and Quiz Turso/libSQL connections onto the shared `TURSO_AUTH_TOKEN` while preserving separate database URLs, engines, sessions, models, and migration boundaries.
 * 2026-06-07: Added the secure server-graded Quiz attempt lifecycle with current-user ownership, hierarchy validation, paid/admin difficult-level entitlement, safe pre-submit question responses, two-hour expiry, exact stored-question submission validation, compatible `Result` persistence, answer review after submit, and isolated idempotent setup for `QuizAttempt`/`QuizAttemptQuestion` outside parent Alembic.
 * 2026-06-07: Added the isolated read-only Quiz taxonomy API foundation with separate Quiz DB configuration/session/models and protected paginated Platform, Subject, Topic, and Roadmap list routes.
 * 2026-06-07: Documented the Quiz API migration plan after inspecting the Quiz repo's Astro actions, data models, user/admin flows, integrations, ownership boundaries, required routes, security risks, and phased cutover strategy.

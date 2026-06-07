@@ -14,13 +14,13 @@ def _build_quiz_database_url(database_url: str) -> str:
 
 
 def _build_quiz_connect_args(database_url: str) -> dict[str, object]:
-    if database_url.startswith("libsql://") and not settings.QUIZ_TURSO_AUTH_TOKEN:
+    if database_url.startswith("libsql://") and not settings.TURSO_AUTH_TOKEN:
         raise RuntimeError(
-            "QUIZ_TURSO_AUTH_TOKEN is required for Quiz libSQL/Turso database URLs."
+            "TURSO_AUTH_TOKEN is required for Quiz libSQL/Turso database URLs."
         )
 
     if database_url.startswith("libsql://"):
-        return {"auth_token": settings.QUIZ_TURSO_AUTH_TOKEN}
+        return {"auth_token": settings.TURSO_AUTH_TOKEN}
 
     if database_url.startswith("sqlite"):
         return {"check_same_thread": False}

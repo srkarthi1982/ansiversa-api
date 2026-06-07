@@ -213,7 +213,7 @@ configuration such as:
 
 ```text
 QUIZ_DATABASE_URL
-QUIZ_TURSO_AUTH_TOKEN
+TURSO_AUTH_TOKEN
 ```
 
 Do not add Quiz tables to `ParentBase.metadata` or the parent/global Alembic

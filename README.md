@@ -79,8 +79,8 @@ When `PARENT_DATABASE_URL` uses a `libsql://` Turso database URL, set the
 matching `TURSO_AUTH_TOKEN` before starting the API or running Alembic.
 
 The Quiz API module uses its own database connection. Configure
-`QUIZ_DATABASE_URL` and, for a `libsql://` Turso URL, the matching
-`QUIZ_TURSO_AUTH_TOKEN`. Quiz models and sessions remain isolated from the
+`QUIZ_DATABASE_URL`; all Turso/libSQL database connections reuse the shared
+`TURSO_AUTH_TOKEN`. Quiz models and sessions remain isolated from the
 parent/global database and Alembic context. `QUIZ_ATTEMPT_EXPIRE_HOURS`
 controls incomplete-attempt expiry and defaults to `2`.
 
