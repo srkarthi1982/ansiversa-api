@@ -8,19 +8,26 @@ from app.core.database import get_parent_db
 from app.modules.auth.models import User
 from app.modules.auth.schemas import (
     AuthStatusResponse,
+    ChangePasswordRequest,
     CurrentUserResponse,
+    ForgotPasswordRequest,
     LoginRequest,
     LogoutResponse,
+    PasswordActionResponse,
     RegisterRequest,
+    ResetPasswordRequest,
     TokenResponse,
 )
 from app.modules.auth.service import (
     authenticate_user,
+    change_password,
     create_parent_user,
     create_user_token,
     clear_auth_cookie,
     get_auth_status,
     get_current_user,
+    request_password_reset,
+    reset_password,
     set_auth_cookie,
 )
 
@@ -79,3 +86,29 @@ def read_current_user(
     current_user: Annotated[User, Depends(get_current_user)],
 ) -> User:
     return current_user
+
+
+@router.post("/forgot-password", response_model=PasswordActionResponse)
+def forgot_password(
+    payload: ForgotPasswordRequest,
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> PasswordActionResponse:
+    response, _ = request_password_reset(db, payload)
+    return response
+
+
+@router.post("/reset-password", response_model=PasswordActionResponse)
+def reset_user_password(
+    payload: ResetPasswordRequest,
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> PasswordActionResponse:
+    return reset_password(db, payload)
+
+
+@router.post("/change-password", response_model=PasswordActionResponse)
+def change_current_user_password(
+    payload: ChangePasswordRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> PasswordActionResponse:
+    return change_password(db, current_user, payload)

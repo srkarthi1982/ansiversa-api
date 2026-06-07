@@ -16,6 +16,7 @@ from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
+from app.modules.users.routes import router as users_router
 
 
 def register_middleware(app: FastAPI) -> None:
@@ -98,6 +99,11 @@ def register_routes(app: FastAPI) -> None:
         dashboard_router,
         prefix=f"{settings.API_V1_PREFIX}/me",
         tags=["Dashboard"],
+    )
+    app.include_router(
+        users_router,
+        prefix=f"{settings.API_V1_PREFIX}/users",
+        tags=["Users"],
     )
 
     @app.get("/", tags=["Root"])

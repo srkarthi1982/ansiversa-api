@@ -1,9 +1,9 @@
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, Request, Response, status
 from jwt.exceptions import InvalidTokenError
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -11,18 +11,24 @@ from app.core.config import settings
 from app.core.database import get_parent_db
 from app.core.security import (
     create_access_token,
+    create_password_reset_token,
     decode_access_token,
     get_password_hash,
+    hash_password_reset_token,
     is_legacy_parent_password_hash,
     oauth2_scheme,
     verify_legacy_parent_password,
     verify_password,
 )
-from app.modules.auth.models import Role, User
+from app.modules.auth.models import PasswordResetToken, Role, User
 from app.modules.auth.schemas import (
     AuthStatusResponse,
+    ChangePasswordRequest,
+    ForgotPasswordRequest,
     LoginRequest,
+    PasswordActionResponse,
     RegisterRequest,
+    ResetPasswordRequest,
     TokenResponse,
 )
 
@@ -30,6 +36,11 @@ from app.modules.auth.schemas import (
 DEFAULT_MEMBER_ROLE_ID = 2
 ACTIVE_STATUS = "active"
 BLOCKED_LOGIN_STATUSES = {"disabled", "inactive", "suspended"}
+FORGOT_PASSWORD_MESSAGE = (
+    "If the account exists, password reset instructions will be available."
+)
+RESET_PASSWORD_MESSAGE = "Password has been reset successfully."
+CHANGE_PASSWORD_MESSAGE = "Password changed successfully."
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -135,6 +146,110 @@ def authenticate_user(db: Session, payload: LoginRequest) -> User | None:
         db.refresh(user)
 
     return user
+
+
+def request_password_reset(
+    db: Session,
+    payload: ForgotPasswordRequest,
+) -> tuple[PasswordActionResponse, str | None]:
+    user = get_user_by_email(db, payload.email)
+    if not user:
+        return PasswordActionResponse(message=FORGOT_PASSWORD_MESSAGE), None
+
+    now = datetime.now(timezone.utc)
+    db.execute(
+        update(PasswordResetToken)
+        .where(
+            PasswordResetToken.user_id == user.id,
+            PasswordResetToken.used_at.is_(None),
+        )
+        .values(used_at=now)
+    )
+
+    token = create_password_reset_token()
+    db.add(
+        PasswordResetToken(
+            user_id=user.id,
+            token_hash=hash_password_reset_token(token),
+            expires_at=now
+            + timedelta(minutes=settings.PASSWORD_RESET_TOKEN_EXPIRE_MINUTES),
+        )
+    )
+    db.commit()
+
+    return PasswordActionResponse(message=FORGOT_PASSWORD_MESSAGE), token
+
+
+def reset_password(
+    db: Session,
+    payload: ResetPasswordRequest,
+) -> PasswordActionResponse:
+    reset_token = db.execute(
+        select(PasswordResetToken).where(
+            PasswordResetToken.token_hash == hash_password_reset_token(payload.token),
+            PasswordResetToken.used_at.is_(None),
+        )
+    ).scalar_one_or_none()
+    now = datetime.now(timezone.utc)
+
+    if not reset_token or _as_utc(reset_token.expires_at) <= now:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password reset token is invalid or expired.",
+        )
+
+    user = get_user_by_id(db, reset_token.user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password reset token is invalid or expired.",
+        )
+
+    user.password_hash = get_password_hash(payload.new_password)
+    user.updated_at = now
+    db.execute(
+        update(PasswordResetToken)
+        .where(
+            PasswordResetToken.user_id == user.id,
+            PasswordResetToken.used_at.is_(None),
+        )
+        .values(used_at=now)
+    )
+    db.add(user)
+    db.commit()
+
+    return PasswordActionResponse(message=RESET_PASSWORD_MESSAGE)
+
+
+def change_password(
+    db: Session,
+    user: User,
+    payload: ChangePasswordRequest,
+) -> PasswordActionResponse:
+    current_password_valid = (
+        verify_legacy_parent_password(payload.current_password, user.password_hash)
+        if is_legacy_parent_password_hash(user.password_hash)
+        else verify_password(payload.current_password, user.password_hash)
+    )
+    if not current_password_valid:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Current password is incorrect.",
+        )
+
+    user.password_hash = get_password_hash(payload.new_password)
+    user.updated_at = datetime.now(timezone.utc)
+    db.add(user)
+    db.commit()
+
+    return PasswordActionResponse(message=CHANGE_PASSWORD_MESSAGE)
+
+
+def _as_utc(value: datetime) -> datetime:
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+
+    return value.astimezone(timezone.utc)
 
 
 def create_user_token(user: User) -> TokenResponse:

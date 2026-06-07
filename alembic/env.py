@@ -12,6 +12,7 @@ from app.modules.dashboard import models as dashboard_models  # noqa: F401
 from app.modules.faqs import models as faqs_models  # noqa: F401
 from app.modules.favorites import models as favorites_models  # noqa: F401
 from app.modules.notifications import models as notifications_models  # noqa: F401
+from app.modules.users import models as users_models  # noqa: F401
 
 config = context.config
 

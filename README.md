@@ -125,6 +125,9 @@ Mini-app-specific auth is intentionally not introduced here.
 POST /api/v1/auth/register
 POST /api/v1/auth/login
 POST /api/v1/auth/logout
+POST /api/v1/auth/forgot-password
+POST /api/v1/auth/reset-password
+POST /api/v1/auth/change-password
 GET  /api/v1/auth/me
 ```
 
@@ -139,6 +142,10 @@ Current scope is aligned to the real parent `web` auth schema. The API uses
 parent-compatible `Users` and `Roles` tables, including `Users.name`,
 `Users.passwordHash`, `Users.roleId`, and `Users.status`. Passwords are stored
 with secure hashing, and `passwordHash` is never exposed in API responses.
+Password reset requests always return a generic response. Raw reset tokens are
+never stored; only expiring token hashes are persisted. Change-password reuses
+the current cookie-or-bearer authenticated user and does not modify the active
+session.
 API-created users use Argon2 hashes. Existing parent web users with legacy
 `salt:hash` HMAC-SHA256 password hashes are supported during login; after a
 successful legacy login, the submitted password is rehashed with Argon2 and
@@ -289,6 +296,8 @@ GET   /api/v1/me/profile
 PATCH /api/v1/me/profile
 GET   /api/v1/me/preferences
 PUT   /api/v1/me/preferences
+GET   /api/v1/users/me/settings
+PATCH /api/v1/users/me/settings
 ```
 
 Profile updates are intentionally limited to:
@@ -305,6 +314,11 @@ Profile endpoints do not allow email, role, status, billing fields, or password
 changes. Preferences use the parent-compatible `UserPreferences` table and
 auto-create a default row when missing (`productUpdates = false`,
 `securityAlerts = true`, `theme = null`).
+
+The separate user-settings foundation returns defaults when no `UserSettings`
+row exists and creates the row on first patch. Supported fields are `theme`
+(`system`, `light`, `dark`), `language` (`en`, `ta`, `ar`), and
+`marketing_emails`.
 
 ## Favorites
 

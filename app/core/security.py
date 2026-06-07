@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from hmac import compare_digest, new as hmac_new
+from secrets import token_urlsafe
 from typing import Any
 
 import jwt
@@ -48,6 +49,14 @@ def verify_legacy_parent_password(plain_password: str, hashed_password: str) -> 
     check = hmac.hexdigest()
 
     return compare_digest(check, digest)
+
+
+def create_password_reset_token() -> str:
+    return token_urlsafe(32)
+
+
+def hash_password_reset_token(token: str) -> str:
+    return sha256(token.encode("utf-8")).hexdigest()
 
 
 def create_access_token(
