@@ -110,10 +110,11 @@ values override these defaults.
 
 ## Migrations
 
-Alembic is configured for the parent/global database only and reads
-`PARENT_DATABASE_URL` from app settings. Parent/global migrations belong to this
-parent Alembic context. Mini-app migrations should be introduced later only when
-needed and kept isolated.
+The default Alembic environment is configured for the parent/global database
+only and reads `PARENT_DATABASE_URL` from app settings. Parent/global migrations
+belong to this parent Alembic context. Quiz migrations use the separate
+`quiz_alembic.ini` configuration, `quiz_alembic/` migration chain, and
+`QUIZ_DATABASE_URL`.
 
 Turso migrations also require `TURSO_AUTH_TOKEN`; Alembic reuses the parent
 database engine so the same URL conversion and authentication settings apply to
@@ -129,6 +130,12 @@ Apply migrations:
 
 ```bash
 alembic upgrade head
+```
+
+Apply isolated Quiz migrations:
+
+```bash
+alembic -c quiz_alembic.ini upgrade head
 ```
 
 Quiz taxonomy routes are read-only and protected by the existing current-user
@@ -151,15 +158,19 @@ POST /api/v1/quiz/attempts/{attempt_id}/submit
 ```
 
 Quiz attempt tables are intentionally excluded from parent Alembic. After
-reviewing the configured `QUIZ_DATABASE_URL`, create only the isolated attempt
-tables with:
+reviewing the configured `QUIZ_DATABASE_URL`, apply the isolated Quiz migration
+chain with:
 
 ```bash
-python -m scripts.setup_quiz_attempt_tables
+alembic -c quiz_alembic.ini upgrade head
 ```
 
-The setup command is idempotent. It creates `QuizAttempt` and
-`QuizAttemptQuestion`; it never creates parent/global tables.
+The Quiz migration chain uses `quiz_alembic_version`, creates
+`QuizAttempt` and `QuizAttemptQuestion`, and never creates parent/global tables.
+Autogeneration is restricted to these approved API-managed Quiz tables so it
+cannot alter legacy Quiz taxonomy, question, or result tables.
+`python -m scripts.setup_quiz_attempt_tables` remains a convenience wrapper for
+the same isolated Alembic upgrade.
 
 ## Auth
 
