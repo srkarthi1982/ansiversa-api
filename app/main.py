@@ -18,7 +18,7 @@ from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
 from app.modules.users.routes import router as users_router
-
+from app.modules.content.routes import router as content_router
 
 def register_middleware(app: FastAPI) -> None:
     app.add_middleware(
@@ -110,6 +110,11 @@ def register_routes(app: FastAPI) -> None:
         quiz_router,
         prefix=f"{settings.API_V1_PREFIX}/quiz",
         tags=["Quiz"],
+    )
+    app.include_router(
+        content_router, 
+        prefix="/api/v1",
+        tags=["content"],
     )
 
     @app.get("/", tags=["Root"])
