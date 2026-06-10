@@ -87,3 +87,17 @@ class AboutResponse(BaseModel):
     problem: ProblemSection
     future: FutureSection
     timeline: TimelineSection
+
+
+class MetadataCreateRequest(BaseModel):
+    content: dict | None = None
+
+
+class MetadataResponse(BaseModel):
+    key: str
+    content: dict | None = None
+
+
+class MetadataListResponse(BaseModel):
+    items: list[MetadataResponse]
+    total: int
