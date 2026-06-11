@@ -7,6 +7,8 @@ from app.core.database import get_parent_db
 from app.modules.auth.service import get_current_user
 from app.modules.auth.models import User
 from .schemas import (
+    AboutResponse,
+    HomeResponse,
     MetadataCreateRequest,
     MetadataResponse,
     MetadataListResponse,
@@ -31,18 +33,27 @@ def list_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> MetadataLis
         total=len(items),
     )
 
-
-@router.get("/metadata/{key}", response_model=MetadataResponse)
-def get_metadata(key: str, db: Annotated[Session, Depends(get_parent_db)]) -> MetadataResponse:
-    m = _get_metadata(db, key)
+@router.get("/metadata/home", response_model=HomeResponse)
+def get_home_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> HomeResponse:
+    m = _get_metadata(db, "home")
     if m is None:
         from fastapi import HTTPException
         from starlette import status
 
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
 
-    return MetadataResponse(key=m.key, content=m.content)
+    return HomeResponse(**m.content)
 
+@router.get("/metadata/about", response_model=AboutResponse)
+def get_about_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> AboutResponse:
+    m = _get_metadata(db, "about")
+    if m is None:
+        from fastapi import HTTPException
+        from starlette import status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
+
+    return AboutResponse(**m.content)
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(

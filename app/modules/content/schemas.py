@@ -101,3 +101,71 @@ class MetadataResponse(BaseModel):
 class MetadataListResponse(BaseModel):
     items: list[MetadataResponse]
     total: int
+
+
+class HomeAction(BaseModel):
+    label: str
+    path: str
+    primary: bool
+
+
+class HomeCard(BaseModel):
+    title: str
+    description: str
+    points: list[str] | None = None
+
+
+class HeroSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    actions: list[HomeAction]
+
+
+class EcosystemSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    cards: list[HomeCard]
+
+
+class CreatorsSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    cards: list[HomeCard]
+
+
+class AudienceSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    cards: list[HomeCard]
+
+
+class GettingStartedSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    steps: list[HomeCard]
+
+
+class FounderPerson(BaseModel):
+    name: str
+    role: str
+    description: str
+    image: str | None = None
+
+
+class FoundersSection(BaseModel):
+    people: list[FounderPerson]
+    summary: str
+
+
+class HomeResponse(BaseModel):
+    hero: HeroSection
+    ecosystem: EcosystemSection
+    creators: CreatorsSection
+    audience: AudienceSection
+    gettingStarted: GettingStartedSection
+    founders: FoundersSection
