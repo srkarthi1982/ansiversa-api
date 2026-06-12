@@ -10,6 +10,7 @@ from app.modules.admin.routes import router as admin_router
 from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
+from app.modules.contact.routes import router as contact_router
 from app.modules.dashboard.routes import router as dashboard_router
 from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
@@ -55,6 +56,11 @@ def register_routes(app: FastAPI) -> None:
         faqs_router,
         prefix=f"{settings.API_V1_PREFIX}/faqs",
         tags=["FAQs"],
+    )
+    app.include_router(
+        contact_router,
+        prefix=f"{settings.API_V1_PREFIX}/contact",
+        tags=["Contact"],
     )
     app.include_router(
         admin_router,

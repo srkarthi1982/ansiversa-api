@@ -8,6 +8,7 @@ from app.core.database import ParentBase
 from app.modules.audit import models as audit_models  # noqa: F401
 from app.modules.auth import models  # noqa: F401
 from app.modules.apps import models as apps_models  # noqa: F401
+from app.modules.contact import models as contact_models  # noqa: F401
 from app.modules.dashboard import models as dashboard_models  # noqa: F401
 from app.modules.faqs import models as faqs_models  # noqa: F401
 from app.modules.favorites import models as favorites_models  # noqa: F401
