@@ -1,0 +1,115 @@
+{
+  "hero": {
+    "kicker": "Pricing",
+    "title": "One subscription. Unlimited apps.",
+    "description": "Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.",
+    "actions": [
+      {
+        "label": "Start for free",
+        "path": "/login",
+        "primary": true
+      },
+      {
+        "label": "Explore apps",
+        "path": "/apps",
+        "primary": false
+      }
+    ]
+  },
+  "plans": [
+    {
+      "name": "Free",
+      "description": "Explore Ansiversa with limited access to selected Apps and platform features.",
+      "price": "$0",
+      "suffix": "/ forever",
+      "features": [
+        "Access to a focused set of starter Apps.",
+        "Basic usage limits and standard support.",
+        "Upgrade later without losing your progress."
+      ],
+      "action": {
+        "label": "Continue with Free",
+        "path": "/login",
+        "primary": false
+      }
+    },
+    {
+      "name": "Individual - Monthly",
+      "description": "Full access with the flexibility of a simple month-to-month plan.",
+      "price": "$10",
+      "suffix": "/ month",
+      "features": [
+        "Full access to current individual Apps.",
+        "New individual Apps included while subscribed.",
+        "Priority access to newly launched experiences."
+      ],
+      "action": {
+        "label": "Choose Monthly",
+        "path": "/login",
+        "primary": true
+      }
+    },
+    {
+      "name": "Individual - Yearly",
+      "description": "Enjoy the full individual ecosystem for a year at the best value.",
+      "price": "$50",
+      "suffix": "/ year",
+      "features": [
+        "Everything included in the Monthly plan.",
+        "A lower effective cost for committed users.",
+        "One simple renewal for the full year."
+      ],
+      "action": {
+        "label": "Choose Yearly",
+        "path": "/login",
+        "primary": true
+      }
+    }
+  ],
+  "included": {
+    "kicker": "Included features",
+    "title": "One account for everything",
+    "description": "Paid individual plans are designed to provide one consistent experience across the current and future Ansiversa mini Apps.",
+    "features": [
+      "Unified access across the Ansiversa ecosystem.",
+      "Continuity across Apps and sessions.",
+      "New individual Apps added to the platform over time.",
+      "A calm, focused experience built from shared standards."
+    ]
+  },
+  "comparison": {
+    "kicker": "Compare plans",
+    "title": "Choose the plan that matches your rhythm",
+    "description": "Start free, then move to a simple paid plan when you need broader access.",
+    "columns": [
+      "Plan",
+      "Best for",
+      "Price",
+      "Apps included",
+      "Support"
+    ],
+    "rows": [
+      {
+        "plan": "Free",
+        "bestFor": "Exploring Ansiversa and trying selected Apps.",
+        "price": "$0 / forever",
+        "apps": "A limited set of starter mini Apps.",
+        "support": "Standard support."
+      },
+      {
+        "plan": "Individual",
+        "bestFor": "People who use Ansiversa regularly.",
+        "price": "$10 / month or $50 / year",
+        "apps": "Full access to current individual Apps.",
+        "support": "Priority support as the platform grows."
+      },
+      {
+        "plan": "Team",
+        "bestFor": "Teams that want a shared focused workspace.",
+        "price": "Coming soon",
+        "apps": "Individual Apps plus future collaboration features.",
+        "support": "Team onboarding and dedicated support in the future."
+      }
+    ]
+  }
+}
