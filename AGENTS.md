@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-12: Corrected parent Alembic online migrations to reuse the authenticated `parent_engine` for production Turso/libSQL connections.
 * 2026-06-12: Added the public Contact message workflow with validated typed request/response schemas, parent-owned `ContactMessages` table and migration, and `POST /api/v1/contact`; no email sending or admin UI was added.
 * 2026-06-12: Added `app/modules/content/data/pricing.json` with the Pricing metadata payload validated against `PricingResponse`; no automatic seeding or runtime loading behavior was added.
 * 2026-06-12: Added the typed Pricing content schema and `GET /api/v1/content/metadata/pricing` endpoint backed by the existing `Metadata` table and generic management routes.
