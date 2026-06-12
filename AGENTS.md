@@ -147,6 +147,36 @@ Examples:
 * Resume Builder frontend should generate from Resume Builder schema.
 * Parent web can generate from Parent/global schema.
 
+## Parent Content Metadata Standard
+
+Parent content pages are served through the `Metadata` table.
+
+The `Metadata` table uses a key/content JSON structure.
+
+Content routes expose typed endpoints:
+
+```text
+/api/v1/content/metadata/home
+/api/v1/content/metadata/about
+/api/v1/content/metadata/terms
+/api/v1/content/metadata/privacy
+```
+
+Use typed Pydantic response schemas such as:
+
+* `HomeResponse`
+* `AboutResponse`
+* `LegalResponse`
+
+The generic `/metadata` list and PUT/DELETE routes remain available for
+management and testing.
+
+Parent content must be stored and updated through the API. Do not require
+frontend applications to hardcode page content.
+
+The parent Alembic history includes a merge revision for the metadata and user
+settings branches. Preserve that merged migration history.
+
 ---
 
 ## Environment and Secrets
@@ -346,6 +376,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-12: Documented the parent content metadata architecture, typed content endpoints and responses, API-managed content rule, generic metadata management routes, and merged metadata/user-settings Alembic history.
 * 2026-06-07: Added and applied an isolated Quiz Alembic migration chain using `QUIZ_DATABASE_URL`, `QuizBase.metadata`, and `quiz_alembic_version`; migrated production Quiz DB to create `QuizAttempt` and `QuizAttemptQuestion` without touching parent Alembic or parent tables.
 * 2026-06-07: Consolidated parent and Quiz Turso/libSQL connections onto the shared `TURSO_AUTH_TOKEN` while preserving separate database URLs, engines, sessions, models, and migration boundaries.
 * 2026-06-07: Added the secure server-graded Quiz attempt lifecycle with current-user ownership, hierarchy validation, paid/admin difficult-level entitlement, safe pre-submit question responses, two-hour expiry, exact stored-question submission validation, compatible `Result` persistence, answer review after submit, and isolated idempotent setup for `QuizAttempt`/`QuizAttemptQuestion` outside parent Alembic.
