@@ -93,6 +93,17 @@ class MetadataCreateRequest(BaseModel):
     content: dict | None = None
 
 
+class LegalSection(BaseModel):
+    title: str
+    paragraphs: list[str]
+
+
+class LegalResponse(BaseModel):
+    title: str
+    description: str
+    sections: list[LegalSection]
+
+
 class MetadataResponse(BaseModel):
     key: str
     content: dict | None = None

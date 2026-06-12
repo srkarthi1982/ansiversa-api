@@ -9,6 +9,7 @@ from app.modules.auth.models import User
 from .schemas import (
     AboutResponse,
     HomeResponse,
+    LegalResponse,
     MetadataCreateRequest,
     MetadataResponse,
     MetadataListResponse,
@@ -54,6 +55,28 @@ def get_about_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> AboutR
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
 
     return AboutResponse(**m.content)
+
+@router.get("/metadata/terms", response_model=LegalResponse)
+def get_terms_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> LegalResponse:
+    m = _get_metadata(db, "terms")
+    if m is None:
+        from fastapi import HTTPException
+        from starlette import status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
+
+    return LegalResponse(**m.content)
+
+@router.get("/metadata/privacy", response_model=LegalResponse)
+def get_privacy_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> LegalResponse:
+    m = _get_metadata(db, "privacy")
+    if m is None:
+        from fastapi import HTTPException
+        from starlette import status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
+
+    return LegalResponse(**m.content)
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(

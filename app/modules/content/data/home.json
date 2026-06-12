@@ -1,0 +1,127 @@
+{
+  "hero": {
+    "kicker": "The meaning behind Ansiversa",
+    "title": "Advanced Next-Gen Software Innovation and Versatility",
+    "description": "Ansiversa is a calm, connected ecosystem where people use thoughtful tools and creators build useful mini Apps for real needs.",
+    "actions": [
+      {
+        "label": "Explore Apps",
+        "path": "/apps",
+        "primary": true
+      },
+      {
+        "label": "Pricing",
+        "path": "/pricing",
+        "primary": false
+      }
+    ]
+  },
+  "ecosystem": {
+    "kicker": "Ansiversa ecosystem",
+    "title": "Use Apps. Build Apps. Grow together.",
+    "description": "Ansiversa brings useful mini Apps into one consistent platform, helping users get things done while giving selected creators room to build and grow.",
+    "cards": [
+      {
+        "title": "A calm, curated experience",
+        "description": "Find focused tools without juggling noisy tabs, disconnected products, or inconsistent interfaces.",
+        "points": null
+      },
+      {
+        "title": "One core, many mini Apps",
+        "description": "Every mini App shares the Ansiversa shell, design language, and platform foundation.",
+        "points": null
+      },
+      {
+        "title": "A growing builder community",
+        "description": "Creators can contribute carefully reviewed experiences that strengthen the whole ecosystem.",
+        "points": null
+      }
+    ]
+  },
+  "creators": {
+    "kicker": "For creators and developers",
+    "title": "Build mini Apps that reach real users.",
+    "description": "Ansiversa gives selected creators a clear path from a useful idea to a trusted mini App inside one platform.",
+    "cards": [
+      {
+        "title": "From idea to live mini App",
+        "description": "Build with shared patterns, submit for review, and publish experiences that feel native to Ansiversa.",
+        "points": [
+          "Start with a focused user problem.",
+          "Build with the platform architecture.",
+          "Pass quality and experience review."
+        ]
+      },
+      {
+        "title": "What creators receive",
+        "description": "Gain a consistent foundation, curated visibility, and room to grow alongside the platform.",
+        "points": [
+          "Shared platform services and standards.",
+          "A trusted place to reach real users.",
+          "Support for long-term product quality."
+        ]
+      }
+    ]
+  },
+  "audience": {
+    "kicker": "Built for real people",
+    "title": "From students to professionals to creators.",
+    "description": "Ansiversa grows with people as they learn, work, organize ideas, and create useful experiences for others.",
+    "cards": [
+      {
+        "title": "Students and learners",
+        "description": "Use focused tools to learn smarter, stay organized, and prepare with less friction.",
+        "points": null
+      },
+      {
+        "title": "Professionals",
+        "description": "Bring clarity to everyday work with practical tools inside one consistent environment.",
+        "points": null
+      },
+      {
+        "title": "Creators and teams",
+        "description": "Shape ideas, test concepts, and build mini Apps that can grow with the ecosystem.",
+        "points": null
+      }
+    ]
+  },
+  "gettingStarted": {
+    "kicker": "How it works",
+    "title": "Simple to start. Powerful as you grow.",
+    "description": "Begin with the tools you need today and discover more of the platform over time.",
+    "steps": [
+      {
+        "title": "Create your account",
+        "description": "One account will unlock your Ansiversa experience across every mini App.",
+        "points": null
+      },
+      {
+        "title": "Use the Apps you need",
+        "description": "Explore the catalog and choose tools that match your current goals.",
+        "points": null
+      },
+      {
+        "title": "Grow with the ecosystem",
+        "description": "Discover new mini Apps and deeper platform capabilities as Ansiversa expands.",
+        "points": null
+      }
+    ]
+  },
+  "founders": {
+    "people": [
+      {
+        "name": "Karthikeyan Ramalingam",
+        "role": "Founder and Chief Architect of Ansiversa",
+        "description": "Leading the vision, quality, and future direction of the entire ecosystem, from architecture and UI to developer experience and product strategy.",
+        "image": "/images/founder.webp"
+      },
+      {
+        "name": "Astra - AI Partner",
+        "role": "AI co-creator of Ansiversa",
+        "description": "Helps review architecture, code, flows, and UI so that every mini App remains aligned to the platform standards and long-term vision.",
+        "image": "/images/astra.webp"
+      }
+    ],
+    "summary": "Ansiversa is founded by Karthikeyan Ramalingam and co-created with Astra, an AI partner powered by ChatGPT. Together with future developers, we are building a calm, curated ecosystem of mini Apps where everyone, users and creators, can grow."
+  }
+}
