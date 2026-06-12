@@ -180,3 +180,55 @@ class HomeResponse(BaseModel):
     audience: AudienceSection
     gettingStarted: GettingStartedSection
     founders: FoundersSection
+
+
+class PricingAction(BaseModel):
+    label: str
+    path: str
+    primary: bool
+
+
+class PricingHeroSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    actions: list[PricingAction]
+
+
+class PricingPlan(BaseModel):
+    name: str
+    description: str
+    price: str
+    suffix: str
+    features: list[str]
+    action: PricingAction
+
+
+class PricingIncludedSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    features: list[str]
+
+
+class PricingComparisonRow(BaseModel):
+    plan: str
+    bestFor: str
+    price: str
+    apps: str
+    support: str
+
+
+class PricingComparisonSection(BaseModel):
+    kicker: str
+    title: str
+    description: str
+    columns: list[str]
+    rows: list[PricingComparisonRow]
+
+
+class PricingResponse(BaseModel):
+    hero: PricingHeroSection
+    plans: list[PricingPlan]
+    included: PricingIncludedSection
+    comparison: PricingComparisonSection

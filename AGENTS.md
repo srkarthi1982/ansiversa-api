@@ -160,6 +160,7 @@ Content routes expose typed endpoints:
 /api/v1/content/metadata/about
 /api/v1/content/metadata/terms
 /api/v1/content/metadata/privacy
+/api/v1/content/metadata/pricing
 ```
 
 Use typed Pydantic response schemas such as:
@@ -167,6 +168,7 @@ Use typed Pydantic response schemas such as:
 * `HomeResponse`
 * `AboutResponse`
 * `LegalResponse`
+* `PricingResponse`
 
 The generic `/metadata` list and PUT/DELETE routes remain available for
 management and testing.
@@ -376,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-12: Added the typed Pricing content schema and `GET /api/v1/content/metadata/pricing` endpoint backed by the existing `Metadata` table and generic management routes.
 * 2026-06-12: Documented the parent content metadata architecture, typed content endpoints and responses, API-managed content rule, generic metadata management routes, and merged metadata/user-settings Alembic history.
 * 2026-06-07: Added and applied an isolated Quiz Alembic migration chain using `QUIZ_DATABASE_URL`, `QuizBase.metadata`, and `quiz_alembic_version`; migrated production Quiz DB to create `QuizAttempt` and `QuizAttemptQuestion` without touching parent Alembic or parent tables.
 * 2026-06-07: Consolidated parent and Quiz Turso/libSQL connections onto the shared `TURSO_AUTH_TOKEN` while preserving separate database URLs, engines, sessions, models, and migration boundaries.

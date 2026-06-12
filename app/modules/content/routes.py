@@ -13,6 +13,7 @@ from .schemas import (
     MetadataCreateRequest,
     MetadataResponse,
     MetadataListResponse,
+    PricingResponse,
     # RemoveMetadataResponse,
 )
 from .service import (
@@ -77,6 +78,17 @@ def get_privacy_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> Lega
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
 
     return LegalResponse(**m.content)
+
+@router.get("/metadata/pricing", response_model=PricingResponse)
+def get_pricing_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> PricingResponse:
+    m = _get_metadata(db, "pricing")
+    if m is None:
+        from fastapi import HTTPException
+        from starlette import status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
+
+    return PricingResponse(**m.content)
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(
