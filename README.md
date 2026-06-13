@@ -430,6 +430,27 @@ This phase is read-only and partially complete. Dashboard write APIs, activity
 webhooks, cross-app summary fetching, admin APIs, and billing APIs are
 intentionally deferred.
 
+## Content Metadata
+
+Typed mini-app overview content is stored in the existing parent `Metadata`
+table with keys in the form `overview:{app_slug}` and served through:
+
+```text
+GET /api/v1/content/metadata/overview/{app_slug}
+```
+
+Source overview JSON files live under
+`app/modules/content/data/overview`. Validate and recursively upsert all
+overview files into the configured parent database with:
+
+```bash
+python3 -m app.modules.content.scripts.sync_overview_metadata
+```
+
+The sync command validates every file against `OverviewResponse` before any
+database writes and fails clearly for invalid JSON, schema mismatches, or
+duplicate filename-derived metadata keys.
+
 ## Apps Catalog
 
 The apps catalog module provides public read endpoints for parent/global app

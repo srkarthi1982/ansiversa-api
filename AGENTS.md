@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added nine validated mini-app overview metadata seed files and a recursive sync command that upserts `overview:{app_slug}` records into the existing `Metadata` table.
 * 2026-06-13: Added `app/modules/content/data/overview/quiz.json` with the Quiz mini-app overview metadata payload copied from the React Quiz overview content and validated against `OverviewResponse`; no automatic seeding or runtime loading behavior was added.
 * 2026-06-13: Added the generic typed mini-app overview metadata response contract and public `GET /api/v1/content/metadata/overview/{app_key}` route backed by `overview:{app_key}` metadata keys; no migration, seed data, or frontend changes were added.
 * 2026-06-12: Corrected parent Alembic online migrations to reuse the authenticated `parent_engine` for production Turso/libSQL connections.

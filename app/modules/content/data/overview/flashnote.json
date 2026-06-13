@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "FlashNote",
+    "description": "Turn important notes into focused prompts for faster review and recall.",
+    "points": ["Compact study notes", "Recall-ready prompts", "Reusable review sets"],
+    "primaryAction": {"label": "Open FlashNote", "path": "/flashnote"}
+  },
+  "flow": {
+    "kicker": "Review flow",
+    "title": "Capture → Condense → Recall",
+    "steps": ["Capture the key idea", "Create a focused prompt", "Review for recall"]
+  },
+  "stats": [
+    {"label": "Notes", "value": "Focused"},
+    {"label": "Prompts", "value": "Reusable"},
+    {"label": "Review", "value": "Fast"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Notes designed for recall",
+    "description": "Keep the information that matters and make it easier to review.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Focused capture", "description": "Keep each note centered on one useful idea."},
+      {"kicker": "Pillar 02", "title": "Recall-ready structure", "description": "Turn information into prompts that support active review."},
+      {"kicker": "Pillar 03", "title": "Reusable sets", "description": "Organize related notes for repeated study."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Less rereading, more recall",
+    "description": "A compact workflow keeps review focused and repeatable.",
+    "items": [
+      {"title": "Capture the essential idea", "description": "Remove noise and preserve the useful point."},
+      {"title": "Build a prompt", "description": "Frame the note so it can be actively recalled."},
+      {"title": "Review repeatedly", "description": "Return to organized sets when reinforcement is needed."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses FlashNote",
+    "description": "Useful for anyone learning through active recall.",
+    "items": [
+      {"title": "Students", "description": "Condense lessons and prepare for revision."},
+      {"title": "Exam candidates", "description": "Build focused prompts around key facts and concepts."},
+      {"title": "Self learners", "description": "Maintain compact notes across independent study."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Recall building blocks",
+    "description": "Keep notes small, organized, and ready for review.",
+    "items": [
+      {"title": "Key ideas", "description": "Capture the essential information."},
+      {"title": "Recall prompts", "description": "Create questions that encourage active memory."},
+      {"title": "Study sets", "description": "Group related notes for repeated review."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Ways to organize notes",
+    "description": "Structure review material around familiar learning contexts.",
+    "groups": [
+      {"kicker": "Academic", "title": "Course review", "items": [
+        {"name": "Concepts", "description": "Summarize important ideas and definitions."},
+        {"name": "Facts", "description": "Keep details ready for quick recall."}
+      ]},
+      {"kicker": "Professional", "title": "Skill review", "items": [
+        {"name": "Processes", "description": "Remember steps and practical methods."},
+        {"name": "Terminology", "description": "Review specialist language and meaning."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable recall",
+    "description": "FlashNote follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Prompt and study-set-ready content structure.", "Designed to complement Quiz and other learning tools."]
+  },
+  "finalCta": {
+    "title": "Ready to create a focused note?",
+    "description": "Open FlashNote and turn one key idea into a recall prompt.",
+    "action": {"label": "Open FlashNote", "path": "/flashnote"}
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Productivity · Ansiversa mini app",
+    "title": "Time Zone Scheduler",
+    "description": "Find practical meeting times across locations without repeated time-zone calculations.",
+    "points": ["Multi-zone comparison", "Clear overlap windows", "Meeting-ready planning"],
+    "primaryAction": {"label": "Open Time Zone Scheduler", "path": "/time-zone-scheduler"}
+  },
+  "flow": {
+    "kicker": "Scheduling flow",
+    "title": "Add → Compare → Choose",
+    "steps": ["Add participant locations", "Compare local times", "Choose a practical window"]
+  },
+  "stats": [
+    {"label": "Comparison", "value": "Multi-zone"},
+    {"label": "Availability", "value": "Visible"},
+    {"label": "Planning", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A clearer way to schedule globally",
+    "description": "Make time-zone differences visible before a meeting is proposed.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Local-time clarity", "description": "See the same meeting window in each participant's time."},
+      {"kicker": "Pillar 02", "title": "Overlap awareness", "description": "Identify practical hours without manual conversion."},
+      {"kicker": "Pillar 03", "title": "Focused decisions", "description": "Compare options and choose a respectful time."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Global scheduling without guesswork",
+    "description": "A short comparison flow replaces repeated calculations.",
+    "items": [
+      {"title": "Add the locations", "description": "Start with the places that matter for the meeting."},
+      {"title": "Compare local hours", "description": "See how each option affects participants."},
+      {"title": "Choose confidently", "description": "Select a clear shared window."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Time Zone Scheduler",
+    "description": "Useful whenever people coordinate across locations.",
+    "items": [
+      {"title": "Remote teams", "description": "Plan recurring collaboration across regions."},
+      {"title": "Recruiters", "description": "Schedule interviews with global candidates."},
+      {"title": "Freelancers", "description": "Coordinate calls with international clients."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Scheduling essentials",
+    "description": "Keep the comparison focused on the information needed to decide.",
+    "items": [
+      {"title": "Locations", "description": "Represent each participant's local time."},
+      {"title": "Overlap windows", "description": "See practical shared working hours."},
+      {"title": "Meeting options", "description": "Compare candidate times before confirming."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Common scheduling contexts",
+    "description": "Use the same clear comparison across different meetings.",
+    "groups": [
+      {"kicker": "Work", "title": "Team coordination", "items": [
+        {"name": "Standups", "description": "Find a sustainable recurring window."},
+        {"name": "Project reviews", "description": "Coordinate important shared discussions."}
+      ]},
+      {"kicker": "External", "title": "Client and candidate calls", "items": [
+        {"name": "Interviews", "description": "Offer respectful options across regions."},
+        {"name": "Client meetings", "description": "Make proposed times easy to understand."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for clear coordination",
+    "description": "Time Zone Scheduler follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Location and overlap-ready scheduling structure.", "Responsive comparison presentation."]
+  },
+  "finalCta": {
+    "title": "Ready to find a better meeting time?",
+    "description": "Add the locations and compare practical options.",
+    "action": {"label": "Open Time Zone Scheduler", "path": "/time-zone-scheduler"}
+  }
+}

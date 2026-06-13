@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Study Planner",
+    "description": "Turn learning goals into a clear, manageable study plan.",
+    "points": ["Goal-based planning", "Focused study sessions", "Progress-ready structure"],
+    "primaryAction": {"label": "Open Study Planner", "path": "/study-planner"}
+  },
+  "flow": {
+    "kicker": "Planning flow",
+    "title": "Set → Schedule → Review",
+    "steps": ["Define the learning goal", "Plan focused sessions", "Review progress"]
+  },
+  "stats": [
+    {"label": "Goals", "value": "Focused"},
+    {"label": "Sessions", "value": "Planned"},
+    {"label": "Progress", "value": "Visible"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Study plans that stay practical",
+    "description": "Break large learning goals into clear sessions that are easier to complete.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Goal-first planning", "description": "Keep each study activity connected to a clear outcome."},
+      {"kicker": "Pillar 02", "title": "Manageable sessions", "description": "Turn broad subjects into focused blocks of work."},
+      {"kicker": "Pillar 03", "title": "Simple review", "description": "See what is planned, completed, and still ahead."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calmer path through the syllabus",
+    "description": "The planner keeps attention on the next useful study action.",
+    "items": [
+      {"title": "Define the outcome", "description": "Start with what you want to understand or complete."},
+      {"title": "Plan realistic sessions", "description": "Create focused blocks that fit available time."},
+      {"title": "Review and adjust", "description": "Keep the plan useful as priorities change."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Study Planner",
+    "description": "Useful for structured learning at any stage.",
+    "items": [
+      {"title": "Students", "description": "Organize coursework, revision, and exam preparation."},
+      {"title": "Self learners", "description": "Maintain momentum across independent learning goals."},
+      {"title": "Professionals", "description": "Plan certification and skill-development study."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Planning building blocks",
+    "description": "Keep goals, sessions, and review points connected.",
+    "items": [
+      {"title": "Learning goals", "description": "Define the outcome behind the plan."},
+      {"title": "Study sessions", "description": "Break work into practical focused blocks."},
+      {"title": "Progress review", "description": "Check completion and adjust the next steps."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Ways to structure study",
+    "description": "Use familiar planning groups for different learning needs.",
+    "groups": [
+      {"kicker": "Plan", "title": "Learning schedule", "items": [
+        {"name": "Topics", "description": "Organize the material to cover."},
+        {"name": "Sessions", "description": "Set practical blocks for focused work."}
+      ]},
+      {"kicker": "Review", "title": "Progress checks", "items": [
+        {"name": "Completion", "description": "Track which planned work is finished."},
+        {"name": "Next steps", "description": "Keep the next priority clear."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable learning plans",
+    "description": "Study Planner follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Goal and session-ready planning structure.", "Responsive presentation for focused review."]
+  },
+  "finalCta": {
+    "title": "Ready to make the study plan?",
+    "description": "Start with one learning goal and build the next useful sessions.",
+    "action": {"label": "Open Study Planner", "path": "/study-planner"}
+  }
+}

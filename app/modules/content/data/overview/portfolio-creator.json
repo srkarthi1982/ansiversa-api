@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Portfolio Creator",
+    "description": "Turn projects, skills, and experience into a polished professional portfolio.",
+    "points": ["Reusable project sections", "Clear professional story", "Share-ready presentation"],
+    "primaryAction": {"label": "Open Portfolio Creator", "path": "/portfolio-creator"}
+  },
+  "flow": {
+    "kicker": "Portfolio flow",
+    "title": "Collect → Organize → Present",
+    "steps": ["Add your profile", "Document projects and skills", "Review the portfolio"]
+  },
+  "stats": [
+    {"label": "Sections", "value": "Reusable"},
+    {"label": "Projects", "value": "Organized"},
+    {"label": "Presentation", "value": "Clean"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A portfolio built around your work",
+    "description": "Keep the focus on evidence, outcomes, and a clear professional narrative.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Project-first storytelling", "description": "Explain what you built, why it mattered, and what changed."},
+      {"kicker": "Pillar 02", "title": "Reusable sections", "description": "Maintain skills, experience, and profile details consistently."},
+      {"kicker": "Pillar 03", "title": "Clean presentation", "description": "Showcase work without distracting visual clutter."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Focused professional storytelling",
+    "description": "A guided structure helps turn scattered work into a coherent portfolio.",
+    "items": [
+      {"title": "Start with your profile", "description": "Set a clear introduction and professional focus."},
+      {"title": "Add meaningful projects", "description": "Capture context, contribution, and outcomes."},
+      {"title": "Review the full story", "description": "Make sure every section supports your goals."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Portfolio Creator",
+    "description": "Useful for anyone who needs to show work clearly.",
+    "items": [
+      {"title": "Students", "description": "Present coursework, projects, and growing skills."},
+      {"title": "Professionals", "description": "Showcase career achievements and specialist experience."},
+      {"title": "Freelancers", "description": "Build a clear body of work for potential clients."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Portfolio building blocks",
+    "description": "Bring the most useful parts of your professional story together.",
+    "items": [
+      {"title": "Project case studies", "description": "Explain challenges, actions, and results."},
+      {"title": "Skills and tools", "description": "Make capabilities easy to understand."},
+      {"title": "Experience highlights", "description": "Connect past roles to the work you want next."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Ways to organize your work",
+    "description": "Choose sections that best support your professional story.",
+    "groups": [
+      {"kicker": "Proof", "title": "Work samples", "items": [
+        {"name": "Projects", "description": "Show completed work and outcomes."},
+        {"name": "Case studies", "description": "Explain process and decisions in depth."}
+      ]},
+      {"kicker": "Context", "title": "Professional profile", "items": [
+        {"name": "Experience", "description": "Summarize relevant roles and responsibilities."},
+        {"name": "Skills", "description": "Highlight tools, methods, and strengths."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable presentation",
+    "description": "Portfolio Creator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Section-oriented portfolio structure.", "Responsive presentation for clear review."]
+  },
+  "finalCta": {
+    "title": "Ready to present your work?",
+    "description": "Open Portfolio Creator and start with your strongest project.",
+    "action": {"label": "Open Portfolio Creator", "path": "/portfolio-creator"}
+  }
+}
