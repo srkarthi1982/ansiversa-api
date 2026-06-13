@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Shopping List AI",
+    "description": "Auto-build shopping lists through a focused list-creation workflow.",
+    "points": ["Automatic list building", "Shopping lists", "Focused review"],
+    "primaryAction": {"label": "Explore Shopping List AI", "path": "/shopping-list-ai"}
+  },
+  "flow": {
+    "kicker": "List flow",
+    "title": "Start → Build → Review",
+    "steps": ["Start the shopping-list flow", "Auto-build the shopping list", "Review the result"]
+  },
+  "stats": [
+    {"label": "Output", "value": "Shopping list"},
+    {"label": "Process", "value": "Automatic"},
+    {"label": "Focus", "value": "Review"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make shopping-list creation more direct",
+    "description": "Shopping List AI focuses on automatically building shopping lists.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Focused start", "description": "Begin a direct shopping-list creation flow."},
+      {"kicker": "Pillar 02", "title": "Automatic list building", "description": "Auto-build the shopping list."},
+      {"kicker": "Pillar 03", "title": "List review", "description": "Review the completed shopping list."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path to a shopping list",
+    "description": "The workflow keeps automatic list building and review connected.",
+    "items": [
+      {"title": "Start the list", "description": "Begin the shopping-list flow."},
+      {"title": "Build automatically", "description": "Create the shopping list."},
+      {"title": "Review the result", "description": "Review the completed list."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Shopping List AI",
+    "description": "Useful for people who want shopping lists built automatically.",
+    "items": [
+      {"title": "Households", "description": "Auto-build shopping lists for household needs."},
+      {"title": "Busy shoppers", "description": "Create a shopping list through a direct flow."},
+      {"title": "Everyday users", "description": "Build and review a shopping list."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Shopping-list essentials",
+    "description": "Keep automatic list building and final review connected.",
+    "items": [
+      {"title": "Focused start", "description": "Begin the list-creation flow."},
+      {"title": "Automatic list", "description": "Build the shopping list."},
+      {"title": "List review", "description": "Review the completed result."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Auto-build a shopping list",
+    "description": "Use a direct list-creation workflow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Begin the shopping list", "items": [
+        {"name": "Start", "description": "Begin the list-building flow."},
+        {"name": "Shopping", "description": "Keep the result focused on a shopping list."}
+      ]},
+      {"kicker": "Build", "title": "Create and review", "items": [
+        {"name": "List", "description": "Auto-build the shopping list."},
+        {"name": "Review", "description": "Review the completed result."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for automatic shopping-list creation",
+    "description": "Shopping List AI follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Automatic shopping-list-building-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore automatic shopping lists",
+    "description": "Visit Shopping List AI to review its planned list-building experience.",
+    "action": {"label": "Explore Shopping List AI", "path": "/shopping-list-ai"}
+  }
+}

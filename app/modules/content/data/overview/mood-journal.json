@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Mood Journal",
+    "description": "Record moods with insights through a focused reflection workflow.",
+    "points": ["Mood recording", "Personal insights", "Focused reflection"],
+    "primaryAction": {"label": "Explore Mood Journal", "path": "/mood-journal"}
+  },
+  "flow": {
+    "kicker": "Reflection flow",
+    "title": "Record → Review → Reflect",
+    "steps": ["Record the current mood", "Review mood insights", "Reflect on the result"]
+  },
+  "stats": [
+    {"label": "Entry", "value": "Mood"},
+    {"label": "Review", "value": "Insights"},
+    {"label": "Focus", "value": "Reflection"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep mood records and insights connected",
+    "description": "Mood Journal focuses on recording moods and reviewing the insights they provide.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Mood recording", "description": "Record the current mood."},
+      {"kicker": "Pillar 02", "title": "Personal insights", "description": "Review insights connected to recorded moods."},
+      {"kicker": "Pillar 03", "title": "Focused reflection", "description": "Reflect on the mood record and its insights."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A simple mood-reflection routine",
+    "description": "The workflow keeps mood recording and insight review connected.",
+    "items": [
+      {"title": "Record the mood", "description": "Add the current mood to the journal."},
+      {"title": "Review insights", "description": "Review insights from the mood record."},
+      {"title": "Reflect on the result", "description": "Use the record for focused reflection."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Mood Journal",
+    "description": "Useful for people who want to record moods and review personal insights.",
+    "items": [
+      {"title": "Reflective users", "description": "Record moods as part of personal reflection."},
+      {"title": "Routine builders", "description": "Make mood recording part of a regular routine."},
+      {"title": "Everyday users", "description": "Keep moods and insights connected."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Mood-journaling essentials",
+    "description": "Keep mood records, insights, and reflection connected.",
+    "items": [
+      {"title": "Mood record", "description": "Record the current mood."},
+      {"title": "Insights", "description": "Review insights from the record."},
+      {"title": "Reflection", "description": "Reflect on the mood and insights."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Record moods with insights",
+    "description": "Use a direct mood-reflection workflow.",
+    "groups": [
+      {"kicker": "Record", "title": "Capture the mood", "items": [
+        {"name": "Mood", "description": "Record the current mood."},
+        {"name": "Journal", "description": "Keep the mood entry available for review."}
+      ]},
+      {"kicker": "Reflect", "title": "Review the insight", "items": [
+        {"name": "Insights", "description": "Review insights connected to the mood."},
+        {"name": "Reflection", "description": "Reflect on the recorded result."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for mood recording and insights",
+    "description": "Mood Journal follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Mood-recording and insight-review-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore focused mood journaling",
+    "description": "Visit Mood Journal to review its planned mood and insight experience.",
+    "action": {"label": "Explore Mood Journal", "path": "/mood-journal"}
+  }
+}

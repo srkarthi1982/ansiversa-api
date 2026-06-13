@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Affirmation Generator",
+    "description": "Receive daily affirmations through a focused reflection experience.",
+    "points": ["Daily affirmations", "Focused reflection", "Positive routine"],
+    "primaryAction": {"label": "Explore Affirmation Generator", "path": "/affirmation-generator"}
+  },
+  "flow": {
+    "kicker": "Affirmation flow",
+    "title": "Receive → Read → Reflect",
+    "steps": ["Receive a daily affirmation", "Read the affirmation", "Reflect on the message"]
+  },
+  "stats": [
+    {"label": "Content", "value": "Affirmation"},
+    {"label": "Cadence", "value": "Daily"},
+    {"label": "Focus", "value": "Reflection"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make daily affirmations easy to receive",
+    "description": "Affirmation Generator focuses on providing affirmations for daily reflection.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Daily affirmation", "description": "Receive an affirmation for the day."},
+      {"kicker": "Pillar 02", "title": "Clear message", "description": "Read the affirmation without unnecessary steps."},
+      {"kicker": "Pillar 03", "title": "Focused reflection", "description": "Reflect on the affirmation's message."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A simple daily affirmation moment",
+    "description": "The experience keeps the affirmation and personal reflection connected.",
+    "items": [
+      {"title": "Receive the affirmation", "description": "Begin with the daily message."},
+      {"title": "Read the message", "description": "Take in the affirmation."},
+      {"title": "Reflect on it", "description": "Use the message for focused reflection."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Affirmation Generator",
+    "description": "Useful for people who want to receive daily affirmations.",
+    "items": [
+      {"title": "Routine builders", "description": "Add an affirmation to a daily routine."},
+      {"title": "Reflective users", "description": "Use affirmations for focused reflection."},
+      {"title": "Everyday users", "description": "Receive a clear daily affirmation."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Daily-affirmation essentials",
+    "description": "Keep the daily message, reading, and reflection connected.",
+    "items": [
+      {"title": "Daily affirmation", "description": "Receive the message for the day."},
+      {"title": "Clear reading", "description": "Read the affirmation."},
+      {"title": "Reflection", "description": "Reflect on the message."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Receive a daily affirmation",
+    "description": "Use a direct affirmation-and-reflection flow.",
+    "groups": [
+      {"kicker": "Receive", "title": "Read the daily message", "items": [
+        {"name": "Affirmation", "description": "Receive the daily message."},
+        {"name": "Reading", "description": "Read the affirmation clearly."}
+      ]},
+      {"kicker": "Reflect", "title": "Consider the message", "items": [
+        {"name": "Message", "description": "Focus on the affirmation."},
+        {"name": "Reflection", "description": "Reflect on what it means."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for daily affirmations",
+    "description": "Affirmation Generator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Daily-affirmation and reflection-ready experience.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore daily affirmations",
+    "description": "Visit Affirmation Generator to review its planned daily experience.",
+    "action": {"label": "Explore Affirmation Generator", "path": "/affirmation-generator"}
+  }
+}
