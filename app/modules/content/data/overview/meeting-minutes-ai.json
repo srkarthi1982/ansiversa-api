@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Productivity · Ansiversa mini app",
+    "title": "Meeting Minutes AI",
+    "description": "Turn meeting notes into clear summaries, decisions, and actionable next steps.",
+    "points": ["Structured summaries", "Decision capture", "Action-item clarity"],
+    "primaryAction": {"label": "Open Meeting Minutes AI", "path": "/meeting-minutes-ai"}
+  },
+  "flow": {
+    "kicker": "Meeting flow",
+    "title": "Capture → Organize → Act",
+    "steps": ["Add meeting notes", "Review the structured summary", "Confirm actions and owners"]
+  },
+  "stats": [
+    {"label": "Notes", "value": "Structured"},
+    {"label": "Decisions", "value": "Visible"},
+    {"label": "Actions", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move from discussion to action",
+    "description": "Keep the useful outcomes of a meeting easy to understand and follow.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Focused summaries", "description": "Reduce long notes into the important discussion points."},
+      {"kicker": "Pillar 02", "title": "Decision records", "description": "Keep agreed decisions clear after the meeting ends."},
+      {"kicker": "Pillar 03", "title": "Action ownership", "description": "Identify next steps and the people responsible for them."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A cleaner handoff after every meeting",
+    "description": "The workflow helps teams leave discussions with shared clarity.",
+    "items": [
+      {"title": "Capture the discussion", "description": "Bring meeting notes into one place."},
+      {"title": "Review the outcomes", "description": "Separate key points, decisions, and actions."},
+      {"title": "Share next steps", "description": "Keep follow-up work clear for everyone involved."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Meeting Minutes AI",
+    "description": "Useful for teams that need reliable meeting follow-through.",
+    "items": [
+      {"title": "Project teams", "description": "Track decisions and next steps across active work."},
+      {"title": "Managers", "description": "Keep responsibilities and follow-up visible."},
+      {"title": "Client teams", "description": "Prepare clear records of discussions and commitments."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Meeting records that stay useful",
+    "description": "Keep outcomes organized for later review and follow-up.",
+    "items": [
+      {"title": "Meeting summaries", "description": "Maintain a concise record of the discussion."},
+      {"title": "Decision logs", "description": "Preserve important agreements and context."},
+      {"title": "Action lists", "description": "Track next steps, owners, and follow-up."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Organize meeting outcomes",
+    "description": "Separate information by what the team needs next.",
+    "groups": [
+      {"kicker": "Record", "title": "Meeting context", "items": [
+        {"name": "Key points", "description": "Capture the important parts of the discussion."},
+        {"name": "Decisions", "description": "Record agreements made during the meeting."}
+      ]},
+      {"kicker": "Follow up", "title": "Next actions", "items": [
+        {"name": "Tasks", "description": "List the work that needs to happen next."},
+        {"name": "Owners", "description": "Keep responsibility for each action clear."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable meeting records",
+    "description": "Meeting Minutes AI follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Summary, decision, and action-ready structure.", "Responsive presentation for team review."]
+  },
+  "finalCta": {
+    "title": "Ready to turn notes into next steps?",
+    "description": "Open Meeting Minutes AI and organize the outcomes of your next meeting.",
+    "action": {"label": "Open Meeting Minutes AI", "path": "/meeting-minutes-ai"}
+  }
+}

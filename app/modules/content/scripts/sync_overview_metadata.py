@@ -16,6 +16,7 @@ from app.modules.content.service import upsert_metadata
 
 
 OVERVIEW_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "overview"
+REFERENCE_FILENAMES = {"apps.json"}
 
 
 def load_overview(path: Path) -> dict:
@@ -36,7 +37,11 @@ def load_overview(path: Path) -> dict:
 
 
 def sync_overview_metadata() -> int:
-    paths = sorted(OVERVIEW_DATA_DIR.rglob("*.json"))
+    paths = sorted(
+        path
+        for path in OVERVIEW_DATA_DIR.rglob("*.json")
+        if path.name not in REFERENCE_FILENAMES
+    )
     if not paths:
         raise ValueError(f"No overview JSON files found under {OVERVIEW_DATA_DIR}.")
 
