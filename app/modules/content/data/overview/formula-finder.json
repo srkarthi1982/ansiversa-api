@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Formula Finder",
+    "description": "Search for formulas and review explanations that clarify how they are used.",
+    "points": ["Formula search", "Clear explanations", "Focused reference"],
+    "primaryAction": {"label": "Open Formula Finder", "path": "/formula-finder"}
+  },
+  "flow": {
+    "kicker": "Reference flow",
+    "title": "Search → Review → Apply",
+    "steps": ["Search for a formula", "Review its explanation", "Apply it to your work"]
+  },
+  "stats": [
+    {"label": "Search", "value": "Focused"},
+    {"label": "Formulas", "value": "Clear"},
+    {"label": "Explanations", "value": "Useful"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Find the formula and understand its purpose",
+    "description": "Formula Finder combines formula lookup with explanations so the result is useful beyond memorization.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Direct search", "description": "Look for the formula needed for the task at hand."},
+      {"kicker": "Pillar 02", "title": "Readable notation", "description": "Review the formula in a clear reference format."},
+      {"kicker": "Pillar 03", "title": "Helpful explanation", "description": "Understand what the formula represents and how to approach it."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A practical formula reference",
+    "description": "The workflow keeps formula lookup and understanding connected.",
+    "items": [
+      {"title": "Search by need", "description": "Start with the formula or idea you are trying to find."},
+      {"title": "Review the formula", "description": "See the relevant notation in a focused view."},
+      {"title": "Understand the context", "description": "Read the explanation before applying it."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Formula Finder",
+    "description": "Useful for learners and professionals who need a clear formula reference.",
+    "items": [
+      {"title": "Students", "description": "Find formulas while studying and solving problems."},
+      {"title": "Educators", "description": "Reference formulas and explanations during instruction."},
+      {"title": "Professionals", "description": "Refresh formula knowledge while working through calculations."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Formula reference essentials",
+    "description": "Keep the formula and its explanation together.",
+    "items": [
+      {"title": "Formula lookup", "description": "Search for the expression you need."},
+      {"title": "Notation review", "description": "Read the formula in a clear format."},
+      {"title": "Explanation", "description": "Understand the formula's purpose before using it."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Move from search to application",
+    "description": "Use a focused reference flow when working with formulas.",
+    "groups": [
+      {"kicker": "Find", "title": "Locate the formula", "items": [
+        {"name": "Search", "description": "Enter the formula name or related idea."},
+        {"name": "Result", "description": "Review the matching formula."}
+      ]},
+      {"kicker": "Understand", "title": "Review the context", "items": [
+        {"name": "Explanation", "description": "Read what the formula represents."},
+        {"name": "Application", "description": "Use the explanation to guide your work."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for focused formula reference",
+    "description": "Formula Finder follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Formula and explanation-ready search flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready to find a formula?",
+    "description": "Open Formula Finder and search for the formula you need.",
+    "action": {"label": "Open Formula Finder", "path": "/formula-finder"}
+  }
+}
