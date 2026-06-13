@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Memory Trainer",
+    "description": "Improve memory through adaptive games that respond to practice.",
+    "points": ["Memory practice", "Adaptive games", "Focused challenges"],
+    "primaryAction": {"label": "Explore Memory Trainer", "path": "/memory-trainer"}
+  },
+  "flow": {
+    "kicker": "Practice flow",
+    "title": "Play → Adapt → Improve",
+    "steps": ["Start a memory game", "Complete the challenge", "Continue with adaptive practice"]
+  },
+  "stats": [
+    {"label": "Practice", "value": "Memory"},
+    {"label": "Games", "value": "Adaptive"},
+    {"label": "Challenges", "value": "Focused"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make memory practice active",
+    "description": "Memory Trainer uses adaptive games to keep memory challenges connected to ongoing practice.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Memory games", "description": "Practice memory through interactive challenges."},
+      {"kicker": "Pillar 02", "title": "Adaptive experience", "description": "Continue with games that respond to practice."},
+      {"kicker": "Pillar 03", "title": "Focused repetition", "description": "Keep attention on strengthening memory skills."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Active practice through short challenges",
+    "description": "The experience keeps memory training centered on playing and adapting.",
+    "items": [
+      {"title": "Start a game", "description": "Begin a focused memory challenge."},
+      {"title": "Complete the task", "description": "Use recall and attention during play."},
+      {"title": "Continue practicing", "description": "Move into another adaptive challenge."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Memory Trainer",
+    "description": "Useful for people who want game-based memory practice.",
+    "items": [
+      {"title": "Students", "description": "Practice recall and attention through games."},
+      {"title": "Curious learners", "description": "Use interactive challenges for memory practice."},
+      {"title": "Everyday users", "description": "Add focused memory games to a routine."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Memory-practice essentials",
+    "description": "Keep games, challenges, and adaptive practice connected.",
+    "items": [
+      {"title": "Memory games", "description": "Practice through interactive activities."},
+      {"title": "Focused challenges", "description": "Work on recall and attention."},
+      {"title": "Adaptive practice", "description": "Continue with challenges that respond to play."}
+    ]
+  },
+  "groupedSection": {
+    "title": "A game-based memory routine",
+    "description": "Move from challenge to continued adaptive practice.",
+    "groups": [
+      {"kicker": "Play", "title": "Complete the challenge", "items": [
+        {"name": "Game", "description": "Start an interactive memory activity."},
+        {"name": "Recall", "description": "Use memory to complete the task."}
+      ]},
+      {"kicker": "Adapt", "title": "Continue practicing", "items": [
+        {"name": "Response", "description": "Let practice shape the next challenge."},
+        {"name": "Repeat", "description": "Continue through memory games."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for adaptive memory games",
+    "description": "Memory Trainer follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Adaptive memory-game-ready experience structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore game-based memory practice",
+    "description": "Visit Memory Trainer to review its planned adaptive game experience.",
+    "action": {"label": "Explore Memory Trainer", "path": "/memory-trainer"}
+  }
+}

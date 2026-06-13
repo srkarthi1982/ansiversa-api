@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Visiting Card Maker",
+    "description": "Design stylish business cards that present professional contact details clearly.",
+    "points": ["Business card design", "Professional details", "Stylish presentation"],
+    "primaryAction": {"label": "Explore Visiting Card Maker", "path": "/visiting-card-maker"}
+  },
+  "flow": {
+    "kicker": "Design flow",
+    "title": "Add → Design → Review",
+    "steps": ["Add professional details", "Design the business card", "Review the final card"]
+  },
+  "stats": [
+    {"label": "Format", "value": "Business card"},
+    {"label": "Design", "value": "Stylish"},
+    {"label": "Details", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Present professional details with clarity",
+    "description": "Visiting Card Maker focuses on combining contact information with a stylish business-card design.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Professional details", "description": "Keep essential contact information clear."},
+      {"kicker": "Pillar 02", "title": "Stylish design", "description": "Shape the business card with a polished visual presentation."},
+      {"kicker": "Pillar 03", "title": "Final review", "description": "Check the card before using the design."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused path to a polished business card",
+    "description": "The workflow keeps professional details and visual presentation connected.",
+    "items": [
+      {"title": "Add the details", "description": "Provide the professional contact information."},
+      {"title": "Shape the design", "description": "Create a stylish business-card presentation."},
+      {"title": "Review the card", "description": "Check the final result for clarity."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Visiting Card Maker",
+    "description": "Useful for people who need a professional business card.",
+    "items": [
+      {"title": "Professionals", "description": "Present contact information in a polished card."},
+      {"title": "Freelancers", "description": "Create a card for clients and networking."},
+      {"title": "Small businesses", "description": "Prepare business cards for professional interactions."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Business-card design essentials",
+    "description": "Keep professional details and card design connected.",
+    "items": [
+      {"title": "Contact details", "description": "Add the information the card should present."},
+      {"title": "Card design", "description": "Create a stylish visual arrangement."},
+      {"title": "Final review", "description": "Check the complete business card."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a professional business card",
+    "description": "Balance useful details with a stylish presentation.",
+    "groups": [
+      {"kicker": "Content", "title": "Add professional details", "items": [
+        {"name": "Identity", "description": "Present the person or business clearly."},
+        {"name": "Contact", "description": "Include useful contact information."}
+      ]},
+      {"kicker": "Design", "title": "Shape the card", "items": [
+        {"name": "Style", "description": "Create a polished visual presentation."},
+        {"name": "Review", "description": "Check the final card for clarity."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for stylish business cards",
+    "description": "Visiting Card Maker follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Professional-detail and card-design-ready structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore professional card design",
+    "description": "Visit Visiting Card Maker to review its planned business-card experience.",
+    "action": {"label": "Explore Visiting Card Maker", "path": "/visiting-card-maker"}
+  }
+}
