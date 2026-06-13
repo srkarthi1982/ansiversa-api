@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Study Timer",
+    "description": "Focus study sessions using Pomodoro-style timers.",
+    "points": ["Pomodoro-style timing", "Focused study sessions", "Structured breaks"],
+    "primaryAction": {"label": "Explore Study Timer", "path": "/study-timer"}
+  },
+  "flow": {
+    "kicker": "Focus flow",
+    "title": "Set → Focus → Break",
+    "steps": ["Set the study timer", "Complete the focus session", "Take the planned break"]
+  },
+  "stats": [
+    {"label": "Method", "value": "Pomodoro-style"},
+    {"label": "Sessions", "value": "Focused"},
+    {"label": "Breaks", "value": "Structured"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Give study time a clear rhythm",
+    "description": "Study Timer uses Pomodoro-style sessions to separate focused work from planned breaks.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Timed focus", "description": "Study within a defined focus session."},
+      {"kicker": "Pillar 02", "title": "Planned breaks", "description": "Separate focused work with clear break periods."},
+      {"kicker": "Pillar 03", "title": "Repeatable rhythm", "description": "Continue the focus-and-break cycle as needed."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A manageable structure for focused study",
+    "description": "The timer keeps attention on the current session and its planned break.",
+    "items": [
+      {"title": "Set the timer", "description": "Choose the focus session to begin."},
+      {"title": "Study with focus", "description": "Work on the current task until the session ends."},
+      {"title": "Take the break", "description": "Pause before beginning another focus session."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Study Timer",
+    "description": "Useful for learners who want structured focus sessions.",
+    "items": [
+      {"title": "Students", "description": "Structure revision and coursework sessions."},
+      {"title": "Self learners", "description": "Maintain focus during independent study."},
+      {"title": "Professionals", "description": "Use timed sessions for skill development."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Focus-session essentials",
+    "description": "Keep timed study and planned breaks connected.",
+    "items": [
+      {"title": "Focus timer", "description": "Define the current study session."},
+      {"title": "Study block", "description": "Work on one learning task during the timer."},
+      {"title": "Break period", "description": "Pause between focus sessions."}
+    ]
+  },
+  "groupedSection": {
+    "title": "A Pomodoro-style study cycle",
+    "description": "Alternate focused study with planned breaks.",
+    "groups": [
+      {"kicker": "Focus", "title": "Complete the study block", "items": [
+        {"name": "Timer", "description": "Set the focus-session duration."},
+        {"name": "Task", "description": "Study one clear priority."}
+      ]},
+      {"kicker": "Pause", "title": "Take the planned break", "items": [
+        {"name": "Break", "description": "Pause after the focus session."},
+        {"name": "Repeat", "description": "Begin another cycle when ready."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for Pomodoro-style study",
+    "description": "Study Timer follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Focus-session and break-ready timer structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore structured study sessions",
+    "description": "Visit Study Timer to review its planned Pomodoro-style experience.",
+    "action": {"label": "Explore Study Timer", "path": "/study-timer"}
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Exam Simulator",
+    "description": "Create timed mock exams with scoring for focused practice.",
+    "points": ["Mock exam creation", "Timed practice", "Exam scoring"],
+    "primaryAction": {"label": "Explore Exam Simulator", "path": "/exam"}
+  },
+  "flow": {
+    "kicker": "Exam flow",
+    "title": "Create → Attempt → Score",
+    "steps": ["Create a mock exam", "Complete the timed attempt", "Review the score"]
+  },
+  "stats": [
+    {"label": "Format", "value": "Mock exam"},
+    {"label": "Attempts", "value": "Timed"},
+    {"label": "Results", "value": "Scored"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Practice under exam-like conditions",
+    "description": "Exam Simulator combines mock exam creation, timed attempts, and scoring in one focused workflow.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Mock exam creation", "description": "Prepare a practice exam for the intended topic."},
+      {"kicker": "Pillar 02", "title": "Timed attempts", "description": "Complete the mock exam within a defined time."},
+      {"kicker": "Pillar 03", "title": "Clear scoring", "description": "Review the score after completing the attempt."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Focused preparation before the real exam",
+    "description": "The workflow supports structured practice with time and scoring.",
+    "items": [
+      {"title": "Prepare the exam", "description": "Create a mock exam for practice."},
+      {"title": "Complete the attempt", "description": "Work through the questions within the time."},
+      {"title": "Review the score", "description": "See the result after finishing."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Exam Simulator",
+    "description": "Useful for people creating or completing timed mock exams.",
+    "items": [
+      {"title": "Students", "description": "Practice before assessments under timed conditions."},
+      {"title": "Educators", "description": "Create mock exams for learner preparation."},
+      {"title": "Self learners", "description": "Test knowledge with structured scored attempts."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Mock exam essentials",
+    "description": "Keep exam creation, timed attempts, and scores connected.",
+    "items": [
+      {"title": "Mock exam", "description": "Create a structured practice assessment."},
+      {"title": "Timed attempt", "description": "Complete the exam within its time."},
+      {"title": "Score", "description": "Review the result after submission."}
+    ]
+  },
+  "groupedSection": {
+    "title": "A complete mock exam flow",
+    "description": "Move from exam preparation to scored practice.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Create the exam", "items": [
+        {"name": "Questions", "description": "Build the mock exam content."},
+        {"name": "Time", "description": "Set the timed practice condition."}
+      ]},
+      {"kicker": "Attempt", "title": "Complete and review", "items": [
+        {"name": "Exam", "description": "Work through the timed questions."},
+        {"name": "Score", "description": "Review the result after completion."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for timed mock exams",
+    "description": "Exam Simulator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Mock exam, timer, and scoring-ready structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore focused exam practice",
+    "description": "Visit Exam Simulator to review its planned mock exam experience.",
+    "action": {"label": "Explore Exam Simulator", "path": "/exam"}
+  }
+}
