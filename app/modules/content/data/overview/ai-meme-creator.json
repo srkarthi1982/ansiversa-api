@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Writing · Ansiversa mini app",
+    "title": "AI Meme Creator",
+    "description": "Generate memes instantly with AI from a clear idea or joke direction.",
+    "points": ["AI meme generation", "Instant creation", "Idea-based direction"],
+    "primaryAction": {"label": "Explore AI Meme Creator", "path": "/ai-meme-creator"}
+  },
+  "flow": {
+    "kicker": "Creation flow",
+    "title": "Describe → Generate → Review",
+    "steps": ["Describe the meme idea", "Generate the meme with AI", "Review the result"]
+  },
+  "stats": [
+    {"label": "Output", "value": "Meme"},
+    {"label": "Generation", "value": "AI"},
+    {"label": "Speed", "value": "Instant"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Turn an idea into a meme quickly",
+    "description": "AI Meme Creator focuses on generating memes instantly from a clear direction.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Meme idea", "description": "Begin with the joke or direction the meme should express."},
+      {"kicker": "Pillar 02", "title": "AI generation", "description": "Create the meme from the provided idea."},
+      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the generated meme as a complete result."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A quick path from idea to meme",
+    "description": "The workflow keeps the initial direction and generated result connected.",
+    "items": [
+      {"title": "Describe the idea", "description": "Clarify what the meme should communicate."},
+      {"title": "Generate the meme", "description": "Create the result instantly with AI."},
+      {"title": "Review the result", "description": "Check how the generated meme expresses the idea."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses AI Meme Creator",
+    "description": "Useful for people who want to turn ideas into memes quickly.",
+    "items": [
+      {"title": "Creators", "description": "Generate memes from creative ideas."},
+      {"title": "Social users", "description": "Turn a joke direction into a meme."},
+      {"title": "Marketers", "description": "Explore meme concepts for communication."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Meme-creation essentials",
+    "description": "Keep the idea, AI generation, and result review connected.",
+    "items": [
+      {"title": "Meme idea", "description": "Define what the meme should express."},
+      {"title": "AI generation", "description": "Create the meme instantly."},
+      {"title": "Result review", "description": "Check the generated outcome."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Move from idea to meme",
+    "description": "Use a direct generation and review flow.",
+    "groups": [
+      {"kicker": "Define", "title": "Set the meme direction", "items": [
+        {"name": "Idea", "description": "Describe the joke or message."},
+        {"name": "Focus", "description": "Clarify what the meme should communicate."}
+      ]},
+      {"kicker": "Generate", "title": "Create and review", "items": [
+        {"name": "Meme", "description": "Generate the result with AI."},
+        {"name": "Review", "description": "Check the completed meme."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for instant AI meme generation",
+    "description": "AI Meme Creator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Idea and AI-meme-generation-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore instant AI meme creation",
+    "description": "Visit AI Meme Creator to review its planned meme-generation experience.",
+    "action": {"label": "Explore AI Meme Creator", "path": "/ai-meme-creator"}
+  }
+}
