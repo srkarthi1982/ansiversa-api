@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added five catalog-aligned overview metadata seed files for Lesson Builder, Daily Word Challenge, Email Polisher, Presentation Designer, and Client Feedback Analyzer.
 * 2026-06-13: Added five catalog-aligned overview metadata seed files for Dictionary+, Fact Generator, Formula Finder, Language Flashcards, and EduPrompt, keeping content within each app's confirmed live product scope.
 * 2026-06-13: Added five validated overview metadata seed files selected from the reference app catalog for Concept Explainer, Course Tracker, Cover Letter Writer, Meeting Minutes AI, and Meal Planner; updated the overview sync command to ignore the reference-only `apps.json` catalog.
 * 2026-06-13: Added nine validated mini-app overview metadata seed files and a recursive sync command that upserts `overview:{app_slug}` records into the existing `Metadata` table.

@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Daily Word Challenge",
+    "description": "Learn one new word every day through a focused daily challenge.",
+    "points": ["One daily word", "Focused vocabulary learning", "Simple daily routine"],
+    "primaryAction": {"label": "Open Daily Word Challenge", "path": "/daily-word-challenge"}
+  },
+  "flow": {
+    "kicker": "Daily flow",
+    "title": "Discover → Learn → Use",
+    "steps": ["Discover the daily word", "Learn its meaning", "Use the word today"]
+  },
+  "stats": [
+    {"label": "Word", "value": "Daily"},
+    {"label": "Learning", "value": "Focused"},
+    {"label": "Routine", "value": "Simple"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Grow vocabulary one word at a time",
+    "description": "Daily Word Challenge makes vocabulary learning approachable by keeping each day focused on one word.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "One-word focus", "description": "Give the daily word enough attention to understand it."},
+      {"kicker": "Pillar 02", "title": "Clear meaning", "description": "Review what the word means before trying to use it."},
+      {"kicker": "Pillar 03", "title": "Daily practice", "description": "Make vocabulary learning part of a simple routine."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A manageable daily learning habit",
+    "description": "The experience keeps vocabulary growth small, focused, and consistent.",
+    "items": [
+      {"title": "Meet the word", "description": "Start the day with one new vocabulary item."},
+      {"title": "Understand it", "description": "Review the word and its meaning."},
+      {"title": "Put it to use", "description": "Look for a chance to use the word during the day."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Daily Word Challenge",
+    "description": "Useful for anyone who wants a simple vocabulary-learning routine.",
+    "items": [
+      {"title": "Students", "description": "Build vocabulary through a manageable daily practice."},
+      {"title": "Writers", "description": "Discover words that can expand written expression."},
+      {"title": "Curious learners", "description": "Add a small learning moment to every day."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Daily vocabulary essentials",
+    "description": "Keep each challenge centered on understanding and using one word.",
+    "items": [
+      {"title": "Daily word", "description": "Focus on one vocabulary item at a time."},
+      {"title": "Meaning", "description": "Understand what the word communicates."},
+      {"title": "Practical use", "description": "Apply the word to reinforce learning."}
+    ]
+  },
+  "groupedSection": {
+    "title": "A simple daily challenge",
+    "description": "Move from discovering the word to using it.",
+    "groups": [
+      {"kicker": "Learn", "title": "Understand the word", "items": [
+        {"name": "Discover", "description": "Reveal the word selected for the day."},
+        {"name": "Meaning", "description": "Review what the word means."}
+      ]},
+      {"kicker": "Apply", "title": "Use the word", "items": [
+        {"name": "Recall", "description": "Remember the word later in the day."},
+        {"name": "Practice", "description": "Use it in an appropriate context."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for focused daily learning",
+    "description": "Daily Word Challenge follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Daily vocabulary-ready learning flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready for today's word?",
+    "description": "Open Daily Word Challenge and learn one new word.",
+    "action": {"label": "Open Daily Word Challenge", "path": "/daily-word-challenge"}
+  }
+}
