@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Eco Habit Tracker",
+    "description": "Track eco-friendly actions and keep sustainable habits visible.",
+    "points": ["Eco-friendly action tracking", "Visible habits", "Simple progress review"],
+    "primaryAction": {"label": "Open Eco Habit Tracker", "path": "/eco-habit-tracker"}
+  },
+  "flow": {
+    "kicker": "Tracking flow",
+    "title": "Choose → Track → Review",
+    "steps": ["Choose an eco-friendly action", "Track the action", "Review your habits"]
+  },
+  "stats": [
+    {"label": "Actions", "value": "Eco-friendly"},
+    {"label": "Habits", "value": "Visible"},
+    {"label": "Review", "value": "Simple"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make sustainable actions easier to notice",
+    "description": "Eco Habit Tracker keeps attention on the practical actions that support more sustainable habits.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Action-focused tracking", "description": "Record the eco-friendly actions you take."},
+      {"kicker": "Pillar 02", "title": "Habit visibility", "description": "Keep sustainable choices visible over time."},
+      {"kicker": "Pillar 03", "title": "Simple review", "description": "Review tracked actions without unnecessary complexity."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Practical progress through everyday actions",
+    "description": "The workflow keeps sustainable habits grounded in actions you can track.",
+    "items": [
+      {"title": "Choose an action", "description": "Start with an eco-friendly habit that fits your routine."},
+      {"title": "Track the habit", "description": "Record the action when you complete it."},
+      {"title": "Review your progress", "description": "See the sustainable actions you have tracked."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Eco Habit Tracker",
+    "description": "Useful for anyone who wants to make eco-friendly actions more consistent.",
+    "items": [
+      {"title": "Individuals", "description": "Track sustainable choices in everyday life."},
+      {"title": "Families", "description": "Make household eco-friendly actions more visible."},
+      {"title": "Students", "description": "Build awareness through practical environmental habits."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Eco-habit tracking essentials",
+    "description": "Keep actions, habits, and review connected.",
+    "items": [
+      {"title": "Eco-friendly actions", "description": "Choose practical sustainable activities to track."},
+      {"title": "Habit records", "description": "Keep completed actions visible."},
+      {"title": "Progress review", "description": "Review the actions that are becoming habits."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Build sustainable habits",
+    "description": "Use a simple action-and-review loop.",
+    "groups": [
+      {"kicker": "Act", "title": "Choose and complete", "items": [
+        {"name": "Action", "description": "Select an eco-friendly activity."},
+        {"name": "Track", "description": "Record the action when completed."}
+      ]},
+      {"kicker": "Review", "title": "See the habit", "items": [
+        {"name": "Records", "description": "Review completed sustainable actions."},
+        {"name": "Progress", "description": "Keep developing useful eco-friendly habits."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable habit tracking",
+    "description": "Eco Habit Tracker follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Eco-action and habit-ready tracking structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready to track an eco-friendly action?",
+    "description": "Open Eco Habit Tracker and start with one practical habit.",
+    "action": {"label": "Open Eco Habit Tracker", "path": "/eco-habit-tracker"}
+  }
+}

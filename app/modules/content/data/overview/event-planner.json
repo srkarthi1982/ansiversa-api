@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Event Planner",
+    "description": "Plan events with clear timelines that keep important stages and activities organized.",
+    "points": ["Event planning", "Timeline organization", "Clear event stages"],
+    "primaryAction": {"label": "Open Event Planner", "path": "/event-planner"}
+  },
+  "flow": {
+    "kicker": "Planning flow",
+    "title": "Define → Schedule → Review",
+    "steps": ["Define the event", "Build the timeline", "Review the plan"]
+  },
+  "stats": [
+    {"label": "Events", "value": "Planned"},
+    {"label": "Timelines", "value": "Clear"},
+    {"label": "Stages", "value": "Organized"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep the event plan moving in order",
+    "description": "Event Planner organizes the work around a timeline so each stage stays visible.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Event definition", "description": "Start with the purpose and scope of the event."},
+      {"kicker": "Pillar 02", "title": "Timeline planning", "description": "Arrange important stages and activities in sequence."},
+      {"kicker": "Pillar 03", "title": "Plan review", "description": "Review the timeline before the event takes place."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A clearer path to event day",
+    "description": "The workflow keeps planning focused on what should happen and when.",
+    "items": [
+      {"title": "Define the event", "description": "Clarify what is being planned."},
+      {"title": "Build the timeline", "description": "Place event stages and activities in order."},
+      {"title": "Review the sequence", "description": "Check the plan before moving forward."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Event Planner",
+    "description": "Useful for anyone organizing an event around a timeline.",
+    "items": [
+      {"title": "Individuals", "description": "Plan personal events and important occasions."},
+      {"title": "Teams", "description": "Organize internal events and shared activities."},
+      {"title": "Event organizers", "description": "Structure event stages in a clear sequence."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Event planning essentials",
+    "description": "Keep the event definition, timeline, and review connected.",
+    "items": [
+      {"title": "Event details", "description": "Define the event being planned."},
+      {"title": "Timeline", "description": "Organize important stages and activities."},
+      {"title": "Plan review", "description": "Check the sequence before event day."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Build the event timeline",
+    "description": "Organize planning around preparation and event stages.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Define the plan", "items": [
+        {"name": "Purpose", "description": "Clarify the event and its intended outcome."},
+        {"name": "Stages", "description": "Identify the major parts of the event."}
+      ]},
+      {"kicker": "Schedule", "title": "Arrange the timeline", "items": [
+        {"name": "Sequence", "description": "Place stages and activities in order."},
+        {"name": "Review", "description": "Check that the timeline is clear."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable event timelines",
+    "description": "Event Planner follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Event and timeline-ready planning structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready to plan an event?",
+    "description": "Open Event Planner and start building the timeline.",
+    "action": {"label": "Open Event Planner", "path": "/event-planner"}
+  }
+}

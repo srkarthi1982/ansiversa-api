@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Interview Scheduler",
+    "description": "Organize interview appointments and keep upcoming interview times visible.",
+    "points": ["Interview scheduling", "Upcoming appointment visibility", "Clear schedule review"],
+    "primaryAction": {"label": "Open Interview Scheduler", "path": "/interview-scheduler"}
+  },
+  "flow": {
+    "kicker": "Scheduling flow",
+    "title": "Add → Schedule → Review",
+    "steps": ["Add the interview details", "Schedule the interview", "Review upcoming interviews"]
+  },
+  "stats": [
+    {"label": "Interviews", "value": "Scheduled"},
+    {"label": "Appointments", "value": "Visible"},
+    {"label": "Review", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep interview appointments organized",
+    "description": "Interview Scheduler provides a focused place to schedule and review upcoming interviews.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Interview details", "description": "Keep the essential appointment information together."},
+      {"kicker": "Pillar 02", "title": "Clear scheduling", "description": "Place each interview into an organized schedule."},
+      {"kicker": "Pillar 03", "title": "Upcoming review", "description": "See scheduled interviews that are ahead."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused view of upcoming interviews",
+    "description": "The workflow keeps interview appointments clear and easy to review.",
+    "items": [
+      {"title": "Add the interview", "description": "Capture the essential appointment details."},
+      {"title": "Set the schedule", "description": "Organize when the interview will take place."},
+      {"title": "Review what is next", "description": "Keep upcoming interviews visible."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Interview Scheduler",
+    "description": "Useful for people and teams organizing interview appointments.",
+    "items": [
+      {"title": "Job seekers", "description": "Keep upcoming job interviews organized."},
+      {"title": "Recruiters", "description": "Maintain a clear interview schedule."},
+      {"title": "Hiring teams", "description": "Review planned interview appointments."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Interview scheduling essentials",
+    "description": "Keep appointment details and upcoming interviews connected.",
+    "items": [
+      {"title": "Interview details", "description": "Capture the information needed for the appointment."},
+      {"title": "Schedule", "description": "Organize when interviews will take place."},
+      {"title": "Upcoming review", "description": "See the interviews that are planned next."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Organize interview appointments",
+    "description": "Move from interview details to a clear upcoming schedule.",
+    "groups": [
+      {"kicker": "Schedule", "title": "Plan the interview", "items": [
+        {"name": "Details", "description": "Add the essential interview information."},
+        {"name": "Appointment", "description": "Set when the interview will happen."}
+      ]},
+      {"kicker": "Review", "title": "See what is upcoming", "items": [
+        {"name": "Schedule", "description": "Review planned interview appointments."},
+        {"name": "Next interview", "description": "Keep the next appointment visible."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable interview schedules",
+    "description": "Interview Scheduler follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Interview appointment-ready scheduling structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready to schedule an interview?",
+    "description": "Open Interview Scheduler and add the next appointment.",
+    "action": {"label": "Open Interview Scheduler", "path": "/interview-scheduler"}
+  }
+}

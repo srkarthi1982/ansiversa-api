@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Quick Notepad",
+    "description": "Capture notes quickly with auto-save keeping your latest writing protected.",
+    "points": ["Fast note capture", "Automatic saving", "Focused writing"],
+    "primaryAction": {"label": "Open Quick Notepad", "path": "/quick-notepad"}
+  },
+  "flow": {
+    "kicker": "Note flow",
+    "title": "Open → Write → Continue",
+    "steps": ["Open the notepad", "Capture the note", "Continue with auto-save"]
+  },
+  "stats": [
+    {"label": "Capture", "value": "Quick"},
+    {"label": "Saving", "value": "Automatic"},
+    {"label": "Writing", "value": "Focused"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A direct place to capture what matters",
+    "description": "Quick Notepad keeps note-taking simple while auto-save protects ongoing writing.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Immediate writing", "description": "Start capturing a thought without a long setup flow."},
+      {"kicker": "Pillar 02", "title": "Automatic saving", "description": "Keep the latest note changes saved as you write."},
+      {"kicker": "Pillar 03", "title": "Focused workspace", "description": "Keep attention on the note currently being written."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Ready when a thought arrives",
+    "description": "The experience reduces the distance between having an idea and writing it down.",
+    "items": [
+      {"title": "Open the notepad", "description": "Get to a writing space quickly."},
+      {"title": "Capture the thought", "description": "Write the information while it is fresh."},
+      {"title": "Keep moving", "description": "Rely on auto-save while continuing the note."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Quick Notepad",
+    "description": "Useful for anyone who needs a simple place to write something down.",
+    "items": [
+      {"title": "Students", "description": "Capture quick study notes and ideas."},
+      {"title": "Professionals", "description": "Write down meeting points and working thoughts."},
+      {"title": "Everyday users", "description": "Keep temporary notes and useful details in one focused space."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Note-taking essentials",
+    "description": "Keep the writing experience centered on quick capture.",
+    "items": [
+      {"title": "Writing space", "description": "Use a focused area for the current note."},
+      {"title": "Quick capture", "description": "Record information as soon as it matters."},
+      {"title": "Auto-save", "description": "Keep ongoing changes saved automatically."}
+    ]
+  },
+  "groupedSection": {
+    "title": "A simple note workflow",
+    "description": "Move from thought to written note without unnecessary steps.",
+    "groups": [
+      {"kicker": "Capture", "title": "Write the note", "items": [
+        {"name": "Idea", "description": "Begin with the information you want to keep."},
+        {"name": "Writing", "description": "Capture it in the focused notepad."}
+      ]},
+      {"kicker": "Continue", "title": "Keep the note current", "items": [
+        {"name": "Auto-save", "description": "Preserve changes while writing."},
+        {"name": "Update", "description": "Continue refining the note as needed."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for quick note capture",
+    "description": "Quick Notepad follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Auto-save-ready note workflow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Ready to capture a note?",
+    "description": "Open Quick Notepad and start writing.",
+    "action": {"label": "Open Quick Notepad", "path": "/quick-notepad"}
+  }
+}
