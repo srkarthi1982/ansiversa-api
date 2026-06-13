@@ -232,3 +232,102 @@ class PricingResponse(BaseModel):
     plans: list[PricingPlan]
     included: PricingIncludedSection
     comparison: PricingComparisonSection
+
+
+class OverviewAction(BaseModel):
+    label: str
+    path: str
+
+
+class OverviewHeroSection(BaseModel):
+    kicker: str | None = None
+    title: str
+    description: str
+    points: list[str] | None = None
+    primaryAction: OverviewAction | None = None
+    secondaryAction: OverviewAction | None = None
+    note: str | None = None
+
+
+class OverviewMetric(BaseModel):
+    label: str
+    value: str
+
+
+class OverviewFlowSection(BaseModel):
+    kicker: str | None = None
+    title: str
+    steps: list[str]
+    metrics: list[OverviewMetric] | None = None
+
+
+class OverviewStatItem(BaseModel):
+    label: str
+    value: str
+
+
+class OverviewTimelineItem(BaseModel):
+    kicker: str
+    title: str
+    description: str
+
+
+class OverviewTimelineSection(BaseModel):
+    title: str
+    description: str
+    items: list[OverviewTimelineItem]
+
+
+class OverviewCardItem(BaseModel):
+    kicker: str | None = None
+    title: str
+    description: str
+
+
+class OverviewCardSection(BaseModel):
+    title: str
+    description: str
+    items: list[OverviewCardItem]
+
+
+class OverviewGroupedItem(BaseModel):
+    name: str
+    description: str
+
+
+class OverviewGroupedGroup(BaseModel):
+    kicker: str
+    title: str
+    items: list[OverviewGroupedItem]
+
+
+class OverviewGroupedSection(BaseModel):
+    title: str
+    description: str
+    groups: list[OverviewGroupedGroup]
+
+
+class OverviewTechnicalSection(BaseModel):
+    title: str
+    description: str
+    items: list[str]
+
+
+class OverviewFinalCtaSection(BaseModel):
+    title: str
+    description: str
+    action: OverviewAction
+
+
+class OverviewResponse(BaseModel):
+    hero: OverviewHeroSection
+    flow: OverviewFlowSection | None = None
+    stats: list[OverviewStatItem] | None = None
+    timeline: OverviewTimelineSection | None = None
+    differences: OverviewTimelineSection | None = None
+    feel: OverviewCardSection | None = None
+    audiences: OverviewCardSection | None = None
+    groupedSection: OverviewGroupedSection | None = None
+    resourceSection: OverviewCardSection | None = None
+    technicalSection: OverviewTechnicalSection | None = None
+    finalCta: OverviewFinalCtaSection | None = None

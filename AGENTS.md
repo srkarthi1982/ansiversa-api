@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added the generic typed mini-app overview metadata response contract and public `GET /api/v1/content/metadata/overview/{app_key}` route backed by `overview:{app_key}` metadata keys; no migration, seed data, or frontend changes were added.
 * 2026-06-12: Corrected parent Alembic online migrations to reuse the authenticated `parent_engine` for production Turso/libSQL connections.
 * 2026-06-12: Added the public Contact message workflow with validated typed request/response schemas, parent-owned `ContactMessages` table and migration, and `POST /api/v1/contact`; no email sending or admin UI was added.
 * 2026-06-12: Added `app/modules/content/data/pricing.json` with the Pricing metadata payload validated against `PricingResponse`; no automatic seeding or runtime loading behavior was added.

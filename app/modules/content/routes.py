@@ -13,6 +13,7 @@ from .schemas import (
     MetadataCreateRequest,
     MetadataResponse,
     MetadataListResponse,
+    OverviewResponse,
     PricingResponse,
     # RemoveMetadataResponse,
 )
@@ -89,6 +90,20 @@ def get_pricing_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> Pric
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
 
     return PricingResponse(**m.content)
+
+@router.get("/metadata/overview/{app_key}", response_model=OverviewResponse)
+def get_overview_metadata(
+    app_key: str,
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> OverviewResponse:
+    m = _get_metadata(db, f"overview:{app_key}")
+    if m is None:
+        from fastapi import HTTPException
+        from starlette import status
+
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
+
+    return OverviewResponse(**m.content)
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(
