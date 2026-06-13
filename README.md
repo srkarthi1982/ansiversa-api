@@ -449,7 +449,9 @@ python3 -m app.modules.content.scripts.sync_overview_metadata
 
 The sync command validates every file against `OverviewResponse` before any
 database writes and fails clearly for invalid JSON, schema mismatches, or
-duplicate filename-derived metadata keys.
+duplicate filename-derived metadata keys. After syncing the canonical
+`overview:{app_slug}` records, it removes the obsolete unprefixed `quiz` and
+`resume-builder` overview keys when present.
 
 ## Apps Catalog
 

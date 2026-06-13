@@ -12,11 +12,12 @@ from pydantic import ValidationError
 
 from app.core.database import ParentSessionLocal
 from app.modules.content.schemas import OverviewResponse
-from app.modules.content.service import upsert_metadata
+from app.modules.content.service import delete_metadata, get_metadata, upsert_metadata
 
 
 OVERVIEW_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "overview"
 REFERENCE_FILENAMES = {"apps.json"}
+LEGACY_OVERVIEW_KEYS = {"quiz", "resume-builder"}
 
 
 def load_overview(path: Path) -> dict:
@@ -60,6 +61,11 @@ def sync_overview_metadata() -> int:
         for key, content in validated:
             upsert_metadata(db, key, content)
             print(f"Synced {key}")
+
+        for key in sorted(LEGACY_OVERVIEW_KEYS):
+            if get_metadata(db, key) is not None:
+                delete_metadata(db, key)
+                print(f"Removed legacy overview key {key}")
 
     print(f"Done. Synced {len(validated)} overview metadata records.")
     return len(validated)

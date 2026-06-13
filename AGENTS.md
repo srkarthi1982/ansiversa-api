@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Updated overview metadata sync to remove obsolete unprefixed `quiz` and `resume-builder` records after canonical `overview:*` records are synced.
 * 2026-06-13: Completed the 102-app overview JSON migration with status-aware, catalog-aligned metadata for the coming-soon Horoscope AI and Daily Challenge apps and the live Job Tracker app.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for the coming-soon Would You Rather, Guess the Emoji, AI Character Chat, Personality Quiz, and Fortune Teller apps.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Recipe Generator, Language Learning Buddy, Trivia Arena, Riddle Maker, and Puzzle Zone.
