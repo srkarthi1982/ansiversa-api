@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Writing · Ansiversa mini app",
+    "title": "Quote Forge",
+    "description": "Create original quotes in seconds from a chosen idea or direction.",
+    "points": ["Original quote creation", "Quick generation", "Idea-based direction"],
+    "primaryAction": {"label": "Explore Quote Forge", "path": "/quote-forge"}
+  },
+  "flow": {
+    "kicker": "Quote flow",
+    "title": "Describe → Create → Review",
+    "steps": ["Describe the idea or direction", "Create an original quote", "Review the result"]
+  },
+  "stats": [
+    {"label": "Output", "value": "Original quote"},
+    {"label": "Generation", "value": "Quick"},
+    {"label": "Direction", "value": "Idea-based"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Turn an idea into an original quote",
+    "description": "Quote Forge focuses on creating original quotes quickly from a clear direction.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Idea direction", "description": "Begin with what the quote should express."},
+      {"kicker": "Pillar 02", "title": "Original creation", "description": "Generate a new quote from the chosen direction."},
+      {"kicker": "Pillar 03", "title": "Quote review", "description": "Read the generated result as a complete thought."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A quick path from idea to expression",
+    "description": "The workflow keeps the intended idea and original quote connected.",
+    "items": [
+      {"title": "Describe the idea", "description": "Clarify what the quote should communicate."},
+      {"title": "Create the quote", "description": "Generate an original expression quickly."},
+      {"title": "Review the result", "description": "Read the quote and check its direction."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Quote Forge",
+    "description": "Useful for people creating original quotes.",
+    "items": [
+      {"title": "Writers", "description": "Explore original expressions around an idea."},
+      {"title": "Creators", "description": "Create quotes for creative content."},
+      {"title": "Everyday users", "description": "Turn a thought into a concise original quote."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Quote-creation essentials",
+    "description": "Keep the idea, original quote, and review connected.",
+    "items": [
+      {"title": "Idea or direction", "description": "Define what the quote should express."},
+      {"title": "Original quote", "description": "Create a new concise expression."},
+      {"title": "Final review", "description": "Check the generated result."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Move from thought to quote",
+    "description": "Use a direct creation and review flow.",
+    "groups": [
+      {"kicker": "Define", "title": "Set the direction", "items": [
+        {"name": "Idea", "description": "Clarify the thought to express."},
+        {"name": "Focus", "description": "Set the direction of the quote."}
+      ]},
+      {"kicker": "Create", "title": "Generate and review", "items": [
+        {"name": "Quote", "description": "Create an original expression."},
+        {"name": "Review", "description": "Read the complete result."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for original quote creation",
+    "description": "Quote Forge follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Idea and original-quote-ready creation flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore original quote creation",
+    "description": "Visit Quote Forge to review its planned quote-generation experience.",
+    "action": {"label": "Explore Quote Forge", "path": "/quote-forge"}
+  }
+}

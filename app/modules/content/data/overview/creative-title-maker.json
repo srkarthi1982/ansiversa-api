@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Writing · Ansiversa mini app",
+    "title": "Creative Title Maker",
+    "description": "Generate catchy titles instantly from a clear topic or idea.",
+    "points": ["Catchy title generation", "Quick results", "Topic-based direction"],
+    "primaryAction": {"label": "Explore Creative Title Maker", "path": "/creative-title-maker"}
+  },
+  "flow": {
+    "kicker": "Title flow",
+    "title": "Describe → Generate → Choose",
+    "steps": ["Describe the topic or idea", "Generate catchy titles", "Review the results"]
+  },
+  "stats": [
+    {"label": "Output", "value": "Titles"},
+    {"label": "Style", "value": "Catchy"},
+    {"label": "Generation", "value": "Instant"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move from an idea to a catchy title",
+    "description": "Creative Title Maker focuses on generating titles quickly from a topic or idea.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Topic direction", "description": "Begin with what the title should represent."},
+      {"kicker": "Pillar 02", "title": "Instant generation", "description": "Create catchy title options quickly."},
+      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the generated titles and choose a direction."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A fast starting point for naming",
+    "description": "The workflow keeps the topic and generated titles connected.",
+    "items": [
+      {"title": "Describe the idea", "description": "Clarify what needs a title."},
+      {"title": "Generate titles", "description": "Create catchy options instantly."},
+      {"title": "Review the results", "description": "Choose the title direction that fits."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Creative Title Maker",
+    "description": "Useful for anyone who needs catchy title ideas.",
+    "items": [
+      {"title": "Writers", "description": "Generate title ideas for written work."},
+      {"title": "Creators", "description": "Find catchy names for creative content."},
+      {"title": "Marketers", "description": "Explore title directions for messages and campaigns."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Title-generation essentials",
+    "description": "Keep the topic, generated titles, and review connected.",
+    "items": [
+      {"title": "Topic or idea", "description": "Define what needs a title."},
+      {"title": "Catchy titles", "description": "Generate title options instantly."},
+      {"title": "Result review", "description": "Review the options and choose a direction."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Move from idea to title",
+    "description": "Use a direct generation and review flow.",
+    "groups": [
+      {"kicker": "Define", "title": "Describe the subject", "items": [
+        {"name": "Topic", "description": "Clarify what the title should represent."},
+        {"name": "Direction", "description": "Set the intended title focus."}
+      ]},
+      {"kicker": "Generate", "title": "Create and review", "items": [
+        {"name": "Titles", "description": "Generate catchy options."},
+        {"name": "Review", "description": "Choose a useful direction."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for instant title generation",
+    "description": "Creative Title Maker follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Topic and title-generation-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore catchy title generation",
+    "description": "Visit Creative Title Maker to review its planned title-creation experience.",
+    "action": {"label": "Explore Creative Title Maker", "path": "/creative-title-maker"}
+  }
+}
