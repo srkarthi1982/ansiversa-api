@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Fun · Ansiversa mini app",
+    "title": "Guess the Emoji",
+    "description": "Decode emoji challenges through a focused guessing experience.",
+    "points": ["Emoji challenges", "Visual clues", "Focused guessing"],
+    "primaryAction": {"label": "Explore Guess the Emoji", "path": "/guess-the-emoji"}
+  },
+  "flow": {
+    "kicker": "Challenge flow",
+    "title": "View → Decode → Guess",
+    "steps": ["View the emoji challenge", "Decode the visual clues", "Make a guess"]
+  },
+  "stats": [
+    {"label": "Clues", "value": "Emoji"},
+    {"label": "Activity", "value": "Decode"},
+    {"label": "Result", "value": "Guess"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Turn emoji clues into playful challenges",
+    "description": "Guess the Emoji focuses on decoding emoji combinations and making a guess.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Visual clues", "description": "Start with an emoji-based challenge."},
+      {"kicker": "Pillar 02", "title": "Focused decoding", "description": "Consider what the emoji combination represents."},
+      {"kicker": "Pillar 03", "title": "Playful guessing", "description": "Use the decoded clues to make a guess."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A visual challenge built around emoji clues",
+    "description": "The experience keeps viewing, decoding, and guessing connected.",
+    "items": [
+      {"title": "View the emojis", "description": "Start with the visual clue combination."},
+      {"title": "Decode the clue", "description": "Consider the meaning behind the emojis."},
+      {"title": "Make a guess", "description": "Choose what the emoji challenge represents."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Guess the Emoji",
+    "description": "Useful for people who enjoy decoding playful visual challenges.",
+    "items": [
+      {"title": "Emoji fans", "description": "Decode familiar visual clues."},
+      {"title": "Puzzle players", "description": "Work through short emoji challenges."},
+      {"title": "Casual players", "description": "Make playful guesses from emoji combinations."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Emoji-challenge essentials",
+    "description": "Keep visual clues, decoding, and guessing connected.",
+    "items": [
+      {"title": "Emoji clue", "description": "View the visual challenge."},
+      {"title": "Decoding", "description": "Consider what the emojis communicate."},
+      {"title": "Guess", "description": "Choose the represented answer."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Decode an emoji challenge",
+    "description": "Use a direct visual-clue-to-guess workflow.",
+    "groups": [
+      {"kicker": "View", "title": "Read the visual clues", "items": [
+        {"name": "Emojis", "description": "View the challenge combination."},
+        {"name": "Clues", "description": "Consider each emoji's meaning."}
+      ]},
+      {"kicker": "Guess", "title": "Decode the challenge", "items": [
+        {"name": "Meaning", "description": "Connect the visual clues."},
+        {"name": "Answer", "description": "Make a guess from the emojis."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for emoji decoding challenges",
+    "description": "Guess the Emoji follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Emoji challenge experience ready for future development.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore emoji challenges",
+    "description": "Visit Guess the Emoji to review its planned decoding experience.",
+    "action": {"label": "Explore Guess the Emoji", "path": "/guess-the-emoji"}
+  }
+}
