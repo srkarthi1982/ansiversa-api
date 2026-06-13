@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Writing · Ansiversa mini app",
+    "title": "Song Lyric Maker",
+    "description": "Write lyrics for a chosen mood or style.",
+    "points": ["Mood-based direction", "Style-based direction", "Lyric writing"],
+    "primaryAction": {"label": "Explore Song Lyric Maker", "path": "/song-lyric-maker"}
+  },
+  "flow": {
+    "kicker": "Writing flow",
+    "title": "Choose → Write → Review",
+    "steps": ["Choose the mood or style", "Write the lyrics", "Review the complete result"]
+  },
+  "stats": [
+    {"label": "Direction", "value": "Mood or style"},
+    {"label": "Output", "value": "Lyrics"},
+    {"label": "Review", "value": "Focused"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Give lyric writing a clear direction",
+    "description": "Song Lyric Maker focuses the writing process around a selected mood or style.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Mood direction", "description": "Use the intended feeling to guide the lyrics."},
+      {"kicker": "Pillar 02", "title": "Style direction", "description": "Shape the writing around the chosen style."},
+      {"kicker": "Pillar 03", "title": "Lyric review", "description": "Read the complete lyrics and check their direction."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused starting point for lyrics",
+    "description": "The workflow keeps mood, style, and lyric writing connected.",
+    "items": [
+      {"title": "Choose the direction", "description": "Start with the intended mood or style."},
+      {"title": "Write the lyrics", "description": "Develop words around that direction."},
+      {"title": "Review the result", "description": "Read the complete lyrics as a whole."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Song Lyric Maker",
+    "description": "Useful for people writing lyrics around a mood or style.",
+    "items": [
+      {"title": "Songwriters", "description": "Explore lyric ideas with a clear direction."},
+      {"title": "Musicians", "description": "Develop words around an intended mood or style."},
+      {"title": "New writers", "description": "Use a focused starting point for lyric writing."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Lyric-writing essentials",
+    "description": "Keep the mood, style, and lyrics connected.",
+    "items": [
+      {"title": "Mood", "description": "Define the feeling behind the lyrics."},
+      {"title": "Style", "description": "Choose the intended writing direction."},
+      {"title": "Lyrics", "description": "Develop and review the written result."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Move from direction to lyrics",
+    "description": "Use mood and style to guide the writing process.",
+    "groups": [
+      {"kicker": "Direction", "title": "Set the creative focus", "items": [
+        {"name": "Mood", "description": "Choose the intended feeling."},
+        {"name": "Style", "description": "Choose the intended writing approach."}
+      ]},
+      {"kicker": "Write", "title": "Create and review", "items": [
+        {"name": "Lyrics", "description": "Develop words around the direction."},
+        {"name": "Review", "description": "Read the complete result."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for mood-and-style lyric writing",
+    "description": "Song Lyric Maker follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Mood, style, and lyric-ready writing flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore focused lyric writing",
+    "description": "Visit Song Lyric Maker to review its planned mood-and-style writing experience.",
+    "action": {"label": "Explore Song Lyric Maker", "path": "/song-lyric-maker"}
+  }
+}
