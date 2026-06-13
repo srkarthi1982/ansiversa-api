@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Lifestyle · Ansiversa mini app",
+    "title": "Language Learning Buddy",
+    "description": "Practice language daily through a focused learning routine.",
+    "points": ["Daily language practice", "Focused learning", "Consistent routine"],
+    "primaryAction": {"label": "Explore Language Learning Buddy", "path": "/language-learning-buddy"}
+  },
+  "flow": {
+    "kicker": "Practice flow",
+    "title": "Start → Practice → Review",
+    "steps": ["Start the daily practice", "Practice the language", "Review the session"]
+  },
+  "stats": [
+    {"label": "Focus", "value": "Language"},
+    {"label": "Cadence", "value": "Daily"},
+    {"label": "Activity", "value": "Practice"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make language practice part of the day",
+    "description": "Language Learning Buddy focuses on a clear routine for daily language practice.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Daily routine", "description": "Begin a focused language-practice session."},
+      {"kicker": "Pillar 02", "title": "Language practice", "description": "Spend the session practicing the language."},
+      {"kicker": "Pillar 03", "title": "Session review", "description": "Review the completed practice session."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A simple daily language routine",
+    "description": "The workflow keeps language practice and daily consistency connected.",
+    "items": [
+      {"title": "Start the session", "description": "Begin the daily language practice."},
+      {"title": "Practice the language", "description": "Focus on the learning activity."},
+      {"title": "Review the session", "description": "Review the completed practice."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Language Learning Buddy",
+    "description": "Useful for people who want to practice language daily.",
+    "items": [
+      {"title": "Language learners", "description": "Make language practice part of each day."},
+      {"title": "Routine builders", "description": "Keep daily learning focused and consistent."},
+      {"title": "Everyday users", "description": "Practice language through a clear routine."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Daily language-practice essentials",
+    "description": "Keep daily practice, focused learning, and review connected.",
+    "items": [
+      {"title": "Daily session", "description": "Begin the practice routine."},
+      {"title": "Language practice", "description": "Focus on the language activity."},
+      {"title": "Session review", "description": "Review the completed practice."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Practice language daily",
+    "description": "Use a direct daily-practice workflow.",
+    "groups": [
+      {"kicker": "Begin", "title": "Start the daily routine", "items": [
+        {"name": "Session", "description": "Begin the language-practice session."},
+        {"name": "Focus", "description": "Keep the session centered on language practice."}
+      ]},
+      {"kicker": "Practice", "title": "Learn and review", "items": [
+        {"name": "Language", "description": "Practice during the session."},
+        {"name": "Review", "description": "Review the completed practice."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for daily language practice",
+    "description": "Language Learning Buddy follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Daily language-practice-ready experience.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore daily language practice",
+    "description": "Visit Language Learning Buddy to review its planned practice experience.",
+    "action": {"label": "Explore Language Learning Buddy", "path": "/language-learning-buddy"}
+  }
+}
