@@ -1,0 +1,230 @@
+{
+  "hero": {
+    "kicker": "Learning · Ansiversa mini app",
+    "title": "Quiz",
+    "description": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+    "points": [
+      "Structured taxonomy: platform → subject → topic → roadmap",
+      "Instant scoring with server-ready breakdown",
+      "Attempts saved per user for progress tracking"
+    ],
+    "primaryAction": {
+      "label": "Launch Quiz",
+      "path": "/quiz/play"
+    },
+    "secondaryAction": {
+      "label": "View Results",
+      "path": "/quiz/results"
+    },
+    "note": "No setup. No clutter. Just clean flows."
+  },
+  "flow": {
+    "kicker": "Your flow",
+    "title": "Six steps to a finished attempt",
+    "steps": [
+      "Choose platform",
+      "Select subject & topic",
+      "Pick a roadmap",
+      "Set level",
+      "Answer questions",
+      "Save results"
+    ],
+    "metrics": [
+      {
+        "label": "Avg. completion",
+        "value": "~4 min"
+      },
+      {
+        "label": "Format",
+        "value": "10 questions"
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "1.45M",
+      "label": "Questions indexed"
+    },
+    {
+      "value": "13.4K",
+      "label": "Roadmaps ready"
+    },
+    {
+      "value": "46",
+      "label": "Platforms covered"
+    }
+  ],
+  "differences": {
+    "title": "What makes Quiz different",
+    "description": "It is built for calm, premium learning flows. Everything is purposeful, nothing is noisy.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Roadmap-first structure",
+        "description": "Keep questions aligned to syllabi, chapters, or career tracks with clarity."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Instant feedback",
+        "description": "Correct answers and scoring appear the moment the quiz ends."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Reusable by design",
+        "description": "Build once and reuse across batches, teams, or semesters without rework."
+      },
+      {
+        "kicker": "Pillar 04",
+        "title": "Clean admin control",
+        "description": "Manage platforms, subjects, topics, and questions with the same Ansiversa UI."
+      },
+      {
+        "kicker": "Pillar 05",
+        "title": "Result history",
+        "description": "Attempts are designed to remain reviewable with full answer breakdowns."
+      },
+      {
+        "kicker": "Pillar 06",
+        "title": "Scales across domains",
+        "description": "Medical, engineering, law, finance, aptitude, and more in one system."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "How it feels to use",
+    "description": "A guided flow that keeps learners focused and gives mentors quick insight.",
+    "items": [
+      {
+        "title": "Pick a topic with clarity",
+        "description": "Filters make it easy to reach the right roadmap without scrolling forever."
+      },
+      {
+        "title": "Answer with zero distractions",
+        "description": "One question at a time, crisp options, and a clean progress rhythm."
+      },
+      {
+        "title": "Review and save automatically",
+        "description": "Scores and answer reviews are stored so learners can see improvement."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Quiz",
+    "description": "From classrooms to corporate training, Quiz fits any learning environment.",
+    "items": [
+      {
+        "title": "Schools & teachers",
+        "description": "Chapter-end quizzes and quick checks to track class understanding."
+      },
+      {
+        "title": "Coaching institutes",
+        "description": "Entrance exam practice with structured topics and difficulty levels."
+      },
+      {
+        "title": "Teams & HR",
+        "description": "Onboarding knowledge checks, policy assessments, and skill evaluations."
+      },
+      {
+        "title": "Self learners",
+        "description": "Build personalized quizzes for fast revision and stronger recall."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Works with your learning stack",
+    "description": "Quiz is designed to complement other Ansiversa mini apps.",
+    "items": [
+      {
+        "kicker": "FlashNote",
+        "title": "Turn notes into recall-ready prompts.",
+        "description": "Teach with notes, then convert them into instant quizzes."
+      },
+      {
+        "kicker": "Exam Simulator",
+        "title": "Scale up to timed mock exams.",
+        "description": "Start with quizzes, then build full exam flows."
+      },
+      {
+        "kicker": "Knowledge Duel",
+        "title": "Bring quizzes into live battles.",
+        "description": "Use quiz content for fast, competitive revisions."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Top platforms",
+    "description": "Curated starters from our Academy and Professional tracks.",
+    "groups": [
+      {
+        "kicker": "Academy (A)",
+        "title": "Academy",
+        "items": [
+          {
+            "name": "Medical",
+            "description": "Explore medicine, health science, and diagnostics."
+          },
+          {
+            "name": "Driving",
+            "description": "Practice theory and rules for driving tests."
+          },
+          {
+            "name": "Government Exams",
+            "description": "Prepare for competitive government exams."
+          },
+          {
+            "name": "Logical Reasoning",
+            "description": "Sharpen logical thinking and analysis."
+          },
+          {
+            "name": "Banking",
+            "description": "Explore banking services, finance, and operations."
+          }
+        ]
+      },
+      {
+        "kicker": "Professional (P)",
+        "title": "Professional",
+        "items": [
+          {
+            "name": "Engineering",
+            "description": "Explore concepts and disciplines in engineering."
+          },
+          {
+            "name": "Law",
+            "description": "Understand legal systems, laws, and judiciary concepts."
+          },
+          {
+            "name": "Finance",
+            "description": "Learn financial planning, markets, and investments."
+          },
+          {
+            "name": "Mathematics",
+            "description": "Learn concepts from basics to advanced."
+          },
+          {
+            "name": "Programming",
+            "description": "Master programming languages and development."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built like a system",
+    "description": "Quiz follows the same architecture and governance standards as every Ansiversa mini app.",
+    "items": [
+      "Roadmap-first taxonomy: platform → subject → topic → roadmap.",
+      "Results designed to save per user with full answer review.",
+      "Verified domain tables for platforms, subjects, topics, roadmaps, questions, and results."
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to build your first quiz?",
+    "description": "Launch the mini app and start testing knowledge in minutes.",
+    "action": {
+      "label": "Start with Quiz",
+      "path": "/quiz/play"
+    }
+  }
+}
