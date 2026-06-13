@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Color Palette Generator",
+    "description": "Create color palettes from images through a focused visual workflow.",
+    "points": ["Image-based palettes", "Color discovery", "Focused review"],
+    "primaryAction": {"label": "Explore Color Palette Generator", "path": "/color-palette-generator"}
+  },
+  "flow": {
+    "kicker": "Palette flow",
+    "title": "Add → Generate → Review",
+    "steps": ["Add the source image", "Generate a color palette", "Review the resulting colors"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Image"},
+    {"label": "Output", "value": "Palette"},
+    {"label": "Focus", "value": "Color"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Turn image colors into a useful palette",
+    "description": "Color Palette Generator focuses on creating palettes directly from images.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Image source", "description": "Begin with the image that inspires the palette."},
+      {"kicker": "Pillar 02", "title": "Palette generation", "description": "Create a set of colors from the image."},
+      {"kicker": "Pillar 03", "title": "Color review", "description": "Review the generated palette."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path from image to palette",
+    "description": "The workflow keeps the source image and generated colors connected.",
+    "items": [
+      {"title": "Add the image", "description": "Provide the visual source for the palette."},
+      {"title": "Generate colors", "description": "Create a palette from the image."},
+      {"title": "Review the palette", "description": "Check the resulting set of colors."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Color Palette Generator",
+    "description": "Useful for people who want to create color palettes from images.",
+    "items": [
+      {"title": "Designers", "description": "Create palettes from visual references."},
+      {"title": "Creators", "description": "Find a focused set of colors from an image."},
+      {"title": "Everyday users", "description": "Turn a favorite image into a color palette."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Color-palette essentials",
+    "description": "Keep source image, generated colors, and review connected.",
+    "items": [
+      {"title": "Source image", "description": "Provide the visual reference."},
+      {"title": "Generated palette", "description": "Create colors from the image."},
+      {"title": "Color review", "description": "Review the completed palette."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Create a palette from an image",
+    "description": "Use a direct image-to-color workflow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Choose the visual source", "items": [
+        {"name": "Image", "description": "Add the image for palette creation."},
+        {"name": "Reference", "description": "Use the image as the color source."}
+      ]},
+      {"kicker": "Generate", "title": "Create and review", "items": [
+        {"name": "Palette", "description": "Generate colors from the image."},
+        {"name": "Result", "description": "Review the completed palette."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for image-based palette creation",
+    "description": "Color Palette Generator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Image-input and palette-generation-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore image-based color palettes",
+    "description": "Visit Color Palette Generator to review its planned palette experience.",
+    "action": {"label": "Explore Color Palette Generator", "path": "/color-palette-generator"}
+  }
+}
