@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Invoice and Receipt Maker",
+    "description": "Create branded invoices and receipts with clear business and transaction details.",
+    "points": ["Branded invoices", "Receipt creation", "Clear transaction details"],
+    "primaryAction": {"label": "Explore Invoice and Receipt Maker", "path": "/invoice-and-receipt-maker"}
+  },
+  "flow": {
+    "kicker": "Document flow",
+    "title": "Add → Brand → Review",
+    "steps": ["Add the transaction details", "Apply the business branding", "Review the invoice or receipt"]
+  },
+  "stats": [
+    {"label": "Documents", "value": "Invoices & receipts"},
+    {"label": "Branding", "value": "Business"},
+    {"label": "Details", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Create business documents with clear details",
+    "description": "Invoice and Receipt Maker combines transaction information with business branding.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Transaction details", "description": "Keep the relevant invoice or receipt information clear."},
+      {"kicker": "Pillar 02", "title": "Business branding", "description": "Present the document with a consistent business identity."},
+      {"kicker": "Pillar 03", "title": "Document review", "description": "Check the complete invoice or receipt before use."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused path to a branded business document",
+    "description": "The workflow keeps transaction details and branding connected.",
+    "items": [
+      {"title": "Add the details", "description": "Provide the information for the invoice or receipt."},
+      {"title": "Apply the branding", "description": "Present the document with a business identity."},
+      {"title": "Review the document", "description": "Check the final invoice or receipt."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Invoice and Receipt Maker",
+    "description": "Useful for people and businesses creating branded transaction documents.",
+    "items": [
+      {"title": "Freelancers", "description": "Create invoices and receipts for client work."},
+      {"title": "Small businesses", "description": "Prepare branded transaction documents."},
+      {"title": "Independent professionals", "description": "Present clear invoices and receipts."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Invoice and receipt essentials",
+    "description": "Keep transaction details, branding, and review connected.",
+    "items": [
+      {"title": "Transaction details", "description": "Add the information the document should show."},
+      {"title": "Business branding", "description": "Present the invoice or receipt consistently."},
+      {"title": "Final review", "description": "Check the complete document before use."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a branded transaction document",
+    "description": "Combine clear information with a consistent business presentation.",
+    "groups": [
+      {"kicker": "Details", "title": "Add the transaction", "items": [
+        {"name": "Business", "description": "Identify the business presenting the document."},
+        {"name": "Transaction", "description": "Add the relevant invoice or receipt details."}
+      ]},
+      {"kicker": "Present", "title": "Brand and review", "items": [
+        {"name": "Branding", "description": "Apply the business identity."},
+        {"name": "Review", "description": "Check the complete document."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for branded invoices and receipts",
+    "description": "Invoice and Receipt Maker follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Transaction-detail and branding-ready document structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore branded invoice creation",
+    "description": "Visit Invoice and Receipt Maker to review its planned document experience.",
+    "action": {"label": "Explore Invoice and Receipt Maker", "path": "/invoice-and-receipt-maker"}
+  }
+}

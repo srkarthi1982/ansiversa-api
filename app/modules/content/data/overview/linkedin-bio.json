@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "LinkedIn Bio Optimizer",
+    "description": "Improve your LinkedIn summary for clearer professional positioning.",
+    "points": ["LinkedIn summary review", "Clearer professional message", "Focused bio improvement"],
+    "primaryAction": {"label": "Explore LinkedIn Bio Optimizer", "path": "/linkedin-bio"}
+  },
+  "flow": {
+    "kicker": "Optimization flow",
+    "title": "Add → Improve → Review",
+    "steps": ["Add the LinkedIn summary", "Improve the professional message", "Review the updated bio"]
+  },
+  "stats": [
+    {"label": "Input", "value": "LinkedIn summary"},
+    {"label": "Message", "value": "Professional"},
+    {"label": "Review", "value": "Focused"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make the LinkedIn summary clearer",
+    "description": "LinkedIn Bio Optimizer focuses on improving how a professional summary communicates.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Summary review", "description": "Begin with the existing LinkedIn bio."},
+      {"kicker": "Pillar 02", "title": "Professional positioning", "description": "Clarify the message the summary presents."},
+      {"kicker": "Pillar 03", "title": "Focused improvement", "description": "Review an updated bio before using it."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A clearer professional introduction",
+    "description": "The workflow keeps attention on improving the LinkedIn summary.",
+    "items": [
+      {"title": "Add the summary", "description": "Start with the current LinkedIn bio."},
+      {"title": "Improve the message", "description": "Clarify the professional positioning."},
+      {"title": "Review the bio", "description": "Check the updated summary before using it."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses LinkedIn Bio Optimizer",
+    "description": "Useful for people improving their LinkedIn summary.",
+    "items": [
+      {"title": "Job seekers", "description": "Clarify professional positioning for opportunities."},
+      {"title": "Professionals", "description": "Improve the summary used to present experience."},
+      {"title": "Students", "description": "Prepare a clearer introduction for an early-career profile."}
+    ]
+  },
+  "resourceSection": {
+    "title": "LinkedIn-summary essentials",
+    "description": "Keep the current bio, professional message, and review connected.",
+    "items": [
+      {"title": "Current summary", "description": "Provide the LinkedIn bio to improve."},
+      {"title": "Professional message", "description": "Clarify how the summary positions the person."},
+      {"title": "Updated bio", "description": "Review the improved summary."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Improve the LinkedIn introduction",
+    "description": "Move from the current summary toward a clearer professional message.",
+    "groups": [
+      {"kicker": "Review", "title": "Understand the current bio", "items": [
+        {"name": "Summary", "description": "Add the existing LinkedIn introduction."},
+        {"name": "Message", "description": "Identify what it currently communicates."}
+      ]},
+      {"kicker": "Improve", "title": "Clarify the positioning", "items": [
+        {"name": "Professional focus", "description": "Strengthen the central message."},
+        {"name": "Final review", "description": "Check the updated LinkedIn bio."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for LinkedIn summary improvement",
+    "description": "LinkedIn Bio Optimizer follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "LinkedIn-summary and professional-message-ready workflow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore a clearer LinkedIn summary",
+    "description": "Visit LinkedIn Bio Optimizer to review its planned bio-improvement experience.",
+    "action": {"label": "Explore LinkedIn Bio Optimizer", "path": "/linkedin-bio"}
+  }
+}

@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Job Description Analyzer, Proposal Writer, Invoice and Receipt Maker, Career Planner, and LinkedIn Bio Optimizer.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for the coming-soon Memory Trainer, Smart Textbook Scanner, Homework Helper, Visiting Card Maker, and Interview Coach apps.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for the coming-soon Research Assistant, AI Notes Summarizer, Knowledge Duel, Exam Simulator, and Study Timer apps.
 * 2026-06-13: Added five catalog-aligned overview metadata seed files for Quick Notepad, Event Planner, Pet Care Planner, Eco Habit Tracker, and Interview Scheduler, avoiding unsupported feature claims beyond confirmed app scope.

@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Career Planner",
+    "description": "Plan career goals, skills, and milestones in one clear path.",
+    "points": ["Career goals", "Skill planning", "Milestone tracking"],
+    "primaryAction": {"label": "Explore Career Planner", "path": "/career-planner"}
+  },
+  "flow": {
+    "kicker": "Planning flow",
+    "title": "Set → Develop → Progress",
+    "steps": ["Set a career goal", "Identify the skills to develop", "Plan the milestones"]
+  },
+  "stats": [
+    {"label": "Goals", "value": "Career"},
+    {"label": "Skills", "value": "Planned"},
+    {"label": "Milestones", "value": "Clear"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Connect career goals to practical milestones",
+    "description": "Career Planner keeps goals, required skills, and milestones together in one planning workflow.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Career goals", "description": "Define the direction you want to pursue."},
+      {"kicker": "Pillar 02", "title": "Skill planning", "description": "Identify the skills connected to the goal."},
+      {"kicker": "Pillar 03", "title": "Clear milestones", "description": "Break the career plan into meaningful stages."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A clearer path through career development",
+    "description": "The workflow turns a broad career direction into skills and milestones.",
+    "items": [
+      {"title": "Set the direction", "description": "Define the career goal to work toward."},
+      {"title": "Plan the skills", "description": "Identify capabilities that support the goal."},
+      {"title": "Mark the milestones", "description": "Create clear stages along the path."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Career Planner",
+    "description": "Useful for people planning career goals and development.",
+    "items": [
+      {"title": "Students", "description": "Plan skills and milestones for an intended career."},
+      {"title": "Job seekers", "description": "Structure the next stages of career development."},
+      {"title": "Professionals", "description": "Plan goals and skills for career progression."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Career-planning essentials",
+    "description": "Keep goals, skills, and milestones connected.",
+    "items": [
+      {"title": "Career goals", "description": "Define the intended direction."},
+      {"title": "Skills", "description": "Identify capabilities to develop."},
+      {"title": "Milestones", "description": "Plan meaningful stages toward the goal."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a practical career path",
+    "description": "Move from a goal toward skills and milestones.",
+    "groups": [
+      {"kicker": "Direction", "title": "Define the goal", "items": [
+        {"name": "Career goal", "description": "Clarify the intended direction."},
+        {"name": "Skills", "description": "Identify capabilities that support it."}
+      ]},
+      {"kicker": "Progress", "title": "Plan the journey", "items": [
+        {"name": "Milestones", "description": "Set meaningful stages along the path."},
+        {"name": "Review", "description": "Keep the career plan clear."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for career development planning",
+    "description": "Career Planner follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Goal, skill, and milestone-ready planning structure.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore a clearer career path",
+    "description": "Visit Career Planner to review its planned goal-and-milestone experience.",
+    "action": {"label": "Explore Career Planner", "path": "/career-planner"}
+  }
+}
