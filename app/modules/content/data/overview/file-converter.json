@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "File Converter",
+    "description": "Convert files across formats through a clear conversion flow.",
+    "points": ["File conversion", "Cross-format output", "Focused conversion flow"],
+    "primaryAction": {"label": "Explore File Converter", "path": "/file-converter"}
+  },
+  "flow": {
+    "kicker": "Conversion flow",
+    "title": "Add → Choose → Convert",
+    "steps": ["Add the source file", "Choose the target format", "Convert the file"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Source file"},
+    {"label": "Output", "value": "Target format"},
+    {"label": "Process", "value": "Conversion"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move a file from one format to another",
+    "description": "File Converter focuses on a direct cross-format conversion workflow.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Source file", "description": "Begin with the file that needs conversion."},
+      {"kicker": "Pillar 02", "title": "Target format", "description": "Choose the intended output format."},
+      {"kicker": "Pillar 03", "title": "Converted result", "description": "Complete the file conversion."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path between file formats",
+    "description": "The workflow keeps the source file and target format connected.",
+    "items": [
+      {"title": "Add the file", "description": "Provide the source file to convert."},
+      {"title": "Choose the format", "description": "Set the intended output format."},
+      {"title": "Convert the result", "description": "Complete the cross-format conversion."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses File Converter",
+    "description": "Useful for anyone who needs to convert a file across formats.",
+    "items": [
+      {"title": "Professionals", "description": "Convert files for work-related use."},
+      {"title": "Students", "description": "Change file formats for assignments and projects."},
+      {"title": "Everyday users", "description": "Convert a file into a needed format."}
+    ]
+  },
+  "resourceSection": {
+    "title": "File-conversion essentials",
+    "description": "Keep source file, target format, and conversion connected.",
+    "items": [
+      {"title": "Source file", "description": "Provide the file to convert."},
+      {"title": "Target format", "description": "Choose the intended output."},
+      {"title": "Converted file", "description": "Complete the conversion process."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Convert a file across formats",
+    "description": "Use a direct source-to-output workflow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Set the conversion", "items": [
+        {"name": "Source", "description": "Add the original file."},
+        {"name": "Format", "description": "Choose the target format."}
+      ]},
+      {"kicker": "Convert", "title": "Create the result", "items": [
+        {"name": "Process", "description": "Run the file conversion."},
+        {"name": "Result", "description": "Review the converted output."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for cross-format file conversion",
+    "description": "File Converter follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Source-file and target-format-ready conversion flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore cross-format file conversion",
+    "description": "Visit File Converter to review its planned conversion experience.",
+    "action": {"label": "Explore File Converter", "path": "/file-converter"}
+  }
+}

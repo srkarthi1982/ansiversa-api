@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Snippet Generator, File Converter, Image Background Remover, Unit and Currency Converter, and Price Checker.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Fanfic Generator, Email Newsletter Writer, AI Translator and Tone Fixer, Rephrase and Paraphraser, and Grammar Fixer using the catalog's exact `grammer-fixer` slug.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for AI Meme Creator, Prompt Builder, Speech Writer, Novel Outliner, and Comic Storyboarder.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Blog Writer, Social Caption Generator, Script Formatter, Creative Title Maker, and Quote Forge.

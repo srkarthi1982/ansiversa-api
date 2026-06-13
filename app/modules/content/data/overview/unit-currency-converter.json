@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Unit and Currency Converter",
+    "description": "Convert units and currencies through one clear conversion workflow.",
+    "points": ["Unit conversion", "Currency conversion", "Clear converted values"],
+    "primaryAction": {"label": "Explore Unit and Currency Converter", "path": "/unit-currency-converter"}
+  },
+  "flow": {
+    "kicker": "Conversion flow",
+    "title": "Enter → Choose → Convert",
+    "steps": ["Enter the source value", "Choose the conversion", "Review the converted value"]
+  },
+  "stats": [
+    {"label": "Conversions", "value": "Units & currencies"},
+    {"label": "Input", "value": "Source value"},
+    {"label": "Output", "value": "Converted value"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep unit and currency conversion in one flow",
+    "description": "Unit and Currency Converter focuses on converting source values into clear results.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Source value", "description": "Begin with the value that needs conversion."},
+      {"kicker": "Pillar 02", "title": "Conversion choice", "description": "Choose the unit or currency conversion."},
+      {"kicker": "Pillar 03", "title": "Converted result", "description": "Review the resulting value."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path to a converted value",
+    "description": "The workflow keeps source value, conversion choice, and result connected.",
+    "items": [
+      {"title": "Enter the value", "description": "Provide the source amount or measurement."},
+      {"title": "Choose the conversion", "description": "Set the intended unit or currency."},
+      {"title": "Review the result", "description": "See the converted value."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Unit and Currency Converter",
+    "description": "Useful for anyone converting units or currencies.",
+    "items": [
+      {"title": "Travelers", "description": "Convert currencies while planning and traveling."},
+      {"title": "Students", "description": "Convert measurements during learning and assignments."},
+      {"title": "Everyday users", "description": "Convert values for practical daily needs."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Conversion essentials",
+    "description": "Keep source value, conversion type, and result connected.",
+    "items": [
+      {"title": "Source value", "description": "Enter the amount or measurement."},
+      {"title": "Conversion choice", "description": "Choose the unit or currency conversion."},
+      {"title": "Converted value", "description": "Review the resulting value."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Convert units and currencies",
+    "description": "Use one direct value-conversion flow.",
+    "groups": [
+      {"kicker": "Units", "title": "Convert measurements", "items": [
+        {"name": "Source unit", "description": "Choose the current measurement."},
+        {"name": "Target unit", "description": "Choose the intended measurement."}
+      ]},
+      {"kicker": "Currencies", "title": "Convert amounts", "items": [
+        {"name": "Source currency", "description": "Choose the current currency."},
+        {"name": "Target currency", "description": "Choose the intended currency."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for unit and currency conversion",
+    "description": "Unit and Currency Converter follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Source-value and converted-result-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore clear value conversion",
+    "description": "Visit Unit and Currency Converter to review its planned conversion experience.",
+    "action": {"label": "Explore Unit and Currency Converter", "path": "/unit-currency-converter"}
+  }
+}
