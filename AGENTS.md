@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Markdown Editor, Browser PDF Reader, Clipboard Translator, Wellness and Goal Planner, and Fitness Tracker.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Screenshot Editor, Color Palette Generator, Password Generator, API Tester, and JSON Formatter.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for QR Code Creator, Clipboard Manager, File Compressor, Text-to-Speech Converter, and Speech-to-Text Converter.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Snippet Generator, File Converter, Image Background Remover, Unit and Currency Converter, and Price Checker.

@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Markdown Editor",
+    "description": "Write Markdown with preview through a focused editing workflow.",
+    "points": ["Markdown writing", "Content preview", "Focused editing"],
+    "primaryAction": {"label": "Explore Markdown Editor", "path": "/markdown-editor"}
+  },
+  "flow": {
+    "kicker": "Writing flow",
+    "title": "Write → Preview → Refine",
+    "steps": ["Write the Markdown content", "Preview the rendered result", "Refine the content"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Markdown"},
+    {"label": "View", "value": "Preview"},
+    {"label": "Focus", "value": "Writing"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep Markdown writing and preview connected",
+    "description": "Markdown Editor focuses on writing Markdown while reviewing its rendered preview.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Markdown writing", "description": "Write content using Markdown."},
+      {"kicker": "Pillar 02", "title": "Rendered preview", "description": "Review how the Markdown content appears."},
+      {"kicker": "Pillar 03", "title": "Focused refinement", "description": "Refine the content after previewing it."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path from Markdown to preview",
+    "description": "The workflow keeps source writing and rendered preview connected.",
+    "items": [
+      {"title": "Write the content", "description": "Create text using Markdown."},
+      {"title": "Preview the result", "description": "Review the rendered content."},
+      {"title": "Refine the writing", "description": "Update the Markdown after review."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Markdown Editor",
+    "description": "Useful for people who write Markdown and want to preview the result.",
+    "items": [
+      {"title": "Developers", "description": "Write and preview Markdown content."},
+      {"title": "Technical writers", "description": "Review rendered documentation while writing."},
+      {"title": "Everyday writers", "description": "Create Markdown with a clear preview."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Markdown-editing essentials",
+    "description": "Keep source content, preview, and refinement connected.",
+    "items": [
+      {"title": "Markdown source", "description": "Write the content."},
+      {"title": "Rendered preview", "description": "Review how the content appears."},
+      {"title": "Refinement", "description": "Update the writing after review."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Write Markdown with preview",
+    "description": "Use a direct writing-and-preview workflow.",
+    "groups": [
+      {"kicker": "Write", "title": "Create the Markdown", "items": [
+        {"name": "Source", "description": "Write the Markdown content."},
+        {"name": "Structure", "description": "Shape the content with Markdown."}
+      ]},
+      {"kicker": "Preview", "title": "Review and refine", "items": [
+        {"name": "Preview", "description": "Review the rendered result."},
+        {"name": "Refinement", "description": "Update the content after review."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for Markdown writing with preview",
+    "description": "Markdown Editor follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Markdown-writing and preview-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore focused Markdown editing",
+    "description": "Visit Markdown Editor to review its planned writing and preview experience.",
+    "action": {"label": "Explore Markdown Editor", "path": "/markdown-editor"}
+  }
+}
