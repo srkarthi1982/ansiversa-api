@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Fun · Ansiversa mini app",
+    "title": "Horoscope AI",
+    "description": "Get personalized horoscopes through a focused reading experience.",
+    "points": ["Personalized horoscopes", "Focused readings", "Clear experience"],
+    "primaryAction": {"label": "Explore Horoscope AI", "path": "/horoscope-ai"}
+  },
+  "flow": {
+    "kicker": "Horoscope flow",
+    "title": "Provide → Receive → Read",
+    "steps": ["Provide the details for the horoscope", "Receive a personalized horoscope", "Read the horoscope"]
+  },
+  "stats": [
+    {"label": "Content", "value": "Horoscope"},
+    {"label": "Approach", "value": "Personalized"},
+    {"label": "Experience", "value": "Reading"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Make personalized horoscopes easy to explore",
+    "description": "Horoscope AI focuses on providing personalized horoscopes through a clear experience.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Personal details", "description": "Begin with the details used for the horoscope."},
+      {"kicker": "Pillar 02", "title": "Personalized horoscope", "description": "Receive a horoscope shaped around the provided details."},
+      {"kicker": "Pillar 03", "title": "Focused reading", "description": "Read the personalized horoscope clearly."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path to a personalized horoscope",
+    "description": "The experience keeps the provided details and horoscope reading connected.",
+    "items": [
+      {"title": "Provide the details", "description": "Begin the personalized horoscope experience."},
+      {"title": "Receive the horoscope", "description": "Get a horoscope shaped around the details."},
+      {"title": "Read the result", "description": "Explore the personalized horoscope."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Horoscope AI",
+    "description": "Useful for people who want to explore personalized horoscopes.",
+    "items": [
+      {"title": "Horoscope readers", "description": "Explore a personalized horoscope."},
+      {"title": "Curious users", "description": "Try a focused horoscope-reading experience."},
+      {"title": "Casual visitors", "description": "Receive and read a personalized horoscope."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Personalized-horoscope essentials",
+    "description": "Keep the provided details, horoscope, and reading connected.",
+    "items": [
+      {"title": "Details", "description": "Provide the information for the horoscope."},
+      {"title": "Horoscope", "description": "Receive the personalized content."},
+      {"title": "Reading", "description": "Explore the horoscope clearly."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Explore a personalized horoscope",
+    "description": "Use a direct details-to-reading workflow.",
+    "groups": [
+      {"kicker": "Provide", "title": "Begin the horoscope", "items": [
+        {"name": "Details", "description": "Provide the information for the experience."},
+        {"name": "Personalization", "description": "Use the details to shape the horoscope."}
+      ]},
+      {"kicker": "Read", "title": "Explore the horoscope", "items": [
+        {"name": "Horoscope", "description": "Receive the personalized content."},
+        {"name": "Reading", "description": "Read the horoscope clearly."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for personalized horoscope readings",
+    "description": "Horoscope AI follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Personalized horoscope experience ready for future development.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore personalized horoscopes",
+    "description": "Visit Horoscope AI to review its planned horoscope-reading experience.",
+    "action": {"label": "Explore Horoscope AI", "path": "/horoscope-ai"}
+  }
+}
