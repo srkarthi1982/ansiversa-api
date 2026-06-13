@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Speech-to-Text Converter",
+    "description": "Transcribe audio into clean text through a focused conversion flow.",
+    "points": ["Audio transcription", "Clean text output", "Focused review"],
+    "primaryAction": {"label": "Explore Speech-to-Text Converter", "path": "/speech-to-text-converter"}
+  },
+  "flow": {
+    "kicker": "Transcription flow",
+    "title": "Add → Transcribe → Review",
+    "steps": ["Add the source audio", "Transcribe it into clean text", "Review the result"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Audio"},
+    {"label": "Output", "value": "Text"},
+    {"label": "Result", "value": "Clean"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move from spoken audio to clean text",
+    "description": "Speech-to-Text Converter focuses on transcribing audio into clear written output.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Audio input", "description": "Begin with the audio to transcribe."},
+      {"kicker": "Pillar 02", "title": "Text transcription", "description": "Turn the spoken content into clean text."},
+      {"kicker": "Pillar 03", "title": "Result review", "description": "Read the completed transcription."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path from audio to text",
+    "description": "The workflow keeps the source audio and clean transcription connected.",
+    "items": [
+      {"title": "Add the audio", "description": "Provide the spoken content to transcribe."},
+      {"title": "Create the text", "description": "Convert the audio into clean written output."},
+      {"title": "Review the result", "description": "Read the completed transcription."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Speech-to-Text Converter",
+    "description": "Useful for people who need audio transcribed into clean text.",
+    "items": [
+      {"title": "Professionals", "description": "Turn spoken material into written text."},
+      {"title": "Students", "description": "Transcribe audio for focused review."},
+      {"title": "Creators", "description": "Create clean text from audio content."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Speech-to-text essentials",
+    "description": "Keep source audio, transcription, and review connected.",
+    "items": [
+      {"title": "Source audio", "description": "Provide the spoken content."},
+      {"title": "Clean transcription", "description": "Turn the audio into written text."},
+      {"title": "Final review", "description": "Read the completed result."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Convert speech into text",
+    "description": "Use a direct audio-to-text flow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Add the audio", "items": [
+        {"name": "Audio", "description": "Provide the spoken source."},
+        {"name": "Review", "description": "Confirm the audio before transcription."}
+      ]},
+      {"kicker": "Transcribe", "title": "Create and review", "items": [
+        {"name": "Text", "description": "Convert the audio into clean writing."},
+        {"name": "Result", "description": "Review the completed transcription."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for clean speech-to-text transcription",
+    "description": "Speech-to-Text Converter follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Audio-input and clean-transcription-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore clean audio transcription",
+    "description": "Visit Speech-to-Text Converter to review its planned transcription experience.",
+    "action": {"label": "Explore Speech-to-Text Converter", "path": "/speech-to-text-converter"}
+  }
+}

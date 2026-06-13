@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "Text-to-Speech Converter",
+    "description": "Turn written text into lifelike speech through a clear conversion flow.",
+    "points": ["Text-to-speech conversion", "Lifelike speech", "Focused audio result"],
+    "primaryAction": {"label": "Explore Text-to-Speech Converter", "path": "/text-to-speech-converter"}
+  },
+  "flow": {
+    "kicker": "Conversion flow",
+    "title": "Add → Convert → Listen",
+    "steps": ["Add the written text", "Convert it into lifelike speech", "Listen to the result"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Text"},
+    {"label": "Output", "value": "Speech"},
+    {"label": "Voice", "value": "Lifelike"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move from written text to spoken output",
+    "description": "Text-to-Speech Converter focuses on turning text into lifelike speech.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Written input", "description": "Begin with the text to be spoken."},
+      {"kicker": "Pillar 02", "title": "Speech conversion", "description": "Turn the written content into lifelike speech."},
+      {"kicker": "Pillar 03", "title": "Audio review", "description": "Listen to the converted result."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path from text to speech",
+    "description": "The workflow keeps the written input and spoken result connected.",
+    "items": [
+      {"title": "Add the text", "description": "Provide the writing to convert."},
+      {"title": "Create the speech", "description": "Turn the text into lifelike spoken output."},
+      {"title": "Listen to the result", "description": "Review the converted speech."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Text-to-Speech Converter",
+    "description": "Useful for people who need written text as speech.",
+    "items": [
+      {"title": "Creators", "description": "Turn written content into spoken output."},
+      {"title": "Learners", "description": "Listen to text as part of review."},
+      {"title": "Everyday users", "description": "Convert written text into speech."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Text-to-speech essentials",
+    "description": "Keep written input, conversion, and listening connected.",
+    "items": [
+      {"title": "Written text", "description": "Provide the content to convert."},
+      {"title": "Speech conversion", "description": "Turn text into lifelike speech."},
+      {"title": "Audio review", "description": "Listen to the converted result."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Convert text into speech",
+    "description": "Use a direct text-to-audio flow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Add the text", "items": [
+        {"name": "Content", "description": "Provide the written material."},
+        {"name": "Review", "description": "Check the text before conversion."}
+      ]},
+      {"kicker": "Convert", "title": "Create and listen", "items": [
+        {"name": "Speech", "description": "Convert the text into spoken output."},
+        {"name": "Listen", "description": "Review the lifelike speech result."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for lifelike text-to-speech conversion",
+    "description": "Text-to-Speech Converter follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Written-text and speech-output-ready conversion flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore lifelike text-to-speech conversion",
+    "description": "Visit Text-to-Speech Converter to review its planned conversion experience.",
+    "action": {"label": "Explore Text-to-Speech Converter", "path": "/text-to-speech-converter"}
+  }
+}

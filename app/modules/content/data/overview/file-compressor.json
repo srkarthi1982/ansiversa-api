@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "File Compressor",
+    "description": "Compress large files quickly through a focused processing flow.",
+    "points": ["File compression", "Large-file processing", "Quick workflow"],
+    "primaryAction": {"label": "Explore File Compressor", "path": "/file-compressor"}
+  },
+  "flow": {
+    "kicker": "Compression flow",
+    "title": "Add → Compress → Review",
+    "steps": ["Add the large file", "Compress the file", "Review the compressed result"]
+  },
+  "stats": [
+    {"label": "Input", "value": "Large file"},
+    {"label": "Process", "value": "Compression"},
+    {"label": "Speed", "value": "Quick"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Reduce a large file through a direct workflow",
+    "description": "File Compressor focuses on compressing large files quickly.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Large-file input", "description": "Begin with the file that needs compression."},
+      {"kicker": "Pillar 02", "title": "Quick compression", "description": "Process the large file through compression."},
+      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the compressed file."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path to a compressed file",
+    "description": "The workflow keeps the original file and compressed result connected.",
+    "items": [
+      {"title": "Add the file", "description": "Provide the large file to process."},
+      {"title": "Compress the file", "description": "Run the focused compression step."},
+      {"title": "Review the result", "description": "Check the compressed file."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses File Compressor",
+    "description": "Useful for anyone who needs to compress a large file.",
+    "items": [
+      {"title": "Professionals", "description": "Compress large files for work-related use."},
+      {"title": "Students", "description": "Reduce large project and assignment files."},
+      {"title": "Everyday users", "description": "Compress a large file through a simple flow."}
+    ]
+  },
+  "resourceSection": {
+    "title": "File-compression essentials",
+    "description": "Keep source file, compression, and review connected.",
+    "items": [
+      {"title": "Large file", "description": "Provide the file to compress."},
+      {"title": "Compression", "description": "Process the file quickly."},
+      {"title": "Compressed result", "description": "Review the resulting file."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Compress a large file",
+    "description": "Use a direct processing and review flow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Add the source file", "items": [
+        {"name": "File", "description": "Select the large file."},
+        {"name": "Review", "description": "Confirm the source before processing."}
+      ]},
+      {"kicker": "Compress", "title": "Process and check", "items": [
+        {"name": "Compression", "description": "Run the file-compression process."},
+        {"name": "Result", "description": "Review the compressed file."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for quick large-file compression",
+    "description": "File Compressor follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Large-file and compression-ready processing flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore quick file compression",
+    "description": "Visit File Compressor to review its planned compression experience.",
+    "action": {"label": "Explore File Compressor", "path": "/file-compressor"}
+  }
+}

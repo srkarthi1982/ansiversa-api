@@ -1,0 +1,81 @@
+{
+  "hero": {
+    "kicker": "Utility · Ansiversa mini app",
+    "title": "QR Code Creator",
+    "description": "Generate QR codes instantly from the information you provide.",
+    "points": ["QR code generation", "Instant creation", "Focused input flow"],
+    "primaryAction": {"label": "Explore QR Code Creator", "path": "/qr-code-creator"}
+  },
+  "flow": {
+    "kicker": "Creation flow",
+    "title": "Add → Generate → Review",
+    "steps": ["Add the information", "Generate the QR code", "Review the result"]
+  },
+  "stats": [
+    {"label": "Output", "value": "QR code"},
+    {"label": "Generation", "value": "Instant"},
+    {"label": "Input", "value": "Provided information"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Turn information into a QR code quickly",
+    "description": "QR Code Creator focuses on instant QR code generation through a direct workflow.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Clear input", "description": "Begin with the information the QR code should contain."},
+      {"kicker": "Pillar 02", "title": "Instant generation", "description": "Create the QR code quickly."},
+      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the generated QR code."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A direct path to a QR code",
+    "description": "The workflow keeps the provided information and generated result connected.",
+    "items": [
+      {"title": "Add the information", "description": "Provide what the QR code should represent."},
+      {"title": "Generate the code", "description": "Create the QR code instantly."},
+      {"title": "Review the result", "description": "Check the generated QR code."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses QR Code Creator",
+    "description": "Useful for anyone who needs to generate a QR code.",
+    "items": [
+      {"title": "Professionals", "description": "Create QR codes for work-related information."},
+      {"title": "Small businesses", "description": "Generate QR codes for business use."},
+      {"title": "Everyday users", "description": "Turn useful information into a QR code."}
+    ]
+  },
+  "resourceSection": {
+    "title": "QR-code creation essentials",
+    "description": "Keep information input, generation, and review connected.",
+    "items": [
+      {"title": "Information", "description": "Provide what the QR code should contain."},
+      {"title": "QR generation", "description": "Create the code instantly."},
+      {"title": "Result review", "description": "Check the generated QR code."}
+    ]
+  },
+  "groupedSection": {
+    "title": "Generate a QR code",
+    "description": "Use a direct input-and-generation flow.",
+    "groups": [
+      {"kicker": "Prepare", "title": "Set the QR content", "items": [
+        {"name": "Information", "description": "Add the content to represent."},
+        {"name": "Review", "description": "Check the input before generation."}
+      ]},
+      {"kicker": "Generate", "title": "Create and check", "items": [
+        {"name": "QR code", "description": "Generate the result instantly."},
+        {"name": "Result", "description": "Review the completed code."}
+      ]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for instant QR code generation",
+    "description": "QR Code Creator follows the shared Ansiversa mini-app architecture.",
+    "items": ["API-driven overview metadata.", "Information-input and QR-generation-ready flow.", "Responsive presentation across devices."]
+  },
+  "finalCta": {
+    "title": "Explore instant QR code creation",
+    "description": "Visit QR Code Creator to review its planned generation experience.",
+    "action": {"label": "Explore QR Code Creator", "path": "/qr-code-creator"}
+  }
+}
