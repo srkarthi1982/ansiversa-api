@@ -92,11 +92,8 @@ def get_pricing_metadata(db: Annotated[Session, Depends(get_parent_db)]) -> Pric
     return PricingResponse(**m.content)
 
 @router.get("/metadata/overview/{app_key}", response_model=OverviewResponse)
-def get_overview_metadata(
-    app_key: str,
-    db: Annotated[Session, Depends(get_parent_db)],
-) -> OverviewResponse:
-    m = _get_metadata(db, f"overview:{app_key}")
+def get_overview_metadata(app_key: str, db: Annotated[Session, Depends(get_parent_db)]) -> OverviewResponse:
+    m = _get_metadata(db, app_key)
     if m is None:
         from fastapi import HTTPException
         from starlette import status
