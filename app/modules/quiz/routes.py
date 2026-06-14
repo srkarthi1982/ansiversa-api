@@ -5,14 +5,24 @@ from sqlalchemy.orm import Session
 
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
-from app.modules.quiz.attempt_service import resume_attempt, start_attempt, submit_attempt
+from app.modules.quiz.attempt_service import (
+    get_result_detail,
+    list_attempt_history,
+    list_result_history,
+    resume_attempt,
+    start_attempt,
+    submit_attempt,
+)
 from app.modules.quiz.db import get_quiz_db
 from app.modules.quiz.schemas import (
     QuizAttemptRequest,
+    QuizAttemptHistoryListResponse,
     QuizAttemptResponse,
     QuizAttemptSubmitRequest,
     QuizAttemptSubmitResponse,
     QuizPlatformListResponse,
+    QuizResultDetailResponse,
+    QuizResultHistoryListResponse,
     QuizRoadmapListResponse,
     QuizSubjectListResponse,
     QuizTopicListResponse,
@@ -36,6 +46,16 @@ TopicSort = Literal[
 RoadmapSort = Literal[
     "id", "name", "platformId", "subjectId", "topicId", "qCount", "status"
 ]
+
+
+@router.get("/attempts", response_model=QuizAttemptHistoryListResponse)
+def get_quiz_attempt_history(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+    page: Annotated[int, Query(ge=1)] = 1,
+    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 20,
+) -> QuizAttemptHistoryListResponse:
+    return list_attempt_history(db, current_user, page=page, page_size=page_size)
 
 
 @router.post(
@@ -71,6 +91,25 @@ def submit_quiz_attempt(
     db: Annotated[Session, Depends(get_quiz_db)],
 ) -> QuizAttemptSubmitResponse:
     return submit_attempt(db, current_user, attempt_id, payload)
+
+
+@router.get("/results", response_model=QuizResultHistoryListResponse)
+def get_quiz_result_history(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+    page: Annotated[int, Query(ge=1)] = 1,
+    page_size: Annotated[int, Query(alias="pageSize", ge=1, le=100)] = 20,
+) -> QuizResultHistoryListResponse:
+    return list_result_history(db, current_user, page=page, page_size=page_size)
+
+
+@router.get("/results/{result_id}", response_model=QuizResultDetailResponse)
+def get_quiz_result_detail(
+    result_id: Annotated[int, Path(ge=1)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_quiz_db)],
+) -> QuizResultDetailResponse:
+    return get_result_detail(db, current_user, result_id)
 
 
 @router.get("/platforms", response_model=QuizPlatformListResponse)

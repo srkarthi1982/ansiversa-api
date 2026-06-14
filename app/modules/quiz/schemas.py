@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -124,7 +125,9 @@ class QuizAttemptReviewResponse(BaseModel):
     question_text: str = Field(serialization_alias="questionText")
     options: list[str]
     selected_answer: str = Field(serialization_alias="selectedAnswer")
+    selected_answer_text: str | None = Field(serialization_alias="selectedAnswerText")
     correct_answer: str = Field(serialization_alias="correctAnswer")
+    correct_answer_text: str | None = Field(serialization_alias="correctAnswerText")
     is_correct: bool = Field(serialization_alias="isCorrect")
     explanation: str
 
@@ -134,4 +137,56 @@ class QuizAttemptSubmitResponse(BaseModel):
     score: int
     total: int
     percentage: int
+    review: list[QuizAttemptReviewResponse]
+
+
+class QuizHistoryContextResponse(BaseModel):
+    platform_id: int = Field(serialization_alias="platformId")
+    platform_name: str = Field(serialization_alias="platformName")
+    subject_id: int = Field(serialization_alias="subjectId")
+    subject_name: str = Field(serialization_alias="subjectName")
+    topic_id: int = Field(serialization_alias="topicId")
+    topic_name: str = Field(serialization_alias="topicName")
+    roadmap_id: int = Field(serialization_alias="roadmapId")
+    roadmap_name: str = Field(serialization_alias="roadmapName")
+    level: Literal["E", "M", "D"]
+
+
+class QuizAttemptHistoryItemResponse(QuizHistoryContextResponse):
+    id: int
+    status: str
+    result_id: int | None = Field(serialization_alias="resultId")
+    score: int | None
+    total_questions: int = Field(serialization_alias="totalQuestions")
+    percentage: int | None
+    created_at: datetime = Field(serialization_alias="createdAt")
+    submitted_at: datetime | None = Field(serialization_alias="submittedAt")
+    expires_at: datetime = Field(serialization_alias="expiresAt")
+
+
+class QuizAttemptHistoryListResponse(BaseModel):
+    items: list[QuizAttemptHistoryItemResponse]
+    total: int
+    page: int
+    page_size: int = Field(serialization_alias="pageSize")
+
+
+class QuizResultHistoryItemResponse(QuizHistoryContextResponse):
+    id: int
+    attempt_id: int | None = Field(serialization_alias="attemptId")
+    score: int
+    total_questions: int = Field(serialization_alias="totalQuestions")
+    percentage: int
+    created_at: datetime = Field(serialization_alias="createdAt")
+    submitted_at: datetime | None = Field(serialization_alias="submittedAt")
+
+
+class QuizResultHistoryListResponse(BaseModel):
+    items: list[QuizResultHistoryItemResponse]
+    total: int
+    page: int
+    page_size: int = Field(serialization_alias="pageSize")
+
+
+class QuizResultDetailResponse(QuizResultHistoryItemResponse):
     review: list[QuizAttemptReviewResponse]

@@ -19,12 +19,17 @@ from app.modules.quiz.models import (
     Topic,
 )
 from app.modules.quiz.schemas import (
+    QuizAttemptHistoryItemResponse,
+    QuizAttemptHistoryListResponse,
     QuizAttemptQuestionResponse,
     QuizAttemptRequest,
     QuizAttemptResponse,
     QuizAttemptReviewResponse,
     QuizAttemptSubmitRequest,
     QuizAttemptSubmitResponse,
+    QuizResultDetailResponse,
+    QuizResultHistoryItemResponse,
+    QuizResultHistoryListResponse,
 )
 
 
@@ -108,10 +113,94 @@ def _answer_index(options: list[str], answer: str) -> int | None:
 
 
 def _answer_label(index: int | None, fallback: str) -> str:
-    if index is not None and index < 26:
+    if index is not None and 0 <= index < 26:
         return chr(ord("A") + index)
 
     return fallback.strip()
+
+
+def _answer_text(options: list[str], index: int | None) -> str | None:
+    return options[index] if index is not None and 0 <= index < len(options) else None
+
+
+def _parse_responses(value: str) -> list[dict[str, int]]:
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return []
+
+    if not isinstance(parsed, list):
+        return []
+
+    responses: list[dict[str, int]] = []
+    for item in parsed:
+        if (
+            isinstance(item, dict)
+            and isinstance(item.get("id"), int)
+            and isinstance(item.get("a"), int)
+            and isinstance(item.get("s"), int)
+        ):
+            responses.append({"id": item["id"], "a": item["a"], "s": item["s"]})
+
+    return responses
+
+
+def _percentage(score: int, total: int) -> int:
+    return round((score / total) * 100) if total > 0 else 0
+
+
+def _taxonomy_names(
+    db: Session,
+    platform_id: int,
+    subject_id: int,
+    topic_id: int,
+    roadmap_id: int,
+) -> tuple[str, str, str, str]:
+    platform = db.get(Platform, platform_id)
+    subject = db.get(Subject, subject_id)
+    topic = db.get(Topic, topic_id)
+    roadmap = db.get(Roadmap, roadmap_id)
+
+    return (
+        platform.name if platform else f"Platform {platform_id}",
+        subject.name if subject else f"Subject {subject_id}",
+        topic.name if topic else f"Topic {topic_id}",
+        roadmap.name if roadmap else f"Roadmap {roadmap_id}",
+    )
+
+
+def _result_history_item(
+    db: Session,
+    result: Result,
+    attempt: QuizAttempt | None,
+) -> QuizResultHistoryItemResponse:
+    platform_name, subject_name, topic_name, roadmap_name = _taxonomy_names(
+        db,
+        result.platform_id,
+        result.subject_id,
+        result.topic_id,
+        result.roadmap_id,
+    )
+    total_questions = len(_parse_responses(result.responses_json))
+
+    return QuizResultHistoryItemResponse(
+        id=result.id,
+        attempt_id=attempt.id if attempt else None,
+        platform_id=result.platform_id,
+        platform_name=platform_name,
+        subject_id=result.subject_id,
+        subject_name=subject_name,
+        topic_id=result.topic_id,
+        topic_name=topic_name,
+        roadmap_id=result.roadmap_id,
+        roadmap_name=roadmap_name,
+        level=result.level,  # type: ignore[arg-type]
+        score=result.mark,
+        total_questions=total_questions,
+        percentage=_percentage(result.mark, total_questions),
+        created_at=result.created_at,
+        submitted_at=attempt.submitted_at if attempt else result.created_at,
+    )
 
 
 def _safe_question(question: Question) -> QuizAttemptQuestionResponse:
@@ -312,7 +401,9 @@ def submit_attempt(
                 question_text=question.question_text,
                 options=options,
                 selected_answer=_answer_label(selected_index, selected_answer),
+                selected_answer_text=_answer_text(options, selected_index),
                 correct_answer=_answer_label(correct_index, question.answer_key),
+                correct_answer_text=_answer_text(options, correct_index),
                 is_correct=is_correct,
                 explanation=question.explanation,
             )
@@ -344,3 +435,199 @@ def submit_attempt(
         percentage=round((score / total) * 100),
         review=review,
     )
+
+
+def list_attempt_history(
+    db: Session,
+    user: User,
+    *,
+    page: int,
+    page_size: int,
+) -> QuizAttemptHistoryListResponse:
+    filters = (QuizAttempt.user_id == user.id,)
+    total = db.scalar(select(func.count()).select_from(QuizAttempt).where(*filters)) or 0
+    question_counts = (
+        select(
+            QuizAttemptQuestion.attempt_id,
+            func.count().label("total_questions"),
+        )
+        .group_by(QuizAttemptQuestion.attempt_id)
+        .subquery()
+    )
+    rows = db.execute(
+        select(
+            QuizAttempt,
+            Result,
+            Platform.name.label("platform_name"),
+            Subject.name.label("subject_name"),
+            Topic.name.label("topic_name"),
+            Roadmap.name.label("roadmap_name"),
+            func.coalesce(question_counts.c.total_questions, 0).label(
+                "total_questions"
+            ),
+        )
+        .outerjoin(Result, Result.id == QuizAttempt.result_id)
+        .outerjoin(Platform, Platform.id == QuizAttempt.platform_id)
+        .outerjoin(Subject, Subject.id == QuizAttempt.subject_id)
+        .outerjoin(Topic, Topic.id == QuizAttempt.topic_id)
+        .outerjoin(Roadmap, Roadmap.id == QuizAttempt.roadmap_id)
+        .outerjoin(
+            question_counts,
+            question_counts.c.attempt_id == QuizAttempt.id,
+        )
+        .where(*filters)
+        .order_by(QuizAttempt.created_at.desc(), QuizAttempt.id.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
+
+    return QuizAttemptHistoryListResponse(
+        items=[
+            QuizAttemptHistoryItemResponse(
+                id=attempt.id,
+                platform_id=attempt.platform_id,
+                platform_name=platform_name or f"Platform {attempt.platform_id}",
+                subject_id=attempt.subject_id,
+                subject_name=subject_name or f"Subject {attempt.subject_id}",
+                topic_id=attempt.topic_id,
+                topic_name=topic_name or f"Topic {attempt.topic_id}",
+                roadmap_id=attempt.roadmap_id,
+                roadmap_name=roadmap_name or f"Roadmap {attempt.roadmap_id}",
+                level=attempt.level,  # type: ignore[arg-type]
+                status=attempt.status,
+                result_id=attempt.result_id,
+                score=result.mark if result else None,
+                total_questions=total_questions,
+                percentage=(
+                    _percentage(result.mark, total_questions) if result else None
+                ),
+                created_at=attempt.created_at,
+                submitted_at=attempt.submitted_at,
+                expires_at=attempt.expires_at,
+            )
+            for (
+                attempt,
+                result,
+                platform_name,
+                subject_name,
+                topic_name,
+                roadmap_name,
+                total_questions,
+            ) in rows
+        ],
+        total=total,
+        page=page,
+        page_size=page_size,
+    )
+
+
+def list_result_history(
+    db: Session,
+    user: User,
+    *,
+    page: int,
+    page_size: int,
+) -> QuizResultHistoryListResponse:
+    filters = (Result.user_id == user.id,)
+    total = db.scalar(select(func.count()).select_from(Result).where(*filters)) or 0
+    rows = db.execute(
+        select(
+            Result,
+            QuizAttempt,
+            Platform.name.label("platform_name"),
+            Subject.name.label("subject_name"),
+            Topic.name.label("topic_name"),
+            Roadmap.name.label("roadmap_name"),
+            func.coalesce(func.json_array_length(Result.responses_json), 0).label(
+                "total_questions"
+            ),
+        )
+        .outerjoin(QuizAttempt, QuizAttempt.result_id == Result.id)
+        .outerjoin(Platform, Platform.id == Result.platform_id)
+        .outerjoin(Subject, Subject.id == Result.subject_id)
+        .outerjoin(Topic, Topic.id == Result.topic_id)
+        .outerjoin(Roadmap, Roadmap.id == Result.roadmap_id)
+        .where(*filters)
+        .order_by(Result.created_at.desc(), Result.id.desc())
+        .offset((page - 1) * page_size)
+        .limit(page_size)
+    ).all()
+
+    return QuizResultHistoryListResponse(
+        items=[
+            QuizResultHistoryItemResponse(
+                id=result.id,
+                attempt_id=attempt.id if attempt else None,
+                platform_id=result.platform_id,
+                platform_name=platform_name or f"Platform {result.platform_id}",
+                subject_id=result.subject_id,
+                subject_name=subject_name or f"Subject {result.subject_id}",
+                topic_id=result.topic_id,
+                topic_name=topic_name or f"Topic {result.topic_id}",
+                roadmap_id=result.roadmap_id,
+                roadmap_name=roadmap_name or f"Roadmap {result.roadmap_id}",
+                level=result.level,  # type: ignore[arg-type]
+                score=result.mark,
+                total_questions=total_questions,
+                percentage=_percentage(result.mark, total_questions),
+                created_at=result.created_at,
+                submitted_at=attempt.submitted_at if attempt else result.created_at,
+            )
+            for (
+                result,
+                attempt,
+                platform_name,
+                subject_name,
+                topic_name,
+                roadmap_name,
+                total_questions,
+            ) in rows
+        ],
+        total=total,
+        page=page,
+        page_size=page_size,
+    )
+
+
+def get_result_detail(db: Session, user: User, result_id: int) -> QuizResultDetailResponse:
+    row = db.execute(
+        select(Result, QuizAttempt)
+        .outerjoin(QuizAttempt, QuizAttempt.result_id == Result.id)
+        .where(Result.id == result_id, Result.user_id == user.id)
+    ).one_or_none()
+    if not row:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Quiz result not found.")
+
+    result, attempt = row
+    responses = _parse_responses(result.responses_json)
+    question_ids = [response["id"] for response in responses]
+    questions = {
+        question.id: question
+        for question in db.execute(
+            select(Question).where(Question.id.in_(question_ids))
+        ).scalars()
+    }
+    review: list[QuizAttemptReviewResponse] = []
+    for response in responses:
+        question = questions.get(response["id"])
+        if not question:
+            continue
+        options = _normalize_options(question.options_json)
+        selected_index = response["s"]
+        correct_index = response["a"]
+        review.append(
+            QuizAttemptReviewResponse(
+                question_id=question.id,
+                question_text=question.question_text,
+                options=options,
+                selected_answer=_answer_label(selected_index, ""),
+                selected_answer_text=_answer_text(options, selected_index),
+                correct_answer=_answer_label(correct_index, question.answer_key),
+                correct_answer_text=_answer_text(options, correct_index),
+                is_correct=correct_index >= 0 and selected_index == correct_index,
+                explanation=question.explanation,
+            )
+        )
+
+    summary = _result_history_item(db, result, attempt)
+    return QuizResultDetailResponse(**summary.model_dump(), review=review)

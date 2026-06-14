@@ -378,6 +378,9 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-14: Froze Quiz API V1 after completing protected attempt/result history, review details, ownership enforcement, and list-query performance optimization; future enhancements belong in the Quiz V1.1 backlog.
+* 2026-06-14: Optimized Quiz attempts/results history lists from per-row N+1 queries to paginated joined summary queries.
+* 2026-06-14: Added protected current-user Quiz attempts/results history APIs and submitted result review detail reconstruction.
 * 2026-06-13: Added an idempotent corrective parent migration to create the missing `UserSettings` table and restore authenticated Settings API reads and writes.
 * 2026-06-13: Updated overview metadata sync to remove obsolete unprefixed `quiz` and `resume-builder` records after canonical `overview:*` records are synced.
 * 2026-06-13: Completed the 102-app overview JSON migration with status-aware, catalog-aligned metadata for the coming-soon Horoscope AI and Daily Challenge apps and the live Job Tracker app.
