@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-14: Added Study Timer App #008 overview metadata for the browser-only Set → Start → Focus → Complete workflow and standardized Timer workspace CTAs.
 * 2026-06-14: Added Markdown Editor App #007 overview metadata for the browser-only Write → Preview → Export workflow and standardized Editor workspace CTAs.
 * 2026-06-14: Added Color Palette Generator App #006 overview metadata for the browser-only Generate → Adjust → Export workflow and standardized Generator workspace CTAs.
 * 2026-06-14: Added Unit & Currency Converter App #005 overview metadata for browser-only unit calculations, frontend currency-rate lookup, and standardized Converter workspace CTAs.
