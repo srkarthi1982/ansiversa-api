@@ -2,80 +2,170 @@
   "hero": {
     "kicker": "Utility · Ansiversa mini app",
     "title": "JSON Formatter",
-    "description": "Clean and format JSON data through a focused editing flow.",
-    "points": ["JSON formatting", "Cleaner data", "Focused review"],
-    "primaryAction": {"label": "Explore JSON Formatter", "path": "/json-formatter"}
+    "description": "Format, validate, and organize JSON through a focused editing workflow.",
+    "points": [
+      "Format and beautify JSON",
+      "Minify large JSON payloads",
+      "Validate JSON instantly"
+    ],
+    "primaryAction": {
+      "label": "Explore JSON Formatter",
+      "path": "/json-formatter"
+    }
   },
   "flow": {
     "kicker": "Formatting flow",
-    "title": "Add → Format → Review",
-    "steps": ["Add the JSON data", "Clean and format the content", "Review the formatted result"]
+    "title": "Paste → Process → Review",
+    "steps": [
+      "Paste valid JSON into the editor",
+      "Format, minify, or validate the content",
+      "Review and copy the processed output"
+    ]
   },
   "stats": [
-    {"label": "Input", "value": "JSON"},
-    {"label": "Process", "value": "Formatting"},
-    {"label": "Result", "value": "Clean"}
+    {
+      "label": "Input",
+      "value": "JSON"
+    },
+    {
+      "label": "Actions",
+      "value": "Format · Minify · Validate"
+    },
+    {
+      "label": "Output",
+      "value": "Clean JSON"
+    }
   ],
   "timeline": null,
   "differences": {
     "title": "Make JSON data easier to read",
-    "description": "JSON Formatter focuses on cleaning and formatting JSON data through a direct workflow.",
+    "description": "JSON Formatter helps transform raw JSON into clean, readable, and validated content.",
     "items": [
-      {"kicker": "Pillar 01", "title": "JSON input", "description": "Begin with the JSON data that needs formatting."},
-      {"kicker": "Pillar 02", "title": "Clean formatting", "description": "Organize the JSON into a cleaner format."},
-      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the formatted JSON data."}
+      {
+        "kicker": "Pillar 01",
+        "title": "JSON input",
+        "description": "Paste JSON from APIs, files, logs, or application responses."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Smart formatting",
+        "description": "Beautify or minify JSON while preserving valid structure."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Instant validation",
+        "description": "Detect malformed JSON and review parsing errors quickly."
+      }
     ]
   },
   "feel": {
     "kicker": "How it feels",
     "title": "A direct path to cleaner JSON",
-    "description": "The workflow keeps the source data and formatted result connected.",
+    "description": "The workflow keeps source data and processed output connected in a single workspace.",
     "items": [
-      {"title": "Add the JSON", "description": "Provide the data that needs formatting."},
-      {"title": "Format the content", "description": "Clean and organize the JSON."},
-      {"title": "Review the result", "description": "Read the formatted data."}
+      {
+        "title": "Paste the JSON",
+        "description": "Provide the JSON content that needs processing."
+      },
+      {
+        "title": "Choose an action",
+        "description": "Format, minify, or validate the content."
+      },
+      {
+        "title": "Review the result",
+        "description": "Inspect and copy the processed JSON output."
+      }
     ]
   },
   "audiences": {
     "title": "Who uses JSON Formatter",
-    "description": "Useful for people who need to clean and format JSON data.",
+    "description": "Useful for anyone working with structured JSON data.",
     "items": [
-      {"title": "Developers", "description": "Format JSON data for easier review."},
-      {"title": "Technical teams", "description": "Clean JSON content during technical work."},
-      {"title": "Learners", "description": "Read JSON more clearly after formatting."}
+      {
+        "title": "Developers",
+        "description": "Format JSON data for easier review and debugging."
+      },
+      {
+        "title": "Technical teams",
+        "description": "Clean JSON content during technical investigations and support work."
+      },
+      {
+        "title": "API testers",
+        "description": "Inspect and verify JSON payloads returned from APIs and services."
+      },
+      {
+        "title": "Learners",
+        "description": "Read and understand JSON structures more clearly."
+      }
     ]
   },
   "resourceSection": {
-    "title": "JSON-formatting essentials",
-    "description": "Keep source data, formatting, and result review connected.",
+    "title": "JSON formatting essentials",
+    "description": "Keep formatting, validation, and review workflows connected.",
     "items": [
-      {"title": "JSON data", "description": "Provide the content to format."},
-      {"title": "Clean format", "description": "Organize the JSON data."},
-      {"title": "Result review", "description": "Read the formatted content."}
+      {
+        "title": "Format JSON",
+        "description": "Beautify compact JSON into a readable structure."
+      },
+      {
+        "title": "Minify JSON",
+        "description": "Reduce whitespace and line breaks for compact output."
+      },
+      {
+        "title": "Validate JSON",
+        "description": "Confirm that JSON syntax is correct before use."
+      }
     ]
   },
   "groupedSection": {
     "title": "Clean and format JSON data",
-    "description": "Use a direct data-formatting workflow.",
+    "description": "Use a simple workflow to transform raw JSON into readable output.",
     "groups": [
-      {"kicker": "Prepare", "title": "Add the JSON data", "items": [
-        {"name": "Input", "description": "Provide the JSON content."},
-        {"name": "Data", "description": "Keep the source ready for formatting."}
-      ]},
-      {"kicker": "Format", "title": "Clean and review", "items": [
-        {"name": "Formatting", "description": "Organize the JSON data."},
-        {"name": "Result", "description": "Review the cleaned content."}
-      ]}
+      {
+        "kicker": "Prepare",
+        "title": "Add the JSON data",
+        "items": [
+          {
+            "name": "Input",
+            "description": "Paste valid JSON into the editor."
+          },
+          {
+            "name": "Source",
+            "description": "Use content from APIs, files, logs, or applications."
+          }
+        ]
+      },
+      {
+        "kicker": "Process",
+        "title": "Format and review",
+        "items": [
+          {
+            "name": "Formatting",
+            "description": "Beautify or minify JSON content."
+          },
+          {
+            "name": "Validation",
+            "description": "Check syntax and review the resulting output."
+          }
+        ]
+      }
     ]
   },
   "technicalSection": {
-    "title": "Designed for clean JSON formatting",
+    "title": "Designed for practical JSON workflows",
     "description": "JSON Formatter follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "JSON-input and clean-formatting-ready flow.", "Responsive presentation across devices."]
+    "items": [
+      "Runs entirely in the browser with no server dependency.",
+      "Supports formatting, minification, and validation workflows.",
+      "Responsive experience across desktop and mobile devices."
+    ]
   },
   "finalCta": {
-    "title": "Explore clean JSON formatting",
-    "description": "Visit JSON Formatter to review its planned formatting experience.",
-    "action": {"label": "Explore JSON Formatter", "path": "/json-formatter"}
+    "title": "Format, validate, and review JSON",
+    "description": "Open JSON Formatter and transform raw JSON into clean, readable output in seconds.",
+    "action": {
+      "label": "Explore JSON Formatter",
+      "path": "/json-formatter"
+    }
   }
 }
