@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Utility · Ansiversa mini app",
     "title": "Markdown Editor",
-    "description": "Write Markdown with preview through a focused editing workflow.",
-    "points": ["Markdown writing", "Content preview", "Focused editing"],
-    "primaryAction": {"label": "Explore Markdown Editor", "path": "/markdown-editor"}
+    "description": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+    "points": ["Browser-only Markdown editing", "Live rendered preview", "Markdown and HTML export"],
+    "primaryAction": {"label": "Explore", "path": "/markdown-editor/editor"}
   },
   "flow": {
-    "kicker": "Writing flow",
-    "title": "Write → Preview → Refine",
-    "steps": ["Write the Markdown content", "Preview the rendered result", "Refine the content"]
+    "kicker": "Editing flow",
+    "title": "Write → Preview → Export",
+    "steps": ["Write or paste Markdown", "Review the live rendered preview", "Copy or download the finished document"]
   },
   "stats": [
     {"label": "Input", "value": "Markdown"},
-    {"label": "View", "value": "Preview"},
-    {"label": "Focus", "value": "Writing"}
+    {"label": "Preview", "value": "Live"},
+    {"label": "Storage", "value": "Browser-only"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Keep Markdown writing and preview connected",
-    "description": "Markdown Editor focuses on writing Markdown while reviewing its rendered preview.",
+    "title": "Keep source writing and rendered output connected",
+    "description": "Markdown Editor combines a focused source editor, immediate preview, and practical export actions.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Markdown writing", "description": "Write content using Markdown."},
-      {"kicker": "Pillar 02", "title": "Rendered preview", "description": "Review how the Markdown content appears."},
-      {"kicker": "Pillar 03", "title": "Focused refinement", "description": "Refine the content after previewing it."}
+      {"kicker": "Pillar 01", "title": "Write", "description": "Type or paste Markdown into a full-height editor."},
+      {"kicker": "Pillar 02", "title": "Preview", "description": "Review the safely rendered document while writing."},
+      {"kicker": "Pillar 03", "title": "Export", "description": "Copy source or HTML and download reusable files."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "A direct path from Markdown to preview",
-    "description": "The workflow keeps source writing and rendered preview connected.",
+    "title": "A direct path from Markdown source to finished document",
+    "description": "The workspace keeps writing, document statistics, preview, and export actions visible together.",
     "items": [
-      {"title": "Write the content", "description": "Create text using Markdown."},
-      {"title": "Preview the result", "description": "Review the rendered content."},
-      {"title": "Refine the writing", "description": "Update the Markdown after review."}
+      {"title": "Start quickly", "description": "Use the starter document or paste existing Markdown."},
+      {"title": "Review immediately", "description": "See the preview and statistics update as content changes."},
+      {"title": "Use the result", "description": "Copy Markdown or HTML and download both document formats."}
     ]
   },
   "audiences": {
     "title": "Who uses Markdown Editor",
-    "description": "Useful for people who write Markdown and want to preview the result.",
+    "description": "Useful for people creating documentation, notes, README files, and structured text.",
     "items": [
-      {"title": "Developers", "description": "Write and preview Markdown content."},
-      {"title": "Technical writers", "description": "Review rendered documentation while writing."},
-      {"title": "Everyday writers", "description": "Create Markdown with a clear preview."}
+      {"title": "Developers", "description": "Write and export README files and technical content."},
+      {"title": "Technical writers", "description": "Review rendered documentation while refining the source."},
+      {"title": "Students and creators", "description": "Build structured notes and content without saved history."}
     ]
   },
   "resourceSection": {
-    "title": "Markdown-editing essentials",
-    "description": "Keep source content, preview, and refinement connected.",
+    "title": "Markdown editing essentials",
+    "description": "Everything needed for a focused browser-only writing workflow.",
     "items": [
-      {"title": "Markdown source", "description": "Write the content."},
-      {"title": "Rendered preview", "description": "Review how the content appears."},
-      {"title": "Refinement", "description": "Update the writing after review."}
+      {"title": "Live preview", "description": "Render common Markdown structures immediately."},
+      {"title": "Document statistics", "description": "Track characters, words, and lines in realtime."},
+      {"title": "Browser exports", "description": "Download Markdown and HTML files without a server."}
     ]
   },
   "groupedSection": {
-    "title": "Write Markdown with preview",
-    "description": "Use a direct writing-and-preview workflow.",
+    "title": "Write and export structured content",
+    "description": "Keep the source document and rendered result together.",
     "groups": [
-      {"kicker": "Write", "title": "Create the Markdown", "items": [
-        {"name": "Source", "description": "Write the Markdown content."},
-        {"name": "Structure", "description": "Shape the content with Markdown."}
+      {"kicker": "Write", "title": "Create the document", "items": [
+        {"name": "Markdown source", "description": "Type, paste, clear, or reset the editable document."},
+        {"name": "Live statistics", "description": "Track document size while writing."}
       ]},
-      {"kicker": "Preview", "title": "Review and refine", "items": [
-        {"name": "Preview", "description": "Review the rendered result."},
-        {"name": "Refinement", "description": "Update the content after review."}
+      {"kicker": "Export", "title": "Use the document", "items": [
+        {"name": "Copy content", "description": "Copy raw Markdown or rendered HTML."},
+        {"name": "Download files", "description": "Export the finished document as Markdown or HTML."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Designed for Markdown writing with preview",
-    "description": "Markdown Editor follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Markdown-writing and preview-ready flow.", "Responsive presentation across devices."]
+    "title": "Designed for private browser editing",
+    "description": "Markdown Editor follows the shared Ansiversa client-side utility architecture.",
+    "items": ["Metadata-driven overview content.", "Safe browser-only Markdown rendering with no saved history.", "Responsive Write → Preview → Export workflow."]
   },
   "finalCta": {
-    "title": "Explore focused Markdown editing",
-    "description": "Visit Markdown Editor to review its planned writing and preview experience.",
-    "action": {"label": "Explore Markdown Editor", "path": "/markdown-editor"}
+    "title": "Write a Markdown document",
+    "description": "Open the editor to write, preview, copy, and export structured content.",
+    "action": {"label": "Explore", "path": "/markdown-editor/editor"}
   }
 }
