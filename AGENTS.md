@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-14: Updated QR Code Creator overview metadata for App #004 with the browser-only Input → Preview → Download workflow and standardized workspace CTAs.
 * 2026-06-14: Standardized completed mini-app overview CTA labels to `Explore` and corrected JSON Formatter and Password Generator CTA paths to their workspace routes.
 * 2026-06-14: Updated the physical JSON Formatter overview metadata backup after validating JSON Formatter V1 through Ansiversa's own metadata update workflow.
 * 2026-06-14: Froze Quiz API V1 after completing protected attempt/result history, review details, ownership enforcement, and list-query performance optimization; future enhancements belong in the Quiz V1.1 backlog.

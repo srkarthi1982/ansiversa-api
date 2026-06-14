@@ -2,43 +2,43 @@
   "hero": {
     "kicker": "Utility · Ansiversa mini app",
     "title": "QR Code Creator",
-    "description": "Generate QR codes instantly from the information you provide.",
-    "points": ["QR code generation", "Instant creation", "Focused input flow"],
-    "primaryAction": {"label": "Explore QR Code Creator", "path": "/qr-code-creator"}
+    "description": "Turn text and URLs into downloadable QR codes directly in your browser.",
+    "points": ["Text and URL QR generation", "Live preview and PNG download", "Browser-only processing with no saved content"],
+    "primaryAction": {"label": "Explore", "path": "/qr-code-creator/generator"}
   },
   "flow": {
     "kicker": "Creation flow",
-    "title": "Add → Generate → Review",
-    "steps": ["Add the information", "Generate the QR code", "Review the result"]
+    "title": "Input → Preview → Download",
+    "steps": ["Enter text or a URL", "Review the live QR preview", "Download the QR code as PNG"]
   },
   "stats": [
-    {"label": "Output", "value": "QR code"},
-    {"label": "Generation", "value": "Instant"},
-    {"label": "Input", "value": "Provided information"}
+    {"label": "Output", "value": "PNG"},
+    {"label": "Preview", "value": "Live"},
+    {"label": "Processing", "value": "Browser-only"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Turn information into a QR code quickly",
-    "description": "QR Code Creator focuses on instant QR code generation through a direct workflow.",
+    "title": "Create useful QR codes without sharing your content",
+    "description": "QR Code Creator keeps generation fast, visual, and private.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Clear input", "description": "Begin with the information the QR code should contain."},
-      {"kicker": "Pillar 02", "title": "Instant generation", "description": "Create the QR code quickly."},
-      {"kicker": "Pillar 03", "title": "Result review", "description": "Review the generated QR code."}
+      {"kicker": "Pillar 01", "title": "Flexible content", "description": "Generate QR codes from URLs, contact information, or plain text."},
+      {"kicker": "Pillar 02", "title": "Live preview", "description": "See size and color changes immediately."},
+      {"kicker": "Pillar 03", "title": "Private download", "description": "Download a PNG without sending or saving the content."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
     "title": "A direct path to a QR code",
-    "description": "The workflow keeps the provided information and generated result connected.",
+    "description": "The workflow keeps input, preview, and download connected.",
     "items": [
-      {"title": "Add the information", "description": "Provide what the QR code should represent."},
-      {"title": "Generate the code", "description": "Create the QR code instantly."},
-      {"title": "Review the result", "description": "Check the generated QR code."}
+      {"title": "Enter the content", "description": "Paste a URL or write the text the QR code should contain."},
+      {"title": "Customize the preview", "description": "Choose the output size and colors."},
+      {"title": "Download the PNG", "description": "Save the generated QR code when it is ready."}
     ]
   },
   "audiences": {
     "title": "Who uses QR Code Creator",
-    "description": "Useful for anyone who needs to generate a QR code.",
+    "description": "Useful for anyone who needs a quick, private QR code.",
     "items": [
       {"title": "Professionals", "description": "Create QR codes for work-related information."},
       {"title": "Small businesses", "description": "Generate QR codes for business use."},
@@ -46,36 +46,36 @@
     ]
   },
   "resourceSection": {
-    "title": "QR-code creation essentials",
-    "description": "Keep information input, generation, and review connected.",
+    "title": "QR creation essentials",
+    "description": "Keep content input, visual preview, and download connected.",
     "items": [
-      {"title": "Information", "description": "Provide what the QR code should contain."},
-      {"title": "QR generation", "description": "Create the code instantly."},
-      {"title": "Result review", "description": "Check the generated QR code."}
+      {"title": "Text and URLs", "description": "Provide the content the QR code should contain."},
+      {"title": "Live preview", "description": "Review size and color changes instantly."},
+      {"title": "PNG download", "description": "Save the completed QR code locally."}
     ]
   },
   "groupedSection": {
-    "title": "Generate a QR code",
-    "description": "Use a direct input-and-generation flow.",
+    "title": "Generate and download a QR code",
+    "description": "Use a direct browser-only visual workflow.",
     "groups": [
       {"kicker": "Prepare", "title": "Set the QR content", "items": [
-        {"name": "Information", "description": "Add the content to represent."},
-        {"name": "Review", "description": "Check the input before generation."}
+        {"name": "Content", "description": "Add text or a URL."},
+        {"name": "Options", "description": "Choose output size and colors."}
       ]},
       {"kicker": "Generate", "title": "Create and check", "items": [
-        {"name": "QR code", "description": "Generate the result instantly."},
-        {"name": "Result", "description": "Review the completed code."}
+        {"name": "Preview", "description": "Review the generated QR code instantly."},
+        {"name": "Download", "description": "Save the result as a PNG."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Designed for instant QR code generation",
-    "description": "QR Code Creator follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Information-input and QR-generation-ready flow.", "Responsive presentation across devices."]
+    "title": "Designed for private visual output",
+    "description": "QR Code Creator follows the shared Ansiversa client-side utility architecture.",
+    "items": ["Metadata-driven overview content.", "Browser-only QR generation with no saved content.", "Responsive Input → Preview → Download workflow."]
   },
   "finalCta": {
-    "title": "Explore instant QR code creation",
-    "description": "Visit QR Code Creator to review its planned generation experience.",
-    "action": {"label": "Explore QR Code Creator", "path": "/qr-code-creator"}
+    "title": "Ready to create a QR code?",
+    "description": "Enter text or a URL, review the preview, and download the PNG.",
+    "action": {"label": "Explore", "path": "/qr-code-creator/generator"}
   }
 }
