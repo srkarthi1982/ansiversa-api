@@ -9,8 +9,8 @@
       "Validate JSON instantly"
     ],
     "primaryAction": {
-      "label": "Explore JSON Formatter",
-      "path": "/json-formatter"
+      "label": "Explore",
+      "path": "/json-formatter/formatter"
     }
   },
   "flow": {
@@ -164,8 +164,8 @@
     "title": "Format, validate, and review JSON",
     "description": "Open JSON Formatter and transform raw JSON into clean, readable output in seconds.",
     "action": {
-      "label": "Explore JSON Formatter",
-      "path": "/json-formatter"
+      "label": "Explore",
+      "path": "/json-formatter/formatter"
     }
   }
 }

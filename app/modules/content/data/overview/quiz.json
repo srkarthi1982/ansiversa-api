@@ -9,7 +9,7 @@
       "Attempts saved per user for progress tracking"
     ],
     "primaryAction": {
-      "label": "Launch Quiz",
+      "label": "Explore",
       "path": "/quiz/play"
     },
     "secondaryAction": {
@@ -224,7 +224,7 @@
     "title": "Ready to build your first quiz?",
     "description": "Launch the mini app and start testing knowledge in minutes.",
     "action": {
-      "label": "Start with Quiz",
+      "label": "Explore",
       "path": "/quiz/play"
     }
   }
