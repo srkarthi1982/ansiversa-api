@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Lifestyle · Ansiversa mini app",
     "title": "Mood Journal",
-    "description": "Record moods with insights through a focused reflection workflow.",
-    "points": ["Mood recording", "Personal insights", "Focused reflection"],
-    "primaryAction": {"label": "Explore Mood Journal", "path": "/mood-journal"}
+    "description": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+    "points": ["Date-keyed mood entries", "Searchable recent reflections", "Browser-local privacy"],
+    "primaryAction": {"label": "Explore", "path": "/mood-journal/journal"}
   },
   "flow": {
     "kicker": "Reflection flow",
     "title": "Record → Review → Reflect",
-    "steps": ["Record the current mood", "Review mood insights", "Reflect on the result"]
+    "steps": ["Record today’s mood", "Review recent entries", "Reflect on daily patterns"]
   },
   "stats": [
-    {"label": "Entry", "value": "Mood"},
-    {"label": "Review", "value": "Insights"},
-    {"label": "Focus", "value": "Reflection"}
+    {"label": "Entry", "value": "Daily"},
+    {"label": "Mood levels", "value": "5"},
+    {"label": "Storage", "value": "Local"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Keep mood records and insights connected",
-    "description": "Mood Journal focuses on recording moods and reviewing the insights they provide.",
+    "title": "Keep daily moods and reflections connected",
+    "description": "Mood Journal combines one editable daily entry with recent reflections and a current streak.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Mood recording", "description": "Record the current mood."},
-      {"kicker": "Pillar 02", "title": "Personal insights", "description": "Review insights connected to recorded moods."},
-      {"kicker": "Pillar 03", "title": "Focused reflection", "description": "Reflect on the mood record and its insights."}
+      {"kicker": "Pillar 01", "title": "Record", "description": "Capture today’s mood level, label, note, and optional tags."},
+      {"kicker": "Pillar 02", "title": "Review", "description": "Search, filter, and revisit recent date-keyed entries."},
+      {"kicker": "Pillar 03", "title": "Reflect", "description": "Build a consistent private reflection habit in this browser."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "A simple mood-reflection routine",
-    "description": "The workflow keeps mood recording and insight review connected.",
+    "title": "A calm path from mood to reflection",
+    "description": "The journal keeps today’s entry, recent reflections, and current streak together.",
     "items": [
-      {"title": "Record the mood", "description": "Add the current mood to the journal."},
-      {"title": "Review insights", "description": "Review insights from the mood record."},
-      {"title": "Reflect on the result", "description": "Use the record for focused reflection."}
+      {"title": "Capture today", "description": "Record a mood level and add as much or as little context as needed."},
+      {"title": "Review entries", "description": "Find recent reflections by mood, note text, or tags."},
+      {"title": "Keep it private", "description": "Store journal entries only in the current browser."}
     ]
   },
   "audiences": {
     "title": "Who uses Mood Journal",
-    "description": "Useful for people who want to record moods and review personal insights.",
+    "description": "Useful for anyone building a simple and private reflection routine.",
     "items": [
-      {"title": "Reflective users", "description": "Record moods as part of personal reflection."},
-      {"title": "Routine builders", "description": "Make mood recording part of a regular routine."},
-      {"title": "Everyday users", "description": "Keep moods and insights connected."}
+      {"title": "Reflective users", "description": "Capture mood context through short daily notes."},
+      {"title": "Routine builders", "description": "Maintain a streak of consistent daily entries."},
+      {"title": "Everyday users", "description": "Keep lightweight mood records without an account."}
     ]
   },
   "resourceSection": {
-    "title": "Mood-journaling essentials",
-    "description": "Keep mood records, insights, and reflection connected.",
+    "title": "Mood journaling essentials",
+    "description": "Everything needed to record, review, and reflect on daily moods.",
     "items": [
-      {"title": "Mood record", "description": "Record the current mood."},
-      {"title": "Insights", "description": "Review insights from the record."},
-      {"title": "Reflection", "description": "Reflect on the mood and insights."}
+      {"title": "Today’s entry", "description": "Save or update one date-keyed mood entry for today."},
+      {"title": "Recent reflections", "description": "Search and filter entries stored in this browser."},
+      {"title": "Current streak", "description": "Count consecutive local dates with a saved entry."}
     ]
   },
   "groupedSection": {
-    "title": "Record moods with insights",
-    "description": "Use a direct mood-reflection workflow.",
+    "title": "Record and review daily reflections",
+    "description": "Use one browser-only workflow for private mood journaling.",
     "groups": [
-      {"kicker": "Record", "title": "Capture the mood", "items": [
-        {"name": "Mood", "description": "Record the current mood."},
-        {"name": "Journal", "description": "Keep the mood entry available for review."}
+      {"kicker": "Record", "title": "Capture today’s mood", "items": [
+        {"name": "Mood details", "description": "Choose a level and add a label, note, and optional tags."},
+        {"name": "Daily update", "description": "Save again to update today’s existing entry."}
       ]},
-      {"kicker": "Reflect", "title": "Review the insight", "items": [
-        {"name": "Insights", "description": "Review insights connected to the mood."},
-        {"name": "Reflection", "description": "Reflect on the recorded result."}
+      {"kicker": "Review", "title": "Reflect on recent entries", "items": [
+        {"name": "Search and filter", "description": "Find entries by mood, note text, or tags."},
+        {"name": "Private history", "description": "Keep date-keyed entries and streak progress in this browser."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Designed for mood recording and insights",
-    "description": "Mood Journal follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Mood-recording and insight-review-ready flow.", "Responsive presentation across devices."]
+    "title": "Designed for browser mood journaling",
+    "description": "Mood Journal follows the shared Ansiversa browser-first reference architecture.",
+    "items": ["Metadata-driven overview content.", "User-created date-keyed entries stored in localStorage.", "Responsive Record → Review → Reflect workflow."]
   },
   "finalCta": {
-    "title": "Explore focused mood journaling",
-    "description": "Visit Mood Journal to review its planned mood and insight experience.",
-    "action": {"label": "Explore Mood Journal", "path": "/mood-journal"}
+    "title": "Record and reflect on today’s mood",
+    "description": "Open Mood Journal to create a private daily reflection in your browser.",
+    "action": {"label": "Explore", "path": "/mood-journal/journal"}
   }
 }
