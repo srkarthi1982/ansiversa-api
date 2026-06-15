@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Learning · Ansiversa mini app",
     "title": "Daily Word Challenge",
-    "description": "Learn one new word every day through a focused daily challenge.",
-    "points": ["One daily word", "Focused vocabulary learning", "Simple daily routine"],
-    "primaryAction": {"label": "Open Daily Word Challenge", "path": "/daily-word-challenge"}
+    "description": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+    "points": ["20 bundled words", "Deterministic daily challenge", "Browser-local learning progress"],
+    "primaryAction": {"label": "Explore", "path": "/daily-word-challenge/challenge"}
   },
   "flow": {
-    "kicker": "Daily flow",
-    "title": "Discover → Learn → Use",
-    "steps": ["Discover the daily word", "Learn its meaning", "Use the word today"]
+    "kicker": "Learning flow",
+    "title": "Discover → Learn → Complete",
+    "steps": ["Discover today’s word", "Learn its meaning and usage", "Complete the daily challenge"]
   },
   "stats": [
-    {"label": "Word", "value": "Daily"},
-    {"label": "Learning", "value": "Focused"},
-    {"label": "Routine", "value": "Simple"}
+    {"label": "Words", "value": "20+"},
+    {"label": "Difficulties", "value": "3"},
+    {"label": "Progress", "value": "Local"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Grow vocabulary one word at a time",
-    "description": "Daily Word Challenge makes vocabulary learning approachable by keeping each day focused on one word.",
+    "title": "Build vocabulary one day at a time",
+    "description": "Daily Word Challenge combines a deterministic daily word with a searchable vocabulary collection and local progress.",
     "items": [
-      {"kicker": "Pillar 01", "title": "One-word focus", "description": "Give the daily word enough attention to understand it."},
-      {"kicker": "Pillar 02", "title": "Clear meaning", "description": "Review what the word means before trying to use it."},
-      {"kicker": "Pillar 03", "title": "Daily practice", "description": "Make vocabulary learning part of a simple routine."}
+      {"kicker": "Pillar 01", "title": "Discover", "description": "Meet the same focused daily word as every learner for that date."},
+      {"kicker": "Pillar 02", "title": "Learn", "description": "Review pronunciation, meaning, part of speech, and an example."},
+      {"kicker": "Pillar 03", "title": "Complete", "description": "Mark words learned today and build a current learning streak."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "A manageable daily learning habit",
-    "description": "The experience keeps vocabulary growth small, focused, and consistent.",
+    "title": "A focused daily vocabulary routine",
+    "description": "The challenge keeps today’s word, the complete collection, and local learning progress together.",
     "items": [
-      {"title": "Meet the word", "description": "Start the day with one new vocabulary item."},
-      {"title": "Understand it", "description": "Review the word and its meaning."},
-      {"title": "Put it to use", "description": "Look for a chance to use the word during the day."}
+      {"title": "Meet today’s word", "description": "Start with one word selected deterministically for the date."},
+      {"title": "Explore vocabulary", "description": "Search 20 bundled words and filter them by difficulty."},
+      {"title": "Build consistency", "description": "Maintain a streak by learning at least one word each day."}
     ]
   },
   "audiences": {
     "title": "Who uses Daily Word Challenge",
-    "description": "Useful for anyone who wants a simple vocabulary-learning routine.",
+    "description": "Useful for anyone building vocabulary through a manageable daily routine.",
     "items": [
-      {"title": "Students", "description": "Build vocabulary through a manageable daily practice."},
-      {"title": "Writers", "description": "Discover words that can expand written expression."},
-      {"title": "Curious learners", "description": "Add a small learning moment to every day."}
+      {"title": "Students", "description": "Grow vocabulary through focused daily learning."},
+      {"title": "Writers", "description": "Explore words that expand written expression."},
+      {"title": "Curious learners", "description": "Add one practical learning moment to every day."}
     ]
   },
   "resourceSection": {
     "title": "Daily vocabulary essentials",
-    "description": "Keep each challenge centered on understanding and using one word.",
+    "description": "Everything needed to discover, learn, and complete a daily word challenge.",
     "items": [
-      {"title": "Daily word", "description": "Focus on one vocabulary item at a time."},
-      {"title": "Meaning", "description": "Understand what the word communicates."},
-      {"title": "Practical use", "description": "Apply the word to reinforce learning."}
+      {"title": "Bundled words", "description": "Explore 20 words across three difficulty levels."},
+      {"title": "Daily challenge", "description": "Receive one deterministic word for the local date."},
+      {"title": "Local progress", "description": "Store learned word IDs and current streak progress in this browser."}
     ]
   },
   "groupedSection": {
-    "title": "A simple daily challenge",
-    "description": "Move from discovering the word to using it.",
+    "title": "Discover and complete daily words",
+    "description": "Use one browser-only workflow for vocabulary exploration and consistent progress.",
     "groups": [
-      {"kicker": "Learn", "title": "Understand the word", "items": [
-        {"name": "Discover", "description": "Reveal the word selected for the day."},
-        {"name": "Meaning", "description": "Review what the word means."}
+      {"kicker": "Discover", "title": "Explore the words", "items": [
+        {"name": "Daily selection", "description": "Start with the word selected for today."},
+        {"name": "Search and filter", "description": "Find words by text, meaning, part of speech, or difficulty."}
       ]},
-      {"kicker": "Apply", "title": "Use the word", "items": [
-        {"name": "Recall", "description": "Remember the word later in the day."},
-        {"name": "Practice", "description": "Use it in an appropriate context."}
+      {"kicker": "Learn", "title": "Complete the challenge", "items": [
+        {"name": "Learned progress", "description": "Mark or undo words learned today."},
+        {"name": "Browser streak", "description": "Track consecutive days with local date-based progress."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Built for focused daily learning",
-    "description": "Daily Word Challenge follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Daily vocabulary-ready learning flow.", "Responsive presentation across devices."]
+    "title": "Designed for browser vocabulary learning",
+    "description": "Daily Word Challenge follows the shared Ansiversa browser-first reference architecture.",
+    "items": ["Metadata-driven overview content.", "Deterministic daily selection with date-based browser progress.", "Responsive Discover → Learn → Complete workflow."]
   },
   "finalCta": {
-    "title": "Ready for today's word?",
-    "description": "Open Daily Word Challenge and learn one new word.",
-    "action": {"label": "Open Daily Word Challenge", "path": "/daily-word-challenge"}
+    "title": "Learn one new word every day",
+    "description": "Open Daily Word Challenge to discover today’s word and build your vocabulary in the browser.",
+    "action": {"label": "Explore", "path": "/daily-word-challenge/challenge"}
   }
 }

@@ -378,6 +378,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-15: Refined the approved Daily Word Challenge V1 overview CTA labels from Start challenge to Explore.
+* 2026-06-15: Updated Daily Word Challenge App #014 overview metadata for deterministic browser vocabulary learning and the Discover → Learn → Complete workflow.
 * 2026-06-15: Updated Eco Habit Tracker App #013 overview metadata for date-based browser progress and the Plan → Track → Complete workflow.
 * 2026-06-15: Refined the approved Quote Forge V1 technical overview wording to describe its browser-first reference architecture.
 * 2026-06-15: Updated Quote Forge App #012 overview metadata for the bundled browser quote collection workflow Browse → Copy → Favorite.
