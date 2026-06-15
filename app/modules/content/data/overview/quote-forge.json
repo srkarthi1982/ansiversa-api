@@ -1,81 +1,81 @@
 {
   "hero": {
-    "kicker": "Writing · Ansiversa mini app",
+    "kicker": "Learning · Ansiversa mini app",
     "title": "Quote Forge",
-    "description": "Create original quotes in seconds from a chosen idea or direction.",
-    "points": ["Original quote creation", "Quick generation", "Idea-based direction"],
-    "primaryAction": {"label": "Explore Quote Forge", "path": "/quote-forge"}
+    "description": "Discover bundled quotes, explore ideas, and save favorites in your browser.",
+    "points": ["35 bundled quotes", "Search and category filtering", "Browser-local favorites"],
+    "primaryAction": {"label": "Explore", "path": "/quote-forge/forge"}
   },
   "flow": {
     "kicker": "Quote flow",
-    "title": "Describe → Create → Review",
-    "steps": ["Describe the idea or direction", "Create an original quote", "Review the result"]
+    "title": "Browse → Copy → Favorite",
+    "steps": ["Search quotes, authors, and keywords", "Browse quotes across categories", "Copy quotes and save browser-local favorites"]
   },
   "stats": [
-    {"label": "Output", "value": "Original quote"},
-    {"label": "Generation", "value": "Quick"},
-    {"label": "Direction", "value": "Idea-based"}
+    {"label": "Quotes", "value": "35+"},
+    {"label": "Categories", "value": "7"},
+    {"label": "Favorites", "value": "Local"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Turn an idea into an original quote",
-    "description": "Quote Forge focuses on creating original quotes quickly from a clear direction.",
+    "title": "A focused quote collection in your browser",
+    "description": "Quote Forge keeps bundled quotes, fast discovery, formatted copy, and local favorites together.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Idea direction", "description": "Begin with what the quote should express."},
-      {"kicker": "Pillar 02", "title": "Original creation", "description": "Generate a new quote from the chosen direction."},
-      {"kicker": "Pillar 03", "title": "Quote review", "description": "Read the generated result as a complete thought."}
+      {"kicker": "Pillar 01", "title": "Browse", "description": "Search quotes, authors, categories, and keywords in real time."},
+      {"kicker": "Pillar 02", "title": "Copy", "description": "Copy a quote and its author in a clean format."},
+      {"kicker": "Pillar 03", "title": "Favorite", "description": "Save useful quotes as favorites in this browser."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "A quick path from idea to expression",
-    "description": "The workflow keeps the intended idea and original quote connected.",
+    "title": "Move directly from discovery to a saved quote",
+    "description": "The Forge keeps search, categories, random discovery, copy, and favorite actions visible.",
     "items": [
-      {"title": "Describe the idea", "description": "Clarify what the quote should communicate."},
-      {"title": "Create the quote", "description": "Generate an original expression quickly."},
-      {"title": "Review the result", "description": "Read the quote and check its direction."}
+      {"title": "Discover quickly", "description": "Search the collection or jump to a random visible quote."},
+      {"title": "Copy instantly", "description": "Copy quote text and author attribution to the clipboard."},
+      {"title": "Keep favorites", "description": "Save favorite quotes locally for this browser."}
     ]
   },
   "audiences": {
     "title": "Who uses Quote Forge",
-    "description": "Useful for people creating original quotes.",
+    "description": "Useful for anyone looking for a focused collection of memorable ideas.",
     "items": [
-      {"title": "Writers", "description": "Explore original expressions around an idea."},
-      {"title": "Creators", "description": "Create quotes for creative content."},
-      {"title": "Everyday users", "description": "Turn a thought into a concise original quote."}
+      {"title": "Writers", "description": "Find memorable ideas and references while writing."},
+      {"title": "Creators", "description": "Copy attributed quotes for inspiration and creative planning."},
+      {"title": "Everyday users", "description": "Browse and save meaningful quotes in one local collection."}
     ]
   },
   "resourceSection": {
-    "title": "Quote-creation essentials",
-    "description": "Keep the idea, original quote, and review connected.",
+    "title": "Quote collection essentials",
+    "description": "Everything needed to discover, copy, and keep useful quotes.",
     "items": [
-      {"title": "Idea or direction", "description": "Define what the quote should express."},
-      {"title": "Original quote", "description": "Create a new concise expression."},
-      {"title": "Final review", "description": "Check the generated result."}
+      {"title": "Bundled quote data", "description": "Explore 35 quotes across seven categories."},
+      {"title": "Focused discovery", "description": "Search collection fields, filter categories, or choose a random quote."},
+      {"title": "Local favorites", "description": "Store only favorite quote IDs in this browser."}
     ]
   },
   "groupedSection": {
-    "title": "Move from thought to quote",
-    "description": "Use a direct creation and review flow.",
+    "title": "Browse and keep useful quotes",
+    "description": "Use one browser-only workflow for quote discovery and local favorites.",
     "groups": [
-      {"kicker": "Define", "title": "Set the direction", "items": [
-        {"name": "Idea", "description": "Clarify the thought to express."},
-        {"name": "Focus", "description": "Set the direction of the quote."}
+      {"kicker": "Browse", "title": "Explore the collection", "items": [
+        {"name": "Real-time search", "description": "Match quote text, authors, categories, and keywords."},
+        {"name": "Random quote", "description": "Jump to one random quote from the visible collection."}
       ]},
-      {"kicker": "Create", "title": "Generate and review", "items": [
-        {"name": "Quote", "description": "Create an original expression."},
-        {"name": "Review", "description": "Read the complete result."}
+      {"kicker": "Keep", "title": "Save useful quotes", "items": [
+        {"name": "Copy quote", "description": "Copy the quote and author in a clean format."},
+        {"name": "Browser favorites", "description": "Favorite useful quotes without changing bundled data."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Designed for original quote creation",
-    "description": "Quote Forge follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Idea and original-quote-ready creation flow.", "Responsive presentation across devices."]
+    "title": "Designed for browser quote discovery",
+    "description": "Quote Forge follows the shared Ansiversa browser-first reference architecture.",
+    "items": ["Metadata-driven overview content.", "Bundled browser quote data with local favorites.", "Responsive Browse → Copy → Favorite workflow."]
   },
   "finalCta": {
-    "title": "Explore original quote creation",
-    "description": "Visit Quote Forge to review its planned quote-generation experience.",
-    "action": {"label": "Explore Quote Forge", "path": "/quote-forge"}
+    "title": "Discover and save useful quotes",
+    "description": "Open Quote Forge to browse, copy, and favorite quotes in your browser.",
+    "action": {"label": "Explore", "path": "/quote-forge/forge"}
   }
 }
