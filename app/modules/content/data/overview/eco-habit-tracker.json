@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Lifestyle · Ansiversa mini app",
     "title": "Eco Habit Tracker",
-    "description": "Track eco-friendly actions and keep sustainable habits visible.",
-    "points": ["Eco-friendly action tracking", "Visible habits", "Simple progress review"],
-    "primaryAction": {"label": "Open Eco Habit Tracker", "path": "/eco-habit-tracker"}
+    "description": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+    "points": ["10 bundled habits", "Daily progress tracking", "Browser-local streaks"],
+    "primaryAction": {"label": "Track habits", "path": "/eco-habit-tracker/tracker"}
   },
   "flow": {
-    "kicker": "Tracking flow",
-    "title": "Choose → Track → Review",
-    "steps": ["Choose an eco-friendly action", "Track the action", "Review your habits"]
+    "kicker": "Habit flow",
+    "title": "Plan → Track → Complete",
+    "steps": ["Choose eco habits", "Track today's progress", "Build consistent routines"]
   },
   "stats": [
-    {"label": "Actions", "value": "Eco-friendly"},
-    {"label": "Habits", "value": "Visible"},
-    {"label": "Review", "value": "Simple"}
+    {"label": "Habits", "value": "10+"},
+    {"label": "Categories", "value": "5"},
+    {"label": "Progress", "value": "Local"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Make sustainable actions easier to notice",
-    "description": "Eco Habit Tracker keeps attention on the practical actions that support more sustainable habits.",
+    "title": "Build sustainable routines one day at a time",
+    "description": "Eco Habit Tracker keeps practical habit suggestions, today’s progress, and a current streak together.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Action-focused tracking", "description": "Record the eco-friendly actions you take."},
-      {"kicker": "Pillar 02", "title": "Habit visibility", "description": "Keep sustainable choices visible over time."},
-      {"kicker": "Pillar 03", "title": "Simple review", "description": "Review tracked actions without unnecessary complexity."}
+      {"kicker": "Pillar 01", "title": "Plan", "description": "Choose practical eco-friendly habits that fit everyday routines."},
+      {"kicker": "Pillar 02", "title": "Track", "description": "Mark completed habits for today and undo them when needed."},
+      {"kicker": "Pillar 03", "title": "Complete", "description": "Build a current streak by completing at least one habit each day."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "Practical progress through everyday actions",
-    "description": "The workflow keeps sustainable habits grounded in actions you can track.",
+    "title": "A direct path from intention to daily action",
+    "description": "The tracker keeps eco habits, filters, today’s progress, and the current streak visible.",
     "items": [
-      {"title": "Choose an action", "description": "Start with an eco-friendly habit that fits your routine."},
-      {"title": "Track the habit", "description": "Record the action when you complete it."},
-      {"title": "Review your progress", "description": "See the sustainable actions you have tracked."}
+      {"title": "Choose useful habits", "description": "Browse practical suggestions across five eco-friendly categories."},
+      {"title": "Track today", "description": "Complete or undo habits as the day progresses."},
+      {"title": "Build consistency", "description": "Maintain a streak by completing at least one habit each day."}
     ]
   },
   "audiences": {
     "title": "Who uses Eco Habit Tracker",
-    "description": "Useful for anyone who wants to make eco-friendly actions more consistent.",
+    "description": "Useful for anyone building consistent eco-friendly routines.",
     "items": [
-      {"title": "Individuals", "description": "Track sustainable choices in everyday life."},
-      {"title": "Families", "description": "Make household eco-friendly actions more visible."},
-      {"title": "Students", "description": "Build awareness through practical environmental habits."}
+      {"title": "Individuals", "description": "Turn practical sustainable choices into daily habits."},
+      {"title": "Families", "description": "Keep simple household eco actions visible and repeatable."},
+      {"title": "Students", "description": "Build environmental awareness through everyday action."}
     ]
   },
   "resourceSection": {
-    "title": "Eco-habit tracking essentials",
-    "description": "Keep actions, habits, and review connected.",
+    "title": "Eco habit tracking essentials",
+    "description": "Everything needed to plan, track, and complete daily eco habits.",
     "items": [
-      {"title": "Eco-friendly actions", "description": "Choose practical sustainable activities to track."},
-      {"title": "Habit records", "description": "Keep completed actions visible."},
-      {"title": "Progress review", "description": "Review the actions that are becoming habits."}
+      {"title": "Bundled habits", "description": "Start with 10 practical habits across five categories."},
+      {"title": "Daily progress", "description": "Store today’s completed habit IDs in this browser."},
+      {"title": "Current streak", "description": "Count consecutive days with at least one completed habit."}
     ]
   },
   "groupedSection": {
-    "title": "Build sustainable habits",
-    "description": "Use a simple action-and-review loop.",
+    "title": "Plan and complete eco habits",
+    "description": "Use one browser-only workflow for daily progress and consistency.",
     "groups": [
-      {"kicker": "Act", "title": "Choose and complete", "items": [
-        {"name": "Action", "description": "Select an eco-friendly activity."},
-        {"name": "Track", "description": "Record the action when completed."}
+      {"kicker": "Plan", "title": "Choose the habits", "items": [
+        {"name": "Search and filter", "description": "Find habits by title, description, or category."},
+        {"name": "Practical suggestions", "description": "Choose from 10 bundled eco-friendly actions."}
       ]},
-      {"kicker": "Review", "title": "See the habit", "items": [
-        {"name": "Records", "description": "Review completed sustainable actions."},
-        {"name": "Progress", "description": "Keep developing useful eco-friendly habits."}
+      {"kicker": "Track", "title": "Complete the day", "items": [
+        {"name": "Daily completion", "description": "Complete or undo habits for today."},
+        {"name": "Browser streak", "description": "Track consecutive days with local date-based progress."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Built for reusable habit tracking",
-    "description": "Eco Habit Tracker follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Eco-action and habit-ready tracking structure.", "Responsive presentation across devices."]
+    "title": "Designed for browser habit tracking",
+    "description": "Eco Habit Tracker follows the shared Ansiversa browser-first reference architecture.",
+    "items": ["Metadata-driven overview content.", "Date-based browser progress with local streak calculation.", "Responsive Plan → Track → Complete workflow."]
   },
   "finalCta": {
-    "title": "Ready to track an eco-friendly action?",
-    "description": "Open Eco Habit Tracker and start with one practical habit.",
-    "action": {"label": "Open Eco Habit Tracker", "path": "/eco-habit-tracker"}
+    "title": "Track eco habits every day",
+    "description": "Open Eco Habit Tracker to build simple habits and track progress in your browser.",
+    "action": {"label": "Track habits", "path": "/eco-habit-tracker/tracker"}
   }
 }
