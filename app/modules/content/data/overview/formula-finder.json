@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Learning · Ansiversa mini app",
     "title": "Formula Finder",
-    "description": "Search for formulas and review explanations that clarify how they are used.",
-    "points": ["Formula search", "Clear explanations", "Focused reference"],
-    "primaryAction": {"label": "Open Formula Finder", "path": "/formula-finder"}
+    "description": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+    "points": ["25 bundled formulas", "Search and category filtering", "Browser-local favorites"],
+    "primaryAction": {"label": "Explore", "path": "/formula-finder/finder"}
   },
   "flow": {
     "kicker": "Reference flow",
-    "title": "Search → Review → Apply",
-    "steps": ["Search for a formula", "Review its explanation", "Apply it to your work"]
+    "title": "Search → Explore → Copy → Favorite",
+    "steps": ["Search names, formula text, descriptions, and keywords", "Explore formulas across five categories", "Copy formulas and save browser-local favorites"]
   },
   "stats": [
-    {"label": "Search", "value": "Focused"},
-    {"label": "Formulas", "value": "Clear"},
-    {"label": "Explanations", "value": "Useful"}
+    {"label": "Formulas", "value": "25+"},
+    {"label": "Categories", "value": "5"},
+    {"label": "Favorites", "value": "Local"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Find the formula and understand its purpose",
-    "description": "Formula Finder combines formula lookup with explanations so the result is useful beyond memorization.",
+    "title": "A focused formula reference in your browser",
+    "description": "Formula Finder keeps searchable bundled reference data, explanations, and local favorites together.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Direct search", "description": "Look for the formula needed for the task at hand."},
-      {"kicker": "Pillar 02", "title": "Readable notation", "description": "Review the formula in a clear reference format."},
-      {"kicker": "Pillar 03", "title": "Helpful explanation", "description": "Understand what the formula represents and how to approach it."}
+      {"kicker": "Pillar 01", "title": "Search", "description": "Find formulas by name, notation, description, or keyword."},
+      {"kicker": "Pillar 02", "title": "Explore", "description": "Filter a focused reference library across five categories."},
+      {"kicker": "Pillar 03", "title": "Keep", "description": "Copy formulas and save favorites in this browser."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "A practical formula reference",
-    "description": "The workflow keeps formula lookup and understanding connected.",
+    "title": "Move directly from a question to a useful formula",
+    "description": "The Finder keeps search, category filters, explanations, and favorite actions visible.",
     "items": [
-      {"title": "Search by need", "description": "Start with the formula or idea you are trying to find."},
-      {"title": "Review the formula", "description": "See the relevant notation in a focused view."},
-      {"title": "Understand the context", "description": "Read the explanation before applying it."}
+      {"title": "Search broadly", "description": "Match formula names, values, descriptions, and keywords in real time."},
+      {"title": "Explore clearly", "description": "Review notation, purpose, and a concise explanation together."},
+      {"title": "Keep useful formulas", "description": "Copy formula values and favorite references for this browser."}
     ]
   },
   "audiences": {
     "title": "Who uses Formula Finder",
-    "description": "Useful for learners and professionals who need a clear formula reference.",
+    "description": "Useful for anyone who needs a quick, clear formula reference.",
     "items": [
       {"title": "Students", "description": "Find formulas while studying and solving problems."},
-      {"title": "Educators", "description": "Reference formulas and explanations during instruction."},
+      {"title": "Educators", "description": "Reference formulas and concise explanations during instruction."},
       {"title": "Professionals", "description": "Refresh formula knowledge while working through calculations."}
     ]
   },
   "resourceSection": {
     "title": "Formula reference essentials",
-    "description": "Keep the formula and its explanation together.",
+    "description": "Everything needed to search, understand, copy, and keep formulas.",
     "items": [
-      {"title": "Formula lookup", "description": "Search for the expression you need."},
-      {"title": "Notation review", "description": "Read the formula in a clear format."},
-      {"title": "Explanation", "description": "Understand the formula's purpose before using it."}
+      {"title": "Bundled reference data", "description": "Explore 25 formulas across five subject categories."},
+      {"title": "Focused filtering", "description": "Search reference fields and narrow results by category."},
+      {"title": "Local favorites", "description": "Store only favorite formula IDs in this browser."}
     ]
   },
   "groupedSection": {
-    "title": "Move from search to application",
-    "description": "Use a focused reference flow when working with formulas.",
+    "title": "Search and keep useful formulas",
+    "description": "Use one browser-only workflow for reference lookup and local favorites.",
     "groups": [
-      {"kicker": "Find", "title": "Locate the formula", "items": [
-        {"name": "Search", "description": "Enter the formula name or related idea."},
-        {"name": "Result", "description": "Review the matching formula."}
+      {"kicker": "Find", "title": "Explore the reference", "items": [
+        {"name": "Real-time search", "description": "Match names, formula text, descriptions, and keywords."},
+        {"name": "Category filters", "description": "Explore Mathematics, Physics, Chemistry, Statistics, and Computer Science."}
       ]},
-      {"kicker": "Understand", "title": "Review the context", "items": [
-        {"name": "Explanation", "description": "Read what the formula represents."},
-        {"name": "Application", "description": "Use the explanation to guide your work."}
+      {"kicker": "Keep", "title": "Keep useful formulas", "items": [
+        {"name": "Copy formula", "description": "Copy a formula value directly to the clipboard."},
+        {"name": "Browser favorites", "description": "Favorite useful formulas without changing bundled data."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Built for focused formula reference",
-    "description": "Formula Finder follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Formula and explanation-ready search flow.", "Responsive presentation across devices."]
+    "title": "Designed for browser reference-data search",
+    "description": "Formula Finder follows the shared Ansiversa client-side utility architecture.",
+    "items": ["Metadata-driven overview content.", "Bundled browser reference data with local favorites.", "Responsive Search → Explore → Copy → Favorite workflow."]
   },
   "finalCta": {
-    "title": "Ready to find a formula?",
-    "description": "Open Formula Finder and search for the formula you need.",
-    "action": {"label": "Open Formula Finder", "path": "/formula-finder"}
+    "title": "Find, copy, and save useful formulas",
+    "description": "Open Formula Finder to search, explore, copy, and save formulas for future reference.",
+    "action": {"label": "Explore", "path": "/formula-finder/finder"}
   }
 }

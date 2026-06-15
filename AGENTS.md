@@ -378,6 +378,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-15: Refined approved Formula Finder V1 overview wording around local favorites, the grouped section, and the final CTA.
+* 2026-06-15: Updated Formula Finder App #011 overview metadata for the bundled browser reference-data workflow Search → Explore → Copy → Favorite.
 * 2026-06-15: Refined approved FlashNote V1 overview wording around flip-based active recall, session-only tracking, and the final CTA.
 * 2026-06-14: Added FlashNote App #010 overview metadata for multiple-record browser persistence through Create → Review → Recall and standardized Cards workspace CTAs.
 * 2026-06-14: Added Quick Notepad App #009 overview metadata for the local browser persistence workflow Write → Save → Reopen and standardized Notepad workspace CTAs.
