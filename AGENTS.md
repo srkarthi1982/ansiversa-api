@@ -378,6 +378,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-15: Normalized the Apps catalog so the 15 completed apps are live and the remaining 87 apps are coming soon.
 * 2026-06-15: Froze approved Mood Journal App #015 overview metadata.
 * 2026-06-15: Refined the approved Mood Journal V1 overview CTA labels from Open journal to Explore.
 * 2026-06-15: Updated Mood Journal App #015 overview metadata for user-created date-keyed browser entries and the Record → Review → Reflect workflow.
