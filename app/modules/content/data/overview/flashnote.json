@@ -2,80 +2,80 @@
   "hero": {
     "kicker": "Learning · Ansiversa mini app",
     "title": "FlashNote",
-    "description": "Turn important notes into focused prompts for faster review and recall.",
-    "points": ["Compact study notes", "Recall-ready prompts", "Reusable review sets"],
-    "primaryAction": {"label": "Open FlashNote", "path": "/flashnote"}
+    "description": "Create simple study cards, flip between front and back content, and practice active recall directly in your browser.",
+    "points": ["Local study-card creation", "Flip-based recall review", "JSON import and export"],
+    "primaryAction": {"label": "Explore", "path": "/flashnote/cards"}
   },
   "flow": {
     "kicker": "Review flow",
-    "title": "Capture → Condense → Recall",
-    "steps": ["Capture the key idea", "Create a focused prompt", "Review for recall"]
+    "title": "Create → Review → Recall",
+    "steps": ["Create front and back study cards", "Review one local card at a time", "Flip and classify recall for this session"]
   },
   "stats": [
-    {"label": "Notes", "value": "Focused"},
-    {"label": "Prompts", "value": "Reusable"},
-    {"label": "Review", "value": "Fast"}
+    {"label": "Cards", "value": "Local"},
+    {"label": "Review", "value": "Flip"},
+    {"label": "Storage", "value": "Browser-only"}
   ],
   "timeline": null,
   "differences": {
-    "title": "Notes designed for recall",
-    "description": "Keep the information that matters and make it easier to review.",
+    "title": "Turn focused prompts into active recall",
+    "description": "FlashNote keeps local card creation, front/back review, and current-session recall tracking together.",
     "items": [
-      {"kicker": "Pillar 01", "title": "Focused capture", "description": "Keep each note centered on one useful idea."},
-      {"kicker": "Pillar 02", "title": "Recall-ready structure", "description": "Turn information into prompts that support active review."},
-      {"kicker": "Pillar 03", "title": "Reusable sets", "description": "Organize related notes for repeated study."}
+      {"kicker": "Pillar 01", "title": "Create", "description": "Build simple cards with required front and back text."},
+      {"kicker": "Pillar 02", "title": "Review", "description": "Move through locally saved cards one at a time."},
+      {"kicker": "Pillar 03", "title": "Recall", "description": "Flip answers and classify recall for the current session."}
     ]
   },
   "feel": {
     "kicker": "How it feels",
-    "title": "Less rereading, more recall",
-    "description": "A compact workflow keeps review focused and repeatable.",
+    "title": "A direct path from study prompt to recall",
+    "description": "The workspace keeps card management, review navigation, and session progress visible.",
     "items": [
-      {"title": "Capture the essential idea", "description": "Remove noise and preserve the useful point."},
-      {"title": "Build a prompt", "description": "Frame the note so it can be actively recalled."},
-      {"title": "Review repeatedly", "description": "Return to organized sets when reinforcement is needed."}
+      {"title": "Build a local card set", "description": "Add, edit, or remove focused study prompts."},
+      {"title": "Review actively", "description": "Read the front and flip when ready for the answer."},
+      {"title": "Track this session", "description": "Mark cards as Remembered or Needs review without storing session history."}
     ]
   },
   "audiences": {
     "title": "Who uses FlashNote",
-    "description": "Useful for anyone learning through active recall.",
+    "description": "Useful for anyone studying through active recall.",
     "items": [
-      {"title": "Students", "description": "Condense lessons and prepare for revision."},
-      {"title": "Exam candidates", "description": "Build focused prompts around key facts and concepts."},
-      {"title": "Self learners", "description": "Maintain compact notes across independent study."}
+      {"title": "Students", "description": "Build quick cards for lessons and revision."},
+      {"title": "Exam candidates", "description": "Review facts and concepts through front/back prompts."},
+      {"title": "Self learners", "description": "Maintain local study cards without an account."}
     ]
   },
   "resourceSection": {
-    "title": "Recall building blocks",
-    "description": "Keep notes small, organized, and ready for review.",
+    "title": "Recall essentials",
+    "description": "Everything needed to create, review, and move local study cards.",
     "items": [
-      {"title": "Key ideas", "description": "Capture the essential information."},
-      {"title": "Recall prompts", "description": "Create questions that encourage active memory."},
-      {"title": "Study sets", "description": "Group related notes for repeated review."}
+      {"title": "Local card CRUD", "description": "Create, edit, delete, clear, and restore study cards."},
+      {"title": "Flip review", "description": "Navigate cards and reveal answers one at a time."},
+      {"title": "JSON portability", "description": "Import and export validated card arrays in the browser."}
     ]
   },
   "groupedSection": {
-    "title": "Ways to organize notes",
-    "description": "Structure review material around familiar learning contexts.",
+    "title": "Create and recall local study cards",
+    "description": "Keep multiple-record persistence and active review connected.",
     "groups": [
-      {"kicker": "Academic", "title": "Course review", "items": [
-        {"name": "Concepts", "description": "Summarize important ideas and definitions."},
-        {"name": "Facts", "description": "Keep details ready for quick recall."}
+      {"kicker": "Create", "title": "Manage the cards", "items": [
+        {"name": "Front and back", "description": "Store one prompt and answer on each card."},
+        {"name": "Browser persistence", "description": "Reopen the locally saved card array after refresh."}
       ]},
-      {"kicker": "Professional", "title": "Skill review", "items": [
-        {"name": "Processes", "description": "Remember steps and practical methods."},
-        {"name": "Terminology", "description": "Review specialist language and meaning."}
+      {"kicker": "Recall", "title": "Review the cards", "items": [
+        {"name": "Flip and navigate", "description": "Move through the cards and reveal each answer."},
+        {"name": "Session classification", "description": "Track Remembered and Needs review counts for this visit."}
       ]}
     ]
   },
   "technicalSection": {
-    "title": "Built for reusable recall",
-    "description": "FlashNote follows the shared Ansiversa mini-app architecture.",
-    "items": ["API-driven overview metadata.", "Prompt and study-set-ready content structure.", "Designed to complement Quiz and other learning tools."]
+    "title": "Designed for multiple-record browser persistence",
+    "description": "FlashNote follows the shared Ansiversa client-side utility architecture.",
+    "items": ["Metadata-driven overview content.", "Browser localStorage card persistence with no cloud sync.", "Responsive Create → Review → Recall workflow."]
   },
   "finalCta": {
-    "title": "Ready to create a focused note?",
-    "description": "Open FlashNote and turn one key idea into a recall prompt.",
-    "action": {"label": "Open FlashNote", "path": "/flashnote"}
+    "title": "Practice active recall",
+    "description": "Open FlashNote to create, review, and revisit study cards anytime.",
+    "action": {"label": "Explore", "path": "/flashnote/cards"}
   }
 }

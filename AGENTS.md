@@ -378,6 +378,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-15: Refined approved FlashNote V1 overview wording around flip-based active recall, session-only tracking, and the final CTA.
+* 2026-06-14: Added FlashNote App #010 overview metadata for multiple-record browser persistence through Create → Review → Recall and standardized Cards workspace CTAs.
 * 2026-06-14: Added Quick Notepad App #009 overview metadata for the local browser persistence workflow Write → Save → Reopen and standardized Notepad workspace CTAs.
 * 2026-06-14: Added Study Timer App #008 overview metadata for the browser-only Set → Start → Focus → Complete workflow and standardized Timer workspace CTAs.
 * 2026-06-14: Added Markdown Editor App #007 overview metadata for the browser-only Write → Preview → Export workflow and standardized Editor workspace CTAs.
