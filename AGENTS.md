@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Updated Language Flashcards overview metadata CTA labels to the approved `Explore` copy for manual verification fixes.
 * 2026-06-16: Documented the permanent mini-app boundary and isolated database migration rules in the API agent contract.
 * 2026-06-16: Added the protected Exam Simulator API surface for App #017 using existing ExamPapers, ExamQuestions, ExamAttempts, and ExamAnswers table mappings without schema migrations.
 * 2026-06-16: Added the protected Language Flashcards API surface for App #016 using existing LanguageDecks, LanguageCards, StudySessions, and ReviewLogs table mappings without schema migrations.

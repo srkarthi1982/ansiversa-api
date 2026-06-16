@@ -4,7 +4,7 @@
     "title": "Language Flashcards",
     "description": "Practice vocabulary with focused flashcards designed for active recall.",
     "points": ["Vocabulary practice", "Focused flashcards", "Active recall"],
-    "primaryAction": {"label": "Open Language Flashcards", "path": "/language-flashcards/practice"}
+    "primaryAction": {"label": "Explore", "path": "/language-flashcards/practice"}
   },
   "flow": {
     "kicker": "Practice flow",
@@ -76,6 +76,6 @@
   "finalCta": {
     "title": "Ready to practice vocabulary?",
     "description": "Open Language Flashcards and begin a focused review.",
-    "action": {"label": "Open Language Flashcards", "path": "/language-flashcards/practice"}
+    "action": {"label": "Explore", "path": "/language-flashcards/practice"}
   }
 }
