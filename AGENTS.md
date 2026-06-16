@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Added the protected Memory Trainer API surface for App #019 with an isolated Memory Trainer database, Alembic context, game/session/round/performance ownership, persisted round answers, review data, and progress summary.
 * 2026-06-16: Marked Lesson Builder App #018 approved after approval readiness review passed.
 * 2026-06-16: Fixed the Lesson Builder App #018 create runtime failure by rebuilding the empty production `LessonPlans` table with the UUID primary key expected by the implemented API.
 * 2026-06-16: Added a corrective Lesson Builder App #018 migration to align the existing `lesson-builder-ansiversa` table shape with the implemented `LessonPlans` model.

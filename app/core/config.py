@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     LANGUAGE_FLASHCARDS_DATABASE_URL: str = "sqlite:///./language_flashcards.db"
     EXAM_DATABASE_URL: str = "sqlite:///./exam.db"
     LESSON_BUILDER_DATABASE_URL: str = "sqlite:///./lesson_builder.db"
+    MEMORY_TRAINER_DATABASE_URL: str = "sqlite:///./memory_trainer.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

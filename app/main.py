@@ -18,6 +18,7 @@ from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
 from app.modules.language_flashcards.routes import router as language_flashcards_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
+from app.modules.memory_trainer.routes import router as memory_trainer_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
@@ -134,6 +135,11 @@ def register_routes(app: FastAPI) -> None:
         lesson_builder_router,
         prefix=f"{settings.API_V1_PREFIX}/lesson-builder",
         tags=["Lesson Builder"],
+    )
+    app.include_router(
+        memory_trainer_router,
+        prefix=f"{settings.API_V1_PREFIX}/memory-trainer",
+        tags=["Memory Trainer"],
     )
     app.include_router(
         content_router, 
