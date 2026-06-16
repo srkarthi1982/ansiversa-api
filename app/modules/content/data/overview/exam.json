@@ -4,7 +4,7 @@
     "title": "Exam Simulator",
     "description": "Create timed mock exams with scoring for focused practice.",
     "points": ["Mock exam creation", "Timed practice", "Exam scoring"],
-    "primaryAction": {"label": "Explore Exam Simulator", "path": "/exam/practice"}
+    "primaryAction": {"label": "Explore", "path": "/exam/practice"}
   },
   "flow": {
     "kicker": "Exam flow",
@@ -76,6 +76,6 @@
   "finalCta": {
     "title": "Explore focused exam practice",
     "description": "Visit Exam Simulator to review its planned mock exam experience.",
-    "action": {"label": "Explore Exam Simulator", "path": "/exam/practice"}
+    "action": {"label": "Explore", "path": "/exam/practice"}
   }
 }
