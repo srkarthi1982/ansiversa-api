@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_parent_db
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
+from app.modules.language_flashcards.db import get_language_flashcards_db
 from app.modules.language_flashcards.schemas import (
     LanguageFlashcardCardCreateRequest,
     LanguageFlashcardCardListResponse,
@@ -40,7 +40,7 @@ router = APIRouter()
 @router.get("/decks", response_model=LanguageFlashcardDeckListResponse)
 def get_language_flashcard_decks(
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardDeckListResponse:
     return LanguageFlashcardDeckListResponse(items=list_decks(db, current_user))
 
@@ -53,7 +53,7 @@ def get_language_flashcard_decks(
 def create_language_flashcard_deck(
     payload: LanguageFlashcardDeckCreateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardDeckResponse:
     return create_deck(db, current_user, payload)
 
@@ -65,7 +65,7 @@ def create_language_flashcard_deck(
 def get_language_flashcard_deck(
     deck_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardDeckDetailResponse:
     deck, cards = get_deck_detail(db, current_user, deck_id)
     return LanguageFlashcardDeckDetailResponse(deck=deck, cards=cards)
@@ -79,7 +79,7 @@ def update_language_flashcard_deck(
     deck_id: Annotated[str, Path(min_length=1)],
     payload: LanguageFlashcardDeckUpdateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardDeckResponse:
     return update_deck(db, current_user, deck_id, payload)
 
@@ -88,7 +88,7 @@ def update_language_flashcard_deck(
 def delete_language_flashcard_deck(
     deck_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> None:
     delete_deck(db, current_user, deck_id)
 
@@ -100,7 +100,7 @@ def delete_language_flashcard_deck(
 def get_language_flashcard_cards(
     deck_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardCardListResponse:
     return LanguageFlashcardCardListResponse(items=list_cards(db, current_user, deck_id))
 
@@ -114,7 +114,7 @@ def create_language_flashcard_card(
     deck_id: Annotated[str, Path(min_length=1)],
     payload: LanguageFlashcardCardCreateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardCardResponse:
     return create_card(db, current_user, deck_id, payload)
 
@@ -128,7 +128,7 @@ def update_language_flashcard_card(
     card_id: Annotated[str, Path(min_length=1)],
     payload: LanguageFlashcardCardUpdateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardCardResponse:
     return update_card(db, current_user, deck_id, card_id, payload)
 
@@ -141,7 +141,7 @@ def delete_language_flashcard_card(
     deck_id: Annotated[str, Path(min_length=1)],
     card_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> None:
     delete_card(db, current_user, deck_id, card_id)
 
@@ -154,7 +154,7 @@ def delete_language_flashcard_card(
 def start_language_flashcard_session(
     deck_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardSessionResponse:
     return start_session(db, current_user, deck_id)
 
@@ -167,6 +167,6 @@ def submit_language_flashcard_review(
     session_id: Annotated[str, Path(min_length=1)],
     payload: LanguageFlashcardReviewSubmitRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_language_flashcards_db)],
 ) -> LanguageFlashcardReviewSummaryResponse:
     return submit_review(db, current_user, session_id, payload)

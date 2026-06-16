@@ -4,10 +4,10 @@ from uuid import uuid4
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.core.database import ParentBase
+from app.modules.language_flashcards.db import LanguageFlashcardsBase
 
 
-class LanguageDeck(ParentBase):
+class LanguageDeck(LanguageFlashcardsBase):
     __tablename__ = "LanguageDecks"
 
     id: Mapped[str] = mapped_column(
@@ -18,7 +18,6 @@ class LanguageDeck(ParentBase):
     user_id: Mapped[str] = mapped_column(
         "userId",
         String(36),
-        ForeignKey("Users.id"),
         index=True,
         nullable=False,
     )
@@ -45,7 +44,7 @@ class LanguageDeck(ParentBase):
     )
 
 
-class LanguageCard(ParentBase):
+class LanguageCard(LanguageFlashcardsBase):
     __tablename__ = "LanguageCards"
 
     id: Mapped[str] = mapped_column(
@@ -84,7 +83,7 @@ class LanguageCard(ParentBase):
     deck: Mapped[LanguageDeck] = relationship(back_populates="cards")
 
 
-class StudySession(ParentBase):
+class StudySession(LanguageFlashcardsBase):
     __tablename__ = "StudySessions"
 
     id: Mapped[str] = mapped_column(
@@ -95,7 +94,6 @@ class StudySession(ParentBase):
     user_id: Mapped[str] = mapped_column(
         "userId",
         String(36),
-        ForeignKey("Users.id"),
         index=True,
         nullable=False,
     )
@@ -130,7 +128,7 @@ class StudySession(ParentBase):
     )
 
 
-class ReviewLog(ParentBase):
+class ReviewLog(LanguageFlashcardsBase):
     __tablename__ = "ReviewLogs"
 
     id: Mapped[str] = mapped_column(

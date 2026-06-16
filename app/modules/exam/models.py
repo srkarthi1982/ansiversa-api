@@ -4,10 +4,10 @@ from uuid import uuid4
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.core.database import ParentBase
+from app.modules.exam.db import ExamBase
 
 
-class ExamPaper(ParentBase):
+class ExamPaper(ExamBase):
     __tablename__ = "ExamPapers"
 
     id: Mapped[str] = mapped_column(
@@ -18,7 +18,6 @@ class ExamPaper(ParentBase):
     user_id: Mapped[str] = mapped_column(
         "userId",
         String(36),
-        ForeignKey("Users.id"),
         index=True,
         nullable=False,
     )
@@ -50,7 +49,7 @@ class ExamPaper(ParentBase):
     )
 
 
-class ExamQuestion(ParentBase):
+class ExamQuestion(ExamBase):
     __tablename__ = "ExamQuestions"
 
     id: Mapped[str] = mapped_column(
@@ -98,7 +97,7 @@ class ExamQuestion(ParentBase):
     paper: Mapped[ExamPaper] = relationship(back_populates="questions")
 
 
-class ExamAttempt(ParentBase):
+class ExamAttempt(ExamBase):
     __tablename__ = "ExamAttempts"
 
     id: Mapped[str] = mapped_column(
@@ -109,7 +108,6 @@ class ExamAttempt(ParentBase):
     user_id: Mapped[str] = mapped_column(
         "userId",
         String(36),
-        ForeignKey("Users.id"),
         index=True,
         nullable=False,
     )
@@ -147,7 +145,7 @@ class ExamAttempt(ParentBase):
     )
 
 
-class ExamAnswer(ParentBase):
+class ExamAnswer(ExamBase):
     __tablename__ = "ExamAnswers"
 
     id: Mapped[str] = mapped_column(

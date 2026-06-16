@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
     TURSO_AUTH_TOKEN: str | None = None
     QUIZ_DATABASE_URL: str = "sqlite:///./quiz.db"
+    LANGUAGE_FLASHCARDS_DATABASE_URL: str = "sqlite:///./language_flashcards.db"
+    EXAM_DATABASE_URL: str = "sqlite:///./exam.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

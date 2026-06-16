@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_parent_db
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
+from app.modules.exam.db import get_exam_db
 from app.modules.exam.schemas import (
     ExamAttemptAnswersRequest,
     ExamAttemptResponse,
@@ -43,7 +43,7 @@ router = APIRouter()
 @router.get("/papers", response_model=ExamPaperListResponse)
 def get_exam_papers(
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamPaperListResponse:
     return ExamPaperListResponse(items=list_papers(db, current_user))
 
@@ -52,7 +52,7 @@ def get_exam_papers(
 def create_exam_paper(
     payload: ExamPaperCreateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamPaperResponse:
     return create_paper(db, current_user, payload)
 
@@ -61,7 +61,7 @@ def create_exam_paper(
 def get_exam_paper(
     paper_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamPaperDetailResponse:
     paper, questions = get_paper_detail(db, current_user, paper_id)
     return ExamPaperDetailResponse(paper=paper, questions=questions)
@@ -72,7 +72,7 @@ def update_exam_paper(
     paper_id: Annotated[str, Path(min_length=1)],
     payload: ExamPaperUpdateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamPaperResponse:
     return update_paper(db, current_user, paper_id, payload)
 
@@ -81,7 +81,7 @@ def update_exam_paper(
 def delete_exam_paper(
     paper_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> None:
     delete_paper(db, current_user, paper_id)
 
@@ -90,7 +90,7 @@ def delete_exam_paper(
 def get_exam_questions(
     paper_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamQuestionListResponse:
     return ExamQuestionListResponse(items=list_questions(db, current_user, paper_id))
 
@@ -104,7 +104,7 @@ def create_exam_question(
     paper_id: Annotated[str, Path(min_length=1)],
     payload: ExamQuestionCreateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamQuestionResponse:
     return create_question(db, current_user, paper_id, payload)
 
@@ -114,7 +114,7 @@ def update_exam_question(
     question_id: Annotated[str, Path(min_length=1)],
     payload: ExamQuestionUpdateRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamQuestionResponse:
     return update_question(db, current_user, question_id, payload)
 
@@ -123,7 +123,7 @@ def update_exam_question(
 def delete_exam_question(
     question_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> None:
     delete_question(db, current_user, question_id)
 
@@ -136,7 +136,7 @@ def delete_exam_question(
 def create_exam_attempt(
     paper_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamAttemptResponse:
     return start_attempt(db, current_user, paper_id)
 
@@ -145,7 +145,7 @@ def create_exam_attempt(
 def get_exam_attempt(
     attempt_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamAttemptResponse:
     return get_attempt(db, current_user, attempt_id)
 
@@ -155,7 +155,7 @@ def save_exam_attempt_answers(
     attempt_id: Annotated[str, Path(min_length=1)],
     payload: ExamAttemptAnswersRequest,
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamAttemptResponse:
     return save_answers(db, current_user, attempt_id, payload)
 
@@ -164,7 +164,7 @@ def save_exam_attempt_answers(
 def submit_exam_attempt(
     attempt_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamReviewResponse:
     return submit_attempt(db, current_user, attempt_id)
 
@@ -173,6 +173,6 @@ def submit_exam_attempt(
 def get_exam_attempt_review(
     attempt_id: Annotated[str, Path(min_length=1)],
     current_user: Annotated[User, Depends(get_current_user)],
-    db: Annotated[Session, Depends(get_parent_db)],
+    db: Annotated[Session, Depends(get_exam_db)],
 ) -> ExamReviewResponse:
     return get_review(db, current_user, attempt_id)
