@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Added a corrective Lesson Builder App #018 migration to align the existing `lesson-builder-ansiversa` table shape with the implemented `LessonPlans` model.
 * 2026-06-16: Locked published Lesson Builder App #018 lessons against updates, section mutations, reordering, and repeat publish calls after backend review.
 * 2026-06-16: Added the protected Lesson Builder API surface for App #018 with an isolated Lesson Builder database, Alembic context, lesson/section ownership, ordering, preview data, and publish workflow.
 * 2026-06-16: Marked Exam Simulator App #017 approved after manual end-to-end workflow verification passed.
