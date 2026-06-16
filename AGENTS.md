@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Marked Exam Simulator App #017 approved after manual end-to-end workflow verification passed.
 * 2026-06-16: Refined Exam Simulator final overview CTA wording after approval review and synced metadata.
 * 2026-06-16: Updated Exam Simulator overview metadata CTA labels to the approved `Explore` copy for manual verification fixes.
 * 2026-06-16: Marked Language Flashcards App #016 approved after manual verification passed.
