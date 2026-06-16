@@ -4,12 +4,12 @@
     "title": "Lesson Builder",
     "description": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
     "points": ["Structured lesson plans", "Clear learning objectives", "Organized activities"],
-    "primaryAction": {"label": "Open Lesson Builder", "path": "/lesson-builder"}
+    "primaryAction": {"label": "Explore", "path": "/lesson-builder/create"}
   },
   "flow": {
     "kicker": "Planning flow",
-    "title": "Define → Structure → Review",
-    "steps": ["Define the lesson objective", "Organize learning activities", "Review the lesson plan"]
+    "title": "Create → Organize → Publish",
+    "steps": ["Create a lesson", "Add and organize sections", "Preview and publish"]
   },
   "stats": [
     {"label": "Planning", "value": "Structured"},
@@ -75,7 +75,7 @@
   },
   "finalCta": {
     "title": "Ready to build a lesson plan?",
-    "description": "Open Lesson Builder and start with the learning objective.",
-    "action": {"label": "Open Lesson Builder", "path": "/lesson-builder"}
+    "description": "Open Lesson Builder and begin a structured lesson plan.",
+    "action": {"label": "Explore", "path": "/lesson-builder/create"}
   }
 }

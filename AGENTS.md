@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Added the protected Lesson Builder API surface for App #018 with an isolated Lesson Builder database, Alembic context, lesson/section ownership, ordering, preview data, and publish workflow.
 * 2026-06-16: Marked Exam Simulator App #017 approved after manual end-to-end workflow verification passed.
 * 2026-06-16: Refined Exam Simulator final overview CTA wording after approval review and synced metadata.
 * 2026-06-16: Updated Exam Simulator overview metadata CTA labels to the approved `Explore` copy for manual verification fixes.
