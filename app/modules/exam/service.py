@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from fastapi import HTTPException, status
 from sqlalchemy import delete, func, select
@@ -113,6 +113,20 @@ def _answer_text(question: ExamQuestion, option: ExamOption | None) -> str | Non
         return question.option_d
 
     return None
+
+
+def _as_utc(value: datetime) -> datetime:
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+
+    return value.astimezone(timezone.utc)
+
+
+def _is_attempt_expired(attempt: ExamAttempt, paper: ExamPaper) -> bool:
+    started_at = _as_utc(attempt.started_at)
+    expires_at = started_at + timedelta(minutes=paper.duration_minutes)
+
+    return datetime.now(timezone.utc) > expires_at
 
 
 def list_papers(db: Session, user: User) -> list[ExamPaperResponse]:
@@ -278,8 +292,23 @@ def save_answers(
             detail="Submitted exam attempts cannot be changed.",
         )
 
+    paper = _get_owned_paper(db, user, attempt.paper_id)
+    if _is_attempt_expired(attempt, paper):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Exam attempt time has expired.",
+        )
+
+    submitted_question_ids = [answer.question_id for answer in payload.answers]
+    submitted_question_id_set = set(submitted_question_ids)
+    if len(submitted_question_ids) != len(submitted_question_id_set):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Answers contain duplicate questions.",
+        )
+
     valid_question_ids = {
-        question.id for question in _list_questions(db, attempt.paper_id)
+        question.id for question in _list_questions(db, paper.id)
     }
     for answer in payload.answers:
         if answer.question_id not in valid_question_ids:
