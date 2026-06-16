@@ -313,6 +313,12 @@ def submit_round(
     session = _get_owned_session(db, user, session_id)
     _ensure_active_session(session)
     round_ = _get_session_round(db, session, payload.round_number)
+    if round_.user_answer is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Memory round has already been answered.",
+        )
+
     expected = _decode_sequence(round_.sequence) or []
     submitted = payload.user_answer
     round_.user_answer = _encode_sequence(submitted)
@@ -339,6 +345,11 @@ def submit_session(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Session has no rounds to submit.",
+        )
+    if any(round_.user_answer is None for round_ in rounds):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Complete every round before submitting the session.",
         )
 
     total_rounds = len(rounds)
