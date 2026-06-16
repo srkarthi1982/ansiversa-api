@@ -207,6 +207,51 @@ Never allow one mini-app to directly own another mini-app's data.
 
 Cross-app reads should happen through approved API/service aggregation only.
 
+## Mini App Boundary
+
+Each mini-app must remain self-contained.
+
+Review scope:
+
+```text
+app/modules/<app>
+```
+
+Typical files:
+
+```text
+models.py
+routes.py
+schemas.py
+service.py
+```
+
+Do not modify unrelated modules.
+
+Do not modify parent database unless explicitly requested.
+
+## Mini App Database Rule
+
+Every mini-app owns its own database.
+
+Do not use:
+
+```text
+ansiversadb
+```
+
+unless explicitly requested.
+
+Only migrate the target app database.
+
+Avoid duplicate Alembic revisions.
+
+If current head is already correct:
+
+```text
+Do not create a new migration.
+```
+
 ---
 
 ## Auth and Security Direction
@@ -378,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-16: Documented the permanent mini-app boundary and isolated database migration rules in the API agent contract.
 * 2026-06-16: Added the protected Exam Simulator API surface for App #017 using existing ExamPapers, ExamQuestions, ExamAttempts, and ExamAnswers table mappings without schema migrations.
 * 2026-06-16: Added the protected Language Flashcards API surface for App #016 using existing LanguageDecks, LanguageCards, StudySessions, and ReviewLogs table mappings without schema migrations.
 * 2026-06-15: Normalized the Apps catalog so the 15 completed apps are live and the remaining 87 apps are coming soon.
