@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 DEFAULT_CORS_ORIGINS = [
     "http://localhost:4321",
+    "https://qa.ansiversa.com",
     "https://ansiversa.com",
     "https://www.ansiversa.com",
 ]
@@ -71,6 +72,9 @@ class Settings(BaseSettings):
             raise ValueError(
                 "CORS_ORIGINS must not contain '*' when credentials are enabled."
             )
+        for origin in DEFAULT_CORS_ORIGINS:
+            if origin not in self.CORS_ORIGINS:
+                self.CORS_ORIGINS.append(origin)
         if self.AUTH_COOKIE_DOMAIN is None and is_production:
             self.AUTH_COOKIE_DOMAIN = ".ansiversa.com"
         if self.AUTH_COOKIE_SECURE is None:
