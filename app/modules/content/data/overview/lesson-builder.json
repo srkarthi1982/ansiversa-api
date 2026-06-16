@@ -8,8 +8,8 @@
   },
   "flow": {
     "kicker": "Planning flow",
-    "title": "Create → Organize → Publish",
-    "steps": ["Create a lesson", "Add and organize sections", "Preview and publish"]
+    "title": "Create → Build → Publish",
+    "steps": ["Create a lesson", "Add and organize sections", "Publish the lesson"]
   },
   "stats": [
     {"label": "Planning", "value": "Structured"},
@@ -75,7 +75,7 @@
   },
   "finalCta": {
     "title": "Ready to build a lesson plan?",
-    "description": "Open Lesson Builder and begin a structured lesson plan.",
+    "description": "Open Lesson Builder and begin building a structured lesson plan.",
     "action": {"label": "Explore", "path": "/lesson-builder/create"}
   }
 }
