@@ -278,12 +278,28 @@ def submit_review(
             select(LanguageCard.id).where(LanguageCard.deck_id == deck.id)
         ).scalars()
     }
+    submitted_card_ids = [review.card_id for review in payload.reviews]
+    submitted_card_id_set = set(submitted_card_ids)
+
+    if len(submitted_card_ids) != len(submitted_card_id_set):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Review contains duplicate cards.",
+        )
+
+    if not submitted_card_id_set.issubset(valid_card_ids):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Review contains a card outside this deck.",
+        )
+
+    if submitted_card_id_set != valid_card_ids:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Review must include every card in this session.",
+        )
+
     for review in payload.reviews:
-        if review.card_id not in valid_card_ids:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Review contains a card outside this deck.",
-            )
         db.add(
             ReviewLog(
                 session_id=session.id,
