@@ -75,7 +75,7 @@
   },
   "finalCta": {
     "title": "Explore focused exam practice",
-    "description": "Visit Exam Simulator to review its planned mock exam experience.",
+    "description": "Open Exam Simulator and begin a focused mock exam practice.",
     "action": {"label": "Explore", "path": "/exam/practice"}
   }
 }
