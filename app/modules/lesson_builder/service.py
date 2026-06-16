@@ -54,6 +54,14 @@ def _get_owned_lesson(db: Session, user: User, lesson_id: str) -> LessonPlan:
     return lesson
 
 
+def _ensure_draft_lesson(lesson: LessonPlan) -> None:
+    if lesson.status == "published":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Published lessons are locked.",
+        )
+
+
 def _get_owned_section(db: Session, user: User, section_id: str) -> LessonSection:
     section = db.get(LessonSection, section_id)
     if not section:
@@ -131,6 +139,7 @@ def update_lesson(
     payload: LessonUpdateRequest,
 ) -> LessonResponse:
     lesson = _get_owned_lesson(db, user, lesson_id)
+    _ensure_draft_lesson(lesson)
     for field, value in payload.model_dump(exclude_unset=True).items():
         setattr(lesson, field, value)
     db.commit()
@@ -153,6 +162,7 @@ def create_section(
     payload: LessonSectionCreateRequest,
 ) -> LessonSection:
     lesson = _get_owned_lesson(db, user, lesson_id)
+    _ensure_draft_lesson(lesson)
     next_position = len(_list_sections(db, lesson.id)) + 1
     section = LessonSection(
         lesson_id=lesson.id,
@@ -175,6 +185,8 @@ def update_section(
     payload: LessonSectionUpdateRequest,
 ) -> LessonSection:
     section = _get_owned_section(db, user, section_id)
+    lesson = _get_owned_lesson(db, user, section.lesson_id)
+    _ensure_draft_lesson(lesson)
     for field, value in payload.model_dump(exclude_unset=True).items():
         setattr(section, field, value)
     db.commit()
@@ -185,6 +197,8 @@ def update_section(
 
 def delete_section(db: Session, user: User, section_id: str) -> None:
     section = _get_owned_section(db, user, section_id)
+    lesson = _get_owned_lesson(db, user, section.lesson_id)
+    _ensure_draft_lesson(lesson)
     lesson_id = section.lesson_id
     db.delete(section)
     db.flush()
@@ -200,6 +214,7 @@ def reorder_sections(
     payload: LessonSectionReorderRequest,
 ) -> list[LessonSection]:
     lesson = _get_owned_lesson(db, user, lesson_id)
+    _ensure_draft_lesson(lesson)
     sections = _list_sections(db, lesson.id)
     existing_ids = [section.id for section in sections]
     if (
@@ -221,6 +236,12 @@ def reorder_sections(
 
 def publish_lesson(db: Session, user: User, lesson_id: str) -> LessonDetailResponse:
     lesson = _get_owned_lesson(db, user, lesson_id)
+    if lesson.status == "published":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Lesson is already published.",
+        )
+
     sections = _list_sections(db, lesson.id)
     if not sections:
         raise HTTPException(
