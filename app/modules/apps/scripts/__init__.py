@@ -1,0 +1,1 @@
+"""Apps catalog maintenance scripts."""
