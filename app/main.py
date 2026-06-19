@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 
 from app.core.config import settings
 from app.core.openapi import generate_operation_id
@@ -26,6 +27,7 @@ from app.modules.users.routes import router as users_router
 from app.modules.content.routes import router as content_router
 
 def register_middleware(app: FastAPI) -> None:
+    app.add_middleware(GZipMiddleware, minimum_size=1000)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.CORS_ORIGINS,
