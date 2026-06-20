@@ -1,6 +1,6 @@
-from typing import Annotated
+from typing import Annotated, Literal
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_parent_db
@@ -19,13 +19,15 @@ from app.modules.apps.service import (
 
 apps_router = APIRouter()
 categories_router = APIRouter()
+StatusFilter = Literal["active"]
 
 
 @apps_router.get("/", response_model=AppCatalogListResponse)
 def list_app_catalog(
     db: Annotated[Session, Depends(get_parent_db)],
+    status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
 ) -> AppCatalogListResponse:
-    apps = list_apps(db)
+    apps = list_apps(db, status_filter=status_filter)
 
     return AppCatalogListResponse(items=apps, total=len(apps))
 
@@ -48,8 +50,9 @@ def get_app_catalog_item(
 @categories_router.get("/", response_model=CategoryListResponse)
 def list_category_catalog(
     db: Annotated[Session, Depends(get_parent_db)],
+    status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
 ) -> CategoryListResponse:
-    categories = list_categories(db)
+    categories = list_categories(db, status_filter=status_filter)
 
     return CategoryListResponse(items=categories, total=len(categories))
 
