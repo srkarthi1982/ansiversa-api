@@ -423,6 +423,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-20: Removed the content metadata process cache and changed metadata responses to revalidation-only CORS-safe headers.
 * 2026-06-20: Completed active app overview metadata coverage by adding 53 missing overview JSON files, validating all 153 overview files, syncing metadata records, and verifying all 100 active overview endpoints return `200`.
 * 2026-06-20: Added public Apps and Categories catalog `status=active` list filtering after verifying the parent DB stores user-facing records as `active`; admin behavior remains unchanged.
 * 2026-06-16: Added and applied a corrective Memory Trainer App #019 migration to rebuild empty legacy Memory Trainer tables to the approved V1 camelCase schema.

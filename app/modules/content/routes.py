@@ -30,7 +30,7 @@ from .service import (
 )
 
 router = APIRouter(prefix="/content", tags=["content"])
-METADATA_CACHE_CONTROL = "public, max-age=3600"
+METADATA_CACHE_CONTROL = "no-cache"
 
 
 def _metadata_etag(content: object) -> str:
@@ -51,6 +51,7 @@ def _cached_json_response(request: Request, content: object) -> Response:
     headers = {
         "Cache-Control": METADATA_CACHE_CONTROL,
         "ETag": etag,
+        "Vary": "Origin",
     }
 
     if request.headers.get("if-none-match") == etag:
