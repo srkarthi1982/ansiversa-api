@@ -59,6 +59,7 @@ class AdminAppListItem:
     category_id: str
     category_name: str | None
     status: str
+    version: str
     launch_status: str
     visibility: str
     pricing_gate: str
@@ -294,6 +295,7 @@ def _to_list_item(app: AppCatalogItem, category_name: str | None) -> AdminAppLis
         category_id=app.category_id,
         category_name=category_name,
         status=status_value,
+        version=app.version,
         launch_status=normalize_launch_status(app.launch_status, status_value),
         visibility=normalize_visibility(app.visibility),
         pricing_gate=normalize_pricing_gate(app.pricing_gate),

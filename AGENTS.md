@@ -230,6 +230,22 @@ Do not modify unrelated modules.
 
 Do not modify parent database unless explicitly requested.
 
+## Mini App Versioning
+
+Mini-app version numbers are owned by the parent `Apps` catalog record.
+
+Use semantic versioning:
+
+```text
+1.0.0 = first stable release
+1.1.0 = feature improvement
+1.1.1 = bug fix
+2.0.0 = major workflow/design change
+```
+
+Do not store competing mini-app versions in frontend metadata, overview content,
+or app-local configuration.
+
 ## Mini App Database Rule
 
 Every mini-app owns its own database.
@@ -423,6 +439,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-20: Added semantic version support to the parent Apps catalog with a non-null `version` column defaulting existing rows to `1.0.0`, exposed app versions in Apps API contracts, and documented the mini-app versioning rule.
 * 2026-06-20: Removed the content metadata process cache and changed metadata responses to revalidation-only CORS-safe headers.
 * 2026-06-20: Completed active app overview metadata coverage by adding 53 missing overview JSON files, validating all 153 overview files, syncing metadata records, and verifying all 100 active overview endpoints return `200`.
 * 2026-06-20: Added public Apps and Categories catalog `status=active` list filtering after verifying the parent DB stores user-facing records as `active`; admin behavior remains unchanged.

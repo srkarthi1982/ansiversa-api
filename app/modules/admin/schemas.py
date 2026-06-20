@@ -158,6 +158,7 @@ class AdminAppResponse(BaseModel):
     category_id: str = Field(serialization_alias="categoryId")
     category_name: str | None = Field(default=None, serialization_alias="categoryName")
     status: AdminAppStatus
+    version: str
     launch_status: AdminAppLaunchStatus = Field(serialization_alias="launchStatus")
     visibility: AdminAppVisibility
     pricing_gate: AdminAppPricingGate = Field(serialization_alias="pricingGate")
