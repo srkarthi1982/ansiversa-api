@@ -9,7 +9,7 @@ from app.modules.faqs.models import Faq
 
 @dataclass(frozen=True)
 class FaqListResult:
-    items: list[Faq]
+    items: list[dict[str, str]]
     total: int
     page: int
     page_size: int
@@ -63,13 +63,17 @@ def list_public_faqs(
     offset = (page - 1) * page_size
 
     items_statement = (
-        select(Faq)
+        select(
+            Faq.id,
+            Faq.question,
+            Faq.answer,
+        )
         .where(*filters)
         .order_by(Faq.sort_order.asc(), Faq.created_at.desc())
         .offset(offset)
         .limit(page_size)
     )
-    items = list(db.execute(items_statement).scalars().all())
+    items = [dict(row) for row in db.execute(items_statement).mappings().all()]
 
     return FaqListResult(
         items=items,

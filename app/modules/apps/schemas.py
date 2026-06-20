@@ -17,8 +17,14 @@ class CategoryResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class CategoryCatalogListItemResponse(BaseModel):
+    id: str
+    name: str
+    description: str | None
+
+
 class CategoryListResponse(BaseModel):
-    items: list[CategoryResponse]
+    items: list[CategoryCatalogListItemResponse]
     total: int
 
 
@@ -45,6 +51,17 @@ class AppCatalogItemResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
+class AppCatalogListItemResponse(BaseModel):
+    id: str
+    key: str
+    slug: str
+    name: str
+    description: str
+    category_id: str
+    status: str
+    launch_status: str
+
+
 class AppCatalogListResponse(BaseModel):
-    items: list[AppCatalogItemResponse]
+    items: list[AppCatalogListItemResponse]
     total: int

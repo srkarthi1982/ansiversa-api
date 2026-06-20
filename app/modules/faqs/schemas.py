@@ -18,8 +18,14 @@ class FaqResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class PublicFaqListItemResponse(BaseModel):
+    id: str
+    question: str
+    answer: str
+
+
 class FaqListResponse(BaseModel):
-    items: list[FaqResponse]
+    items: list[PublicFaqListItemResponse]
     total: int
     page: int
     page_size: int = Field(serialization_alias="pageSize")

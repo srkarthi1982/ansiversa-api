@@ -439,6 +439,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-20: Optimized the public FAQ list API with a lightweight user-facing response schema and column-select query while keeping admin FAQ contracts unchanged.
+* 2026-06-20: Optimized public Apps and Categories list APIs with lightweight user-facing response schemas and column-select queries while keeping detail and admin contracts unchanged.
 * 2026-06-20: Added semantic version support to the parent Apps catalog with a non-null `version` column defaulting existing rows to `1.0.0`, exposed app versions in Apps API contracts, and documented the mini-app versioning rule.
 * 2026-06-20: Removed the content metadata process cache and changed metadata responses to revalidation-only CORS-safe headers.
 * 2026-06-20: Completed active app overview metadata coverage by adding 53 missing overview JSON files, validating all 153 overview files, syncing metadata records, and verifying all 100 active overview endpoints return `200`.
