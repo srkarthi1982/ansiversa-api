@@ -515,6 +515,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-21: Fixed Dictionary+ overview metadata CTAs to use `Explore` and route directly into the lookup workflow.
 * 2026-06-21: Implemented Dictionary+ App #020 backend V1 with isolated DictionaryLookups, SavedWords, and WordLists tables plus user-scoped API routes.
 * 2026-06-21: Aligned the Apps catalog export to the approved 100-app roadmap and documented public API data discipline before fresh mini-app development.
 * 2026-06-20: Optimized the public FAQ list API with a lightweight user-facing response schema and column-select query while keeping admin FAQ contracts unchanged.
