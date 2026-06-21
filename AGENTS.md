@@ -275,6 +275,14 @@ Use SQLAlchemy cleanly.
 
 Use Alembic for migrations.
 
+Local development database files live under:
+
+```text
+db/
+```
+
+Do not assume local DB files are in the repository root or module folders.
+
 Do not mix unrelated app metadata into one migration context unless intentionally designed.
 
 When adding a mini-app DB engine, isolate it clearly.
@@ -521,6 +529,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-21: Promoted Research Assistant App #022 to live launch status at version `1.0.0` after Partner and Astra approval.
 * 2026-06-21: Implemented Research Assistant App #022 backend foundation with isolated ResearchTopics, ResearchNotes, ResearchReferences, and ResearchJobs tables plus user-scoped API routes.
 * 2026-06-21: Promoted Concept Explainer App #021 to live launch status at version `1.0.0` after Partner approval.
 * 2026-06-21: Added nullable `Apps.version` governance so only live apps carry release versions and queued apps use `NULL`.
