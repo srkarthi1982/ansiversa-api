@@ -147,6 +147,82 @@ Examples:
 * Resume Builder frontend should generate from Resume Builder schema.
 * Parent web can generate from Parent/global schema.
 
+## Public API Data Discipline
+
+Principle:
+
+User-facing APIs must only fetch and return the fields required by the UI.
+
+Never expose complete database records to public clients when the UI only
+consumes a subset of fields.
+
+Workflow:
+
+```text
+UI
+↓
+Field Audit
+↓
+API Response Contract
+↓
+Optimized SELECT Query
+↓
+Minimal Payload
+```
+
+Rules:
+
+1. Public APIs
+
+* Return only fields required by the UI.
+* Create dedicated response schemas when necessary.
+* Avoid sending metadata that is not displayed.
+* Never use SELECT * for user-facing endpoints.
+
+2. Admin APIs
+
+* Admin endpoints may return complete records.
+* Admin screens are internal tools and are allowed to access all fields.
+
+3. New Mini Apps
+
+Before implementing any user-facing endpoint:
+
+* Audit the UI fields.
+* Define the response contract.
+* Select only those columns from the database.
+* Return minimal payloads.
+
+4. Forbidden Pattern
+
+```text
+Database
+↓
+Return full ORM model
+↓
+Frontend ignores 50% to 80% of fields
+```
+
+This pattern must not be used.
+
+5. Goal
+
+Reduce:
+
+* Database reads
+* Network payload size
+* Serialization overhead
+* Browser transfer size
+* Future infrastructure costs
+
+Permanent Principle:
+
+```text
+Data is expensive.
+
+Do not transport unused data.
+```
+
 ## Parent Content Metadata Standard
 
 Parent content pages are served through the `Metadata` table.
@@ -439,6 +515,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-21: Aligned the Apps catalog export to the approved 100-app roadmap and documented public API data discipline before fresh mini-app development.
 * 2026-06-20: Optimized the public FAQ list API with a lightweight user-facing response schema and column-select query while keeping admin FAQ contracts unchanged.
 * 2026-06-20: Optimized public Apps and Categories list APIs with lightweight user-facing response schemas and column-select queries while keeping detail and admin contracts unchanged.
 * 2026-06-20: Added semantic version support to the parent Apps catalog with a non-null `version` column defaulting existing rows to `1.0.0`, exposed app versions in Apps API contracts, and documented the mini-app versioning rule.
