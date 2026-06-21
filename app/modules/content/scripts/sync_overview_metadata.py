@@ -9,8 +9,10 @@ import json
 from pathlib import Path
 
 from pydantic import ValidationError
+from sqlalchemy import select
 
 from app.core.database import ParentSessionLocal
+from app.modules.content.models import Metadata
 from app.modules.content.schemas import OverviewResponse
 from app.modules.content.service import delete_metadata, get_metadata, upsert_metadata
 
@@ -62,12 +64,29 @@ def sync_overview_metadata() -> int:
             upsert_metadata(db, key, content)
             print(f"Synced {key}")
 
+        stored_overview_keys = set(
+            db.execute(
+                select(Metadata.key).where(Metadata.key.like("overview:%"))
+            )
+            .scalars()
+            .all()
+        )
+        stale_overview_keys = stored_overview_keys - seen_keys
+
+        for key in sorted(stale_overview_keys):
+            delete_metadata(db, key)
+            print(f"Removed stale overview key {key}")
+
         for key in sorted(LEGACY_OVERVIEW_KEYS):
             if get_metadata(db, key) is not None:
                 delete_metadata(db, key)
                 print(f"Removed legacy overview key {key}")
 
-    print(f"Done. Synced {len(validated)} overview metadata records.")
+    print(
+        "Done. "
+        f"Synced {len(validated)} overview metadata records; "
+        f"removed {len(stale_overview_keys)} stale overview records."
+    )
     return len(validated)
 
 
