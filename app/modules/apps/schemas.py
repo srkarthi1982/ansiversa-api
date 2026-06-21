@@ -36,7 +36,7 @@ class AppCatalogItemResponse(BaseModel):
     description: str
     category_id: str
     status: str
-    version: str
+    version: str | None
     is_featured: bool
     website_url: str | None
     admin_url: str | None

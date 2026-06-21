@@ -310,6 +310,12 @@ Do not modify parent database unless explicitly requested.
 
 Mini-app version numbers are owned by the parent `Apps` catalog record.
 
+Governance:
+
+* Apps with `launchStatus = live` must have an approved release version.
+* Apps with `launchStatus != live` must keep `Apps.version = NULL`.
+* `NULL` means no approved release exists yet.
+
 Use semantic versioning:
 
 ```text
@@ -515,6 +521,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-21: Added nullable `Apps.version` governance so only live apps carry release versions and queued apps use `NULL`.
 * 2026-06-21: Promoted Lesson Builder, Memory Trainer, and Dictionary+ to live launch status at version `1.0.0` after Partner approval.
 * 2026-06-21: Fixed Dictionary+ overview metadata CTAs to use `Explore` and route directly into the lookup workflow.
 * 2026-06-21: Implemented Dictionary+ App #020 backend V1 with isolated DictionaryLookups, SavedWords, and WordLists tables plus user-scoped API routes.

@@ -59,7 +59,7 @@ class AdminAppListItem:
     category_id: str
     category_name: str | None
     status: str
-    version: str
+    version: str | None
     launch_status: str
     visibility: str
     pricing_gate: str

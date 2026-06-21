@@ -68,11 +68,9 @@ class AppCatalogItem(ParentBase):
         nullable=False,
     )
     status: Mapped[str] = mapped_column(String(40), nullable=False)
-    version: Mapped[str] = mapped_column(
+    version: Mapped[str | None] = mapped_column(
         String(20),
-        default="1.0.0",
-        server_default="1.0.0",
-        nullable=False,
+        nullable=True,
     )
     is_featured: Mapped[bool] = mapped_column(
         "isFeatured",

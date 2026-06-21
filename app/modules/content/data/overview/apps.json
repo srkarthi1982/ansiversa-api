@@ -38,7 +38,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "research-assistant",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_ai-notes-summarizer",
@@ -58,7 +58,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "ai-notes-summarizer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_concept-explainer",
@@ -78,7 +78,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "concept-explainer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_study-planner",
@@ -98,7 +98,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "study-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_course-tracker",
@@ -118,7 +118,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "course-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_dictionary-plus",
@@ -238,7 +238,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "smart-textbook-scanner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_resume-builder",
@@ -258,7 +258,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "resume-builder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_visiting-card-maker",
@@ -278,7 +278,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "visiting-card-maker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_interview-coach",
@@ -298,7 +298,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "interview-coach",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_job-analyzer",
@@ -318,7 +318,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "job-analyzer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_portfolio-creator",
@@ -338,7 +338,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "portfolio-creator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_meeting-minutes-ai",
@@ -358,7 +358,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "meeting-minutes-ai",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_proposal-writer",
@@ -378,7 +378,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "proposal-writer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_invoice-and-receipt-maker",
@@ -398,7 +398,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "invoice-and-receipt-maker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_contract-generator",
@@ -418,7 +418,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "contract-generator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_presentation-designer",
@@ -438,7 +438,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "presentation-designer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_career-planner",
@@ -458,7 +458,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "career-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_linkedin-bio",
@@ -478,7 +478,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "linkedin-bio",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_client-feedback-analyzer",
@@ -498,7 +498,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "client-feedback-analyzer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_book-summary-generator",
@@ -518,7 +518,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "book-summary-generator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_social-caption-generator",
@@ -538,7 +538,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "social-caption-generator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_prompt-builder",
@@ -558,7 +558,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "prompt-builder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_speech-writer",
@@ -578,7 +578,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "speech-writer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_ai-translator-tone-fixer",
@@ -598,7 +598,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "ai-translator-tone-fixer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_snippet-generator",
@@ -618,7 +618,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "snippet-generator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_price-checker",
@@ -638,7 +638,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "price-checker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_qr-code-creator",
@@ -678,7 +678,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "clipboard-manager",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_password-generator",
@@ -718,7 +718,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "api-tester",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_json-formatter",
@@ -778,7 +778,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "time-zone-scheduler",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_browser-pdf-reader",
@@ -798,7 +798,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "browser-pdf-reader",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_wellness-and-goal-planner",
@@ -818,7 +818,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "wellness-and-goal-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_meal-planner",
@@ -838,7 +838,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "meal-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_fitness-tracker",
@@ -858,7 +858,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "fitness-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_mood-journal",
@@ -898,7 +898,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "expense-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_travel-itinerary-builder",
@@ -918,7 +918,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "travel-itinerary-builder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_language-learning-buddy",
@@ -938,7 +938,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "language-learning-buddy",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_eco-habit-tracker",
@@ -978,7 +978,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "interview_scheduler",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "3dd3a608-bdc5-4b2d-924f-30674dc66fd9",
@@ -998,7 +998,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "job_tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_ai-job-interviewer",
@@ -1018,7 +1018,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "ai-job-interviewer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_email-assistant",
@@ -1038,7 +1038,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "email-assistant",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_grammar-and-paraphrasing-assistant",
@@ -1058,7 +1058,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "grammar-and-paraphrasing-assistant",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_creative-title-generator",
@@ -1078,7 +1078,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "creative-title-generator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_file-optimizer",
@@ -1098,7 +1098,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "file-optimizer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_voice-converter",
@@ -1118,7 +1118,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "voice-converter",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_project-tracker",
@@ -1138,7 +1138,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "project-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_task-prioritizer",
@@ -1158,7 +1158,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "task-prioritizer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_goal-tracker",
@@ -1178,7 +1178,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "goal-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_medicine-reminder",
@@ -1198,7 +1198,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "medicine-reminder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_health-report-organizer",
@@ -1218,7 +1218,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "health-report-organizer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_family-task-planner",
@@ -1238,7 +1238,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "family-task-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_rent-a-car",
@@ -1258,7 +1258,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "rent-a-car",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_car-pool",
@@ -1278,7 +1278,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "car-pool",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_vehicle-maintenance-tracker",
@@ -1298,7 +1298,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "vehicle-maintenance-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_parking-expense-tracker",
@@ -1318,7 +1318,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "parking-expense-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_trip-cost-calculator",
@@ -1338,7 +1338,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "trip-cost-calculator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_corporate-tax-uae",
@@ -1358,7 +1358,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "corporate-tax-uae",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_vat-assistant-uae",
@@ -1378,7 +1378,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "vat-assistant-uae",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_school-administration",
@@ -1398,7 +1398,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "school-administration",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_subscription-manager",
@@ -1418,7 +1418,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "subscription-manager",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_emi-loan-calculator",
@@ -1438,7 +1438,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "emi-loan-calculator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_document-expiry-tracker",
@@ -1458,7 +1458,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "document-expiry-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_digital-document-vault",
@@ -1478,7 +1478,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "digital-document-vault",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_home-inventory-manager",
@@ -1498,7 +1498,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "home-inventory-manager",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_household-expense-splitter",
@@ -1518,7 +1518,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "household-expense-splitter",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_emergency-contacts-organizer",
@@ -1538,7 +1538,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "emergency-contacts-organizer",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_packing-checklist",
@@ -1558,7 +1558,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "packing-checklist",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_birthday-and-anniversary-reminder",
@@ -1578,7 +1578,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "birthday-and-anniversary-reminder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_home-maintenance-planner",
@@ -1598,7 +1598,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "home-maintenance-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_doctor-visit-tracker",
@@ -1618,7 +1618,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "doctor-visit-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_water-intake-tracker",
@@ -1638,7 +1638,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "water-intake-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_vaccination-tracker",
@@ -1658,7 +1658,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "vaccination-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_symptom-journal",
@@ -1678,7 +1678,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "symptom-journal",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_first-aid-guide",
@@ -1698,7 +1698,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "first-aid-guide",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_fuel-expense-tracker",
@@ -1718,7 +1718,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "fuel-expense-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_driver-logbook",
@@ -1738,7 +1738,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "driver-logbook",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_vehicle-document-tracker",
@@ -1758,7 +1758,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "vehicle-document-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_meeting-scheduler",
@@ -1778,7 +1778,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "meeting-scheduler",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_leave-planner",
@@ -1798,7 +1798,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "leave-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_shift-planner",
@@ -1818,7 +1818,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "shift-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_work-log-tracker",
@@ -1838,7 +1838,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "work-log-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_bill-splitter",
@@ -1858,7 +1858,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "bill-splitter",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_savings-goal-planner",
@@ -1878,7 +1878,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "savings-goal-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_salary-breakdown-calculator",
@@ -1898,7 +1898,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "salary-breakdown-calculator",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_net-worth-tracker",
@@ -1918,7 +1918,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "net-worth-tracker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_decision-maker",
@@ -1938,7 +1938,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "decision-maker",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_errand-planner",
@@ -1958,7 +1958,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "errand-planner",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_local-services-finder",
@@ -1978,7 +1978,7 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "local-services-finder",
-		"version" : "1.0.0"
+		"version" : null
 	},
 	{
 		"id" : "app_emergency-checklist",
@@ -1998,6 +1998,6 @@
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "emergency-checklist",
-		"version" : "1.0.0"
+		"version" : null
 	}
 ]}
