@@ -7,6 +7,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.modules.auth.constants import ADMIN_ROLE_ID
 from app.modules.auth.models import User
 from app.modules.quiz.models import (
     Platform,
@@ -33,7 +34,6 @@ from app.modules.quiz.schemas import (
 )
 
 
-ADMIN_ROLE_ID = 1
 PAID_PLAN_STATUSES = {"active", "trialing"}
 FREE_PLAN_NAMES = {"", "free", "none"}
 

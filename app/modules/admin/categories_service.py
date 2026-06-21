@@ -337,6 +337,8 @@ def update_admin_category(
     request: Request | None = None,
 ) -> str:
     existing = db.get(Category, category_id)
+    if existing is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category not found.")
 
     updates: dict[str, object] = {}
     if payload.name is not None:
@@ -433,6 +435,9 @@ def delete_admin_category(
     request: Request | None = None,
 ) -> None:
     existing = db.get(Category, category_id)
+    if existing is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category not found.")
+
     usage = int(
         db.execute(
             select(func.count(AppCatalogItem.id)).where(AppCatalogItem.category_id == category_id)

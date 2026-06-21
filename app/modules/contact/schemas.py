@@ -1,11 +1,11 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
 class ContactMessageCreateRequest(BaseModel):
     name: str = Field(min_length=2, max_length=120)
-    email: str = Field(min_length=3, max_length=255)
+    email: EmailStr = Field(max_length=255)
     subject: str = Field(min_length=3, max_length=200)
     message: str = Field(min_length=10, max_length=5000)
 
@@ -31,20 +31,7 @@ class ContactMessageCreateRequest(BaseModel):
         if not isinstance(value, str):
             return value
 
-        normalized = value.strip().lower()
-        local_part, separator, domain = normalized.partition("@")
-
-        if (
-            not separator
-            or normalized.count("@") != 1
-            or not local_part
-            or "." not in domain
-            or domain.startswith(".")
-            or domain.endswith(".")
-        ):
-            raise ValueError("Enter a valid email address.")
-
-        return normalized
+        return value.strip().lower()
 
 
 class ContactMessageResponse(BaseModel):

@@ -311,7 +311,7 @@ class AdminFaqResponse(BaseModel):
     audience: str
     category: str | None
     sort_order: int = Field(serialization_alias="sortOrder")
-    is_published: bool = Field(serialization_alias="is_published")
+    is_published: bool = Field(serialization_alias="isPublished")
     created_at: datetime = Field(serialization_alias="createdAt")
     updated_at: datetime = Field(serialization_alias="updatedAt")
 
@@ -341,7 +341,7 @@ class CreateFaqRequest(BaseModel):
     audience: str | None = None
     category: str | None = Field(default=None, max_length=40)
     sort_order: int | None = Field(default=None, validation_alias="sortOrder", ge=1)
-    is_published: bool | None = Field(default=None, validation_alias="is_published")
+    is_published: bool | None = Field(default=None, validation_alias="isPublished")
 
     model_config = ConfigDict(populate_by_name=True)
 
@@ -362,7 +362,7 @@ class UpdateFaqRequest(BaseModel):
     audience: str | None = None
     category: str | None = Field(default=None, max_length=40)
     sort_order: int | None = Field(default=None, validation_alias="sortOrder", ge=1)
-    is_published: bool | None = Field(default=None, validation_alias="is_published")
+    is_published: bool | None = Field(default=None, validation_alias="isPublished")
 
     model_config = ConfigDict(populate_by_name=True)
 

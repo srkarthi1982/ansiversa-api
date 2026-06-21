@@ -638,6 +638,9 @@ def delete_admin_app(
     request: Request | None = None,
 ) -> None:
     existing = db.get(AppCatalogItem, app_id)
+    if existing is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="App not found.")
+
     db.query(AppCatalogItem).filter(AppCatalogItem.id == app_id).delete()
     db.commit()
 

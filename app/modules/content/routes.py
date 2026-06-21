@@ -4,12 +4,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
+from sqlalchemy.orm import Session
 from starlette import status
 from starlette.responses import JSONResponse
-from sqlalchemy.orm import Session
 
 from app.core.database import get_parent_db
-from app.modules.auth.service import get_current_user
+from app.modules.auth.dependencies import require_admin_user
 from app.modules.auth.models import User
 from .schemas import (
     AboutResponse,
@@ -64,6 +64,14 @@ def _not_found() -> None:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Metadata not found.")
 
 
+def _required_metadata_content(db: Session, key: str) -> dict:
+    content = _get_metadata_content(db, key)
+    if content is None:
+        _not_found()
+
+    return content
+
+
 @router.get("/metadata", response_model=MetadataListResponse)
 def list_metadata(
     request: Request,
@@ -82,9 +90,7 @@ def get_home_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, "home")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, "home")
 
     return _cached_json_response(request, HomeResponse(**content))
 
@@ -93,9 +99,7 @@ def get_about_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, "about")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, "about")
 
     return _cached_json_response(request, AboutResponse(**content))
 
@@ -104,9 +108,7 @@ def get_terms_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, "terms")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, "terms")
 
     return _cached_json_response(request, LegalResponse(**content))
 
@@ -115,9 +117,7 @@ def get_privacy_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, "privacy")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, "privacy")
 
     return _cached_json_response(request, LegalResponse(**content))
 
@@ -126,9 +126,7 @@ def get_pricing_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, "pricing")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, "pricing")
 
     return _cached_json_response(request, PricingResponse(**content))
 
@@ -138,9 +136,7 @@ def get_overview_metadata(
     request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _get_metadata_content(db, f"overview:{app_key}")
-    if content is None:
-        _not_found()
+    content = _required_metadata_content(db, f"overview:{app_key}")
 
     return _cached_json_response(request, OverviewResponse(**content))
 
@@ -148,7 +144,7 @@ def get_overview_metadata(
 def put_metadata(
     key: str,
     payload: MetadataCreateRequest,
-    current_user: Annotated[User, Depends(get_current_user)],
+    current_user: Annotated[User, Depends(require_admin_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> MetadataResponse:
     m = _upsert_metadata(db, key, payload.content)
@@ -159,7 +155,7 @@ def put_metadata(
 @router.delete("/metadata/{key}")
 def delete_metadata(
     key: str,
-    current_user: Annotated[User, Depends(get_current_user)],
+    current_user: Annotated[User, Depends(require_admin_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ):
     _delete_metadata(db, key)

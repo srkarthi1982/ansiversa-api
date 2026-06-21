@@ -1,3 +1,4 @@
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.modules.contact.models import ContactMessage
@@ -18,7 +19,7 @@ def create_contact_message(
 
     try:
         db.commit()
-    except Exception:
+    except SQLAlchemyError:
         db.rollback()
         raise
 

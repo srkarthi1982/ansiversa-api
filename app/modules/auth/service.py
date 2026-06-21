@@ -20,6 +20,7 @@ from app.core.security import (
     verify_legacy_parent_password,
     verify_password,
 )
+from app.modules.auth.constants import DEFAULT_MEMBER_ROLE_ID
 from app.modules.auth.models import PasswordResetToken, Role, User
 from app.modules.auth.schemas import (
     AuthStatusResponse,
@@ -33,7 +34,6 @@ from app.modules.auth.schemas import (
 )
 
 
-DEFAULT_MEMBER_ROLE_ID = 2
 ACTIVE_STATUS = "active"
 BLOCKED_LOGIN_STATUSES = {"disabled", "inactive", "suspended"}
 FORGOT_PASSWORD_MESSAGE = (
@@ -41,6 +41,7 @@ FORGOT_PASSWORD_MESSAGE = (
 )
 RESET_PASSWORD_MESSAGE = "Password has been reset successfully."
 CHANGE_PASSWORD_MESSAGE = "Password changed successfully."
+PASSWORD_REUSE_ERROR = "New password must be different from the current password."
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -205,6 +206,12 @@ def reset_password(
             detail="Password reset token is invalid or expired.",
         )
 
+    if _password_matches_hash(payload.new_password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=PASSWORD_REUSE_ERROR,
+        )
+
     user.password_hash = get_password_hash(payload.new_password)
     user.updated_at = now
     db.execute(
@@ -237,12 +244,25 @@ def change_password(
             detail="Current password is incorrect.",
         )
 
+    if _password_matches_hash(payload.new_password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=PASSWORD_REUSE_ERROR,
+        )
+
     user.password_hash = get_password_hash(payload.new_password)
     user.updated_at = datetime.now(timezone.utc)
     db.add(user)
     db.commit()
 
     return PasswordActionResponse(message=CHANGE_PASSWORD_MESSAGE)
+
+
+def _password_matches_hash(password: str, password_hash: str) -> bool:
+    if is_legacy_parent_password_hash(password_hash):
+        return verify_legacy_parent_password(password, password_hash)
+
+    return verify_password(password, password_hash)
 
 
 def _as_utc(value: datetime) -> datetime:

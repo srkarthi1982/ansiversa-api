@@ -295,7 +295,7 @@ def _changed_fields(existing: Faq, updates: dict[str, object]) -> list[str]:
         ("audience", "audience", existing.audience),
         ("category", "category", existing.category),
         ("sort_order", "sortOrder", existing.sort_order),
-        ("is_published", "is_published", existing.is_published),
+        ("is_published", "isPublished", existing.is_published),
     ]
 
     return [

@@ -27,6 +27,10 @@ def _normalize_optional_filter(value: str | None) -> str | None:
     return normalized
 
 
+def _normalize_audience(value: str | None) -> str:
+    return (_normalize_optional_filter(value) or "user").lower()
+
+
 def list_public_faqs(
     db: Session,
     app_key: str | None = None,
@@ -37,7 +41,7 @@ def list_public_faqs(
 ) -> FaqListResult:
     normalized_app_key = _normalize_optional_filter(app_key)
     normalized_query = _normalize_optional_filter(query)
-    normalized_audience = _normalize_optional_filter(audience) or "user"
+    normalized_audience = _normalize_audience(audience)
 
     filters = [
         Faq.is_published.is_(True),
@@ -47,7 +51,7 @@ def list_public_faqs(
     if normalized_app_key is None:
         filters.append(Faq.app_key.is_(None))
     else:
-        filters.append(Faq.app_key == normalized_app_key)
+        filters.append(or_(Faq.app_key.is_(None), Faq.app_key == normalized_app_key))
 
     if normalized_query is not None:
         search = f"%{normalized_query}%"
@@ -55,6 +59,7 @@ def list_public_faqs(
             or_(
                 Faq.question.ilike(search),
                 Faq.answer.ilike(search),
+                Faq.answer_md.ilike(search),
             )
         )
 
