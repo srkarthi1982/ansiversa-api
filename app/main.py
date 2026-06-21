@@ -23,6 +23,7 @@ from app.modules.memory_trainer.routes import router as memory_trainer_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
+from app.modules.research_assistant.routes import router as research_assistant_router
 from app.modules.users.routes import router as users_router
 from app.modules.content.routes import router as content_router
 
@@ -142,6 +143,11 @@ def register_routes(app: FastAPI) -> None:
         concept_explainer_router,
         prefix=f"{settings.API_V1_PREFIX}/concept-explainer",
         tags=["Concept Explainer"],
+    )
+    app.include_router(
+        research_assistant_router,
+        prefix=f"{settings.API_V1_PREFIX}/research-assistant",
+        tags=["Research Assistant"],
     )
     app.include_router(
         content_router, 

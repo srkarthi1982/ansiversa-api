@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     MEMORY_TRAINER_DATABASE_URL: str = "sqlite:///./memory_trainer.db"
     DICTIONARY_PLUS_DATABASE_URL: str = "sqlite:///./dictionary_plus.db"
     CONCEPT_EXPLAINER_DATABASE_URL: str = "sqlite:///./concept_explainer.db"
+    RESEARCH_ASSISTANT_DATABASE_URL: str = "sqlite:///./research_assistant.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
