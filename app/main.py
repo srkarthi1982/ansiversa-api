@@ -13,6 +13,7 @@ from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.dashboard.routes import router as dashboard_router
+from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
@@ -130,6 +131,11 @@ def register_routes(app: FastAPI) -> None:
         memory_trainer_router,
         prefix=f"{settings.API_V1_PREFIX}/memory-trainer",
         tags=["Memory Trainer"],
+    )
+    app.include_router(
+        dictionary_plus_router,
+        prefix=f"{settings.API_V1_PREFIX}/dictionary-plus",
+        tags=["Dictionary+"],
     )
     app.include_router(
         content_router, 
