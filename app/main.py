@@ -12,6 +12,7 @@ from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
+from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.dashboard.routes import router as dashboard_router
 from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
@@ -136,6 +137,11 @@ def register_routes(app: FastAPI) -> None:
         dictionary_plus_router,
         prefix=f"{settings.API_V1_PREFIX}/dictionary-plus",
         tags=["Dictionary+"],
+    )
+    app.include_router(
+        concept_explainer_router,
+        prefix=f"{settings.API_V1_PREFIX}/concept-explainer",
+        tags=["Concept Explainer"],
     )
     app.include_router(
         content_router, 
