@@ -521,6 +521,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-21: Promoted Concept Explainer App #021 to live launch status at version `1.0.0` after Partner approval.
 * 2026-06-21: Added nullable `Apps.version` governance so only live apps carry release versions and queued apps use `NULL`.
 * 2026-06-21: Promoted Lesson Builder, Memory Trainer, and Dictionary+ to live launch status at version `1.0.0` after Partner approval.
 * 2026-06-21: Fixed Dictionary+ overview metadata CTAs to use `Explore` and route directly into the lookup workflow.
