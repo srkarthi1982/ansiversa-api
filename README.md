@@ -84,6 +84,11 @@ The Quiz API module uses its own database connection. Configure
 parent/global database and Alembic context. `QUIZ_ATTEMPT_EXPIRE_HOURS`
 controls incomplete-attempt expiry and defaults to `2`.
 
+The Research Assistant API module uses its own database connection. Configure
+`RESEARCH_ASSISTANT_DATABASE_URL`; it reuses the shared `TURSO_AUTH_TOKEN` for
+Turso/libSQL connections. Research Assistant models and sessions remain isolated
+from the parent/global database and Alembic context.
+
 Auth uses these environment variables:
 
 ```text
@@ -112,9 +117,9 @@ values override these defaults.
 
 The default Alembic environment is configured for the parent/global database
 only and reads `PARENT_DATABASE_URL` from app settings. Parent/global migrations
-belong to this parent Alembic context. Quiz migrations use the separate
-`quiz_alembic.ini` configuration, `quiz_alembic/` migration chain, and
-`QUIZ_DATABASE_URL`.
+belong to this parent Alembic context under `migrations/parent/`. Mini-app
+migrations use isolated Alembic contexts under `migrations/<app-slug>/`, such as
+`migrations/research-assistant/`, and read that app's own `*_DATABASE_URL`.
 
 Turso migrations also require `TURSO_AUTH_TOKEN`; Alembic reuses the parent
 database engine so the same URL conversion and authentication settings apply to
@@ -136,6 +141,36 @@ Apply isolated Quiz migrations:
 
 ```bash
 alembic -c quiz_alembic.ini upgrade head
+```
+
+Apply isolated Concept Explainer migrations:
+
+```bash
+alembic -c concept-explainer_alembic.ini upgrade head
+```
+
+Apply isolated Dictionary+ migrations:
+
+```bash
+alembic -c dictionary-plus_alembic.ini upgrade head
+```
+
+Apply isolated Lesson Builder migrations:
+
+```bash
+alembic -c lesson-builder_alembic.ini upgrade head
+```
+
+Apply isolated Memory Trainer migrations:
+
+```bash
+alembic -c memory-trainer_alembic.ini upgrade head
+```
+
+Apply isolated Research Assistant migrations:
+
+```bash
+alembic -c research-assistant_alembic.ini upgrade head
 ```
 
 Quiz taxonomy routes are read-only and protected by the existing current-user

@@ -305,7 +305,7 @@ These side effects are best-effort today. During API migration:
 The secure attempt lifecycle adds Quiz-owned `QuizAttempt` and
 `QuizAttemptQuestion` tables. They are intentionally excluded from
 `ParentBase.metadata` and parent Alembic. Quiz migrations use their own
-`quiz_alembic.ini`, `quiz_alembic/` migration chain, and
+`quiz_alembic.ini`, `migrations/quiz/` migration chain, and
 `quiz_alembic_version` table. Autogeneration is restricted to the approved
 API-managed attempt tables and must not propose changes to legacy Quiz tables.
 
