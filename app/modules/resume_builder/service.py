@@ -398,6 +398,7 @@ def get_preview(
             select(ResumeProject)
             .where(ResumeProject.user_id == user.id)
             .order_by(ResumeProject.is_default.desc(), ResumeProject.updated_at.desc())
+            .limit(1)
         ).scalar_one_or_none()
     )
     if not project:

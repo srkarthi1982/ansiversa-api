@@ -581,6 +581,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Fixed Resume Builder dashboard preview selection to limit the default/latest project query after real multi-template data exposed a `MultipleResultsFound` 500.
 * 2026-06-22: Seeded real Resume Builder data for the Partner account across the Classic, Modern, Minimal, and Timeline templates using the existing production `ResumeProject`, `ResumeSection`, and `ResumeItem` schema.
 * 2026-06-22: Completed Resume Builder production schema verification after executing the isolated Alembic upgrade; no new revision files were required because the existing `ResumeProject`, `ResumeSection`, and `ResumeItem` schema was reused, and `resume_builder_alembic_version` was created empty.
 * 2026-06-22: Removed ETag/304 behavior from content metadata GET routes and switched metadata API responses to strict `no-store` headers so browser refreshes always fetch fresh DB-backed content.
