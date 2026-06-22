@@ -12,6 +12,7 @@ from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
+from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
 from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.dashboard.routes import router as dashboard_router
 from app.modules.dictionary_plus.routes import router as dictionary_plus_router
@@ -148,6 +149,11 @@ def register_routes(app: FastAPI) -> None:
         research_assistant_router,
         prefix=f"{settings.API_V1_PREFIX}/research-assistant",
         tags=["Research Assistant"],
+    )
+    app.include_router(
+        ai_notes_summarizer_router,
+        prefix=f"{settings.API_V1_PREFIX}/ai-notes-summarizer",
+        tags=["AI Notes Summarizer"],
     )
     app.include_router(
         content_router, 

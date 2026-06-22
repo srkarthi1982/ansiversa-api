@@ -529,6 +529,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Implemented AI Notes Summarizer App #023 backend foundation with isolated NotesDocuments, NoteSummaries, and SummaryJobs tables plus user-scoped API routes.
 * 2026-06-21: Promoted Research Assistant App #022 to live launch status at version `1.0.0` after Partner and Astra approval.
 * 2026-06-21: Implemented Research Assistant App #022 backend foundation with isolated ResearchTopics, ResearchNotes, ResearchReferences, and ResearchJobs tables plus user-scoped API routes.
 * 2026-06-21: Promoted Concept Explainer App #021 to live launch status at version `1.0.0` after Partner approval.

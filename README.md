@@ -89,6 +89,11 @@ The Research Assistant API module uses its own database connection. Configure
 Turso/libSQL connections. Research Assistant models and sessions remain isolated
 from the parent/global database and Alembic context.
 
+The AI Notes Summarizer API module uses its own database connection. Configure
+`AI_NOTES_SUMMARIZER_DATABASE_URL`; it reuses the shared `TURSO_AUTH_TOKEN` for
+Turso/libSQL connections. AI Notes Summarizer models and sessions remain
+isolated from the parent/global database and Alembic context.
+
 Auth uses these environment variables:
 
 ```text
@@ -171,6 +176,12 @@ Apply isolated Research Assistant migrations:
 
 ```bash
 alembic -c research-assistant_alembic.ini upgrade head
+```
+
+Apply isolated AI Notes Summarizer migrations:
+
+```bash
+alembic -c ai-notes-summarizer_alembic.ini upgrade head
 ```
 
 Quiz taxonomy routes are read-only and protected by the existing current-user
