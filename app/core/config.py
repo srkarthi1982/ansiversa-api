@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     CONCEPT_EXPLAINER_DATABASE_URL: str = "sqlite:///./concept_explainer.db"
     RESEARCH_ASSISTANT_DATABASE_URL: str = "sqlite:///./research_assistant.db"
     AI_NOTES_SUMMARIZER_DATABASE_URL: str = "sqlite:///./ai_notes_summarizer.db"
+    STUDY_PLANNER_DATABASE_URL: str = "sqlite:///./study_planner.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

@@ -25,6 +25,7 @@ from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
 from app.modules.research_assistant.routes import router as research_assistant_router
+from app.modules.study_planner.routes import router as study_planner_router
 from app.modules.users.routes import router as users_router
 from app.modules.content.routes import router as content_router
 
@@ -154,6 +155,11 @@ def register_routes(app: FastAPI) -> None:
         ai_notes_summarizer_router,
         prefix=f"{settings.API_V1_PREFIX}/ai-notes-summarizer",
         tags=["AI Notes Summarizer"],
+    )
+    app.include_router(
+        study_planner_router,
+        prefix=f"{settings.API_V1_PREFIX}/study-planner",
+        tags=["Study Planner"],
     )
     app.include_router(
         content_router, 
