@@ -31,6 +31,7 @@ from app.modules.smart_textbook_scanner.routes import router as smart_textbook_s
 from app.modules.study_planner.routes import router as study_planner_router
 from app.modules.users.routes import router as users_router
 from app.modules.content.routes import router as content_router
+from app.modules.visiting_card_maker.routes import router as visiting_card_maker_router
 
 def register_middleware(app: FastAPI) -> None:
     app.add_middleware(GZipMiddleware, minimum_size=1000)
@@ -178,6 +179,11 @@ def register_routes(app: FastAPI) -> None:
         resume_builder_router,
         prefix=f"{settings.API_V1_PREFIX}/resume-builder",
         tags=["Resume Builder"],
+    )
+    app.include_router(
+        visiting_card_maker_router,
+        prefix=f"{settings.API_V1_PREFIX}/visiting-card-maker",
+        tags=["Visiting Card Maker"],
     )
     app.include_router(
         content_router, 
