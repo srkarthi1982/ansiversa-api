@@ -272,13 +272,14 @@ def start_attempt(
         )
         for position, question in enumerate(questions)
     )
-    db.commit()
-
-    return QuizAttemptResponse(
+    response = QuizAttemptResponse(
         attempt_id=attempt.id,
         questions=[_safe_question(question) for question in questions],
         total_questions=len(questions),
     )
+    db.commit()
+
+    return response
 
 
 def resume_attempt(db: Session, user: User, attempt_id: int) -> QuizAttemptResponse:
