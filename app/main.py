@@ -26,6 +26,7 @@ from app.modules.notifications.routes import router as notifications_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
 from app.modules.research_assistant.routes import router as research_assistant_router
+from app.modules.resume_builder.routes import router as resume_builder_router
 from app.modules.smart_textbook_scanner.routes import router as smart_textbook_scanner_router
 from app.modules.study_planner.routes import router as study_planner_router
 from app.modules.users.routes import router as users_router
@@ -172,6 +173,11 @@ def register_routes(app: FastAPI) -> None:
         smart_textbook_scanner_router,
         prefix=f"{settings.API_V1_PREFIX}/smart-textbook-scanner",
         tags=["Smart Textbook Scanner"],
+    )
+    app.include_router(
+        resume_builder_router,
+        prefix=f"{settings.API_V1_PREFIX}/resume-builder",
+        tags=["Resume Builder"],
     )
     app.include_router(
         content_router, 

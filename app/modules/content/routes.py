@@ -1,8 +1,6 @@
-import hashlib
-import json
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 from starlette import status
@@ -30,34 +28,19 @@ from .service import (
 )
 
 router = APIRouter(prefix="/content", tags=["content"])
-METADATA_CACHE_CONTROL = "no-cache"
+METADATA_NO_STORE_HEADERS = {
+    "Cache-Control": "no-store, max-age=0",
+    "Pragma": "no-cache",
+    "Expires": "0",
+    "Vary": "Origin",
+}
 
 
-def _metadata_etag(content: object) -> str:
-    encoded = jsonable_encoder(content)
-    serialized = json.dumps(
-        encoded,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-
-    return f'W/"{hashlib.sha256(serialized).hexdigest()}"'
-
-
-def _cached_json_response(request: Request, content: object) -> Response:
-    encoded = jsonable_encoder(content)
-    etag = _metadata_etag(encoded)
-    headers = {
-        "Cache-Control": METADATA_CACHE_CONTROL,
-        "ETag": etag,
-        "Vary": "Origin",
-    }
-
-    if request.headers.get("if-none-match") == etag:
-        return Response(status_code=status.HTTP_304_NOT_MODIFIED, headers=headers)
-
-    return JSONResponse(content=encoded, headers=headers)
+def _metadata_json_response(content: object) -> Response:
+    return JSONResponse(
+        content=jsonable_encoder(content),
+        headers=METADATA_NO_STORE_HEADERS,
+    )
 
 
 def _not_found() -> None:
@@ -74,7 +57,6 @@ def _required_metadata_content(db: Session, key: str) -> dict:
 
 @router.get("/metadata", response_model=MetadataListResponse)
 def list_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     items = _list_metadata(db)
@@ -83,62 +65,56 @@ def list_metadata(
         total=len(items),
     )
 
-    return _cached_json_response(request, response)
+    return _metadata_json_response(response)
 
 @router.get("/metadata/home", response_model=HomeResponse)
 def get_home_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, "home")
 
-    return _cached_json_response(request, HomeResponse(**content))
+    return _metadata_json_response(HomeResponse(**content))
 
 @router.get("/metadata/about", response_model=AboutResponse)
 def get_about_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, "about")
 
-    return _cached_json_response(request, AboutResponse(**content))
+    return _metadata_json_response(AboutResponse(**content))
 
 @router.get("/metadata/terms", response_model=LegalResponse)
 def get_terms_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, "terms")
 
-    return _cached_json_response(request, LegalResponse(**content))
+    return _metadata_json_response(LegalResponse(**content))
 
 @router.get("/metadata/privacy", response_model=LegalResponse)
 def get_privacy_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, "privacy")
 
-    return _cached_json_response(request, LegalResponse(**content))
+    return _metadata_json_response(LegalResponse(**content))
 
 @router.get("/metadata/pricing", response_model=PricingResponse)
 def get_pricing_metadata(
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, "pricing")
 
-    return _cached_json_response(request, PricingResponse(**content))
+    return _metadata_json_response(PricingResponse(**content))
 
 @router.get("/metadata/overview/{app_key}", response_model=OverviewResponse)
 def get_overview_metadata(
     app_key: str,
-    request: Request,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
     content = _required_metadata_content(db, f"overview:{app_key}")
 
-    return _cached_json_response(request, OverviewResponse(**content))
+    return _metadata_json_response(OverviewResponse(**content))
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(

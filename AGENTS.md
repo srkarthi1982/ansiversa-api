@@ -370,6 +370,46 @@ If current head is already correct:
 Do not create a new migration.
 ```
 
+## Production Migration Rule
+
+Scenario 1:
+
+```text
+New app
+↓
+New tables
+↓
+Alembic revision
+↓
+Upgrade head
+```
+
+Scenario 2:
+
+```text
+Existing production schema
+↓
+Reuse schema
+↓
+No revision required
+↓
+Upgrade head still executed
+↓
+Verification only
+```
+
+Both scenarios are valid.
+
+For schema-reuse cases, report:
+
+```text
+Production schema verification completed.
+
+No new revision files were required because the existing schema was reused.
+```
+
+Do not overstate schema-reuse work as a normal new-table production migration.
+
 ---
 
 ## Auth and Security Direction
@@ -541,6 +581,10 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Seeded real Resume Builder data for the Partner account across the Classic, Modern, Minimal, and Timeline templates using the existing production `ResumeProject`, `ResumeSection`, and `ResumeItem` schema.
+* 2026-06-22: Completed Resume Builder production schema verification after executing the isolated Alembic upgrade; no new revision files were required because the existing `ResumeProject`, `ResumeSection`, and `ResumeItem` schema was reused, and `resume_builder_alembic_version` was created empty.
+* 2026-06-22: Removed ETag/304 behavior from content metadata GET routes and switched metadata API responses to strict `no-store` headers so browser refreshes always fetch fresh DB-backed content.
+* 2026-06-22: Implemented Resume Builder App #027 backend foundation by reusing existing production `ResumeProject`, `ResumeSection`, and `ResumeItem` tables, adding protected user-scoped API routes, and leaving the Apps catalog row `comingSoon` with no live version for Astra review.
 * 2026-06-22: Promoted Smart Textbook Scanner App #026 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval.
 * 2026-06-22: Implemented Smart Textbook Scanner App #026 backend foundation with isolated TextbookScans, TextbookPages, and ExtractedNotes tables plus protected user-scoped API routes for Astra review.
 * 2026-06-22: Promoted Course Tracker App #025 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval.
