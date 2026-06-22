@@ -529,10 +529,11 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Marked Study Planner App #024 approved after Astra review and aligned overview metadata/status documentation.
 * 2026-06-22: Synced overview metadata after Study Planner App #024 CTA review so `overview:study-planner` serves `Explore` and routes to `/study-planner/plan`.
 * 2026-06-22: Added and applied Study Planner corrective migration `20260622_0002` to align an existing remote Study Planner schema with the App #024 API contract and resolve dashboard 500 errors.
 * 2026-06-22: Applied the isolated Study Planner App #024 migration to the configured remote Study Planner database and verified StudyPlans, StudyPlanTasks, StudyLogs, and revision `20260622_0001`.
-* 2026-06-22: Implemented Study Planner App #024 backend foundation with isolated StudyPlans, StudyPlanTasks, and StudyLogs tables plus protected user-scoped API routes; left app workflow-ready for Astra review, not approved/live.
+* 2026-06-22: Implemented Study Planner App #024 backend foundation with isolated StudyPlans, StudyPlanTasks, and StudyLogs tables plus protected user-scoped API routes.
 * 2026-06-22: Promoted AI Notes Summarizer App #023 to live launch status at version `1.0.0` after Astra review, production migration, and Partner approval.
 * 2026-06-22: Implemented AI Notes Summarizer App #023 backend foundation with isolated NotesDocuments, NoteSummaries, and SummaryJobs tables plus user-scoped API routes.
 * 2026-06-21: Promoted Research Assistant App #022 to live launch status at version `1.0.0` after Partner and Astra approval.
