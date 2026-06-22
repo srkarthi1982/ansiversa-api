@@ -15,6 +15,13 @@ class CardProfile(VisitingCardMakerBase):
         default=lambda: str(uuid4()),
     )
     user_id: Mapped[str] = mapped_column("userId", Text, index=True, nullable=False)
+    profile_name: Mapped[str] = mapped_column(
+        "profileName",
+        String(120),
+        default="",
+        server_default="",
+        nullable=False,
+    )
     full_name: Mapped[str] = mapped_column("fullName", String(120), nullable=False)
     job_title: Mapped[str] = mapped_column(
         "jobTitle",

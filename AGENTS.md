@@ -581,6 +581,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Added and applied the isolated Visiting Card Maker production migration, aligned the existing remote `CardProfiles` schema with the V1 API contract, and verified `CardProfiles`, `CardDesigns`, and revision `20260622_0002`.
 * 2026-06-22: Promoted Resume Builder App #027 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner verification.
 * 2026-06-22: Fixed Resume Builder dashboard preview selection to limit the default/latest project query after real multi-template data exposed a `MultipleResultsFound` 500.
 * 2026-06-22: Seeded real Resume Builder data for the Partner account across the Classic, Modern, Minimal, and Timeline templates using the existing production `ResumeProject`, `ResumeSection`, and `ResumeItem` schema.

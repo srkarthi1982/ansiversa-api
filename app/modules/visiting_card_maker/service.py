@@ -78,6 +78,7 @@ def create_card(
 ) -> VisitingCardResponse:
     profile = CardProfile(
         user_id=user.id,
+        profile_name=payload.full_name,
         full_name=payload.full_name,
         job_title=payload.job_title,
         company_name=payload.company_name,
@@ -123,6 +124,8 @@ def update_card(
     ):
         if field in values:
             setattr(profile, field, values[field])
+    if "full_name" in values:
+        profile.profile_name = values["full_name"]
     if "template_key" in values:
         design.template_key = values["template_key"]
 
