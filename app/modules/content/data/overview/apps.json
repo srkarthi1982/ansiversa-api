@@ -112,13 +112,13 @@
 		"websiteUrl" : "course-tracker.ansiversa.com",
 		"adminUrl" : null,
 		"createdAt" : "2025-12-25 17:07:19",
-		"updatedAt" : "2026-06-19 11:49:38",
+		"updatedAt" : "2026-06-22 06:49:14",
 		"capabilities" : "[]",
-		"launchStatus" : "comingSoon",
+		"launchStatus" : "live",
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "course-tracker",
-		"version" : null
+		"version" : "1.0.0"
 	},
 	{
 		"id" : "app_dictionary-plus",

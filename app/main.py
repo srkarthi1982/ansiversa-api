@@ -14,6 +14,7 @@ from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
 from app.modules.concept_explainer.routes import router as concept_explainer_router
+from app.modules.course_tracker.routes import router as course_tracker_router
 from app.modules.dashboard.routes import router as dashboard_router
 from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
@@ -160,6 +161,11 @@ def register_routes(app: FastAPI) -> None:
         study_planner_router,
         prefix=f"{settings.API_V1_PREFIX}/study-planner",
         tags=["Study Planner"],
+    )
+    app.include_router(
+        course_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/course-tracker",
+        tags=["Course Tracker"],
     )
     app.include_router(
         content_router, 

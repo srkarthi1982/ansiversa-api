@@ -541,6 +541,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Promoted Course Tracker App #025 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval.
+* 2026-06-22: Implemented Course Tracker App #025 backend foundation with isolated Courses, CourseModules, and CourseProgressLogs tables plus protected user-scoped API routes for Astra review.
 * 2026-06-22: Promoted Study Planner App #024 in the parent Apps catalog with `launchStatus = live` and version `1.0.0`, and documented the approval promotion requirement.
 * 2026-06-22: Marked Study Planner App #024 approved after Astra review and aligned overview metadata/status documentation.
 * 2026-06-22: Synced overview metadata after Study Planner App #024 CTA review so `overview:study-planner` serves `Explore` and routes to `/study-planner/plan`.
