@@ -581,6 +581,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Added the Quiz Question play-filter composite index migration for Milestone Review #2 after query-plan investigation confirmed full scans on the 1.4M-row Question table.
 * 2026-06-22: Completed Milestone Review #2 Quiz API performance review by narrowing Quiz play/history DB column loading while preserving user-facing response contracts.
 * 2026-06-22: Promoted Visiting Card Maker App #021 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after production manual verification and Partner approval.
 * 2026-06-22: Updated Visiting Card Maker overview metadata so primary and final CTA buttons use `Explore` and navigate to `/visiting-card-maker/create`, then synced the metadata table.

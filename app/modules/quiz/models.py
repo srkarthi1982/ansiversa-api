@@ -5,6 +5,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Integer,
+    Index,
     String,
     Text,
     UniqueConstraint,
@@ -62,6 +63,17 @@ class Roadmap(QuizBase):
 
 class Question(QuizBase):
     __tablename__ = "Question"
+    __table_args__ = (
+        Index(
+            "ix_Question_play_filter",
+            "platformId",
+            "subjectId",
+            "topicId",
+            "roadmapId",
+            "l",
+            "isActive",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     platform_id: Mapped[int] = mapped_column("platformId", Integer, nullable=False)
