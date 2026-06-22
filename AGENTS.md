@@ -541,6 +541,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Promoted Smart Textbook Scanner App #026 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval.
 * 2026-06-22: Implemented Smart Textbook Scanner App #026 backend foundation with isolated TextbookScans, TextbookPages, and ExtractedNotes tables plus protected user-scoped API routes for Astra review.
 * 2026-06-22: Promoted Course Tracker App #025 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval.
 * 2026-06-22: Implemented Course Tracker App #025 backend foundation with isolated Courses, CourseModules, and CourseProgressLogs tables plus protected user-scoped API routes for Astra review.
