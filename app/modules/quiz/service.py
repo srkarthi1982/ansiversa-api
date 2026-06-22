@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Literal, TypeVar
 
 from sqlalchemy import Select, func, select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 
 from app.modules.quiz.models import Platform, Roadmap, Subject, Topic
 
@@ -104,7 +104,16 @@ def list_platforms(
     platform_type: str | None,
 ) -> QuizTaxonomyListResult:
     statement = _apply_common_filters(
-        select(Platform),
+        select(Platform).options(
+            load_only(
+                Platform.id,
+                Platform.name,
+                Platform.description,
+                Platform.type,
+                Platform.is_active,
+                Platform.question_count,
+            )
+        ),
         Platform,
         q=q,
         status_filter=status_filter,
@@ -146,7 +155,15 @@ def list_subjects(
     platform_id: int | None,
 ) -> QuizTaxonomyListResult:
     statement = _apply_common_filters(
-        select(Subject),
+        select(Subject).options(
+            load_only(
+                Subject.id,
+                Subject.platform_id,
+                Subject.name,
+                Subject.is_active,
+                Subject.question_count,
+            )
+        ),
         Subject,
         q=q,
         status_filter=status_filter,
@@ -187,7 +204,16 @@ def list_topics(
     subject_id: int | None,
 ) -> QuizTaxonomyListResult:
     statement = _apply_common_filters(
-        select(Topic),
+        select(Topic).options(
+            load_only(
+                Topic.id,
+                Topic.platform_id,
+                Topic.subject_id,
+                Topic.name,
+                Topic.is_active,
+                Topic.question_count,
+            )
+        ),
         Topic,
         q=q,
         status_filter=status_filter,
@@ -233,7 +259,17 @@ def list_roadmaps(
     roadmap_id: int | None,
 ) -> QuizTaxonomyListResult:
     statement = _apply_common_filters(
-        select(Roadmap),
+        select(Roadmap).options(
+            load_only(
+                Roadmap.id,
+                Roadmap.platform_id,
+                Roadmap.subject_id,
+                Roadmap.topic_id,
+                Roadmap.name,
+                Roadmap.is_active,
+                Roadmap.question_count,
+            )
+        ),
         Roadmap,
         q=q,
         status_filter=status_filter,

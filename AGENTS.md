@@ -581,6 +581,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Completed Milestone Review #2 Quiz API performance review by narrowing Quiz play/history DB column loading while preserving user-facing response contracts.
 * 2026-06-22: Promoted Visiting Card Maker App #021 in the parent Apps catalog with `launchStatus = live` and version `1.0.0` after production manual verification and Partner approval.
 * 2026-06-22: Updated Visiting Card Maker overview metadata so primary and final CTA buttons use `Explore` and navigate to `/visiting-card-maker/create`, then synced the metadata table.
 * 2026-06-22: Added and applied the isolated Visiting Card Maker production migration, aligned the existing remote `CardProfiles` schema with the V1 API contract, and verified `CardProfiles`, `CardDesigns`, and revision `20260622_0002`.
