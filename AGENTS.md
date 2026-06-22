@@ -529,6 +529,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Promoted AI Notes Summarizer App #023 to live launch status at version `1.0.0` after Astra review, production migration, and Partner approval.
 * 2026-06-22: Implemented AI Notes Summarizer App #023 backend foundation with isolated NotesDocuments, NoteSummaries, and SummaryJobs tables plus user-scoped API routes.
 * 2026-06-21: Promoted Research Assistant App #022 to live launch status at version `1.0.0` after Partner and Astra approval.
 * 2026-06-21: Implemented Research Assistant App #022 backend foundation with isolated ResearchTopics, ResearchNotes, ResearchReferences, and ResearchJobs tables plus user-scoped API routes.
@@ -599,7 +600,7 @@ Next milestone:
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for StoryCrafter, Poem Studio, Song Lyric Maker, Ad Copy Assistant, and Book Summary Generator.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Job Description Analyzer, Proposal Writer, Invoice and Receipt Maker, Career Planner, and LinkedIn Bio Optimizer.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for the coming-soon Memory Trainer, Smart Textbook Scanner, Homework Helper, Visiting Card Maker, and Interview Coach apps.
-* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for the coming-soon Research Assistant, AI Notes Summarizer, Knowledge Duel, Exam Simulator, and Study Timer apps.
+* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Research Assistant, AI Notes Summarizer, Knowledge Duel, Exam Simulator, and Study Timer.
 * 2026-06-13: Added five catalog-aligned overview metadata seed files for Quick Notepad, Event Planner, Pet Care Planner, Eco Habit Tracker, and Interview Scheduler, avoiding unsupported feature claims beyond confirmed app scope.
 * 2026-06-13: Added five catalog-aligned overview metadata seed files for Lesson Builder, Daily Word Challenge, Email Polisher, Presentation Designer, and Client Feedback Analyzer.
 * 2026-06-13: Added five catalog-aligned overview metadata seed files for Dictionary+, Fact Generator, Formula Finder, Language Flashcards, and EduPrompt, keeping content within each app's confirmed live product scope.
