@@ -336,6 +336,18 @@ Use semantic versioning:
 Do not store competing mini-app versions in frontend metadata, overview content,
 or app-local configuration.
 
+Approval promotions must update the parent `Apps` table row before status
+documentation is complete:
+
+```text
+status = active
+launchStatus = live
+version = 1.0.0
+```
+
+After updating the row, sync `app/modules/content/data/overview/apps.json` so
+the catalog export reflects the same `launchStatus` and `version`.
+
 ## Mini App Database Rule
 
 Every mini-app owns its own database.
@@ -529,6 +541,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-22: Promoted Study Planner App #024 in the parent Apps catalog with `launchStatus = live` and version `1.0.0`, and documented the approval promotion requirement.
 * 2026-06-22: Marked Study Planner App #024 approved after Astra review and aligned overview metadata/status documentation.
 * 2026-06-22: Synced overview metadata after Study Planner App #024 CTA review so `overview:study-planner` serves `Explore` and routes to `/study-planner/plan`.
 * 2026-06-22: Added and applied Study Planner corrective migration `20260622_0002` to align an existing remote Study Planner schema with the App #024 API contract and resolve dashboard 500 errors.

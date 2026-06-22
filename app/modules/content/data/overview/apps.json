@@ -92,13 +92,13 @@
 		"websiteUrl" : "https:\/\/study-planner.ansiversa.com\/",
 		"adminUrl" : null,
 		"createdAt" : "2025-12-25 17:07:19",
-		"updatedAt" : "2026-06-19 11:49:44",
+		"updatedAt" : "2026-06-22 02:58:36",
 		"capabilities" : "[\"public\",\"bookmarks\"]",
-		"launchStatus" : "comingSoon",
+		"launchStatus" : "live",
 		"visibility" : "public",
 		"pricingGate" : "free",
 		"logoKey" : "study-planner",
-		"version" : null
+		"version" : "1.0.0"
 	},
 	{
 		"id" : "app_course-tracker",
