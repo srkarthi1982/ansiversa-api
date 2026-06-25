@@ -4,6 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 
 from app.core.config import settings
 from app.core.openapi import generate_operation_id
+from app.core.timing import TimingMiddleware, patch_fastapi_serialization_timing
 from app.modules.admin.apps_routes import router as admin_apps_router
 from app.modules.admin.categories_routes import router as admin_categories_router
 from app.modules.admin.faqs_routes import router as admin_faqs_router
@@ -42,6 +43,7 @@ def register_middleware(app: FastAPI) -> None:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.add_middleware(TimingMiddleware)
 
 
 def register_routes(app: FastAPI) -> None:
@@ -201,6 +203,7 @@ def register_routes(app: FastAPI) -> None:
 
 
 def create_app() -> FastAPI:
+    patch_fastapi_serialization_timing()
     app = FastAPI(
         title=settings.APP_NAME,
         description="Single source of truth API for the Ansiversa ecosystem.",

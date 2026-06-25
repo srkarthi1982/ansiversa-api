@@ -42,6 +42,7 @@ class Settings(BaseSettings):
     AUTH_COOKIE_SECURE: bool | None = None
     AUTH_COOKIE_SAMESITE: Literal["lax", "strict", "none"] | None = None
     AUTH_COOKIE_MAX_AGE_SECONDS: int | None = Field(default=None, gt=0)
+    API_TIMING_ENABLED: bool = True
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )

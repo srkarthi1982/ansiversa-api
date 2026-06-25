@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_dictionary_plus_database_url(database_url: str) -> str:
@@ -35,11 +36,13 @@ dictionary_plus_engine = create_engine(
     ),
     pool_pre_ping=True,
 )
+register_timing_engine(dictionary_plus_engine, "dictionary_plus")
 
 DictionaryPlusSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=dictionary_plus_engine,
+    class_=TimingSession,
 )
 
 
@@ -48,12 +51,7 @@ class DictionaryPlusBase(DeclarativeBase):
 
 
 def get_dictionary_plus_db() -> Generator[Session, None, None]:
-    db = DictionaryPlusSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(DictionaryPlusSessionLocal, "dictionary_plus")
 
 
 def check_dictionary_plus_database() -> bool:

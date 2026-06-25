@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_quiz_database_url(database_url: str) -> str:
@@ -33,11 +34,13 @@ quiz_engine = create_engine(
     connect_args=_build_quiz_connect_args(settings.QUIZ_DATABASE_URL),
     pool_pre_ping=True,
 )
+register_timing_engine(quiz_engine, "quiz")
 
 QuizSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=quiz_engine,
+    class_=TimingSession,
 )
 
 
@@ -46,12 +49,7 @@ class QuizBase(DeclarativeBase):
 
 
 def get_quiz_db() -> Generator[Session, None, None]:
-    db = QuizSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(QuizSessionLocal, "quiz")
 
 
 def check_quiz_database() -> bool:

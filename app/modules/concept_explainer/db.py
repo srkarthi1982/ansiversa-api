@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_concept_explainer_database_url(database_url: str) -> str:
@@ -35,11 +36,13 @@ concept_explainer_engine = create_engine(
     ),
     pool_pre_ping=True,
 )
+register_timing_engine(concept_explainer_engine, "concept_explainer")
 
 ConceptExplainerSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=concept_explainer_engine,
+    class_=TimingSession,
 )
 
 
@@ -48,12 +51,7 @@ class ConceptExplainerBase(DeclarativeBase):
 
 
 def get_concept_explainer_db() -> Generator[Session, None, None]:
-    db = ConceptExplainerSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(ConceptExplainerSessionLocal, "concept_explainer")
 
 
 def check_concept_explainer_database() -> bool:

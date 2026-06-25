@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_research_assistant_database_url(database_url: str) -> str:
@@ -35,11 +36,13 @@ research_assistant_engine = create_engine(
     ),
     pool_pre_ping=True,
 )
+register_timing_engine(research_assistant_engine, "research_assistant")
 
 ResearchAssistantSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=research_assistant_engine,
+    class_=TimingSession,
 )
 
 
@@ -48,12 +51,7 @@ class ResearchAssistantBase(DeclarativeBase):
 
 
 def get_research_assistant_db() -> Generator[Session, None, None]:
-    db = ResearchAssistantSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(ResearchAssistantSessionLocal, "research_assistant")
 
 
 def check_research_assistant_database() -> bool:

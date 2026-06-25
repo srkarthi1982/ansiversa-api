@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_database_url(database_url: str) -> str:
@@ -31,11 +32,13 @@ parent_engine = create_engine(
     connect_args=_build_connect_args(settings.PARENT_DATABASE_URL),
     pool_pre_ping=True,
 )
+register_timing_engine(parent_engine, "parent")
 
 ParentSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=parent_engine,
+    class_=TimingSession,
 )
 
 
@@ -44,12 +47,7 @@ class ParentBase(DeclarativeBase):
 
 
 def get_parent_db() -> Generator[Session, None, None]:
-    db = ParentSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(ParentSessionLocal, "parent")
 
 
 def check_parent_database() -> bool:
