@@ -156,6 +156,8 @@ User-facing APIs must only fetch and return the fields required by the UI.
 Never expose complete database records to public clients when the UI only
 consumes a subset of fields.
 
+Payload size is part of the API contract.
+
 Workflow:
 
 ```text
@@ -179,12 +181,38 @@ Rules:
 * Avoid sending metadata that is not displayed.
 * Never use SELECT * for user-facing endpoints.
 
-2. Admin APIs
+2. List Endpoints
+
+* Return lightweight summary models only.
+* Never return large text or blob fields unless the list UI displays them.
+* Return only fields actually consumed by the frontend.
+
+3. Dashboard Endpoints
+
+* Return summary information only.
+* Replace large content with previews when appropriate.
+* Do not include full document bodies, transcripts, notes, markdown, JSON
+  payloads, render payloads, or similar large fields unless the dashboard
+  requires them.
+
+4. Detail Endpoints
+
+* Return the complete record required for viewing or editing.
+* Edit drawers and edit pages must load full records from detail endpoints
+  instead of bloating list or dashboard responses.
+
+5. Create and Update
+
+* Validate update DTOs independently from create DTOs.
+* Never accept or require create-only parent IDs during update operations unless
+  the backend update schema explicitly supports parent reassignment.
+
+6. Admin APIs
 
 * Admin endpoints may return complete records.
 * Admin screens are internal tools and are allowed to access all fields.
 
-3. New Mini Apps
+7. New Mini Apps
 
 Before implementing any user-facing endpoint:
 
@@ -192,8 +220,10 @@ Before implementing any user-facing endpoint:
 * Define the response contract.
 * Select only those columns from the database.
 * Return minimal payloads.
+* Verify list, dashboard, and detail endpoints follow lightweight/detail
+  separation before approval.
 
-4. Forbidden Pattern
+8. Forbidden Pattern
 
 ```text
 Database
@@ -205,7 +235,7 @@ Frontend ignores 50% to 80% of fields
 
 This pattern must not be used.
 
-5. Goal
+9. Goal
 
 Reduce:
 
@@ -222,6 +252,75 @@ Data is expensive.
 
 Do not transport unused data.
 ```
+
+## UI Action Button Contract
+
+Ansiversa follows a consistent action-first button design across the parent app
+and all mini apps.
+
+Titles describe the object. Buttons describe the action.
+
+1. Action button labels
+
+* Buttons should describe only the action.
+* The surrounding heading, card title, form title, or dialog title provides the
+  context.
+* Avoid repeating the object name inside the button.
+
+Preferred examples:
+
+* Create
+* Save
+* Update
+* Add
+* Start
+* Play
+* Generate
+* Scan
+* Upload
+* Download
+* Import
+* Export
+* Submit
+* Continue
+* Review
+* Finish
+
+Avoid:
+
+* Create Project
+* Create Draft
+* Create Template
+* Add History
+* Save Project
+* Update Template
+
+2. Record actions
+
+* Edit and Delete actions for existing records should use icon-only buttons
+  where practical.
+* Every icon button must include an accessible aria-label.
+* Tooltips or title attributes should be provided when supported by the
+  component.
+* Icon buttons should maintain a consistent size throughout the platform.
+
+3. Mobile-first behavior
+
+* Action controls should not wrap because of long button labels.
+* Prefer compact controls on cards and responsive layouts.
+* Preserve touch-friendly spacing.
+
+4. Shared implementation
+
+* Repeated action controls should use shared frontend components whenever
+  possible.
+* Follow the Rule of 4 before introducing shared abstractions.
+
+5. Consistency
+
+* All future mini apps must follow this contract by default.
+* During app review, verify button wording and record actions before approving
+  the app.
 
 ## Parent Content Metadata Standard
 
@@ -601,6 +700,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-28: Added the permanent UI Action Button Contract after the App #025 Frontend UI Cleanup milestone so future mini-app buttons use action-first labels and consistent icon-only record actions.
+* 2026-06-28: Added the permanent User API Response Contract after the App #025 API Cleanup milestone so future user-facing APIs use lightweight list/dashboard responses, detail endpoints for full records, and minimal payloads by default.
 * 2026-06-27: Promoted Email Assistant App #025 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval, bringing live mini-apps to 25.
 * 2026-06-27: Implemented Email Assistant App #025 backend foundation with isolated EmailAssistantProjects, EmailAssistantDrafts, EmailAssistantTemplates, and EmailAssistantHistory tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
 * 2026-06-27: Promoted Meeting Minutes AI in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 24, updated the catalog export, and synced Astra's overview wording refinement.
