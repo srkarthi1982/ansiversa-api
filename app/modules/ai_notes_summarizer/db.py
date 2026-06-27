@@ -2,8 +2,10 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_ai_notes_summarizer_database_url(database_url: str) -> str:
@@ -28,6 +30,17 @@ def _build_ai_notes_summarizer_connect_args(database_url: str) -> dict[str, obje
     return {}
 
 
+def _build_ai_notes_summarizer_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 ai_notes_summarizer_engine = create_engine(
     _build_ai_notes_summarizer_database_url(
         settings.AI_NOTES_SUMMARIZER_DATABASE_URL
@@ -36,12 +49,17 @@ ai_notes_summarizer_engine = create_engine(
         settings.AI_NOTES_SUMMARIZER_DATABASE_URL
     ),
     pool_pre_ping=True,
+    **_build_ai_notes_summarizer_engine_kwargs(
+        settings.AI_NOTES_SUMMARIZER_DATABASE_URL
+    ),
 )
+register_timing_engine(ai_notes_summarizer_engine, "ai_notes_summarizer")
 
 AiNotesSummarizerSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=ai_notes_summarizer_engine,
+    class_=TimingSession,
 )
 
 
@@ -50,12 +68,7 @@ class AiNotesSummarizerBase(DeclarativeBase):
 
 
 def get_ai_notes_summarizer_db() -> Generator[Session, None, None]:
-    db = AiNotesSummarizerSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(AiNotesSummarizerSessionLocal, "ai_notes_summarizer")
 
 
 def check_ai_notes_summarizer_database() -> bool:

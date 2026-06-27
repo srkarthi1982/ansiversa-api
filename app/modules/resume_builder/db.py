@@ -2,8 +2,10 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_database_url(database_url: str) -> str:
@@ -28,16 +30,30 @@ def _build_connect_args(database_url: str) -> dict[str, object]:
     return {}
 
 
+def _build_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 resume_builder_engine = create_engine(
     _build_database_url(settings.RESUME_BUILDER_DATABASE_URL),
     connect_args=_build_connect_args(settings.RESUME_BUILDER_DATABASE_URL),
     pool_pre_ping=True,
+    **_build_engine_kwargs(settings.RESUME_BUILDER_DATABASE_URL),
 )
+register_timing_engine(resume_builder_engine, "resume_builder")
 
 ResumeBuilderSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=resume_builder_engine,
+    class_=TimingSession,
 )
 
 
@@ -46,12 +62,7 @@ class ResumeBuilderBase(DeclarativeBase):
 
 
 def get_resume_builder_db() -> Generator[Session, None, None]:
-    db = ResumeBuilderSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(ResumeBuilderSessionLocal, "resume_builder")
 
 
 def check_resume_builder_database() -> bool:

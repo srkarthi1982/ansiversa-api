@@ -2,8 +2,10 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_memory_trainer_database_url(database_url: str) -> str:
@@ -28,18 +30,32 @@ def _build_memory_trainer_connect_args(database_url: str) -> dict[str, object]:
     return {}
 
 
+def _build_memory_trainer_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 memory_trainer_engine = create_engine(
     _build_memory_trainer_database_url(settings.MEMORY_TRAINER_DATABASE_URL),
     connect_args=_build_memory_trainer_connect_args(
         settings.MEMORY_TRAINER_DATABASE_URL
     ),
     pool_pre_ping=True,
+    **_build_memory_trainer_engine_kwargs(settings.MEMORY_TRAINER_DATABASE_URL),
 )
+register_timing_engine(memory_trainer_engine, "memory_trainer")
 
 MemoryTrainerSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=memory_trainer_engine,
+    class_=TimingSession,
 )
 
 
@@ -48,12 +64,7 @@ class MemoryTrainerBase(DeclarativeBase):
 
 
 def get_memory_trainer_db() -> Generator[Session, None, None]:
-    db = MemoryTrainerSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(MemoryTrainerSessionLocal, "memory_trainer")
 
 
 def check_memory_trainer_database() -> bool:

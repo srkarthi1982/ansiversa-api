@@ -5,8 +5,10 @@ import hashlib
 import json
 import logging
 import time
+import uuid
 from collections import Counter
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Generator, Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Any, TypeVar
 
@@ -68,7 +70,9 @@ class StatementTiming:
 class RequestTiming:
     method: str
     path: str
+    request_id: str
     start: float = field(default_factory=time.perf_counter)
+    user_id: str | None = None
     session_create_ms: float = 0.0
     session_close_ms: float = 0.0
     raw_db_ms: float = 0.0
@@ -89,8 +93,12 @@ class RequestTiming:
     session_count: int = 0
     db_operation_count: int = 0
     statements: dict[str, StatementTiming] = field(default_factory=dict)
+    spans: Counter[str] = field(default_factory=Counter)
     session_labels: Counter[str] = field(default_factory=Counter)
     db_labels: Counter[str] = field(default_factory=Counter)
+
+    def record_span(self, name: str, duration_ms: float) -> None:
+        self.spans[name] += duration_ms
 
     def record_statement(
         self,
@@ -136,8 +144,10 @@ class RequestTiming:
         response_build_ms = self.pydantic_serialize_ms + self.response_json_render_ms
 
         return {
+            "request_id": self.request_id,
             "method": self.method,
             "path": self.path,
+            "user_id": self.user_id,
             "status_code": status_code,
             "total_ms": _rounded(total_ms),
             "db_raw_execute_ms": _rounded(self.raw_db_ms),
@@ -158,6 +168,10 @@ class RequestTiming:
             "flush_count": self.flush_count,
             "refresh_count": self.refresh_count,
             "session_count": self.session_count,
+            "spans_ms": {
+                name: _rounded(duration_ms)
+                for name, duration_ms in self.spans.most_common()
+            },
             "session_labels": dict(self.session_labels),
             "db_labels": dict(self.db_labels),
             "top_queries": [
@@ -332,6 +346,30 @@ def get_timed_db(
             timing.session_close_ms += _elapsed_ms(close_start)
 
 
+def get_active_timing() -> RequestTiming | None:
+    return _active_timing.get()
+
+
+def set_timing_user_id(user_id: str | None) -> None:
+    timing = _active_timing.get()
+    if timing is not None and user_id:
+        timing.user_id = user_id
+
+
+@contextmanager
+def timing_span(name: str) -> Iterator[None]:
+    timing = _active_timing.get()
+    if timing is None:
+        yield
+        return
+
+    start = time.perf_counter()
+    try:
+        yield
+    finally:
+        timing.record_span(name, _elapsed_ms(start))
+
+
 def patch_fastapi_serialization_timing() -> None:
     global _serialization_patched
 
@@ -373,6 +411,7 @@ class TimingMiddleware:
         timing = RequestTiming(
             method=str(scope.get("method", "")),
             path=str(scope.get("path", "")),
+            request_id=self._request_id(scope),
         )
         token = _active_timing.set(timing)
         status_code: int | None = None
@@ -381,6 +420,9 @@ class TimingMiddleware:
             nonlocal status_code
             if message["type"] == "http.response.start":
                 status_code = int(message["status"])
+                headers = list(message.get("headers", []))
+                headers.append((b"x-request-id", timing.request_id.encode("ascii")))
+                message["headers"] = headers
             await send(message)
 
         try:
@@ -388,6 +430,19 @@ class TimingMiddleware:
         finally:
             self._log_timing(timing, status_code)
             _active_timing.reset(token)
+
+    @staticmethod
+    def _request_id(scope: Scope) -> str:
+        for key, value in scope.get("headers", []):
+            if key.lower() == b"x-request-id":
+                try:
+                    decoded = value.decode("ascii").strip()
+                except UnicodeDecodeError:
+                    decoded = ""
+                if decoded:
+                    return decoded[:80]
+
+        return uuid.uuid4().hex
 
     @staticmethod
     def _log_timing(timing: RequestTiming, status_code: int | None) -> None:

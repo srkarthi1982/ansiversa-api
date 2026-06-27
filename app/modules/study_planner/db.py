@@ -2,8 +2,10 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_study_planner_database_url(database_url: str) -> str:
@@ -28,18 +30,32 @@ def _build_study_planner_connect_args(database_url: str) -> dict[str, object]:
     return {}
 
 
+def _build_study_planner_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 study_planner_engine = create_engine(
     _build_study_planner_database_url(settings.STUDY_PLANNER_DATABASE_URL),
     connect_args=_build_study_planner_connect_args(
         settings.STUDY_PLANNER_DATABASE_URL
     ),
     pool_pre_ping=True,
+    **_build_study_planner_engine_kwargs(settings.STUDY_PLANNER_DATABASE_URL),
 )
+register_timing_engine(study_planner_engine, "study_planner")
 
 StudyPlannerSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=study_planner_engine,
+    class_=TimingSession,
 )
 
 
@@ -48,12 +64,7 @@ class StudyPlannerBase(DeclarativeBase):
 
 
 def get_study_planner_db() -> Generator[Session, None, None]:
-    db = StudyPlannerSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(StudyPlannerSessionLocal, "study_planner")
 
 
 def check_study_planner_database() -> bool:

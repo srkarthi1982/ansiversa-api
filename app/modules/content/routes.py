@@ -7,6 +7,7 @@ from starlette import status
 from starlette.responses import JSONResponse
 
 from app.core.database import get_parent_db
+from app.core.timing import timing_span
 from app.modules.auth.dependencies import require_admin_user
 from app.modules.auth.models import User
 from .schemas import (
@@ -112,9 +113,11 @@ def get_overview_metadata(
     app_key: str,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> Response:
-    content = _required_metadata_content(db, f"overview:{app_key}")
+    with timing_span("content.overview.load_metadata"):
+        content = _required_metadata_content(db, f"overview:{app_key}")
 
-    return _metadata_json_response(OverviewResponse(**content))
+    with timing_span("content.overview.build_json_response"):
+        return _metadata_json_response(OverviewResponse(**content))
 
 @router.put("/metadata/{key}", response_model=MetadataResponse)
 def put_metadata(

@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.core.database import get_parent_db
+from app.core.timing import timing_span
 from app.modules.apps.schemas import (
     AppCatalogItemResponse,
     AppCatalogListResponse,
@@ -27,9 +28,11 @@ def list_app_catalog(
     db: Annotated[Session, Depends(get_parent_db)],
     status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
 ) -> AppCatalogListResponse:
-    apps = list_apps(db, status_filter=status_filter)
+    with timing_span("apps.list_apps"):
+        apps = list_apps(db, status_filter=status_filter)
 
-    return AppCatalogListResponse(items=apps, total=len(apps))
+    with timing_span("apps.build_response_model"):
+        return AppCatalogListResponse(items=apps, total=len(apps))
 
 
 @apps_router.get("/{app_key}", response_model=AppCatalogItemResponse)
@@ -52,9 +55,11 @@ def list_category_catalog(
     db: Annotated[Session, Depends(get_parent_db)],
     status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
 ) -> CategoryListResponse:
-    categories = list_categories(db, status_filter=status_filter)
+    with timing_span("categories.list_categories"):
+        categories = list_categories(db, status_filter=status_filter)
 
-    return CategoryListResponse(items=categories, total=len(categories))
+    with timing_span("categories.build_response_model"):
+        return CategoryListResponse(items=categories, total=len(categories))
 
 
 @categories_router.get("/{category_key_or_slug}", response_model=CategoryResponse)

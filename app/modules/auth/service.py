@@ -8,6 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.timing import set_timing_user_id, timing_span
 from app.core.database import get_parent_db
 from app.core.security import (
     create_access_token,
@@ -321,22 +322,30 @@ def get_current_user(
         raise credentials_exception
 
     try:
-        payload = decode_access_token(token)
+        with timing_span("auth.decode_access_token"):
+            payload = decode_access_token(token)
         if payload.get("type") != "access":
             raise credentials_exception
 
         user_id = payload.get("sub")
         email = payload.get("email")
         if isinstance(user_id, str) and user_id:
-            user = get_user_by_id(db, user_id)
+            with timing_span("auth.current_user_lookup_by_id"):
+                user = get_user_by_id(db, user_id)
         elif isinstance(email, str) and email:
-            user = get_user_by_email(db, email)
+            with timing_span("auth.current_user_lookup_by_email"):
+                user = get_user_by_email(db, email)
         else:
             raise credentials_exception
     except InvalidTokenError as exc:
         raise credentials_exception from exc
 
-    if not user or not is_login_allowed_status(user.status):
+    with timing_span("auth.status_check"):
+        is_allowed = bool(user and is_login_allowed_status(user.status))
+
+    if not user or not is_allowed:
         raise credentials_exception
+
+    set_timing_user_id(user.id)
 
     return user

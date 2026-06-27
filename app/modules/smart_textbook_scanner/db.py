@@ -2,8 +2,10 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
+from app.core.timing import TimingSession, get_timed_db, register_timing_engine
 
 
 def _build_database_url(database_url: str) -> str:
@@ -28,16 +30,30 @@ def _build_connect_args(database_url: str) -> dict[str, object]:
     return {}
 
 
+def _build_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 smart_textbook_scanner_engine = create_engine(
     _build_database_url(settings.SMART_TEXTBOOK_SCANNER_DATABASE_URL),
     connect_args=_build_connect_args(settings.SMART_TEXTBOOK_SCANNER_DATABASE_URL),
     pool_pre_ping=True,
+    **_build_engine_kwargs(settings.SMART_TEXTBOOK_SCANNER_DATABASE_URL),
 )
+register_timing_engine(smart_textbook_scanner_engine, "smart_textbook_scanner")
 
 SmartTextbookScannerSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=smart_textbook_scanner_engine,
+    class_=TimingSession,
 )
 
 
@@ -46,12 +62,10 @@ class SmartTextbookScannerBase(DeclarativeBase):
 
 
 def get_smart_textbook_scanner_db() -> Generator[Session, None, None]:
-    db = SmartTextbookScannerSessionLocal()
-
-    try:
-        yield db
-    finally:
-        db.close()
+    yield from get_timed_db(
+        SmartTextbookScannerSessionLocal,
+        "smart_textbook_scanner",
+    )
 
 
 def check_smart_textbook_scanner_database() -> bool:

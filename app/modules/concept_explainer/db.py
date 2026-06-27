@@ -2,6 +2,7 @@ from collections.abc import Generator
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.pool import QueuePool
 
 from app.core.config import settings
 from app.core.timing import TimingSession, get_timed_db, register_timing_engine
@@ -29,12 +30,26 @@ def _build_concept_explainer_connect_args(database_url: str) -> dict[str, object
     return {}
 
 
+def _build_concept_explainer_engine_kwargs(database_url: str) -> dict[str, object]:
+    if database_url.startswith("libsql://"):
+        return {
+            "poolclass": QueuePool,
+            "pool_size": 5,
+            "max_overflow": 10,
+        }
+
+    return {}
+
+
 concept_explainer_engine = create_engine(
     _build_concept_explainer_database_url(settings.CONCEPT_EXPLAINER_DATABASE_URL),
     connect_args=_build_concept_explainer_connect_args(
         settings.CONCEPT_EXPLAINER_DATABASE_URL
     ),
     pool_pre_ping=True,
+    **_build_concept_explainer_engine_kwargs(
+        settings.CONCEPT_EXPLAINER_DATABASE_URL
+    ),
 )
 register_timing_engine(concept_explainer_engine, "concept_explainer")
 

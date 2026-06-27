@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, Query, status
 from sqlalchemy.orm import Session
 
+from app.core.timing import timing_span
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
 from app.modules.resume_builder.db import get_resume_builder_db
@@ -49,7 +50,8 @@ def get_resume_builder_dashboard(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_resume_builder_db)],
 ) -> ResumeBuilderDashboardResponse:
-    return get_dashboard(db, current_user)
+    with timing_span("resume_builder.dashboard"):
+        return get_dashboard(db, current_user)
 
 
 @router.get("/projects", response_model=ResumeProjectListResponse)
@@ -57,7 +59,11 @@ def get_resume_projects(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_resume_builder_db)],
 ) -> ResumeProjectListResponse:
-    return ResumeProjectListResponse(items=list_projects(db, current_user))
+    with timing_span("resume_builder.list_projects"):
+        projects = list_projects(db, current_user)
+
+    with timing_span("resume_builder.projects.build_response_model"):
+        return ResumeProjectListResponse(items=projects)
 
 
 @router.post(

@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_parent_db
+from app.core.timing import timing_span
 from app.modules.auth.models import User
 from app.modules.auth.schemas import UserResponse
 from app.modules.auth.service import get_current_user
@@ -52,17 +53,24 @@ def read_dashboard(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> DashboardSummaryResponse:
-    dashboard_items = list_user_dashboard_items(db, current_user)
-    serialized_entries = [
-        entry
-        for entry in (_serialize_dashboard_entry(item) for item in dashboard_items)
-        if entry is not None
-    ]
+    with timing_span("dashboard.list_items"):
+        dashboard_items = list_user_dashboard_items(db, current_user)
+    with timing_span("dashboard.serialize_entries"):
+        serialized_entries = [
+            entry
+            for entry in (_serialize_dashboard_entry(item) for item in dashboard_items)
+            if entry is not None
+        ]
+    with timing_span("dashboard.count_favorites"):
+        favorites_count = count_user_favorites(db, current_user)
+    with timing_span("dashboard.count_unread_notifications"):
+        unread_notifications_count = count_unread_notifications(db, current_user)
 
-    return DashboardSummaryResponse(
-        user=UserResponse.model_validate(current_user),
-        favorites_count=count_user_favorites(db, current_user),
-        unread_notifications_count=count_unread_notifications(db, current_user),
-        recent_apps=[entry[1] for entry in serialized_entries],
-        dashboard_items=[entry[0] for entry in serialized_entries],
-    )
+    with timing_span("dashboard.build_response_model"):
+        return DashboardSummaryResponse(
+            user=UserResponse.model_validate(current_user),
+            favorites_count=favorites_count,
+            unread_notifications_count=unread_notifications_count,
+            recent_apps=[entry[1] for entry in serialized_entries],
+            dashboard_items=[entry[0] for entry in serialized_entries],
+        )
