@@ -265,6 +265,13 @@ metadata changes, sync the metadata table and verify the stored
 must enter the first real app workflow page, not route back to the overview
 page itself, unless the mini-app has no workflow page.
 
+Mini-app CRUD APIs must support visible frontend edit flows for user-created
+long-lived records before approval. Update schemas must be explicit and
+owner-scoped. Frontend update payloads must be checked against these schemas:
+create-only parent fields such as `courseId`, `sessionId`, `questionId`,
+`scanId`, or `projectId` must be rejected unless reassignment is intentionally
+supported by the update schema and service.
+
 The parent Alembic history includes a merge revision for the metadata and user
 settings branches. Preserve that merged migration history.
 
@@ -594,6 +601,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Documented that future mini-app edit support must use update-specific payloads and must not resubmit create-only parent IDs unless the backend update schema supports reassignment.
 * 2026-06-27: Promoted Portfolio Creator in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 23, and updated the catalog export.
 * 2026-06-27: Documented the permanent mini-app CRUD rule that user-created editable records must expose visible owner-scoped update support before approval.
 * 2026-06-27: Implemented Portfolio Creator backend foundation with isolated PortfolioProfiles, PortfolioProjects, PortfolioSkills, and PortfolioPublishSettings tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
