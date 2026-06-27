@@ -261,7 +261,9 @@ Explore
 Do not use app-specific start labels such as `Start`, `Start App`, or
 `Explore <App Name>` for the primary overview CTA or final CTA. When overview
 metadata changes, sync the metadata table and verify the stored
-`overview:<app-slug>` record returns the updated label.
+`overview:<app-slug>` record returns the updated label. Overview CTA paths
+must enter the first real app workflow page, not route back to the overview
+page itself, unless the mini-app has no workflow page.
 
 The parent Alembic history includes a merge revision for the metadata and user
 settings branches. Preserve that merged migration history.
@@ -592,6 +594,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Fixed and synced Interview Coach overview CTA paths so `Explore` enters `/interview-coach/sessions`, and documented that future overview CTAs must enter the first workflow page.
 * 2026-06-27: Documented the permanent overview metadata CTA rule so future mini-app primary and final CTAs use `Explore`.
 * 2026-06-27: Updated and synced Interview Coach overview metadata so primary and final CTA buttons use `Explore`.
 * 2026-06-27: Implemented Interview Coach backend foundation with isolated InterviewSessions, InterviewQuestions, InterviewAnswers, and InterviewReviews tables plus protected user-scoped API routes for Astra review.
