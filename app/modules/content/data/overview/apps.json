@@ -334,11 +334,11 @@
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:42",
 			"capabilities": "[\"public\",\"bookmarks\"]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "portfolio-creator",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_meeting-minutes-ai",
