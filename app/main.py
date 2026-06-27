@@ -10,6 +10,7 @@ from app.modules.admin.categories_routes import router as admin_categories_route
 from app.modules.admin.faqs_routes import router as admin_faqs_router
 from app.modules.admin.routes import router as admin_router
 from app.modules.admin.users_routes import router as admin_users_router
+from app.modules.ai_job_interviewer.routes import router as ai_job_interviewer_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
@@ -192,6 +193,11 @@ def register_routes(app: FastAPI) -> None:
         interview_coach_router,
         prefix=f"{settings.API_V1_PREFIX}/interview-coach",
         tags=["Interview Coach"],
+    )
+    app.include_router(
+        ai_job_interviewer_router,
+        prefix=f"{settings.API_V1_PREFIX}/ai-job-interviewer",
+        tags=["AI Job Interviewer"],
     )
     app.include_router(
         content_router, 
