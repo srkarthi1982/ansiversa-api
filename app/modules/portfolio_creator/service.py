@@ -269,8 +269,12 @@ def update_project(
     payload: PortfolioProjectUpdateRequest,
 ) -> PortfolioProjectResponse:
     project = _get_owned_project(db, user, project_id)
-    profile = _get_owned_profile(db, user, project.profile_id)
-    for field, value in payload.model_dump(exclude_unset=True).items():
+    payload_data = payload.model_dump(exclude_unset=True)
+    target_profile_id = payload_data.pop("profile_id", None)
+    profile = _get_owned_profile(db, user, target_profile_id or project.profile_id)
+    if target_profile_id:
+        project.profile_id = profile.id
+    for field, value in payload_data.items():
         setattr(project, field, value)
     db.commit()
     db.refresh(project)
@@ -323,8 +327,12 @@ def update_skill(
     payload: PortfolioSkillUpdateRequest,
 ) -> PortfolioSkillResponse:
     skill = _get_owned_skill(db, user, skill_id)
-    profile = _get_owned_profile(db, user, skill.profile_id)
-    for field, value in payload.model_dump(exclude_unset=True).items():
+    payload_data = payload.model_dump(exclude_unset=True)
+    target_profile_id = payload_data.pop("profile_id", None)
+    profile = _get_owned_profile(db, user, target_profile_id or skill.profile_id)
+    if target_profile_id:
+        skill.profile_id = profile.id
+    for field, value in payload_data.items():
         setattr(skill, field, value)
     db.commit()
     db.refresh(skill)
@@ -379,8 +387,12 @@ def update_publish_setting(
     payload: PortfolioPublishSettingUpdateRequest,
 ) -> PortfolioPublishSettingResponse:
     setting = _get_owned_publish_setting(db, user, setting_id)
-    profile = _get_owned_profile(db, user, setting.profile_id)
-    for field, value in payload.model_dump(exclude_unset=True).items():
+    payload_data = payload.model_dump(exclude_unset=True)
+    target_profile_id = payload_data.pop("profile_id", None)
+    profile = _get_owned_profile(db, user, target_profile_id or setting.profile_id)
+    if target_profile_id:
+        setting.profile_id = profile.id
+    for field, value in payload_data.items():
         setattr(setting, field, value)
     if setting.is_published:
         profile.status = "published"

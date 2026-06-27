@@ -67,6 +67,7 @@ class PortfolioProjectCreateRequest(BaseModel):
 
 
 class PortfolioProjectUpdateRequest(BaseModel):
+    profile_id: int | None = Field(default=None, alias="profileId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     description: str | None = Field(default=None, max_length=4000)
     project_url: str | None = Field(default=None, alias="projectUrl", max_length=240)
@@ -98,6 +99,7 @@ class PortfolioSkillCreateRequest(BaseModel):
 
 
 class PortfolioSkillUpdateRequest(BaseModel):
+    profile_id: int | None = Field(default=None, alias="profileId", gt=0)
     name: str | None = Field(default=None, min_length=1, max_length=120)
     category: PortfolioSkillCategory | None = None
     proficiency: PortfolioSkillProficiency | None = None
@@ -127,6 +129,7 @@ class PortfolioPublishSettingCreateRequest(BaseModel):
 
 
 class PortfolioPublishSettingUpdateRequest(BaseModel):
+    profile_id: int | None = Field(default=None, alias="profileId", gt=0)
     visibility: PortfolioVisibility | None = None
     slug: str | None = Field(default=None, min_length=1, max_length=120)
     theme: PortfolioTheme | None = None

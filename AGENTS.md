@@ -594,6 +594,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Documented the permanent mini-app CRUD rule that user-created editable records must expose visible owner-scoped update support before approval.
 * 2026-06-27: Implemented Portfolio Creator backend foundation with isolated PortfolioProfiles, PortfolioProjects, PortfolioSkills, and PortfolioPublishSettings tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
 * 2026-06-27: Promoted AI Job Interviewer in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 22, and updated the catalog export.
 * 2026-06-27: Implemented AI Job Interviewer backend foundation with isolated AiJobInterviewSessions, AiJobInterviewQuestions, AiJobInterviewAnswers, and AiJobInterviewResults tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
