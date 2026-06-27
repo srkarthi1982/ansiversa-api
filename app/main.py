@@ -21,6 +21,7 @@ from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
+from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
 from app.modules.notifications.routes import router as notifications_router
@@ -186,6 +187,11 @@ def register_routes(app: FastAPI) -> None:
         visiting_card_maker_router,
         prefix=f"{settings.API_V1_PREFIX}/visiting-card-maker",
         tags=["Visiting Card Maker"],
+    )
+    app.include_router(
+        interview_coach_router,
+        prefix=f"{settings.API_V1_PREFIX}/interview-coach",
+        tags=["Interview Coach"],
     )
     app.include_router(
         content_router, 

@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     SMART_TEXTBOOK_SCANNER_DATABASE_URL: str = "sqlite:///./smart_textbook_scanner.db"
     RESUME_BUILDER_DATABASE_URL: str = "sqlite:///./resume_builder.db"
     VISITING_CARD_MAKER_DATABASE_URL: str = "sqlite:///./visiting_card_maker.db"
+    INTERVIEW_COACH_DATABASE_URL: str = "sqlite:///./interview_coach.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

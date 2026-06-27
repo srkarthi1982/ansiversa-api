@@ -581,6 +581,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Implemented Interview Coach backend foundation with isolated InterviewSessions, InterviewQuestions, InterviewAnswers, and InterviewReviews tables plus protected user-scoped API routes for Astra review.
 * 2026-06-22: Reduced Quiz attempt creation post-commit reloads by building the attempt response before committing the already-loaded question rows.
 * 2026-06-22: Added the Quiz Question play-filter composite index migration for Milestone Review #2 after query-plan investigation confirmed full scans on the 1.4M-row Question table.
 * 2026-06-22: Completed Milestone Review #2 Quiz API performance review by narrowing Quiz play/history DB column loading while preserving user-facing response contracts.
