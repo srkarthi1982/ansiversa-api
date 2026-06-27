@@ -154,6 +154,18 @@ class MeetingNoteResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class MeetingNoteListItemResponse(BaseModel):
+    id: int
+    meeting_id: int = Field(serialization_alias="meetingId")
+    meeting_title: str = Field(serialization_alias="meetingTitle")
+    note_type: MeetingNoteType = Field(serialization_alias="noteType")
+    content_preview: str = Field(serialization_alias="contentPreview")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class MeetingActionItemResponse(BaseModel):
     id: int
     meeting_id: int = Field(serialization_alias="meetingId")
@@ -181,11 +193,24 @@ class MeetingSummaryResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class MeetingSummaryListItemResponse(BaseModel):
+    id: int
+    meeting_id: int = Field(serialization_alias="meetingId")
+    meeting_title: str = Field(serialization_alias="meetingTitle")
+    summary_preview: str = Field(serialization_alias="summaryPreview")
+    decisions_preview: str | None = Field(serialization_alias="decisionsPreview")
+    risks_preview: str | None = Field(serialization_alias="risksPreview")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class MeetingMinutesDashboardResponse(BaseModel):
     meetings: list[MeetingResponse]
-    notes: list[MeetingNoteResponse]
+    notes: list[MeetingNoteListItemResponse]
     action_items: list[MeetingActionItemResponse] = Field(serialization_alias="actionItems")
-    summaries: list[MeetingSummaryResponse]
+    summaries: list[MeetingSummaryListItemResponse]
     open_action_count: int = Field(serialization_alias="openActionCount")
     reviewed_meeting_count: int = Field(serialization_alias="reviewedMeetingCount")
     transcript_count: int = Field(serialization_alias="transcriptCount")

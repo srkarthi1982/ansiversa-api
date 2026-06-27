@@ -28,6 +28,7 @@ from app.modules.smart_textbook_scanner.service import (
     delete_page,
     delete_scan,
     get_dashboard,
+    get_page,
     get_review,
     list_notes,
     list_pages,
@@ -89,6 +90,15 @@ def get_textbook_pages(
     db: Annotated[Session, Depends(get_smart_textbook_scanner_db)],
 ) -> TextbookPageListResponse:
     return TextbookPageListResponse(items=list_pages(db, current_user))
+
+
+@router.get("/pages/{page_id}", response_model=TextbookPageResponse)
+def get_textbook_page(
+    page_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_smart_textbook_scanner_db)],
+) -> TextbookPageResponse:
+    return get_page(db, current_user, page_id)
 
 
 @router.post("/pages", response_model=TextbookPageResponse, status_code=status.HTTP_201_CREATED)

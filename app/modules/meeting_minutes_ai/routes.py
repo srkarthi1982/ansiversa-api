@@ -31,6 +31,8 @@ from app.modules.meeting_minutes_ai.service import (
     delete_note,
     delete_summary,
     get_dashboard,
+    get_note,
+    get_summary,
     update_action_item,
     update_meeting,
     update_note,
@@ -83,6 +85,15 @@ def create_meeting_note(
     db: Annotated[Session, Depends(get_meeting_minutes_ai_db)],
 ) -> MeetingNoteResponse:
     return create_note(db, current_user, payload)
+
+
+@router.get("/notes/{note_id}", response_model=MeetingNoteResponse)
+def get_meeting_note(
+    note_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_meeting_minutes_ai_db)],
+) -> MeetingNoteResponse:
+    return get_note(db, current_user, note_id)
 
 
 @router.put("/notes/{note_id}", response_model=MeetingNoteResponse)
@@ -143,6 +154,15 @@ def create_meeting_summary(
     db: Annotated[Session, Depends(get_meeting_minutes_ai_db)],
 ) -> MeetingSummaryResponse:
     return create_summary(db, current_user, payload)
+
+
+@router.get("/summaries/{summary_id}", response_model=MeetingSummaryResponse)
+def get_meeting_summary(
+    summary_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_meeting_minutes_ai_db)],
+) -> MeetingSummaryResponse:
+    return get_summary(db, current_user, summary_id)
 
 
 @router.put("/summaries/{summary_id}", response_model=MeetingSummaryResponse)

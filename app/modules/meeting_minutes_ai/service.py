@@ -17,14 +17,26 @@ from app.modules.meeting_minutes_ai.schemas import (
     MeetingCreateRequest,
     MeetingMinutesDashboardResponse,
     MeetingNoteCreateRequest,
+    MeetingNoteListItemResponse,
     MeetingNoteResponse,
     MeetingNoteUpdateRequest,
     MeetingResponse,
     MeetingSummaryCreateRequest,
+    MeetingSummaryListItemResponse,
     MeetingSummaryResponse,
     MeetingSummaryUpdateRequest,
     MeetingUpdateRequest,
 )
+
+PREVIEW_LENGTH = 220
+
+
+def _preview(value: str | None) -> str | None:
+    if not value:
+        return None
+    if len(value) <= PREVIEW_LENGTH:
+        return value
+    return f"{value[:PREVIEW_LENGTH].rstrip()}..."
 
 
 def _get_owned_meeting(db: Session, user: User, meeting_id: int) -> MeetingRecord:
@@ -107,6 +119,21 @@ def _note_response(note: MeetingNote, meeting_title: str) -> MeetingNoteResponse
     )
 
 
+def _note_list_item_response(
+    note: MeetingNote,
+    meeting_title: str,
+) -> MeetingNoteListItemResponse:
+    return MeetingNoteListItemResponse(
+        id=note.id,
+        meeting_id=note.meeting_id,
+        meeting_title=meeting_title,
+        note_type=note.note_type,
+        content_preview=_preview(note.content) or "",
+        created_at=note.created_at,
+        updated_at=note.updated_at,
+    )
+
+
 def _action_item_response(
     action_item: MeetingActionItem,
     meeting_title: str,
@@ -132,6 +159,22 @@ def _summary_response(summary: MeetingSummary, meeting_title: str) -> MeetingSum
         summary_text=summary.summary_text,
         decisions=summary.decisions,
         risks=summary.risks,
+        created_at=summary.created_at,
+        updated_at=summary.updated_at,
+    )
+
+
+def _summary_list_item_response(
+    summary: MeetingSummary,
+    meeting_title: str,
+) -> MeetingSummaryListItemResponse:
+    return MeetingSummaryListItemResponse(
+        id=summary.id,
+        meeting_id=summary.meeting_id,
+        meeting_title=meeting_title,
+        summary_preview=_preview(summary.summary_text) or "",
+        decisions_preview=_preview(summary.decisions),
+        risks_preview=_preview(summary.risks),
         created_at=summary.created_at,
         updated_at=summary.updated_at,
     )
@@ -194,7 +237,7 @@ def delete_meeting(db: Session, user: User, meeting_id: int) -> None:
     db.commit()
 
 
-def list_notes(db: Session, user: User) -> list[MeetingNoteResponse]:
+def list_notes(db: Session, user: User) -> list[MeetingNoteListItemResponse]:
     rows = db.execute(
         select(MeetingNote, MeetingRecord.title)
         .join(MeetingRecord, MeetingRecord.id == MeetingNote.meeting_id)
@@ -202,7 +245,13 @@ def list_notes(db: Session, user: User) -> list[MeetingNoteResponse]:
         .order_by(MeetingNote.updated_at.desc())
     ).all()
 
-    return [_note_response(note, title) for note, title in rows]
+    return [_note_list_item_response(note, title) for note, title in rows]
+
+
+def get_note(db: Session, user: User, note_id: int) -> MeetingNoteResponse:
+    note = _get_owned_note(db, user, note_id)
+    meeting = _get_owned_meeting(db, user, note.meeting_id)
+    return _note_response(note, meeting.title)
 
 
 def create_note(db: Session, user: User, payload: MeetingNoteCreateRequest) -> MeetingNoteResponse:
@@ -300,7 +349,7 @@ def delete_action_item(db: Session, user: User, action_item_id: int) -> None:
     db.commit()
 
 
-def list_summaries(db: Session, user: User) -> list[MeetingSummaryResponse]:
+def list_summaries(db: Session, user: User) -> list[MeetingSummaryListItemResponse]:
     rows = db.execute(
         select(MeetingSummary, MeetingRecord.title)
         .join(MeetingRecord, MeetingRecord.id == MeetingSummary.meeting_id)
@@ -308,7 +357,13 @@ def list_summaries(db: Session, user: User) -> list[MeetingSummaryResponse]:
         .order_by(MeetingSummary.updated_at.desc())
     ).all()
 
-    return [_summary_response(summary, title) for summary, title in rows]
+    return [_summary_list_item_response(summary, title) for summary, title in rows]
+
+
+def get_summary(db: Session, user: User, summary_id: int) -> MeetingSummaryResponse:
+    summary = _get_owned_summary(db, user, summary_id)
+    meeting = _get_owned_meeting(db, user, summary.meeting_id)
+    return _summary_response(summary, meeting.title)
 
 
 def create_summary(

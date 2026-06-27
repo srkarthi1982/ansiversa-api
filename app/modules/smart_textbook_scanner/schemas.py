@@ -123,8 +123,22 @@ class TextbookPageResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class TextbookPageListItemResponse(BaseModel):
+    id: int
+    scan_id: int = Field(serialization_alias="scanId")
+    scan_title: str = Field(serialization_alias="scanTitle")
+    page_number: int = Field(serialization_alias="pageNumber")
+    title: str | None
+    status: PageStatus
+    extracted_note_count: int = Field(serialization_alias="extractedNoteCount")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class TextbookPageListResponse(BaseModel):
-    items: list[TextbookPageResponse]
+    items: list[TextbookPageListItemResponse]
 
 
 class ExtractedNoteResponse(BaseModel):
@@ -158,6 +172,6 @@ class SmartTextbookScannerReviewResponse(BaseModel):
 
 class SmartTextbookScannerDashboardResponse(BaseModel):
     scans: list[TextbookScanResponse]
-    pages: list[TextbookPageResponse]
+    pages: list[TextbookPageListItemResponse]
     notes: list[ExtractedNoteResponse]
     review: SmartTextbookScannerReviewResponse

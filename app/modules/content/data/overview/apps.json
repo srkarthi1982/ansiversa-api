@@ -314,11 +314,11 @@
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:40",
 			"capabilities": "[]",
-			"launchStatus": "live",
+			"launchStatus": "comingSoon",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "job-analyzer",
-			"version": "1.0.0"
+			"version": null
 		},
 		{
 			"id": "app_portfolio-creator",
@@ -1034,11 +1034,11 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "email-assistant",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_grammar-and-paraphrasing-assistant",

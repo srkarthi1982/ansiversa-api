@@ -58,8 +58,18 @@ class NotesDocumentResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class NotesDocumentListItemResponse(BaseModel):
+    id: int
+    title: str
+    summary_count: int = Field(serialization_alias="summaryCount")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class NotesDocumentListResponse(BaseModel):
-    items: list[NotesDocumentResponse]
+    items: list[NotesDocumentListItemResponse]
 
 
 class NoteSummaryResponse(BaseModel):

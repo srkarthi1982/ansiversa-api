@@ -14,6 +14,7 @@ from app.modules.ai_notes_summarizer.schemas import (
     NoteSummaryResponse,
     NotesDocumentCreateRequest,
     NotesDocumentDetailResponse,
+    NotesDocumentListItemResponse,
     NotesDocumentResponse,
     NotesDocumentUpdateRequest,
     SummaryJobResponse,
@@ -39,6 +40,19 @@ def _document_response(
         id=document.id,
         title=document.title,
         source_text=document.content,
+        summary_count=_count_summaries(db, document.id),
+        created_at=document.created_at,
+        updated_at=document.updated_at,
+    )
+
+
+def _document_list_item_response(
+    db: Session,
+    document: NotesDocument,
+) -> NotesDocumentListItemResponse:
+    return NotesDocumentListItemResponse(
+        id=document.id,
+        title=document.title,
         summary_count=_count_summaries(db, document.id),
         created_at=document.created_at,
         updated_at=document.updated_at,
@@ -145,7 +159,7 @@ def _list_jobs_for_document(
     return [_job_response(job) for job in jobs]
 
 
-def list_documents(db: Session, user: User) -> list[NotesDocumentResponse]:
+def list_documents(db: Session, user: User) -> list[NotesDocumentListItemResponse]:
     documents = list(
         db.execute(
             select(NotesDocument)
@@ -156,7 +170,7 @@ def list_documents(db: Session, user: User) -> list[NotesDocumentResponse]:
         .all()
     )
 
-    return [_document_response(db, document) for document in documents]
+    return [_document_list_item_response(db, document) for document in documents]
 
 
 def create_document(

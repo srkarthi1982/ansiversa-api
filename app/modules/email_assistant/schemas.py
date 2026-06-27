@@ -167,12 +167,41 @@ class EmailDraftResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class EmailDraftListItemResponse(BaseModel):
+    id: int
+    project_id: int = Field(serialization_alias="projectId")
+    project_title: str = Field(serialization_alias="projectTitle")
+    template_id: int | None = Field(serialization_alias="templateId")
+    template_title: str | None = Field(serialization_alias="templateTitle")
+    subject: str
+    body_preview: str = Field(serialization_alias="bodyPreview")
+    tone: EmailTone
+    status: EmailDraftStatus
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class EmailTemplateResponse(BaseModel):
     id: int
     title: str
     category: EmailTemplateCategory
     subject_pattern: str | None = Field(serialization_alias="subjectPattern")
     body_pattern: str = Field(serialization_alias="bodyPattern")
+    tone: EmailTone
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class EmailTemplateListItemResponse(BaseModel):
+    id: int
+    title: str
+    category: EmailTemplateCategory
+    subject_pattern: str | None = Field(serialization_alias="subjectPattern")
+    body_pattern_preview: str = Field(serialization_alias="bodyPatternPreview")
     tone: EmailTone
     created_at: datetime = Field(serialization_alias="createdAt")
     updated_at: datetime = Field(serialization_alias="updatedAt")
@@ -195,11 +224,26 @@ class EmailHistoryResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class EmailHistoryListItemResponse(BaseModel):
+    id: int
+    project_id: int | None = Field(serialization_alias="projectId")
+    project_title: str | None = Field(serialization_alias="projectTitle")
+    draft_id: int | None = Field(serialization_alias="draftId")
+    draft_subject: str | None = Field(serialization_alias="draftSubject")
+    title: str
+    action_type: EmailHistoryActionType = Field(serialization_alias="actionType")
+    notes_preview: str | None = Field(serialization_alias="notesPreview")
+    created_at: datetime = Field(serialization_alias="createdAt")
+    updated_at: datetime = Field(serialization_alias="updatedAt")
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class EmailAssistantDashboardResponse(BaseModel):
     projects: list[EmailProjectResponse]
-    drafts: list[EmailDraftResponse]
-    templates: list[EmailTemplateResponse]
-    history: list[EmailHistoryResponse]
+    drafts: list[EmailDraftListItemResponse]
+    templates: list[EmailTemplateListItemResponse]
+    history: list[EmailHistoryListItemResponse]
     active_project_count: int = Field(serialization_alias="activeProjectCount")
     ready_draft_count: int = Field(serialization_alias="readyDraftCount")
     template_count: int = Field(serialization_alias="templateCount")

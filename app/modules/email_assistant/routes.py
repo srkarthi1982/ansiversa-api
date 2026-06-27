@@ -31,6 +31,9 @@ from app.modules.email_assistant.service import (
     delete_project,
     delete_template,
     get_dashboard,
+    get_draft,
+    get_history_item,
+    get_template,
     update_draft,
     update_history_item,
     update_project,
@@ -85,6 +88,15 @@ def create_email_draft(
     return create_draft(db, current_user, payload)
 
 
+@router.get("/drafts/{draft_id}", response_model=EmailDraftResponse)
+def get_email_draft(
+    draft_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_email_assistant_db)],
+) -> EmailDraftResponse:
+    return get_draft(db, current_user, draft_id)
+
+
 @router.put("/drafts/{draft_id}", response_model=EmailDraftResponse)
 def update_email_draft(
     draft_id: Annotated[int, Path(gt=0)],
@@ -117,6 +129,15 @@ def create_email_template(
     return create_template(db, current_user, payload)
 
 
+@router.get("/templates/{template_id}", response_model=EmailTemplateResponse)
+def get_email_template(
+    template_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_email_assistant_db)],
+) -> EmailTemplateResponse:
+    return get_template(db, current_user, template_id)
+
+
 @router.put("/templates/{template_id}", response_model=EmailTemplateResponse)
 def update_email_template(
     template_id: Annotated[int, Path(gt=0)],
@@ -143,6 +164,15 @@ def create_email_history_item(
     db: Annotated[Session, Depends(get_email_assistant_db)],
 ) -> EmailHistoryResponse:
     return create_history_item(db, current_user, payload)
+
+
+@router.get("/history/{history_id}", response_model=EmailHistoryResponse)
+def get_email_history_item(
+    history_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_email_assistant_db)],
+) -> EmailHistoryResponse:
+    return get_history_item(db, current_user, history_id)
 
 
 @router.put("/history/{history_id}", response_model=EmailHistoryResponse)

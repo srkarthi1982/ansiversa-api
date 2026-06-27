@@ -14,6 +14,7 @@ from app.modules.smart_textbook_scanner.schemas import (
     SmartTextbookScannerDashboardResponse,
     SmartTextbookScannerReviewResponse,
     TextbookPageCreateRequest,
+    TextbookPageListItemResponse,
     TextbookPageResponse,
     TextbookPageUpdateRequest,
     TextbookScanCreateRequest,
@@ -77,6 +78,24 @@ def _page_response(db: Session, page: TextbookPage, scan_title: str) -> Textbook
         page_number=page.page_number,
         title=page.title,
         page_text=page.page_text,
+        status=page.status,
+        extracted_note_count=_count_notes(db, page_id=page.id),
+        created_at=page.created_at,
+        updated_at=page.updated_at,
+    )
+
+
+def _page_list_item_response(
+    db: Session,
+    page: TextbookPage,
+    scan_title: str,
+) -> TextbookPageListItemResponse:
+    return TextbookPageListItemResponse(
+        id=page.id,
+        scan_id=page.scan_id,
+        scan_title=scan_title,
+        page_number=page.page_number,
+        title=page.title,
         status=page.status,
         extracted_note_count=_count_notes(db, page_id=page.id),
         created_at=page.created_at,
@@ -182,7 +201,7 @@ def delete_scan(db: Session, user: User, scan_id: int) -> None:
     db.commit()
 
 
-def list_pages(db: Session, user: User) -> list[TextbookPageResponse]:
+def list_pages(db: Session, user: User) -> list[TextbookPageListItemResponse]:
     rows = db.execute(
         select(TextbookPage, TextbookScan.title)
         .join(TextbookScan, TextbookScan.id == TextbookPage.scan_id)
@@ -190,7 +209,14 @@ def list_pages(db: Session, user: User) -> list[TextbookPageResponse]:
         .order_by(TextbookPage.updated_at.desc(), TextbookPage.page_number.asc())
     ).all()
 
-    return [_page_response(db, page, scan_title) for page, scan_title in rows]
+    return [_page_list_item_response(db, page, scan_title) for page, scan_title in rows]
+
+
+def get_page(db: Session, user: User, page_id: int) -> TextbookPageResponse:
+    page = _get_owned_page(db, user, page_id)
+    scan = _get_owned_scan(db, user, page.scan_id)
+
+    return _page_response(db, page, scan.title)
 
 
 def create_page(
