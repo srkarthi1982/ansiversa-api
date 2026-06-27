@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     INTERVIEW_COACH_DATABASE_URL: str = "sqlite:///./interview_coach.db"
     AI_JOB_INTERVIEWER_DATABASE_URL: str = "sqlite:///./ai_job_interviewer.db"
     PORTFOLIO_CREATOR_DATABASE_URL: str = "sqlite:///./portfolio_creator.db"
+    MEETING_MINUTES_AI_DATABASE_URL: str = "sqlite:///./meeting_minutes_ai.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

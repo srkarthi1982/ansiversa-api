@@ -601,6 +601,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Applied and verified the isolated Meeting Minutes AI production migration at revision `20260627_0001`, confirming `MeetingMinutesMeetings`, `MeetingMinutesNotes`, `MeetingMinutesActionItems`, and `MeetingMinutesSummaries`.
+* 2026-06-27: Implemented Meeting Minutes AI App #024 backend foundation with isolated MeetingMinutesMeetings, MeetingMinutesNotes, MeetingMinutesActionItems, and MeetingMinutesSummaries tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
 * 2026-06-27: Documented that future mini-app edit support must use update-specific payloads and must not resubmit create-only parent IDs unless the backend update schema supports reassignment.
 * 2026-06-27: Promoted Portfolio Creator in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 23, and updated the catalog export.
 * 2026-06-27: Documented the permanent mini-app CRUD rule that user-created editable records must expose visible owner-scoped update support before approval.

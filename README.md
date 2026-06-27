@@ -184,6 +184,12 @@ Apply isolated AI Notes Summarizer migrations:
 alembic -c ai-notes-summarizer_alembic.ini upgrade head
 ```
 
+Apply isolated Meeting Minutes AI migrations:
+
+```bash
+alembic -c meeting-minutes-ai_alembic.ini upgrade head
+```
+
 Quiz taxonomy routes are read-only and protected by the existing current-user
 dependency:
 

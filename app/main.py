@@ -25,6 +25,7 @@ from app.modules.health.routes import router as health_router
 from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
+from app.modules.meeting_minutes_ai.routes import router as meeting_minutes_ai_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.portfolio_creator.routes import router as portfolio_creator_router
 from app.modules.profile.routes import router as profile_router
@@ -204,6 +205,11 @@ def register_routes(app: FastAPI) -> None:
         portfolio_creator_router,
         prefix=f"{settings.API_V1_PREFIX}/portfolio-creator",
         tags=["Portfolio Creator"],
+    )
+    app.include_router(
+        meeting_minutes_ai_router,
+        prefix=f"{settings.API_V1_PREFIX}/meeting-minutes-ai",
+        tags=["Meeting Minutes AI"],
     )
     app.include_router(
         content_router, 
