@@ -1012,13 +1012,13 @@
 			"websiteUrl": "https://ansiversa.com/ai-job-interviewer",
 			"adminUrl": null,
 			"createdAt": "2026-06-19 11:49:45",
-			"updatedAt": "2026-06-19 11:49:45",
+			"updatedAt": "2026-06-27 07:01:30",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "ai-job-interviewer",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_email-assistant",

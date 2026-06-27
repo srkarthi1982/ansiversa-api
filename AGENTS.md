@@ -594,6 +594,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Promoted AI Job Interviewer in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 22, and updated the catalog export.
 * 2026-06-27: Implemented AI Job Interviewer backend foundation with isolated AiJobInterviewSessions, AiJobInterviewQuestions, AiJobInterviewAnswers, and AiJobInterviewResults tables plus protected user-scoped API routes for Astra review; app remains `comingSoon`.
 * 2026-06-27: Promoted Interview Coach in the parent Apps table with `launchStatus = live` and version `1.0.0`, bringing live mini-apps to 21, and updated the catalog export.
 * 2026-06-27: Fixed and synced Interview Coach overview CTA paths so `Explore` enters `/interview-coach/sessions`, and documented that future overview CTAs must enter the first workflow page.
