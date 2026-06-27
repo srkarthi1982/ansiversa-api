@@ -252,6 +252,17 @@ management and testing.
 Parent content must be stored and updated through the API. Do not require
 frontend applications to hardcode page content.
 
+Mini-app overview metadata CTA labels must follow the platform standard:
+
+```text
+Explore
+```
+
+Do not use app-specific start labels such as `Start`, `Start App`, or
+`Explore <App Name>` for the primary overview CTA or final CTA. When overview
+metadata changes, sync the metadata table and verify the stored
+`overview:<app-slug>` record returns the updated label.
+
 The parent Alembic history includes a merge revision for the metadata and user
 settings branches. Preserve that merged migration history.
 
@@ -581,6 +592,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-27: Documented the permanent overview metadata CTA rule so future mini-app primary and final CTAs use `Explore`.
 * 2026-06-27: Updated and synced Interview Coach overview metadata so primary and final CTA buttons use `Explore`.
 * 2026-06-27: Implemented Interview Coach backend foundation with isolated InterviewSessions, InterviewQuestions, InterviewAnswers, and InterviewReviews tables plus protected user-scoped API routes for Astra review.
 * 2026-06-22: Reduced Quiz attempt creation post-commit reloads by building the attempt response before committing the already-loaded question rows.
