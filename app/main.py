@@ -26,6 +26,7 @@ from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
 from app.modules.notifications.routes import router as notifications_router
+from app.modules.portfolio_creator.routes import router as portfolio_creator_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.quiz.routes import router as quiz_router
 from app.modules.research_assistant.routes import router as research_assistant_router
@@ -198,6 +199,11 @@ def register_routes(app: FastAPI) -> None:
         ai_job_interviewer_router,
         prefix=f"{settings.API_V1_PREFIX}/ai-job-interviewer",
         tags=["AI Job Interviewer"],
+    )
+    app.include_router(
+        portfolio_creator_router,
+        prefix=f"{settings.API_V1_PREFIX}/portfolio-creator",
+        tags=["Portfolio Creator"],
     )
     app.include_router(
         content_router, 
