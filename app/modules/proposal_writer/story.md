@@ -73,8 +73,14 @@ manually author and manage proposal content.
 Future versions may add AI drafting, reusable proposal templates, client-side
 exports, approval workflows, and integrations with CRM or invoicing modules.
 
-## Version History
+## Current Implementation
 
-V1 is the current implementation. It contains the isolated database, protected
-API contracts, initial query-pattern indexes, routes, services, migration, and
-current-state story documentation.
+Current version: `1.0.0`
+
+Implemented:
+
+* Isolated Proposal Writer database
+* Protected owner-scoped API contracts
+* Query-pattern indexes from the initial migration
+* Routes, schemas, and service-owned workflow logic
+* Current-state story documentation

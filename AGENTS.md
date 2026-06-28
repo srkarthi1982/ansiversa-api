@@ -554,7 +554,7 @@ Minimum sections:
 * Current Status
 * Known Limitations
 * Future Enhancements
-* Version History
+* Current Implementation
 
 ## Mini App Versioning
 
@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-28: Refined the Story Documentation Contract to use Current Implementation instead of Version History so story.md remains a current-state POC rather than a historical changelog.
 * 2026-06-28: Promoted Proposal Writer App #026 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Partner approval, bringing live mini-apps to 26 and establishing the first Platform Foundation v1-era live app.
 * 2026-06-28: Verified Proposal Writer against mini-app approval contracts, confirmed overview metadata, and refreshed the backend story document to describe the current implementation.
 * 2026-06-28: Refined the Story Documentation Contract to clarify that story.md describes the current module implementation, not historical task logs or changelogs.
