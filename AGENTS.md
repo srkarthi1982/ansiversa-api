@@ -855,6 +855,14 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-28: Refined the final live-app story backfill batch for Email Assistant with implementation-specific backend database, API, preview/detail response, performance, and limitation details, completing the live-app story refinement pass.
+* 2026-06-28: Refined the sixth live-app story backfill batch for Formula Finder, Mood Journal, Eco Habit Tracker, and AI Job Interviewer with implementation-specific backend catalog boundaries, database/API details, performance, and limitation details.
+* 2026-06-28: Refined the fifth live-app story backfill batch for QR Code Creator, Password Generator, JSON Formatter, and Markdown Editor with implementation-specific backend catalog boundaries, browser-first runtime decisions, performance, and limitation details.
+* 2026-06-28: Refined the fourth live-app story backfill batch for Visiting Card Maker, Interview Coach, Portfolio Creator, and Meeting Minutes AI with implementation-specific backend architecture, API, database, performance, and limitation details.
+* 2026-06-28: Refined the third live-app story backfill batch for Memory Trainer, Daily Word Challenge, Smart Textbook Scanner, and Resume Builder with implementation-specific backend architecture, API, database, performance, and limitation details.
+* 2026-06-28: Refined the second live-app story backfill batch for Study Planner, Course Tracker, Dictionary+, and Lesson Builder with implementation-specific backend architecture, API, database, performance, and limitation details.
+* 2026-06-28: Refined the first live-app story backfill batch for Quiz, Research Assistant, AI Notes Summarizer, and Concept Explainer with implementation-specific backend architecture, API, database, performance, and limitation details.
+* 2026-06-28: Backfilled current-state story.md documentation for all 26 live mini apps, including doc-only backend story paths for browser-first apps whose runtime behavior is frontend-owned.
 * 2026-06-28: Refined the Story Documentation Contract to use Current Implementation instead of Version History so story.md remains a current-state POC rather than a historical changelog.
 * 2026-06-28: Promoted Proposal Writer App #026 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Partner approval, bringing live mini-apps to 26 and establishing the first Platform Foundation v1-era live app.
 * 2026-06-28: Verified Proposal Writer against mini-app approval contracts, confirmed overview metadata, and refreshed the backend story document to describe the current implementation.
