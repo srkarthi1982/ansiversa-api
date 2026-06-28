@@ -30,6 +30,7 @@ from app.modules.email_assistant.routes import router as email_assistant_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.portfolio_creator.routes import router as portfolio_creator_router
 from app.modules.profile.routes import router as profile_router
+from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
 from app.modules.research_assistant.routes import router as research_assistant_router
 from app.modules.resume_builder.routes import router as resume_builder_router
@@ -216,6 +217,11 @@ def register_routes(app: FastAPI) -> None:
         email_assistant_router,
         prefix=f"{settings.API_V1_PREFIX}/email-assistant",
         tags=["Email Assistant"],
+    )
+    app.include_router(
+        proposal_writer_router,
+        prefix=f"{settings.API_V1_PREFIX}/proposal-writer",
+        tags=["Proposal Writer"],
     )
     app.include_router(
         content_router, 

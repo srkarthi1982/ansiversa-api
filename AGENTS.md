@@ -433,6 +433,23 @@ Do not modify unrelated modules.
 
 Do not modify parent database unless explicitly requested.
 
+## Mini App Approval Checklist Contract
+
+For every new mini app, before approval:
+
+1. Overview metadata complete
+2. Protected workflow routes complete
+3. Create/Edit/Delete support for long-lived user records
+4. Create buttons use simple labels: Create / Add / Save
+5. Saved-record actions use icon buttons where practical
+6. API responses return only frontend-required fields
+7. Update payloads exclude create-only parent IDs
+8. Required DB indexes reviewed/added
+9. Empty/loading/error/success states present
+10. lint/typecheck/build/backend compileall passed
+11. apps.json/catalog/readiness docs updated
+12. Production migration and promotion only after manual approval
+
 ## Mini App Versioning
 
 Mini-app version numbers are owned by the parent `Apps` catalog record.
@@ -488,6 +505,38 @@ If current head is already correct:
 ```text
 Do not create a new migration.
 ```
+
+## Database Index Contract
+
+Every new persistent database table introduced by a mini app must include an
+index review before the app is approved for production.
+
+Indexes must be designed from the application's user-facing query patterns,
+not from speculation.
+
+Required review areas:
+
+* ownerId / userId list queries
+* createdAt sorting
+* updatedAt sorting
+* parent foreign-key lookups
+* dashboard/status filters
+* timeline/history queries
+* review/detail navigation
+* frequently used ordering columns
+
+Avoid:
+
+* speculative indexes
+* duplicate indexes
+* indexes on large text/blob/json columns
+* full-text/trigram indexes unless the feature explicitly requires search
+
+Index creation is part of the mini app completion checklist and must be
+completed before production promotion.
+
+When introducing a new API endpoint or changing query behavior, re-evaluate
+whether an additional index is required.
 
 ## Production Migration Rule
 
@@ -700,6 +749,9 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-28: Implemented Proposal Writer App #026 backend foundation with isolated ProposalWriterProjects, ProposalWriterSections, ProposalWriterDrafts, and ProposalWriterHistory tables, initial query-pattern indexes, protected user-scoped API routes, overview metadata, Alembic config, and backend story documentation for Astra review; app remains `comingSoon`.
+* 2026-06-28: Added the permanent Mini App Approval Checklist Contract as the final readiness gate connecting metadata, workflow, CRUD, UI, API, index, state, verification, catalog, and promotion requirements before App #026.
+* 2026-06-28: Added the permanent Database Index Contract after the App #025 Database Index Cleanup milestone so future mini-app persistent tables require query-pattern-based index review before production promotion.
 * 2026-06-28: Added the permanent UI Action Button Contract after the App #025 Frontend UI Cleanup milestone so future mini-app buttons use action-first labels and consistent icon-only record actions.
 * 2026-06-28: Added the permanent User API Response Contract after the App #025 API Cleanup milestone so future user-facing APIs use lightweight list/dashboard responses, detail endpoints for full records, and minimal payloads by default.
 * 2026-06-27: Promoted Email Assistant App #025 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review and Partner approval, bringing live mini-apps to 25.

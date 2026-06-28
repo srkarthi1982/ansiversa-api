@@ -1,1 +1,168 @@
-{"hero":{"kicker":"Career · Ansiversa mini app","title":"Proposal Writer","description":"Generate structured proposals quickly from a clear purpose and supporting details.","points":["Structured proposals","Quick generation","Clear proposal sections"],"primaryAction":{"label":"Explore Proposal Writer","path":"/proposal-writer"}},"flow":{"kicker":"Writing flow","title":"Describe → Generate → Review","steps":["Describe the proposal need","Generate a structured proposal","Review the proposal sections"]},"stats":[{"label":"Output","value":"Proposal"},{"label":"Structure","value":"Clear"},{"label":"Generation","value":"Quick"}],"timeline":null,"differences":{"title":"Move from proposal intent to a structured draft","description":"Proposal Writer focuses on generating proposals with clear, reviewable sections.","items":[{"kicker":"Pillar 01","title":"Proposal context","description":"Begin with the purpose and relevant details."},{"kicker":"Pillar 02","title":"Structured generation","description":"Create a proposal organized into clear sections."},{"kicker":"Pillar 03","title":"Draft review","description":"Review the generated proposal before using it."}]},"feel":{"kicker":"How it feels","title":"A clear starting point for proposal writing","description":"The workflow reduces blank-page effort while keeping the proposal structured.","items":[{"title":"Describe the need","description":"Provide the purpose and supporting information."},{"title":"Generate the proposal","description":"Create a structured draft quickly."},{"title":"Review the sections","description":"Check the proposal before using it."}]},"audiences":{"title":"Who uses Proposal Writer","description":"Useful for people preparing structured proposals.","items":[{"title":"Freelancers","description":"Prepare proposals for potential client work."},{"title":"Professionals","description":"Create structured proposals for business needs."},{"title":"Small businesses","description":"Develop clear proposal drafts quickly."}]},"resourceSection":{"title":"Proposal-writing essentials","description":"Keep the proposal purpose, structure, and review connected.","items":[{"title":"Proposal context","description":"Describe what the proposal should address."},{"title":"Structured draft","description":"Generate clear proposal sections."},{"title":"Final review","description":"Check the proposal before using it."}]},"groupedSection":{"title":"Build a structured proposal","description":"Move from proposal context toward a reviewable draft.","groups":[{"kicker":"Define","title":"Set the proposal context","items":[{"name":"Purpose","description":"Clarify what the proposal should achieve."},{"name":"Details","description":"Provide the relevant supporting information."}]},{"kicker":"Draft","title":"Generate and review","items":[{"name":"Structure","description":"Create clear proposal sections."},{"name":"Review","description":"Check the complete proposal draft."}]}]},"technicalSection":{"title":"Designed for structured proposal generation","description":"Proposal Writer follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Proposal-context and structured-draft-ready workflow.","Responsive presentation across devices."]},"finalCta":{"title":"Explore structured proposal writing","description":"Visit Proposal Writer to review its planned proposal-generation experience.","action":{"label":"Explore Proposal Writer","path":"/proposal-writer"}}}
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Proposal Writer",
+    "description": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+    "points": [
+      "Client proposal projects",
+      "Editable proposal sections",
+      "Draft and review workflow"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/proposal-writer/projects"
+    }
+  },
+  "flow": {
+    "kicker": "Proposal flow",
+    "title": "Project → Sections → Drafts → History",
+    "steps": [
+      "Create a client proposal project",
+      "Add structured proposal sections",
+      "Draft and refine the proposal",
+      "Track review and submission activity"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Workspace",
+      "value": "Projects"
+    },
+    {
+      "label": "Structure",
+      "value": "Sections"
+    },
+    {
+      "label": "Output",
+      "value": "Drafts"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Move from client opportunity to reviewable proposal",
+    "description": "Proposal Writer keeps proposal planning, content structure, draft writing, and review history in one workflow.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Project context",
+        "description": "Capture the client, opportunity, budget range, due date, and status."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Structured sections",
+        "description": "Write reusable proposal sections with ordering and readiness status."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Draft review",
+        "description": "Prepare proposal drafts and track review or submission activity."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused proposal workspace",
+    "description": "The app reduces blank-page effort by keeping client context, sections, drafts, and history close together.",
+    "items": [
+      {
+        "title": "Start with the client",
+        "description": "Create the opportunity before writing detailed proposal content."
+      },
+      {
+        "title": "Build in sections",
+        "description": "Organize the proposal into clear, editable parts."
+      },
+      {
+        "title": "Review the draft",
+        "description": "Keep the final proposal body and activity history visible."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Proposal Writer",
+    "description": "Useful for professionals preparing client-facing proposal drafts.",
+    "items": [
+      {
+        "title": "Freelancers",
+        "description": "Prepare proposals for new client work."
+      },
+      {
+        "title": "Consultants",
+        "description": "Structure scope, approach, and pricing discussions."
+      },
+      {
+        "title": "Small businesses",
+        "description": "Create repeatable proposal drafts without losing client context."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Proposal-writing essentials",
+    "description": "Keep the proposal purpose, structure, and review connected.",
+    "items": [
+      {
+        "title": "Client context",
+        "description": "Clarify who the proposal is for and what it should achieve."
+      },
+      {
+        "title": "Section library",
+        "description": "Draft scope, deliverables, pricing, and next-step sections."
+      },
+      {
+        "title": "Activity trail",
+        "description": "Record review and submission milestones."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a structured proposal",
+    "description": "Move from opportunity details toward a reviewable client draft.",
+    "groups": [
+      {
+        "kicker": "Plan",
+        "title": "Set the proposal context",
+        "items": [
+          {
+            "name": "Client",
+            "description": "Record who the proposal is for."
+          },
+          {
+            "name": "Opportunity",
+            "description": "Describe the problem, scope, and budget range."
+          }
+        ]
+      },
+      {
+        "kicker": "Draft",
+        "title": "Write and review",
+        "items": [
+          {
+            "name": "Sections",
+            "description": "Create ordered proposal content blocks."
+          },
+          {
+            "name": "Drafts",
+            "description": "Prepare the complete proposal body."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Designed for the Platform Foundation v1 era",
+    "description": "Proposal Writer follows the shared Ansiversa mini-app architecture and approval checklist.",
+    "items": [
+      "API-driven overview metadata.",
+      "Protected project, section, draft, and history workflow.",
+      "Lightweight dashboard responses with detail endpoints for full text."
+    ]
+  },
+  "finalCta": {
+    "title": "Explore structured proposal writing",
+    "description": "Open Proposal Writer to create and refine client proposal drafts.",
+    "action": {
+      "label": "Explore",
+      "path": "/proposal-writer/projects"
+    }
+  }
+}
