@@ -150,11 +150,12 @@
   },
   "technicalSection": {
     "title": "Designed for the Platform Foundation v1 era",
-    "description": "Proposal Writer follows the shared Ansiversa mini-app architecture and approval checklist.",
+    "description": "Proposal Writer is the first approved live mini app from the Platform Foundation v1 era.",
     "items": [
       "API-driven overview metadata.",
       "Protected project, section, draft, and history workflow.",
-      "Lightweight dashboard responses with detail endpoints for full text."
+      "Lightweight dashboard responses with detail endpoints for full text.",
+      "Approved live at version 1.0.0."
     ]
   },
   "finalCta": {

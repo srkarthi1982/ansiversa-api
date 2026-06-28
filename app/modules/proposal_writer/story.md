@@ -58,10 +58,10 @@ and section sort ordering. Large text columns are not indexed.
 
 ## Current Status
 
-The backend implementation is ready for Astra review. The app remains
-`comingSoon` and must not be promoted until review, manual verification, and
-Partner approval are complete. Overview metadata uses `Explore` as the CTA label
-and targets `/proposal-writer/projects` as the first working workflow route.
+The backend implementation is approved live at version `1.0.0`. The parent
+Apps catalog stores Proposal Writer as `active` with `launchStatus = live`.
+Overview metadata uses `Explore` as the CTA label and targets
+`/proposal-writer/projects` as the first working workflow route.
 
 ## Known Limitations
 
