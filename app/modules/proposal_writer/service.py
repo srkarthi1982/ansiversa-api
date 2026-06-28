@@ -42,6 +42,10 @@ def _not_found(detail: str) -> None:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=detail)
 
 
+def _bad_request(detail: str) -> None:
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
+
+
 def _get_owned_project(db: Session, user: User, project_id: int) -> ProposalProject:
     project = db.get(ProposalProject, project_id)
     if not project or project.owner_id != user.id:
@@ -451,6 +455,11 @@ def create_history_item(
 ) -> ProposalHistorySummaryResponse:
     project = _optional_owned_project(db, user, payload.project_id)
     draft = _optional_owned_draft(db, user, payload.draft_id)
+    if project and draft and draft.project_id != project.id:
+        _bad_request("Proposal history draft must belong to the selected project.")
+    if draft and project is None:
+        project = _get_owned_project(db, user, draft.project_id)
+
     history_item = ProposalHistoryItem(
         project_id=project.id if project else None,
         draft_id=draft.id if draft else None,

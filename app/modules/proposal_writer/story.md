@@ -5,7 +5,8 @@
 Proposal Writer gives authenticated users a focused workspace for turning client
 opportunities into structured proposal content. The backend owns proposal
 projects, reusable proposal sections, full proposal drafts, and proposal
-activity history for the `proposal-writer` mini app.
+activity history for the `proposal-writer` mini app without sharing a database
+with other mini apps.
 
 ## Workflow
 
@@ -16,10 +17,11 @@ events.
 
 ## User Journey
 
-A user starts with a project, adds the business context, writes sections such
-as scope and pricing, creates a draft proposal, then tracks review/submission
-activity. Detail endpoints return full editable content only when the user
-opens a saved record.
+A user starts from the overview Explore CTA at `/proposal-writer/projects`,
+creates a project with client context, writes sections such as scope and
+pricing, creates a draft proposal, then tracks review/submission activity.
+Detail endpoints return full editable content only when the user opens a saved
+record.
 
 ## Database Design
 
@@ -38,7 +40,9 @@ keys, and long text fields stay out of summary responses.
 The router is mounted at `/api/v1/proposal-writer`. Dashboard/list responses
 return summaries and previews only. Project, section, and draft detail
 endpoints return the complete editable record. Update DTOs are separate from
-create DTOs and do not accept create-only parent IDs.
+create DTOs and do not accept create-only parent IDs. History creation validates
+that a selected draft belongs to the selected project, and draft-linked history
+infers the project when no explicit project is supplied.
 
 ## Shared Components Used
 
@@ -54,9 +58,10 @@ and section sort ordering. Large text columns are not indexed.
 
 ## Current Status
 
-V1 backend foundation is implemented for Astra review. The app remains
+The backend implementation is ready for Astra review. The app remains
 `comingSoon` and must not be promoted until review, manual verification, and
-Partner approval are complete.
+Partner approval are complete. Overview metadata uses `Explore` as the CTA label
+and targets `/proposal-writer/projects` as the first working workflow route.
 
 ## Known Limitations
 
@@ -70,5 +75,6 @@ exports, approval workflows, and integrations with CRM or invoicing modules.
 
 ## Version History
 
-* 2026-06-28 - Created Proposal Writer V1 backend POC with isolated database,
-  API contracts, indexes, routes, services, migration, and story documentation.
+V1 is the current implementation. It contains the isolated database, protected
+API contracts, initial query-pattern indexes, routes, services, migration, and
+current-state story documentation.

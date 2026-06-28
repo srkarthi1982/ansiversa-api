@@ -450,6 +450,112 @@ For every new mini app, before approval:
 11. apps.json/catalog/readiness docs updated
 12. Production migration and promotion only after manual approval
 
+## Story Documentation Contract
+
+Starting from App #026, every new mini-app must include a `story.md` file in
+both the frontend module and backend module.
+
+Required locations:
+
+* Frontend: `ansiversa/src/modules/<app-slug>/story.md`
+* Backend: `ansiversa-api/app/modules/<app_module>/story.md`
+
+`story.md` is the module's Proof of Concept and long-term technical memory. It
+explains the app's purpose, workflow, architecture, technical decisions, current
+status, known limitations, and future direction.
+
+Requirements:
+
+1. Every new mini-app from App #026 onward must create both frontend and backend
+   `story.md`.
+2. `story.md` must explain WHY the module exists and WHY the workflow, API,
+   database, and UI decisions were made.
+3. `story.md` must stay updated whenever the workflow, database, API, UI,
+   production status, or major behavior changes.
+4. `story.md` is treated as production source code, not optional documentation.
+5. Future AI coding engines should be able to understand the module by reading
+   the frontend and backend story files.
+6. At the App #040 checkpoint, backfill `story.md` files for Apps #001-#025
+   using the matured template from Apps #026-#040.
+
+### Story Documentation Philosophy
+
+`story.md` is not a chronological logbook, changelog, diary, or task history.
+
+Its purpose is to describe the current implementation of the module as it exists
+today.
+
+The document must always present the current architecture, workflow, API design,
+database design, UI behavior, and technical decisions.
+
+When the module evolves:
+
+* Update the existing sections to reflect the new implementation.
+* Replace outdated information.
+* Keep the document concise and accurate.
+* Do not append historical implementation notes.
+
+Example:
+
+Avoid:
+
+```text
+Yesterday:
+
+* userId was an integer.
+
+Today:
+
+* userId is a serial number.
+```
+
+Preferred:
+
+```text
+User IDs use serial numbers.
+```
+
+The document should always read as if someone is opening the project for the
+first time and wants to understand the module exactly as it exists today.
+
+Historical information belongs in:
+
+* Git commit history
+* Pull requests
+* Task logs
+* Release notes
+* Issue trackers
+
+It does not belong in `story.md`.
+
+`story.md` is the module's living architectural description and Proof of Concept
+(POC).
+
+It should answer:
+
+* What does the module do today?
+* How does it work today?
+* Why is it designed this way today?
+* What are the current limitations?
+* What are the planned future improvements?
+
+It should never require the reader to understand previous versions before
+understanding the current one.
+
+Minimum sections:
+
+* Purpose
+* Workflow
+* User Journey
+* Database Design
+* API Design
+* Shared Components Used
+* Performance Considerations
+* Current Status
+* Known Limitations
+* Future Enhancements
+* Version History
+
 ## Mini App Versioning
 
 Mini-app version numbers are owned by the parent `Apps` catalog record.
@@ -749,6 +855,9 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-28: Verified Proposal Writer against mini-app approval contracts, confirmed overview metadata, and refreshed the backend story document to describe the current implementation.
+* 2026-06-28: Refined the Story Documentation Contract to clarify that story.md describes the current module implementation, not historical task logs or changelogs.
+* 2026-06-28: Added the permanent Story Documentation Contract with App #026 as the first Platform Foundation v1-era app so every future mini app carries frontend and backend story.md technical memory.
 * 2026-06-28: Implemented Proposal Writer App #026 backend foundation with isolated ProposalWriterProjects, ProposalWriterSections, ProposalWriterDrafts, and ProposalWriterHistory tables, initial query-pattern indexes, protected user-scoped API routes, overview metadata, Alembic config, and backend story documentation for Astra review; app remains `comingSoon`.
 * 2026-06-28: Added the permanent Mini App Approval Checklist Contract as the final readiness gate connecting metadata, workflow, CRUD, UI, API, index, state, verification, catalog, and promotion requirements before App #026.
 * 2026-06-28: Added the permanent Database Index Contract after the App #025 Database Index Cleanup milestone so future mini-app persistent tables require query-pattern-based index review before production promotion.
