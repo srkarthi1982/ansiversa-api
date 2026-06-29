@@ -15,6 +15,7 @@ from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
+from app.modules.career_planner.routes import router as career_planner_router
 from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.contract_generator.routes import router as contract_generator_router
 from app.modules.course_tracker.routes import router as course_tracker_router
@@ -240,6 +241,11 @@ def register_routes(app: FastAPI) -> None:
         presentation_designer_router,
         prefix=f"{settings.API_V1_PREFIX}/presentation-designer",
         tags=["Presentation Designer"],
+    )
+    app.include_router(
+        career_planner_router,
+        prefix=f"{settings.API_V1_PREFIX}/career-planner",
+        tags=["Career Planner"],
     )
     app.include_router(
         content_router, 

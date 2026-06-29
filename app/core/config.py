@@ -40,6 +40,7 @@ class Settings(BaseSettings):
     INVOICE_RECEIPT_MAKER_DATABASE_URL: str = "sqlite:///./invoice_receipt_maker.db"
     CONTRACT_GENERATOR_DATABASE_URL: str = "sqlite:///./contract_generator.db"
     PRESENTATION_DESIGNER_DATABASE_URL: str = "sqlite:///./presentation_designer.db"
+    CAREER_PLANNER_DATABASE_URL: str = "sqlite:///./career_planner.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
