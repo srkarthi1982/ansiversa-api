@@ -30,7 +30,7 @@ List responses avoid large text fields. The migration adds Phase-1 indexes for o
 
 ## Current Status
 
-Career Planner is active in the catalog, remains `comingSoon`, and is workflow ready for local review.
+Career Planner is approved live at version `1.0.0`. The parent Apps catalog stores Career Planner as `active` with `launchStatus = live`.
 
 ## Known Limitations
 

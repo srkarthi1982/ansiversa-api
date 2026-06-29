@@ -452,13 +452,13 @@
 			"websiteUrl": "career-planner.ansiversa.com",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:37",
+			"updatedAt": "2026-06-29 14:03:54",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "career-planner",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_linkedin-bio",

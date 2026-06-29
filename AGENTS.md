@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-29: Promoted Career Planner App #030 in the parent Apps table with `launchStatus = live` and version `1.0.0` after review edit support and Partner approval, bringing live mini-apps to 28.
 * 2026-06-29: Added Career Planner review history detail and update API support with owner-scoped service methods, update DTOs that keep the optional goal association create-only, regenerated frontend API types, and refreshed backend story documentation.
 * 2026-06-29: Promoted Contract Generator App #028 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review, production migration verification, end-to-end workflow verification, and Partner approval, bringing live mini-apps to 27.
 * 2026-06-29: Corrected production parent catalog and overview metadata for Apps #027-#030 by aligning Invoice and Receipt Maker to the implemented `invoice-receipt-maker` slug, syncing overview records so CTAs use `Explore` and enter workflow routes, and removing the stale `overview:invoice-and-receipt-maker` metadata key.
