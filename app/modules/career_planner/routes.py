@@ -15,7 +15,9 @@ from app.modules.career_planner.schemas import (
     CareerMilestoneDetailResponse,
     CareerMilestoneUpdateRequest,
     CareerReviewHistoryCreateRequest,
+    CareerReviewHistoryDetailResponse,
     CareerReviewHistorySummaryResponse,
+    CareerReviewHistoryUpdateRequest,
     CareerRoadmapCreateRequest,
     CareerRoadmapDetailResponse,
     CareerRoadmapUpdateRequest,
@@ -32,9 +34,11 @@ from app.modules.career_planner.service import (
     get_dashboard,
     get_goal,
     get_milestone,
+    get_review_history_item,
     get_roadmap,
     update_goal,
     update_milestone,
+    update_review_history_item,
     update_roadmap,
 )
 
@@ -183,6 +187,25 @@ def create_career_review_history_item(
     db: Annotated[Session, Depends(get_career_planner_db)],
 ) -> CareerReviewHistorySummaryResponse:
     return create_review_history_item(db, current_user, payload)
+
+
+@router.get("/review/{review_id}", response_model=CareerReviewHistoryDetailResponse)
+def get_career_review_history_item(
+    review_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_career_planner_db)],
+) -> CareerReviewHistoryDetailResponse:
+    return get_review_history_item(db, current_user, review_id)
+
+
+@router.put("/review/{review_id}", response_model=CareerReviewHistoryDetailResponse)
+def update_career_review_history_item(
+    review_id: Annotated[int, Path(gt=0)],
+    payload: CareerReviewHistoryUpdateRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_career_planner_db)],
+) -> CareerReviewHistoryDetailResponse:
+    return update_review_history_item(db, current_user, review_id, payload)
 
 
 @router.delete("/review/{review_id}", status_code=status.HTTP_204_NO_CONTENT)

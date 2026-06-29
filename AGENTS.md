@@ -855,6 +855,9 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-29: Added Career Planner review history detail and update API support with owner-scoped service methods, update DTOs that keep the optional goal association create-only, regenerated frontend API types, and refreshed backend story documentation.
+* 2026-06-29: Promoted Contract Generator App #028 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review, production migration verification, end-to-end workflow verification, and Partner approval, bringing live mini-apps to 27.
+* 2026-06-29: Corrected production parent catalog and overview metadata for Apps #027-#030 by aligning Invoice and Receipt Maker to the implemented `invoice-receipt-maker` slug, syncing overview records so CTAs use `Explore` and enter workflow routes, and removing the stale `overview:invoice-and-receipt-maker` metadata key.
 * 2026-06-28: Refined the final live-app story backfill batch for Email Assistant with implementation-specific backend database, API, preview/detail response, performance, and limitation details, completing the live-app story refinement pass.
 * 2026-06-28: Refined the sixth live-app story backfill batch for Formula Finder, Mood Journal, Eco Habit Tracker, and AI Job Interviewer with implementation-specific backend catalog boundaries, database/API details, performance, and limitation details.
 * 2026-06-28: Refined the fifth live-app story backfill batch for QR Code Creator, Password Generator, JSON Formatter, and Markdown Editor with implementation-specific backend catalog boundaries, browser-first runtime decisions, performance, and limitation details.

@@ -125,6 +125,19 @@ class CareerReviewHistoryCreateRequest(BaseModel):
         return _normalize_text(value)
 
 
+class CareerReviewHistoryUpdateRequest(BaseModel):
+    title: str | None = Field(default=None, min_length=1, max_length=180)
+    action_type: ReviewActionType | None = Field(default=None, alias="actionType")
+    notes: str | None = Field(default=None, max_length=5000)
+
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    @field_validator("title", "notes", mode="before")
+    @classmethod
+    def normalize_text(cls, value: object) -> object:
+        return _normalize_text(value)
+
+
 class CareerGoalSummaryResponse(BaseModel):
     id: int
     title: str
@@ -191,6 +204,10 @@ class CareerReviewHistorySummaryResponse(BaseModel):
     updated_at: datetime = Field(serialization_alias="updatedAt")
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class CareerReviewHistoryDetailResponse(CareerReviewHistorySummaryResponse):
+    notes: str | None
 
 
 class CareerDashboardResponse(BaseModel):

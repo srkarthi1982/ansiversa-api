@@ -20,7 +20,9 @@ from app.modules.career_planner.schemas import (
     CareerMilestoneSummaryResponse,
     CareerMilestoneUpdateRequest,
     CareerReviewHistoryCreateRequest,
+    CareerReviewHistoryDetailResponse,
     CareerReviewHistorySummaryResponse,
+    CareerReviewHistoryUpdateRequest,
     CareerRoadmapCreateRequest,
     CareerRoadmapDetailResponse,
     CareerRoadmapSummaryResponse,
@@ -186,6 +188,14 @@ def _review_history_summary_response(
         created_at=review_item.created_at,
         updated_at=review_item.updated_at,
     )
+
+
+def _review_history_detail_response(
+    review_item: CareerReviewHistoryItem,
+    goal_title: str | None,
+) -> CareerReviewHistoryDetailResponse:
+    summary = _review_history_summary_response(review_item, goal_title)
+    return CareerReviewHistoryDetailResponse(**summary.model_dump(), notes=review_item.notes)
 
 
 def list_goals(db: Session, user: User) -> list[CareerGoalSummaryResponse]:
@@ -407,6 +417,31 @@ def create_review_history_item(
     db.commit()
     db.refresh(review_item)
     return _review_history_summary_response(review_item, goal.title if goal else None)
+
+
+def get_review_history_item(
+    db: Session,
+    user: User,
+    review_id: int,
+) -> CareerReviewHistoryDetailResponse:
+    review_item = _get_owned_review_history_item(db, user, review_id)
+    goal = _optional_owned_goal(db, user, review_item.goal_id)
+    return _review_history_detail_response(review_item, goal.title if goal else None)
+
+
+def update_review_history_item(
+    db: Session,
+    user: User,
+    review_id: int,
+    payload: CareerReviewHistoryUpdateRequest,
+) -> CareerReviewHistoryDetailResponse:
+    review_item = _get_owned_review_history_item(db, user, review_id)
+    goal = _optional_owned_goal(db, user, review_item.goal_id)
+    for field, value in payload.model_dump(exclude_unset=True).items():
+        setattr(review_item, field, value)
+    db.commit()
+    db.refresh(review_item)
+    return _review_history_detail_response(review_item, goal.title if goal else None)
 
 
 def delete_review_history_item(db: Session, user: User, review_id: int) -> None:

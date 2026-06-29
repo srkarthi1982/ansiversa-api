@@ -56,14 +56,14 @@ owner/project/document history timelines.
 
 ## Current Status
 
-The backend is workflow ready for protected local review. The app remains
-`active`, `comingSoon`, and has no version value.
+The backend implementation is approved live at version `1.0.0`. The parent
+Apps catalog stores Contract Generator as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
 The backend stores contract draft data and activity records. It does not provide
-legal advice, automated legal review, signature execution, or production
-migration promotion.
+legal advice, automated legal review, signature execution, or external
+signature integrations.
 
 ## Future Enhancements
 
