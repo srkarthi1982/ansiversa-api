@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Career · Ansiversa mini app","title":"Presentation Designer","description":"Design clean, consistent slides that keep a presentation clear and visually coherent.","points":["Clean slide design","Consistent presentation style","Clear visual structure"],"primaryAction":{"label":"Open Presentation Designer","path":"/presentation-designer"}},"flow":{"kicker":"Design flow","title":"Structure → Design → Review","steps":["Organize the presentation","Design consistent slides","Review the complete deck"]},"stats":[{"label":"Slides","value":"Clean"},{"label":"Style","value":"Consistent"},{"label":"Structure","value":"Clear"}],"timeline":null,"differences":{"title":"Keep every slide part of one presentation","description":"Presentation Designer focuses on clarity and consistency across the complete slide deck.","items":[{"kicker":"Pillar 01","title":"Clear structure","description":"Organize the presentation around a logical sequence."},{"kicker":"Pillar 02","title":"Consistent slides","description":"Maintain a coherent visual style throughout the deck."},{"kicker":"Pillar 03","title":"Focused review","description":"Check that the complete presentation communicates clearly."}]},"feel":{"kicker":"How it feels","title":"A coherent deck from beginning to end","description":"The workflow keeps content organization and visual consistency connected.","items":[{"title":"Shape the story","description":"Arrange the presentation in a clear sequence."},{"title":"Design the slides","description":"Keep each slide clean and aligned with the deck."},{"title":"Review the whole","description":"Confirm the presentation feels consistent and complete."}]},"audiences":{"title":"Who uses Presentation Designer","description":"Useful for anyone preparing a clear, consistent slide deck.","items":[{"title":"Professionals","description":"Prepare presentations for meetings, proposals, and reports."},{"title":"Students","description":"Create organized slides for projects and presentations."},{"title":"Educators","description":"Design clear visual material for lessons and training."}]},"resourceSection":{"title":"Presentation design essentials","description":"Keep structure, slide design, and review connected.","items":[{"title":"Deck structure","description":"Organize the presentation into a clear sequence."},{"title":"Slide consistency","description":"Maintain a coherent visual approach."},{"title":"Final review","description":"Check the complete deck before presenting."}]},"groupedSection":{"title":"Build a coherent presentation","description":"Balance the content sequence with consistent slide design.","groups":[{"kicker":"Structure","title":"Organize the message","items":[{"name":"Sequence","description":"Arrange ideas in a logical order."},{"name":"Focus","description":"Keep each slide centered on its purpose."}]},{"kicker":"Design","title":"Keep slides consistent","items":[{"name":"Visual style","description":"Use a coherent design across the deck."},{"name":"Review","description":"Check the complete presentation for consistency."}]}]},"technicalSection":{"title":"Built for consistent presentations","description":"Presentation Designer follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Deck and slide-ready design structure.","Responsive presentation across devices."]},"finalCta":{"title":"Ready to design a presentation?","description":"Open Presentation Designer and start organizing your slide deck.","action":{"label":"Open Presentation Designer","path":"/presentation-designer"}}}
+{
+  "hero": {
+    "kicker": "Career · Ansiversa mini app",
+    "title": "Presentation Designer",
+    "description": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+    "points": [
+      "Clean slide design",
+      "Consistent presentation style",
+      "Clear visual structure"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/presentation-designer/projects"
+    }
+  },
+  "flow": {
+    "kicker": "Design flow",
+    "title": "Structure → Design → Review",
+    "steps": [
+      "Organize the presentation",
+      "Design consistent slides",
+      "Review the complete deck"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Slides",
+      "value": "Clean"
+    },
+    {
+      "label": "Style",
+      "value": "Consistent"
+    },
+    {
+      "label": "Structure",
+      "value": "Clear"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep every slide part of one presentation",
+    "description": "Presentation Designer focuses on clarity and consistency across the complete slide deck.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Clear structure",
+        "description": "Organize the presentation around a logical sequence."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Consistent slides",
+        "description": "Maintain a coherent visual style throughout the deck."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Focused review",
+        "description": "Check that the complete presentation communicates clearly."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A coherent deck from beginning to end",
+    "description": "The workflow keeps content organization and visual consistency connected.",
+    "items": [
+      {
+        "title": "Shape the story",
+        "description": "Arrange the presentation in a clear sequence."
+      },
+      {
+        "title": "Design the slides",
+        "description": "Keep each slide clean and aligned with the deck."
+      },
+      {
+        "title": "Review the whole",
+        "description": "Confirm the presentation feels consistent and complete."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Presentation Designer",
+    "description": "Useful for anyone preparing a clear, consistent slide deck.",
+    "items": [
+      {
+        "title": "Professionals",
+        "description": "Prepare presentations for meetings, proposals, and reports."
+      },
+      {
+        "title": "Students",
+        "description": "Create organized slides for projects and presentations."
+      },
+      {
+        "title": "Educators",
+        "description": "Design clear visual material for lessons and training."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Presentation design essentials",
+    "description": "Keep structure, slide design, and review connected.",
+    "items": [
+      {
+        "title": "Deck structure",
+        "description": "Organize the presentation into a clear sequence."
+      },
+      {
+        "title": "Slide consistency",
+        "description": "Maintain a coherent visual approach."
+      },
+      {
+        "title": "Final review",
+        "description": "Check the complete deck before presenting."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a coherent presentation",
+    "description": "Balance the content sequence with consistent slide design.",
+    "groups": [
+      {
+        "kicker": "Structure",
+        "title": "Organize the message",
+        "items": [
+          {
+            "name": "Sequence",
+            "description": "Arrange ideas in a logical order."
+          },
+          {
+            "name": "Focus",
+            "description": "Keep each slide centered on its purpose."
+          }
+        ]
+      },
+      {
+        "kicker": "Design",
+        "title": "Keep slides consistent",
+        "items": [
+          {
+            "name": "Visual style",
+            "description": "Use a coherent design across the deck."
+          },
+          {
+            "name": "Review",
+            "description": "Check the complete presentation for consistency."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for consistent presentations",
+    "description": "Presentation Designer follows the shared Ansiversa mini-app architecture.",
+    "items": [
+      "API-driven overview metadata.",
+      "Deck and slide-ready design structure.",
+      "Responsive presentation across devices."
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to design a presentation?",
+    "description": "Open Presentation Designer and start organizing your slide deck.",
+    "action": {
+      "label": "Explore",
+      "path": "/presentation-designer/projects"
+    }
+  }
+}

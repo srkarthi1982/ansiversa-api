@@ -31,6 +31,7 @@ from app.modules.email_assistant.routes import router as email_assistant_router
 from app.modules.invoice_receipt_maker.routes import router as invoice_receipt_maker_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.portfolio_creator.routes import router as portfolio_creator_router
+from app.modules.presentation_designer.routes import router as presentation_designer_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -234,6 +235,11 @@ def register_routes(app: FastAPI) -> None:
         contract_generator_router,
         prefix=f"{settings.API_V1_PREFIX}/contract-generator",
         tags=["Contract Generator"],
+    )
+    app.include_router(
+        presentation_designer_router,
+        prefix=f"{settings.API_V1_PREFIX}/presentation-designer",
+        tags=["Presentation Designer"],
     )
     app.include_router(
         content_router, 
