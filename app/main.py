@@ -27,6 +27,7 @@ from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
 from app.modules.meeting_minutes_ai.routes import router as meeting_minutes_ai_router
 from app.modules.email_assistant.routes import router as email_assistant_router
+from app.modules.invoice_receipt_maker.routes import router as invoice_receipt_maker_router
 from app.modules.notifications.routes import router as notifications_router
 from app.modules.portfolio_creator.routes import router as portfolio_creator_router
 from app.modules.profile.routes import router as profile_router
@@ -222,6 +223,11 @@ def register_routes(app: FastAPI) -> None:
         proposal_writer_router,
         prefix=f"{settings.API_V1_PREFIX}/proposal-writer",
         tags=["Proposal Writer"],
+    )
+    app.include_router(
+        invoice_receipt_maker_router,
+        prefix=f"{settings.API_V1_PREFIX}/invoice-receipt-maker",
+        tags=["Invoice and Receipt Maker"],
     )
     app.include_router(
         content_router, 

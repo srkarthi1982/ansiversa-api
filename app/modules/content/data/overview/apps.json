@@ -381,15 +381,15 @@
 			"version": "1.0.0"
 		},
 		{
-			"id": "app_invoice-and-receipt-maker",
-			"key": "invoice-and-receipt-maker",
-			"slug": "invoice-and-receipt-maker",
+			"id": "app_invoice-receipt-maker",
+			"key": "invoice-receipt-maker",
+			"slug": "invoice-receipt-maker",
 			"name": "Invoice and Receipt Maker",
 			"description": "Create branded invoices easily.",
 			"categoryId": "cat_career",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "invoice-and-receipt-maker.ansiversa.com",
+			"websiteUrl": "invoice-receipt-maker.ansiversa.com",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:40",
@@ -397,7 +397,7 @@
 			"launchStatus": "comingSoon",
 			"visibility": "public",
 			"pricingGate": "free",
-			"logoKey": "invoice-and-receipt-maker",
+			"logoKey": "invoice-receipt-maker",
 			"version": null
 		},
 		{
