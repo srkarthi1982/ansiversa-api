@@ -16,7 +16,8 @@ project-level assets, and log review, export, or presentation activity.
 
 A signed-in user opens the app, creates a presentation project for an audience,
 adds slides in order, stores reusable visual or text assets, and records review
-events as the deck moves from draft to review to ready.
+events as the deck moves from draft to review to ready. Projects, slides,
+assets, and review entries support saved-record editing.
 
 ## Database Design
 
@@ -35,9 +36,11 @@ activity.
 
 The module is mounted at `/api/v1/presentation-designer`. Dashboard responses
 return lightweight summaries for projects, slides, assets, and review history.
-Detail endpoints return full editable project, slide, or asset records. Long
-slide body text, speaker notes, asset descriptions, and source text are excluded
-from dashboard and list responses.
+Detail endpoints return full editable project, slide, asset, and review
+records. Review update keeps the original optional project association fixed and
+only accepts title, action type, and notes. Long slide body text, speaker notes,
+asset descriptions, asset source text, and review notes are excluded from
+dashboard and list responses.
 
 ## Shared Components Used
 
@@ -74,5 +77,5 @@ workflows.
 The implementation includes isolated SQLAlchemy models, an isolated database
 session, an isolated Alembic configuration, initial migration, CRUD routes for
 projects/slides/assets/review history, dashboard summaries, detail responses
-for editable records, owner checks for every record, and overview metadata for
-the Presentation Designer mini app.
+for editable records, owner checks for every record, review detail/update
+endpoints, and overview metadata for the Presentation Designer mini app.

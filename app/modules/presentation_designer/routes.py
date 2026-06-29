@@ -15,7 +15,9 @@ from app.modules.presentation_designer.schemas import (
     PresentationProjectDetailResponse,
     PresentationProjectUpdateRequest,
     PresentationReviewHistoryCreateRequest,
+    PresentationReviewHistoryDetailResponse,
     PresentationReviewHistorySummaryResponse,
+    PresentationReviewHistoryUpdateRequest,
     PresentationSlideCreateRequest,
     PresentationSlideDetailResponse,
     PresentationSlideUpdateRequest,
@@ -32,9 +34,11 @@ from app.modules.presentation_designer.service import (
     get_asset,
     get_dashboard,
     get_project,
+    get_review_history_item,
     get_slide,
     update_asset,
     update_project,
+    update_review_history_item,
     update_slide,
 )
 
@@ -183,6 +187,25 @@ def create_presentation_review_history_item(
     db: Annotated[Session, Depends(get_presentation_designer_db)],
 ) -> PresentationReviewHistorySummaryResponse:
     return create_review_history_item(db, current_user, payload)
+
+
+@router.get("/review/{review_id}", response_model=PresentationReviewHistoryDetailResponse)
+def get_presentation_review_history_item(
+    review_id: Annotated[int, Path(gt=0)],
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_presentation_designer_db)],
+) -> PresentationReviewHistoryDetailResponse:
+    return get_review_history_item(db, current_user, review_id)
+
+
+@router.put("/review/{review_id}", response_model=PresentationReviewHistoryDetailResponse)
+def update_presentation_review_history_item(
+    review_id: Annotated[int, Path(gt=0)],
+    payload: PresentationReviewHistoryUpdateRequest,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_presentation_designer_db)],
+) -> PresentationReviewHistoryDetailResponse:
+    return update_review_history_item(db, current_user, review_id, payload)
 
 
 @router.delete("/review/{review_id}", status_code=status.HTTP_204_NO_CONTENT)

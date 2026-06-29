@@ -20,7 +20,9 @@ from app.modules.presentation_designer.schemas import (
     PresentationProjectSummaryResponse,
     PresentationProjectUpdateRequest,
     PresentationReviewHistoryCreateRequest,
+    PresentationReviewHistoryDetailResponse,
     PresentationReviewHistorySummaryResponse,
+    PresentationReviewHistoryUpdateRequest,
     PresentationSlideCreateRequest,
     PresentationSlideDetailResponse,
     PresentationSlideSummaryResponse,
@@ -200,6 +202,14 @@ def _review_history_summary_response(
         created_at=review_item.created_at,
         updated_at=review_item.updated_at,
     )
+
+
+def _review_history_detail_response(
+    review_item: PresentationReviewHistoryItem,
+    project_title: str | None,
+) -> PresentationReviewHistoryDetailResponse:
+    summary = _review_history_summary_response(review_item, project_title)
+    return PresentationReviewHistoryDetailResponse(**summary.model_dump(), notes=review_item.notes)
 
 
 def list_projects(db: Session, user: User) -> list[PresentationProjectSummaryResponse]:
@@ -419,6 +429,31 @@ def create_review_history_item(
         review_item,
         project.title if project else None,
     )
+
+
+def get_review_history_item(
+    db: Session,
+    user: User,
+    review_id: int,
+) -> PresentationReviewHistoryDetailResponse:
+    review_item = _get_owned_review_history_item(db, user, review_id)
+    project = _optional_owned_project(db, user, review_item.project_id)
+    return _review_history_detail_response(review_item, project.title if project else None)
+
+
+def update_review_history_item(
+    db: Session,
+    user: User,
+    review_id: int,
+    payload: PresentationReviewHistoryUpdateRequest,
+) -> PresentationReviewHistoryDetailResponse:
+    review_item = _get_owned_review_history_item(db, user, review_id)
+    project = _optional_owned_project(db, user, review_item.project_id)
+    for field, value in payload.model_dump(exclude_unset=True).items():
+        setattr(review_item, field, value)
+    db.commit()
+    db.refresh(review_item)
+    return _review_history_detail_response(review_item, project.title if project else None)
 
 
 def delete_review_history_item(db: Session, user: User, review_id: int) -> None:

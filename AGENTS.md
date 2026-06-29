@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-29: Added Presentation Designer review history detail and update API support with owner-scoped service methods, update DTOs that keep the optional project association create-only, regenerated frontend API types, and refreshed backend story documentation.
 * 2026-06-29: Promoted Career Planner App #030 in the parent Apps table with `launchStatus = live` and version `1.0.0` after review edit support and Partner approval, bringing live mini-apps to 28.
 * 2026-06-29: Added Career Planner review history detail and update API support with owner-scoped service methods, update DTOs that keep the optional goal association create-only, regenerated frontend API types, and refreshed backend story documentation.
 * 2026-06-29: Promoted Contract Generator App #028 in the parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review, production migration verification, end-to-end workflow verification, and Partner approval, bringing live mini-apps to 27.
