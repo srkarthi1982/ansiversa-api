@@ -57,8 +57,8 @@ project review timelines.
 
 ## Current Status
 
-The backend is workflow ready for protected local review. The app remains
-`active`, `comingSoon`, and has no version value.
+Presentation Designer is approved live at version `1.0.0`. The parent Apps
+catalog stores Presentation Designer as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
