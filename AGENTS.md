@@ -855,6 +855,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Migrated the production LinkedIn Bio Optimizer Turso database to revision `20260630_0001`, creating `LinkedInProfiles`, `BioTemplates`, `BioVersions`, and `linkedin_bio_optimizer_alembic_version`.
+* 2026-06-30: Added LinkedIn Bio Optimizer V1 backend foundation with isolated database configuration, owner-scoped CRUD APIs for profiles/templates/versions, summary/detail schemas, router registration, Alembic migration, and coming-soon story notes.
 * 2026-06-30: Canonicalized LinkedIn Bio Optimizer to `linkedin-bio-optimizer` before App #031 development by aligning the production parent Apps row, catalog export id/slug/website/logo fields, and overview metadata references.
 * 2026-06-30: Promoted Invoice and Receipt Maker App #027 in the production parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review, production schema verification, end-to-end workflow verification, and Partner approval.
 * 2026-06-29: Promoted Presentation Designer App #029 in the parent Apps table with `launchStatus = live` and version `1.0.0` after review edit support and Partner/Astra approval, bringing live mini-apps to 29.
