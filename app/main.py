@@ -16,6 +16,7 @@ from app.modules.auth.routes import router as auth_router
 from app.modules.book_summary_generator.routes import router as book_summary_generator_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.social_caption_generator.routes import router as social_caption_generator_router
+from app.modules.speech_writer.routes import router as speech_writer_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
 from app.modules.career_planner.routes import router as career_planner_router
 from app.modules.client_feedback_analyzer.routes import router as client_feedback_analyzer_router
@@ -288,6 +289,11 @@ def register_routes(app: FastAPI) -> None:
         social_caption_generator_router,
         prefix=f"{settings.API_V1_PREFIX}/social-caption-generator",
         tags=["Social Caption Generator"],
+    )
+    app.include_router(
+        speech_writer_router,
+        prefix=f"{settings.API_V1_PREFIX}/speech-writer",
+        tags=["Speech Writer"],
     )
     app.include_router(
         content_router, 
