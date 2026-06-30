@@ -39,7 +39,7 @@ The dashboard endpoint composes lightweight lists and preview text instead of re
 
 ## Current Status
 
-Prompt Builder App #039 backend V1 foundation is implemented and remains `comingSoon`. The local isolated migration is available for verification. No production migration has been run, and the app is not promoted live.
+Prompt Builder App #039 backend V1 foundation is implemented and remains `comingSoon`. The production isolated database migration has been applied and verified, including schema/index checks, legacy `PromptTemplates` preservation, and CRUD smoke coverage. The app is not promoted live until Astra review, manual browser verification, and Partner approval are complete.
 
 ## Known Limitations
 
