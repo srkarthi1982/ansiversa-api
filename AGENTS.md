@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Completed App #040 milestone factory inspection Phase 1 for the backend, added the milestone report, tightened Apps #032-#034 update DTOs/services so create-only parent IDs are excluded from update payloads, and kept Apps #031-#040 comingSoon without production migration or live promotion.
 * 2026-06-30: Migrated the production Snippet Generator Turso database to revision `20260630_0001`, creating `SnippetProjects`, `SnippetCategories`, `SnippetLibrary`, `SnippetHistory`, and `snippet_generator_alembic_version`; verified production indexes, CRUD create/update/delete cleanup behavior, overview metadata sync, and kept the app `active` / `comingSoon` / `version = NULL`.
 * 2026-06-30: Added Snippet Generator App #040 backend foundation with isolated database configuration, owner-scoped CRUD APIs for projects, snippets, categories, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata sync, local migration/schema/index/CRUD verification, and coming-soon story notes; no production migration or live promotion was run.
 * 2026-06-30: Migrated the production Prompt Builder Turso database to revision `20260630_0001`, preserving the legacy `PromptTemplates` table as `PromptTemplatesLegacy_20260630`; verified production tables, indexes, CRUD create/update/delete cascade behavior, overview metadata, and kept the app `active` / `comingSoon` / `version = NULL`.

@@ -265,7 +265,7 @@ def get_round(db: Session, user: User, round_id: int) -> InterviewRoundDetailRes
 def update_round(db: Session, user: User, round_id: int, payload: InterviewRoundUpdateRequest) -> InterviewRoundDetailResponse:
     round_ = _get_owned_round(db, user, round_id)
     data = payload.model_dump(exclude_unset=True)
-    schedule = _get_owned_schedule(db, user, data.get("schedule_id") or round_.schedule_id)
+    schedule = _get_owned_schedule(db, user, round_.schedule_id)
     for field, value in data.items():
         setattr(round_, field, value)
     db.commit()
@@ -313,7 +313,7 @@ def get_calendar_event(db: Session, user: User, event_id: int) -> InterviewCalen
 def update_calendar_event(db: Session, user: User, event_id: int, payload: InterviewCalendarEventUpdateRequest) -> InterviewCalendarEventDetailResponse:
     event = _get_owned_event(db, user, event_id)
     data = payload.model_dump(exclude_unset=True)
-    schedule = _get_owned_schedule(db, user, data.get("schedule_id") or event.schedule_id)
+    schedule = _get_owned_schedule(db, user, event.schedule_id)
     round_ = _optional_owned_round(db, user, data.get("round_id") if "round_id" in data else event.round_id)
     if round_ and round_.schedule_id != schedule.id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Round must belong to the selected schedule.")
@@ -358,7 +358,7 @@ def get_history(db: Session, user: User, history_id: int) -> InterviewHistoryDet
 def update_history(db: Session, user: User, history_id: int, payload: InterviewHistoryUpdateRequest) -> InterviewHistoryDetailResponse:
     history = _get_owned_history(db, user, history_id)
     data = payload.model_dump(exclude_unset=True)
-    schedule = _get_owned_schedule(db, user, data.get("schedule_id") or history.schedule_id)
+    schedule = _get_owned_schedule(db, user, history.schedule_id)
     for field, value in data.items():
         setattr(history, field, value)
     db.commit()

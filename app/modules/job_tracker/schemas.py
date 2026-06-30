@@ -70,7 +70,6 @@ class JobApplicationCreateRequest(BaseModel):
 
 class JobApplicationUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    job_id: int | None = Field(default=None, alias="jobId", gt=0)
     role_title: str | None = Field(default=None, alias="roleTitle", min_length=1, max_length=180)
     company_name: str | None = Field(default=None, alias="companyName", min_length=1, max_length=180)
     status: ApplicationStatus | None = None
@@ -110,7 +109,6 @@ class ApplicationInsightCreateRequest(BaseModel):
 
 class ApplicationInsightUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    application_id: int | None = Field(default=None, alias="applicationId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     category: str | None = Field(default=None, max_length=120)
     priority: InsightPriority | None = None

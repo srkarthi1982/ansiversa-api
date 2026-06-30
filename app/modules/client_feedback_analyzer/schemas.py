@@ -62,7 +62,6 @@ class ClientFeedbackCreateRequest(BaseModel):
 
 class ClientFeedbackUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    client_id: int | None = Field(default=None, alias="clientId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     source: str | None = Field(default=None, max_length=120)
     feedback_text: str | None = Field(default=None, alias="feedbackText", min_length=1, max_length=8000)
@@ -102,7 +101,6 @@ class FeedbackInsightCreateRequest(BaseModel):
 
 class FeedbackInsightUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    client_id: int | None = Field(default=None, alias="clientId", gt=0)
     feedback_id: int | None = Field(default=None, alias="feedbackId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     category: str | None = Field(default=None, max_length=120)

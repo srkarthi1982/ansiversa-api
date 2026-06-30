@@ -274,8 +274,6 @@ def get_feedback(db: Session, user: User, feedback_id: int) -> ClientFeedbackDet
 def update_feedback(db: Session, user: User, feedback_id: int, payload: ClientFeedbackUpdateRequest) -> ClientFeedbackDetailResponse:
     feedback = _get_owned_feedback(db, user, feedback_id)
     data = payload.model_dump(exclude_unset=True)
-    if "client_id" in data and data["client_id"] is not None:
-        _get_owned_client(db, user, data["client_id"])
     for field, value in data.items():
         setattr(feedback, field, value)
     db.commit()
@@ -324,7 +322,7 @@ def get_insight(db: Session, user: User, insight_id: int) -> FeedbackInsightDeta
 def update_insight(db: Session, user: User, insight_id: int, payload: FeedbackInsightUpdateRequest) -> FeedbackInsightDetailResponse:
     insight = _get_owned_insight(db, user, insight_id)
     data = payload.model_dump(exclude_unset=True)
-    client = _get_owned_client(db, user, data.get("client_id") or insight.client_id)
+    client = _get_owned_client(db, user, insight.client_id)
     feedback = _optional_owned_feedback(db, user, data.get("feedback_id") if "feedback_id" in data else insight.feedback_id)
     if feedback and feedback.client_id != client.id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Feedback must belong to the selected client.")

@@ -66,7 +66,6 @@ class InterviewRoundCreateRequest(BaseModel):
 
 class InterviewRoundUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    schedule_id: int | None = Field(default=None, alias="scheduleId", gt=0)
     round_name: str | None = Field(default=None, alias="roundName", min_length=1, max_length=180)
     interviewer_name: str | None = Field(default=None, alias="interviewerName", max_length=180)
     interview_type: str | None = Field(default=None, alias="interviewType", max_length=120)
@@ -106,7 +105,6 @@ class InterviewCalendarEventCreateRequest(BaseModel):
 
 class InterviewCalendarEventUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    schedule_id: int | None = Field(default=None, alias="scheduleId", gt=0)
     round_id: int | None = Field(default=None, alias="roundId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     event_type: EventType | None = Field(default=None, alias="eventType")
@@ -143,7 +141,6 @@ class InterviewHistoryCreateRequest(BaseModel):
 
 class InterviewHistoryUpdateRequest(BaseModel):
     platform_id: str | None = Field(default=None, alias="platformId", max_length=120)
-    schedule_id: int | None = Field(default=None, alias="scheduleId", gt=0)
     title: str | None = Field(default=None, min_length=1, max_length=180)
     outcome: HistoryOutcome | None = None
     completed_at: str | None = Field(default=None, alias="completedAt", max_length=40)

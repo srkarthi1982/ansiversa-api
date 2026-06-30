@@ -261,7 +261,7 @@ def get_application(db: Session, user: User, application_id: int) -> JobApplicat
 def update_application(db: Session, user: User, application_id: int, payload: JobApplicationUpdateRequest) -> JobApplicationDetailResponse:
     application = _get_owned_application(db, user, application_id)
     data = payload.model_dump(exclude_unset=True)
-    job = _get_owned_job(db, user, data.get("job_id") or application.job_id)
+    job = _get_owned_job(db, user, application.job_id)
     for field, value in data.items():
         setattr(application, field, value)
     db.commit()
@@ -301,7 +301,7 @@ def get_insight(db: Session, user: User, insight_id: int) -> ApplicationInsightD
 def update_insight(db: Session, user: User, insight_id: int, payload: ApplicationInsightUpdateRequest) -> ApplicationInsightDetailResponse:
     insight = _get_owned_insight(db, user, insight_id)
     data = payload.model_dump(exclude_unset=True)
-    application = _get_owned_application(db, user, data.get("application_id") or insight.application_id)
+    application = _get_owned_application(db, user, insight.application_id)
     for field, value in data.items():
         setattr(insight, field, value)
     db.commit()
