@@ -58,7 +58,7 @@ Dashboard and list responses are lightweight and use preview fields instead of f
 
 ## Current Status
 
-Speech Writer App #038 backend V1 foundation is implemented and remains `comingSoon`. The module is ready for local migration, generated frontend type consumption, Astra review, and Partner approval. It is not promoted live.
+Speech Writer App #038 backend V1 foundation is implemented and remains `comingSoon`. The production isolated database migration has been applied and verified, including schema/index checks and CRUD smoke coverage. The app is not promoted live until Astra review, manual browser verification, and Partner approval are complete.
 
 ## Known Limitations
 

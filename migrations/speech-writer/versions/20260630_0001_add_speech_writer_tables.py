@@ -23,7 +23,27 @@ def _table_exists(table_name: str) -> bool:
 
 def _index_exists(table_name: str, index_name: str) -> bool:
     inspector = sa.inspect(op.get_bind())
-    return any(index["name"] == index_name for index in inspector.get_indexes(table_name))
+    if any(index["name"] == index_name for index in inspector.get_indexes(table_name)):
+        return True
+    bind = op.get_bind()
+    result = bind.execute(
+        sa.text(
+            "SELECT 1 FROM sqlite_master "
+            "WHERE type = 'index' AND name = :index_name AND tbl_name = :table_name"
+        ),
+        {"index_name": index_name, "table_name": table_name},
+    ).first()
+    return result is not None
+
+
+def _drop_index_if_attached_to_table(index_name: str, table_name: str) -> None:
+    bind = op.get_bind()
+    result = bind.execute(
+        sa.text("SELECT tbl_name FROM sqlite_master WHERE type = 'index' AND name = :index_name"),
+        {"index_name": index_name},
+    ).first()
+    if result is not None and result[0] == table_name:
+        op.drop_index(index_name, table_name=table_name)
 
 
 def _table_has_columns(table_name: str, required_columns: set[str]) -> bool:
@@ -87,6 +107,14 @@ def upgrade() -> None:
             sa.ForeignKeyConstraint(["projectId"], ["SpeechProjects.id"]),
             sa.PrimaryKeyConstraint("id"),
         )
+    for index_name in [
+        op.f("ix_Speeches_ownerId"),
+        op.f("ix_Speeches_projectId"),
+        "Speeches_ownerId_projectId_updatedAt_idx",
+        "Speeches_ownerId_status_updatedAt_idx",
+        "Speeches_projectId_status_idx",
+    ]:
+        _drop_index_if_attached_to_table(index_name, "SpeechesLegacy_20260630")
     _create_index_if_missing(op.f("ix_Speeches_ownerId"), "Speeches", ["ownerId"])
     _create_index_if_missing(op.f("ix_Speeches_projectId"), "Speeches", ["projectId"])
     _create_index_if_missing("Speeches_ownerId_projectId_updatedAt_idx", "Speeches", ["ownerId", "projectId", "updatedAt"])
