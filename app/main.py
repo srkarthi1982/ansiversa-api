@@ -27,6 +27,7 @@ from app.modules.favorites.routes import router as favorites_router
 from app.modules.health.routes import router as health_router
 from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.interview_scheduler.routes import router as interview_scheduler_router
+from app.modules.job_tracker.routes import router as job_tracker_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.linkedin_bio_optimizer.routes import router as linkedin_bio_optimizer_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
@@ -264,6 +265,11 @@ def register_routes(app: FastAPI) -> None:
         interview_scheduler_router,
         prefix=f"{settings.API_V1_PREFIX}/interview-scheduler",
         tags=["Interview Scheduler"],
+    )
+    app.include_router(
+        job_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/job-tracker",
+        tags=["Job Tracker"],
     )
     app.include_router(
         content_router, 
