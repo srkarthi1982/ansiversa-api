@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Promoted Invoice and Receipt Maker App #027 in the production parent Apps table with `launchStatus = live` and version `1.0.0` after Astra review, production schema verification, end-to-end workflow verification, and Partner approval.
 * 2026-06-29: Promoted Presentation Designer App #029 in the parent Apps table with `launchStatus = live` and version `1.0.0` after review edit support and Partner/Astra approval, bringing live mini-apps to 29.
 * 2026-06-29: Added Presentation Designer review history detail and update API support with owner-scoped service methods, update DTOs that keep the optional project association create-only, regenerated frontend API types, and refreshed backend story documentation.
 * 2026-06-29: Promoted Career Planner App #030 in the parent Apps table with `launchStatus = live` and version `1.0.0` after review edit support and Partner approval, bringing live mini-apps to 28.

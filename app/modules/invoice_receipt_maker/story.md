@@ -59,8 +59,10 @@ feeds. Large text fields are not returned in dashboard payloads.
 
 ## Current Status
 
-The backend module is implemented for workflow review. The app catalog remains
-`status = active`, `launchStatus = comingSoon`, and `version = null`.
+The backend module is approved live at version `1.0.0` after Astra review,
+production schema verification, end-to-end workflow verification, and Partner
+approval. The parent Apps catalog stores Invoice and Receipt Maker as
+`status = active` with `launchStatus = live`.
 
 ## Known Limitations
 
