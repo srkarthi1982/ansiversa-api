@@ -16,92 +16,111 @@ branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
 
+def _table_exists(table_name: str) -> bool:
+    bind = op.get_bind()
+    return bool(bind.dialect.has_table(bind, table_name))
+
+
+def _index_exists(table_name: str, index_name: str) -> bool:
+    inspector = sa.inspect(op.get_bind())
+    return any(index["name"] == index_name for index in inspector.get_indexes(table_name))
+
+
+def _create_index_if_missing(index_name: str, table_name: str, columns: list[str]) -> None:
+    if not _index_exists(table_name, index_name):
+        op.create_index(index_name, table_name, columns, unique=False)
+
+
 def upgrade() -> None:
-    op.create_table(
-        "CaptionProjects",
-        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("ownerId", sa.String(length=36), nullable=False),
-        sa.Column("platformId", sa.String(length=120), nullable=True),
-        sa.Column("title", sa.String(length=180), nullable=False),
-        sa.Column("platform", sa.String(length=80), nullable=True),
-        sa.Column("audience", sa.String(length=180), nullable=True),
-        sa.Column("tone", sa.String(length=80), nullable=True),
-        sa.Column("status", sa.String(length=40), server_default="draft", nullable=False),
-        sa.Column("campaignBrief", sa.Text(), nullable=True),
-        sa.Column("notes", sa.Text(), nullable=True),
-        sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_CaptionProjects_ownerId"), "CaptionProjects", ["ownerId"], unique=False)
-    op.create_index("CaptionProjects_ownerId_updatedAt_title_idx", "CaptionProjects", ["ownerId", "updatedAt", "title"], unique=False)
-    op.create_index("CaptionProjects_ownerId_status_platform_idx", "CaptionProjects", ["ownerId", "status", "platform"], unique=False)
+    if not _table_exists("CaptionProjects"):
+        op.create_table(
+            "CaptionProjects",
+            sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
+            sa.Column("ownerId", sa.String(length=36), nullable=False),
+            sa.Column("platformId", sa.String(length=120), nullable=True),
+            sa.Column("title", sa.String(length=180), nullable=False),
+            sa.Column("platform", sa.String(length=80), nullable=True),
+            sa.Column("audience", sa.String(length=180), nullable=True),
+            sa.Column("tone", sa.String(length=80), nullable=True),
+            sa.Column("status", sa.String(length=40), server_default="draft", nullable=False),
+            sa.Column("campaignBrief", sa.Text(), nullable=True),
+            sa.Column("notes", sa.Text(), nullable=True),
+            sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.PrimaryKeyConstraint("id"),
+        )
+    _create_index_if_missing(op.f("ix_CaptionProjects_ownerId"), "CaptionProjects", ["ownerId"])
+    _create_index_if_missing("CaptionProjects_ownerId_updatedAt_title_idx", "CaptionProjects", ["ownerId", "updatedAt", "title"])
+    _create_index_if_missing("CaptionProjects_ownerId_status_platform_idx", "CaptionProjects", ["ownerId", "status", "platform"])
 
-    op.create_table(
-        "SocialCaptions",
-        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("ownerId", sa.String(length=36), nullable=False),
-        sa.Column("platformId", sa.String(length=120), nullable=True),
-        sa.Column("projectId", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(length=180), nullable=False),
-        sa.Column("platform", sa.String(length=80), nullable=True),
-        sa.Column("status", sa.String(length=40), server_default="draft", nullable=False),
-        sa.Column("captionText", sa.Text(), nullable=True),
-        sa.Column("hashtags", sa.Text(), nullable=True),
-        sa.Column("callToAction", sa.String(length=240), nullable=True),
-        sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.ForeignKeyConstraint(["projectId"], ["CaptionProjects.id"]),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_SocialCaptions_ownerId"), "SocialCaptions", ["ownerId"], unique=False)
-    op.create_index(op.f("ix_SocialCaptions_projectId"), "SocialCaptions", ["projectId"], unique=False)
-    op.create_index("SocialCaptions_ownerId_projectId_updatedAt_idx", "SocialCaptions", ["ownerId", "projectId", "updatedAt"], unique=False)
-    op.create_index("SocialCaptions_ownerId_status_platform_idx", "SocialCaptions", ["ownerId", "status", "platform"], unique=False)
-    op.create_index("SocialCaptions_projectId_status_idx", "SocialCaptions", ["projectId", "status"], unique=False)
+    if not _table_exists("SocialCaptions"):
+        op.create_table(
+            "SocialCaptions",
+            sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
+            sa.Column("ownerId", sa.String(length=36), nullable=False),
+            sa.Column("platformId", sa.String(length=120), nullable=True),
+            sa.Column("projectId", sa.Integer(), nullable=False),
+            sa.Column("title", sa.String(length=180), nullable=False),
+            sa.Column("platform", sa.String(length=80), nullable=True),
+            sa.Column("status", sa.String(length=40), server_default="draft", nullable=False),
+            sa.Column("captionText", sa.Text(), nullable=True),
+            sa.Column("hashtags", sa.Text(), nullable=True),
+            sa.Column("callToAction", sa.String(length=240), nullable=True),
+            sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.ForeignKeyConstraint(["projectId"], ["CaptionProjects.id"]),
+            sa.PrimaryKeyConstraint("id"),
+        )
+    _create_index_if_missing(op.f("ix_SocialCaptions_ownerId"), "SocialCaptions", ["ownerId"])
+    _create_index_if_missing(op.f("ix_SocialCaptions_projectId"), "SocialCaptions", ["projectId"])
+    _create_index_if_missing("SocialCaptions_ownerId_projectId_updatedAt_idx", "SocialCaptions", ["ownerId", "projectId", "updatedAt"])
+    _create_index_if_missing("SocialCaptions_ownerId_status_platform_idx", "SocialCaptions", ["ownerId", "status", "platform"])
+    _create_index_if_missing("SocialCaptions_projectId_status_idx", "SocialCaptions", ["projectId", "status"])
 
-    op.create_table(
-        "CaptionTemplates",
-        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("ownerId", sa.String(length=36), nullable=False),
-        sa.Column("platformId", sa.String(length=120), nullable=True),
-        sa.Column("projectId", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(length=180), nullable=False),
-        sa.Column("platform", sa.String(length=80), nullable=True),
-        sa.Column("tone", sa.String(length=80), nullable=True),
-        sa.Column("templateText", sa.Text(), nullable=True),
-        sa.Column("usageNotes", sa.Text(), nullable=True),
-        sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.ForeignKeyConstraint(["projectId"], ["CaptionProjects.id"]),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_CaptionTemplates_ownerId"), "CaptionTemplates", ["ownerId"], unique=False)
-    op.create_index(op.f("ix_CaptionTemplates_projectId"), "CaptionTemplates", ["projectId"], unique=False)
-    op.create_index("CaptionTemplates_ownerId_projectId_updatedAt_idx", "CaptionTemplates", ["ownerId", "projectId", "updatedAt"], unique=False)
-    op.create_index("CaptionTemplates_projectId_platform_idx", "CaptionTemplates", ["projectId", "platform"], unique=False)
+    if not _table_exists("CaptionTemplates"):
+        op.create_table(
+            "CaptionTemplates",
+            sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
+            sa.Column("ownerId", sa.String(length=36), nullable=False),
+            sa.Column("platformId", sa.String(length=120), nullable=True),
+            sa.Column("projectId", sa.Integer(), nullable=False),
+            sa.Column("title", sa.String(length=180), nullable=False),
+            sa.Column("platform", sa.String(length=80), nullable=True),
+            sa.Column("tone", sa.String(length=80), nullable=True),
+            sa.Column("templateText", sa.Text(), nullable=True),
+            sa.Column("usageNotes", sa.Text(), nullable=True),
+            sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.ForeignKeyConstraint(["projectId"], ["CaptionProjects.id"]),
+            sa.PrimaryKeyConstraint("id"),
+        )
+    _create_index_if_missing(op.f("ix_CaptionTemplates_ownerId"), "CaptionTemplates", ["ownerId"])
+    _create_index_if_missing(op.f("ix_CaptionTemplates_projectId"), "CaptionTemplates", ["projectId"])
+    _create_index_if_missing("CaptionTemplates_ownerId_projectId_updatedAt_idx", "CaptionTemplates", ["ownerId", "projectId", "updatedAt"])
+    _create_index_if_missing("CaptionTemplates_projectId_platform_idx", "CaptionTemplates", ["projectId", "platform"])
 
-    op.create_table(
-        "CaptionHistory",
-        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("ownerId", sa.String(length=36), nullable=False),
-        sa.Column("platformId", sa.String(length=120), nullable=True),
-        sa.Column("captionId", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(length=180), nullable=False),
-        sa.Column("eventType", sa.String(length=80), nullable=True),
-        sa.Column("occurredAt", sa.String(length=40), nullable=True),
-        sa.Column("description", sa.Text(), nullable=True),
-        sa.Column("revisionNotes", sa.Text(), nullable=True),
-        sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.ForeignKeyConstraint(["captionId"], ["SocialCaptions.id"]),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_CaptionHistory_captionId"), "CaptionHistory", ["captionId"], unique=False)
-    op.create_index(op.f("ix_CaptionHistory_ownerId"), "CaptionHistory", ["ownerId"], unique=False)
-    op.create_index("CaptionHistory_ownerId_captionId_occurredAt_idx", "CaptionHistory", ["ownerId", "captionId", "occurredAt"], unique=False)
-    op.create_index("CaptionHistory_ownerId_updatedAt_title_idx", "CaptionHistory", ["ownerId", "updatedAt", "title"], unique=False)
-    op.create_index("CaptionHistory_captionId_eventType_idx", "CaptionHistory", ["captionId", "eventType"], unique=False)
+    if not _table_exists("CaptionHistory"):
+        op.create_table(
+            "CaptionHistory",
+            sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
+            sa.Column("ownerId", sa.String(length=36), nullable=False),
+            sa.Column("platformId", sa.String(length=120), nullable=True),
+            sa.Column("captionId", sa.Integer(), nullable=False),
+            sa.Column("title", sa.String(length=180), nullable=False),
+            sa.Column("eventType", sa.String(length=80), nullable=True),
+            sa.Column("occurredAt", sa.String(length=40), nullable=True),
+            sa.Column("description", sa.Text(), nullable=True),
+            sa.Column("revisionNotes", sa.Text(), nullable=True),
+            sa.Column("createdAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.Column("updatedAt", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
+            sa.ForeignKeyConstraint(["captionId"], ["SocialCaptions.id"]),
+            sa.PrimaryKeyConstraint("id"),
+        )
+    _create_index_if_missing(op.f("ix_CaptionHistory_captionId"), "CaptionHistory", ["captionId"])
+    _create_index_if_missing(op.f("ix_CaptionHistory_ownerId"), "CaptionHistory", ["ownerId"])
+    _create_index_if_missing("CaptionHistory_ownerId_captionId_occurredAt_idx", "CaptionHistory", ["ownerId", "captionId", "occurredAt"])
+    _create_index_if_missing("CaptionHistory_ownerId_updatedAt_title_idx", "CaptionHistory", ["ownerId", "updatedAt", "title"])
+    _create_index_if_missing("CaptionHistory_captionId_eventType_idx", "CaptionHistory", ["captionId", "eventType"])
 
 
 def downgrade() -> None:
