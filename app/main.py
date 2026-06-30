@@ -13,6 +13,7 @@ from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.ai_job_interviewer.routes import router as ai_job_interviewer_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
+from app.modules.book_summary_generator.routes import router as book_summary_generator_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
 from app.modules.career_planner.routes import router as career_planner_router
@@ -276,6 +277,11 @@ def register_routes(app: FastAPI) -> None:
         job_description_analyzer_router,
         prefix=f"{settings.API_V1_PREFIX}/job-description-analyzer",
         tags=["Job Description Analyzer"],
+    )
+    app.include_router(
+        book_summary_generator_router,
+        prefix=f"{settings.API_V1_PREFIX}/book-summary-generator",
+        tags=["Book Summary Generator"],
     )
     app.include_router(
         content_router, 

@@ -52,6 +52,7 @@ class Settings(BaseSettings):
     INTERVIEW_SCHEDULER_DATABASE_URL: str = "sqlite:///./interview_scheduler.db"
     JOB_TRACKER_DATABASE_URL: str = "sqlite:///./job_tracker.db"
     JOB_DESCRIPTION_ANALYZER_DATABASE_URL: str = "sqlite:///./job_description_analyzer.db"
+    BOOK_SUMMARY_GENERATOR_DATABASE_URL: str = "sqlite:///./book_summary_generator.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
