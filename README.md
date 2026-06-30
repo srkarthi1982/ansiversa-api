@@ -94,6 +94,13 @@ The AI Notes Summarizer API module uses its own database connection. Configure
 Turso/libSQL connections. AI Notes Summarizer models and sessions remain
 isolated from the parent/global database and Alembic context.
 
+Each persistent mini app uses its own isolated `*_DATABASE_URL`. For the
+newer billing and document workflow apps, configure
+`INVOICE_RECEIPT_MAKER_DATABASE_URL`, `CONTRACT_GENERATOR_DATABASE_URL`,
+`PRESENTATION_DESIGNER_DATABASE_URL`, and `CAREER_PLANNER_DATABASE_URL` before
+deploying or running their Alembic contexts. Turso/libSQL connections reuse the
+shared `TURSO_AUTH_TOKEN`.
+
 Auth uses these environment variables:
 
 ```text
@@ -188,6 +195,42 @@ Apply isolated Meeting Minutes AI migrations:
 
 ```bash
 alembic -c meeting-minutes-ai_alembic.ini upgrade head
+```
+
+Apply isolated Email Assistant migrations:
+
+```bash
+alembic -c email-assistant_alembic.ini upgrade head
+```
+
+Apply isolated Proposal Writer migrations:
+
+```bash
+alembic -c proposal-writer_alembic.ini upgrade head
+```
+
+Apply isolated Invoice and Receipt Maker migrations:
+
+```bash
+alembic -c invoice-receipt-maker_alembic.ini upgrade head
+```
+
+Apply isolated Contract Generator migrations:
+
+```bash
+alembic -c contract-generator_alembic.ini upgrade head
+```
+
+Apply isolated Presentation Designer migrations:
+
+```bash
+alembic -c presentation-designer_alembic.ini upgrade head
+```
+
+Apply isolated Career Planner migrations:
+
+```bash
+alembic -c career-planner_alembic.ini upgrade head
 ```
 
 Quiz taxonomy routes are read-only and protected by the existing current-user
@@ -588,5 +631,6 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/me/preferences`, `/api/v1/me/favorites`,
 `/api/v1/me/notifications`, `/api/v1/me/notifications/unread-count`,
 `/api/v1/me/dashboard`, `/api/v1/apps/`, `/api/v1/categories/`, and
-`/api/v1/faqs`, plus protected admin verification at
+`/api/v1/faqs`, plus protected workflow dashboards such as
+`/api/v1/invoice-receipt-maker/dashboard`, and protected admin verification at
 `/api/v1/admin/status` and `/api/v1/admin/categories`.

@@ -11,10 +11,16 @@ DEFAULT_CORS_ORIGINS = [
     "https://www.ansiversa.com",
 ]
 
+DEFAULT_INVOICE_RECEIPT_MAKER_DATABASE_URL = "sqlite:///./invoice_receipt_maker.db"
+PRODUCTION_INVOICE_RECEIPT_MAKER_DATABASE_URL = (
+    "libsql://invoice-and-receipt-maker-ansiversa.aws-ap-south-1.turso.io"
+)
+
 
 class Settings(BaseSettings):
     APP_NAME: str = "Ansiversa API"
     APP_ENV: str = "development"
+    VERCEL_ENV: str | None = None
     APP_VERSION: str = "0.1.0"
     API_V1_PREFIX: str = "/api/v1"
     PARENT_DATABASE_URL: str = "sqlite:///./ansiversa_api.db"
@@ -37,7 +43,7 @@ class Settings(BaseSettings):
     MEETING_MINUTES_AI_DATABASE_URL: str = "sqlite:///./meeting_minutes_ai.db"
     EMAIL_ASSISTANT_DATABASE_URL: str = "sqlite:///./email_assistant.db"
     PROPOSAL_WRITER_DATABASE_URL: str = "sqlite:///./proposal_writer.db"
-    INVOICE_RECEIPT_MAKER_DATABASE_URL: str = "sqlite:///./invoice_receipt_maker.db"
+    INVOICE_RECEIPT_MAKER_DATABASE_URL: str = DEFAULT_INVOICE_RECEIPT_MAKER_DATABASE_URL
     CONTRACT_GENERATOR_DATABASE_URL: str = "sqlite:///./contract_generator.db"
     PRESENTATION_DESIGNER_DATABASE_URL: str = "sqlite:///./presentation_designer.db"
     CAREER_PLANNER_DATABASE_URL: str = "sqlite:///./career_planner.db"
@@ -84,11 +90,22 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def set_auth_cookie_defaults(self) -> Self:
-        is_production = self.APP_ENV.strip().lower() == "production"
+        is_production = (
+            self.APP_ENV.strip().lower() == "production"
+            or (self.VERCEL_ENV or "").strip().lower() == "production"
+        )
 
         if "*" in self.CORS_ORIGINS:
             raise ValueError(
                 "CORS_ORIGINS must not contain '*' when credentials are enabled."
+            )
+        if (
+            is_production
+            and self.INVOICE_RECEIPT_MAKER_DATABASE_URL
+            == DEFAULT_INVOICE_RECEIPT_MAKER_DATABASE_URL
+        ):
+            self.INVOICE_RECEIPT_MAKER_DATABASE_URL = (
+                PRODUCTION_INVOICE_RECEIPT_MAKER_DATABASE_URL
             )
         for origin in DEFAULT_CORS_ORIGINS:
             if origin not in self.CORS_ORIGINS:
