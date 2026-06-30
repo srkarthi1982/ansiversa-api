@@ -48,6 +48,7 @@ class Settings(BaseSettings):
     PRESENTATION_DESIGNER_DATABASE_URL: str = "sqlite:///./presentation_designer.db"
     CAREER_PLANNER_DATABASE_URL: str = "sqlite:///./career_planner.db"
     LINKEDIN_BIO_OPTIMIZER_DATABASE_URL: str = "sqlite:///./linkedin_bio_optimizer.db"
+    CLIENT_FEEDBACK_ANALYZER_DATABASE_URL: str = "sqlite:///./client_feedback_analyzer.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

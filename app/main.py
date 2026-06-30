@@ -16,6 +16,7 @@ from app.modules.auth.routes import router as auth_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
 from app.modules.career_planner.routes import router as career_planner_router
+from app.modules.client_feedback_analyzer.routes import router as client_feedback_analyzer_router
 from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.contract_generator.routes import router as contract_generator_router
 from app.modules.course_tracker.routes import router as course_tracker_router
@@ -252,6 +253,11 @@ def register_routes(app: FastAPI) -> None:
         linkedin_bio_optimizer_router,
         prefix=f"{settings.API_V1_PREFIX}/linkedin-bio-optimizer",
         tags=["LinkedIn Bio Optimizer"],
+    )
+    app.include_router(
+        client_feedback_analyzer_router,
+        prefix=f"{settings.API_V1_PREFIX}/client-feedback-analyzer",
+        tags=["Client Feedback Analyzer"],
     )
     app.include_router(
         content_router, 
