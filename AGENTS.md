@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Migrated the production Book Summary Generator Turso database to revision `20260630_0001`, creating `BookCollections`, `BookSummaries`, `SummaryNotes`, `SummaryHistory`, and `book_summary_generator_alembic_version`; verified production indexes, CRUD create/update/delete cascade behavior, Vercel environment configuration, overview metadata sync, and kept the app `active` / `comingSoon` / `version = NULL`.
 * 2026-06-30: Added Book Summary Generator App #036 backend foundation with repository/service architecture, isolated database configuration, owner-scoped CRUD APIs for books, summaries, notes, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata, and coming-soon story notes; no production migration was run.
 * 2026-06-30: Added Job Description Analyzer App #035 backend foundation with repository/service architecture, isolated database configuration, owner-scoped CRUD APIs for job descriptions, analysis, skill matches, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata, and coming-soon story notes; no production migration was run.
 * 2026-06-30: Migrated the production Job Tracker Turso database to revision `20260630_0001`, creating `JobListings`, `JobApplications`, `ApplicationInsights`, `ApplicationHistory`, and `job_tracker_alembic_version`; also set the production Vercel `JOB_TRACKER_DATABASE_URL` and `TURSO_AUTH_TOKEN` values needed by the deployed API.
