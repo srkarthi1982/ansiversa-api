@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Added Interview Scheduler V1 backend foundation with isolated database configuration, owner-scoped CRUD APIs for schedules/rounds/calendar/history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata, and coming-soon story notes; no production migration was run.
 * 2026-06-30: Migrated the production Client Feedback Analyzer Turso database to revision `20260630_0001`, creating `ClientProfiles`, `ClientFeedback`, `FeedbackInsights`, `FeedbackReports`, and `client_feedback_analyzer_alembic_version`.
 * 2026-06-30: Added Client Feedback Analyzer V1 backend foundation with isolated database configuration, owner-scoped CRUD APIs for clients/feedback/insights/reports, summary/detail schemas, router registration, Alembic migration, and coming-soon story notes.
 * 2026-06-30: Migrated the production LinkedIn Bio Optimizer Turso database to revision `20260630_0001`, creating `LinkedInProfiles`, `BioTemplates`, `BioVersions`, and `linkedin_bio_optimizer_alembic_version`.
