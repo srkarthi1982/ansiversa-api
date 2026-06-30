@@ -301,7 +301,7 @@
 			"version": "1.0.0"
 		},
 		{
-			"id": "app_job-analyzer",
+			"id": "app_job-description-analyzer",
 			"key": "job-description-analyzer",
 			"slug": "job-description-analyzer",
 			"name": "Job Description Analyzer",
@@ -309,7 +309,7 @@
 			"categoryId": "cat_career",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "job-analyzer.ansiversa.com",
+			"websiteUrl": "job-description-analyzer.ansiversa.com",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:40",
@@ -317,7 +317,7 @@
 			"launchStatus": "comingSoon",
 			"visibility": "public",
 			"pricingGate": "free",
-			"logoKey": "job-analyzer",
+			"logoKey": "job-description-analyzer",
 			"version": null
 		},
 		{
