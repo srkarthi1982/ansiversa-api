@@ -461,7 +461,7 @@
 			"version": "1.0.0"
 		},
 		{
-			"id": "app_linkedin-bio",
+			"id": "app_linkedin-bio-optimizer",
 			"key": "linkedin-bio-optimizer",
 			"slug": "linkedin-bio-optimizer",
 			"name": "LinkedIn Bio Optimizer",
@@ -469,7 +469,7 @@
 			"categoryId": "cat_career",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "linkedin-bio.ansiversa.com",
+			"websiteUrl": "linkedin-bio-optimizer.ansiversa.com",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:40",
@@ -477,7 +477,7 @@
 			"launchStatus": "comingSoon",
 			"visibility": "public",
 			"pricingGate": "free",
-			"logoKey": "linkedin-bio",
+			"logoKey": "linkedin-bio-optimizer",
 			"version": null
 		},
 		{
