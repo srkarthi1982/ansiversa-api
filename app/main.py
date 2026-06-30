@@ -16,6 +16,7 @@ from app.modules.auth.routes import router as auth_router
 from app.modules.book_summary_generator.routes import router as book_summary_generator_router
 from app.modules.contact.routes import router as contact_router
 from app.modules.prompt_builder.routes import router as prompt_builder_router
+from app.modules.snippet_generator.routes import router as snippet_generator_router
 from app.modules.social_caption_generator.routes import router as social_caption_generator_router
 from app.modules.speech_writer.routes import router as speech_writer_router
 from app.modules.ai_notes_summarizer.routes import router as ai_notes_summarizer_router
@@ -300,6 +301,11 @@ def register_routes(app: FastAPI) -> None:
         prompt_builder_router,
         prefix=f"{settings.API_V1_PREFIX}/prompt-builder",
         tags=["Prompt Builder"],
+    )
+    app.include_router(
+        snippet_generator_router,
+        prefix=f"{settings.API_V1_PREFIX}/snippet-generator",
+        tags=["Snippet Generator"],
     )
     app.include_router(
         content_router, 

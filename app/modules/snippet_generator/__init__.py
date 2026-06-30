@@ -1,0 +1,1 @@
+"""Snippet Generator module."""
