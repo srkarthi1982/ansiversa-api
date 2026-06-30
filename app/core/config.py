@@ -55,6 +55,7 @@ class Settings(BaseSettings):
     BOOK_SUMMARY_GENERATOR_DATABASE_URL: str = "sqlite:///./book_summary_generator.db"
     SOCIAL_CAPTION_GENERATOR_DATABASE_URL: str = "sqlite:///./social_caption_generator.db"
     SPEECH_WRITER_DATABASE_URL: str = "sqlite:///./speech_writer.db"
+    PROMPT_BUILDER_DATABASE_URL: str = "sqlite:///./prompt_builder.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
