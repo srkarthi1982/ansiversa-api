@@ -855,6 +855,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-06-30: Migrated the production Client Feedback Analyzer Turso database to revision `20260630_0001`, creating `ClientProfiles`, `ClientFeedback`, `FeedbackInsights`, `FeedbackReports`, and `client_feedback_analyzer_alembic_version`.
 * 2026-06-30: Added Client Feedback Analyzer V1 backend foundation with isolated database configuration, owner-scoped CRUD APIs for clients/feedback/insights/reports, summary/detail schemas, router registration, Alembic migration, and coming-soon story notes.
 * 2026-06-30: Migrated the production LinkedIn Bio Optimizer Turso database to revision `20260630_0001`, creating `LinkedInProfiles`, `BioTemplates`, `BioVersions`, and `linkedin_bio_optimizer_alembic_version`.
 * 2026-06-30: Added LinkedIn Bio Optimizer V1 backend foundation with isolated database configuration, owner-scoped CRUD APIs for profiles/templates/versions, summary/detail schemas, router registration, Alembic migration, and coming-soon story notes.
