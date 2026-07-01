@@ -14,6 +14,7 @@ from app.modules.apps.schemas import (
 )
 from app.modules.apps.service import (
     get_app_by_key,
+    get_app_catalog as get_app_catalog_response,
     get_category_by_key_or_slug,
     list_apps,
     list_categories,
@@ -41,22 +42,14 @@ def get_app_catalog(
     db: Annotated[Session, Depends(get_parent_db)],
     status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
 ) -> AppCatalogResponse:
-    with timing_span("apps.catalog.list_apps"):
-        apps = list_apps(db, status_filter=status_filter)
-
-    with timing_span("apps.catalog.list_categories"):
-        categories = list_categories(db, status_filter=status_filter)
+    with timing_span("apps.catalog.get_app_catalog"):
+        catalog = get_app_catalog_response(db, status_filter=status_filter)
 
     with timing_span("apps.catalog.build_response_model"):
-        live_count = sum(1 for app in apps if app["launch_status"] == "live")
         return AppCatalogResponse(
-            apps=apps,
-            categories=categories,
-            counts={
-                "total": len(apps),
-                "live": live_count,
-                "coming_soon": len(apps) - live_count,
-            },
+            apps=catalog["apps"],
+            categories=catalog["categories"],
+            counts=catalog["counts"],
         )
 
 
