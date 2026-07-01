@@ -876,6 +876,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Updated and re-read the production parent Apps row for AI Translator and Tone Fixer App #041 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 41 live apps and 59 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
+
 * 2026-07-01: Migrated and verified the production AI Translator and Tone Fixer Turso database at revision `20260701_0001`, confirming `TranslationProjects`, `Translations`, `TranslationTemplates`, `TranslationHistory`, required indexes, and CRUD create/update/delete cleanup behavior; kept the app `active` / `comingSoon` / `version = NULL` with no live promotion.
 
 * 2026-07-01: Added AI Translator and Tone Fixer App #041 backend foundation with isolated database configuration, owner-scoped CRUD APIs for projects, translations, templates, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata sync, local migration/schema/index/CRUD verification, and comingSoon story notes; no live promotion was run.
