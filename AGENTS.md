@@ -855,7 +855,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
-* 2026-07-01: Promoted LinkedIn Bio Optimizer App #031 in the tracked catalog export to `active` / `live` / version `1.0.0` after Partner/Astra approval, documented V1 versions as immutable snapshots, and recorded that direct production parent Apps row verification is blocked because `PARENT_DATABASE_URL` is blank in the local environment.
+* 2026-07-01: Updated and re-read the production parent Apps row for LinkedIn Bio Optimizer App #031 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 31 live apps and 69 comingSoon apps, and confirmed no Apps version-rule violations.
+* 2026-07-01: Promoted LinkedIn Bio Optimizer App #031 in the tracked catalog export to `active` / `live` / version `1.0.0` after Partner/Astra approval and documented V1 versions as immutable snapshots.
 * 2026-06-30: Completed App #040 milestone factory inspection Phase 1 for the backend, added the milestone report, tightened Apps #032-#034 update DTOs/services so create-only parent IDs are excluded from update payloads, and kept Apps #031-#040 comingSoon without production migration or live promotion.
 * 2026-06-30: Migrated the production Snippet Generator Turso database to revision `20260630_0001`, creating `SnippetProjects`, `SnippetCategories`, `SnippetLibrary`, `SnippetHistory`, and `snippet_generator_alembic_version`; verified production indexes, CRUD create/update/delete cleanup behavior, overview metadata sync, and kept the app `active` / `comingSoon` / `version = NULL`.
 * 2026-06-30: Added Snippet Generator App #040 backend foundation with isolated database configuration, owner-scoped CRUD APIs for projects, snippets, categories, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata sync, local migration/schema/index/CRUD verification, and coming-soon story notes; no production migration or live promotion was run.
