@@ -136,6 +136,21 @@ Use clear OpenAPI tags.
 
 Keep route files thin. Business logic should live in service files.
 
+For App #041 onward, backend mini apps should use the current factory route
+export convention:
+
+```text
+router.py
+  Owns APIRouter definitions and endpoint functions.
+
+routes.py
+  Re-exports router from router.py for compatibility with app.main imports.
+```
+
+Do not mix business logic into `routes.py` or `router.py`. Business logic stays
+in `service.py`, and database query helpers stay in `repository.py` only when
+the module needs that split.
+
 ## OpenAPI Contract Standard
 
 The full ecosystem OpenAPI schema is not always suitable for mini-app frontends.
@@ -860,6 +875,8 @@ Next milestone:
 ---
 
 ## Task Log (Recent)
+
+* 2026-07-01: Documented the App #041 onward backend route export convention so `router.py` owns endpoint definitions and `routes.py` re-exports `router` for existing `app.main` compatibility; no backend runtime behavior, migrations, production data, or app promotion changed.
 
 * 2026-07-01: Updated and re-read the production parent Apps row for Snippet Generator App #040 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 40 live apps and 60 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
 
