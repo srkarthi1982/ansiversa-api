@@ -30,7 +30,7 @@ Summary responses avoid returning large source text, full summaries, key points,
 
 ## Current Status
 
-The backend is implemented as an isolated coming-soon mini-app API. It is ready for local migration, OpenAPI type generation, frontend integration, and review. Production migration and live promotion are intentionally not part of the current status.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Book Summary Generator as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
