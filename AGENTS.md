@@ -876,6 +876,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Migrated and verified the production AI Translator and Tone Fixer Turso database at revision `20260701_0001`, confirming `TranslationProjects`, `Translations`, `TranslationTemplates`, `TranslationHistory`, required indexes, and CRUD create/update/delete cleanup behavior; kept the app `active` / `comingSoon` / `version = NULL` with no live promotion.
+
 * 2026-07-01: Added AI Translator and Tone Fixer App #041 backend foundation with isolated database configuration, owner-scoped CRUD APIs for projects, translations, templates, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata sync, local migration/schema/index/CRUD verification, and comingSoon story notes; no live promotion was run.
 
 * 2026-07-01: Documented the App #041 onward backend route export convention so `router.py` owns endpoint definitions and `routes.py` re-exports `router` for existing `app.main` compatibility; no backend runtime behavior, migrations, production data, or app promotion changed.

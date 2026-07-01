@@ -39,7 +39,7 @@ The dashboard endpoint composes lightweight lists and preview text instead of re
 
 ## Current Status
 
-AI Translator and Tone Fixer App #041 backend V1 foundation is implemented as an active `comingSoon` mini app and is ready for Astra review and manual QA. The parent Apps catalog remains `launchStatus = comingSoon`; no live promotion was performed.
+AI Translator and Tone Fixer App #041 backend V1 foundation is implemented as an active `comingSoon` mini app and is ready for Astra review and manual QA. The production isolated database is verified at revision `20260701_0001`; the parent Apps catalog remains `launchStatus = comingSoon`, and no live promotion was performed.
 
 ## Known Limitations
 
