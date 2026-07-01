@@ -18,7 +18,7 @@ The app uses an isolated `LINKEDIN_BIO_OPTIMIZER_DATABASE_URL` database. Tables 
 
 ## API Design
 
-The module is mounted at `/api/v1/linkedin-bio-optimizer`. Dashboard and list endpoints return lightweight summaries. Detail endpoints return complete editable records. Create and update DTOs are separate for profiles and templates. Versions support create, list/detail, and delete because they represent saved history.
+The module is mounted at `/api/v1/linkedin-bio-optimizer`. Dashboard and list endpoints return lightweight summaries. Detail endpoints return complete editable records. Create and update DTOs are separate for profiles and templates. Versions support create, list/detail, and delete because they represent immutable saved history snapshots in V1.
 
 ## Shared Components Used
 
@@ -30,15 +30,15 @@ Phase-1 indexes cover owner-scoped profile lists, template filters by industry a
 
 ## Current Status
 
-The backend V1 foundation is implemented and remains `comingSoon`.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog export stores LinkedIn Bio Optimizer as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
-The backend stores manual optimization records only. It does not generate AI bio text, score LinkedIn profiles, or publish changes to LinkedIn.
+The backend stores manual optimization records only. Bio versions are intentionally immutable in V1: users create a new version instead of editing an existing snapshot. The backend does not generate AI bio text, score LinkedIn profiles, or publish changes to LinkedIn.
 
 ## Future Enhancements
 
-Future versions may add AI-assisted bio generation, keyword scoring, headline suggestions, profile import, and exportable bio variants.
+Future versions may revisit editable versions if business requirements change, and may add AI-assisted bio generation, keyword scoring, headline suggestions, profile import, and exportable bio variants.
 
 ## Current Implementation
 

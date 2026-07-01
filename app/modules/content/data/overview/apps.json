@@ -474,11 +474,11 @@
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:40",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "linkedin-bio-optimizer",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_client-feedback-analyzer",
