@@ -10,6 +10,7 @@ from app.modules.admin.categories_routes import router as admin_categories_route
 from app.modules.admin.faqs_routes import router as admin_faqs_router
 from app.modules.admin.routes import router as admin_router
 from app.modules.admin.users_routes import router as admin_users_router
+from app.modules.ai_translator_and_tone_fixer.routes import router as ai_translator_and_tone_fixer_router
 from app.modules.ai_job_interviewer.routes import router as ai_job_interviewer_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
@@ -306,6 +307,11 @@ def register_routes(app: FastAPI) -> None:
         snippet_generator_router,
         prefix=f"{settings.API_V1_PREFIX}/snippet-generator",
         tags=["Snippet Generator"],
+    )
+    app.include_router(
+        ai_translator_and_tone_fixer_router,
+        prefix=f"{settings.API_V1_PREFIX}/ai-translator-and-tone-fixer",
+        tags=["AI Translator and Tone Fixer"],
     )
     app.include_router(
         content_router, 

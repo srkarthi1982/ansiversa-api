@@ -876,6 +876,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Added AI Translator and Tone Fixer App #041 backend foundation with isolated database configuration, owner-scoped CRUD APIs for projects, translations, templates, and history, dashboard/detail response contracts, router registration, Alembic migration, overview metadata sync, local migration/schema/index/CRUD verification, and comingSoon story notes; no live promotion was run.
+
 * 2026-07-01: Documented the App #041 onward backend route export convention so `router.py` owns endpoint definitions and `routes.py` re-exports `router` for existing `app.main` compatibility; no backend runtime behavior, migrations, production data, or app promotion changed.
 
 * 2026-07-01: Updated and re-read the production parent Apps row for Snippet Generator App #040 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 40 live apps and 60 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.

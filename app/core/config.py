@@ -57,6 +57,7 @@ class Settings(BaseSettings):
     SPEECH_WRITER_DATABASE_URL: str = "sqlite:///./speech_writer.db"
     PROMPT_BUILDER_DATABASE_URL: str = "sqlite:///./prompt_builder.db"
     SNIPPET_GENERATOR_DATABASE_URL: str = "sqlite:///./snippet_generator.db"
+    AI_TRANSLATOR_AND_TONE_FIXER_DATABASE_URL: str = "sqlite:///./ai_translator_and_tone_fixer.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
