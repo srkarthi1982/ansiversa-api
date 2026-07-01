@@ -861,6 +861,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Migrated the production Job Description Analyzer Turso database to revision `20260630_0001`, creating `JobDescriptions`, `JobAnalyses`, `SkillMatches`, `AnalysisHistory`, and `job_description_analyzer_alembic_version`; verified production indexes and Vercel environment configuration, and kept the app `active` / `comingSoon` / `version = NULL` for manual QA.
 * 2026-07-01: Updated and re-read the production parent Apps row for Book Summary Generator App #036 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 35 live apps and 65 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
 * 2026-07-01: Updated and re-read the production parent Apps row for Job Tracker App #034 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 34 live apps and 66 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated the public overview/story metadata after Partner/Astra approval.
 * 2026-07-01: Updated and re-read the production parent Apps row for Interview Scheduler App #033 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 33 live apps and 67 comingSoon apps, confirmed no Apps version-rule violations, and synced the tracked catalog export after Partner/Astra approval.
