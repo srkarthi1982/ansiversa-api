@@ -492,13 +492,13 @@
 			"websiteUrl": "client-feedback-analyzer.ansiversa.com",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:37",
+			"updatedAt": "2026-07-01 06:38:07",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "client-feedback-analyzer",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_book-summary-generator",

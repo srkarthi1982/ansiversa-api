@@ -30,7 +30,7 @@ Phase-1 indexes cover owner-scoped lists, client-linked feedback and insights, s
 
 ## Current Status
 
-The backend V1 foundation is implemented and remains `comingSoon`.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Client Feedback Analyzer as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
