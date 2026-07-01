@@ -2,15 +2,15 @@
 
 ## Purpose
 
-Job Tracker helps users organize job listings, job applications, application insights, and application history during a job search.
+Job Tracker helps users organize job listings, job applications, and application insights during a job search.
 
 ## Workflow
 
-The V1 workflow moves through jobs, applications, insights, and history. Jobs hold the opportunity details. Applications belong to jobs and track pipeline status. Insights capture recommendations and priorities. History records application events, summaries, and next steps.
+The V1 workflow moves through jobs, applications, and insights. Jobs hold the opportunity details. Applications belong to jobs and track pipeline status. Insights capture recommendations and priorities. Application history remains backend-ready for a future workflow but is not exposed in V1.
 
 ## User Journey
 
-A signed-in user creates a job listing, adds an application for that role, records insights about next actions or fit, and logs history as the application progresses.
+A signed-in user creates a job listing, adds an application for that role, and records insights about next actions or fit.
 
 ## Database Design
 
@@ -18,7 +18,7 @@ The app uses an isolated `JOB_TRACKER_DATABASE_URL` database. Tables are `JobLis
 
 ## API Design
 
-The module is mounted at `/api/v1/job-tracker`. Dashboard and list endpoints return lightweight summaries. Detail endpoints return complete editable records. Create and update DTOs are separate for jobs, applications, and insights. History records support create, list, detail, and delete.
+The module is mounted at `/api/v1/job-tracker`. Dashboard and list endpoints return lightweight summaries. Detail endpoints return complete editable records. Create and update DTOs are separate for jobs, applications, and insights. History records support create, list, detail, and delete for future workflow use.
 
 ## Shared Components Used
 
@@ -26,19 +26,19 @@ The backend follows shared FastAPI routing, auth dependency, SQLAlchemy session 
 
 ## Performance Considerations
 
-Phase-1 indexes cover owner-scoped lists, job-linked applications, application-linked insights/history, status filters, priority filters, follow-up dates, and history timelines. Long text fields are excluded from text indexes.
+Phase-1 indexes cover owner-scoped lists, job-linked applications, application-linked insights, future history lookups, status filters, priority filters, and follow-up dates. Long text fields are excluded from text indexes.
 
 ## Current Status
 
-The backend V1 foundation is implemented and remains `comingSoon`.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Job Tracker as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
-The backend stores manual job-search records only. It does not scrape job boards, send reminders, parse resumes, or generate AI recommendations.
+The backend stores manual job-search records only. The V1 frontend does not expose application history tracking. The app does not scrape job boards, send reminders, parse resumes, or generate AI recommendations.
 
 ## Future Enhancements
 
-Future versions may add reminder notifications, job board imports, resume matching, interview integrations, and job-search analytics.
+Future versions may add application history tracking, reminder notifications, job board imports, resume matching, interview integrations, and job-search analytics.
 
 ## Current Implementation
 

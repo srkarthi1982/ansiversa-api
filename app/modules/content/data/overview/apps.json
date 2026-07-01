@@ -994,11 +994,11 @@
 			"createdAt": "2026-03-18T06:23:00.305Z",
 			"updatedAt": "2026-06-19 11:49:36",
 			"capabilities": "[\"public\",\"admin\",\"bookmarks\",\"dashboard\"]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "job_tracker",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_ai-job-interviewer",
