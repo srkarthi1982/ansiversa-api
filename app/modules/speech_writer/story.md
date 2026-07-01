@@ -58,7 +58,7 @@ Dashboard and list responses are lightweight and use preview fields instead of f
 
 ## Current Status
 
-Speech Writer App #038 backend V1 foundation is implemented and remains `comingSoon`. The production isolated database migration has been applied and verified, including schema/index checks and CRUD smoke coverage. The app is not promoted live until Astra review, manual browser verification, and Partner approval are complete.
+Speech Writer App #038 backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Speech Writer as `active` with `launchStatus = live`, and the production isolated database migration has been applied and verified.
 
 ## Known Limitations
 

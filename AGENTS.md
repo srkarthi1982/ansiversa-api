@@ -861,6 +861,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Updated and re-read the production parent Apps row for Speech Writer App #038 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 38 live apps and 62 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
+
 * 2026-07-01: Updated and re-read the production parent Apps row for Social Caption Generator App #037 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 37 live apps and 63 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
 
 * 2026-07-01: Updated and re-read the production parent Apps row for Job Description Analyzer App #035 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 36 live apps and 64 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
