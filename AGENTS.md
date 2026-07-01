@@ -587,6 +587,12 @@ launchStatus = live
 version = 1.0.0
 ```
 
+When Partner and Astra approve an app and request live promotion, updating and
+re-reading the production parent `Apps` table is mandatory and non-optional.
+Do not report the app as live, update live counts, sync final readiness docs, or
+move to the next app until the production row has been verified as
+`active` / `live` / `1.0.0`.
+
 After updating the row, sync `app/modules/content/data/overview/apps.json` so
 the catalog export reflects the same `launchStatus` and `version`.
 
@@ -855,6 +861,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Strengthened the live-promotion rule so Partner/Astra-approved promotion requests must update and re-read the production parent Apps table before live status, counts, catalog sync, or next-app handoff are reported.
 * 2026-07-01: Updated and re-read the production parent Apps row for LinkedIn Bio Optimizer App #031 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 31 live apps and 69 comingSoon apps, and confirmed no Apps version-rule violations.
 * 2026-07-01: Promoted LinkedIn Bio Optimizer App #031 in the tracked catalog export to `active` / `live` / version `1.0.0` after Partner/Astra approval and documented V1 versions as immutable snapshots.
 * 2026-06-30: Completed App #040 milestone factory inspection Phase 1 for the backend, added the milestone report, tightened Apps #032-#034 update DTOs/services so create-only parent IDs are excluded from update payloads, and kept Apps #031-#040 comingSoon without production migration or live promotion.
