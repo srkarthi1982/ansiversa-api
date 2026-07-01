@@ -60,7 +60,7 @@ Dashboard and list responses are lightweight and use preview fields instead of f
 
 ## Current Status
 
-The backend is implemented as an active, coming-soon mini-app module. It is ready for local isolated migration, CRUD verification, API type generation, and Astra review. The module is not promoted live by this implementation.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Social Caption Generator as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
