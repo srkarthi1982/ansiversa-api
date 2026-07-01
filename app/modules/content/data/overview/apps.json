@@ -554,11 +554,11 @@
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:42",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "prompt-builder",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_speech-writer",
