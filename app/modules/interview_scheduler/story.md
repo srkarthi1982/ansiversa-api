@@ -2,15 +2,15 @@
 
 ## Purpose
 
-Interview Scheduler helps users plan interview schedules, track interview rounds, manage calendar events, and record completed interview outcomes.
+Interview Scheduler helps users plan interview schedules, track interview rounds, and manage calendar events.
 
 ## Workflow
 
-The V1 workflow moves through schedules, rounds, calendar events, and history. Schedules hold the candidate and role context. Rounds describe each interview step. Calendar events keep timing and reminders visible. History records completed interviews, outcomes, summaries, and next steps.
+The V1 workflow moves through schedules, rounds, and calendar events. Schedules hold the candidate and role context. Rounds describe each interview step. Calendar events keep timing and reminders visible. Interview history remains backend-ready for a future workflow but is not exposed in V1.
 
 ## User Journey
 
-A signed-in user creates an interview schedule, adds one or more interview rounds, places events on the calendar, and records outcomes after interviews are completed.
+A signed-in user creates an interview schedule, adds one or more interview rounds, and places events on the calendar.
 
 ## Database Design
 
@@ -26,11 +26,11 @@ The backend follows shared FastAPI routing, auth dependency, SQLAlchemy session 
 
 ## Performance Considerations
 
-Phase-1 indexes cover owner-scoped lists, schedule-linked rounds, calendar date ordering, status filters, priority filters, and history timeline lookups. Long text fields are excluded from text indexes.
+Phase-1 indexes cover owner-scoped lists, schedule-linked rounds, calendar date ordering, status filters, priority filters, and future history timeline lookups. Long text fields are excluded from text indexes.
 
 ## Current Status
 
-The backend V1 foundation is implemented and remains `comingSoon`.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Interview Scheduler as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add calendar integrations, notification reminders, interview
 
 ## Current Implementation
 
-Current implementation includes isolated database configuration, models, schemas, service functions, authenticated routes, migration files, overview metadata, and module story documentation.
+Current implementation includes isolated database configuration, models, schemas, service functions, authenticated routes, migration files, overview metadata, production Apps row promotion, and module story documentation.

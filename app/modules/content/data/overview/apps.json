@@ -974,11 +974,11 @@
 			"createdAt": "2026-03-18T06:21:15.708Z",
 			"updatedAt": "2026-06-19 11:49:36",
 			"capabilities": "[\"public\",\"bookmarks\",\"favorites\",\"dashboard\"]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "interview_scheduler",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "3dd3a608-bdc5-4b2d-924f-30674dc66fd9",

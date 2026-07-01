@@ -861,6 +861,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Updated and re-read the production parent Apps row for Interview Scheduler App #033 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 33 live apps and 67 comingSoon apps, confirmed no Apps version-rule violations, and synced the tracked catalog export after Partner/Astra approval.
 * 2026-07-01: Added the combined Apps catalog endpoint for `/api/v1/apps/catalog`, returning apps, categories, and launch-status counts from one active catalog dataset while preserving the existing apps and categories endpoints.
 * 2026-07-01: Updated and re-read the production parent Apps row for Client Feedback Analyzer App #032 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 32 live apps and 68 comingSoon apps, confirmed no Apps version-rule violations, and synced the tracked catalog export.
 * 2026-07-01: Strengthened the live-promotion rule so Partner/Astra-approved promotion requests must update and re-read the production parent Apps table before live status, counts, catalog sync, or next-app handoff are reported.
