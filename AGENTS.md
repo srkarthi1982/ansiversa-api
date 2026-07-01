@@ -861,6 +861,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Updated and re-read the production parent Apps row for Snippet Generator App #040 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 40 live apps and 60 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
+
 * 2026-07-01: Updated and re-read the production parent Apps row for Prompt Builder App #039 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 39 live apps and 61 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
 
 * 2026-07-01: Updated and re-read the production parent Apps row for Speech Writer App #038 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 38 live apps and 62 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.

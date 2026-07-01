@@ -39,7 +39,7 @@ The dashboard endpoint composes lightweight lists and preview text instead of re
 
 ## Current Status
 
-Snippet Generator App #040 backend V1 foundation is implemented and remains `comingSoon`. The production isolated database has been migrated to revision `20260630_0001` and verified for schema, indexes, CRUD behavior, overview metadata, and catalog status. The app is not promoted live.
+Snippet Generator App #040 backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Snippet Generator as `active` with `launchStatus = live`, and the production isolated database has been migrated to revision `20260630_0001` and verified.
 
 ## Known Limitations
 
