@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class CategoryResponse(BaseModel):
@@ -65,3 +65,15 @@ class AppCatalogListItemResponse(BaseModel):
 class AppCatalogListResponse(BaseModel):
     items: list[AppCatalogListItemResponse]
     total: int
+
+
+class AppCatalogCountsResponse(BaseModel):
+    total: int
+    live: int
+    coming_soon: int = Field(serialization_alias="comingSoon")
+
+
+class AppCatalogResponse(BaseModel):
+    apps: list[AppCatalogListItemResponse]
+    categories: list[CategoryCatalogListItemResponse]
+    counts: AppCatalogCountsResponse

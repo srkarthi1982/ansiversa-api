@@ -7,6 +7,7 @@ from app.core.database import get_parent_db
 from app.core.timing import timing_span
 from app.modules.apps.schemas import (
     AppCatalogItemResponse,
+    AppCatalogResponse,
     AppCatalogListResponse,
     CategoryListResponse,
     CategoryResponse,
@@ -33,6 +34,30 @@ def list_app_catalog(
 
     with timing_span("apps.build_response_model"):
         return AppCatalogListResponse(items=apps, total=len(apps))
+
+
+@apps_router.get("/catalog", response_model=AppCatalogResponse)
+def get_app_catalog(
+    db: Annotated[Session, Depends(get_parent_db)],
+    status_filter: Annotated[StatusFilter | None, Query(alias="status")] = None,
+) -> AppCatalogResponse:
+    with timing_span("apps.catalog.list_apps"):
+        apps = list_apps(db, status_filter=status_filter)
+
+    with timing_span("apps.catalog.list_categories"):
+        categories = list_categories(db, status_filter=status_filter)
+
+    with timing_span("apps.catalog.build_response_model"):
+        live_count = sum(1 for app in apps if app["launch_status"] == "live")
+        return AppCatalogResponse(
+            apps=apps,
+            categories=categories,
+            counts={
+                "total": len(apps),
+                "live": live_count,
+                "coming_soon": len(apps) - live_count,
+            },
+        )
 
 
 @apps_router.get("/{app_key}", response_model=AppCatalogItemResponse)

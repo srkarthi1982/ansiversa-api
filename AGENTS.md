@@ -861,6 +861,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-01: Added the combined Apps catalog endpoint for `/api/v1/apps/catalog`, returning apps, categories, and launch-status counts from one active catalog dataset while preserving the existing apps and categories endpoints.
 * 2026-07-01: Strengthened the live-promotion rule so Partner/Astra-approved promotion requests must update and re-read the production parent Apps table before live status, counts, catalog sync, or next-app handoff are reported.
 * 2026-07-01: Updated and re-read the production parent Apps row for LinkedIn Bio Optimizer App #031 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 31 live apps and 69 comingSoon apps, and confirmed no Apps version-rule violations.
 * 2026-07-01: Promoted LinkedIn Bio Optimizer App #031 in the tracked catalog export to `active` / `live` / version `1.0.0` after Partner/Astra approval and documented V1 versions as immutable snapshots.
