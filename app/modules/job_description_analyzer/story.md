@@ -30,7 +30,7 @@ Summary responses avoid returning large job description text, analysis bodies, e
 
 ## Current Status
 
-The backend is implemented as an isolated coming-soon mini-app API. The production isolated database migration is complete at revision `20260630_0001`, and the module is ready for manual QA without live promotion.
+The backend V1 foundation is approved live at version `1.0.0`. The parent Apps catalog stores Job Description Analyzer as `active` with `launchStatus = live`.
 
 ## Known Limitations
 
