@@ -1,1 +1,225 @@
-{"hero":{"kicker":"Utility · Ansiversa mini app","title":"Price Checker","description":"Compare product prices through a clear, focused review.","points":["Product-price comparison","Clear price review","Focused comparison"],"primaryAction":{"label":"Explore Price Checker","path":"/price-checker"}},"flow":{"kicker":"Comparison flow","title":"Find → Compare → Review","steps":["Identify the product","Compare the available prices","Review the comparison"]},"stats":[{"label":"Subject","value":"Product"},{"label":"Comparison","value":"Prices"},{"label":"Review","value":"Clear"}],"timeline":null,"differences":{"title":"Make product-price differences easier to review","description":"Price Checker focuses on comparing product prices clearly.","items":[{"kicker":"Pillar 01","title":"Product focus","description":"Begin with the product whose price needs comparison."},{"kicker":"Pillar 02","title":"Price comparison","description":"Place available product prices together."},{"kicker":"Pillar 03","title":"Clear review","description":"Review the price differences."}]},"feel":{"kicker":"How it feels","title":"A clearer view of product prices","description":"The workflow keeps the product and its price comparison connected.","items":[{"title":"Identify the product","description":"Start with the item to compare."},{"title":"Compare the prices","description":"Review available product prices together."},{"title":"Review the differences","description":"See the comparison clearly."}]},"audiences":{"title":"Who uses Price Checker","description":"Useful for people comparing product prices.","items":[{"title":"Shoppers","description":"Compare prices before choosing a product."},{"title":"Households","description":"Review product-price differences for planned purchases."},{"title":"Everyday users","description":"Check prices through a focused comparison."}]},"resourceSection":{"title":"Price-comparison essentials","description":"Keep product identification, prices, and review connected.","items":[{"title":"Product","description":"Identify the item to compare."},{"title":"Prices","description":"Place available product prices together."},{"title":"Comparison review","description":"Review the price differences."}]},"groupedSection":{"title":"Compare product prices clearly","description":"Move from product identification toward a focused price review.","groups":[{"kicker":"Find","title":"Set the product focus","items":[{"name":"Product","description":"Identify the item to compare."},{"name":"Prices","description":"Gather the available product prices."}]},{"kicker":"Compare","title":"Review the differences","items":[{"name":"Comparison","description":"Place the prices together."},{"name":"Review","description":"Check the differences clearly."}]}]},"technicalSection":{"title":"Designed for product-price comparison","description":"Price Checker follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Product and price-comparison-ready flow.","Responsive presentation across devices."]},"finalCta":{"title":"Explore clear product-price comparison","description":"Visit Price Checker to review its planned comparison experience.","action":{"label":"Explore Price Checker","path":"/price-checker"}}}
+{
+  "hero": {
+    "kicker": "Utilities / Ansiversa mini app",
+    "title": "Price Checker",
+    "description": "Compare and organize product prices manually with browser-local analysis history.",
+    "points": [
+      "Manual price comparisons",
+      "Local analysis history",
+      "No shopping APIs"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/price-checker/analyze"
+    }
+  },
+  "features": {
+    "title": "A clean manual workspace for price comparisons",
+    "description": "Price Checker V1 keeps price decisions private, lightweight, and dependency-free.",
+    "items": [
+      {
+        "title": "Capture the product",
+        "description": "Record product name, store, category, current price, optional previous price, and notes."
+      },
+      {
+        "title": "Compare savings",
+        "description": "Calculate estimated savings when a previous price is available."
+      },
+      {
+        "title": "Manage locally",
+        "description": "Search, filter, edit, duplicate, delete, and clear browser-local analyses."
+      }
+    ]
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Analyze -> Save -> Review",
+    "steps": [
+      "Create a manual price analysis from the Analyze page.",
+      "Save the comparison as browser-local metadata.",
+      "Search and filter saved analyses.",
+      "Review local insights for prices, stores, and savings."
+    ]
+  },
+  "stats": [
+    {
+      "label": "Runtime",
+      "value": "Browser"
+    },
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "Live pricing",
+      "value": "None"
+    }
+  ],
+  "timeline": null,
+  "benefits": {
+    "title": "Make purchase decisions without hidden integrations",
+    "description": "V1 supports simple manual comparison instead of live shopping APIs, scraping, or alerts.",
+    "items": [
+      {
+        "title": "Privacy-first",
+        "description": "Shopping comparisons stay in the current browser."
+      },
+      {
+        "title": "Dependency-free",
+        "description": "No shopping API, browser extension, scraping system, or notification service is required."
+      },
+      {
+        "title": "Easy review",
+        "description": "Saved analyses can be searched, filtered, edited, duplicated, or removed."
+      }
+    ]
+  },
+  "differences": {
+    "title": "Manual comparison instead of price automation",
+    "description": "Price Checker is intentionally honest about V1: it organizes user-entered prices and does not claim live market accuracy.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Enter",
+        "description": "Users manually capture product and store details."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Compare",
+        "description": "The app calculates local savings signals from entered prices."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "History and insights help users revisit local comparisons."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A tidy notebook for prices",
+    "description": "The app keeps price entries structured without turning into a shopping crawler or alert engine.",
+    "items": [
+      {
+        "title": "Fast entry",
+        "description": "A shared drawer keeps creation focused."
+      },
+      {
+        "title": "Clear savings",
+        "description": "Inline feedback shows whether current price is lower than previous price."
+      },
+      {
+        "title": "Organized history",
+        "description": "Filters and search make local comparisons easy to revisit."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Price Checker",
+    "description": "Useful for people making manual purchase comparisons without sharing shopping history.",
+    "items": [
+      {
+        "title": "Shoppers",
+        "description": "Compare prices before choosing where to buy."
+      },
+      {
+        "title": "Households",
+        "description": "Track planned purchase options across stores."
+      },
+      {
+        "title": "Budget-conscious users",
+        "description": "Estimate savings from manually entered previous prices."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Price Checker essentials",
+    "description": "A focused V1 for manual browser-local price review.",
+    "items": [
+      {
+        "title": "Analyze",
+        "description": "Create a product price comparison."
+      },
+      {
+        "title": "Analyses",
+        "description": "Search, filter, edit, duplicate, delete, or clear saved comparisons."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total products, average price, highest and lowest prices, estimated savings, and most-used store."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Compare prices without backend shopping history",
+    "description": "Move from manual entry to local review and simple insights.",
+    "groups": [
+      {
+        "kicker": "Capture",
+        "title": "Create the comparison",
+        "items": [
+          {
+            "name": "Product",
+            "description": "Name the product and category."
+          },
+          {
+            "name": "Store",
+            "description": "Record where the price was found."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Understand the price",
+        "items": [
+          {
+            "name": "Savings",
+            "description": "Compare current price against optional previous price."
+          },
+          {
+            "name": "Insights",
+            "description": "Summarize local product and store patterns."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local V1 implementation",
+    "description": "Price Checker follows the shared Ansiversa mini-app architecture while avoiding live shopping integrations.",
+    "items": [
+      "Lazy-loaded frontend module with shared overview, authenticated page state, page header, form drawer, empty state, inline feedback, record action, and stats components.",
+      "Versioned localStorage key: ansiversa.price-checker.analyses.v1.",
+      "No shopping API, scraping, backend runtime, price alerts, browser extension, notification service, background job, heavy chart library, or new dependency."
+    ]
+  },
+  "faq": {
+    "title": "Price Checker FAQ",
+    "items": [
+      {
+        "question": "Does Price Checker fetch live prices?",
+        "answer": "No. V1 is manual and browser-local. Users enter prices themselves."
+      },
+      {
+        "question": "Does it scrape shopping websites?",
+        "answer": "No. V1 does not scrape websites or use browser extensions."
+      },
+      {
+        "question": "What is saved?",
+        "answer": "Only product comparison metadata: product, store, category, prices, notes, and timestamps."
+      },
+      {
+        "question": "Does it send alerts?",
+        "answer": "No. Price alerts and notifications are outside the V1 scope."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Explore manual browser-local price comparison",
+    "description": "Create a price analysis, compare savings, and keep useful purchase notes in this browser.",
+    "action": {
+      "label": "Explore",
+      "path": "/price-checker/analyze"
+    }
+  }
+}

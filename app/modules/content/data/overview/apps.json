@@ -1349,16 +1349,16 @@
 			"categoryId": "cat_utility",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "price-checker.ansiversa.com",
+			"websiteUrl": "https://ansiversa.com/price-checker",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:42",
+			"updatedAt": "2026-07-02 13:30:00",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "price-checker",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_project-tracker",
