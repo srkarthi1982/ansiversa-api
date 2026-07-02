@@ -9,7 +9,7 @@
       "No backend clipboard sync"
     ],
     "primaryAction": {
-      "label": "Open Workspace",
+      "label": "Explore",
       "path": "/clipboard-manager/workspace"
     }
   },
@@ -232,7 +232,7 @@
     "title": "Open Clipboard Manager",
     "description": "Save text locally and keep useful snippets ready to copy back.",
     "action": {
-      "label": "Open Workspace",
+      "label": "Explore",
       "path": "/clipboard-manager/workspace"
     }
   }

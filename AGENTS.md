@@ -876,6 +876,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Updated Clipboard Manager App #044 live overview metadata so primary and final CTA buttons use `Explore`, then synced `overview:clipboard-manager` to production while keeping `/clipboard-manager/workspace` routing and local-only V1 behavior unchanged.
+
 * 2026-07-02: Promoted Clipboard Manager App #044 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 44 live / 56 comingSoon, with no backend clipboard-content persistence added.
 
 * 2026-07-02: Synced Clipboard Manager App #044 overview metadata to the frontend-local V1 workflow with CTA routing to `/clipboard-manager/workspace`, local-only privacy messaging, FAQ content, and no backend clipboard-content persistence or live promotion.
