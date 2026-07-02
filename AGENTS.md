@@ -924,6 +924,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Updated API Tester App #047 overview metadata for the browser-local request testing Workflow Ready V1 and added backend story documentation; no backend proxy, server-side execution route, request-content storage, app runtime database, or live promotion was added.
+
 * 2026-07-02: Promoted Voice Converter App #046 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 46 live / 54 comingSoon, with no backend text storage, audio persistence, cloud TTS integration, or app runtime database added.
 
 * 2026-07-02: Added the permanent Mini App Catalog Identity Rule so Apps catalog name, key, slug, logo key, category, and route identity remain the source of truth before development or promotion, preventing stale aliases such as File Compressor or Text-to-Speech Converter from creating contract drift.

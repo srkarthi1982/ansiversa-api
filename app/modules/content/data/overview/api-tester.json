@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Utility · Ansiversa mini app","title":"API Tester","description":"Test APIs with saved environments through a focused request workflow.","points":["API testing","Saved environments","Response review"],"primaryAction":{"label":"Explore API Tester","path":"/api-tester"}},"flow":{"kicker":"Testing flow","title":"Configure → Send → Review","steps":["Configure the API request","Use the relevant saved environment","Send and review the response"]},"stats":[{"label":"Focus","value":"APIs"},{"label":"Context","value":"Environments"},{"label":"Result","value":"Response"}],"timeline":null,"differences":{"title":"Keep API requests and environments connected","description":"API Tester focuses on testing APIs with reusable saved environments.","items":[{"kicker":"Pillar 01","title":"Request setup","description":"Configure the API request to test."},{"kicker":"Pillar 02","title":"Saved environments","description":"Use saved environment context during testing."},{"kicker":"Pillar 03","title":"Response review","description":"Review the result returned by the API."}]},"feel":{"kicker":"How it feels","title":"A focused path from request to response","description":"The workflow keeps API requests, saved environments, and responses connected.","items":[{"title":"Configure the request","description":"Set up the API request to test."},{"title":"Choose the environment","description":"Use the relevant saved environment."},{"title":"Review the response","description":"Inspect the result of the test."}]},"audiences":{"title":"Who uses API Tester","description":"Useful for people who need to test APIs across saved environments.","items":[{"title":"Developers","description":"Test API requests and review responses."},{"title":"Technical teams","description":"Reuse saved environments during API testing."},{"title":"Learners","description":"Practice the request-and-response testing flow."}]},"resourceSection":{"title":"API-testing essentials","description":"Keep requests, saved environments, and response review connected.","items":[{"title":"API request","description":"Configure what needs testing."},{"title":"Saved environment","description":"Use the relevant testing context."},{"title":"Response","description":"Review the returned result."}]},"groupedSection":{"title":"Test an API request","description":"Use a direct request-to-response workflow.","groups":[{"kicker":"Prepare","title":"Configure the test","items":[{"name":"Request","description":"Set up the API request."},{"name":"Environment","description":"Choose the relevant saved context."}]},{"kicker":"Test","title":"Send and review","items":[{"name":"API","description":"Send the configured request."},{"name":"Response","description":"Review the returned result."}]}]},"technicalSection":{"title":"Designed for API testing with saved environments","description":"API Tester follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Request, saved-environment, and response-review-ready flow.","Responsive presentation across devices."]},"finalCta":{"title":"Explore focused API testing","description":"Visit API Tester to review its planned request-testing experience.","action":{"label":"Explore API Tester","path":"/api-tester"}}}
+{
+  "hero": {
+    "kicker": "Utility / Ansiversa mini app",
+    "title": "API Tester",
+    "description": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+    "points": [
+      "Browser-local requests",
+      "Explicit fetch runs",
+      "Local run history"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/api-tester/workspace"
+    }
+  },
+  "flow": {
+    "kicker": "Local testing flow",
+    "title": "Create -> Run -> Review",
+    "steps": [
+      "Create a local request with method, URL, headers, and body.",
+      "Run the request explicitly from the browser when CORS allows.",
+      "Review local response status, timing, preview, and run history."
+    ]
+  },
+  "stats": [
+    {
+      "label": "Runtime",
+      "value": "Browser"
+    },
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "Proxy",
+      "value": "None"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A private V1 for quick API checks",
+    "description": "API Tester keeps sensitive testing details in the user's browser while still supporting practical request and response review.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Saved requests",
+        "description": "Store reusable request metadata locally for quick reruns."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Explicit execution",
+        "description": "Browser fetch only runs after the user chooses to run a saved request."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "CORS-aware feedback",
+        "description": "When a target API blocks browser calls, the app explains the limitation instead of routing data through a backend proxy."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Fast enough for everyday endpoint checks",
+    "description": "The workflow keeps request setup, local collections, run history, and stats close together.",
+    "items": [
+      {
+        "title": "Create in a drawer",
+        "description": "Add or edit request details without leaving the current workflow."
+      },
+      {
+        "title": "Rerun from collections",
+        "description": "Search saved requests and launch a browser run with one explicit action."
+      },
+      {
+        "title": "Review locally",
+        "description": "Keep status, duration, and response previews in browser storage only."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses API Tester",
+    "description": "Useful for builders who need quick browser-based endpoint checks without introducing backend storage.",
+    "items": [
+      {
+        "title": "Developers",
+        "description": "Save common requests and rerun endpoints during implementation."
+      },
+      {
+        "title": "Technical teams",
+        "description": "Validate browser-accessible APIs while keeping sensitive request data local."
+      },
+      {
+        "title": "Learners",
+        "description": "Practice request and response concepts in a simple local workflow."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "API testing essentials",
+    "description": "A compact local workflow for request setup, execution, and review.",
+    "items": [
+      {
+        "title": "Request",
+        "description": "Method, URL, headers, and body saved in browser storage."
+      },
+      {
+        "title": "Run",
+        "description": "Explicit browser fetch execution when the target API allows cross-origin calls."
+      },
+      {
+        "title": "History",
+        "description": "Status, timing, and previews stored locally for later review."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Build a local API testing routine",
+    "description": "Move from setup to collections to history without leaving the mini app.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Create and save",
+        "items": [
+          {
+            "name": "Workspace",
+            "description": "Create requests through the shared form drawer."
+          },
+          {
+            "name": "Collections",
+            "description": "Search, edit, rerun, delete, or clear saved requests."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Inspect local activity",
+        "items": [
+          {
+            "name": "History",
+            "description": "Review local runs, status codes, durations, and error notes."
+          },
+          {
+            "name": "Insights",
+            "description": "Track saved requests, run totals, success/error counts, average time, and most-used method."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local by design",
+    "description": "API Tester follows the shared Ansiversa mini-app architecture while avoiding backend request execution in V1.",
+    "items": [
+      "Lazy-loaded frontend module with shared overview, page header, form drawer, empty state, feedback, and stats components.",
+      "Versioned localStorage keys: ansiversa.api-tester.requests.v1 and ansiversa.api-tester.runs.v1.",
+      "No backend proxy, cloud sync, API token storage service, heavy editor library, or server-side execution runtime."
+    ]
+  },
+  "finalCta": {
+    "title": "Explore browser-local API testing",
+    "description": "Create a saved request, run it explicitly from the browser, and review the local result.",
+    "action": {
+      "label": "Explore",
+      "path": "/api-tester/workspace"
+    }
+  }
+}
