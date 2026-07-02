@@ -30,7 +30,7 @@ V1 avoids heavy API testing libraries, Monaco, CodeMirror, backend upload/storag
 
 ## Current Status
 
-Workflow Ready. App #047 remains `comingSoon` and awaits Astra/Partner review before production promotion.
+Approved Live. App #047 is promoted to `active` / `live` with version `1.0.0` after Astra/Partner approval, production Apps row promotion, overview metadata sync, tracked catalog export update, validation, route/sidebar verification, and local-only persistence review.
 
 ## Known Limitations
 
