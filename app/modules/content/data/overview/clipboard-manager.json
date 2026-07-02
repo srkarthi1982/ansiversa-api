@@ -1,1 +1,239 @@
-{"hero":{"kicker":"Utility · Ansiversa mini app","title":"Clipboard Manager","description":"View your clipboard history in a clear, focused list.","points":["Clipboard history","Past copied items","Focused review"],"primaryAction":{"label":"Explore Clipboard Manager","path":"/clipboard-manager"}},"flow":{"kicker":"History flow","title":"Copy → View → Revisit","steps":["Copy useful content","View the clipboard history","Revisit a past item"]},"stats":[{"label":"Content","value":"Clipboard items"},{"label":"View","value":"History"},{"label":"Review","value":"Focused"}],"timeline":null,"differences":{"title":"Keep past clipboard items visible","description":"Clipboard Manager focuses on viewing clipboard history clearly.","items":[{"kicker":"Pillar 01","title":"Clipboard items","description":"Keep copied content represented in the history."},{"kicker":"Pillar 02","title":"History view","description":"Review past clipboard items together."},{"kicker":"Pillar 03","title":"Item revisit","description":"Return to a previously copied item."}]},"feel":{"kicker":"How it feels","title":"A clearer view of copied content","description":"The workflow keeps clipboard history and past items connected.","items":[{"title":"Copy useful content","description":"Use the clipboard during everyday work."},{"title":"View the history","description":"See past copied items together."},{"title":"Revisit an item","description":"Return to useful clipboard content."}]},"audiences":{"title":"Who uses Clipboard Manager","description":"Useful for people who need to view clipboard history.","items":[{"title":"Professionals","description":"Revisit copied content during work."},{"title":"Developers","description":"View past clipboard items while coding."},{"title":"Everyday users","description":"Return to content copied earlier."}]},"resourceSection":{"title":"Clipboard-history essentials","description":"Keep copied items, history, and review connected.","items":[{"title":"Clipboard items","description":"Represent copied content in the history."},{"title":"History view","description":"See past clipboard items together."},{"title":"Item review","description":"Revisit useful copied content."}]},"groupedSection":{"title":"View clipboard history","description":"Move from copied content toward a focused history review.","groups":[{"kicker":"Capture","title":"Build the history","items":[{"name":"Copy","description":"Copy useful content."},{"name":"History","description":"Keep past clipboard items visible."}]},{"kicker":"Review","title":"Revisit copied items","items":[{"name":"View","description":"Review clipboard history."},{"name":"Item","description":"Return to useful content."}]}]},"technicalSection":{"title":"Designed for clipboard-history review","description":"Clipboard Manager follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Clipboard-item and history-ready review structure.","Responsive presentation across devices."]},"finalCta":{"title":"Explore clipboard-history review","description":"Visit Clipboard Manager to review its planned history experience.","action":{"label":"Explore Clipboard Manager","path":"/clipboard-manager"}}}
+{
+  "hero": {
+    "kicker": "Utility - Ansiversa mini app",
+    "title": "Clipboard Manager",
+    "description": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+    "points": [
+      "Browser-local history",
+      "Manual paste fallback",
+      "No backend clipboard sync"
+    ],
+    "primaryAction": {
+      "label": "Open Workspace",
+      "path": "/clipboard-manager/workspace"
+    }
+  },
+  "features": {
+    "title": "A private place for reusable copied text",
+    "description": "Clipboard Manager keeps V1 focused on explicit user actions and local browser storage.",
+    "items": [
+      {
+        "title": "Save text entries",
+        "description": "Paste or type text manually, add an optional label, and save it locally."
+      },
+      {
+        "title": "Search history",
+        "description": "Filter saved entries by label or content without sending clipboard text to the API."
+      },
+      {
+        "title": "Copy when needed",
+        "description": "Copy a saved entry back to the clipboard from Workspace or History."
+      }
+    ]
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Paste -> Save -> Reuse",
+    "steps": [
+      "Open the workspace",
+      "Paste or manually type clipboard text",
+      "Save the entry locally",
+      "Search history and copy entries back"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "Entry type",
+      "value": "Text"
+    },
+    {
+      "label": "Access",
+      "value": "Protected"
+    }
+  ],
+  "timeline": null,
+  "benefits": {
+    "title": "Keep small text fragments easy to revisit",
+    "description": "V1 helps users manage copied text without background monitoring, uploads, or backend persistence.",
+    "items": [
+      {
+        "title": "Privacy-first",
+        "description": "Clipboard contents remain in the current browser's local storage."
+      },
+      {
+        "title": "Explicit control",
+        "description": "The app reads clipboard text only after the user chooses Paste from clipboard."
+      },
+      {
+        "title": "Fast retrieval",
+        "description": "Search and copy useful entries instead of hunting through scattered notes."
+      }
+    ]
+  },
+  "differences": {
+    "title": "Designed for controlled clipboard history",
+    "description": "Clipboard Manager avoids background capture and focuses on intentional saves.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Capture",
+        "description": "Add clipboard text manually or through an explicit paste action."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Review",
+        "description": "Search saved entries and inspect local-only history."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Reuse",
+        "description": "Copy saved text back to the clipboard when needed."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Quiet, direct, and under user control",
+    "description": "The V1 experience keeps clipboard management simple while respecting sensitive copied text.",
+    "items": [
+      {
+        "title": "No background monitoring",
+        "description": "Entries are saved only when the user submits them."
+      },
+      {
+        "title": "Clear history",
+        "description": "Saved text is listed with dates, labels, search, and delete controls."
+      },
+      {
+        "title": "Useful insights",
+        "description": "Local stats summarize total entries, recent saves, longest entry, and copy activity."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Useful for repeated text",
+    "description": "Clipboard Manager is best for short-lived text snippets users want to revisit locally.",
+    "items": [
+      {
+        "title": "Work notes",
+        "description": "Hold temporary commands, references, or response drafts."
+      },
+      {
+        "title": "Developer snippets",
+        "description": "Keep local commands or small code fragments handy while working."
+      },
+      {
+        "title": "Everyday text",
+        "description": "Save addresses, IDs, or phrases temporarily without backend sync."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Clipboard Manager",
+    "description": "Helpful for people who copy reusable text and want a local history without cloud storage.",
+    "items": [
+      {
+        "title": "Professionals",
+        "description": "Revisit copied text during focused work sessions."
+      },
+      {
+        "title": "Developers",
+        "description": "Keep commands, config values, and draft snippets nearby."
+      },
+      {
+        "title": "Privacy-conscious users",
+        "description": "Use browser-local storage for sensitive clipboard workflows."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Clipboard Manager essentials",
+    "description": "The V1 workflow is intentionally small and local-first.",
+    "items": [
+      {
+        "title": "Workspace",
+        "description": "Add and save text entries with optional labels."
+      },
+      {
+        "title": "History",
+        "description": "Search, copy, delete, and clear local entries."
+      },
+      {
+        "title": "Insights",
+        "description": "View total entries, recent saves, longest entry, and copy activity."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A local-only text history flow",
+    "description": "Move from explicit capture to searchable reuse without backend clipboard storage.",
+    "groups": [
+      {
+        "kicker": "Capture",
+        "title": "Save intentionally",
+        "items": [
+          {
+            "name": "Manual paste",
+            "description": "Type or paste text into the workspace."
+          },
+          {
+            "name": "Explicit read",
+            "description": "Use Paste from clipboard only when browser permission allows it."
+          }
+        ]
+      },
+      {
+        "kicker": "Reuse",
+        "title": "Find and copy",
+        "items": [
+          {
+            "name": "Search",
+            "description": "Filter local entries by label or content."
+          },
+          {
+            "name": "Copy",
+            "description": "Copy saved text back into the system clipboard."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Local-first V1 implementation",
+    "description": "Clipboard Manager follows the shared Ansiversa mini-app architecture while keeping clipboard contents out of backend persistence.",
+    "items": [
+      "Protected lazy-loaded React module under /clipboard-manager.",
+      "Zustand app-local state with browser localStorage persistence.",
+      "No backend clipboard-content API calls, sync, uploads, or background monitoring."
+    ]
+  },
+  "faq": {
+    "title": "Clipboard Manager FAQ",
+    "items": [
+      {
+        "question": "Does Clipboard Manager sync clipboard text to Ansiversa servers?",
+        "answer": "No. V1 stores saved entries only in the current browser's local storage."
+      },
+      {
+        "question": "Does it read my clipboard automatically?",
+        "answer": "No. Clipboard text is read only after the user chooses Paste from clipboard, and manual paste remains available."
+      },
+      {
+        "question": "Can I remove saved entries?",
+        "answer": "Yes. History supports deleting individual entries and clearing all local entries."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Open Clipboard Manager",
+    "description": "Save text locally and keep useful snippets ready to copy back.",
+    "action": {
+      "label": "Open Workspace",
+      "path": "/clipboard-manager/workspace"
+    }
+  }
+}
