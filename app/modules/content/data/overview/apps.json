@@ -1052,13 +1052,13 @@
 			"websiteUrl": "https://ansiversa.com/grammar-and-paraphrasing-assistant",
 			"adminUrl": null,
 			"createdAt": "2026-06-19 11:49:45",
-			"updatedAt": "2026-06-19 11:49:45",
+			"updatedAt": "2026-07-02 04:00:31",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "grammar-and-paraphrasing-assistant",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_creative-title-generator",

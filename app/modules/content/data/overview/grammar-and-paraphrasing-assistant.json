@@ -1,1 +1,179 @@
-{"hero":{"kicker":"Content & AI Writing · Ansiversa mini app","title":"Grammar and Paraphrasing Assistant","description":"Grammar and Paraphrasing Assistant for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/grammar-and-paraphrasing-assistant"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Grammar and Paraphrasing Assistant","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Content & AI Writing"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Grammar and Paraphrasing Assistant focused and easy to revisit","description":"Grammar and Paraphrasing Assistant provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Grammar and Paraphrasing Assistant overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Grammar and Paraphrasing Assistant","description":"Grammar and Paraphrasing Assistant is useful for people who need a dedicated content & ai writing workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Grammar and Paraphrasing Assistant essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /grammar-and-paraphrasing-assistant."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /grammar-and-paraphrasing-assistant."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Grammar and Paraphrasing Assistant follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Grammar and Paraphrasing Assistant","description":"Explore Grammar and Paraphrasing Assistant from its active Ansiversa route.","action":{"label":"Explore","path":"/grammar-and-paraphrasing-assistant"}}}
+{
+  "hero": {
+    "kicker": "Content & AI Writing · Ansiversa mini app",
+    "title": "Grammar and Paraphrasing Assistant",
+    "description": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+    "points": [
+      "Editable text projects",
+      "Corrected and paraphrased output",
+      "Result history with scores"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/grammar-and-paraphrasing-assistant/projects"
+    }
+  },
+  "flow": {
+    "kicker": "Writing workflow",
+    "title": "Projects → Editor → Results → History",
+    "steps": [
+      "Create a project with the original text and language.",
+      "Run the editor action for grammar correction, paraphrasing, or both.",
+      "Compare original, corrected, and paraphrased text with placeholder scores.",
+      "Revisit generated result history when the text needs more review."
+    ],
+    "metrics": [
+      {
+        "label": "V1 engine",
+        "value": "Lightweight"
+      },
+      {
+        "label": "Access",
+        "value": "Protected"
+      }
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Content & AI Writing"
+    },
+    {
+      "label": "Records",
+      "value": "Projects"
+    },
+    {
+      "label": "Output",
+      "value": "Corrections"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A calm editing workspace for reusable text",
+    "description": "Grammar and Paraphrasing Assistant separates source projects, generated results, and job history so users can improve text without losing the original.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Project source",
+        "description": "Each project preserves the original text, language, and editable status."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Generated output",
+        "description": "Results keep corrected and paraphrased text behind detail views while lists stay lightweight."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review trail",
+        "description": "History records show completed generation jobs without introducing provider complexity in V1."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Focused, practical, and easy to revisit",
+    "description": "The app is designed for quick writing cleanup without rich-text editor overhead or heavy dependencies.",
+    "items": [
+      {
+        "title": "Start with plain text",
+        "description": "Paste or draft the text once and keep it as an editable project."
+      },
+      {
+        "title": "Choose the direction",
+        "description": "Run correction, paraphrasing, or both with a simple tone setting."
+      },
+      {
+        "title": "Review side by side",
+        "description": "Compare original, corrected, and paraphrased versions before deciding what to use."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Grammar and Paraphrasing Assistant",
+    "description": "Useful for people who write short-to-medium text and need a structured place to improve it.",
+    "items": [
+      {
+        "title": "Students",
+        "description": "Clean up assignment drafts, notes, and study explanations."
+      },
+      {
+        "title": "Professionals",
+        "description": "Improve emails, updates, and internal communication."
+      },
+      {
+        "title": "Creators",
+        "description": "Paraphrase captions, summaries, and article snippets into a clearer tone."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "V1 workspace essentials",
+    "description": "The first version keeps the foundation complete and intentionally lightweight.",
+    "items": [
+      {
+        "title": "Projects",
+        "description": "Create, update, and delete long-lived writing records."
+      },
+      {
+        "title": "Results",
+        "description": "Store generated corrected and paraphrased output with readability scores."
+      },
+      {
+        "title": "History",
+        "description": "Track completed placeholder jobs and generation actions."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Common questions",
+    "description": "The V1 scope is intentionally clear before AI provider integration is reviewed.",
+    "groups": [
+      {
+        "kicker": "Scope",
+        "title": "What V1 does",
+        "items": [
+          {
+            "name": "Does it save projects?",
+            "description": "Yes. Projects are authenticated, owner-scoped records."
+          },
+          {
+            "name": "Does it generate AI text?",
+            "description": "No. V1 uses lightweight placeholder generation until provider integration is approved."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "How output is handled",
+        "items": [
+          {
+            "name": "Are full text bodies sent in lists?",
+            "description": "No. Lists use previews and detail endpoints load full text only when needed."
+          },
+          {
+            "name": "Can projects be edited?",
+            "description": "Yes. Project updates keep create-only parent data out of update payloads."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built on the standard mini-app contract",
+    "description": "Grammar and Paraphrasing Assistant follows the Ansiversa backend-first workflow-ready architecture.",
+    "items": [
+      "Owner-scoped API mounted at /api/v1/grammar-and-paraphrasing-assistant.",
+      "Dedicated database with GrammarProjects, GrammarResults, and GrammarJobs.",
+      "Lightweight dashboard/list responses and detail endpoints for full text.",
+      "Protected workflow routes under /grammar-and-paraphrasing-assistant/projects, editor, results, and history."
+    ]
+  },
+  "finalCta": {
+    "title": "Open the writing workspace",
+    "description": "Create a text project and start the V1 grammar and paraphrasing workflow.",
+    "action": {
+      "label": "Explore",
+      "path": "/grammar-and-paraphrasing-assistant/projects"
+    }
+  }
+}

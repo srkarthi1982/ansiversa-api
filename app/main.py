@@ -33,6 +33,7 @@ from app.modules.dashboard.routes import (
 from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
+from app.modules.grammar_and_paraphrasing_assistant.routes import router as grammar_and_paraphrasing_assistant_router
 from app.modules.health.routes import router as health_router
 from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.interview_scheduler.routes import router as interview_scheduler_router
@@ -320,6 +321,11 @@ def register_routes(app: FastAPI) -> None:
         ai_translator_and_tone_fixer_router,
         prefix=f"{settings.API_V1_PREFIX}/ai-translator-and-tone-fixer",
         tags=["AI Translator and Tone Fixer"],
+    )
+    app.include_router(
+        grammar_and_paraphrasing_assistant_router,
+        prefix=f"{settings.API_V1_PREFIX}/grammar-and-paraphrasing-assistant",
+        tags=["Grammar and Paraphrasing Assistant"],
     )
     app.include_router(
         content_router, 

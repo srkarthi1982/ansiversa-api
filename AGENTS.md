@@ -876,6 +876,10 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Promoted Grammar and Paraphrasing Assistant App #042 to approved live version `1.0.0` after Partner/Astra approval, production App #042 database migration to revision `20260702_0001`, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 42 live / 58 comingSoon.
+
+* 2026-07-02: Added Grammar and Paraphrasing Assistant App #042 backend foundation with isolated database configuration, `GrammarProjects`, `GrammarResults`, and `GrammarJobs` models/migration, owner-scoped protected APIs, placeholder V1 generation service, overview metadata sync, and backend story documentation; no live promotion was run.
+
 * 2026-07-02: Added protected `/api/v1/dashboard/summary` for the platform dashboard, returning only total/live/comingSoon/category/progress counts from the parent Apps and Categories tables so dashboard clients do not reuse the heavier Apps catalog payload.
 
 * 2026-07-01: Updated and re-read the production parent Apps row for AI Translator and Tone Fixer App #041 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 41 live apps and 59 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
