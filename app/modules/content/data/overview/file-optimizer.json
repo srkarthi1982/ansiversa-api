@@ -1,1 +1,239 @@
-{"hero":{"kicker":"Utilities & Productivity · Ansiversa mini app","title":"File Optimizer","description":"File Optimizer for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/file-optimizer"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open File Optimizer","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Productivity"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep File Optimizer focused and easy to revisit","description":"File Optimizer provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The File Optimizer overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses File Optimizer","description":"File Optimizer is useful for people who need a dedicated utilities & productivity workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"File Optimizer essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /file-optimizer."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /file-optimizer."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"File Optimizer follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open File Optimizer","description":"Explore File Optimizer from its active Ansiversa route.","action":{"label":"Explore","path":"/file-optimizer"}}}
+{
+  "hero": {
+    "kicker": "Utility - Ansiversa mini app",
+    "title": "File Optimizer",
+    "description": "Estimate file compression locally from file metadata without uploading private files.",
+    "points": [
+      "Metadata-only file picker",
+      "Simulated compression profiles",
+      "Browser-local history"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/file-optimizer/compressor"
+    }
+  },
+  "features": {
+    "title": "A private workspace for file optimization estimates",
+    "description": "File Optimizer V1 focuses on explicit user actions, local metadata, and clear savings estimates.",
+    "items": [
+      {
+        "title": "Add file metadata",
+        "description": "Use the file picker or enter name, type, and size manually."
+      },
+      {
+        "title": "Choose a profile",
+        "description": "Compare Standard, High, and Archive-ready simulated compression outcomes."
+      },
+      {
+        "title": "Save local records",
+        "description": "Keep metadata-only optimization history in the current browser."
+      }
+    ]
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Select -> Estimate -> Review",
+    "steps": [
+      "Open the compressor",
+      "Choose a file or enter metadata manually",
+      "Select a compression profile",
+      "Save the estimated result locally"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "File data",
+      "value": "Metadata"
+    },
+    {
+      "label": "Access",
+      "value": "Protected"
+    }
+  ],
+  "timeline": null,
+  "benefits": {
+    "title": "Understand likely savings before changing files",
+    "description": "V1 gives users a controlled estimate without file uploads, binary storage, or backend processing.",
+    "items": [
+      {
+        "title": "Privacy-first",
+        "description": "File contents are not uploaded, synced, or stored."
+      },
+      {
+        "title": "Fast estimates",
+        "description": "Profile-based calculations show estimated compressed size and savings immediately."
+      },
+      {
+        "title": "Simple history",
+        "description": "Search, delete, and clear browser-local optimization records."
+      }
+    ]
+  },
+  "differences": {
+    "title": "Designed for safe local exploration",
+    "description": "File Optimizer avoids server-side compression in V1 and keeps the workflow transparent.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Select",
+        "description": "Choose a file only after an explicit user action."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Estimate",
+        "description": "Generate a simulated compressed size from profile and metadata."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "Use History and Insights to inspect local optimization records."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Controlled, local, and low-risk",
+    "description": "The workflow keeps private files under user control while still providing useful estimates.",
+    "items": [
+      {
+        "title": "No background processing",
+        "description": "The app works only when the user chooses a file or saves metadata."
+      },
+      {
+        "title": "Clear results",
+        "description": "Each record shows original size, estimated size, profile, and savings percent."
+      },
+      {
+        "title": "Easy cleanup",
+        "description": "Users can delete records one by one or clear all local records."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Useful before sharing or archiving files",
+    "description": "File Optimizer is best for quick local estimates when users want to understand likely file savings.",
+    "items": [
+      {
+        "title": "Presentation prep",
+        "description": "Estimate whether a presentation might benefit from compression before sending."
+      },
+      {
+        "title": "Archive planning",
+        "description": "Compare local savings estimates for files intended for storage."
+      },
+      {
+        "title": "File review",
+        "description": "Keep a lightweight record of which files were evaluated."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses File Optimizer",
+    "description": "Helpful for people who need quick file-size decisions without uploading files.",
+    "items": [
+      {
+        "title": "Professionals",
+        "description": "Estimate savings for files before sharing with colleagues or clients."
+      },
+      {
+        "title": "Students",
+        "description": "Review assignment or presentation sizes before submission."
+      },
+      {
+        "title": "Privacy-conscious users",
+        "description": "Avoid uploading files just to understand likely compression savings."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "File Optimizer essentials",
+    "description": "The V1 workflow is intentionally small and local-first.",
+    "items": [
+      {
+        "title": "Compressor",
+        "description": "Add metadata and generate a simulated compression result."
+      },
+      {
+        "title": "History",
+        "description": "Search, delete, and clear local records."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total files, original size, estimated savings, average savings, and recent activity."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Estimate compression without backend storage",
+    "description": "Move from explicit file selection to local-only review.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Add safe metadata",
+        "items": [
+          {
+            "name": "File picker",
+            "description": "Fill name, size, and type from an explicit file selection."
+          },
+          {
+            "name": "Manual entry",
+            "description": "Type metadata when a picker is not needed."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Inspect estimates",
+        "items": [
+          {
+            "name": "Profiles",
+            "description": "Choose Standard, High, or Archive-ready."
+          },
+          {
+            "name": "History",
+            "description": "Keep metadata-only records in localStorage."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local V1 implementation",
+    "description": "File Optimizer follows the shared Ansiversa mini-app architecture while avoiding backend file persistence.",
+    "items": [
+      "Protected lazy-loaded React module under /file-optimizer.",
+      "Zustand app-local state with browser localStorage persistence.",
+      "No file uploads, binary localStorage, server-side compression, or background file processing."
+    ]
+  },
+  "faq": {
+    "title": "File Optimizer FAQ",
+    "items": [
+      {
+        "question": "Does File Optimizer upload my file?",
+        "answer": "No. V1 uses browser-local metadata only and does not upload file contents."
+      },
+      {
+        "question": "Does it create a real compressed file?",
+        "answer": "No. V1 generates simulated compression estimates only."
+      },
+      {
+        "question": "What is stored locally?",
+        "answer": "Only file name, type, original size, estimated compressed size, savings percent, profile, and creation time are stored in the current browser."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Open File Optimizer",
+    "description": "Estimate file savings locally without uploading private files.",
+    "action": {
+      "label": "Explore",
+      "path": "/file-optimizer/compressor"
+    }
+  }
+}

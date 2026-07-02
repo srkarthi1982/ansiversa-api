@@ -652,13 +652,13 @@
 			"websiteUrl": "https://ansiversa.com/file-optimizer",
 			"adminUrl": null,
 			"createdAt": "2026-06-19 11:49:45",
-			"updatedAt": "2026-06-19 11:49:45",
+			"updatedAt": "2026-07-02 07:12:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "file-optimizer",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_first-aid-guide",
@@ -1441,6 +1441,26 @@
 			"version": "1.0.0"
 		},
 		{
+			"id": "app_quiz",
+			"key": "quiz",
+			"slug": "quiz",
+			"name": "Quiz",
+			"description": "Create, organize, and share quizzes easily.",
+			"categoryId": "cat_learning",
+			"status": "active",
+			"isFeatured": 1,
+			"websiteUrl": "https://quiz.ansiversa.com/",
+			"adminUrl": "https://quiz.ansiversa.com/admin",
+			"createdAt": "2025-12-25 17:07:19",
+			"updatedAt": "2026-06-19 11:49:42",
+			"capabilities": "[\"public\",\"admin\",\"bookmarks\"]",
+			"launchStatus": "live",
+			"visibility": "public",
+			"pricingGate": "free",
+			"logoKey": "quiz",
+			"version": "1.0.0"
+		},
+		{
 			"id": "app_rent-a-car",
 			"key": "rent-a-car",
 			"slug": "rent-a-car",
@@ -1979,26 +1999,6 @@
 			"pricingGate": "free",
 			"logoKey": "work-log-tracker",
 			"version": null
-		},
-		{
-			"id": "app_quiz",
-			"key": "quiz",
-			"slug": "quiz",
-			"name": "Quiz",
-			"description": "Create, organize, and share quizzes easily.",
-			"categoryId": "cat_learning",
-			"status": "active",
-			"isFeatured": 1,
-			"websiteUrl": "https://quiz.ansiversa.com/",
-			"adminUrl": "https://quiz.ansiversa.com/admin",
-			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:42",
-			"capabilities": "[\"public\",\"admin\",\"bookmarks\"]",
-			"launchStatus": "live",
-			"visibility": "public",
-			"pricingGate": "free",
-			"logoKey": "quiz",
-			"version": "1.0.0"
 		}
 	]
 }
