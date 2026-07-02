@@ -876,6 +876,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Added protected `/api/v1/dashboard/summary` for the platform dashboard, returning only total/live/comingSoon/category/progress counts from the parent Apps and Categories tables so dashboard clients do not reuse the heavier Apps catalog payload.
+
 * 2026-07-01: Updated and re-read the production parent Apps row for AI Translator and Tone Fixer App #041 from `active` / `comingSoon` / `version = NULL` to `active` / `live` / `version = 1.0.0`, verified 41 live apps and 59 comingSoon apps, confirmed no Apps version-rule violations, synced the tracked catalog export, and updated story metadata after Partner/Astra approval.
 
 * 2026-07-01: Migrated and verified the production AI Translator and Tone Fixer Turso database at revision `20260701_0001`, confirming `TranslationProjects`, `Translations`, `TranslationTemplates`, `TranslationHistory`, required indexes, and CRUD create/update/delete cleanup behavior; kept the app `active` / `comingSoon` / `version = NULL` with no live promotion.

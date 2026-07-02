@@ -13,16 +13,19 @@ from app.modules.dashboard.schemas import (
     DashboardAppResponse,
     DashboardItemResponse,
     DashboardSummaryResponse,
+    PlatformDashboardSummaryResponse,
     RecentAppResponse,
 )
 from app.modules.dashboard.service import (
     count_unread_notifications,
     count_user_favorites,
+    get_platform_dashboard_summary,
     list_user_dashboard_items,
     parse_summary_json,
 )
 
 router = APIRouter()
+summary_router = APIRouter()
 
 
 def _serialize_dashboard_entry(item: Dashboard) -> tuple[DashboardItemResponse, RecentAppResponse] | None:
@@ -74,3 +77,12 @@ def read_dashboard(
             recent_apps=[entry[1] for entry in serialized_entries],
             dashboard_items=[entry[0] for entry in serialized_entries],
         )
+
+
+@summary_router.get("/summary", response_model=PlatformDashboardSummaryResponse)
+def read_platform_dashboard_summary(
+    _current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> PlatformDashboardSummaryResponse:
+    with timing_span("dashboard.summary.get_platform_summary"):
+        return get_platform_dashboard_summary(db)

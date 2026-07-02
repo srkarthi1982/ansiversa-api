@@ -53,3 +53,11 @@ class DashboardSummaryResponse(BaseModel):
     dashboard_items: list[DashboardItemResponse] = Field(
         serialization_alias="dashboardItems",
     )
+
+
+class PlatformDashboardSummaryResponse(BaseModel):
+    total_apps: int = Field(serialization_alias="totalApps")
+    live_apps: int = Field(serialization_alias="liveApps")
+    coming_soon_apps: int = Field(serialization_alias="comingSoonApps")
+    categories: int
+    progress_percent: int = Field(serialization_alias="progressPercent")

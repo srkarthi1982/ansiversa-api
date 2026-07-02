@@ -26,7 +26,10 @@ from app.modules.client_feedback_analyzer.routes import router as client_feedbac
 from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.contract_generator.routes import router as contract_generator_router
 from app.modules.course_tracker.routes import router as course_tracker_router
-from app.modules.dashboard.routes import router as dashboard_router
+from app.modules.dashboard.routes import (
+    router as dashboard_router,
+    summary_router as dashboard_summary_router,
+)
 from app.modules.dictionary_plus.routes import router as dictionary_plus_router
 from app.modules.faqs.routes import router as faqs_router
 from app.modules.favorites.routes import router as favorites_router
@@ -141,6 +144,11 @@ def register_routes(app: FastAPI) -> None:
     app.include_router(
         dashboard_router,
         prefix=f"{settings.API_V1_PREFIX}/me",
+        tags=["Dashboard"],
+    )
+    app.include_router(
+        dashboard_summary_router,
+        prefix=f"{settings.API_V1_PREFIX}/dashboard",
         tags=["Dashboard"],
     )
     app.include_router(
