@@ -389,6 +389,54 @@ supported by the update schema and service.
 The parent Alembic history includes a merge revision for the metadata and user
 settings branches. Preserve that merged migration history.
 
+## Mini App Catalog Identity Rule
+
+The Apps catalog is the single source of truth for every mini-app identity.
+
+These fields must always come from the Apps catalog and nowhere else:
+
+* App name
+* Key
+* Slug
+* Logo key
+* Category
+* Route identity
+
+Never invent, rename, or substitute app names during development.
+
+Examples:
+
+```text
+Incorrect: File Compressor
+Correct: File Optimizer
+
+Incorrect: Text-to-Speech Converter
+Correct: Voice Converter
+```
+
+If a task handoff, readiness report, capability matrix, AGENTS log, story,
+overview, metadata file, route, or production record uses a different app name,
+key, slug, logo key, category, or route identity than the Apps catalog, treat it
+as documentation drift.
+
+Required action before development:
+
+1. Stop implementation.
+2. Verify the Apps catalog.
+3. Use the catalog identity.
+4. Correct every stale active-repository reference.
+5. Continue development only after the repo uses one consistent identity.
+
+There must never be two active names referring to the same application anywhere
+in the repository. For every mini app there must be exactly one name, slug, and
+key across documentation, readiness reports, capability matrices, stories,
+overview metadata, routes, task logs, catalog exports, database rows, and
+production metadata.
+
+Before promotion, any discovered identity mismatch must be fixed in
+documentation and metadata. The Apps catalog is the authority. Never allow
+contract drift.
+
 ---
 
 ## Environment and Secrets
@@ -876,6 +924,12 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Promoted Voice Converter App #046 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 46 live / 54 comingSoon, with no backend text storage, audio persistence, cloud TTS integration, or app runtime database added.
+
+* 2026-07-02: Added the permanent Mini App Catalog Identity Rule so Apps catalog name, key, slug, logo key, category, and route identity remain the source of truth before development or promotion, preventing stale aliases such as File Compressor or Text-to-Speech Converter from creating contract drift.
+
+* 2026-07-02: Updated Voice Converter App #046 overview metadata for the browser-native text-to-speech Workflow Ready V1 and added backend story documentation; no backend text storage, audio persistence, cloud TTS integration, database runtime, or live promotion was added.
+
 * 2026-07-02: Promoted File Optimizer App #045 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 45 live / 55 comingSoon, with no backend file upload, compression runtime, or file-content persistence added.
 
 * 2026-07-02: Updated File Optimizer App #045 overview metadata for the frontend-local V1 metadata-only compression estimate workflow and added backend story documentation; no backend file upload, compression runtime, database persistence, or live promotion was added.
@@ -1076,7 +1130,7 @@ Next milestone:
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Mood Journal, Meditation Script Maker, Sleep Routine Designer, Affirmation Generator, and Shopping List AI.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Markdown Editor, Browser PDF Reader, Clipboard Translator, Wellness and Goal Planner, and Fitness Tracker.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Screenshot Editor, Color Palette Generator, Password Generator, API Tester, and JSON Formatter.
-* 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for QR Code Creator, Clipboard Manager, File Optimizer, Text-to-Speech Converter, and Speech-to-Text Converter.
+* 2026-06-13: Added status-aware, catalog-aligned overview metadata seed files for QR Code Creator, Clipboard Manager, File Optimizer, and Voice Converter.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Snippet Generator, File Converter, Image Background Remover, Unit and Currency Converter, and Price Checker.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for Fanfic Generator, Email Newsletter Writer, AI Translator and Tone Fixer, Rephrase and Paraphraser, and Grammar Fixer using the catalog's exact `grammer-fixer` slug.
 * 2026-06-13: Added five status-aware, catalog-aligned overview metadata seed files for AI Meme Creator, Prompt Builder, Speech Writer, Novel Outliner, and Comic Storyboarder.

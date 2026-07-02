@@ -1,1 +1,239 @@
-{"hero":{"kicker":"Utilities & Productivity · Ansiversa mini app","title":"Voice Converter","description":"Voice Converter for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/voice-converter"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Voice Converter","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Productivity"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Voice Converter focused and easy to revisit","description":"Voice Converter provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Voice Converter overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Voice Converter","description":"Voice Converter is useful for people who need a dedicated utilities & productivity workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Voice Converter essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /voice-converter."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /voice-converter."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Voice Converter follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Voice Converter","description":"Explore Voice Converter from its active Ansiversa route.","action":{"label":"Explore","path":"/voice-converter"}}}
+{
+  "hero": {
+    "kicker": "Utility - Ansiversa mini app",
+    "title": "Voice Converter",
+    "description": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+    "points": [
+      "Native Speech Synthesis",
+      "Browser-local sessions",
+      "No cloud TTS providers"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/voice-converter/workspace"
+    }
+  },
+  "features": {
+    "title": "A private workspace for speech previews",
+    "description": "Voice Converter V1 focuses on explicit user action, local session history, and browser-native speech playback.",
+    "items": [
+      {
+        "title": "Enter text",
+        "description": "Paste or type text in a shared drawer before previewing speech."
+      },
+      {
+        "title": "Tune playback",
+        "description": "Choose an available browser voice and adjust rate, pitch, and volume."
+      },
+      {
+        "title": "Save sessions locally",
+        "description": "Keep speech session records in the current browser for replay and review."
+      }
+    ]
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Write -> Preview -> Review",
+    "steps": [
+      "Open the voice workspace",
+      "Enter or paste text after an explicit user action",
+      "Select a browser voice and playback settings",
+      "Preview speech and save the session locally"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "Speech",
+      "value": "Browser"
+    },
+    {
+      "label": "Access",
+      "value": "Protected"
+    }
+  ],
+  "timeline": null,
+  "benefits": {
+    "title": "Preview speech without external services",
+    "description": "V1 gives users useful text-to-speech behavior while keeping text and audio processing inside the browser.",
+    "items": [
+      {
+        "title": "Privacy-first",
+        "description": "Text is not uploaded, synced, or stored in backend services."
+      },
+      {
+        "title": "Lightweight",
+        "description": "The app uses the native Speech Synthesis API instead of adding audio libraries or AI SDKs."
+      },
+      {
+        "title": "Easy review",
+        "description": "History and Insights summarize saved sessions, character counts, voices, and recent activity."
+      }
+    ]
+  },
+  "differences": {
+    "title": "Designed for browser-local voice previews",
+    "description": "Voice Converter avoids cloud TTS integrations in V1 and keeps every playback action user-triggered.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Write",
+        "description": "Add text manually in the protected workspace."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Preview",
+        "description": "Use browser speech synthesis to hear the selected voice and settings."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "Search, replay, delete, clear, and inspect local session stats."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Immediate, local, and controlled",
+    "description": "The workflow keeps speech conversion simple while making privacy boundaries visible.",
+    "items": [
+      {
+        "title": "No background reading",
+        "description": "The app speaks only after the user previews or replays a saved session."
+      },
+      {
+        "title": "Clear settings",
+        "description": "Each saved session keeps the voice, language, rate, pitch, volume, and character count."
+      },
+      {
+        "title": "Graceful fallback",
+        "description": "Browsers without Speech Synthesis can still save and review local sessions."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Useful for quick speech checks",
+    "description": "Voice Converter is best for local previews when users want to hear text aloud without creating audio files.",
+    "items": [
+      {
+        "title": "Writing review",
+        "description": "Listen to drafted text to catch rhythm, length, or wording issues."
+      },
+      {
+        "title": "Accessibility checks",
+        "description": "Preview how text sounds with available browser voices."
+      },
+      {
+        "title": "Practice scripts",
+        "description": "Replay short scripts or notes while keeping sessions local."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Voice Converter",
+    "description": "Helpful for people who need lightweight speech playback inside the browser.",
+    "items": [
+      {
+        "title": "Writers",
+        "description": "Hear text aloud while revising drafts."
+      },
+      {
+        "title": "Students",
+        "description": "Replay study notes or short scripts in available browser voices."
+      },
+      {
+        "title": "Privacy-conscious users",
+        "description": "Avoid cloud speech providers for simple text-to-speech previews."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Voice Converter essentials",
+    "description": "The V1 workflow stays small, private, and browser-native.",
+    "items": [
+      {
+        "title": "Workspace",
+        "description": "Add text, choose a voice, tune settings, preview speech, and save sessions."
+      },
+      {
+        "title": "History",
+        "description": "Search, replay, delete, and clear browser-local sessions."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total sessions, total characters, average length, most-used voice, and recent activity."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Convert text to speech without backend storage",
+    "description": "Move from manual text entry to local playback and review.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Set up speech",
+        "items": [
+          {
+            "name": "Manual text",
+            "description": "Paste or type text only after opening the workspace drawer."
+          },
+          {
+            "name": "Voice controls",
+            "description": "Pick an available voice and set rate, pitch, and volume."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Manage local sessions",
+        "items": [
+          {
+            "name": "Replay",
+            "description": "Use Speech Synthesis again for saved sessions."
+          },
+          {
+            "name": "Cleanup",
+            "description": "Delete individual sessions or clear all local history."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local V1 implementation",
+    "description": "Voice Converter follows the shared Ansiversa mini-app architecture while avoiding backend speech persistence.",
+    "items": [
+      "Protected lazy-loaded React module under /voice-converter.",
+      "Zustand app-local state with browser localStorage persistence.",
+      "Native Speech Synthesis only; no cloud TTS providers, AI SDKs, audio blobs, downloads, or backend text storage."
+    ]
+  },
+  "faq": {
+    "title": "Voice Converter FAQ",
+    "items": [
+      {
+        "question": "Does Voice Converter upload my text?",
+        "answer": "No. V1 keeps text in the browser and does not send it to backend services."
+      },
+      {
+        "question": "Does it create audio files?",
+        "answer": "No. V1 uses browser speech playback only and does not generate or cache audio blobs."
+      },
+      {
+        "question": "What is stored locally?",
+        "answer": "Saved sessions store title, text, selected voice, language, rate, pitch, volume, character count, and creation time in the current browser."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Open Voice Converter",
+    "description": "Preview speech locally with your browser's built-in voices.",
+    "action": {
+      "label": "Explore",
+      "path": "/voice-converter/workspace"
+    }
+  }
+}
