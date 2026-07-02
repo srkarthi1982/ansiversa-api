@@ -1769,16 +1769,16 @@
 			"categoryId": "cat_utility",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "https://time-zone-scheduler.ansiversa.com/",
-			"adminUrl": "https://time-zone-scheduler.ansiversa.com/admin",
+			"websiteUrl": "https://ansiversa.com/time-zone-scheduler",
+			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:44",
-			"capabilities": "[\"public\",\"admin\",\"bookmarks\",\"dashboard\"]",
-			"launchStatus": "comingSoon",
+			"updatedAt": "2026-07-02 12:45:13",
+			"capabilities": "[]",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "time-zone-scheduler",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_travel-itinerary-builder",

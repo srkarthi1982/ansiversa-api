@@ -924,6 +924,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-02: Promoted Time Zone Scheduler App #048 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 48 live / 52 comingSoon, with no backend scheduling, notifications, invitations, calendar sync, schedule storage, cloud synchronization, or app runtime database added.
+* 2026-07-02: Updated Time Zone Scheduler App #048 overview metadata and backend story documentation for the browser-local Workflow Ready V1 while keeping the app active/comingSoon/version null; no backend scheduling, notifications, invitations, calendar sync, schedule storage, app runtime database, or live promotion was added.
 * 2026-07-02: Promoted API Tester App #047 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 47 live / 53 comingSoon, with no backend proxy, server-side execution route, request-content storage, or app runtime database added.
 * 2026-07-02: Updated API Tester App #047 overview metadata for the browser-local request testing Workflow Ready V1 and added backend story documentation; no backend proxy, server-side execution route, request-content storage, app runtime database, or live promotion was added.
 

@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Productivity · Ansiversa mini app","title":"Time Zone Scheduler","description":"Find practical meeting times across locations without repeated time-zone calculations.","points":["Multi-zone comparison","Clear overlap windows","Meeting-ready planning"],"primaryAction":{"label":"Open Time Zone Scheduler","path":"/time-zone-scheduler"}},"flow":{"kicker":"Scheduling flow","title":"Add → Compare → Choose","steps":["Add participant locations","Compare local times","Choose a practical window"]},"stats":[{"label":"Comparison","value":"Multi-zone"},{"label":"Availability","value":"Visible"},{"label":"Planning","value":"Clear"}],"timeline":null,"differences":{"title":"A clearer way to schedule globally","description":"Make time-zone differences visible before a meeting is proposed.","items":[{"kicker":"Pillar 01","title":"Local-time clarity","description":"See the same meeting window in each participant's time."},{"kicker":"Pillar 02","title":"Overlap awareness","description":"Identify practical hours without manual conversion."},{"kicker":"Pillar 03","title":"Focused decisions","description":"Compare options and choose a respectful time."}]},"feel":{"kicker":"How it feels","title":"Global scheduling without guesswork","description":"A short comparison flow replaces repeated calculations.","items":[{"title":"Add the locations","description":"Start with the places that matter for the meeting."},{"title":"Compare local hours","description":"See how each option affects participants."},{"title":"Choose confidently","description":"Select a clear shared window."}]},"audiences":{"title":"Who uses Time Zone Scheduler","description":"Useful whenever people coordinate across locations.","items":[{"title":"Remote teams","description":"Plan recurring collaboration across regions."},{"title":"Recruiters","description":"Schedule interviews with global candidates."},{"title":"Freelancers","description":"Coordinate calls with international clients."}]},"resourceSection":{"title":"Scheduling essentials","description":"Keep the comparison focused on the information needed to decide.","items":[{"title":"Locations","description":"Represent each participant's local time."},{"title":"Overlap windows","description":"See practical shared working hours."},{"title":"Meeting options","description":"Compare candidate times before confirming."}]},"groupedSection":{"title":"Common scheduling contexts","description":"Use the same clear comparison across different meetings.","groups":[{"kicker":"Work","title":"Team coordination","items":[{"name":"Standups","description":"Find a sustainable recurring window."},{"name":"Project reviews","description":"Coordinate important shared discussions."}]},{"kicker":"External","title":"Client and candidate calls","items":[{"name":"Interviews","description":"Offer respectful options across regions."},{"name":"Client meetings","description":"Make proposed times easy to understand."}]}]},"technicalSection":{"title":"Built for clear coordination","description":"Time Zone Scheduler follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Location and overlap-ready scheduling structure.","Responsive comparison presentation."]},"finalCta":{"title":"Ready to find a better meeting time?","description":"Add the locations and compare practical options.","action":{"label":"Open Time Zone Scheduler","path":"/time-zone-scheduler"}}}
+{
+  "hero": {
+    "kicker": "Utilities / Ansiversa mini app",
+    "title": "Time Zone Scheduler",
+    "description": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+    "points": [
+      "Browser-local schedules",
+      "My Time highlight",
+      "Native time-zone conversion"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/time-zone-scheduler/scheduler"
+    }
+  },
+  "flow": {
+    "kicker": "Scheduling flow",
+    "title": "Create -> Compare -> Save",
+    "steps": [
+      "Create a meeting schedule with a base date, time, and time zone.",
+      "Add participant time zones and choose the zone marked as My Time.",
+      "Compare local times, save the schedule, and review it later."
+    ]
+  },
+  "stats": [
+    {
+      "label": "Runtime",
+      "value": "Browser"
+    },
+    {
+      "label": "Storage",
+      "value": "Local"
+    },
+    {
+      "label": "Backend scheduling",
+      "value": "None"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Fast global planning without server scheduling",
+    "description": "Time Zone Scheduler focuses on local comparison instead of calendar integrations, invitations, or notification services.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Time-zone clarity",
+        "description": "See the same meeting moment in each participant's local time."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "My Time highlight",
+        "description": "Mark the user's primary zone so the comparison is easier to scan."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Local privacy",
+        "description": "Keep saved schedules in browser storage without backend calendar or invitation services."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A compact meeting-time comparison board",
+    "description": "The workflow keeps creation, saved schedules, and local insights close together.",
+    "items": [
+      {
+        "title": "Create in a drawer",
+        "description": "Add the meeting details without leaving the scheduling view."
+      },
+      {
+        "title": "Compare at a glance",
+        "description": "Review participant local dates and times with My Time highlighted."
+      },
+      {
+        "title": "Revisit locally",
+        "description": "Search, edit, duplicate, or delete saved schedules in the browser."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Time Zone Scheduler",
+    "description": "Useful for people coordinating calls across regions without needing a calendar integration.",
+    "items": [
+      {
+        "title": "Remote teams",
+        "description": "Plan collaboration windows across distributed teammates."
+      },
+      {
+        "title": "Recruiters",
+        "description": "Compare interview times for candidates and panels in different regions."
+      },
+      {
+        "title": "Freelancers",
+        "description": "Coordinate client calls while keeping proposed times easy to understand."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Scheduling essentials",
+    "description": "A focused local workflow for meeting-time comparison.",
+    "items": [
+      {
+        "title": "Schedule",
+        "description": "Title, base date, base time, and base time zone."
+      },
+      {
+        "title": "Participants",
+        "description": "Multiple IANA time-zone names included in the comparison."
+      },
+      {
+        "title": "Insights",
+        "description": "Local totals, unique zones, most-used zone, average participants, and recent schedules."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Plan across time zones without extra services",
+    "description": "Move from schedule setup to saved comparisons and local insights.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Build the comparison",
+        "items": [
+          {
+            "name": "Scheduler",
+            "description": "Create schedules through the shared form drawer."
+          },
+          {
+            "name": "My Time",
+            "description": "Highlight one zone as the user's primary reference."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Keep useful schedules",
+        "items": [
+          {
+            "name": "Schedules",
+            "description": "Search, edit, duplicate, delete, or clear saved browser-local schedules."
+          },
+          {
+            "name": "Insights",
+            "description": "Review local scheduling patterns without backend persistence."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local by design",
+    "description": "Time Zone Scheduler follows the shared Ansiversa mini-app architecture while avoiding backend scheduling in V1.",
+    "items": [
+      "Lazy-loaded frontend module with shared overview, authenticated page state, page header, form drawer, empty state, feedback, record action, and stats components.",
+      "Versioned localStorage key: ansiversa.time-zone-scheduler.schedules.v1.",
+      "No calendar SDK, scheduler library, backend scheduling, notifications, invitations, cloud sync, or heavy time-zone dependency."
+    ]
+  },
+  "finalCta": {
+    "title": "Explore browser-local time-zone planning",
+    "description": "Create a schedule, compare participant local times, and keep useful plans in this browser.",
+    "action": {
+      "label": "Explore",
+      "path": "/time-zone-scheduler/scheduler"
+    }
+  }
+}
