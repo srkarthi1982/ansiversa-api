@@ -26,6 +26,7 @@ from app.modules.client_feedback_analyzer.routes import router as client_feedbac
 from app.modules.concept_explainer.routes import router as concept_explainer_router
 from app.modules.contract_generator.routes import router as contract_generator_router
 from app.modules.course_tracker.routes import router as course_tracker_router
+from app.modules.creative_title_generator.routes import router as creative_title_generator_router
 from app.modules.dashboard.routes import (
     router as dashboard_router,
     summary_router as dashboard_summary_router,
@@ -326,6 +327,11 @@ def register_routes(app: FastAPI) -> None:
         grammar_and_paraphrasing_assistant_router,
         prefix=f"{settings.API_V1_PREFIX}/grammar-and-paraphrasing-assistant",
         tags=["Grammar and Paraphrasing Assistant"],
+    )
+    app.include_router(
+        creative_title_generator_router,
+        prefix=f"{settings.API_V1_PREFIX}/creative-title-generator",
+        tags=["Creative Title Generator"],
     )
     app.include_router(
         content_router, 

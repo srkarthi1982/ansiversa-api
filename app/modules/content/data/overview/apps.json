@@ -1072,13 +1072,13 @@
 			"websiteUrl": "https://ansiversa.com/creative-title-generator",
 			"adminUrl": null,
 			"createdAt": "2026-06-19 11:49:45",
-			"updatedAt": "2026-06-19 11:49:45",
+			"updatedAt": "2026-07-02 04:53:04",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "creative-title-generator",
-			"version": null
+			"version": "1.0.0"
 		},
 		{
 			"id": "app_file-optimizer",

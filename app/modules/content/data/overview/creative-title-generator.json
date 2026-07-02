@@ -1,1 +1,168 @@
-{"hero":{"kicker":"Content & AI Writing · Ansiversa mini app","title":"Creative Title Generator","description":"Creative Title Generator for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/creative-title-generator"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Creative Title Generator","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Content & AI Writing"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Creative Title Generator focused and easy to revisit","description":"Creative Title Generator provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Creative Title Generator overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Creative Title Generator","description":"Creative Title Generator is useful for people who need a dedicated content & ai writing workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Creative Title Generator essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /creative-title-generator."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /creative-title-generator."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Creative Title Generator follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Creative Title Generator","description":"Explore Creative Title Generator from its active Ansiversa route.","action":{"label":"Explore","path":"/creative-title-generator"}}}
+{
+  "hero": {
+    "kicker": "Content & AI Writing - Ansiversa mini app",
+    "title": "Creative Title Generator",
+    "description": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+    "points": [
+      "Project-based title briefs",
+      "Multiple generated title options",
+      "Scored V1 placeholder results"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/creative-title-generator/projects"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Brief †’ Generate †’ Review",
+    "steps": [
+      "Create a project with topic, audience, and language",
+      "Choose generation type, style, and optional keywords",
+      "Review generated title options with placeholder scores",
+      "Return through history when a previous generation needs context"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Content & AI Writing"
+    },
+    {
+      "label": "Workflow",
+      "value": "Projects"
+    },
+    {
+      "label": "Access",
+      "value": "Protected"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A small title lab for repeatable writing work",
+    "description": "Creative Title Generator keeps title ideation tied to a saved brief instead of scattering one-off ideas across notes.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Reusable briefs",
+        "description": "Save topic, audience, language, and project status for future generation passes."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Generation modes",
+        "description": "Use lightweight V1 modes for blog, video, product, social, and email titles."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review trail",
+        "description": "Generated titles and jobs stay connected to the project for quick review."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Focused, fast, and easy to revisit",
+    "description": "The V1 experience keeps the interface simple: define the brief, generate a few ideas, compare scores, and move on.",
+    "items": [
+      {
+        "title": "Clear setup",
+        "description": "Projects capture the writing context before generation starts."
+      },
+      {
+        "title": "Compact results",
+        "description": "Generated titles are short, scan-friendly records with category and score."
+      },
+      {
+        "title": "No heavyweight tooling",
+        "description": "The first version avoids AI integrations, editors, and export packages."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Creative Title Generator",
+    "description": "Useful for creators and teams that need repeatable title ideation without opening a full writing suite.",
+    "items": [
+      {
+        "title": "Content creators",
+        "description": "Generate title directions for articles, videos, newsletters, and social posts."
+      },
+      {
+        "title": "Marketing teams",
+        "description": "Save campaign topics and compare title angles for specific audiences."
+      },
+      {
+        "title": "Solo builders",
+        "description": "Quickly create product, feature, and update title options from one brief."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Creative Title Generator essentials",
+    "description": "The V1 foundation focuses on the core project-to-generation loop.",
+    "items": [
+      {
+        "title": "Projects",
+        "description": "Create, edit, and delete title briefs."
+      },
+      {
+        "title": "Generator",
+        "description": "Choose type, style, and keywords before generating title options."
+      },
+      {
+        "title": "Results and history",
+        "description": "Review generated titles and previous jobs."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A workflow built around title briefs",
+    "description": "The app keeps ideation steps separated while preserving the context for each generation.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Define the brief",
+        "items": [
+          {
+            "name": "Topic",
+            "description": "Capture the subject or campaign idea."
+          },
+          {
+            "name": "Audience",
+            "description": "Describe who the title should speak to."
+          }
+        ]
+      },
+      {
+        "kicker": "Generate",
+        "title": "Create and review options",
+        "items": [
+          {
+            "name": "Title options",
+            "description": "Generate several categorized placeholder titles."
+          },
+          {
+            "name": "History",
+            "description": "Keep generation runs easy to revisit."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built on the standard mini-app contract",
+    "description": "Creative Title Generator follows the Ansiversa V1 mini-app architecture.",
+    "items": [
+      "Protected project, generation, result, and history APIs.",
+      "Isolated database with TitleProjects, GeneratedTitles, and TitleJobs.",
+      "Shared React layout, authenticated page state, generated API types, and route-aware navigation."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Creative Title Generator",
+    "description": "Create a title brief and generate your first V1 title options.",
+    "action": {
+      "label": "Explore",
+      "path": "/creative-title-generator/projects"
+    }
+  }
+}
