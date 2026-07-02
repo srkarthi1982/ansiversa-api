@@ -1,1 +1,243 @@
-{"hero":{"kicker":"Utility · Ansiversa mini app","title":"Browser PDF Reader","description":"Open and annotate PDFs through a focused browser-based reading workflow.","points":["PDF reading","Document annotations","Focused review"],"primaryAction":{"label":"Explore Browser PDF Reader","path":"/browser-pdf-reader"}},"flow":{"kicker":"Reading flow","title":"Open → Read → Annotate","steps":["Open the PDF","Read the document","Add annotations"]},"stats":[{"label":"Document","value":"PDF"},{"label":"Activity","value":"Reading"},{"label":"Context","value":"Annotations"}],"timeline":null,"differences":{"title":"Keep PDF reading and annotation connected","description":"Browser PDF Reader focuses on opening, reading, and annotating PDF documents.","items":[{"kicker":"Pillar 01","title":"PDF access","description":"Open the PDF document for reading."},{"kicker":"Pillar 02","title":"Focused reading","description":"Review the document content."},{"kicker":"Pillar 03","title":"Document annotations","description":"Add annotations while reviewing the PDF."}]},"feel":{"kicker":"How it feels","title":"A direct path from PDF to annotated reading","description":"The workflow keeps the document and its annotations connected.","items":[{"title":"Open the PDF","description":"Provide the document to read."},{"title":"Read the content","description":"Review the PDF in the browser."},{"title":"Add annotations","description":"Add context to the document."}]},"audiences":{"title":"Who uses Browser PDF Reader","description":"Useful for people who need to open and annotate PDF documents.","items":[{"title":"Students","description":"Read and annotate study PDFs."},{"title":"Professionals","description":"Review and annotate work documents."},{"title":"Everyday readers","description":"Open PDFs and add useful context."}]},"resourceSection":{"title":"PDF-reading essentials","description":"Keep document access, reading, and annotations connected.","items":[{"title":"PDF document","description":"Open the content to read."},{"title":"Focused reading","description":"Review the document."},{"title":"Annotations","description":"Add context to the PDF."}]},"groupedSection":{"title":"Read and annotate a PDF","description":"Use a direct document-reading workflow.","groups":[{"kicker":"Open","title":"Access the document","items":[{"name":"PDF","description":"Open the document."},{"name":"Reading","description":"Review the content."}]},{"kicker":"Annotate","title":"Add document context","items":[{"name":"Annotations","description":"Add context while reading."},{"name":"Review","description":"Review the annotated document."}]}]},"technicalSection":{"title":"Designed for browser-based PDF reading","description":"Browser PDF Reader follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","PDF-reading and annotation-ready flow.","Responsive presentation across devices."]},"finalCta":{"title":"Explore PDF reading and annotation","description":"Visit Browser PDF Reader to review its planned document experience.","action":{"label":"Explore Browser PDF Reader","path":"/browser-pdf-reader"}}}
+{
+  "hero": {
+    "kicker": "Utilities / Ansiversa mini app",
+    "title": "Browser PDF Reader",
+    "description": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+    "points": [
+      "Local PDF viewing",
+      "Metadata-only sessions",
+      "No backend uploads"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/browser-pdf-reader/workspace"
+    }
+  },
+  "features": {
+    "title": "Private reading for local PDF files",
+    "description": "Browser PDF Reader V1 focuses on explicit file selection, local viewing, and small browser-only reading sessions.",
+    "items": [
+      {
+        "title": "Open local PDFs",
+        "description": "Use the browser file picker to open a PDF from the current device."
+      },
+      {
+        "title": "Track reading position",
+        "description": "Save document name, page count, last viewed page, and zoom level locally."
+      },
+      {
+        "title": "Reopen intentionally",
+        "description": "Return to a saved session by selecting the local PDF again."
+      }
+    ]
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Open -> Read -> Resume",
+    "steps": [
+      "Select a local PDF from the workspace.",
+      "Review page count, navigate pages, and adjust zoom.",
+      "Save a metadata-only reading session in the browser.",
+      "Reopen saved sessions by reselecting the local PDF file."
+    ]
+  },
+  "stats": [
+    {
+      "label": "Runtime",
+      "value": "Browser"
+    },
+    {
+      "label": "Storage",
+      "value": "Metadata"
+    },
+    {
+      "label": "PDF uploads",
+      "value": "None"
+    }
+  ],
+  "timeline": null,
+  "benefits": {
+    "title": "Review documents without giving up file control",
+    "description": "V1 avoids backend storage and cloud synchronization so sensitive PDFs remain on the user's device.",
+    "items": [
+      {
+        "title": "Privacy-first",
+        "description": "PDF binary content is not stored in localStorage and is never sent to Ansiversa servers."
+      },
+      {
+        "title": "Fast resume",
+        "description": "Saved sessions remember where the user stopped reading."
+      },
+      {
+        "title": "Easy cleanup",
+        "description": "Users can delete individual sessions or clear all local reading history."
+      }
+    ]
+  },
+  "differences": {
+    "title": "A reader, not a document cloud",
+    "description": "Browser PDF Reader keeps V1 intentionally narrow: local viewing, metadata history, and local insights.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Open locally",
+        "description": "Files enter the workflow only through an explicit browser file picker action."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Save metadata",
+        "description": "The app stores reading-session fields, not PDF files."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Resume safely",
+        "description": "Reopening asks the user to reselect the same local file instead of syncing documents."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A focused local PDF desk",
+    "description": "The workflow keeps reading controls, saved sessions, and local insights close together.",
+    "items": [
+      {
+        "title": "Choose deliberately",
+        "description": "The file picker is always user initiated."
+      },
+      {
+        "title": "Read without setup",
+        "description": "Native browser PDF support handles the viewing experience."
+      },
+      {
+        "title": "Return with context",
+        "description": "History restores page and zoom after the user reselects the PDF."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Useful for sensitive reading sessions",
+    "description": "Browser PDF Reader is best when users want a quick local reader with lightweight session memory.",
+    "items": [
+      {
+        "title": "Study PDFs",
+        "description": "Resume long readings without uploading class material."
+      },
+      {
+        "title": "Work documents",
+        "description": "Open local briefs, contracts, or reports while keeping files off the backend."
+      },
+      {
+        "title": "Personal records",
+        "description": "Review private documents with metadata-only history."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Browser PDF Reader",
+    "description": "Helpful for people who need local document review without cloud document storage.",
+    "items": [
+      {
+        "title": "Students",
+        "description": "Track reading position across study documents."
+      },
+      {
+        "title": "Professionals",
+        "description": "Review local PDFs without sending files to a server."
+      },
+      {
+        "title": "Privacy-conscious users",
+        "description": "Keep sensitive PDF content on the device."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Browser PDF Reader essentials",
+    "description": "The V1 workflow is intentionally browser-local and metadata-only.",
+    "items": [
+      {
+        "title": "Workspace",
+        "description": "Select a PDF, view it, navigate pages, and set zoom."
+      },
+      {
+        "title": "History",
+        "description": "Search, edit, reopen, delete, or clear local reading sessions."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total documents, pages viewed, average pages, and recent sessions."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Read locally without backend document storage",
+    "description": "Move from explicit file selection to metadata-only session recall.",
+    "groups": [
+      {
+        "kicker": "Read",
+        "title": "Open and navigate",
+        "items": [
+          {
+            "name": "File picker",
+            "description": "Choose a PDF from the current device."
+          },
+          {
+            "name": "Reader controls",
+            "description": "Move between pages and adjust zoom."
+          }
+        ]
+      },
+      {
+        "kicker": "Resume",
+        "title": "Save local context",
+        "items": [
+          {
+            "name": "Sessions",
+            "description": "Store document name, page count, last viewed page, and zoom level."
+          },
+          {
+            "name": "Reselect",
+            "description": "Reopen by choosing the local PDF again."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Browser-local V1 implementation",
+    "description": "Browser PDF Reader follows the shared Ansiversa mini-app architecture while avoiding backend document handling.",
+    "items": [
+      "Lazy-loaded frontend module with shared overview, authenticated page state, page header, form drawer, empty state, feedback, record action, and stats components.",
+      "Versioned localStorage key: ansiversa.browser-pdf-reader.sessions.v1.",
+      "No PDF upload, PDF binary localStorage, OCR, AI analysis, annotation sync, cloud storage, or new PDF SDK dependency."
+    ]
+  },
+  "faq": {
+    "title": "Browser PDF Reader FAQ",
+    "items": [
+      {
+        "question": "Does Browser PDF Reader upload my PDF?",
+        "answer": "No. V1 opens PDFs through the browser and does not upload file content to Ansiversa servers."
+      },
+      {
+        "question": "What is saved locally?",
+        "answer": "Only reading-session metadata: document name, page count, last viewed page, zoom level, and timestamps."
+      },
+      {
+        "question": "Can I reopen a saved session without selecting the file again?",
+        "answer": "No. Because the PDF file is not stored, reopening asks you to select the local PDF again."
+      },
+      {
+        "question": "Does V1 include OCR, AI summaries, or annotations?",
+        "answer": "No. Those are intentionally outside the V1 browser-local scope."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Explore private browser-local PDF reading",
+    "description": "Open a local PDF, save your reading position, and keep the file on your device.",
+    "action": {
+      "label": "Explore",
+      "path": "/browser-pdf-reader/workspace"
+    }
+  }
+}
