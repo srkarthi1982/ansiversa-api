@@ -619,6 +619,39 @@ Minimum sections:
 * Future Enhancements
 * Current Implementation
 
+## Destination Progress Governance
+
+`destination.md` is the source of truth for each product's approved destination
+and Journey Progress.
+
+The Apps table may store destination metadata for portfolio visibility:
+
+```text
+destination_progress
+destination_status
+destination_reviewed_at
+```
+
+`destination_progress` stores the current approved Journey Progress from the
+product's approved `destination.md`. The destination itself is always `100 / 100`
+and must not be stored as a separate target value.
+
+Journey Progress measures product maturity and alignment with the approved
+destination. It does not measure feature count.
+
+Journey Progress may:
+
+* Increase
+* Remain unchanged
+* Decrease
+
+A decrease is valid when a product drifts away from its approved identity,
+trust boundary, privacy boundary, ecosystem boundary, or governance principles.
+
+Destination metadata must only be populated from approved `destination.md`
+documents. Do not estimate, recalculate, or infer Journey Progress from code,
+feature count, roadmap size, or implementation volume.
+
 ## Mini App Versioning
 
 Mini-app version numbers are owned by the parent `Apps` catalog record.
@@ -923,6 +956,8 @@ Next milestone:
 ---
 
 ## Task Log (Recent)
+
+* 2026-07-03: Completed Milestone Review #4 Product Maturity Management by adding destination metadata governance, Apps table destination fields, approved live-app destination progress sync, and minimal public API exposure without starting App #051.
 
 * 2026-07-02: Promoted Price Checker App #050 to approved live version `1.0.0` after Partner/Astra approval, production parent Apps row promotion, overview metadata sync, tracked catalog export update, and production catalog verification at 50 live / 50 comingSoon, with no shopping APIs, scraping, backend runtime storage, price alerts, background jobs, cloud sync, or app runtime database added; App #051 remains unstarted for Milestone Review #3 freeze.
 * 2026-07-02: Updated Price Checker App #050 overview metadata, route-aligned catalog export fields, and backend story documentation for the browser-local Workflow Ready V1 while keeping the app active/comingSoon/version null; no shopping APIs, scraping, backend runtime, price alerts, background jobs, cloud sync, app runtime database, or live promotion was added.

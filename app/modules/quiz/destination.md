@@ -2,7 +2,7 @@
 
 ## Destination Status
 
-Draft v1.0
+Approved v1.0
 
 ## Final Product Vision
 
@@ -198,13 +198,11 @@ maintainable backend ownership should guide every future Quiz decision.
 
 ## Last Governance Review
 
-Product Owner:
-Astra:
-Codex:
+Product Owner: Approved on 2026-07-03. Quiz remains the reference
+implementation for the Destination Framework.
+Astra: Approved on 2026-07-03. Journey Progress 38 / 100 accepted.
+Codex: Drafted destination and identified governance discussion points.
 
 Status:
 
-Draft
-Reviewed
 Approved
-Superseded

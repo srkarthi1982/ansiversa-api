@@ -47,6 +47,8 @@ class AppCatalogItemResponse(BaseModel):
     visibility: str
     pricing_gate: str
     logo_key: str | None
+    destination_progress: int | None = Field(serialization_alias="destinationProgress")
+    destination_status: str | None = Field(serialization_alias="destinationStatus")
 
     model_config = {"from_attributes": True}
 
@@ -60,6 +62,8 @@ class AppCatalogListItemResponse(BaseModel):
     category_id: str
     status: str
     launch_status: str
+    destination_progress: int | None = Field(serialization_alias="destinationProgress")
+    destination_status: str | None = Field(serialization_alias="destinationStatus")
 
 
 class AppCatalogListResponse(BaseModel):

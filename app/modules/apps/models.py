@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import date, datetime
 from uuid import uuid4
 
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text, func
+from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import ParentBase
@@ -129,5 +129,20 @@ class AppCatalogItem(ParentBase):
         nullable=False,
     )
     logo_key: Mapped[str | None] = mapped_column("logoKey", String(120), nullable=True)
+    destination_progress: Mapped[int | None] = mapped_column(
+        "destination_progress",
+        Integer,
+        nullable=True,
+    )
+    destination_status: Mapped[str | None] = mapped_column(
+        "destination_status",
+        Text,
+        nullable=True,
+    )
+    destination_reviewed_at: Mapped[date | None] = mapped_column(
+        "destination_reviewed_at",
+        Date,
+        nullable=True,
+    )
 
     category: Mapped[Category] = relationship(back_populates="apps")

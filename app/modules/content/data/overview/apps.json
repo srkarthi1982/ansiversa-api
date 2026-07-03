@@ -18,7 +18,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "ai-job-interviewer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 60,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_ai-notes-summarizer",
@@ -38,7 +40,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "ai-notes-summarizer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_ai-translator-tone-fixer",
@@ -58,7 +62,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "ai-translator-tone-fixer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 60,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_api-tester",
@@ -78,7 +84,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "api-tester",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 68,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_bill-splitter",
@@ -138,7 +146,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "book-summary-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_browser-pdf-reader",
@@ -158,7 +168,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "browser-pdf-reader",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 72,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_car-pool",
@@ -198,7 +210,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "career-planner",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_client-feedback-analyzer",
@@ -218,7 +232,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "client-feedback-analyzer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 59,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_clipboard-manager",
@@ -238,7 +254,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "clipboard-manager",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 67,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_concept-explainer",
@@ -258,7 +276,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "concept-explainer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 63,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_contract-generator",
@@ -278,7 +298,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "contract-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 60,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_corporate-tax-uae",
@@ -318,7 +340,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "course-tracker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_creative-title-generator",
@@ -338,7 +362,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "creative-title-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_daily-word-challenge",
@@ -358,7 +384,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "daily-word-challenge",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 69,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_decision-maker",
@@ -398,7 +426,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "dictionary-plus",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_digital-document-vault",
@@ -498,7 +528,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "eco-habit-tracker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 69,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_email-assistant",
@@ -518,7 +550,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "email-assistant",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_emergency-checklist",
@@ -658,7 +692,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "file-optimizer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 66,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_first-aid-guide",
@@ -718,7 +754,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "formula-finder",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 74,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_fuel-expense-tracker",
@@ -778,7 +816,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "grammar-and-paraphrasing-assistant",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_health-report-organizer",
@@ -878,7 +918,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "interview-coach",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "57352040-198a-432d-b087-bfa147cd1ffa",
@@ -898,7 +940,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "interview_scheduler",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_invoice-receipt-maker",
@@ -918,7 +962,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "invoice-and-receipt-maker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_job-analyzer",
@@ -938,7 +984,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "job-analyzer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 60,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "3dd3a608-bdc5-4b2d-924f-30674dc66fd9",
@@ -958,7 +1006,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "job_tracker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_json-formatter",
@@ -978,7 +1028,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "json-formatter",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 86,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_language-learning-buddy",
@@ -1038,7 +1090,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "lesson-builder",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 63,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_linkedin-bio-optimizer",
@@ -1058,7 +1112,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "linkedin-bio-optimizer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 63,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_local-services-finder",
@@ -1098,7 +1154,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "markdown-editor",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 79,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_meal-planner",
@@ -1158,7 +1216,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "meeting-minutes-ai",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_meeting-scheduler",
@@ -1198,7 +1258,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "memory-trainer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_mood-journal",
@@ -1218,7 +1280,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "mood-journal",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 70,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_net-worth-tracker",
@@ -1298,7 +1362,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "password-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 84,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_portfolio-creator",
@@ -1318,7 +1384,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "portfolio-creator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_presentation-designer",
@@ -1338,7 +1406,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "presentation-designer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 60,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_price-checker",
@@ -1358,7 +1428,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "price-checker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 76,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_project-tracker",
@@ -1398,7 +1470,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "prompt-builder",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_proposal-writer",
@@ -1418,7 +1492,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "proposal-writer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 63,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_qr-code-creator",
@@ -1438,7 +1514,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "qr-code-creator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 85,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_quiz",
@@ -1458,7 +1536,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "quiz",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 38,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_rent-a-car",
@@ -1498,7 +1578,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "research-assistant",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_resume-builder",
@@ -1518,7 +1600,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "resume-builder",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 66,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_salary-breakdown-calculator",
@@ -1618,7 +1702,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "smart-textbook-scanner",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 59,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_snippet-generator",
@@ -1638,7 +1724,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "snippet-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 63,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_social-caption-generator",
@@ -1658,7 +1746,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "social-caption-generator",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 61,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_speech-writer",
@@ -1678,7 +1768,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "speech-writer",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 62,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_study-planner",
@@ -1698,7 +1790,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "study-planner",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 65,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_subscription-manager",
@@ -1778,7 +1872,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "time-zone-scheduler",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 70,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_travel-itinerary-builder",
@@ -1918,7 +2014,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "visiting-card-maker",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 64,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_voice-converter",
@@ -1938,7 +2036,9 @@
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "voice-converter",
-			"version": "1.0.0"
+			"version": "1.0.0",
+			"destinationProgress": 68,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_water-intake-tracker",
