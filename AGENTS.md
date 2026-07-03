@@ -652,6 +652,47 @@ Destination metadata must only be populated from approved `destination.md`
 documents. Do not estimate, recalculate, or infer Journey Progress from code,
 feature count, roadmap size, or implementation volume.
 
+### Destination Metadata Promotion Rule
+
+Every time a mini-app is promoted to Live, the promotion process must also
+update the parent Apps table destination metadata.
+
+The values must be taken only from the app's approved `destination.md`.
+
+Required updates:
+
+* `destination_progress`
+* `destination_status`
+* `destination_reviewed_at`
+
+Promotion is not complete until destination metadata, Apps API, and `apps.json`
+are synchronized.
+
+### Destination-First Development Rule
+
+Every new Ansiversa mini-app must create `destination.md` during initial app
+development.
+
+The document should be prepared before the app is promoted and should describe
+the intended mature product, not only the initial release.
+
+`story.md` describes the current implementation.
+
+`destination.md` describes the intended mature destination.
+
+Journey Progress begins from the first approved version and is updated as the
+product matures.
+
+### Journey Progress Update Rule
+
+Journey Progress is reviewed whenever an app is promoted or undergoes a major
+governance review.
+
+Journey Progress may increase, remain unchanged, or decrease depending on how
+closely the current product aligns with its approved destination.
+
+Feature count alone must never determine Journey Progress.
+
 ## Mini App Versioning
 
 Mini-app version numbers are owned by the parent `Apps` catalog record.
@@ -956,6 +997,8 @@ Next milestone:
 ---
 
 ## Task Log (Recent)
+
+* 2026-07-03: Added permanent Destination Metadata Promotion, Destination-First Development, and Journey Progress Update rules so App #051 and future apps follow the complete Destination Framework lifecycle.
 
 * 2026-07-03: Completed Milestone Review #4 Product Maturity Management by adding destination metadata governance, Apps table destination fields, approved live-app destination progress sync, and minimal public API exposure without starting App #051.
 
