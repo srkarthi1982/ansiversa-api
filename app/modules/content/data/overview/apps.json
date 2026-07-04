@@ -648,11 +648,13 @@
 			"createdAt": "2025-12-25 17:07:19",
 			"updatedAt": "2026-06-19 11:49:39",
 			"capabilities": "[\"public\",\"expenses\",\"categories\",\"history\",\"insights\"]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "expense-tracker",
-			"version": null
+			"version": "1.0.0",
+			"destinationProgress": 35,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_family-task-planner",

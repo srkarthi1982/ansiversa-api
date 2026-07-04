@@ -1,6 +1,14 @@
 # Expense Tracker Destination
 
-## Destination
+## App Name
+
+Expense Tracker
+
+## Destination Status
+
+Approved v1.0
+
+## Final Product Vision
 
 Expense Tracker should mature into Ansiversa's focused spending record system: a calm place to answer "What did I spend?" without turning into a budget planner.
 
@@ -38,13 +46,18 @@ Capture expenses
 
 ## Journey Progress
 
-Current approved Journey Progress: `35 / 100`
+Current Position: 35 / 100
+Destination: 100 / 100
+Remaining Journey: 65 / 100
 
-## Destination Status
+This estimate describes product maturity, not feature completion. Expense Tracker has a useful DB-backed Workflow Ready V1 with expense CRUD, duplicate, filters, category management, history, insights, indexes, overview routing, and production database migration. The remaining journey includes richer review tools, export/import, optional recurring expense templates, currency-aware reporting if approved, and careful governance to prevent budget-planning drift.
 
-`workflow-ready-v1`
+## Last Governance Review
 
-## Reviewed At
+Product Owner: Approved on 2026-07-04.
+Astra: Approved on 2026-07-04.
+Codex: Implemented DB-backed Workflow Ready V1, completed production database migration, fixed persisted overview CTA metadata, and prepared live promotion metadata.
 
-2026-07-04
+Status:
 
+Approved Live

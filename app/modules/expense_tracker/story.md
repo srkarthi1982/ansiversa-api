@@ -52,7 +52,7 @@ Dashboard data is intentionally small: expenses, categories, recent history, and
 
 ## Current Status
 
-Workflow Ready for App #053 review. The module is not promoted to Live.
+Approved Live. App #053 is promoted to `active` / `live` with version `1.0.0` after Product Owner/Astra approval, production database migration, overview CTA fix, validation, and parent Apps row promotion.
 
 ## Known Limitations
 
@@ -70,4 +70,3 @@ Workflow Ready for App #053 review. The module is not promoted to Live.
 ## Current Implementation
 
 Expense Tracker is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, history preservation, and local dashboard summary calculation.
-
