@@ -294,12 +294,30 @@ def set_auth_cookie(response: Response, token: str) -> None:
         domain=settings.AUTH_COOKIE_DOMAIN,
         path="/",
     )
+    response.set_cookie(
+        key=settings.AUTH_SESSION_HINT_COOKIE_NAME,
+        value="1",
+        max_age=settings.AUTH_COOKIE_MAX_AGE_SECONDS,
+        httponly=False,
+        secure=bool(settings.AUTH_COOKIE_SECURE),
+        samesite=settings.AUTH_COOKIE_SAMESITE or "lax",
+        domain=settings.AUTH_COOKIE_DOMAIN,
+        path="/",
+    )
 
 
 def clear_auth_cookie(response: Response) -> None:
     response.delete_cookie(
         key=settings.AUTH_COOKIE_NAME,
         httponly=True,
+        secure=bool(settings.AUTH_COOKIE_SECURE),
+        samesite=settings.AUTH_COOKIE_SAMESITE or "lax",
+        domain=settings.AUTH_COOKIE_DOMAIN,
+        path="/",
+    )
+    response.delete_cookie(
+        key=settings.AUTH_SESSION_HINT_COOKIE_NAME,
+        httponly=False,
         secure=bool(settings.AUTH_COOKIE_SECURE),
         samesite=settings.AUTH_COOKIE_SAMESITE or "lax",
         domain=settings.AUTH_COOKIE_DOMAIN,

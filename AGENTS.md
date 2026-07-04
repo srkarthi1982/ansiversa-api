@@ -1009,6 +1009,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-04: Added a non-sensitive readable `ansiversa_has_session` auth hint cookie alongside the HttpOnly `ansiversa_session` cookie so browser clients can skip `/api/v1/auth/me` on clear guest loads while clearing both cookies on logout.
 * 2026-07-04: Promoted Task Prioritizer App #052 to approved live version `1.0.0` after Astra/Partner approval, updating and re-reading the production parent Apps row as `active` / `live` / `1.0.0`, syncing destination metadata `45 / 100` approved on `2026-07-04`, updating the tracked catalog export, and verifying 52 live apps / 48 comingSoon apps with no version-rule violations.
 * 2026-07-04: Migrated and verified the production Task Prioritizer App #052 Turso database at revision `20260704_0001`, confirming `TaskPrioritizerTasks`, `TaskPrioritizerTaskPriorities`, `TaskPrioritizerPriorityRules`, `TaskPrioritizerPriorityHistory`, and required query-pattern indexes; kept the parent Apps row unpromoted pending explicit Live approval.
 * 2026-07-04: Implemented Task Prioritizer App #052 backend to Workflow Ready with isolated `TASK_PRIORITIZER_DATABASE_URL`, task/priority/rule/history models, owner-scoped protected APIs, local priority scoring, Alembic migration `20260704_0001`, overview CTA metadata, story/destination documentation, compileall verification, local migration, and no Apps row live promotion.

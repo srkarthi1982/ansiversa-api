@@ -109,6 +109,7 @@ JWT_ALGORITHM
 ACCESS_TOKEN_EXPIRE_MINUTES
 ANSIVERSA_AUTH_SECRET
 AUTH_COOKIE_NAME
+AUTH_SESSION_HINT_COOKIE_NAME
 AUTH_COOKIE_DOMAIN
 AUTH_COOKIE_SECURE
 AUTH_COOKIE_SAMESITE
@@ -123,7 +124,9 @@ verified during login.
 Local development defaults the auth cookie to HttpOnly, `Secure=false`,
 `SameSite=lax`, and no domain. Production defaults to HttpOnly, `Secure=true`,
 `SameSite=none`, and domain `.ansiversa.com`. Explicit auth cookie environment
-values override these defaults.
+values override these defaults. Browser clients also receive a readable
+`ansiversa_has_session=1` hint cookie by default so guest shell loads can avoid
+calling `/api/v1/auth/me`; this hint contains no token or user data.
 
 ## Migrations
 
@@ -286,9 +289,9 @@ GET  /api/v1/auth/me
 Use `/api/v1/auth/login` from Swagger `/docs` to get a bearer token, then use
 Authorize to test protected routes such as `/api/v1/auth/me`.
 Successful login responses also set the API-managed HttpOnly
-`ansiversa_session` cookie for browser clients. Protected endpoints prefer an
-explicit bearer token and otherwise use the auth cookie. Logout clears the
-auth cookie.
+`ansiversa_session` cookie for browser clients plus the readable
+`ansiversa_has_session=1` hint cookie. Protected endpoints prefer an explicit
+bearer token and otherwise use the auth cookie. Logout clears both cookies.
 
 Current scope is aligned to the real parent `web` auth schema. The API uses
 parent-compatible `Users` and `Roles` tables, including `Users.name`,

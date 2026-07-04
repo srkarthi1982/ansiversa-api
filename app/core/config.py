@@ -69,6 +69,7 @@ class Settings(BaseSettings):
     PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = Field(default=60, gt=0)
     ANSIVERSA_AUTH_SECRET: str = "dev-ansiversa-auth-secret"
     AUTH_COOKIE_NAME: str = "ansiversa_session"
+    AUTH_SESSION_HINT_COOKIE_NAME: str = "ansiversa_has_session"
     AUTH_COOKIE_DOMAIN: str | None = None
     AUTH_COOKIE_SECURE: bool | None = None
     AUTH_COOKIE_SAMESITE: Literal["lax", "strict", "none"] | None = None
