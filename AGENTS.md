@@ -998,6 +998,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-04: Corrected Project Tracker to the expected DB-backed Workflow Ready V1 with isolated `PROJECT_TRACKER_DATABASE_URL` runtime, `ProjectTrackerProjects` and `ProjectTrackerTasks` models, protected owner-scoped APIs, Alembic migration `20260704_0001`, overview/story/destination documentation, and preserved canonical roadmap numbering so Project Tracker remains item 49 and Expense Tracker remains item 51; no Apps row live promotion was added.
+
 * 2026-07-03: Added permanent Destination Metadata Promotion, Destination-First Development, and Journey Progress Update rules so App #051 and future apps follow the complete Destination Framework lifecycle.
 
 * 2026-07-03: Completed Milestone Review #4 Product Maturity Management by adding destination metadata governance, Apps table destination fields, approved live-app destination progress sync, and minimal public API exposure without starting App #051.
