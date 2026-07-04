@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Finance · Ansiversa mini app","title":"Expense Tracker","description":"Record everyday spending, organize transactions, and understand where your money goes.","points":["Quick transaction entry","Clear category summaries","Simple spending review"],"primaryAction":{"label":"Explore","path":"/expense-tracker/transactions"}},"flow":{"kicker":"Tracking flow","title":"Record → Organize → Review","steps":["Add an expense","Choose a category","Review the summary"]},"stats":[{"label":"Workflow","value":"Guided"},{"label":"Categories","value":"Flexible"},{"label":"Review","value":"Clear"}],"timeline":null,"differences":{"title":"Calm spending awareness","description":"A focused tracker for useful daily visibility without accounting complexity.","items":[{"kicker":"Pillar 01","title":"Fast capture","description":"Record spending while the details are still fresh."},{"kicker":"Pillar 02","title":"Useful categories","description":"Group transactions in a way that matches your routine."},{"kicker":"Pillar 03","title":"Readable summaries","description":"Review spending patterns without noisy dashboards."}]},"feel":{"kicker":"How it feels","title":"Simple enough for every day","description":"The workflow stays focused on recording and understanding expenses.","items":[{"title":"Capture quickly","description":"Add the amount and essential context in a short flow."},{"title":"Stay organized","description":"Use categories to keep transactions understandable."},{"title":"Review confidently","description":"See a clean summary before planning the next period."}]},"audiences":{"title":"Who uses Expense Tracker","description":"Useful for anyone who wants a clearer view of personal spending.","items":[{"title":"Individuals","description":"Track everyday purchases and recurring costs."},{"title":"Students","description":"Manage a limited budget with clear categories."},{"title":"Households","description":"Review shared spending patterns together."}]},"resourceSection":{"title":"Supports better planning","description":"Keep spending records ready for future planning and review.","items":[{"title":"Transaction history","description":"Keep a readable record of past expenses."},{"title":"Category review","description":"Understand which areas need attention."},{"title":"Period summaries","description":"Compare spending across practical time ranges."}]},"groupedSection":{"title":"Common expense groups","description":"Start with familiar categories and adapt them to your needs.","groups":[{"kicker":"Everyday","title":"Daily spending","items":[{"name":"Food","description":"Meals, groceries, and refreshments."},{"name":"Transport","description":"Commutes, fuel, and local travel."}]},{"kicker":"Planned","title":"Recurring costs","items":[{"name":"Bills","description":"Utilities and regular services."},{"name":"Subscriptions","description":"Digital and membership renewals."}]}]},"technicalSection":{"title":"Built for reusable records","description":"Expense Tracker follows the shared Ansiversa mini-app architecture.","items":["API-driven overview metadata.","Structured transaction and category-ready workflow.","Responsive presentation across devices."]},"finalCta":{"title":"Ready to understand your spending?","description":"Open Expense Tracker and start with your next transaction.","action":{"label":"Explore","path":"/expense-tracker/transactions"}}}
+{
+  "hero": {
+    "kicker": "Finance · Ansiversa mini app",
+    "title": "Expense Tracker",
+    "description": "Record everyday spending, organize expenses, and understand what was spent.",
+    "points": [
+      "Fast expense entry",
+      "Category-based review",
+      "Local spending insights"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/expense-tracker/expenses"
+    }
+  },
+  "flow": {
+    "kicker": "Tracking flow",
+    "title": "Record → Categorize → Review",
+    "steps": [
+      "Create an expense",
+      "Assign a category",
+      "Review history and insights"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Workflow",
+      "value": "Expenses"
+    },
+    {
+      "label": "Categories",
+      "value": "Managed"
+    },
+    {
+      "label": "Insights",
+      "value": "Local"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Focused spending awareness",
+    "description": "A practical tracker for what was spent without expanding into budgeting or forecasting.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Fast capture",
+        "description": "Record amount, date, payment method, merchant, and notes while details are fresh."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Useful categories",
+        "description": "Group expenses in categories that match the user's routine."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Readable summaries",
+        "description": "Review totals, highest expense, recent expenses, and category totals in one place."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Simple enough for every day",
+    "description": "The workflow stays focused on recording and understanding expenses.",
+    "items": [
+      {
+        "title": "Capture quickly",
+        "description": "Add the essential spending details in a short form."
+      },
+      {
+        "title": "Stay organized",
+        "description": "Use categories and filters to keep records readable."
+      },
+      {
+        "title": "Review clearly",
+        "description": "Use history and insights to understand current spending records."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Expense Tracker",
+    "description": "Useful for anyone who wants a clear record of personal or household spending.",
+    "items": [
+      {
+        "title": "Individuals",
+        "description": "Track everyday purchases and recurring costs."
+      },
+      {
+        "title": "Students",
+        "description": "Keep limited spending records organized by category."
+      },
+      {
+        "title": "Households",
+        "description": "Review shared spending patterns through simple records."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Supports better review",
+    "description": "Keep spending records ready for future planning without turning this app into a budget planner.",
+    "items": [
+      {
+        "title": "Expense records",
+        "description": "Create, edit, duplicate, delete, search, and filter expenses."
+      },
+      {
+        "title": "Category management",
+        "description": "Create and maintain categories for recurring spending areas."
+      },
+      {
+        "title": "History and insights",
+        "description": "Review lifecycle events and local summaries from recorded expenses."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Common expense groups",
+    "description": "Start with familiar categories and adapt them to the user's routine.",
+    "groups": [
+      {
+        "kicker": "Everyday",
+        "title": "Daily spending",
+        "items": [
+          {
+            "name": "Food",
+            "description": "Meals, groceries, and refreshments."
+          },
+          {
+            "name": "Transport",
+            "description": "Commutes, fuel, taxis, and local travel."
+          }
+        ]
+      },
+      {
+        "kicker": "Recurring",
+        "title": "Regular costs",
+        "items": [
+          {
+            "name": "Bills",
+            "description": "Utilities and regular services."
+          },
+          {
+            "name": "Subscriptions",
+            "description": "Digital and membership renewals."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for reusable records",
+    "description": "Expense Tracker follows the shared Ansiversa mini-app architecture.",
+    "items": [
+      "Owner-scoped Expense Tracker API and isolated database tables.",
+      "Protected Expenses, Categories, History, and Insights workflow routes.",
+      "Lightweight dashboard responses with detail endpoints for editing."
+    ]
+  },
+  "finalCta": {
+    "title": "Ready to understand your spending?",
+    "description": "Open Expense Tracker and start with the next expense.",
+    "action": {
+      "label": "Explore",
+      "path": "/expense-tracker/expenses"
+    }
+  }
+}

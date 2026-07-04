@@ -62,6 +62,7 @@ class Settings(BaseSettings):
     CREATIVE_TITLE_GENERATOR_DATABASE_URL: str = "sqlite:///./creative_title_generator.db"
     PROJECT_TRACKER_DATABASE_URL: str = "sqlite:///./project_tracker.db"
     TASK_PRIORITIZER_DATABASE_URL: str = "sqlite:///./task_prioritizer.db"
+    EXPENSE_TRACKER_DATABASE_URL: str = "sqlite:///./expense_tracker.db"
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
