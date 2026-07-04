@@ -30,7 +30,7 @@ V1 keeps API payloads small with summary/detail response separation and owner-sc
 
 ## Current Status
 
-Workflow Ready for App #052 review. The app remains `comingSoon` and is not promoted to Live. Local migration, backend compile, generated frontend types, lint, typecheck, and build are part of the current verification package.
+Approved Live at version `1.0.0` after Astra/Partner approval, production Task Prioritizer database migration, parent Apps row promotion, destination metadata sync, overview CTA validation, and Workflow Ready verification. The production isolated database is verified at revision `20260704_0001`.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add rule-management UI, richer scoring explanations, import/
 
 ## Current Implementation
 
-The backend owns the Task Prioritizer database, SQLAlchemy models, Alembic migration, protected API routes, response schemas, and owner-scoped service logic. The module is registered under `/api/v1/task-prioritizer`, and the parent Apps catalog keeps Task Prioritizer as `active` with `launchStatus = comingSoon`.
+The backend owns the Task Prioritizer database, SQLAlchemy models, Alembic migration, protected API routes, response schemas, and owner-scoped service logic. The module is registered under `/api/v1/task-prioritizer`, and the parent Apps catalog keeps Task Prioritizer as `active` with `launchStatus = live` and version `1.0.0`.

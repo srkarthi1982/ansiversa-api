@@ -6,7 +6,7 @@ Task Prioritizer
 
 ## Destination Status
 
-Draft for Workflow Ready review
+Approved v1.0
 
 ## Final Product Vision
 
@@ -128,10 +128,10 @@ Product owner and Astra review are required before accepting, prioritizing, or i
 
 ## Last Governance Review
 
-Product Owner: Pending Workflow Ready review.
-Astra: Pending review.
-Codex: Implemented DB-backed Workflow Ready V1 and prepared review metadata.
+Product Owner: Approved on 2026-07-04.
+Astra: Approved on 2026-07-04.
+Codex: Implemented DB-backed Workflow Ready V1, completed production database migration, and prepared live promotion metadata.
 
 Status:
 
-Workflow Ready, not Live
+Approved Live

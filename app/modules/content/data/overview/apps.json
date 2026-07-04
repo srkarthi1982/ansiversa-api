@@ -1850,11 +1850,13 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "task-prioritizer",
-			"version": null
+			"version": "1.0.0",
+			"destinationProgress": 45,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_time-zone-scheduler",
