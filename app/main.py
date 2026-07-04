@@ -50,6 +50,7 @@ from app.modules.notifications.routes import router as notifications_router
 from app.modules.portfolio_creator.routes import router as portfolio_creator_router
 from app.modules.presentation_designer.routes import router as presentation_designer_router
 from app.modules.project_tracker.routes import router as project_tracker_router
+from app.modules.task_prioritizer.routes import router as task_prioritizer_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -338,6 +339,11 @@ def register_routes(app: FastAPI) -> None:
         project_tracker_router,
         prefix=f"{settings.API_V1_PREFIX}/project-tracker",
         tags=["Project Tracker"],
+    )
+    app.include_router(
+        task_prioritizer_router,
+        prefix=f"{settings.API_V1_PREFIX}/task-prioritizer",
+        tags=["Task Prioritizer"],
     )
     app.include_router(
         content_router, 
