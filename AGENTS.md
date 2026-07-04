@@ -1009,6 +1009,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-04: Promoted Project Tracker to approved live version `1.0.0` as the 51st live developed app with production Apps row promotion, destination metadata `58 / 100` approved on `2026-07-04`, catalog export sync, production API verification, overview CTA validation, and canonical roadmap identity preserved as item 49 while Expense Tracker remains item 51.
 * 2026-07-04: Hardened the overview Explore CTA contract with `validate_overview_ctas`, explicit checklist wording, first-workflow route validation against frontend `APP_MODULE_PAGES`, corrected stale workflow-ready overview metadata, and synced all 100 overview metadata records.
 * 2026-07-04: Corrected Project Tracker to the expected DB-backed Workflow Ready V1 with isolated `PROJECT_TRACKER_DATABASE_URL` runtime, `ProjectTrackerProjects` and `ProjectTrackerTasks` models, protected owner-scoped APIs, Alembic migration `20260704_0001`, overview/story/destination documentation, and preserved canonical roadmap numbering so Project Tracker remains item 49 and Expense Tracker remains item 51; no Apps row live promotion was added.
 

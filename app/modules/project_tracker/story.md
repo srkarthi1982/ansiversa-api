@@ -30,7 +30,7 @@ V1 keeps API payloads small with summary/detail response separation and indexes 
 
 ## Current Status
 
-Workflow ready for Astra review as the next development candidate after 50 live apps. Project Tracker remains `comingSoon` with `version = null`. It may become the 51st developed app, but its canonical roadmap identity remains the Project Tracker catalog item 49, not canonical App #051.
+Approved live at version `1.0.0` after Astra/Partner approval, production Apps row promotion, production API verification, overview CTA validation, delete-confirmation review, and DB-backed workflow verification. Project Tracker is the 51st live developed app, while its canonical roadmap identity remains the Project Tracker catalog item 49, not canonical App #051.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add approved import/export, templates, recurring task helper
 
 ## Current Implementation
 
-The backend owns the Project Tracker database, SQLAlchemy models, Alembic migration, protected API routes, response schemas, and owner-scoped service logic. The module is registered under `/api/v1/project-tracker` and remains separate from catalog promotion.
+The backend owns the Project Tracker database, SQLAlchemy models, Alembic migration, protected API routes, response schemas, and owner-scoped service logic. The module is registered under `/api/v1/project-tracker`, and the parent Apps catalog stores Project Tracker as `active` with `launchStatus = live`.

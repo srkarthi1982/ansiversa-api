@@ -6,7 +6,7 @@ Project Tracker
 
 ## Destination Status
 
-Draft for V1 review
+Approved v1.0
 
 ## Final Product Vision
 
@@ -85,7 +85,7 @@ Users return weekly to review active projects, update task status, check due dat
 - Users can create and update projects quickly.
 - Users can add and manage tasks without heavy workflow overhead.
 - Search, filters, status, priority, due dates, and insights support repeat review.
-- Browser-local V1 privacy is clear and trustworthy.
+- DB-backed V1 privacy and ownership boundaries are clear and trustworthy.
 - The app does not drift into enterprise project management before the destination is reviewed.
 - Any future sync, AI, notification, calendar, or collaboration feature is explicit and governed.
 
@@ -95,11 +95,11 @@ Current Position: 58 / 100
 Destination: 100 / 100
 Remaining Journey: 42 / 100
 
-This estimate describes product maturity, not feature completion. Project Tracker has a useful DB-backed V1 workflow with projects, tasks, edit/delete support, filters, due dates, estimates, and insights. The remaining journey includes import/export, clearer delete confirmation, richer review signals, templates, accessibility polish, optional cross-app handoffs, and careful governance for expanded sync or collaboration.
+This estimate describes product maturity, not feature completion. Project Tracker has a useful DB-backed V1 workflow with projects, tasks, edit/delete support, confirmation dialogs, filters, due dates, estimates, and insights. The remaining journey includes import/export, richer review signals, templates, accessibility polish, optional cross-app handoffs, and careful governance for expanded sync or collaboration.
 
 ## Future Version Ideas
 
-- V1.1: Improve delete confirmation, import/export, and project review copy.
+- V1.1: Improve import/export, project review copy, and due-date review.
 - V1.2: Add local project templates and richer due-date review.
 - V1.3: Add explicit handoff to Task Prioritizer, Markdown Editor, or Meeting Scheduler.
 - V1.4: Add optional recurring task helpers.
@@ -142,10 +142,10 @@ Product owner and Astra review are required before accepting, prioritizing, or i
 
 ## Last Governance Review
 
-Product Owner:
-Astra:
-Codex: Drafted destination and identified governance discussion points.
+Product Owner: Approved Project Tracker promotion.
+Astra: Approved on 2026-07-04. Journey Progress 58 / 100 accepted.
+Codex: Implemented DB-backed V1, verified production API, and prepared promotion metadata.
 
 Status:
 
-Draft
+Approved
