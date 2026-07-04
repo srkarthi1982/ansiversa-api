@@ -15,6 +15,7 @@ from app.core.database import ParentSessionLocal
 from app.modules.content.models import Metadata
 from app.modules.content.schemas import OverviewResponse
 from app.modules.content.service import delete_metadata, get_metadata, upsert_metadata
+from app.modules.content.scripts.validate_overview_ctas import validate_overview_ctas
 
 
 OVERVIEW_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "overview"
@@ -40,6 +41,11 @@ def load_overview(path: Path) -> dict:
 
 
 def sync_overview_metadata() -> int:
+    cta_errors = validate_overview_ctas()
+    if cta_errors:
+        details = "\n".join(f"{error.path}: {error.message}" for error in cta_errors)
+        raise ValueError(f"Overview CTA validation failed:\n{details}")
+
     paths = sorted(
         path
         for path in OVERVIEW_DATA_DIR.rglob("*.json")

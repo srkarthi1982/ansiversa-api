@@ -379,6 +379,17 @@ metadata changes, sync the metadata table and verify the stored
 must enter the first real app workflow page, not route back to the overview
 page itself, unless the mini-app has no workflow page.
 
+The hard validation command is:
+
+```text
+python3 -m app.modules.content.scripts.validate_overview_ctas
+```
+
+The validator must pass before overview metadata sync, new mini-app approval,
+or live promotion. It checks primary/final CTA labels, missing or placeholder
+paths, and first workflow route alignment against the frontend
+`APP_MODULE_PAGES` registry when a workflow route exists.
+
 Mini-app CRUD APIs must support visible frontend edit flows for user-created
 long-lived records before approval. Update schemas must be explicit and
 owner-scoped. Frontend update payloads must be checked against these schemas:
@@ -998,6 +1009,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-04: Hardened the overview Explore CTA contract with `validate_overview_ctas`, explicit checklist wording, first-workflow route validation against frontend `APP_MODULE_PAGES`, corrected stale workflow-ready overview metadata, and synced all 100 overview metadata records.
 * 2026-07-04: Corrected Project Tracker to the expected DB-backed Workflow Ready V1 with isolated `PROJECT_TRACKER_DATABASE_URL` runtime, `ProjectTrackerProjects` and `ProjectTrackerTasks` models, protected owner-scoped APIs, Alembic migration `20260704_0001`, overview/story/destination documentation, and preserved canonical roadmap numbering so Project Tracker remains item 49 and Expense Tracker remains item 51; no Apps row live promotion was added.
 
 * 2026-07-03: Added permanent Destination Metadata Promotion, Destination-First Development, and Journey Progress Update rules so App #051 and future apps follow the complete Destination Framework lifecycle.
