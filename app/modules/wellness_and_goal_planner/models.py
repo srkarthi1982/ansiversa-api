@@ -53,6 +53,7 @@ class WellnessReflection(WellnessAndGoalPlannerBase):
     area_id: Mapped[str | None] = mapped_column("areaId", String(36), ForeignKey("WellnessAreas.id"), index=True, nullable=True)
     goal_id: Mapped[str | None] = mapped_column("goalId", String(36), ForeignKey("WellnessGoals.id"), index=True, nullable=True)
     reflection_date: Mapped[str] = mapped_column("entryDate", String(40), nullable=False)
+    reflection_text: Mapped[str | None] = mapped_column("reflection", Text, nullable=True)
     mood: Mapped[str] = mapped_column(String(40), default="steady", server_default="steady", nullable=False)
     energy_level: Mapped[int | None] = mapped_column("energyLevel", Integer, nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)

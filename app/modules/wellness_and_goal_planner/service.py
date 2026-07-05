@@ -129,7 +129,7 @@ def _goal_detail_response(goal: WellnessGoal) -> WellnessGoalDetailResponse:
 
 
 def _reflection_summary_response(reflection: WellnessReflection) -> WellnessReflectionSummaryResponse:
-    reflection_text = reflection.notes or ""
+    reflection_text = reflection.reflection_text or reflection.notes or ""
     return WellnessReflectionSummaryResponse(
         id=reflection.id,
         goal_id=reflection.goal_id,
@@ -137,7 +137,7 @@ def _reflection_summary_response(reflection: WellnessReflection) -> WellnessRefl
         reflection_date=reflection.reflection_date,
         reflection_preview=_required_preview(reflection_text),
         mood=reflection.mood,
-        notes_preview=None,
+        notes_preview=_preview(reflection.notes),
         created_at=reflection.created_at,
     )
 
@@ -146,8 +146,8 @@ def _reflection_detail_response(reflection: WellnessReflection) -> WellnessRefle
     summary = _reflection_summary_response(reflection)
     return WellnessReflectionDetailResponse(
         **summary.model_dump(),
-        reflection=reflection.notes or "",
-        notes=None,
+        reflection=reflection.reflection_text or reflection.notes or "",
+        notes=reflection.notes,
     )
 
 
@@ -247,7 +247,7 @@ def create_reflection(
     data = payload.model_dump()
     goal = _validate_goal(db, user, data.get("goal_id"))
     data["area_id"] = goal.area_id if goal else None
-    data["notes"] = data.pop("reflection")
+    data["reflection_text"] = data.pop("reflection")
     reflection = WellnessReflection(owner_id=user.id, **data)
     repository.add(db, reflection)
     db.commit()
@@ -271,9 +271,7 @@ def update_reflection(
         goal = _validate_goal(db, user, data["goal_id"])
         data["area_id"] = goal.area_id if goal else None
     if "reflection" in data:
-        data["notes"] = data.pop("reflection")
-    elif "notes" in data:
-        data.pop("notes")
+        data["reflection_text"] = data.pop("reflection")
     for field, value in data.items():
         setattr(reflection, field, value)
     db.commit()

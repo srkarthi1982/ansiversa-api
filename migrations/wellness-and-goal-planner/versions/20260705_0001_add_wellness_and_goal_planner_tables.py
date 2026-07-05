@@ -96,6 +96,7 @@ def upgrade() -> None:
             sa.Column("areaId", sa.String(length=36), nullable=True),
             sa.Column("goalId", sa.String(length=36), nullable=True),
             sa.Column("entryDate", sa.String(length=40), nullable=False),
+            sa.Column("reflection", sa.Text(), nullable=True),
             sa.Column("mood", sa.String(length=40), server_default="steady", nullable=False),
             sa.Column("energyLevel", sa.Integer(), nullable=True),
             sa.Column("notes", sa.Text(), nullable=True),

@@ -20,7 +20,7 @@ Tables:
 
 - `WellnessAreas`: user-scoped wellness categories with text IDs, `userId`, name, description, optional icon, optional sort order, and timestamps.
 - `WellnessGoals`: user-scoped long-lived goals with text IDs, optional `areaId`, `userId`, title, description, target date, status, priority, `progressPercent`, and timestamps.
-- `WellnessReflections`: user-scoped dated reflections with text IDs, `userId`, optional `areaId`, optional `goalId`, `entryDate`, mood, optional energy level, notes, and creation timestamp.
+- `WellnessReflections`: user-scoped dated reflections with text IDs, `userId`, optional `areaId`, optional `goalId`, `entryDate`, reflection body, mood, optional energy level, notes, and creation timestamp.
 
 Indexes support user-scoped lists, area/goal parent lookups, status filtering, target-date review, entry-date filtering, and updated sorting where the table stores update timestamps. Large text fields are not indexed.
 
