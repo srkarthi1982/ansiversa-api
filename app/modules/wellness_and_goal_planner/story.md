@@ -18,11 +18,11 @@ The module uses an isolated database configured by `WELLNESS_AND_GOAL_PLANNER_DA
 
 Tables:
 
-- `WellnessAreas`: owner-scoped wellness categories with name, description, color, optional icon, and timestamps.
-- `WellnessGoals`: owner-scoped long-lived goals with optional `areaId`, title, description, target date, status, priority, progress, and timestamps.
-- `WellnessReflections`: owner-scoped dated reflections with optional `goalId`, reflection text, mood, notes, and timestamps.
+- `WellnessAreas`: user-scoped wellness categories with text IDs, `userId`, name, description, optional icon, optional sort order, and timestamps.
+- `WellnessGoals`: user-scoped long-lived goals with text IDs, optional `areaId`, `userId`, title, description, target date, status, priority, `progressPercent`, and timestamps.
+- `WellnessReflections`: user-scoped dated reflections with text IDs, `userId`, optional `areaId`, optional `goalId`, `entryDate`, mood, optional energy level, notes, and creation timestamp.
 
-Indexes support owner-scoped lists, area/goal parent lookups, status filtering, target-date review, reflection-date filtering, and updated sorting. Large text fields are not indexed.
+Indexes support user-scoped lists, area/goal parent lookups, status filtering, target-date review, entry-date filtering, and updated sorting where the table stores update timestamps. Large text fields are not indexed.
 
 ## API Design
 

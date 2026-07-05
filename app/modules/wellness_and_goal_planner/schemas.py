@@ -45,7 +45,7 @@ class WellnessAreaUpdateRequest(BaseModel):
 
 class WellnessGoalCreateRequest(BaseModel):
     title: str = Field(min_length=1, max_length=180)
-    area_id: int | None = Field(default=None, alias="areaId")
+    area_id: str | None = Field(default=None, alias="areaId")
     description: str | None = Field(default=None, max_length=4000)
     target_date: str | None = Field(default=None, alias="targetDate", max_length=40)
     status: GoalStatus = "active"
@@ -62,7 +62,7 @@ class WellnessGoalCreateRequest(BaseModel):
 
 class WellnessGoalUpdateRequest(BaseModel):
     title: str | None = Field(default=None, min_length=1, max_length=180)
-    area_id: int | None = Field(default=None, alias="areaId")
+    area_id: str | None = Field(default=None, alias="areaId")
     description: str | None = Field(default=None, max_length=4000)
     target_date: str | None = Field(default=None, alias="targetDate", max_length=40)
     status: GoalStatus | None = None
@@ -79,7 +79,7 @@ class WellnessGoalUpdateRequest(BaseModel):
 
 class WellnessReflectionCreateRequest(BaseModel):
     reflection_date: str = Field(alias="reflectionDate", min_length=1, max_length=40)
-    goal_id: int | None = Field(default=None, alias="goalId")
+    goal_id: str | None = Field(default=None, alias="goalId")
     reflection: str = Field(min_length=1, max_length=4000)
     mood: ReflectionMood = "steady"
     notes: str | None = Field(default=None, max_length=3000)
@@ -94,7 +94,7 @@ class WellnessReflectionCreateRequest(BaseModel):
 
 class WellnessReflectionUpdateRequest(BaseModel):
     reflection_date: str | None = Field(default=None, alias="reflectionDate", min_length=1, max_length=40)
-    goal_id: int | None = Field(default=None, alias="goalId")
+    goal_id: str | None = Field(default=None, alias="goalId")
     reflection: str | None = Field(default=None, min_length=1, max_length=4000)
     mood: ReflectionMood | None = None
     notes: str | None = Field(default=None, max_length=3000)
@@ -108,7 +108,7 @@ class WellnessReflectionUpdateRequest(BaseModel):
 
 
 class WellnessAreaSummaryResponse(BaseModel):
-    id: int
+    id: str
     name: str
     description_preview: str | None = Field(serialization_alias="descriptionPreview")
     color: str
@@ -124,9 +124,9 @@ class WellnessAreaDetailResponse(WellnessAreaSummaryResponse):
 
 
 class WellnessGoalSummaryResponse(BaseModel):
-    id: int
+    id: str
     title: str
-    area_id: int | None = Field(serialization_alias="areaId")
+    area_id: str | None = Field(serialization_alias="areaId")
     area_name: str | None = Field(serialization_alias="areaName")
     area_color: str | None = Field(serialization_alias="areaColor")
     description_preview: str | None = Field(serialization_alias="descriptionPreview")
@@ -144,15 +144,14 @@ class WellnessGoalDetailResponse(WellnessGoalSummaryResponse):
 
 
 class WellnessReflectionSummaryResponse(BaseModel):
-    id: int
-    goal_id: int | None = Field(serialization_alias="goalId")
+    id: str
+    goal_id: str | None = Field(serialization_alias="goalId")
     goal_title: str | None = Field(serialization_alias="goalTitle")
     reflection_date: str = Field(serialization_alias="reflectionDate")
     reflection_preview: str = Field(serialization_alias="reflectionPreview")
     mood: ReflectionMood
     notes_preview: str | None = Field(serialization_alias="notesPreview")
     created_at: datetime = Field(serialization_alias="createdAt")
-    updated_at: datetime = Field(serialization_alias="updatedAt")
 
 
 class WellnessReflectionDetailResponse(WellnessReflectionSummaryResponse):

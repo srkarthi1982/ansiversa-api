@@ -44,13 +44,13 @@ def create_area(
 
 
 @router.get("/areas/{area_id}", response_model=WellnessAreaDetailResponse)
-def get_area(area_id: int, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
+def get_area(area_id: str, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
     return service.get_area(db, current_user, area_id)
 
 
 @router.put("/areas/{area_id}", response_model=WellnessAreaDetailResponse)
 def update_area(
-    area_id: int,
+    area_id: str,
     payload: WellnessAreaUpdateRequest,
     db: WellnessAndGoalPlannerDB,
     current_user: CurrentWellnessAndGoalPlannerUser,
@@ -59,7 +59,7 @@ def update_area(
 
 
 @router.delete("/areas/{area_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_area(area_id: int, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
+def delete_area(area_id: str, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
     service.delete_area(db, current_user, area_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -79,13 +79,13 @@ def create_goal(
 
 
 @router.get("/goals/{goal_id}", response_model=WellnessGoalDetailResponse)
-def get_goal(goal_id: int, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
+def get_goal(goal_id: str, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
     return service.get_goal(db, current_user, goal_id)
 
 
 @router.put("/goals/{goal_id}", response_model=WellnessGoalDetailResponse)
 def update_goal(
-    goal_id: int,
+    goal_id: str,
     payload: WellnessGoalUpdateRequest,
     db: WellnessAndGoalPlannerDB,
     current_user: CurrentWellnessAndGoalPlannerUser,
@@ -94,7 +94,7 @@ def update_goal(
 
 
 @router.delete("/goals/{goal_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_goal(goal_id: int, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
+def delete_goal(goal_id: str, db: WellnessAndGoalPlannerDB, current_user: CurrentWellnessAndGoalPlannerUser):
     service.delete_goal(db, current_user, goal_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -115,7 +115,7 @@ def create_reflection(
 
 @router.get("/reflections/{reflection_id}", response_model=WellnessReflectionDetailResponse)
 def get_reflection(
-    reflection_id: int,
+    reflection_id: str,
     db: WellnessAndGoalPlannerDB,
     current_user: CurrentWellnessAndGoalPlannerUser,
 ):
@@ -124,7 +124,7 @@ def get_reflection(
 
 @router.put("/reflections/{reflection_id}", response_model=WellnessReflectionDetailResponse)
 def update_reflection(
-    reflection_id: int,
+    reflection_id: str,
     payload: WellnessReflectionUpdateRequest,
     db: WellnessAndGoalPlannerDB,
     current_user: CurrentWellnessAndGoalPlannerUser,
@@ -134,7 +134,7 @@ def update_reflection(
 
 @router.delete("/reflections/{reflection_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_reflection(
-    reflection_id: int,
+    reflection_id: str,
     db: WellnessAndGoalPlannerDB,
     current_user: CurrentWellnessAndGoalPlannerUser,
 ):

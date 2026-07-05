@@ -23,6 +23,7 @@ from app.modules.wellness_and_goal_planner.schemas import (
 )
 
 PREVIEW_LENGTH = 220
+DEFAULT_AREA_COLOR = "#2f6f73"
 
 
 def _preview(value: str | None) -> str | None:
@@ -41,39 +42,40 @@ def _not_found(detail: str) -> None:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=detail)
 
 
-def _get_owned_area(db: Session, user: User, area_id: int) -> WellnessArea:
+def _get_owned_area(db: Session, user: User, area_id: str) -> WellnessArea:
     area = repository.get_area(db, area_id)
     if not area or area.owner_id != user.id:
         _not_found("Wellness area was not found.")
     return area
 
 
-def _get_owned_goal(db: Session, user: User, goal_id: int) -> WellnessGoal:
+def _get_owned_goal(db: Session, user: User, goal_id: str) -> WellnessGoal:
     goal = repository.get_goal(db, goal_id)
     if not goal or goal.owner_id != user.id:
         _not_found("Wellness goal was not found.")
     return goal
 
 
-def _get_owned_reflection(db: Session, user: User, reflection_id: int) -> WellnessReflection:
+def _get_owned_reflection(db: Session, user: User, reflection_id: str) -> WellnessReflection:
     reflection = repository.get_reflection(db, reflection_id)
     if not reflection or reflection.owner_id != user.id:
         _not_found("Wellness reflection was not found.")
     return reflection
 
 
-def _validate_area(db: Session, user: User, area_id: int | None) -> None:
+def _validate_area(db: Session, user: User, area_id: str | None) -> None:
     if area_id is not None:
         _get_owned_area(db, user, area_id)
 
 
-def _validate_goal(db: Session, user: User, goal_id: int | None) -> None:
+def _validate_goal(db: Session, user: User, goal_id: str | None) -> WellnessGoal | None:
     if goal_id is not None:
-        _get_owned_goal(db, user, goal_id)
+        return _get_owned_goal(db, user, goal_id)
+    return None
 
 
-def _area_counts(goals: list[WellnessGoal]) -> dict[int, tuple[int, int]]:
-    counts: dict[int, tuple[int, int]] = {}
+def _area_counts(goals: list[WellnessGoal]) -> dict[str, tuple[int, int]]:
+    counts: dict[str, tuple[int, int]] = {}
     for goal in goals:
         if goal.area_id is None:
             continue
@@ -89,7 +91,7 @@ def _area_summary_response(area: WellnessArea, goals: list[WellnessGoal] | None 
         id=area.id,
         name=area.name,
         description_preview=_preview(area.description),
-        color=area.color,
+        color=DEFAULT_AREA_COLOR,
         icon=area.icon,
         goal_count=total,
         active_goal_count=active,
@@ -109,7 +111,7 @@ def _goal_summary_response(goal: WellnessGoal) -> WellnessGoalSummaryResponse:
         title=goal.title,
         area_id=goal.area_id,
         area_name=goal.area.name if goal.area else None,
-        area_color=goal.area.color if goal.area else None,
+        area_color=DEFAULT_AREA_COLOR if goal.area else None,
         description_preview=_preview(goal.description),
         target_date=goal.target_date,
         status=goal.status,
@@ -127,16 +129,16 @@ def _goal_detail_response(goal: WellnessGoal) -> WellnessGoalDetailResponse:
 
 
 def _reflection_summary_response(reflection: WellnessReflection) -> WellnessReflectionSummaryResponse:
+    reflection_text = reflection.notes or ""
     return WellnessReflectionSummaryResponse(
         id=reflection.id,
         goal_id=reflection.goal_id,
         goal_title=reflection.goal.title if reflection.goal else None,
         reflection_date=reflection.reflection_date,
-        reflection_preview=_required_preview(reflection.reflection),
+        reflection_preview=_required_preview(reflection_text),
         mood=reflection.mood,
-        notes_preview=_preview(reflection.notes),
+        notes_preview=None,
         created_at=reflection.created_at,
-        updated_at=reflection.updated_at,
     )
 
 
@@ -144,8 +146,8 @@ def _reflection_detail_response(reflection: WellnessReflection) -> WellnessRefle
     summary = _reflection_summary_response(reflection)
     return WellnessReflectionDetailResponse(
         **summary.model_dump(),
-        reflection=reflection.reflection,
-        notes=reflection.notes,
+        reflection=reflection.notes or "",
+        notes=None,
     )
 
 
@@ -155,32 +157,36 @@ def list_areas(db: Session, user: User) -> list[WellnessAreaSummaryResponse]:
 
 
 def create_area(db: Session, user: User, payload: WellnessAreaCreateRequest) -> WellnessAreaDetailResponse:
-    area = WellnessArea(owner_id=user.id, **payload.model_dump())
+    data = payload.model_dump()
+    data.pop("color", None)
+    area = WellnessArea(owner_id=user.id, **data)
     repository.add(db, area)
     db.commit()
     db.refresh(area)
     return _area_detail_response(area, [])
 
 
-def get_area(db: Session, user: User, area_id: int) -> WellnessAreaDetailResponse:
+def get_area(db: Session, user: User, area_id: str) -> WellnessAreaDetailResponse:
     return _area_detail_response(_get_owned_area(db, user, area_id), repository.list_goals(db, user.id))
 
 
 def update_area(
     db: Session,
     user: User,
-    area_id: int,
+    area_id: str,
     payload: WellnessAreaUpdateRequest,
 ) -> WellnessAreaDetailResponse:
     area = _get_owned_area(db, user, area_id)
-    for field, value in payload.model_dump(exclude_unset=True).items():
+    data = payload.model_dump(exclude_unset=True)
+    data.pop("color", None)
+    for field, value in data.items():
         setattr(area, field, value)
     db.commit()
     db.refresh(area)
     return _area_detail_response(area, repository.list_goals(db, user.id))
 
 
-def delete_area(db: Session, user: User, area_id: int) -> None:
+def delete_area(db: Session, user: User, area_id: str) -> None:
     area = _get_owned_area(db, user, area_id)
     repository.detach_area_from_goals(db, user.id, area.id)
     repository.delete_record(db, area)
@@ -201,14 +207,14 @@ def create_goal(db: Session, user: User, payload: WellnessGoalCreateRequest) -> 
     return _goal_detail_response(goal)
 
 
-def get_goal(db: Session, user: User, goal_id: int) -> WellnessGoalDetailResponse:
+def get_goal(db: Session, user: User, goal_id: str) -> WellnessGoalDetailResponse:
     return _goal_detail_response(_get_owned_goal(db, user, goal_id))
 
 
 def update_goal(
     db: Session,
     user: User,
-    goal_id: int,
+    goal_id: str,
     payload: WellnessGoalUpdateRequest,
 ) -> WellnessGoalDetailResponse:
     goal = _get_owned_goal(db, user, goal_id)
@@ -222,7 +228,7 @@ def update_goal(
     return _goal_detail_response(goal)
 
 
-def delete_goal(db: Session, user: User, goal_id: int) -> None:
+def delete_goal(db: Session, user: User, goal_id: str) -> None:
     goal = _get_owned_goal(db, user, goal_id)
     repository.detach_goal_from_reflections(db, user.id, goal.id)
     repository.delete_record(db, goal)
@@ -239,7 +245,9 @@ def create_reflection(
     payload: WellnessReflectionCreateRequest,
 ) -> WellnessReflectionDetailResponse:
     data = payload.model_dump()
-    _validate_goal(db, user, data.get("goal_id"))
+    goal = _validate_goal(db, user, data.get("goal_id"))
+    data["area_id"] = goal.area_id if goal else None
+    data["notes"] = data.pop("reflection")
     reflection = WellnessReflection(owner_id=user.id, **data)
     repository.add(db, reflection)
     db.commit()
@@ -247,20 +255,25 @@ def create_reflection(
     return _reflection_detail_response(reflection)
 
 
-def get_reflection(db: Session, user: User, reflection_id: int) -> WellnessReflectionDetailResponse:
+def get_reflection(db: Session, user: User, reflection_id: str) -> WellnessReflectionDetailResponse:
     return _reflection_detail_response(_get_owned_reflection(db, user, reflection_id))
 
 
 def update_reflection(
     db: Session,
     user: User,
-    reflection_id: int,
+    reflection_id: str,
     payload: WellnessReflectionUpdateRequest,
 ) -> WellnessReflectionDetailResponse:
     reflection = _get_owned_reflection(db, user, reflection_id)
     data = payload.model_dump(exclude_unset=True)
     if "goal_id" in data:
-        _validate_goal(db, user, data["goal_id"])
+        goal = _validate_goal(db, user, data["goal_id"])
+        data["area_id"] = goal.area_id if goal else None
+    if "reflection" in data:
+        data["notes"] = data.pop("reflection")
+    elif "notes" in data:
+        data.pop("notes")
     for field, value in data.items():
         setattr(reflection, field, value)
     db.commit()
@@ -268,7 +281,7 @@ def update_reflection(
     return _reflection_detail_response(reflection)
 
 
-def delete_reflection(db: Session, user: User, reflection_id: int) -> None:
+def delete_reflection(db: Session, user: User, reflection_id: str) -> None:
     reflection = _get_owned_reflection(db, user, reflection_id)
     repository.delete_record(db, reflection)
     db.commit()

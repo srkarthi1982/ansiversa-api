@@ -5,15 +5,15 @@ from sqlalchemy.sql import select
 from app.modules.wellness_and_goal_planner.models import WellnessArea, WellnessGoal, WellnessReflection
 
 
-def get_area(db: Session, area_id: int) -> WellnessArea | None:
+def get_area(db: Session, area_id: str) -> WellnessArea | None:
     return db.get(WellnessArea, area_id)
 
 
-def get_goal(db: Session, goal_id: int) -> WellnessGoal | None:
+def get_goal(db: Session, goal_id: str) -> WellnessGoal | None:
     return db.get(WellnessGoal, goal_id)
 
 
-def get_reflection(db: Session, reflection_id: int) -> WellnessReflection | None:
+def get_reflection(db: Session, reflection_id: str) -> WellnessReflection | None:
     return db.get(WellnessReflection, reflection_id)
 
 
@@ -64,7 +64,7 @@ def delete_record(db: Session, record: object) -> None:
     db.delete(record)
 
 
-def detach_area_from_goals(db: Session, owner_id: str, area_id: int) -> None:
+def detach_area_from_goals(db: Session, owner_id: str, area_id: str) -> None:
     db.execute(
         update(WellnessGoal)
         .where(WellnessGoal.owner_id == owner_id, WellnessGoal.area_id == area_id)
@@ -72,7 +72,7 @@ def detach_area_from_goals(db: Session, owner_id: str, area_id: int) -> None:
     )
 
 
-def detach_goal_from_reflections(db: Session, owner_id: str, goal_id: int) -> None:
+def detach_goal_from_reflections(db: Session, owner_id: str, goal_id: str) -> None:
     db.execute(
         update(WellnessReflection)
         .where(WellnessReflection.owner_id == owner_id, WellnessReflection.goal_id == goal_id)
