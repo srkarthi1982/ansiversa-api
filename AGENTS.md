@@ -521,8 +521,9 @@ For every new mini app, before approval:
 8. Required DB indexes reviewed/added
 9. Empty/loading/error/success states present
 10. lint/typecheck/build/backend compileall passed
-11. apps.json/catalog/readiness docs updated
-12. Production migration and promotion only after manual approval
+11. `market-study.md`, `story.md`, and `destination.md` present and aligned
+12. apps.json/catalog/readiness docs updated
+13. Production migration and promotion only after manual approval
 
 ## Story Documentation Contract
 
@@ -629,6 +630,83 @@ Minimum sections:
 * Known Limitations
 * Future Enhancements
 * Current Implementation
+
+## Market Study Documentation Contract
+
+Every new Ansiversa mini-app must include a `market-study.md` file in the
+backend module during initial app development.
+
+Required location:
+
+* Backend: `ansiversa-api/app/modules/<app_module>/market-study.md`
+
+`market-study.md` is the module's external market intelligence layer. It
+captures competitor patterns, user pain points, pricing and paywall signals,
+AI capability trends, UX patterns, risks, and Ansiversa-specific opportunities.
+
+It is research only.
+
+It does not define product requirements.
+
+It does not create implementation commitments.
+
+All product decisions still require Partner approval and must be reflected
+separately in `destination.md`.
+
+Requirements:
+
+1. Every new mini-app must create backend `market-study.md` during initial
+   development, alongside `story.md` and `destination.md`.
+2. The document must use the established Ansiversa market-study template:
+   Document Status, Market Version, Created, Last Reviewed, Next Review,
+   Purpose, Problem Statement, Target Users, Competitor Landscape, Common Market
+   Features, user love signals, complaints/friction, pricing/paywall
+   observations, AI trends, UX patterns, opportunities, avoid list, product
+   questions, sources, review notes, and revision history.
+3. The document must summarize public research in original words.
+4. The document must include source links for public references used.
+5. The document must not copy competitor wording, UI, screenshots, templates,
+   prompts, scoring models, proprietary workflows, or protected content.
+6. The document must not modify code, APIs, database, metadata, catalog files,
+   readiness documents, `story.md`, or `destination.md` unless separately
+   requested and approved.
+7. Market Version begins at `1` and increments only when the market
+   understanding is meaningfully refreshed.
+8. `Last Reviewed` must be updated whenever the study is materially refreshed.
+9. Future product planning may learn from `market-study.md`, but implementation
+   scope must still come from approved Partner/Astra direction and
+   `destination.md`.
+
+### Market Study Philosophy
+
+`market-study.md` exists so Ansiversa learns before it builds.
+
+It should answer:
+
+* What real user problem exists in the market?
+* Which direct, indirect, and AI-based alternatives already serve this need?
+* Why do users like those alternatives?
+* Why do users abandon or complain about them?
+* What pricing, trust, privacy, and paywall patterns shape user expectations?
+* Which UX patterns are worth studying without copying?
+* What opportunities fit Ansiversa's platform identity?
+* What should Ansiversa avoid?
+
+`market-study.md` is not a feature backlog, roadmap, implementation spec, or
+marketing document.
+
+The correct sequence for new mini-app product memory is:
+
+```text
+market-study.md
+External market intelligence and user problem learning
+
+story.md
+Current implementation and technical memory
+
+destination.md
+Approved mature product destination and Journey Progress
+```
 
 ## Destination Progress Governance
 
@@ -1068,6 +1146,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-05: Added the permanent Market Study Documentation Contract so every future mini-app creates backend `market-study.md` during initial development alongside `story.md` and `destination.md`.
 * 2026-07-05: Promoted Goal Tracker App #055 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated database verification, overview metadata sync, tracked catalog export update, and production catalog verification at 55 live / 45 comingSoon.
 * 2026-07-05: Added the permanent Ansiversa 101 Principle limiting the ecosystem to 1 Platform plus 100 Solution Apps, shifting post-100 backend/API work from new app creation to strengthening quality, workflows, performance, retention, and justified replacement only.
 * 2026-07-05: Implemented Goal Tracker App #055 backend to Workflow Ready with isolated `GOAL_TRACKER_DATABASE_URL`, `GoalTrackerGoals`, `GoalTrackerMilestones`, and `GoalTrackerCheckIns` models, owner-scoped protected APIs, duplicate support, Alembic migration `20260705_0001_goal_tracker`, overview CTA metadata, story/destination documentation, compileall verification, generated OpenAPI schema, and no Apps row live promotion.
