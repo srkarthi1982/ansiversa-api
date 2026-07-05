@@ -15,6 +15,10 @@ DEFAULT_INVOICE_RECEIPT_MAKER_DATABASE_URL = "sqlite:///./invoice_receipt_maker.
 PRODUCTION_INVOICE_RECEIPT_MAKER_DATABASE_URL = (
     "libsql://invoice-and-receipt-maker-ansiversa.aws-ap-south-1.turso.io"
 )
+DEFAULT_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL = "sqlite:///./wellness_and_goal_planner.db"
+PRODUCTION_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL = (
+    "libsql://wellness-and-goal-planner-ansiversa.aws-ap-south-1.turso.io"
+)
 
 
 class Settings(BaseSettings):
@@ -63,7 +67,7 @@ class Settings(BaseSettings):
     PROJECT_TRACKER_DATABASE_URL: str = "sqlite:///./project_tracker.db"
     TASK_PRIORITIZER_DATABASE_URL: str = "sqlite:///./task_prioritizer.db"
     EXPENSE_TRACKER_DATABASE_URL: str = "sqlite:///./expense_tracker.db"
-    WELLNESS_AND_GOAL_PLANNER_DATABASE_URL: str = "sqlite:///./wellness_and_goal_planner.db"
+    WELLNESS_AND_GOAL_PLANNER_DATABASE_URL: str = DEFAULT_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
@@ -124,6 +128,14 @@ class Settings(BaseSettings):
         ):
             self.INVOICE_RECEIPT_MAKER_DATABASE_URL = (
                 PRODUCTION_INVOICE_RECEIPT_MAKER_DATABASE_URL
+            )
+        if (
+            is_production
+            and self.WELLNESS_AND_GOAL_PLANNER_DATABASE_URL
+            == DEFAULT_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL
+        ):
+            self.WELLNESS_AND_GOAL_PLANNER_DATABASE_URL = (
+                PRODUCTION_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL
             )
         for origin in DEFAULT_CORS_ORIGINS:
             if origin not in self.CORS_ORIGINS:
