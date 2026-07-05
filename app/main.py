@@ -53,6 +53,7 @@ from app.modules.project_tracker.routes import router as project_tracker_router
 from app.modules.task_prioritizer.routes import router as task_prioritizer_router
 from app.modules.expense_tracker.routes import router as expense_tracker_router
 from app.modules.wellness_and_goal_planner.routes import router as wellness_and_goal_planner_router
+from app.modules.goal_tracker.routes import router as goal_tracker_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -356,6 +357,11 @@ def register_routes(app: FastAPI) -> None:
         wellness_and_goal_planner_router,
         prefix=f"{settings.API_V1_PREFIX}/wellness-and-goal-planner",
         tags=["Wellness and Goal Planner"],
+    )
+    app.include_router(
+        goal_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/goal-tracker",
+        tags=["Goal Tracker"],
     )
     app.include_router(
         content_router, 

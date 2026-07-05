@@ -19,6 +19,7 @@ DEFAULT_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL = "sqlite:///./wellness_and_goal_
 PRODUCTION_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL = (
     "libsql://wellness-and-goal-planner-ansiversa.aws-ap-south-1.turso.io"
 )
+DEFAULT_GOAL_TRACKER_DATABASE_URL = "sqlite:///./goal_tracker.db"
 
 
 class Settings(BaseSettings):
@@ -68,6 +69,7 @@ class Settings(BaseSettings):
     TASK_PRIORITIZER_DATABASE_URL: str = "sqlite:///./task_prioritizer.db"
     EXPENSE_TRACKER_DATABASE_URL: str = "sqlite:///./expense_tracker.db"
     WELLNESS_AND_GOAL_PLANNER_DATABASE_URL: str = DEFAULT_WELLNESS_AND_GOAL_PLANNER_DATABASE_URL
+    GOAL_TRACKER_DATABASE_URL: str = DEFAULT_GOAL_TRACKER_DATABASE_URL
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"

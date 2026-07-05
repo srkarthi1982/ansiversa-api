@@ -120,12 +120,16 @@ def sync_apps_json(apps_data: dict[str, list[dict[str, object]]], metadata: dict
             item = metadata.get(str(app["slug"]))
             expected_progress = item.progress if item else None
             expected_status = item.status if item else None
+            expected_reviewed_at = item.reviewed_at.isoformat() if item else None
 
-            if app.get("destinationProgress") != expected_progress:
-                app["destinationProgress"] = expected_progress
+            if app.get("destination_progress") != expected_progress:
+                app["destination_progress"] = expected_progress
                 changed += 1
-            if app.get("destinationStatus") != expected_status:
-                app["destinationStatus"] = expected_status
+            if app.get("destination_status") != expected_status:
+                app["destination_status"] = expected_status
+                changed += 1
+            if app.get("destination_reviewed_at") != expected_reviewed_at:
+                app["destination_reviewed_at"] = expected_reviewed_at
                 changed += 1
 
     return changed
