@@ -2075,16 +2075,18 @@
 			"categoryId": "cat_lifestyle",
 			"status": "active",
 			"isFeatured": 0,
-			"websiteUrl": "wellness-and-goal-planner.ansiversa.com",
+			"websiteUrl": "https://ansiversa.com/wellness-and-goal-planner",
 			"adminUrl": null,
 			"createdAt": "2025-12-25 17:07:19",
-			"updatedAt": "2026-06-19 11:49:44",
+			"updatedAt": "2026-07-05 09:00:58",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "wellness-and-goal-planner",
-			"version": null
+			"version": "1.0.0",
+			"destinationProgress": 35,
+			"destinationStatus": "approved"
 		},
 		{
 			"id": "app_work-log-tracker",

@@ -47,7 +47,7 @@ Dashboard payloads include only fields needed by the current V1 screens. Large d
 
 ## Current Status
 
-Workflow Ready V1. The module has protected owner-scoped APIs, isolated migration, dashboard summaries, area CRUD, goal CRUD, reflection CRUD, lightweight/detail response separation, and generated frontend API contracts.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated Wellness database migration, and Notes persistence verification. The module has protected owner-scoped APIs, isolated migration, dashboard summaries, area CRUD, goal CRUD, reflection CRUD, lightweight/detail response separation, and generated frontend API contracts.
 
 ## Known Limitations
 

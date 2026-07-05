@@ -1009,6 +1009,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-05: Promoted Wellness and Goal Planner App #054 to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated database migration verification, Notes persistence verification, tracked catalog export update, and production catalog verification at 54 live / 46 comingSoon.
 * 2026-07-05: Fixed Wellness and Goal Planner App #054 reflection Notes persistence with isolated migration `20260705_0002_wellness_reflection_body`, separate reflection body storage, service round-trip verification, and no Apps row live promotion.
 * 2026-07-05: Implemented Wellness and Goal Planner App #054 backend to Workflow Ready with isolated `WELLNESS_AND_GOAL_PLANNER_DATABASE_URL`, `WellnessAreas`, `WellnessGoals`, and `WellnessReflections` models, owner-scoped protected APIs, Alembic migration `20260705_0001`, overview CTA metadata, story/destination documentation, compileall verification, generated OpenAPI schema, and no Apps row live promotion.
 * 2026-07-04: Added a non-sensitive readable `ansiversa_has_session` auth hint cookie alongside the HttpOnly `ansiversa_session` cookie so browser clients can skip `/api/v1/auth/me` on clear guest loads while clearing both cookies on logout.
