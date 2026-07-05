@@ -30,7 +30,7 @@ Indexes cover owner-scoped goal lists, status/priority/category filters, target 
 
 ## Current Status
 
-Workflow Ready. The backend has protected owner-scoped APIs, isolated migration `20260705_0001_goal_tracker`, dashboard summaries, goal CRUD/duplicate/delete, milestone CRUD, check-in CRUD, lightweight/detail response separation, and generated frontend API contracts. The parent Apps row remains `active` / `comingSoon` / `version = null`.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated Goal Tracker database migration, manual workflow verification, and duplicate icon contrast polish. The backend has protected owner-scoped APIs, isolated migration `20260705_0001_goal_tracker`, dashboard summaries, goal CRUD/duplicate/delete, milestone CRUD, check-in CRUD, lightweight/detail response separation, and generated frontend API contracts.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add recurring milestones, reminders, goal templates, calenda
 
 ## Current Implementation
 
-Goal Tracker is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and local Workflow Ready routing. It is not promoted live.
+Goal Tracker is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and approved live routing. The parent Apps catalog stores Goal Tracker as `active` with `launchStatus = live` and version `1.0.0`.

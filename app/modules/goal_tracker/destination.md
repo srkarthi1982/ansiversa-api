@@ -6,11 +6,21 @@ Goal Tracker should mature into the personal goals workspace for Ansiversa: a pl
 
 ## Destination Status
 
-Draft v1.0
+Approved v1.0
 
 ## Journey Progress
 
 Current Position: 34 / 100
+Destination: 100 / 100
+Remaining Journey: 66 / 100
+
+This estimate describes product maturity, not feature completion. Goal Tracker
+has a useful DB-backed Workflow Ready V1 with goal CRUD, duplicate/delete,
+milestones, check-ins, dashboard summaries, filters, owner-scoped persistence,
+overview routing, production database migration, and manual QA verification.
+The remaining journey includes templates, recurring plans, reminders after
+governance, richer trends, exports, and careful governance for AI or cross-app
+recommendations.
 
 ## Mature Product Direction
 
@@ -44,3 +54,7 @@ V1 is Workflow Ready with owner-scoped goals, milestones, check-ins, dashboard s
 - Richer trend visualizations.
 - Cross-app goal context after governance review.
 - AI-assisted goal review with visible assumptions and user approval.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-05.
