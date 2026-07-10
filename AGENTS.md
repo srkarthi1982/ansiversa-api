@@ -521,7 +521,8 @@ For every new mini app, before approval:
 8. Required DB indexes reviewed/added
 9. Empty/loading/error/success states present
 10. lint/typecheck/build/backend compileall passed
-11. `market-study.md`, `story.md`, and `destination.md` present and aligned
+11. `market-study.md`, `destination.md`, `story.md`, and `marketing.md`
+    present and aligned
 12. apps.json/catalog/readiness docs updated
 13. Production migration and promotion only after manual approval
 
@@ -701,12 +702,77 @@ The correct sequence for new mini-app product memory is:
 market-study.md
 External market intelligence and user problem learning
 
+destination.md
+Approved mature product destination and Journey Progress
+
 story.md
 Current implementation and technical memory
 
-destination.md
-Approved mature product destination and Journey Progress
+marketing.md
+Approved public communication, launch, video, social, SEO, and guardrails
 ```
+
+## Marketing Framework Documentation Contract
+
+Every newly developed Ansiversa mini-app must include a `marketing.md` file in
+the backend module as part of the normal development lifecycle.
+
+Required location:
+
+* Backend: `ansiversa-api/app/modules/<app_module>/marketing.md`
+
+The required documentation order for every app is:
+
+```text
+market-study.md
+Research: understand market reality, users, competitors, and opportunities
+
+destination.md
+Vision: define the long-term product destination, principles, non-goals, and
+maturity roadmap
+
+story.md
+Implementation: document the current architecture, workflow, capabilities,
+limitations, and technical state
+
+marketing.md
+Communication: define public product messaging, Google Veo video prompts,
+social media, landing page copy, advertisements, SEO, marketing assets, and
+guardrails
+```
+
+An app is not documentation-complete until all four files exist and agree with
+each other.
+
+Development workflow:
+
+```text
+Research
+    -> market-study.md
+
+Vision
+    -> destination.md
+
+Implementation
+    -> story.md
+
+Communication
+    -> marketing.md
+```
+
+Marketing Framework v1.0 is frozen. New apps must use the approved Marketing
+Framework v1.0 structure. Do not redesign or restructure the framework for
+individual apps. Only update content specific to the app.
+
+`marketing.md` must be truthful to the current implementation documented in
+`story.md`. Current features, future marketing opportunities, and marketing
+guardrails must remain clearly separated. Do not advertise future capabilities
+as current product behavior.
+
+The Ansiversa parent platform must also maintain these same four documents. No
+exceptions.
+
+This is a permanent Ansiversa development standard.
 
 ## Destination Progress Governance
 
@@ -1146,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-10: Added the permanent Marketing Framework Documentation Contract so every future Ansiversa app and the parent platform require `market-study.md`, `destination.md`, `story.md`, and frozen-structure `marketing.md` before documentation completion.
 * 2026-07-06: Implemented Meal Planner App #042 backend to Workflow Ready with isolated `MEAL_PLANNER_DATABASE_URL`, `Recipes`, `MealPlans`, and `MealPlanEntries` models, owner-scoped protected CRUD APIs, paginated/searchable list endpoints, Alembic migration `20260706_0001_add_meal_planner_tables.py`, overview CTA metadata, story/destination/market-study documentation, generated OpenAPI schema, and no Apps row live promotion.
 * 2026-07-05: Added the permanent Market Study Documentation Contract so every future mini-app creates backend `market-study.md` during initial development alongside `story.md` and `destination.md`.
 * 2026-07-05: Promoted Goal Tracker App #055 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated database verification, overview metadata sync, tracked catalog export update, and production catalog verification at 55 live / 45 comingSoon.
