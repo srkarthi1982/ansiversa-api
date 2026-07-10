@@ -1184,9 +1184,9 @@ enough to stand on its own.
 Current status:
 
 ```text
-Platform + 57 live solution apps
-Remaining toward 100 solution apps: 43
-Current next step: Language Learning Buddy Astra review, with App #060 reserved for the AI Integration checkpoint.
+Platform + 58 live solution apps
+Remaining toward 100 solution apps: 42
+Current next step: App #059 Partner/Astra selection, with App #060 reserved for the AI Integration checkpoint.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-10: Promoted Language Learning Buddy App #058 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `35 / 100` approved on `2026-07-10`, overview metadata sync, tracked catalog export update, and production catalog verification at 58 live / 42 comingSoon.
 * 2026-07-10: Ran Language Learning Buddy App #058 production-configured isolated database migration to Alembic head `20260710_0001`, verified `LanguageVocabulary`, `LanguagePracticeSessions`, required indexes, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-10: Implemented Language Learning Buddy App #058 backend to Workflow Ready with isolated `LANGUAGE_LEARNING_BUDDY_DATABASE_URL`, `LanguageVocabulary` and `LanguagePracticeSessions` models, owner-scoped protected CRUD APIs, dashboard summaries, Alembic migration `20260710_0001_add_language_learning_buddy_tables.py`, overview CTA metadata, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration/CRUD validation, and no Apps row live promotion.
 * 2026-07-10: Promoted Fitness Tracker App #043 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated database migration verification, overview metadata sync, tracked catalog export update, and production catalog verification at 57 live / 43 comingSoon.

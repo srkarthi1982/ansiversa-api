@@ -6,7 +6,7 @@
 
 **Category:** Personal Life & Wellness
 
-**Status:** Workflow Ready, not live promoted
+**Status:** Approved Live v1.0
 
 Language Learning Buddy helps Ansiversa users build a personal vocabulary list, record practice sessions, and review learning progress. It is positioned as a calm practice log, not a full language course or AI tutor.
 

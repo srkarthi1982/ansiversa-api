@@ -30,7 +30,7 @@ Indexes cover owner-scoped lists, language and category filters, parent vocabula
 
 ## Current Status
 
-Workflow Ready only. The backend has protected owner-scoped APIs, isolated migration `20260710_0001`, dashboard summaries, vocabulary CRUD, practice-session CRUD, lightweight/detail response separation, and generated frontend API contracts. The parent Apps catalog remains `active` / `comingSoon` with version `null`.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated production migration verification, and manual workflow verification. The backend has protected owner-scoped APIs, isolated migration `20260710_0001`, dashboard summaries, vocabulary CRUD, practice-session CRUD, lightweight/detail response separation, and generated frontend API contracts.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add spaced-repetition scheduling, import/export, optional re
 
 ## Current Implementation
 
-Language Learning Buddy is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Vocabulary, Practice, and Progress. The overview Explore CTA enters `/language-learning-buddy/vocabulary`. The parent Apps catalog stores Language Learning Buddy as `active` with `launchStatus = comingSoon` and `version = null`.
+Language Learning Buddy is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Vocabulary, Practice, and Progress. The overview Explore CTA enters `/language-learning-buddy/vocabulary`. The parent Apps catalog stores Language Learning Buddy as `active` with `launchStatus = live` and `version = 1.0.0`.
