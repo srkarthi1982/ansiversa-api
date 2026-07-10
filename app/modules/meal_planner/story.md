@@ -30,7 +30,7 @@ Indexes cover owner-scoped list queries, updated-at ordering, weekly plan dates,
 
 ## Current Status
 
-Workflow Ready at `active / comingSoon / version = null`. The backend has protected owner-scoped APIs, isolated migration `20260706_0001_add_meal_planner_tables.py`, dashboard summaries, CRUD endpoints for all planned tables, lightweight/detail response separation, and generated frontend API contracts. It has not been promoted live.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, legacy production schema repair, FK repair, and manual workflow verification. The backend has protected owner-scoped APIs, isolated migrations through `20260710_0004`, dashboard summaries, CRUD endpoints for all planned tables, lightweight/detail response separation, and generated frontend API contracts.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add grocery lists, pantry-aware planning, dietary preference
 
 ## Current Implementation
 
-Meal Planner is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend workflow routes. The parent Apps catalog keeps Meal Planner as `active` with `launchStatus = comingSoon` and `version = null`.
+Meal Planner is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend workflow routes. The parent Apps catalog stores Meal Planner as `active` with `launchStatus = live` and version `1.0.0`.

@@ -6,7 +6,7 @@ Meal Planner should mature into the personal and household food planning workspa
 
 ## Destination Status
 
-Workflow Ready V1
+Approved v1.0
 
 ## Journey Progress
 
@@ -14,7 +14,7 @@ Current Position: 28 / 100
 Destination: 100 / 100
 Remaining Journey: 72 / 100
 
-This estimate describes product maturity, not feature completion. Meal Planner has a useful DB-backed Workflow Ready V1 with recipe CRUD, meal plan CRUD, calendar entry CRUD, dashboard summaries, owner-scoped persistence, protected routes, and overview routing. The remaining journey includes grocery lists, pantry support, recipe import, nutrition context, reminders after governance, exports, and careful governance for AI or cross-app recommendations.
+This estimate describes product maturity, not feature completion. Meal Planner has an approved DB-backed V1 with recipe CRUD, meal plan CRUD, calendar entry CRUD, dashboard summaries, owner-scoped persistence, protected routes, and overview routing. The remaining journey includes grocery lists, pantry support, recipe import, nutrition context, reminders after governance, exports, and careful governance for AI or cross-app recommendations.
 
 ## Mature Product Direction
 
@@ -40,7 +40,7 @@ Meal Planner can later connect with Wellness and Goal Planner, Goal Tracker, Fit
 
 ## Current V1 Position
 
-V1 is Workflow Ready with owner-scoped recipes, meal plans, calendar entries, dashboard summaries, protected frontend workflow routes, generated API types, and an isolated migration. It does not yet include grocery lists, pantry inventory, shopping integrations, nutrition analysis, reminders, collaboration, exports, or AI-assisted planning.
+V1 is approved live with owner-scoped recipes, meal plans, calendar entries, dashboard summaries, protected frontend workflow routes, generated API types, and isolated production migrations. It does not yet include grocery lists, pantry inventory, shopping integrations, nutrition analysis, reminders, collaboration, exports, or AI-assisted planning.
 
 ## Future Enhancements
 
@@ -55,4 +55,8 @@ V1 is Workflow Ready with owner-scoped recipes, meal plans, calendar entries, da
 
 ## Governance Notes
 
-Astra: Workflow Ready implementation prepared on 2026-07-06. No live promotion has been performed.
+Astra: Approved on 2026-07-10.
+
+Partner: Approved Meal Planner live promotion after manual workflow verification.
+
+Codex: Fixed production legacy schema drift, verified production recipes, plans, and calendar workflows, and prepared live promotion metadata.
