@@ -30,7 +30,7 @@ Indexes cover owner-scoped lists, activity type filters, parent activity lookups
 
 ## Current Status
 
-Workflow Ready Draft. The backend has protected owner-scoped APIs, isolated migration `20260710_0001`, dashboard summaries, activity CRUD, log CRUD, lightweight/detail response separation, and generated frontend API contracts. The app has not been promoted live.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated production migration verification, and manual workflow verification. The backend has protected owner-scoped APIs, isolated migration `20260710_0001`, dashboard summaries, activity CRUD, log CRUD, lightweight/detail response separation, and generated frontend API contracts.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add trend charts, exports, recurring activity reminders, and
 
 ## Current Implementation
 
-Fitness Tracker is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Activities, Logs, and Insights. The parent Apps catalog remains `active` with `launchStatus = comingSoon` and version `null` until review and promotion approval.
+Fitness Tracker is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Activities, Logs, and Insights. The parent Apps catalog stores Fitness Tracker as `active` with `launchStatus = live` and version `1.0.0`.

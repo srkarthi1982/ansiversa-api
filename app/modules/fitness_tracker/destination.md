@@ -6,7 +6,7 @@ Fitness Tracker should mature into Ansiversa's practical personal activity log: 
 
 ## Destination Status
 
-Workflow Ready Draft
+Approved v1.0
 
 ## Journey Progress
 
@@ -38,7 +38,7 @@ Fitness Tracker can later connect with Meal Planner, Wellness and Goal Planner, 
 
 ## Current V1 Position
 
-V1 is Workflow Ready with Activities, Logs, and Insights. It does not include live promotion, public approval, reminders, recurring plans, wearable sync, calorie fields, health metrics, AI coaching, exports, or cross-app automation.
+V1 is approved live with Activities, Logs, Insights, owner-scoped persistence, protected frontend workflow routes, generated API types, and an isolated production migration. It does not include reminders, recurring plans, wearable sync, calorie fields, health metrics, AI coaching, exports, or cross-app automation.
 
 ## Future Enhancements
 
@@ -50,4 +50,8 @@ V1 is Workflow Ready with Activities, Logs, and Insights. It does not include li
 
 ## Governance Notes
 
-Requires Astra review and Partner manual browser verification before live promotion.
+Astra: Approved on 2026-07-10.
+
+Partner: Approved Fitness Tracker live promotion after manual workflow verification.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes, synced destination metadata, and prepared live promotion metadata.

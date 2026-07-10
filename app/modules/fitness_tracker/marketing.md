@@ -2,7 +2,7 @@
 
 ## Document Status
 
-**Status:** Workflow Ready Draft
+**Status:** Approved Live
 
 **Marketing Framework Version:** 1.0
 
