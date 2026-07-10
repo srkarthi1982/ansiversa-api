@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-10: Ran Fitness Tracker App #043 production-configured isolated database migration to Alembic head `20260710_0001`, verified `FitnessActivities`, `FitnessLogs`, required indexes, and empty starting row counts while keeping the parent Apps row `comingSoon` with version `null`.
 * 2026-07-10: Implemented Fitness Tracker App #043 backend to Workflow Ready with isolated `FITNESS_TRACKER_DATABASE_URL`, `FitnessActivities` and `FitnessLogs` models, owner-scoped protected CRUD APIs, dashboard summaries, Alembic migration `20260710_0001_add_fitness_tracker_tables.py`, overview CTA metadata, market-study/destination/story/marketing documentation, generated OpenAPI contracts, and no Apps row live promotion.
 * 2026-07-10: Promoted Meal Planner App #042 backend to approved live version `1.0.0` after Astra/Partner approval, production legacy schema/FK repair, Apps row promotion, destination metadata sync, overview metadata sync, tracked catalog export update, and production catalog verification at 56 live / 44 comingSoon.
 * 2026-07-10: Added Meal Planner migration `20260710_0004` to rebuild `MealPlanEntries` after the legacy `MealPlans` repair so calendar entries reference the current `MealPlans` table instead of the removed legacy table.
