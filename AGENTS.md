@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-10: Ran Language Learning Buddy App #058 production-configured isolated database migration to Alembic head `20260710_0001`, verified `LanguageVocabulary`, `LanguagePracticeSessions`, required indexes, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-10: Implemented Language Learning Buddy App #058 backend to Workflow Ready with isolated `LANGUAGE_LEARNING_BUDDY_DATABASE_URL`, `LanguageVocabulary` and `LanguagePracticeSessions` models, owner-scoped protected CRUD APIs, dashboard summaries, Alembic migration `20260710_0001_add_language_learning_buddy_tables.py`, overview CTA metadata, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration/CRUD validation, and no Apps row live promotion.
 * 2026-07-10: Promoted Fitness Tracker App #043 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated database migration verification, overview metadata sync, tracked catalog export update, and production catalog verification at 57 live / 43 comingSoon.
 * 2026-07-10: Ran Fitness Tracker App #043 production-configured isolated database migration to Alembic head `20260710_0001`, verified `FitnessActivities`, `FitnessLogs`, required indexes, and empty starting row counts while keeping the parent Apps row `comingSoon` with version `null`.
