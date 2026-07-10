@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-10: Added Meal Planner migration `20260706_0003` to rebuild legacy production `MealPlans` tables to the current weekly-plan schema, preserving existing plan fields and removing hidden required legacy columns that blocked meal plan creation.
 * 2026-07-10: Added the permanent Marketing Framework Documentation Contract so every future Ansiversa app and the parent platform require `market-study.md`, `destination.md`, `story.md`, and frozen-structure `marketing.md` before documentation completion.
 * 2026-07-06: Implemented Meal Planner App #042 backend to Workflow Ready with isolated `MEAL_PLANNER_DATABASE_URL`, `Recipes`, `MealPlans`, and `MealPlanEntries` models, owner-scoped protected CRUD APIs, paginated/searchable list endpoints, Alembic migration `20260706_0001_add_meal_planner_tables.py`, overview CTA metadata, story/destination/market-study documentation, generated OpenAPI schema, and no Apps row live promotion.
 * 2026-07-05: Added the permanent Market Study Documentation Contract so every future mini-app creates backend `market-study.md` during initial development alongside `story.md` and `destination.md`.
