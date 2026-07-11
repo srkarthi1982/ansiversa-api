@@ -29,6 +29,8 @@ use performance trends to practice better over time.
 - Language learners practicing vocabulary sequence recall.
 - Self-learners building a study habit around active recall.
 - Users who enjoy structured personal practice without public competition.
+- Learners who tried flashcards but stopped because setup, queues, or algorithms felt overwhelming.
+- Students or professionals who need recall practice connected to courses, exams, notes, or saved vocabulary.
 
 ## Core User Problems
 
@@ -38,6 +40,8 @@ use performance trends to practice better over time.
 - Progress is hard to understand when session history is not preserved.
 - Game-like features can drift into leaderboards, competition, or claims the
   product should not make.
+- Review queues can become stressful when missed sessions pile up.
+- Generated practice material can be shallow or wrong if it is not linked to source context and user review.
 
 ## Final Capabilities
 
@@ -62,6 +66,9 @@ use performance trends to practice better over time.
 - Vocabulary recall games from Dictionary+ word lists.
 - Concept recall games from Concept Explainer or Study Planner.
 - Richer progress charts and trends.
+- Gentle due-review queues that separate consistency, accuracy, and retention without punishment.
+- Source-linked practice items from notes, concepts, words, or course material.
+- Import/export options for user-owned study assets after format governance.
 - Private challenges shared only by explicit invitation.
 - Accessibility-friendly modes for color, text, and number recall.
 
@@ -114,6 +121,8 @@ high-stakes assessment.
   review performance without confusion.
 - Scoring remains deterministic and easy to understand.
 - Progress metrics encourage reflection without clinical or moral judgment.
+- Missed reviews are handled with recovery paths instead of overwhelming backlog pressure.
+- Practice material from adjacent apps remains source-linked and user-approved.
 - Private performance remains private unless the user explicitly shares a
   challenge.
 - Adaptive or AI-assisted features improve practice without hiding rules.
@@ -150,6 +159,8 @@ accessibility polish.
 - Do not become a surveillance or productivity-monitoring system.
 - Do not replace Quiz, Dictionary+, Study Planner, or Concept Explainer.
 - Do not hide scoring or adaptive difficulty logic from the user.
+- Do not let generated practice enter review queues without user approval.
+- Do not imply memorization alone equals understanding.
 - Do not use AI to diagnose ability or predict health outcomes.
 - Do not expose private performance without explicit user action.
 
@@ -158,6 +169,7 @@ accessibility polish.
 - Keep memory practice active, short, and reviewable.
 - Make scoring transparent and deterministic.
 - Treat progress as personal feedback, not public ranking.
+- Favor calm, sustainable review over streak pressure or queue anxiety.
 - Preserve privacy for practice history and performance.
 - Let adjacent apps provide practice material through explicit handoffs.
 - Use AI only for suggestions and reflections, not hidden judgment.

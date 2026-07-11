@@ -29,6 +29,8 @@ insights should shape their next action.
 - Career changers comparing opportunities.
 - Students tracking internships or entry-level applications.
 - Career coaches helping users organize job-search activity.
+- Users tailoring resumes, cover letters, and interview preparation for different roles.
+- Professionals managing recruiter conversations and follow-up timing.
 
 ## Core User Problems
 
@@ -39,6 +41,8 @@ insights should shape their next action.
 - Insights should support action without pretending to predict hiring outcomes.
 - Job tracking can drift into scraping, auto-applying, or recruiter workflows.
 - AI match scoring can mislead if treated as truth instead of a review signal.
+- Rejection-heavy pipelines can create anxiety if status review feels punitive.
+- Duplicate applications, resume versions, contacts, and follow-up dates are hard to manage in spreadsheets once search volume grows.
 
 ## Final Capabilities
 
@@ -64,6 +68,8 @@ insights should shape their next action.
 - Resume Builder and Job Description Analyzer handoffs.
 - Email Assistant handoff for follow-up drafts.
 - Job-search analytics across status, priority, and response patterns.
+- Exportable job-search records so users retain ownership of sensitive career data.
+- Duplicate-role and stale-follow-up review signals that support quality over application volume.
 - Optional job posting import from user-provided sources.
 - AI-assisted fit review grounded in user-provided job and resume context.
 
@@ -112,6 +118,7 @@ which ones are waiting.
 
 - Users can manage jobs, applications, and insights in one clear workflow.
 - Pipeline status and follow-up actions remain easy to scan.
+- Review copy and analytics support momentum without shaming rejection or inactivity.
 - Insights support user judgment without becoming prediction or scoring.
 - Detail-heavy notes stay out of lightweight list payloads.
 - Ecosystem handoffs strengthen job-search flow without product overlap.
@@ -147,6 +154,8 @@ carefully governed import or AI review.
 - Do not become an ATS or recruiting platform.
 - Do not guarantee interviews, offers, fit, or hiring outcomes.
 - Do not score employability as objective truth.
+- Do not encourage spam applications, mass autofill, or low-quality application volume.
+- Do not make rejection tracking feel punitive.
 - Do not replace Resume Builder, Job Description Analyzer, Interview
   Scheduler, Email Assistant, Career Planner, or LinkedIn Bio Optimizer.
 - Do not send follow-ups without explicit user action.
@@ -157,6 +166,7 @@ carefully governed import or AI review.
 - Track the job search without owning the job market.
 - Support preparation and follow-through over prediction.
 - Treat insights and AI suggestions as review signals, not truth.
+- Favor quality, context, and follow-up over raw application count.
 - Keep user agency central to every application decision.
 - Use explicit handoffs for resumes, interviews, emails, and career planning.
 - Keep payloads lightweight until detail is needed.

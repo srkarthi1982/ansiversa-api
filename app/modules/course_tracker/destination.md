@@ -29,6 +29,8 @@ what learning activity should move next.
 - Professionals studying certifications or skills programs.
 - Self-learners organizing structured learning commitments.
 - Users who want course-level progress separate from daily study planning.
+- Learners taking courses across multiple providers who need a personal record that survives platform or subscription changes.
+- Tutors or mentors helping learners monitor progress without operating an institutional LMS.
 
 ## Core User Problems
 
@@ -40,6 +42,8 @@ what learning activity should move next.
 - Users need completion metrics without turning the app into a school system.
 - Course tracking should support planning without pretending to validate
   grades or certifications.
+- Completion percentages can be misleading unless modules, effort, and provider context remain visible.
+- Learners need to distinguish self-tracked progress from official provider progress, grades, or credentials.
 
 ## Final Capabilities
 
@@ -64,6 +68,8 @@ what learning activity should move next.
 - LMS import with explicit user consent and limited scope.
 - Study Planner task generation from unfinished modules.
 - Course comparison across providers or categories.
+- Credential and certificate metadata that remains clearly user-recorded unless verified by an approved provider.
+- Stalled-course recovery prompts that help users decide what to resume next.
 - Learning analytics across courses, minutes, and completion trends.
 
 ## AI Opportunities
@@ -113,6 +119,7 @@ setup.
 - Modules and progress logs stay connected to the correct course.
 - Review metrics help users understand progress without claiming academic
   authority.
+- Self-tracked progress is visibly separate from official grades, certificates, and provider records.
 - Ecosystem handoffs support learning without turning Course Tracker into an
   LMS.
 - Future analytics improve reflection and planning rather than surveillance or
@@ -145,6 +152,8 @@ out of LMS, grading, and certification authority territory.
 - Do not become a school administration system.
 - Do not become a gradebook by default.
 - Do not issue certificates or validate credentials.
+- Do not present self-tracked progress as official platform progress.
+- Do not let recommendations become sales-driven course promotion.
 - Do not scrape external course providers.
 - Do not become a course marketplace.
 - Do not replace Study Planner, Smart Textbook Scanner, Concept Explainer, or
@@ -158,6 +167,7 @@ out of LMS, grading, and certification authority territory.
 - Keep courses, modules, and logs simple and reviewable.
 - Treat progress logs as historical records.
 - Support user agency rather than provider control.
+- Keep Course Tracker as a personal learning ledger across platforms, not another LMS.
 - Let adjacent learning apps handle their own workflows.
 - Make AI planning suggestions optional and evidence-based.
 - Prefer steady accountability over complex administration.

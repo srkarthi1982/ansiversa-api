@@ -29,6 +29,8 @@ outputs responsibly.
 - Researchers preparing focused references from user-provided notes.
 - Meeting participants who paste approved notes for recap.
 - Writers and learners who need summaries without losing source context.
+- Non-native English speakers who need clearer structure from dense notes.
+- Users who need task-specific outputs such as action items, study notes, questions, or review checklists.
 
 ## Core User Problems
 
@@ -37,6 +39,8 @@ outputs responsibly.
 - Users need saved history for documents and generated summaries.
 - Large source text should not bloat list screens or history views.
 - AI summaries can omit, distort, or overstate meaning if not reviewed.
+- Generic compression is not enough when users need decisions, actions, study prompts, or missing-context warnings.
+- Privacy and consent are central when notes come from meetings, classes, research, or workplace material.
 
 ## Final Capabilities
 
@@ -58,6 +62,9 @@ outputs responsibly.
 - Batch summarization across selected documents.
 - Multi-document comparison and synthesis.
 - Export to markdown, PDF, or study formats.
+- Multiple summary modes such as brief, detailed, action items, study notes, questions, flashcards, and decisions.
+- Version comparison when users regenerate summaries with a different focus.
+- Source-linked highlights and "what may be missing" review notes.
 - Research Assistant handoff for source-backed notes.
 - Concept Explainer handoff for extracted concepts.
 - Study Planner task generation from approved action items.
@@ -110,6 +117,7 @@ without losing the original material.
 - Users can save documents, generate summaries, review history, and open full
   detail records without confusion.
 - Summaries remain attached to source documents.
+- Users can see what output type was requested and verify it against source material.
 - List and history views stay lightweight while detail views preserve full
   source context.
 - AI output remains reviewable and does not claim authority over the source.
@@ -148,6 +156,8 @@ and source-linked quality review.
 - Do not replace Research Assistant, Book Summary Generator, Meeting Minutes AI,
   Concept Explainer, or Study Planner.
 - Do not summarize material that the user has not provided.
+- Do not build recording, transcription, or meeting-bot behavior without consent and privacy governance.
+- Do not hide file length, processing, storage, privacy, or export limits until after upload or processing.
 - Do not invent citations or source claims.
 - Do not treat AI summaries as verified truth without user review.
 
@@ -155,6 +165,7 @@ and source-linked quality review.
 
 - Keep summaries connected to source notes.
 - Treat AI output as review material, not final truth.
+- Keep source visibility, verification, and missing-context warnings central to summary trust.
 - Preserve lightweight list and history views.
 - Require user action before handoff or export.
 - Respect user ownership of pasted source material.

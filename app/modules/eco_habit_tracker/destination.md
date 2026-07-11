@@ -30,6 +30,8 @@ features only when the privacy and governance boundaries are clear.
 - Students practicing environmental awareness through daily action.
 - Users who prefer browser-local progress over account-backed tracking.
 - People who want lightweight motivation without social pressure.
+- Climate-anxious users who need constructive, practical action without guilt-heavy messaging.
+- Users tracking food, travel, energy, waste, shopping, or household habits with transparent limits.
 
 ## Core User Problems
 
@@ -40,6 +42,8 @@ features only when the privacy and governance boundaries are clear.
 - Streaks should encourage consistency without becoming pressure or judgment.
 - Eco apps can drift into carbon claims, compliance, social competition, or
   unsupported impact measurement.
+- Impact estimates can feel vague or untrustworthy when assumptions and uncertainty are hidden.
+- Eco habits need local and household flexibility because infrastructure and culture vary.
 
 ## Final Capabilities
 
@@ -61,6 +65,8 @@ features only when the privacy and governance boundaries are clear.
 - Optional reminders with local-first or clearly governed account behavior.
 - Export/import browser-local habit progress.
 - Estimated impact ranges with transparent uncertainty.
+- Clear assumption notes for any future impact estimate or environmental claim.
+- User-custom eco actions for local infrastructure and household context.
 - Account-backed streak sync with explicit opt-in.
 - Private household challenges with consent controls.
 - Dashboard links into broader lifestyle or wellness views.
@@ -111,6 +117,7 @@ repeatable routine.
 - Future sync, reminders, impact estimates, or challenges require explicit
   governance and user consent.
 - Eco guidance stays practical and avoids unsupported impact certainty.
+- Any impact estimate shows uncertainty and avoids precise-looking unsupported numbers.
 - The app remains useful without backend persistence, AI, or social features.
 
 ## Journey Progress
@@ -144,6 +151,8 @@ export/import, and carefully governed sync or impact features.
 - Do not store habit progress on the server by default.
 - Do not make unsupported environmental impact claims.
 - Do not shame or rank users based on habit completion.
+- Do not collect location, lifestyle, household, or travel data without clear purpose and consent.
+- Do not turn climate anxiety into guilt, ranking, or lifestyle scoring.
 - Do not replace Mood Journal, Study Planner, or Daily Word Challenge.
 - Do not send habit history to AI providers without explicit user action and
   governance review.
@@ -154,6 +163,7 @@ export/import, and carefully governed sync or impact features.
 - Preserve browser-local habit progress by default.
 - Treat streaks as encouragement, not judgment.
 - Make sync, reminders, exports, and AI explicitly opt-in.
+- Explain assumptions before showing impact estimates or sustainability claims.
 - Avoid unsupported carbon or compliance claims.
 - Use ecosystem handoffs rather than expanding into adjacent lifestyle apps.
 - Favor consistency over competition.
