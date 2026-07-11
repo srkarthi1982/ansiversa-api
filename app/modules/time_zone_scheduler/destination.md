@@ -26,6 +26,10 @@ The mature product should remain useful for remote work, interviews, client
 calls, classes, family coordination, and travel planning while preserving the
 privacy boundary that makes V1 valuable: meeting titles, participant zones, and
 saved schedules stay local by default.
+Its market-informed identity is deterministic time-zone clarity: browser and
+timezone data should do the conversion, while AI, calendars, booking links, and
+availability workflows remain optional explanations or handoffs rather than
+the source of scheduling truth.
 
 ## Target Users
 
@@ -47,6 +51,8 @@ saved schedules stay local by default.
   memory.
 - Daylight saving changes and browser time-zone support can create confusion
   unless the product communicates limits clearly.
+- Working-hour overlap, local date shifts, holidays, and different workweek
+  norms can matter, but they should not force users into a booking platform.
 - Users need repeatable local planning without turning meeting metadata into
   backend scheduling data.
 
@@ -65,6 +71,8 @@ saved schedules stay local by default.
 - Explain browser and daylight-saving limitations when relevant.
 - Offer import/export for browser-local backup and portability after review.
 - Support calendar handoff or `.ics` export only through explicit user action.
+- Support copyable meeting-time summaries that users can paste into email,
+  chat, or planning notes without granting calendar access.
 - Provide keyboard-friendly schedule creation, review, edit, and delete flows.
 - Preserve local privacy by default with no backend scheduling, invitations,
   reminders, calendar sync, or shared team state.
@@ -77,6 +85,8 @@ saved schedules stay local by default.
 - Availability notes that remain local and do not become polling workflows.
 - Travel mode for comparing home, destination, and meeting zones.
 - DST transition warnings when a selected date is near a known offset change.
+- Working-hour or fairness hints only when they remain transparent and
+  user-controlled.
 - Local favorite zones or zone groups for repeated teams.
 - Explicit handoffs to calendar, task, or planning tools after governance
   review.
@@ -134,6 +144,8 @@ server.
 - Users can create and understand a multi-zone schedule quickly.
 - My Time is visually and semantically clear in every comparison.
 - Date changes across zones are easy to notice.
+- DST caveats and deterministic conversion assumptions are visible enough that
+  users do not rely on AI or memory for the final time.
 - Saved schedules remain local by default and are easy to find, edit,
   duplicate, and delete.
 - Time-zone validation and unsupported-browser states are helpful.
@@ -185,6 +197,7 @@ Time Zone Scheduler is not intended to become:
 - A workforce scheduling system.
 - A shared team calendar.
 - A travel booking or itinerary platform.
+- An AI scheduling agent.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -196,6 +209,7 @@ Every Time Zone Scheduler feature should:
 - Preserve browser-local privacy by default.
 - Improve time-zone clarity before adding scheduling infrastructure.
 - Make My Time and date changes easy to scan.
+- Keep timezone conversion deterministic and explainable.
 - Be honest about browser and daylight-saving limitations.
 - Keep calendar handoffs explicit and user-controlled.
 - Avoid invitations, reminders, polling, sync, or booking-platform scope.

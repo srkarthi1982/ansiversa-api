@@ -26,6 +26,10 @@ The mature product should serve job seekers, career changers, freelancers,
 founders, consultants, and professionals who need a clearer LinkedIn About
 section and headline. It should help users communicate their work better, not
 automate LinkedIn behavior or promise career outcomes.
+Its market-informed identity is truthful profile clarity: professional
+positioning should become more specific, coherent, and role-aligned without
+inflating achievements, gaming profile scores, or implying guaranteed views,
+interviews, or jobs.
 
 ## Target Users
 
@@ -50,6 +54,8 @@ automate LinkedIn behavior or promise career outcomes.
   or job outcomes.
 - AI bio generation can exaggerate achievements or weaken authenticity if not
   reviewed.
+- Profile scores and keyword advice can become opaque or gamified if they are
+  not tied to truthful user-provided evidence.
 - Profile tools can drift into scraping, auto-publishing, outreach automation,
   recruiter targeting, and personal branding operations.
 
@@ -65,6 +71,8 @@ automate LinkedIn behavior or promise career outcomes.
   updates, and profile metadata.
 - Load full bio and template text only through detail endpoints where needed.
 - Support comparison of current, optimized, and saved versions.
+- Support checklist-based review for headline, About, keywords, proof of
+  impact, tone, and resume/portfolio consistency.
 - Support AI-assisted bio generation only after authenticity, privacy, quality,
   and governance review.
 - Support export/copy workflows only through explicit user action.
@@ -74,6 +82,8 @@ automate LinkedIn behavior or promise career outcomes.
 
 - AI-assisted headline and bio suggestions with visible review boundaries.
 - Keyword coverage and role-alignment guidance without ranking promises.
+- Evidence-backed achievement framing that distinguishes stated experience
+  from unsupported claims.
 - Version comparison and change explanations.
 - Reusable profile positioning presets for career stages or industries.
 - Resume Builder and Job Description Analyzer handoffs for role-aligned
@@ -132,6 +142,8 @@ promise recruiter visibility, automate outreach, or inflate achievements.
 - Current bio, optimized bio, templates, keywords, and versions remain
   connected.
 - Saved versions clearly explain what changed and why.
+- Optimized versions preserve user voice, proof, and authenticity rather than
+  becoming generic career-marketing copy.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether bio text is manual, template-based, AI-assisted, or
@@ -186,6 +198,7 @@ LinkedIn Bio Optimizer is not intended to become:
 - A resume builder.
 - A social media management suite.
 - An endorsement or connection-growth tool.
+- A profile-scoring authority or recruiter-visibility guarantee.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -197,6 +210,8 @@ Every LinkedIn Bio Optimizer feature should:
 - Preserve profile context, keywords, templates, optimized text, and version
   history.
 - Improve professional clarity without promising career outcomes.
+- Tie keywords and positioning to user-provided evidence, target roles, and
+  reviewable context.
 - Keep optimized content authentic and reviewable.
 - Keep full bio and template text out of list and dashboard payloads.
 - Treat AI generation as governed infrastructure, not a default shortcut.

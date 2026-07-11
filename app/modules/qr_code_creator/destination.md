@@ -24,6 +24,10 @@ and leave without wondering where their content went.
 The product should remain useful for quick one-off codes, classroom material,
 small business signs, event handouts, documentation, and personal sharing while
 protecting the focused creator experience that makes it valuable.
+Its market-informed identity is reliable static QR creation: users should
+understand permanence, scanability, export quality, and privacy before printing
+or sharing a code, especially when future dynamic or hosted behavior is out of
+scope.
 
 ## Target Users
 
@@ -46,6 +50,8 @@ protecting the focused creator experience that makes it valuable.
 - Many QR tools push users toward analytics, tracking, redirects, or branding
   workflows they do not need.
 - Users need confidence that the generated QR code will scan reliably.
+- Users often confuse static, permanent QR codes with dynamic, editable, hosted,
+  trackable QR codes.
 - Exported images need to be clean enough for documents, slides, signs, and
   print.
 - Customization should improve clarity and presentation without damaging scan
@@ -67,6 +73,8 @@ protecting the focused creator experience that makes it valuable.
   and contact card content when those formats are governed.
 - Keep user-entered content and generated images browser-local by default.
 - Provide print/export guidance for posters, handouts, labels, and slides.
+- Explain that static QR destinations cannot be changed after printing unless
+  the encoded destination itself points to an externally controlled page.
 - Preserve a fast one-screen creation flow for simple codes.
 
 ## Advanced Capabilities
@@ -75,6 +83,8 @@ protecting the focused creator experience that makes it valuable.
 - QR content templates for Wi-Fi, vCard, email, phone, SMS, maps, and event
   links.
 - Scan-quality guidance based on size, margin, error correction, and contrast.
+- Static-versus-dynamic education before any hosted redirect, editable link, or
+  analytics feature is considered.
 - Logo overlay or center mark support only if scan reliability remains clear.
 - Local-only recent drafts or reusable presets, explicitly controlled by the
   user.
@@ -128,6 +138,8 @@ focused.
 - Users can generate a QR code quickly without account setup or campaign setup.
 - Common inputs are validated clearly.
 - Generated codes scan reliably under ordinary conditions.
+- Users understand whether a QR code is static, permanent, editable,
+  trackable, hosted, or dependent on an outside destination.
 - Exported PNG and later SVG assets are clean enough for real use.
 - Users understand when customization may reduce scan quality.
 - QR content remains browser-local by default.
@@ -174,6 +186,7 @@ QR Code Creator is not intended to become:
 - A full design suite.
 - A redirect-link hosting service.
 - A scan analytics or attribution platform.
+- A dynamic QR hosting or editable redirect service by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -185,6 +198,7 @@ Every QR Code Creator feature should:
 - Make QR creation faster, clearer, or more reliable.
 - Preserve browser-first privacy.
 - Improve scan trust and export quality.
+- Make permanence, editability, tracking, and hosting dependencies explicit.
 - Keep customization tasteful and safe.
 - Avoid hidden tracking or redirect behavior.
 - Keep the simple creation flow visible.

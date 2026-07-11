@@ -26,6 +26,9 @@ The mature product should remain controlled and privacy-first. Users should be
 able to reason about file size before sharing, archiving, or preparing work
 without sending private documents, images, presentations, or archives to
 Ansiversa servers by default.
+Its market-informed identity is transparent optimization decision support:
+users should understand whether the app is estimating, compressing locally, or
+transforming content, and what quality tradeoff each step may create.
 
 ## Target Users
 
@@ -46,6 +49,8 @@ Ansiversa servers by default.
   upload errors, and memory.
 - Estimates are useful, but can mislead users if the product implies real
   compression happened.
+- Real optimization can reduce quality, alter content, or create format
+  compatibility issues if tradeoffs are hidden.
 - File processing scope can expand quickly into uploads, downloads, conversion,
   storage, malware scanning, and document management.
 
@@ -66,12 +71,16 @@ Ansiversa servers by default.
 - Offer import/export for metadata-only local records after review.
 - Support real browser-side compression only for approved file types after
   privacy, performance, and accuracy review.
+- Explain quality, format, size, and compatibility tradeoffs before any real
+  optimization or download is introduced.
 - Preserve local privacy by default with no backend file uploads, binary
   storage, server-side compression, downloads, or background processing.
 
 ## Advanced Capabilities
 
 - Browser-local real compression for safe, well-understood file types.
+- Before/after preview for supported visual formats before users accept real
+  optimized outputs.
 - Optional download of generated optimized files after browser-only processing
   is proven safe and clear.
 - Batch metadata estimation without reading or uploading binary content.
@@ -130,6 +139,8 @@ claim simulated estimates are real compressed outputs.
 - Users can create and understand a file optimization estimate quickly.
 - Simulated results are clearly labeled and not confused with real compressed
   files.
+- Quality loss, format changes, and compatibility limits are visible whenever
+  real optimization is considered.
 - File contents never leave the browser by default.
 - Local metadata records are easy to search, review, delete, and clear.
 - Insights improve file-size planning without backend file collection.
@@ -179,6 +190,7 @@ File Optimizer is not intended to become:
 - A document management system.
 - A backup or sync product.
 - A general file manager.
+- A CDN, media delivery, or developer asset pipeline.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -192,6 +204,7 @@ Every File Optimizer feature should:
 - Avoid backend uploads, binary storage, server-side processing, and hidden
   downloads.
 - Improve file-size decisions before adding file-processing scope.
+- Make quality and format tradeoffs understandable before producing outputs.
 - Keep file picker use explicit and user-triggered.
 - Make local storage contents understandable.
 - Keep real compression, AI, downloads, and cross-app handoffs explicit and

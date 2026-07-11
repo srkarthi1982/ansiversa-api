@@ -27,6 +27,9 @@ founders, and teams that need fast title options for articles, videos,
 products, social posts, emails, lessons, and internal content. It should remain
 small enough to use quickly while preserving enough context for users to return
 to an idea later.
+Its market-informed identity is honest title ideation: title options should
+fit the user's actual content, audience, channel, and claims instead of chasing
+opaque scores, generic formulas, clickbait, or traffic promises.
 
 ## Target Users
 
@@ -45,6 +48,8 @@ to an idea later.
   users rarely keep those inputs together.
 - Generic generators can produce options without explainable context or review
   history.
+- Title tools can reward emotional or SEO-heavy wording that misrepresents the
+  content or weakens trust.
 - AI generation can create brand, accuracy, plagiarism, or quality concerns if
   outputs are not reviewable.
 - Title ideation can drift into full content creation, SEO automation, ad
@@ -63,6 +68,8 @@ to an idea later.
 - Keep dashboard and list responses lightweight with previews and counters.
 - Provide detail views only where full project or title context is needed.
 - Support favorite, shortlist, or selected-title workflows after review.
+- Support fit-to-content and overclaim warnings where title wording may imply
+  benefits, urgency, numbers, or promises not present in the brief.
 - Support AI provider-backed generation only after quality, privacy, cost, and
   governance review.
 - Connect selected titles to adjacent writing apps through explicit handoffs.
@@ -74,6 +81,8 @@ to an idea later.
 - A/B title variants and comparison notes.
 - Tone, audience, and platform-specific title packs.
 - Basic SEO and readability guidance without becoming an SEO platform.
+- Channel-specific title families for blog, video, email, social, product, or
+  lesson use while keeping performance claims out of scope.
 - Export or copy packs for campaign review after governance review.
 - AI provider-backed generation with visible provider, model, and review
   boundaries.
@@ -127,6 +136,8 @@ SEO guarantees, or replace human judgment.
 - Users can create, edit, and reuse title briefs without confusion.
 - Generated title options remain connected to their source project and job.
 - Results are easy to scan, compare, and revisit.
+- Users can distinguish creative, SEO-aware, social, and formal options without
+  treating any score as a traffic guarantee.
 - List and dashboard APIs stay lightweight while detail views provide required
   context.
 - Users understand whether generation is deterministic, AI-backed, or otherwise
@@ -177,6 +188,7 @@ Creative Title Generator is not intended to become:
 - A plagiarism checker.
 - A brand compliance platform.
 - An unreviewed AI content factory.
+- A traffic, ranking, virality, or conversion-prediction product.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -189,6 +201,7 @@ Every Creative Title Generator feature should:
 - Keep title options connected to their brief and generation job.
 - Improve title ideation without absorbing full writing workflows.
 - Keep generated output reviewable and explainable.
+- Prefer truthful fit and audience clarity over clickbait or formulaic scoring.
 - Use lightweight list responses and load full context only where needed.
 - Treat AI generation as governed infrastructure, not a default shortcut.
 - Keep SEO, export, team review, and cross-app handoffs explicit and scoped.
