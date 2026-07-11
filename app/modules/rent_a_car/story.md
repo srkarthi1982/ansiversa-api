@@ -36,7 +36,7 @@ List and dashboard payloads avoid long text fields by using previews. Indexes co
 
 ## Current Status
 
-Workflow Ready candidate. The app remains `active / comingSoon` with `version = null`. Live promotion has not been performed.
+Approved live at version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, overview CTA validation, and production database migration verification.
 
 ## Known Limitations
 
@@ -50,4 +50,4 @@ Future versions may improve selected-search comparison, exports, and approved no
 
 ## Current Implementation
 
-The implementation includes isolated backend models, Alembic migration `20260711_0001_rent_a_car`, protected owner-scoped routes, generated OpenAPI compatibility, and React workflow pages for Searches, Vehicles, Bookings, and Insights.
+The implementation includes isolated backend models, Alembic migration `20260711_0001_rent_a_car`, protected owner-scoped routes, generated OpenAPI compatibility, and React workflow pages for Searches, Vehicles, Bookings, and Insights. The parent Apps catalog stores Rent a Car as `active` with `launchStatus = live`, `version = 1.0.0`, and destination metadata `28 / 100`.
