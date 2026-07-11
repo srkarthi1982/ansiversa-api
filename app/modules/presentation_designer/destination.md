@@ -35,6 +35,8 @@ not replace full visual design tools.
 - Educators organizing lesson and training decks.
 - Founders preparing pitch or update presentations.
 - Ansiversa users who need deck planning without a heavy slide editor.
+- Consultants, researchers, and operators turning complex notes into executive-ready narratives.
+- Users who need presentation structure before final visual design or export.
 
 ## Core User Problems
 
@@ -49,6 +51,8 @@ not replace full visual design tools.
   and storage complexity.
 - Presentation tools can drift into file editing, asset management, hosting,
   collaboration, and design-suite responsibilities.
+- AI-generated decks can look polished while remaining shallow, generic, or factually unsupported.
+- Export fidelity, brand consistency, and sensitive source material need review before users rely on a deck externally.
 
 ## Final Capabilities
 
@@ -72,6 +76,8 @@ not replace full visual design tools.
 
 - Reusable deck templates and slide outline presets.
 - AI-assisted slide outline generation after governance review.
+- Narrative outline review before slide generation or visual preview.
+- Source and factual review status for decks generated from notes, proposals, meetings, or research.
 - Slide preview rendering without becoming a full visual editor.
 - Presenter notes and rehearsal helpers.
 - Export to PDF or presentation formats after rendering review.
@@ -125,6 +131,7 @@ presentations, or replace full slide design software.
   text only where needed.
 - Users understand whether the app is planning, previewing, exporting, or using
   AI assistance.
+- Deck readiness reflects narrative clarity, audience fit, factual review, and export expectations.
 - Any AI outline generation, export rendering, asset upload, template library,
   or cross-app handoff is explicit and governance-reviewed.
 - The product does not drift into full slide editing, file hosting, asset
@@ -169,6 +176,8 @@ Presentation Designer is not intended to become:
 - A collaborative whiteboard.
 - A file conversion service.
 - A brand management platform.
+- A generic AI slide factory.
+- A stock media or template marketplace.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -179,6 +188,7 @@ Every Presentation Designer feature should:
 
 - Preserve project, slide, asset, and review context.
 - Improve deck structure and clarity before visual complexity.
+- Separate message, narrative, source review, and visual/export polish.
 - Keep large slide/asset text out of list and dashboard payloads.
 - Treat export, assets, previews, templates, and AI as governed capabilities.
 - Avoid full design-suite, hosting, storage, and file-rendering scope by

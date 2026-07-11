@@ -34,6 +34,8 @@ learning journeys.
 - Exam candidates who need fast recall and category-based review.
 - Knowledge workers who occasionally need technical, financial, or statistical
   formulas without opening heavyweight tools.
+- Learners who need variable definitions, units, assumptions, and applicability before calculating.
+- Users who want formula reference and recall support without a homework-answer shortcut.
 
 ## Core User Problems
 
@@ -48,6 +50,8 @@ learning journeys.
   simple lookup.
 - Teachers and parents need reliable formula explanations that do not distract
   from the learning moment.
+- Users may choose the wrong formula when applicability limits, domains, or unit constraints are hidden.
+- AI or generated explanations can be confidently wrong if formulas are not reviewed and source-grounded.
 
 ## Final Capabilities
 
@@ -77,6 +81,8 @@ learning journeys.
 - Teacher or tutor-curated formula packs.
 - Formula comparison views for closely related formulas.
 - Unit-awareness and variable-definition helpers.
+- Applicability, domain, and assumption warnings for formulas where misuse is common.
+- Clear mode separation between "find formula", "understand formula", and any future calculator behavior.
 - Optional account-backed favorites and recent lookup history.
 - Lightweight example builders for selected formulas.
 - Printable or exportable formula sheets for study sessions.
@@ -126,6 +132,7 @@ reliable place to find, understand, save, and revisit formulas without noise.
 - Users can find a relevant formula in seconds.
 - Formula cards are clear enough to support real understanding, not just copy
   actions.
+- Users can see variables, units, assumptions, and when the formula should not be used.
 - Favorites and filters make repeated use faster over time.
 - The formula library is trustworthy, reviewed, and not bloated with low-value
   entries.
@@ -169,6 +176,8 @@ Formula Finder is not intended to become:
 - A social formula-sharing network.
 - A public marketplace for unreviewed formula packs.
 - A replacement for teachers, tutors, textbooks, or formal proof systems.
+- An answer-only homework bypass tool.
+- A formula marketplace or unreviewed public pack library.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -179,6 +188,7 @@ Every Formula Finder feature should:
 
 - Make formula lookup faster or clearer.
 - Improve understanding, not just copying.
+- Keep applicability, assumptions, variables, and units visible.
 - Preserve trust in formula accuracy and context.
 - Keep the browser-first path private and lightweight.
 - Reduce study friction.

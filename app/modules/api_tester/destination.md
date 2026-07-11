@@ -33,6 +33,8 @@ Ansiversa, not a full enterprise API collaboration suite.
 - Support engineers checking API behavior during troubleshooting.
 - Technical founders and operators testing service workflows quickly.
 - Ansiversa builders who need a simple browser-local request workspace.
+- Privacy-conscious developers who want saved requests without cloud sync or accidental token exposure.
+- Technical writers creating safe API examples from reviewed requests and responses.
 
 ## Core User Problems
 
@@ -45,6 +47,8 @@ Ansiversa, not a full enterprise API collaboration suite.
   Markdown Editor.
 - API tools often drift into proxying, collaboration, secret vaulting, and
   workspace management when the user only needs lightweight testing.
+- Environment variables and shared collections can leak secrets if masking, export, and sync behavior are unclear.
+- Web-based clients need honest browser-limit explanations for CORS, cookies, mixed content, and blocked headers.
 
 ## Final Capabilities
 
@@ -74,6 +78,8 @@ Ansiversa, not a full enterprise API collaboration suite.
 - cURL import and export.
 - Response comparison for recent local runs.
 - Local-only notes attached to requests.
+- Secret masking, redaction, and export warnings for headers, variables, URLs, and payloads.
+- OpenAPI or cURL import only with reviewed ownership and format behavior.
 - Optional offline collection editing.
 - Explicitly governed backend proxy mode only if privacy, secrets, logging, and
   abuse controls are fully designed later.
@@ -123,6 +129,7 @@ clear about browser limitations.
 - Response inspection is useful without adding heavy editor or platform scope.
 - Users can explicitly hand off safe payloads to JSON Formatter, Markdown
   Editor, or Snippet Generator.
+- Secret handling, local storage, export, and handoff behavior is visible before users save or share requests.
 - Secrets are never sent to Ansiversa servers by default.
 - The app remains separate from proxy, vault, collaboration, monitoring, and API
   management responsibilities.
@@ -167,6 +174,8 @@ API Tester is not intended to become:
 - A load testing tool.
 - A public API documentation portal.
 - An identity, token, or credential management system.
+- A cloud-synced collection platform by default.
+- A request automation, monitoring, mock-server, or CI platform by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -179,6 +188,7 @@ Every API Tester feature should:
 - Require explicit user action before running requests.
 - Keep secrets local by default.
 - Explain browser limitations clearly.
+- Make sync, export, proxy, and AI behavior explicit before sensitive data moves.
 - Make request and response inspection easier.
 - Support learning and lightweight debugging.
 - Avoid proxy, vault, monitoring, or team-platform scope.

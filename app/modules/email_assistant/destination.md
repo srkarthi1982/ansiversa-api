@@ -34,6 +34,8 @@ or handed off, not automate communication on the user's behalf.
 - Support users keeping reusable reply patterns.
 - Students and educators preparing formal messages.
 - Ansiversa users who need email drafting without mailbox integration.
+- Non-native English speakers improving tone, clarity, and professionalism before sending.
+- Users overwhelmed by long threads who need controlled drafting without granting mailbox access.
 
 ## Core User Problems
 
@@ -48,6 +50,8 @@ or handed off, not automate communication on the user's behalf.
   consent risks.
 - Email tools can drift into CRM, mass outreach, tracking, automation, and
   delivery infrastructure.
+- AI drafts can invent commitments, dates, prices, legal terms, or facts if source context is not explicit.
+- Users need warnings for sensitive commitments before copying or sending a draft externally.
 
 ## Final Capabilities
 
@@ -73,6 +77,8 @@ or handed off, not automate communication on the user's behalf.
 - AI-assisted subject and body drafting with visible assumptions.
 - Tone and clarity checks for selected drafts.
 - Template libraries for common professional contexts.
+- Side-by-side original and revised draft review for tone, length, and commitment changes.
+- Sensitive-commitment warnings for promises, money, dates, legal terms, HR, health, or personal data.
 - Follow-up reminders without mailbox monitoring.
 - Contact import or mailbox integration only after consent and privacy review.
 - Delivery tracking only after explicit governance.
@@ -125,6 +131,7 @@ track recipients, send campaigns, or automate outreach by default.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether content is manual, template-based, or AI-assisted.
+- Draft review makes changed commitments, tone shifts, and missing next steps visible before handoff.
 - Any AI drafting, mailbox integration, contact import, tracking, scheduling,
   or cross-app handoff is explicit and governance-reviewed.
 - The product does not drift into mailbox, CRM, campaign automation, cold
@@ -169,6 +176,8 @@ Email Assistant is not intended to become:
 - A newsletter platform.
 - A support ticketing system.
 - An unmanaged AI communication agent.
+- A proactive inbox triage or routing agent by default.
+- A personal-voice imitation system without explicit review and consent.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -180,6 +189,7 @@ Every Email Assistant feature should:
 - Preserve project, draft, template, and history context.
 - Improve communication before automating delivery.
 - Keep full email bodies out of list and dashboard payloads.
+- Draft and suggest, but never send or commit on the user's behalf.
 - Treat AI, mailbox integration, contacts, scheduling, and tracking as governed
   capabilities.
 - Keep sending and outreach explicit and user-controlled.

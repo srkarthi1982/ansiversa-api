@@ -35,6 +35,8 @@ monitor conversations.
 - Students and educators summarizing group discussions.
 - Operators turning meeting notes into tasks and risks.
 - Ansiversa users who need meeting records without recording infrastructure.
+- Founders, managers, and client-facing teams who need decisions and commitments preserved after recurring discussions.
+- Privacy-conscious users who need manual or imported minutes before any recording workflow is considered.
 
 ## Core User Problems
 
@@ -47,6 +49,8 @@ monitor conversations.
   concerns.
 - Meeting tools can drift into recording, conferencing, surveillance, calendar
   sync, and project-management scope.
+- Transcripts and summaries can become unused archives unless decisions and action items become reviewable execution records.
+- Speaker labels, timestamps, and implied commitments need correction and source traceability before sharing.
 
 ## Final Capabilities
 
@@ -72,6 +76,8 @@ monitor conversations.
 - External task export after explicit user action.
 - Attendee tagging and role notes.
 - Decision and risk dashboards.
+- Source-linked summaries that distinguish transcript text, AI output, and user-edited minutes.
+- Client-facing approval and export review for sensitive meeting summaries.
 - Search over user-owned meeting records after index review.
 - Transcript import without audio storage.
 - Live recording or transcription only after separate consent and legal review.
@@ -119,6 +125,7 @@ conversations, or replace project management by default.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   content only where needed.
 - Users understand whether summaries are manual, imported, or AI-assisted.
+- Users can correct source notes, speaker context, decisions, and action items before export or handoff.
 - Any AI summary, transcript import, calendar integration, task export, or live
   transcription is explicit and governance-reviewed.
 - The product does not drift into recording, conferencing, surveillance,
@@ -162,6 +169,8 @@ Meeting Minutes AI is not intended to become:
 - A team chat product.
 - A CRM activity logger by default.
 - An unmanaged AI meeting agent.
+- A conversation intelligence or employee coaching platform by default.
+- A bot-first recording workflow without visible consent controls.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -173,6 +182,7 @@ Every Meeting Minutes AI feature should:
 - Preserve meeting, note, action item, summary, decision, and risk context.
 - Improve follow-up clarity without hidden recording or monitoring.
 - Keep long meeting text out of dashboard and list payloads.
+- Keep source transcript, AI summary, and user-edited minutes distinct.
 - Treat AI, transcripts, calendar import, and task export as governed
   capabilities.
 - Keep task and email handoffs explicit and user-controlled.
