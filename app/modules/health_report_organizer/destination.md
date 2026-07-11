@@ -6,7 +6,7 @@ Health Report Organizer
 
 ## Destination Status
 
-Draft v1.0
+Approved v1.0
 
 ## Final Product Vision
 
@@ -109,8 +109,8 @@ This estimate describes product maturity, not feature completion. Workflow Ready
 
 ## Governance Notes
 
-Astra: Requested Workflow Ready development for App #061 on 2026-07-11.
+Astra: Approved on 2026-07-11.
 
-Partner: Manual verification and live promotion remain pending.
+Partner: Approved live promotion on 2026-07-11 after manual workflow verification.
 
-Codex: Built Workflow Ready implementation only. No live promotion, launchStatus update, version update, or catalog count change was performed.
+Codex: Promoted the Apps row to live, synced destination metadata, preserved overview Explore routing to `/health-report-organizer/reports`, verified production migration status, and prepared live promotion metadata.

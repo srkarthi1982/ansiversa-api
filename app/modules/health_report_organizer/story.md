@@ -32,9 +32,9 @@ Indexes cover owner-scoped category and facility lists, report timelines, report
 
 ## Current Status
 
-Workflow Ready. The backend has protected owner-scoped APIs, isolated migration `20260711_0001_health_report_organizer`, dashboard summaries, report CRUD/delete, category CRUD/delete, facility CRUD/delete, attachment metadata CRUD/delete, note CRUD/delete, lightweight/detail response separation, and knowledge lifecycle documents.
+Approved Live at version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated production migration verification, and manual workflow verification. The backend has protected owner-scoped APIs, isolated migration `20260711_0001_health_report_organizer`, dashboard summaries, report CRUD/delete, category CRUD/delete, facility CRUD/delete, attachment metadata CRUD/delete, note CRUD/delete, lightweight/detail response separation, and knowledge lifecycle documents.
 
-The app remains `active` with `launchStatus = comingSoon` and `version = null`. It has not been promoted live.
+The parent Apps catalog stores Health Report Organizer as `active` with `launchStatus = live` and version `1.0.0`.
 
 ## Known Limitations
 
@@ -46,4 +46,4 @@ Future versions may add secure file upload after privacy governance, appointment
 
 ## Current Implementation
 
-Health Report Organizer is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Reports, Categories, Documents, and Insights. The parent Apps catalog remains coming soon pending Astra/Partner manual verification.
+Health Report Organizer is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Reports, Categories, Documents, and Insights. The parent Apps catalog is approved live at version `1.0.0`.
