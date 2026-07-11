@@ -30,6 +30,8 @@ much focused work has happened, and what should be reviewed next.
 - Users who need a lightweight study workflow separate from full course
   tracking.
 - Learners who want study effort and reflection preserved over time.
+- Students managing classes, assignments, exams, revision, and personal commitments in one study-specific flow.
+- Tutors or parents helping learners create realistic schedules without turning the app into school administration.
 
 ## Core User Problems
 
@@ -39,6 +41,8 @@ much focused work has happened, and what should be reviewed next.
 - Users need review signals without being judged by the app.
 - Study planning should support discipline without becoming surveillance or
   academic control.
+- AI-generated or template-based study plans can be unrealistic when they ignore workload, energy, and missed sessions.
+- Learners need recovery workflows when plans slip, not guilt-heavy streak mechanics or automatic rescheduling.
 
 ## Final Capabilities
 
@@ -59,6 +63,8 @@ much focused work has happened, and what should be reviewed next.
 - Calendar export for selected study tasks.
 - Reminder-ready task metadata and notification controls.
 - Workload balancing across dates and subjects.
+- Backward planning from exams, deadlines, or certification dates.
+- Missed-session recovery and quick reschedule review with user approval.
 - Study streaks and habit reflection without punitive scoring.
 - Course Tracker handoff from unfinished modules.
 - Quiz or Memory Trainer feedback loops for review planning.
@@ -109,6 +115,7 @@ their study intention is becoming actual work.
 - Study tasks are easy to create, update, complete, and delete.
 - Logs remain historical records and support honest reflection.
 - Review metrics motivate planning without becoming judgmental or predictive.
+- Missed work can be rebalanced through user-guided recovery instead of hidden automation.
 - Ecosystem handoffs help users plan study work without merging products.
 - AI assistance, if added, remains explainable, optional, and reversible.
 - The app remains useful without calendar, reminder, or AI dependencies.
@@ -142,6 +149,8 @@ protecting user agency and avoiding academic authority claims.
 - Do not become a proctoring or surveillance tool.
 - Do not predict grades or exam outcomes.
 - Do not guarantee academic performance.
+- Do not require heavy setup before the first useful study session.
+- Do not over-notify users or turn planning into another assignment.
 - Do not replace Course Tracker, Quiz, Memory Trainer, Smart Textbook Scanner,
   or AI Notes Summarizer.
 - Do not automatically reschedule user work without explicit approval.
@@ -152,6 +161,7 @@ protecting user agency and avoiding academic authority claims.
 - Support user agency rather than academic control.
 - Turn goals into manageable tasks and honest reflection.
 - Treat logs as historical study records.
+- Keep planning realistic, editable, and recoverable when life interrupts.
 - Keep review metrics useful, calm, and non-judgmental.
 - Make reminders and calendar connections explicit.
 - Let adjacent learning apps keep their own responsibilities.

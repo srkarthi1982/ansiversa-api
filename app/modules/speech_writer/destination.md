@@ -29,6 +29,8 @@ speeches with clarity and confidence.
 - Event speakers preparing occasion-specific remarks.
 - Community leaders, hosts, and organizers preparing public messages.
 - Users who need reusable structures for recurring speaking contexts.
+- Wedding speakers, ceremony speakers, and tribute speakers who need emotional tone without invented personal details.
+- Non-native speakers who need clarity, tone, and pacing support while preserving their own voice.
 
 ## Core User Problems
 
@@ -41,6 +43,8 @@ speeches with clarity and confidence.
   templates for every writing task.
 - AI-generated speech text can sound polished while missing authenticity,
   audience fit, or user ownership.
+- Speech length and pacing need practical review because written word count does not always match delivery time.
+- Users need help collecting real stories, facts, and constraints before drafting so the speech does not feel generic.
 
 ## Final Capabilities
 
@@ -66,6 +70,8 @@ speeches with clarity and confidence.
 - Presentation Designer handoff for speech-to-slide support.
 - Template library for recurring speech types.
 - Version comparison across speech drafts.
+- Outline-first workflows that let users review structure before full draft generation.
+- Personal story and fact capture that remains user-authored and reviewable.
 - Readiness checklist for audience, duration, call to action, and delivery.
 
 ## AI Opportunities
@@ -117,6 +123,7 @@ occasions rather than scattered text drafts.
 - Occasion and audience context remain visible while drafting.
 - Speech drafts are editable, reviewable, and easy to export or hand off.
 - Readiness review improves preparation without promising delivery success.
+- Speaking-time estimates and rehearsal notes are treated as guidance, not guarantees.
 - AI assistance, if added, supports user voice and never invents identity or
   claims.
 - Ecosystem handoffs enrich speech preparation without expanding product scope.
@@ -149,6 +156,8 @@ preserving authorship.
 - Do not become an event management system.
 - Do not become a public speaking marketplace.
 - Do not become a ghostwriting factory.
+- Do not imitate living people, famous speakers, protected writer styles, or voices without explicit consent and approval.
+- Do not add voice cloning, audio generation, or read-aloud identity features without separate governance.
 - Do not invent personal stories, credentials, facts, or organizational claims.
 - Do not replace Presentation Designer, Voice Converter, Research Assistant, or
   Grammar and Paraphrasing Assistant.
@@ -159,6 +168,7 @@ preserving authorship.
 - Start with occasion, audience, purpose, and key message.
 - Preserve the user's voice and authorship.
 - Treat templates as reusable structure, not generic content automation.
+- Ground drafts in user-provided occasion, audience, stories, and facts.
 - Keep revision history connected to speech activity.
 - Make AI suggestions optional, reviewable, and grounded in user context.
 - Support preparation without promising delivery outcomes.

@@ -29,6 +29,8 @@ revision history.
 - Technical writers saving reusable text fragments.
 - Support and operations users keeping repeatable command or response snippets.
 - Builders who need a private library of useful fragments.
+- DevOps and data users storing shell commands, configuration, SQL, or scripting examples.
+- Teams or learners who need private snippet libraries without heavy developer tooling.
 
 ## Core User Problems
 
@@ -39,6 +41,8 @@ revision history.
 - Snippet history is useful, but generated or copied code should remain
   reviewable.
 - AI-generated snippets can be unsafe if executed or reused blindly.
+- Snippet libraries become stale when dependencies, project context, or last-tested assumptions are missing.
+- Search quality determines whether a snippet library remains useful after it grows.
 
 ## Final Capabilities
 
@@ -62,6 +66,8 @@ revision history.
 - Import/export for markdown, JSON, or editor-friendly formats.
 - Snippet search with governed indexing.
 - Variable placeholders for reusable templates.
+- Dependency, environment, and last-reviewed metadata for context-sensitive snippets.
+- Version history or last-tested notes for snippets that may become stale.
 - AI-assisted snippet explanation or refinement.
 - Optional team/shared libraries with explicit governance.
 - Integration with Prompt Builder for code-generation prompts or usage notes.
@@ -111,6 +117,7 @@ the user comes back later.
 - Users can save, categorize, edit, delete, and reuse snippets in a clear
   workflow.
 - Snippet detail preserves enough context for safe reuse.
+- Search, tags, language metadata, and review dates keep trusted snippets retrievable.
 - List and dashboard screens stay lightweight while detail views hold full
   snippet text.
 - Search and organization improve discovery without becoming a documentation
@@ -148,6 +155,8 @@ export, favorites, AI review support, and possible governed sharing.
 - Do not become a full documentation platform.
 - Do not become a team knowledge base by default.
 - Do not guarantee code correctness, safety, or security.
+- Do not encourage copy/paste reuse without project context, dependency review, or testing.
+- Do not store proprietary code in public or shared contexts by default.
 - Do not replace Prompt Builder, API Tester, Markdown Editor, or File
   Optimizer.
 - Do not send private snippets to AI providers without explicit governance.
@@ -159,6 +168,7 @@ export, favorites, AI review support, and possible governed sharing.
 - Keep organization lightweight: projects, categories, tags, and history.
 - Separate snippet storage from code execution.
 - Make large snippet bodies available only where needed.
+- Make generated or imported snippets draft-first until reviewed.
 - Make AI assistance optional, diff-based, and reviewable.
 - Keep private libraries private by default.
 - Use ecosystem handoffs instead of expanding into adjacent developer tools.

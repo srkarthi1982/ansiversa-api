@@ -29,6 +29,8 @@ workflows elsewhere.
 - AI learners practicing clear instructions and context design.
 - Teams or individuals organizing prompt patterns before execution elsewhere.
 - Developers and builders documenting prompt behavior and revisions.
+- Marketers, educators, consultants, and creators who need reusable AI instructions for repeatable workflows.
+- Ansiversa users who need private prompt assets without joining a public marketplace.
 
 ## Core User Problems
 
@@ -41,6 +43,8 @@ workflows elsewhere.
   quality scores.
 - Prompt management can drift into automation or agent behavior if boundaries
   are unclear.
+- Prompts become brittle when model behavior changes unless purpose, examples, variables, and output expectations are preserved.
+- Shared or public prompts can leak sensitive business process knowledge if privacy is not explicit.
 
 ## Final Capabilities
 
@@ -63,6 +67,8 @@ workflows elsewhere.
 - Prompt quality review checklist.
 - Controlled prompt execution against approved providers.
 - Prompt test cases and expected-output notes.
+- Structured fields for goal, audience, context, constraints, examples, variables, and output schema.
+- Model-change review notes so prompts can be revisited when provider behavior shifts.
 - AI-assisted prompt refinement with explanations.
 - Shared prompt templates with governance and ownership controls.
 - Model/provider compatibility metadata.
@@ -112,6 +118,7 @@ one-off chat messages.
 
 - Users can create, edit, organize, and reuse prompt records and templates.
 - Prompt purpose, context, output format, and history remain easy to inspect.
+- Variables, examples, and constraints make reusable prompts easier to adapt without hiding intent.
 - Prompt versioning and history support review without pretending to measure
   truth objectively.
 - Any prompt execution remains explicit, governed, and separate from silent
@@ -146,6 +153,8 @@ import/export, prompt review, governed execution, and AI refinement boundaries.
 - Do not become an automation or agent builder.
 - Do not become a prompt marketplace.
 - Do not become a hidden prompt scoring engine.
+- Do not make public sharing default or encourage low-quality prompt-pack behavior.
+- Do not store or share sensitive prompts without clear ownership and privacy controls.
 - Do not optimize prompts for manipulation, spam, deception, or policy bypass.
 - Do not replace app-specific generation tools, Snippet Generator, or API
   Tester.
@@ -158,6 +167,7 @@ import/export, prompt review, governed execution, and AI refinement boundaries.
 - Preserve purpose, context, instruction, output format, and history.
 - Treat prompts as reusable user-owned assets.
 - Keep execution separate, explicit, and governed.
+- Prefer task clarity, context, and evaluation notes over brittle prompt hacks.
 - Make prompt quality review understandable, not magical.
 - Use AI to clarify prompts, not to hide intent.
 - Support app handoffs without owning every AI workflow.

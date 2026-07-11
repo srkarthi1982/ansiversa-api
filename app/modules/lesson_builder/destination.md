@@ -30,6 +30,8 @@ publish a stable version when ready.
 - Trainers designing workshops or professional learning sessions.
 - Course creators organizing lesson plans before publishing elsewhere.
 - Students or self-learners structuring material for peer teaching.
+- New teachers, tutors, and homeschool parents who need structure without adopting a school platform.
+- Educators adapting source material for different learner levels, language needs, or classroom constraints.
 
 ## Core User Problems
 
@@ -40,6 +42,8 @@ publish a stable version when ready.
 - Published lesson plans should remain stable after review.
 - Lesson planning can drift into LMS, classroom, or marketplace scope if
   boundaries are not explicit.
+- AI-generated lesson drafts can look complete while still needing educator judgment for pacing, level, and teachability.
+- Teachers need review checkpoints for objective clarity, activity fit, assessment evidence, materials, and timing realism.
 
 ## Final Capabilities
 
@@ -66,6 +70,8 @@ publish a stable version when ready.
 - Research Assistant handoff for source-backed lesson material.
 - Course Tracker connection for course/module placement.
 - AI-assisted lesson outline suggestions from user-provided objectives.
+- Differentiation controls for reading level, learner profile, and activity type after governance review.
+- Section-level review for source assumptions, learner fit, assessment evidence, and timing.
 - Accessibility and timing checks for lesson sections.
 
 ## AI Opportunities
@@ -115,6 +121,7 @@ structured plan that can be delivered or handed off.
 - Draft lessons remain flexible while published lessons remain stable.
 - Sections support clear objective, instruction, activity, assessment, and
   resource planning.
+- Generated or adapted lesson material remains editable, source-aware, and educator-reviewed before use.
 - Future AI assistance supports educator judgment and never bypasses review.
 - Ecosystem handoffs improve lesson preparation without turning the app into an
   LMS or presentation tool.
@@ -151,6 +158,8 @@ ecosystem handoffs.
 - Do not replace Presentation Designer, Course Tracker, Research Assistant, or
   Concept Explainer.
 - Do not auto-publish AI-generated lessons.
+- Do not imply standards alignment, classroom readiness, or differentiation accuracy without review.
+- Do not collect student data or classroom context without approved privacy governance.
 - Do not guarantee learning outcomes.
 - Do not use copyrighted source material without explicit user context and
   governance review.
@@ -161,6 +170,7 @@ ecosystem handoffs.
 - Keep lesson flow ordered, reviewable, and easy to revise.
 - Protect published lesson stability.
 - Support educator judgment rather than replacing it.
+- Treat lessons as teaching decisions, not just generated content.
 - Use ecosystem handoffs to enrich lessons without absorbing other apps.
 - Make AI suggestions optional, explainable, and editable.
 - Prefer practical teaching preparation over platform expansion.
