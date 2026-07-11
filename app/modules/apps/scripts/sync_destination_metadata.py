@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 APPROVED_STATUS = "approved"
-EXPECTED_LIVE_DESTINATION_COUNT = 58
+EXPECTED_LIVE_DESTINATION_COUNT = 59
 REVIEW_DATE_PATTERN = re.compile(r"Astra: Approved on (?P<date>\d{4}-\d{2}-\d{2})\.")
 PROGRESS_PATTERN = re.compile(r"Current Position:\s*(?P<progress>\d+)\s*/\s*100")
 

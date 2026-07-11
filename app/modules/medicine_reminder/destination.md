@@ -6,7 +6,7 @@ Medicine Reminder
 
 ## Destination Status
 
-Draft v1.0
+Approved v1.0
 
 ## Final Product Vision
 
@@ -108,14 +108,8 @@ This estimate describes product maturity, not feature completion. Workflow Ready
 
 ## Governance Notes
 
-This destination is aspirational and subject to Product Owner and Astra review. It does not authorize immediate implementation of notifications, AI, caregiver sharing, clinical checks, or integrations.
+Astra: Approved on 2026-07-11.
 
-## Last Governance Review
+Partner: Approved Medicine Reminder live promotion after manual workflow verification.
 
-Product Owner:
-Astra:
-Codex: Drafted Workflow Ready V1 destination on 2026-07-11.
-
-Status:
-
-Draft
+Codex: Ran production-configured isolated database migration, verified schema/indexes, synced destination metadata, and prepared live promotion metadata.

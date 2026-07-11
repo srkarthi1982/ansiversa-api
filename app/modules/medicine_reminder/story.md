@@ -30,7 +30,7 @@ Indexes cover owner-scoped medicine lists, status sorting, refill reminders, sch
 
 ## Current Status
 
-Workflow Ready V1. The backend has protected owner-scoped APIs, isolated migration `20260711_0001_medicine_reminder`, dashboard summaries, medicine CRUD/delete, schedule CRUD/delete, dose-log CRUD/delete, note CRUD/delete, lightweight/detail response separation, and knowledge lifecycle documents. The app remains `comingSoon` with `version = null` until Astra/Partner approval.
+Approved Live at version 1.0.0 after Astra/Partner approval, production Apps row promotion, destination metadata sync, isolated production migration verification, and manual workflow verification. The backend has protected owner-scoped APIs, isolated migration `20260711_0001_medicine_reminder`, dashboard summaries, medicine CRUD/delete, schedule CRUD/delete, dose-log CRUD/delete, note CRUD/delete, lightweight/detail response separation, and knowledge lifecycle documents.
 
 ## Known Limitations
 
@@ -42,4 +42,4 @@ Future versions may add notification delivery, refill quantity automation, expor
 
 ## Current Implementation
 
-Medicine Reminder is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and Workflow Ready backend routing. The parent Apps catalog remains unchanged as `active` / `comingSoon` / `version = null`.
+Medicine Reminder is a DB-backed mini-app module with owner-scoped CRUD APIs, isolated migration files, lightweight response schemas, dashboard summary calculation, and protected frontend routes for Medicines, Schedules, History, and Insights. The parent Apps catalog stores Medicine Reminder as `active` with `launchStatus = live` and version `1.0.0`.
