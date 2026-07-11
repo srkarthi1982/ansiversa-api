@@ -1,1 +1,168 @@
-{"hero":{"kicker":"Personal Life & Wellness · Ansiversa mini app","title":"Health Report Organizer","description":"Health Report Organizer for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/health-report-organizer"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Health Report Organizer","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Personal Life & Wellness"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Health Report Organizer focused and easy to revisit","description":"Health Report Organizer provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Health Report Organizer overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Health Report Organizer","description":"Health Report Organizer is useful for people who need a dedicated personal life & wellness workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Health Report Organizer essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /health-report-organizer."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /health-report-organizer."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Health Report Organizer follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Health Report Organizer","description":"Explore Health Report Organizer from its active Ansiversa route.","action":{"label":"Explore","path":"/health-report-organizer"}}}
+{
+  "hero": {
+    "kicker": "Personal Life & Wellness · Ansiversa mini app",
+    "title": "Health Report Organizer",
+    "description": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+    "points": [
+      "Report records",
+      "Categories and facilities",
+      "Attachment metadata and notes"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/health-report-organizer/reports"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Reports → Categories → Documents → Insights",
+    "steps": [
+      "Create health report records",
+      "Group reports by category and facility",
+      "Track attachment references and report notes",
+      "Review follow-up and recent activity insights"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Personal Life & Wellness"
+    },
+    {
+      "label": "Workflow",
+      "value": "Reports"
+    },
+    {
+      "label": "Access",
+      "value": "Private"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A practical index for health paperwork",
+    "description": "Health Report Organizer keeps health document context findable without claiming diagnosis, treatment guidance, or provider portal integration.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Record",
+        "description": "Save report title, date, type, status, priority, summary, category, and facility."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Connect",
+        "description": "Link attachment metadata and notes to the report that needs context."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "See follow-up records, reviewed reports, attachment count, and recent activity."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Calm, private, and appointment-ready",
+    "description": "The workflow helps users keep health paperwork organized while staying clear about medical boundaries.",
+    "items": [
+      {
+        "title": "Easy to find",
+        "description": "Search and filters make report records easier to revisit."
+      },
+      {
+        "title": "Clear context",
+        "description": "Categories, facilities, attachment references, and notes keep related details together."
+      },
+      {
+        "title": "Responsible boundaries",
+        "description": "The app organizes records without interpreting results or giving medical advice."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Health Report Organizer",
+    "description": "Health Report Organizer is useful for people who need a private way to track health report metadata and related notes.",
+    "items": [
+      {
+        "title": "Individuals",
+        "description": "Keep personal reports, labs, imaging records, and discharge summaries easier to find."
+      },
+      {
+        "title": "Caregivers",
+        "description": "Organize family report references and appointment questions in a structured workflow."
+      },
+      {
+        "title": "Appointment planners",
+        "description": "Review report status and notes before speaking with a doctor or facility."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Health Report Organizer essentials",
+    "description": "The app focuses on organization, review status, attachment references, and report notes.",
+    "items": [
+      {
+        "title": "Health reports",
+        "description": "Create report records with date, type, status, priority, summary, category, and facility."
+      },
+      {
+        "title": "Documents and notes",
+        "description": "Track file names, sources, storage locations, links, and report-specific notes."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total reports, reviewed records, follow-up load, attachment count, and recent activity."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A clear path from record to review",
+    "description": "The overview introduces the workflow that starts at the reports workspace.",
+    "groups": [
+      {
+        "kicker": "Organize",
+        "title": "Build the report index",
+        "items": [
+          {
+            "name": "Reports",
+            "description": "Store lightweight health report records and review status."
+          },
+          {
+            "name": "Categories and facilities",
+            "description": "Keep recurring organization labels and source references reusable."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Keep follow-up visible",
+        "items": [
+          {
+            "name": "Documents",
+            "description": "Record where attachments live without storing medical files in V1."
+          },
+          {
+            "name": "Insights",
+            "description": "Use dashboard signals to revisit recent reports and follow-up notes."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Health Report Organizer follows the shared mini-app overview metadata pattern.",
+    "items": [
+      "Explore CTA enters /health-report-organizer/reports.",
+      "Protected workflow routes run inside the persistent Ansiversa shell.",
+      "Owner-scoped API responses keep lists lightweight and detail edits complete."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Health Report Organizer",
+    "description": "Start with reports, then organize categories, documents, notes, and insights.",
+    "action": {
+      "label": "Explore",
+      "path": "/health-report-organizer/reports"
+    }
+  }
+}
