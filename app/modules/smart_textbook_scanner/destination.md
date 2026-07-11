@@ -29,6 +29,8 @@ respect for copyrighted learning content.
 - Educators preparing focused references from provided teaching material.
 - Professionals studying certification or technical manuals.
 - Learners who want page-level notes connected to original source context.
+- Students who need searchable study notes from printed handouts, PDFs, diagrams, formulas, or workbook pages.
+- Learners with accessibility or language needs who benefit from reviewable extracted text and simplified explanations.
 
 ## Core User Problems
 
@@ -38,6 +40,8 @@ respect for copyrighted learning content.
 - Learners need review progress signals across multiple scans and pages.
 - AI or OCR assistance can become risky if it hides errors or encourages
   unauthorized content ingestion.
+- OCR errors in equations, tables, diagrams, and mixed layouts can silently corrupt study material.
+- Users need to know what came from the source page, what was corrected, and what was generated later.
 
 ## Final Capabilities
 
@@ -61,6 +65,8 @@ respect for copyrighted learning content.
 - Note handoff into AI Notes Summarizer or Study Planner.
 - Export of reviewed notes into markdown, PDF, or flashcard-ready formats.
 - Page-level confidence indicators for OCR or AI extraction.
+- Side-by-side source preview, extracted text, and correction workflow before downstream generation.
+- Clear next actions after review: summarize, explain, quiz, save note, export, or hand off.
 - Duplicate detection for repeated page captures.
 - Study progress analytics across subjects and scans.
 
@@ -112,6 +118,7 @@ without separating notes from their source material.
 - Long page text is loaded intentionally rather than bloating every list view.
 - AI and OCR assistance, if added, remain explicit, source-grounded, and
   reviewable.
+- Uncertain extraction is visible before notes are reused in study workflows.
 - The product respects user-provided material and avoids encouraging
   copyrighted content misuse.
 - Ecosystem handoffs support learning without turning the app into an LMS,
@@ -151,10 +158,13 @@ and learning handoffs that must be governed carefully.
 - Do not ingest complete copyrighted books by default.
 - Do not treat AI-extracted notes as authoritative without review.
 - Do not hide source material or page context behind generated summaries.
+- Do not overpromise handwriting, formula, table, or diagram accuracy without tested support.
+- Do not bypass correction tools when extraction confidence is low.
 
 ## Guiding Principles
 
 - Preserve source context from page to note.
+- Capture, extract, review, then generate.
 - Treat extracted notes as study aids, not authoritative replacements.
 - Keep user-provided material private by default.
 - Require explicit user action for uploads, extraction, export, and handoff.

@@ -29,6 +29,8 @@ inside the Ansiversa platform.
 - Professionals keeping career history ready for future opportunities.
 - Freelancers and consultants preparing client-facing profiles.
 - Career changers translating experience into clearer resume structure.
+- Non-native English speakers who need clearer wording and tone while preserving factual career history.
+- Users who already have a resume and need cleanup, review, or role-specific variants without hidden export friction.
 
 ## Core User Problems
 
@@ -39,6 +41,8 @@ inside the Ansiversa platform.
   sharing it.
 - Users need readiness signals without being misled by fake certainty or job
   guarantees.
+- Users need transparent save and export expectations before investing time in a resume workflow.
+- AI wording help can become risky if it makes bullets generic, inflated, or detached from evidence.
 
 ## Final Capabilities
 
@@ -63,6 +67,8 @@ inside the Ansiversa platform.
 - Portfolio Creator handoff for selected projects and achievements.
 - Version comparison across resume variants.
 - Import from existing documents with explicit review before saving.
+- Human-proof checklist for invented claims, date consistency, measurable outcomes, and ATS-safe layout.
+- Transparent export choices such as PDF, DOCX, TXT, or share link after product review.
 - Accessibility and ATS-readability checks.
 
 ## AI Opportunities
@@ -115,6 +121,7 @@ constantly rewriting the same resume.
 - Preview output reflects the selected resume structure accurately.
 - Readiness review helps users improve completeness without pretending to be a
   hiring decision.
+- Export, save, and variant behavior remains clear before users commit effort.
 - AI suggestions preserve authorship, truth, and reviewability.
 - Resume Builder hands off to adjacent career products without absorbing their
   responsibilities.
@@ -150,6 +157,8 @@ deeper ecosystem handoffs while preserving user authorship.
 - Do not automate job applications.
 - Do not guarantee interviews, offers, rankings, or hiring outcomes.
 - Do not fabricate or inflate user qualifications.
+- Do not market a resume workflow as free if meaningful export is unexpectedly locked later.
+- Do not replace user judgment with one opaque resume score.
 - Do not provide legal, immigration, or employment-law advice.
 - Do not replace LinkedIn Bio Optimizer, Portfolio Creator, Career Planner, or
   Job Description Analyzer.
@@ -160,6 +169,7 @@ deeper ecosystem handoffs while preserving user authorship.
 - Preserve user authorship and career truth.
 - Improve clarity without inventing evidence.
 - Keep resume structure separate from job matching and recruiting decisions.
+- Keep career evidence specific, verifiable, and user-approved.
 - Treat readiness metrics as review signals, not objective judgments.
 - Make AI suggestions diffable, explainable, and optional.
 - Let adjacent career apps contribute context through explicit handoffs.

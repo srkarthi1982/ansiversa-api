@@ -30,6 +30,8 @@ card for another role or company, and export or share it with confidence.
   software.
 - Students and early-career users preparing professional identity materials.
 - Consultants and independent workers who need reusable card records.
+- Founders, creators, service professionals, and event networkers who need both printed-card readiness and digital sharing clarity.
+- Users who want QR or vCard sharing without accidentally creating public contact analytics.
 
 ## Core User Problems
 
@@ -41,6 +43,8 @@ card for another role or company, and export or share it with confidence.
 - Users need to review contact accuracy before exporting or sharing a card.
 - Lightweight card creation should not require print-vendor accounts or public
   hosted profiles.
+- Attractive cards can fail if text is too small, contrast is weak, or QR codes are not scannable.
+- Static and dynamic QR destinations need clear expectations before users print or share a card.
 
 ## Final Capabilities
 
@@ -64,6 +68,8 @@ card for another role or company, and export or share it with confidence.
 - QR code support for contact sharing.
 - Public share links with explicit user opt-in.
 - Brand presets for colors, typography, and logo placement.
+- Print-readiness checks for text size, contrast, margins, bleed, and QR scanability.
+- Explicit QR destination review for vCard, portfolio, user URL, or future Ansiversa profile handoffs.
 - Template versioning so older saved cards remain stable.
 - Lightweight share analytics for explicitly shared links.
 - Portfolio Creator handoff for professional identity consistency.
@@ -114,6 +120,7 @@ whenever identity or networking context changes.
 - Saved cards are easy to edit, duplicate, delete, preview, and export.
 - Card data remains owner-scoped and private by default.
 - Exports represent the card accurately across supported devices.
+- Card previews remain legible, print-aware, and scan-aware before export.
 - Template choices improve presentation without overwhelming the user.
 - The product never requires print orders, hosted profiles, or public sharing
   to be useful.
@@ -152,6 +159,8 @@ professional identity handoffs, and stronger review guidance.
 - Do not scrape or publish user contact data.
 - Do not silently create shareable public profiles.
 - Do not invent professional claims or credentials with AI.
+- Do not imply print fulfillment, color accuracy, paper quality, or shipping outcomes unless Ansiversa owns that workflow.
+- Do not collect contact scans, lead analytics, or CRM data without explicit consent and governance.
 
 ## Guiding Principles
 
@@ -159,6 +168,7 @@ professional identity handoffs, and stronger review guidance.
 - Treat contact details as private user-owned information.
 - Require explicit user action before exporting or sharing card data.
 - Preserve editability for saved cards and variations.
+- Prioritize readability, scanability, and contact accuracy over decorative design.
 - Prefer clear presentation over excessive design controls.
 - Keep ecosystem connections explicit and user-driven.
 - Make AI helpful only when it improves clarity without inventing identity.

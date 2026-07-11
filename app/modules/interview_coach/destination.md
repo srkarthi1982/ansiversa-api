@@ -34,6 +34,8 @@ practice behavior and answer quality without pretending to know hiring results.
 - Professionals preparing internal promotion interviews.
 - Mentors helping users organize practice.
 - Ansiversa users who need interview readiness tracking without video tools.
+- Non-native speakers improving clarity, structure, and confidence before live conversations.
+- Job seekers without access to mentors or mock interview partners who need private practice.
 
 ## Core User Problems
 
@@ -47,6 +49,8 @@ practice behavior and answer quality without pretending to know hiring results.
 - Voice/video scoring introduces privacy, consent, and bias concerns.
 - Interview tools can drift into recruiter scoring, hiring prediction, and
   automated assessment.
+- Feedback must separate answer content, structure, delivery, confidence, and next practice action.
+- Users can over-practice memorized answers that sound unnatural if coaching rewards polish over substance.
 
 ## Final Capabilities
 
@@ -68,6 +72,8 @@ practice behavior and answer quality without pretending to know hiring results.
 - AI-assisted answer feedback with evidence-based suggestions.
 - STAR/CAR answer structure guidance.
 - Readiness trend analytics across sessions.
+- Saved strong-answer and weak-answer review lists for repeated practice.
+- Short practice modes such as quick question, story builder, full mock, and review.
 - Timed practice rounds.
 - Voice practice only after privacy, consent, and bias review.
 - Interview reminders after notification governance.
@@ -116,6 +122,7 @@ human coaching, record users without consent, or predict offers.
 - Questions, answers, and readiness reviews remain connected.
 - Readiness scores are framed as practice signals, not truth.
 - Users understand whether feedback is manual, template-based, or AI-assisted.
+- Feedback distinguishes content quality from delivery signals and avoids over-weighting filler words.
 - Any AI coaching, voice/video practice, job-description handoff, reminder, or
   export is explicit and governance-reviewed.
 - The product does not drift into hiring decisions, recruiter scoring,
@@ -159,6 +166,8 @@ Interview Coach is not intended to become:
 - A calendar scheduling platform.
 - A background-checking product.
 - An employer interview replacement.
+- A voice/video analytics product by default.
+- A memorized-answer factory.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -170,6 +179,7 @@ Every Interview Coach feature should:
 - Preserve session, question, answer, and readiness context.
 - Support practice and reflection over prediction.
 - Keep readiness scores non-authoritative.
+- Balance confidence-building with honest, specific practice feedback.
 - Treat AI, voice/video, reminders, exports, and job-description handoffs as
   governed capabilities.
 - Avoid hiring decisions, surveillance, therapy, and outcome guarantees.

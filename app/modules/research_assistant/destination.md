@@ -29,6 +29,8 @@ review, and reuse their own research context with confidence.
 - Professionals preparing decisions, briefs, planning notes, or comparisons.
 - Writers who need source context before drafting.
 - Knowledge workers who need a simple research trail inside Ansiversa.
+- Founders, product teams, analysts, and students who need practical research without a full reference manager.
+- Users who need cited evidence trails more than fast unsourced answers.
 
 ## Core User Problems
 
@@ -40,6 +42,8 @@ review, and reuse their own research context with confidence.
   system.
 - AI-assisted research can become risky if it hides sources or fabricates
   evidence.
+- Source coverage, ranking, paywalls, and recency can bias what users see during research.
+- Users need auditability: what was searched, selected, summarized, skipped, and still uncertain.
 
 ## Final Capabilities
 
@@ -63,6 +67,8 @@ review, and reuse their own research context with confidence.
 - Evidence quality indicators and missing-source warnings.
 - AI synthesis drafts that always cite the source notes used.
 - Topic comparison across saved research records.
+- Research trail views for query, filters, selected sources, notes, and limitations.
+- Source quality labels or checklists for recency, source type, evidence strength, and uncertainty.
 - Research job tracking for governed long-running tasks.
 - Export to markdown, PDF, or writing modules.
 - Connection to AI Notes Summarizer and Proposal Writer for reviewed material.
@@ -115,6 +121,7 @@ question, source trail, or current status.
 - Topic lists stay lightweight while detail pages preserve full context.
 - Status transitions help the user understand research maturity without
   pretending to validate truth.
+- Evidence review shows source quality, limitations, and unresolved questions before handoff.
 - Any AI support remains source-grounded, explainable, and optional.
 - Ecosystem handoffs preserve source context and user review.
 - The product remains useful as a manual research workspace even without AI.
@@ -147,6 +154,8 @@ source import, AI synthesis governance, and higher-quality ecosystem handoffs.
 - Do not become a full document editor.
 - Do not become a ghostwriting or academic cheating tool.
 - Do not generate uncited claims as truth.
+- Do not confuse generated synthesis with peer-reviewed consensus.
+- Do not hide weak, missing, paywalled, or uncertain source coverage.
 - Do not replace AI Notes Summarizer, Browser PDF Reader, Lesson Builder, or
   writing apps.
 - Do not ingest external sources without explicit user action.
@@ -157,6 +166,7 @@ source import, AI synthesis governance, and higher-quality ecosystem handoffs.
 - Preserve the relationship between question, note, source, and conclusion.
 - Treat references as user-provided evidence, not automatic truth.
 - Keep research private and owner-scoped by default.
+- Put evidence before answers and keep audit trails visible.
 - Make AI source-grounded, reviewable, and optional.
 - Support user judgment rather than replacing it.
 - Prefer clear research continuity over broad automation.
