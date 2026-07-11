@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-11: Continued market-informed destination refinement for AI Job Interviewer, Portfolio Creator, Quiz, Contract Generator, and JSON Formatter by adding ethical-simulation, proof-of-work, question-quality, legal-draft, browser-local-privacy, non-goal, and governance-boundary details without changing approval status, Journey Progress, or review metadata.
 * 2026-07-11: Continued market-informed destination refinement for Resume Builder, Research Assistant, Visiting Card Maker, Smart Textbook Scanner, and Interview Coach by adding resume-truth, evidence-first-research, card-scanability, source-fidelity, interview-feedback, non-goal, and governance-boundary details without changing approval status, Journey Progress, or review metadata.
 * 2026-07-11: Continued market-informed destination refinement for Lesson Builder, Prompt Builder, Snippet Generator, Study Planner, and Speech Writer by adding educator-review, prompt-privacy, snippet-trust, study-recovery, speech-authenticity, non-goal, and governance-boundary details without changing approval status, Journey Progress, or review metadata.
 * 2026-07-11: Continued market-informed destination refinement for Course Tracker, Job Tracker, Eco Habit Tracker, AI Notes Summarizer, and Memory Trainer by adding market-supported learning-ledger, job-search-momentum, eco-impact-transparency, source-linked-summary, active-recall, non-goal, and governance-boundary details without changing approval status, Journey Progress, or review metadata.

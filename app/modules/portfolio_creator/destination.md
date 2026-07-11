@@ -34,6 +34,8 @@ site building or promise career outcomes.
 - Creators organizing public project highlights.
 - Career changers reframing work for a new role.
 - Ansiversa users who need portfolio records without website-builder overhead.
+- Writers, developers, designers, consultants, and non-visual professionals who need proof-of-work storytelling, not only galleries.
+- Users who need multiple audience-specific portfolio versions without maintaining a full website.
 
 ## Core User Problems
 
@@ -46,6 +48,8 @@ site building or promise career outcomes.
   governance complexity.
 - Portfolio tools can drift into full website builders, hosting, social
   profiles, and branding services.
+- Users often struggle to write project narratives that explain problem, role, process, outcome, and evidence.
+- Publishing client-sensitive or unpublished work can create privacy, confidentiality, and reputation risks.
 
 ## Final Capabilities
 
@@ -72,6 +76,8 @@ site building or promise career outcomes.
 - Media upload and asset storage only after file governance review.
 - Resume Builder import and project reuse.
 - Analytics for public portfolio views after consent review.
+- Guided case-study fields for problem, role, process, outcome, evidence, and links.
+- Public/private draft states and publishing checklist before any sharing workflow.
 - Shareable portfolio URLs and preview modes.
 - AI-assisted profile/project wording with authenticity checks.
 - Portfolio readiness guidance without hiring outcome claims.
@@ -119,6 +125,7 @@ become a general website builder.
 - Projects, skills, and publish settings remain connected to profile context.
 - Publish state and visibility are clear before sharing.
 - Dashboard data stays coordinated and lightweight.
+- Project narratives show real evidence without fabricating clients, metrics, or outcomes.
 - Users understand whether content is manual, imported, AI-assisted, or public.
 - Any public rendering, domain support, media upload, analytics, import, or AI
   assistance is explicit and governance-reviewed.
@@ -163,6 +170,8 @@ Portfolio Creator is not intended to become:
 - A web analytics suite.
 - A resume builder.
 - A guaranteed career-outcome product.
+- A generic AI website generator.
+- A client file repository or confidential-work publishing tool by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -173,6 +182,7 @@ Every Portfolio Creator feature should:
 
 - Preserve profile, project, skill, and publish context.
 - Improve authentic professional presentation.
+- Treat portfolios as proof-of-work storytelling, not decorative page building.
 - Keep publishing explicit and reversible.
 - Treat hosting, domains, media uploads, analytics, imports, and AI as governed
   capabilities.

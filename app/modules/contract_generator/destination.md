@@ -34,6 +34,8 @@ support clearer drafting, not provide legal judgment or execute agreements.
 - Operators tracking review status for common agreements.
 - Founders preparing first-pass drafts for professional review.
 - Ansiversa users who need structured contract organization, not legal advice.
+- Creators, service providers, and project owners documenting scope, payment, delivery, or collaboration expectations before work starts.
+- Non-legal users who need plain-language warnings about when qualified review is necessary.
 
 ## Core User Problems
 
@@ -47,6 +49,8 @@ support clearer drafting, not provide legal judgment or execute agreements.
   compliance risk.
 - Contract tools can drift into legal advice, automated review, e-signature,
   CLM, and regulated legal-service scope.
+- Users may confuse reusable templates or clauses with jurisdiction-specific legal protection.
+- Contract drafts need clear missing-field checks for parties, dates, scope, payment, term, signatures, and review status.
 
 ## Final Capabilities
 
@@ -77,6 +81,8 @@ support clearer drafting, not provide legal judgment or execute agreements.
   review.
 - AI-assisted drafting or clause suggestions with strong disclaimers.
 - Risk-flagging as review support, not legal advice.
+- Plain-language legal-review prompts and missing-term checklists.
+- Renewal, expiry, or obligation tracking only through governed handoffs after finalization.
 - Handoffs to Proposal Writer or Invoice and Receipt Maker.
 
 ## AI Opportunities
@@ -122,6 +128,7 @@ or automate legal decisions.
 - Users can create, edit, review, and revisit contract projects easily.
 - Documents, clauses, and history remain connected and reviewable.
 - Reusable clauses are clearly drafts, not legal authority.
+- Missing parties, dates, payment terms, obligations, review state, and signature readiness are visible before export.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand the app does not replace legal review.
@@ -168,6 +175,8 @@ Contract Generator is not intended to become:
 - A jurisdiction-specific legal service.
 - A dispute-resolution platform.
 - A contract negotiation platform.
+- A legal subscription service or attorney-support product.
+- A jurisdiction-specific compliance checker by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -178,6 +187,7 @@ Every Contract Generator feature should:
 
 - Preserve project, document, clause, and review context.
 - Make draft status and legal-review responsibility clear.
+- Use plain language to reduce false confidence without providing legal advice.
 - Keep full contract text out of list and dashboard payloads.
 - Treat AI, templates, exports, and e-signature integrations as governed
   capabilities.

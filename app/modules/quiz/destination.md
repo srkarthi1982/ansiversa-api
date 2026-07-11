@@ -27,6 +27,8 @@ and personal knowledge goals.
 - Parents supporting a child's weekly practice.
 - Trainers creating checks for workshops, onboarding, or compliance.
 - Knowledge workers testing retention after reading, meetings, or research.
+- Tutors and parents who need calm formative checks without managing a full classroom system.
+- Content creators turning lessons or notes into private practice material after review.
 
 ## Core User Problems
 
@@ -38,6 +40,8 @@ and personal knowledge goals.
 - Self-learners need to identify weak areas and revisit them later.
 - Knowledge workers need lightweight ways to retain notes, concepts, and
   course material over time.
+- AI-generated or imported questions can be wrong, ambiguous, too easy, or misaligned with the learning goal.
+- Live game mechanics can over-reward speed when careful reasoning matters more.
 
 ## Final Capabilities
 
@@ -76,6 +80,8 @@ and personal knowledge goals.
 - Rich analytics dashboards for teachers and trainers.
 - Versioned question banks so results remain explainable after questions are
   edited.
+- Question quality checks for duplicate answers, weak distractors, missing explanations, ambiguous wording, and answer-key gaps.
+- Separate calm study mode from live-game or timed modes so practice intent stays clear.
 
 ## AI Opportunities
 
@@ -127,6 +133,7 @@ user to build a learning system from scratch.
 - Teachers or trainers can create and reuse quiz sets without developer help.
 - AI-generated content is clearly reviewable and does not bypass human quality
   control.
+- Question quality and explanation review happen before draft content becomes published practice.
 - Quiz data feeds useful signals into Study Planner, Course Tracker, Concept
   Explainer, AI Notes Summarizer, Daily Word Challenge, Memory Trainer, and
   other learning apps.
@@ -165,6 +172,8 @@ Quiz is not intended to become:
 - A gambling or betting game.
 - A public competition system that prioritizes status over learning.
 - A generic content publishing platform unrelated to learning assessment.
+- A noisy classroom game by default.
+- An AI question publisher that bypasses human review.
 
 These directions should stay out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -177,6 +186,7 @@ Every Quiz feature should:
 - Solve a real user problem.
 - Reduce friction.
 - Preserve trust in scoring, answer handling, and explanations.
+- Keep question quality, explanations, and reviewability ahead of speed or gamification.
 - Encourage repeat practice without unhealthy pressure.
 - Fit naturally into the Ansiversa learning ecosystem.
 - Stay useful on mobile.

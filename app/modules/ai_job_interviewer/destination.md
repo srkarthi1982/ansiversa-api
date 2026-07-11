@@ -35,6 +35,8 @@ more thoughtfully, not judge employability or simulate real hiring authority.
 - Professionals preparing promotion or internal-move interviews.
 - Coaches helping users structure practice.
 - Ansiversa users who need interview preparation without live video tools.
+- Non-native speakers building interview fluency through private simulated pressure.
+- Interview Coach users who need an adaptive roleplay partner rather than a broader coaching workspace.
 
 ## Core User Problems
 
@@ -48,6 +50,8 @@ more thoughtfully, not judge employability or simulate real hiring authority.
 - Audio/video analysis introduces privacy, bias, and recording concerns.
 - Interview tools can drift into hiring decisions, recruiter scoring, live
   interview platforms, and job-outcome promises.
+- Real-time interview copilot behavior can cross ethical and employer-policy boundaries.
+- AI interviewers can feel too forgiving or unnatural unless follow-ups, difficulty, and feedback are calibrated.
 
 ## Final Capabilities
 
@@ -69,6 +73,8 @@ more thoughtfully, not judge employability or simulate real hiring authority.
 
 - AI-generated role-specific question sets.
 - Job Description Analyzer handoff for tailored practice.
+- Practice-only framing and ethical boundary prompts before simulated sessions.
+- Adaptive follow-up questions that remain reviewable and session-scoped.
 - Timed mock interview sessions.
 - Voice practice and speech review only after privacy and bias review.
 - Readiness trend history across sessions.
@@ -119,6 +125,7 @@ consent, or promise job offers.
 - Users can create, practice, answer, and review sessions easily.
 - Questions, answers, and results remain connected to interview context.
 - Progress feedback is reviewable and framed as preparation guidance.
+- Users can distinguish simulated practice feedback from real interview advice or live-interview assistance.
 - Users understand whether questions or feedback are manual, AI-assisted, or
   otherwise generated.
 - Any AI questions, voice/video practice, scheduler link, job-description
@@ -163,6 +170,8 @@ AI Job Interviewer is not intended to become:
 - A guaranteed job-offer predictor.
 - A calendar scheduling platform.
 - A real employer interview substitute.
+- A real-time interview copilot or cheating assistant.
+- A voice/video analytics platform by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -174,6 +183,7 @@ Every AI Job Interviewer feature should:
 - Preserve session, question, answer, and progress context.
 - Support preparation over prediction.
 - Keep feedback reviewable and non-authoritative.
+- Keep simulated roleplay ethical, private, and clearly separate from live interviews.
 - Treat AI, job-description tailoring, voice/video, and scheduling as governed
   capabilities.
 - Avoid hiring decisions, surveillance, and outcome guarantees.

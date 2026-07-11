@@ -31,6 +31,8 @@ the simplicity that makes the tool valuable.
 - Product and operations teams checking structured data safely.
 - Students learning JSON syntax and structure.
 - Technical founders and builders who need quick browser-local JSON cleanup.
+- API Tester users inspecting request and response bodies without copying data into unknown external tools.
+- Privacy-conscious users handling tokens, customer records, logs, webhooks, or production configuration.
 
 ## Core User Problems
 
@@ -42,6 +44,8 @@ the simplicity that makes the tool valuable.
   features.
 - Invalid JSON errors can be frustrating when line, column, or context is hard
   to understand.
+- Conversion and repair features can accidentally change payload semantics if diffs and review are missing.
+- Large payloads need clear performance boundaries so the browser fails gracefully.
 
 ## Final Capabilities
 
@@ -69,6 +73,8 @@ the simplicity that makes the tool valuable.
 - JSON diff view for comparing two payloads.
 - Lightweight JSON Schema validation for users who intentionally provide a
   schema.
+- Explicit local-processing indicators and sensitive-payload reminders near input workflows.
+- Repair suggestions only with visible diff and user approval.
 - Import and export helpers for local files.
 - Local-only snippet storage with explicit user control.
 - Keyboard command palette for power users.
@@ -117,6 +123,7 @@ less distracting than generic online formatters.
 - Invalid JSON produces useful, understandable feedback.
 - Users trust that pasted JSON stays browser-local unless they explicitly choose
   a governed handoff.
+- Repair, conversion, schema, and AI features never alter payloads without visible review.
 - The interface remains simple even as advanced inspection tools are added.
 - Keyboard workflows are fast enough for repeated developer use.
 - Large or malformed payloads fail gracefully.
@@ -160,6 +167,8 @@ JSON Formatter is not intended to become:
 - A code generation platform.
 - A replacement for API Tester, Markdown Editor, Snippet Generator, or other
   focused Ansiversa tools.
+- A server-side formatter for production payloads.
+- An AI repair tool that silently rewrites JSON semantics.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -170,6 +179,7 @@ Every JSON Formatter feature should:
 
 - Preserve browser-first privacy.
 - Make JSON easier to read, validate, inspect, or copy.
+- Keep deterministic formatting separate from optional explanation, repair, conversion, or AI behavior.
 - Improve precision and trust.
 - Keep the main workflow fast.
 - Explain errors clearly.
