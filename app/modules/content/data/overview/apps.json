@@ -1417,14 +1417,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[\"Task dashboard\", \"Task CRUD\", \"Family member CRUD\", \"Category CRUD\", \"Simple calendar\", \"Household insights\"]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "family-task-planner",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 30,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-11"
 		},
 		{
 			"id": "app_rent-a-car",

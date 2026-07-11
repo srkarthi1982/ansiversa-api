@@ -40,7 +40,7 @@ The API keeps list payloads lightweight and uses indexes for owner-scoped lists,
 
 ## Current Status
 
-Workflow Ready. The app remains `comingSoon` and is not promoted to Live.
+Approved Live. The app is promoted to `active` / `live` with version `1.0.0` after Astra/Partner approval, production database migration, manual workflow verification, overview CTA sync, destination metadata sync, and parent Apps row promotion.
 
 ## Known Limitations
 
@@ -52,4 +52,4 @@ Future approved versions may add richer recurring task generation, household-lev
 
 ## Current Implementation
 
-The backend module lives in `app/modules/family_task_planner`. The frontend module lives in `src/modules/family-task-planner`. The isolated migration lives under `migrations/family-task-planner`.
+The backend module lives in `app/modules/family_task_planner`. The frontend module lives in `src/modules/family-task-planner`. The isolated migration lives under `migrations/family-task-planner`. The parent Apps catalog stores Family Task Planner as `active` with `launchStatus = live`, `version = 1.0.0`, and destination metadata `30 / 100`.
