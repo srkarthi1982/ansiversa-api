@@ -30,6 +30,8 @@ what is happening next and what needs attention.
 - Hiring teams coordinating interview stages.
 - Career coaches helping users prepare for scheduled interviews.
 - Professionals managing interview appointments during career transitions.
+- Agencies coordinating between candidates and client hiring teams without direct access to every calendar.
+- Remote teams or candidates who need time-zone clarity before committing to a slot.
 
 ## Core User Problems
 
@@ -42,6 +44,8 @@ what is happening next and what needs attention.
   booking infrastructure.
 - Scheduling tools can become risky if they start evaluating candidates or
   automating hiring decisions.
+- Panel interviews, reschedules, video links, and time-zone conversions create coordination risk even before automation.
+- Candidate experience suffers when scheduling communication becomes impersonal or hard to confirm.
 
 ## Final Capabilities
 
@@ -62,6 +66,8 @@ what is happening next and what needs attention.
 - Calendar export or integration with explicit consent.
 - Notification reminders with user-controlled delivery.
 - Interview history timeline.
+- Candidate-friendly slot options and manual confirmation flows before external booking automation.
+- Time-zone review and conflict warnings that show assumptions before events are finalized.
 - Preparation prompts connected to AI Job Interviewer or Interview Coach.
 - Schedule summary export for personal review.
 - Candidate pipeline analytics for manual records.
@@ -113,6 +119,8 @@ interview step without losing context.
 - Users can create, update, delete, and review schedules, rounds, and events in
   one focused workflow.
 - Calendar events remain connected to interview context.
+- Time-zone, location, and video-link details are visible before users rely on an event.
+- Candidate-facing communication remains editable and user-confirmed.
 - Preparation notes support readiness without becoming evaluation or coaching
   authority.
 - Integrations and reminders require explicit governance and user action.
@@ -147,6 +155,8 @@ preparation integrations, conflict review, and job-search ecosystem links.
 - Do not become an ATS.
 - Do not become a recruiting automation platform.
 - Do not send invitations or reminders without explicit user action.
+- Do not access external calendars without explicit permission and privacy review.
+- Do not hide time-zone conversions, reschedule context, or invite details.
 - Do not score candidates or make hiring decisions.
 - Do not predict interview outcomes.
 - Do not replace Job Tracker, AI Job Interviewer, Interview Coach, Email
@@ -157,6 +167,7 @@ preparation integrations, conflict review, and job-search ecosystem links.
 
 - Keep interview context attached to every round and event.
 - Support manual coordination before external automation.
+- Keep candidate experience human-readable, editable, and confirmable.
 - Treat reminders and integrations as explicit opt-in features.
 - Preserve preparation notes without turning them into evaluation.
 - Use ecosystem handoffs for coaching, job tracking, and email.

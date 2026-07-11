@@ -29,6 +29,8 @@ vocabulary tools when the user chooses.
 - Writers exploring expressive words.
 - Curious learners who want a short daily learning routine.
 - Language learners who want lightweight exposure to new words.
+- Casual puzzle players who enjoy a quick word ritual without competitive pressure.
+- Teachers or coaches who may use daily vocabulary as a warm-up after content governance.
 - Users who prefer local progress without account-backed tracking by default.
 
 ## Core User Problems
@@ -41,6 +43,8 @@ vocabulary tools when the user chooses.
   ranking platforms.
 - Progress and streaks should motivate consistency without becoming pressure or
   surveillance.
+- Daily challenge content must feel fair, original, and useful rather than obscure or clone-like.
+- Generated vocabulary practice needs validation before it can be trusted as a daily ritual.
 
 ## Final Capabilities
 
@@ -62,6 +66,8 @@ vocabulary tools when the user chooses.
 - Dictionary+ saved-word handoff.
 - Memory Trainer practice handoff for learned words.
 - Optional reminders with explicit user control.
+- Archive or practice mode separated from the daily challenge.
+- Shareable completion summaries that do not reveal answers, only after product review.
 - Account-backed streak sync with clear privacy rules.
 - Review modes for previously learned words.
 - Import of user-selected vocabulary lists.
@@ -111,6 +117,8 @@ heavy study management.
   separate learning system.
 - Local progress and streak behavior remain predictable and transparent.
 - Vocabulary content remains clear and reviewable.
+- Challenge words and hints remain fair for the intended learner level.
+- Curated daily content stays distinct from generated practice.
 - The product complements Dictionary+, Memory Trainer, and Quiz without
   becoming those products.
 - Optional sync, reminders, or AI features are explicit and governed.
@@ -143,6 +151,7 @@ and carefully governed progress sync.
 - Do not become a language course.
 - Do not become a quiz platform.
 - Do not become a social streak or leaderboard product.
+- Do not copy Wordle-style, Connections-style, Spelling Bee-style, or other proprietary puzzle formats.
 - Do not become a server-first learning tracker by default.
 - Do not replace Dictionary+, Memory Trainer, Study Planner, or Quiz.
 - Do not use AI-generated definitions as authoritative entries.
@@ -155,6 +164,7 @@ and carefully governed progress sync.
 - Preserve browser-local progress by default.
 - Treat streaks as gentle continuity, not competition.
 - Keep vocabulary content clear, sourced, and reviewable.
+- Preserve a small daily ritual before adding archives, sharing, or personalization.
 - Use ecosystem handoffs for deeper learning instead of expanding scope.
 - Make AI and account sync optional, transparent, and governed.
 - Favor consistency over gamification.

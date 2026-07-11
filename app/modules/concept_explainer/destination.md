@@ -29,6 +29,8 @@ learning material to adjacent study tools.
 - Professionals learning work-related terminology, systems, or methods.
 - Teachers and tutors preparing simple explanations.
 - Users who want concept-level understanding before memorization or testing.
+- Parents or mentors helping learners understand homework without turning the tool into an answer shortcut.
+- Non-native English speakers who need difficult topics explained in simpler language.
 
 ## Core User Problems
 
@@ -40,6 +42,8 @@ learning material to adjacent study tools.
 - Users need self-checks that support understanding without becoming a formal
   assessment engine.
 - AI explanations can mislead if they are accepted without user review.
+- Learners often need hints, examples, and prerequisite reminders before seeing a full explanation.
+- Users need ways to verify understanding so explanations do not become passive notes.
 
 ## Final Capabilities
 
@@ -58,7 +62,9 @@ learning material to adjacent study tools.
 
 - AI explanation drafts with user review before saving.
 - Multiple explanation styles such as beginner, analogy, technical, or visual.
+- Hint-first flows that help the learner try before revealing a complete explanation.
 - Adaptive self-check suggestions based on explanation steps.
+- Short "prove I understand" loops using restatement, examples, and checks.
 - Spaced review scheduling through Memory Trainer or Study Planner.
 - Topic collections for related concepts.
 - Concept maps showing relationships between saved concepts.
@@ -112,6 +118,7 @@ revisit and explain.
   workflow.
 - Explanations remain ordered, editable, and connected to self-checks.
 - Review status supports reflection without claiming mastery.
+- Self-checks help users verify understanding without encouraging answer-copying.
 - Any AI assistance remains draft-based, transparent, and user-approved.
 - Ecosystem handoffs send reviewed concept material without taking over
   adjacent app responsibilities.
@@ -143,6 +150,7 @@ spaced review handoffs, topic collections, and richer learning connections.
 - Do not become an LMS or curriculum manager.
 - Do not become a quiz engine.
 - Do not become a homework answer machine.
+- Do not market the tool as a way to bypass homework or assignments.
 - Do not guarantee mastery or understanding.
 - Do not replace Study Planner, Course Tracker, Memory Trainer, Quiz, or Lesson
   Builder.
@@ -155,6 +163,7 @@ spaced review handoffs, topic collections, and richer learning connections.
 - Improve understanding by breaking concepts into steps.
 - Treat self-checks as learning aids, not formal assessment.
 - Keep user review central to every explanation.
+- Prefer guided learning, hints, and verification before direct answers.
 - Preserve manual usefulness before adding AI complexity.
 - Make AI drafts explainable, editable, and optional.
 - Support adjacent learning apps through explicit handoffs.

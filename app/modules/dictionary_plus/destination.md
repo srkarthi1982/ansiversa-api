@@ -29,6 +29,8 @@ to support future practice.
 - Language learners building personal vocabulary lists.
 - Readers who want to save words for later review.
 - Professionals learning domain-specific vocabulary.
+- Non-native English speakers who need learner-friendly explanations and usage nuance.
+- Teachers or test-prep users who need vocabulary records they can review without copying publisher content.
 
 ## Core User Problems
 
@@ -37,6 +39,8 @@ to support future practice.
 - Definitions, examples, pronunciation, and context can become scattered.
 - Vocabulary practice needs a personal word library before it can be useful.
 - External dictionary features can create licensing, quality, and scope issues.
+- Users need to know whether a definition, example, origin, or explanation came from a trusted source, their own note, or AI assistance.
+- Similar words, tone, and formality can be hard to compare from one-off search results.
 
 ## Final Capabilities
 
@@ -58,6 +62,9 @@ to support future practice.
 - Example usage suggestions with user review.
 - Vocabulary review scheduling.
 - Import/export for CSV or markdown word lists.
+- Learner-friendly view modes for simpler explanations, examples, and usage notes.
+- Compare-and-choose support for near-synonyms, tone, formality, and context.
+- Recent lookup history with clear privacy controls.
 - Daily Word Challenge integration for saved words.
 - Memory Trainer handoff for recall practice.
 - Lightweight vocabulary analytics such as saved words by part of speech or
@@ -110,6 +117,7 @@ assets instead of one-time lookups.
 - Users can look up, save, organize, and delete vocabulary records quickly.
 - Saved words and word lists remain owner-scoped and easy to manage.
 - The app distinguishes user-entered data from provider or AI-assisted data.
+- Lookup moments can become reviewable learning assets instead of one-time searches.
 - Vocabulary handoffs support practice without turning Dictionary+ into a quiz
   or language course.
 - Future provider integrations respect licensing and attribution.
@@ -147,6 +155,8 @@ boundaries.
 - Do not present AI-generated definitions as authoritative dictionary entries.
 - Do not use external dictionary data without governance and licensing review.
 - Do not make vocabulary assessment claims without evidence.
+- Do not expose lookup history or saved vocabulary unexpectedly.
+- Do not interrupt quick lookup with ad-like, paywall-like, or unrelated flows.
 
 ## Guiding Principles
 
@@ -156,6 +166,7 @@ boundaries.
 - Make AI explanations optional and clearly non-authoritative.
 - Connect to practice apps through explicit handoffs.
 - Favor focused word understanding over broad language-platform scope.
+- Keep source authority, licensing, and user ownership visible in language workflows.
 - Keep the workflow fast enough for repeated reading and study use.
 
 ## Governance Notes

@@ -31,6 +31,8 @@ data ever leaves the browser.
 - Users who want lightweight tags and search for personal reflection.
 - Privacy-conscious users who do not want emotional notes stored on a server by
   default.
+- Users preparing private notes for therapy, coaching, or self-review without turning the app into a clinician.
+- Users who prefer quick check-ins over long-form journaling.
 
 ## Core User Problems
 
@@ -42,6 +44,8 @@ data ever leaves the browser.
   surveillance.
 - Mood apps can become risky if they imply diagnosis, therapy, crisis support,
   or health monitoring.
+- Mood scales can oversimplify complex feelings, so tags and notes need room for personal context.
+- Too many prompts, streaks, or reminders can make emotional tracking feel like another chore.
 
 ## Final Capabilities
 
@@ -64,6 +68,8 @@ data ever leaves the browser.
 - Reminder controls with opt-in scheduling.
 - Local-only trend insights that avoid diagnosis.
 - Wellness goal links or reflection prompts.
+- Custom activities, factors, or tags for user-defined context after privacy review.
+- Weekly reflection summaries with source entries visible and no clinical claims.
 - Stronger privacy controls for clearing, exporting, or migrating data.
 - Local sentiment or tag summaries without server upload.
 - Crisis-resource links that are informational and not a replacement for care.
@@ -112,6 +118,8 @@ performance tracking.
   without backend runtime storage.
 - The browser-first privacy boundary remains clear to users and future agents.
 - Reflection features are calm, non-clinical, and non-judgmental.
+- Patterns and summaries remain traceable to user-entered entries instead of hidden inference.
+- Streaks and reminders support continuity without punishing missed entries.
 - Optional sync, export, reminders, or AI features require explicit user action
   and governance review.
 - The product never presents itself as therapy, diagnosis, or crisis support.
@@ -146,6 +154,8 @@ carefully governed non-clinical insights.
 - Do not become a medical diagnosis or monitoring product.
 - Do not become a social mood feed.
 - Do not become a productivity surveillance system.
+- Do not become a clinical questionnaire or symptom-correlation product without explicit medical governance.
+- Do not provide AI crisis counseling or automated mental-health triage.
 - Do not store mood notes on the server by default.
 - Do not send journal entries to AI providers without explicit governance and
   user action.
@@ -157,6 +167,7 @@ carefully governed non-clinical insights.
 - Treat emotional notes as highly sensitive.
 - Support reflection without diagnosis.
 - Make sync, export, reminders, and AI explicitly opt-in.
+- Keep prompts, trends, and streaks gentle rather than burdensome or judgmental.
 - Avoid judgmental scoring or productivity framing.
 - Preserve user control over deletion and data movement.
 - Keep the product calm, lightweight, and non-clinical.
