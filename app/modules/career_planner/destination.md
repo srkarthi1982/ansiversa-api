@@ -26,6 +26,10 @@ The mature product should serve students, job seekers, career changers,
 professionals, and mentors who need a practical path from career intention to
 measurable progress. It should support planning and reflection, not decide a
 career path for the user.
+Its market-informed position is a user-owned career strategy workspace:
+multiple paths, tradeoffs, skills, constraints, and next actions stay visible
+without treating career planning as a course funnel, employer surveillance
+system, or AI prediction engine.
 
 ## Target Users
 
@@ -42,6 +46,8 @@ career path for the user.
 - Users need to break goals into roadmaps, milestones, notes, and review
   activity.
 - Career planning loses momentum when progress and decisions are not visible.
+- Users need to compare possible roles, skills, values, salary expectations,
+  and personal constraints without being forced into one prescribed path.
 - AI career guidance can overpromise certainty or push generic advice.
 - Calendar, job search, and portfolio workflows are related but should remain
   separate unless explicitly connected.
@@ -63,6 +69,8 @@ career path for the user.
   where needed.
 - Support guided templates for common career paths after review.
 - Support skill-gap suggestions only when evidence and user context are clear.
+- Support multiple possible path options and tradeoff review when user context
+  justifies it.
 - Support reminders, exports, and cross-app handoffs only through explicit user
   action.
 - Preserve user control over goals, milestones, and career direction.
@@ -70,6 +78,8 @@ career path for the user.
 ## Advanced Capabilities
 
 - Guided career templates for common transitions and growth tracks.
+- Private decision criteria for values, constraints, role fit, compensation
+  expectations, and timeline assumptions.
 - Skill gap suggestions connected to Job Description Analyzer and Course
   Tracker.
 - Weekly planning reviews and progress summaries.
@@ -121,6 +131,8 @@ replace professional judgment.
 - Users can define goals, roadmaps, milestones, and reviews easily.
 - Career progress remains visible and editable over time.
 - Milestones are measurable without becoming punitive performance scores.
+- Career plans support exploration and tradeoffs without claiming salary,
+  promotion, or job-offer certainty.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   editable records where needed.
 - Users understand whether suggestions are manual, template-based, or
@@ -169,6 +181,7 @@ Career Planner is not intended to become:
 - A learning management system.
 - A calendar app.
 - A psychometric assessment authority.
+- A labor-market oracle or salary guarantee product.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -179,6 +192,8 @@ Every Career Planner feature should:
 
 - Preserve goal, roadmap, milestone, and review context.
 - Support user agency rather than career prediction.
+- Keep recommendations explainable, editable, and tied to user-provided
+  evidence.
 - Keep progress measurable without becoming punitive.
 - Keep private notes out of list and dashboard payloads unless required.
 - Treat AI guidance as governed support, not authority.

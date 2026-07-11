@@ -27,6 +27,10 @@ The mature product should feel useful before a purchase, during comparison, and
 after reviewing saved analyses. It should remain lightweight, private, and
 honest about the fact that manually entered prices are decision aids, not
 verified live market data.
+Its market-informed position is a user-owned price decision log: data source,
+last-checked context, shipping/tax notes, coupons, membership assumptions, and
+manual-entry limits should stay visible so users understand why a comparison is
+or is not trustworthy.
 
 ## Target Users
 
@@ -42,6 +46,8 @@ verified live market data.
 
 - Users often remember that a price changed, but not by how much.
 - Discounts can be misleading without previous-price context.
+- Shipping, taxes, coupons, memberships, condition, seller, and region can make
+  two prices look comparable when they are not.
 - Shopping comparisons are scattered across notes, screenshots, carts, and
   memory.
 - Many shopping tools rely on tracking, affiliate links, scraping, alerts, or
@@ -64,6 +70,8 @@ verified live market data.
   review.
 - Offer import/export for browser-local backup and portability.
 - Help users compare manually entered prices without claiming live verification.
+- Capture source, last-checked time, shipping/tax/coupon notes, and other
+  assumptions when users need stronger comparison context.
 - Provide keyboard-friendly analysis creation and review workflows.
 - Keep all shopping notes and price records local by default.
 - Make privacy and manual-data limitations visible.
@@ -71,6 +79,8 @@ verified live market data.
 ## Advanced Capabilities
 
 - Unit-price comparison for groceries, supplies, and recurring purchases.
+- Source-confidence and last-checked indicators for user-entered or imported
+  prices.
 - Browser-local wish list or watch list for manual review.
 - Optional local reminders to recheck an item after a user-defined time.
 - Local import/export of analyses for backup or device movement.
@@ -127,6 +137,8 @@ ads, affiliate funnels, or automated tracking.
 - Savings and price-change calculations are clear and trustworthy.
 - Saved analyses remain local by default.
 - Users understand that prices are manually entered and not live-verified.
+- Users can distinguish observed prices, assumptions, and user-entered notes
+  from any automated or AI-assisted interpretation.
 - Search, filters, duplication, editing, deletion, and insights support real
   repeat use.
 - Import/export, currency support, reminders, or integrations preserve privacy
@@ -175,6 +187,7 @@ Price Checker is not intended to become:
 - A financial or investment advice product.
 - A competitor intelligence or retail surveillance platform.
 - A product review marketplace.
+- A browser extension or automated shopping agent by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -186,6 +199,7 @@ Every Price Checker feature should:
 - Preserve browser-local privacy by default.
 - Improve purchase clarity without increasing shopping pressure.
 - Be honest about manually entered data.
+- Make price source, last-checked time, and comparison assumptions visible.
 - Help users compare prices, savings, and context calmly.
 - Avoid hidden tracking, affiliate incentives, and behavioral profiling.
 - Keep integrations explicit and user-controlled.

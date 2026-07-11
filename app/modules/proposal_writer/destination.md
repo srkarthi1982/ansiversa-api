@@ -26,6 +26,10 @@ The mature product should serve freelancers, consultants, small businesses,
 agencies, and operators who prepare client-facing proposals. It should support
 clearer proposal writing and review, not automate sales decisions or guarantee
 winning work.
+Its market-informed identity is proposal clarity before sales automation:
+scope, deliverables, assumptions, pricing context, timeline, and next steps
+should become easier to review before anything is exported, sent, signed, or
+converted into another business record.
 
 ## Target Users
 
@@ -40,6 +44,8 @@ winning work.
 
 - Proposal content is often scattered across emails, notes, old documents, and
   pricing discussions.
+- A proposal must persuade while also preventing scope, pricing, timeline, and
+  acceptance misunderstandings.
 - Users need client context, scope, sections, drafts, and review history in one
   place.
 - Proposals require reusable structure but still need client-specific judgment.
@@ -64,6 +70,8 @@ winning work.
 - Load full project, section, draft, and history text only through detail
   endpoints where needed.
 - Support proposal templates and reusable section libraries after review.
+- Support pricing, assumptions, risk, and next-step checklists as review aids,
+  not as legal, sales, or financial authority.
 - Support export or sending only through explicit user action and governance.
 - Preserve user review before any AI-assisted content is sent externally.
 
@@ -72,6 +80,8 @@ winning work.
 - Reusable proposal templates and section presets.
 - AI-assisted section drafting with visible assumptions and review boundaries.
 - Proposal version comparison and change summaries.
+- Discovery-note or meeting-note intake only through explicit handoff and user
+  review.
 - Export to PDF/DOCX after rendering and privacy review.
 - Approval workflows and review checklists.
 - Handoffs to Contract Generator and Invoice and Receipt Maker after acceptance.
@@ -124,6 +134,8 @@ without approval, or guarantee win rates.
 - Users can create, edit, review, and revisit proposal projects easily.
 - Sections, drafts, and history remain connected to client context.
 - Proposal content is reviewable before export or sharing.
+- Scope, deliverables, pricing context, assumptions, and next steps are clear
+  enough to reduce avoidable client misunderstanding.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether content is manual, template-based, AI-assisted, or
@@ -170,6 +182,7 @@ Proposal Writer is not intended to become:
 - A legal or pricing advice product.
 - A proposal sending/email platform by default.
 - A guaranteed win-rate optimizer.
+- A buyer-surveillance or deal-room analytics product by default.
 - An unmanaged AI bid generator.
 
 These directions should remain out of scope unless the destination itself is
@@ -181,6 +194,7 @@ Every Proposal Writer feature should:
 
 - Preserve client context, sections, drafts, and history.
 - Improve proposal clarity without promising business outcomes.
+- Make scope, assumptions, pricing context, and acceptance boundaries explicit.
 - Keep generated or template content reviewable.
 - Keep full proposal text out of list and dashboard payloads.
 - Treat AI drafting, export, sending, and CRM integrations as governed

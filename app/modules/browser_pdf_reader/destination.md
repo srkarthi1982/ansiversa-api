@@ -24,6 +24,9 @@ storage, OCR infrastructure, or a document collaboration suite.
 
 The product should remain useful for study, work review, forms, technical
 papers, manuals, reports, and personal documents where privacy matters.
+Its market-informed identity is source-grounded reading: the original PDF page
+remains the authority, while sessions, notes, search, and future summaries stay
+clearly tied to user-selected local document context.
 
 ## Target Users
 
@@ -43,6 +46,8 @@ papers, manuals, reports, and personal documents where privacy matters.
 - Users need clear privacy expectations around what is saved and what is not.
 - Reading workflows benefit from navigation, zoom, and simple local notes, but
   can become bloated if they turn into full document management.
+- AI PDF tools can create polished summaries, but users still need reliable
+  rendering, page references, and privacy before any understanding workflow.
 
 ## Final Capabilities
 
@@ -68,6 +73,8 @@ papers, manuals, reports, and personal documents where privacy matters.
 - Browser-local highlights or annotations after governance review.
 - Page thumbnails or outline navigation if performance remains acceptable.
 - Text search only when it can run locally and reliably.
+- Source-linked summary or extraction handoffs that preserve page references
+  and require user-selected content.
 - Export metadata-only reading notes without exporting the PDF itself.
 - Optional local backup/import of session metadata.
 - Accessibility improvements for keyboard navigation and screen-reader
@@ -123,6 +130,8 @@ upload them.
 - Unsupported, unusual, or password-protected PDFs fail with helpful messages.
 - Local history and insights improve reading continuity without cloud storage.
 - Any bookmarks, notes, or annotations remain browser-local and explicit.
+- Any search, extraction, or AI result remains traceable to the selected PDF
+  page or user-selected excerpt.
 - The product does not drift into cloud storage, OCR, document management, or
   collaboration scope.
 - Privacy boundaries are visible enough that users trust the app with sensitive
@@ -166,6 +175,7 @@ Browser PDF Reader is not intended to become:
 - A file storage or sync product.
 - A document collaboration workspace.
 - A contract review or legal analysis platform.
+- A chat-with-PDF product by default.
 - A general file manager.
 
 These directions should remain out of scope unless the destination itself is
@@ -179,6 +189,7 @@ Every Browser PDF Reader feature should:
 - Improve local reading comfort or continuity.
 - Save metadata only unless the destination is intentionally changed.
 - Make file limitations clear.
+- Preserve page/source context for search, notes, summaries, and handoffs.
 - Support accessibility and keyboard reading flows.
 - Keep heavy PDF processing out unless clearly justified.
 - Prefer explicit handoffs to adjacent tools instead of absorbing their

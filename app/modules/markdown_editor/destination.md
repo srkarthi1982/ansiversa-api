@@ -24,6 +24,9 @@ drafts to backend storage.
 The product should stay focused on focused writing and preview workflows:
 notes, README drafts, documentation fragments, article outlines, email drafts,
 technical snippets, and simple exported documents.
+Its market-informed identity is portable plain-text ownership: users should
+trust that Markdown remains readable, copyable, exportable, and reviewable
+without being locked into app-specific storage, plugins, publishing, or sync.
 
 ## Target Users
 
@@ -40,6 +43,8 @@ technical snippets, and simple exported documents.
 - Drafts can be private, unfinished, or sensitive and should not be uploaded by
   default.
 - Markdown syntax is easy to mistype without immediate preview feedback.
+- Markdown flavors, tables, images, and exports can behave differently across
+  tools, so users need clear support boundaries.
 - Users often need both Markdown and rendered HTML copies.
 - Exporting clean Markdown or HTML files should be simple.
 - Many writing tools drift into databases, collaboration, publishing, and
@@ -61,6 +66,8 @@ technical snippets, and simple exported documents.
   syntax.
 - Offer focused templates for README, release note, meeting note, study note,
   and simple article drafts.
+- Make the supported Markdown flavor and unsupported extension boundaries clear
+  enough that exported content remains portable.
 - Support local-only draft recovery if it is explicit and user-controlled.
 - Provide keyboard-friendly writing, preview, copy, export, clear, and reset
   workflows.
@@ -73,6 +80,7 @@ technical snippets, and simple exported documents.
 - Export presets for clean HTML, documentation snippets, and printable pages.
 - Local-only draft recovery and recent drafts with explicit user control.
 - Markdown lint hints for common mistakes.
+- Import/paste cleanup and code-block language helpers for technical writing.
 - Safe image/link handling guidance without becoming an asset manager.
 - Theme or preview style presets for readability.
 - Accessibility-focused preview navigation and heading outline.
@@ -122,6 +130,8 @@ The mature product earns trust by staying fast, local, safe, and predictable.
 - Rendered preview is safe, readable, and consistent with supported syntax.
 - Draft content remains browser-local by default.
 - Copy and export actions produce clean, reusable output.
+- Supported Markdown behavior is predictable enough that users can move content
+  into GitHub, docs, notes, or publishing tools without hidden lock-in.
 - Templates help users start faster without turning the app into a document
   management system.
 - Local recovery, if added, is explicit and user-controlled.
@@ -165,6 +175,7 @@ Markdown Editor is not intended to become:
 - A CMS.
 - An asset manager or image-hosting service.
 - A general rich-text office suite.
+- A plugin ecosystem or app-specific Markdown dialect.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -177,6 +188,7 @@ Every Markdown Editor feature should:
 - Make writing, previewing, copying, or exporting clearer.
 - Keep the editor fast and focused.
 - Improve trust in rendered output.
+- Protect Markdown portability and plain-text ownership.
 - Support keyboard and accessibility needs.
 - Prefer explicit user control for any saved local drafts.
 - Avoid collaboration or document-platform scope.
