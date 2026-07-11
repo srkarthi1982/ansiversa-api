@@ -27,6 +27,9 @@ The mature product should serve students, professionals, creators,
 job-seekers, support teams, and non-native speakers who need safer writing
 improvement for short-to-medium text. It should help users revise their own
 work, not replace authorship, accountability, or human judgment.
+Its market-informed identity is controlled revision support: meaning
+preservation, visible changes, authorship, privacy, and user acceptance matter
+more than producing the most polished rewrite.
 
 ## Target Users
 
@@ -49,6 +52,8 @@ work, not replace authorship, accountability, or human judgment.
   not expose them casually.
 - AI-backed writing assistance can create privacy, authorship, academic
   integrity, and quality concerns if not governed.
+- Users need help preserving intent and voice because grammar and tone tools
+  can over-polish, genericize, or materially change meaning.
 - Users need reusable project history because writing improvement often happens
   over several passes.
 
@@ -66,6 +71,8 @@ work, not replace authorship, accountability, or human judgment.
 - Load full text only through detail endpoints where editor or result screens
   require it.
 - Support visible diff highlighting and change explanations after review.
+- Support meaning-preservation warnings when a paraphrase may alter facts,
+  claims, tone, or user intent.
 - Support AI provider-backed correction only after quality, privacy, cost,
   integrity, and governance review.
 - Connect selected improved text to adjacent writing apps through explicit
@@ -76,6 +83,8 @@ work, not replace authorship, accountability, or human judgment.
 - Side-by-side diff highlighting for grammar and paraphrase changes.
 - Tone presets and reusable writing style profiles.
 - Readability, clarity, concision, and confidence diagnostics.
+- Voice-preservation and over-polish warnings for sensitive personal,
+  academic, or professional writing.
 - Suggested edits with accept/reject controls instead of only full rewrites.
 - Versioned writing projects for iterative revision.
 - Export or copy packs for selected versions after governance review.
@@ -131,6 +140,8 @@ without explicit user control.
 - Users can create, edit, run, review, and revisit grammar projects easily.
 - Original, corrected, and paraphrased versions remain clearly distinguishable.
 - Users can understand what changed and decide whether to use the result.
+- Users can reject edits that change meaning, remove voice, or introduce claims
+  the source text did not support.
 - List and dashboard APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether generation is deterministic, AI-backed, or otherwise
@@ -182,6 +193,7 @@ Grammar and Paraphrasing Assistant is not intended to become:
 - An email client.
 - A translation platform.
 - An unmanaged AI rewriting engine.
+- A plagiarism detector, AI detector, or citation authority by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -193,6 +205,8 @@ Every Grammar and Paraphrasing Assistant feature should:
 - Preserve original text alongside generated versions.
 - Improve clarity, correctness, and tone without replacing user judgment.
 - Make changes reviewable and explainable.
+- Preserve meaning, intent, and user voice unless the user intentionally
+  chooses a different rewrite direction.
 - Keep full text out of list and dashboard payloads.
 - Treat AI rewriting as governed infrastructure, not a default shortcut.
 - Respect authorship, academic integrity, and professional accountability.

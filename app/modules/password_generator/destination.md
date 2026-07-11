@@ -22,6 +22,9 @@ copies it.
 The product should remain small, fast, and privacy-first. Its destination is
 not to manage a user's entire credential life. Its destination is to help users
 create better secrets at the moment they need them, then get out of the way.
+Its market-informed identity is conservative secret generation: randomness,
+entropy education, clipboard safety, and no-storage behavior matter more than
+visual complexity or AI novelty.
 
 ## Target Users
 
@@ -41,6 +44,8 @@ create better secrets at the moment they need them, then get out of the way.
 - People need quick generation without learning a complex security product.
 - Some services have awkward password rules that require configurable options.
 - Users need copy behavior that feels safe and obvious.
+- Clipboard exposure and storage expectations are part of the safety problem,
+  not an afterthought.
 - Passphrases are easier to remember, but many simple generators do not offer
   them.
 
@@ -59,6 +64,8 @@ create better secrets at the moment they need them, then get out of the way.
   entropy guidance.
 - Offer purpose-based presets such as everyday account, high-security account,
   temporary credential, PIN-like code, and memorable passphrase.
+- Provide clear reminders that generated passwords still need secure storage in
+  a password manager or another approved user-controlled location.
 - Explain entropy, length, reuse risk, and password manager best practices in
   plain language.
 - Keep generated secrets out of backend systems, local storage, analytics, and
@@ -74,6 +81,8 @@ create better secrets at the moment they need them, then get out of the way.
 - One-time copy safety hints and optional clear-after-copy behavior.
 - Password strength education cards for users who want to understand tradeoffs.
 - Enterprise policy check mode that validates rules without storing secrets.
+- Site-rule helpers that explain constraints without claiming organization
+  security-policy authority.
 - Offline-friendly behavior so generation remains available when disconnected.
 - Accessibility-focused strength explanations for screen-reader users.
 
@@ -123,6 +132,8 @@ honest about what it does not do.
 - No generated password is persisted in local storage, backend tables,
   analytics, or logs.
 - Passphrase generation is understandable and trustworthy.
+- Users understand that generation is not storage, vaulting, breach monitoring,
+  or account recovery.
 - The product remains clearly separate from password manager, vault, sync, and
   identity-provider responsibilities.
 - Keyboard, mobile, and screen-reader users can complete the workflow
@@ -167,6 +178,7 @@ Password Generator is not intended to become:
 - A breach monitoring service.
 - A secret scanning platform.
 - A team access-control or rotation system.
+- A passkey, recovery, or account-security suite.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -181,6 +193,7 @@ Every Password Generator feature should:
 - Explain strength and risk clearly.
 - Keep generation fast and simple.
 - Make safe defaults obvious.
+- Keep cryptographic claims conservative, transparent, and reviewable.
 - Support accessibility and keyboard use.
 - Avoid becoming a password manager or vault.
 - Treat trust as the product's core value.

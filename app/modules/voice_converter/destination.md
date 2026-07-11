@@ -25,6 +25,10 @@ rehearsal through immediate playback and local session memory.
 The mature product should remain lightweight and explicit. It should speak only
 after user action, preserve text locally by default, and be honest about the
 browser-dependent nature of available voices and Speech Synthesis support.
+Its market-informed identity is ethical speech preview: the live product stays
+local and browser-native, while any future move toward uploaded audio, cloud
+voices, voice conversion, cloning, dubbing, or export requires consent, rights,
+retention, disclosure, and provider governance first.
 
 ## Target Users
 
@@ -47,6 +51,8 @@ browser-dependent nature of available voices and Speech Synthesis support.
   playback is unavailable or limited.
 - Saved speech attempts are useful for practice, but can become sensitive if
   synced or stored on a server by default.
+- The broader voice market creates impersonation, consent, copyright, and
+  commercial-rights risks that must not leak into a simple preview utility.
 - Audio generation, downloads, voice cloning, and production workflows can
   quickly expand beyond a simple speech-preview utility.
 
@@ -79,6 +85,8 @@ browser-dependent nature of available voices and Speech Synthesis support.
   review.
 - Cloud TTS integration only after explicit architecture, privacy, cost, and
   vendor governance review.
+- Consent, ownership, disclosure, retention, and commercial-rights controls
+  before any uploaded voice, generated audio, or provider-backed workflow.
 - AI speech coaching or rewrite suggestions only through explicit user action.
 
 ## AI Opportunities
@@ -134,6 +142,8 @@ background.
   privacy-reviewed.
 - The product does not drift into voice cloning, podcasting, audiobook
   production, cloud TTS hosting, recording, or audio editing.
+- Any future synthetic voice or audio-output feature makes consent and
+  disclosure visible before generation or export.
 - Users understand that available voices are browser and device dependent.
 
 ## Journey Progress
@@ -177,6 +187,7 @@ Voice Converter is not intended to become:
 - A speech recognition or transcription app.
 - A voice marketplace.
 - A backend audio storage or streaming platform.
+- An impersonation, dubbing, or synthetic-voice rights platform by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -190,6 +201,8 @@ Every Voice Converter feature should:
 - Improve listening, practice, or review without adding production-platform
   scope.
 - Be honest about browser voice and Speech Synthesis limitations.
+- Treat consent, rights, retention, and disclosure as mandatory gates for any
+  future provider-backed voice workflow.
 - Avoid backend text storage, generated audio files, hidden provider calls, and
   background playback.
 - Keep cloud TTS, audio export, AI, and cross-app handoffs explicit and

@@ -26,6 +26,9 @@ The mature product should remain explicit and controlled. It should read
 clipboard text only after user action, keep saved entries local by default, and
 make cleanup easy enough that users can trust it on personal and shared
 devices.
+Its market-informed identity is intentional clipboard memory: saved text should
+be something the user deliberately keeps, can find quickly, can expire or clear,
+and can trust will not be synced, inspected, or retained silently.
 
 ## Target Users
 
@@ -47,6 +50,8 @@ devices.
   or broad clipboard permissions.
 - Searchable local history is useful, but dangerous if saved entries are not
   easy to review and clear.
+- Users need retention limits, pinned snippets, and sensitive-content warnings
+  more than unlimited history.
 - Clipboard management can drift into password storage, secret vaulting,
   automation, and system-level monitoring if boundaries are unclear.
 
@@ -63,6 +68,8 @@ devices.
   longest entry, copied entries, and character counts.
 - Provide clear failure states for clipboard read/write permission issues.
 - Remind users to clear local history before leaving shared devices.
+- Support visible retention and cleanup controls so saved text does not become
+  accidental long-term storage.
 - Offer optional import/export or encrypted sync only after governance review.
 - Preserve local privacy by default with no backend clipboard APIs, background
   monitoring, automatic reads, hidden sync, or extension-level behavior.
@@ -70,6 +77,8 @@ devices.
 ## Advanced Capabilities
 
 - Entry pinning, categories, tags, and local favorites.
+- Retention limits by count or time, with pinned snippets kept visibly separate
+  from temporary history.
 - Expiration rules for short-lived sensitive entries.
 - Local duplicate detection and cleanup suggestions.
 - Browser-local import/export for personal backup.
@@ -129,6 +138,8 @@ entries, sync content, or behave like a system-wide surveillance tool.
 - Saved entries remain browser-local by default.
 - Users understand that clipboard content may be sensitive and can clear it
   quickly.
+- Temporary history, pinned snippets, and sensitive entries remain visually and
+  behaviorally distinct.
 - Local insights help with personal review without collecting backend content.
 - Any import/export, encrypted sync, AI assistance, extension behavior, or
   cross-app handoff is explicit and privacy-reviewed.
@@ -176,6 +187,7 @@ Clipboard Manager is not intended to become:
 - A file clipboard manager.
 - A remote device clipboard bridge.
 - A team snippet repository.
+- A text-expander or launcher platform by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -187,6 +199,7 @@ Every Clipboard Manager feature should:
 - Preserve browser-local privacy by default.
 - Read clipboard text only after explicit user action.
 - Make delete and clear-all actions easy to find.
+- Make retention, expiration, and pinned-entry behavior clear.
 - Treat clipboard content as potentially sensitive.
 - Avoid background monitoring, hidden sync, extension-like permissions, and
   backend content storage.

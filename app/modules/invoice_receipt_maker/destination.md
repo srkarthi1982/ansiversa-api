@@ -27,6 +27,10 @@ The mature product should serve freelancers, consultants, small businesses, and
 independent professionals who need clean transaction documents and simple
 history. It should help users prepare and review billing documents, not manage
 their entire finance operation.
+Its market-informed identity is deterministic billing-document preparation:
+invoice and receipt facts, totals, numbering context, status, and export
+readiness should remain structured and user-verifiable before any payment,
+tax, accounting, or compliance workflow is considered.
 
 ## Target Users
 
@@ -46,6 +50,8 @@ their entire finance operation.
 - Manual totals can become unreliable unless item changes recalculate document
   totals consistently.
 - Users often need clear documents before they need full accounting software.
+- Receipts can be as important as invoices for client trust, payment proof, and
+  record retention, so they should not be treated as an afterthought.
 - Tax, jurisdiction, payment, and compliance rules vary and can be risky if the
   app overclaims authority.
 - Billing tools can drift into payments, collections, accounting, tax filing,
@@ -69,6 +75,8 @@ their entire finance operation.
   review.
 - Support payment tracking only as user-entered status unless a governed
   payment integration is approved.
+- Keep invoice numbers, receipt references, dates, totals, discounts, taxes,
+  and status changes auditable enough for user review.
 - Preserve user responsibility for tax, accounting, legal, and compliance
   review.
 
@@ -78,6 +86,8 @@ their entire finance operation.
 - PDF export and print-friendly rendering.
 - Reusable business profiles, clients, and payment terms.
 - Document numbering helpers and receipt sequence controls.
+- Estimate/proposal-to-invoice conversion only when the accepted source context
+  remains reviewable.
 - Recurring invoice templates after workflow review.
 - Payment status reminders and manual payment tracking.
 - Payment-link integrations only after security, provider, privacy, and
@@ -131,6 +141,8 @@ jurisdiction-specific rules, or run collections by default.
 - Users can create and review billing projects, documents, line items, and
   history easily.
 - Document totals remain consistent with line items.
+- Invoice and receipt records preserve enough context for later review without
+  pretending to be formal bookkeeping or tax records.
 - Invoice and receipt context is clear before export or sharing.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   editable records only where needed.
@@ -179,6 +191,7 @@ Invoice and Receipt Maker is not intended to become:
 - A payroll tool.
 - A banking or financial advice product.
 - A full ERP or finance operations suite.
+- A regulated tax/VAT compliance authority by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -189,6 +202,8 @@ Every Invoice and Receipt Maker feature should:
 
 - Preserve project, document, line item, total, and history context.
 - Keep billing documents clear and reviewable.
+- Treat totals, numbering, status, and receipt evidence as deterministic user
+  records, not AI-generated facts.
 - Keep financial and client details out of list payloads unless required.
 - Avoid tax, accounting, payment, and compliance authority by default.
 - Treat exports, payment links, tax helpers, and AI as governed capabilities.
