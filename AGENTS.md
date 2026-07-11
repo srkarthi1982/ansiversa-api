@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 58 live solution apps
 Remaining toward 100 solution apps: 42
-Current next step: App #059 Partner/Astra selection, with App #060 reserved for the AI Integration checkpoint.
+Current next step: Medicine Reminder App #060 Astra review; AI Integration checkpoint remains pending after review.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-11: Implemented Medicine Reminder App #060 backend to Workflow Ready with isolated `MEDICINE_REMINDER_DATABASE_URL`, `MedicineReminderMedicines`, `MedicineReminderSchedules`, `MedicineReminderDoseLogs`, and `MedicineReminderNotes` models, owner-scoped protected CRUD APIs, dashboard summaries, Alembic migration `20260711_0001_medicine_reminder`, overview Explore routing to `/medicine-reminder/medicines`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, and no Apps row live promotion.
 * 2026-07-10: Promoted Language Learning Buddy App #058 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `35 / 100` approved on `2026-07-10`, overview metadata sync, tracked catalog export update, and production catalog verification at 58 live / 42 comingSoon.
 * 2026-07-10: Ran Language Learning Buddy App #058 production-configured isolated database migration to Alembic head `20260710_0001`, verified `LanguageVocabulary`, `LanguagePracticeSessions`, required indexes, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-10: Implemented Language Learning Buddy App #058 backend to Workflow Ready with isolated `LANGUAGE_LEARNING_BUDDY_DATABASE_URL`, `LanguageVocabulary` and `LanguagePracticeSessions` models, owner-scoped protected CRUD APIs, dashboard summaries, Alembic migration `20260710_0001_add_language_learning_buddy_tables.py`, overview CTA metadata, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration/CRUD validation, and no Apps row live promotion.
