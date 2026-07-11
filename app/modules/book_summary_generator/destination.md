@@ -27,6 +27,10 @@ The mature product should serve students, readers, book clubs, teachers,
 self-learners, professionals, and knowledge workers who need reusable summaries
 for study, discussion, and reflection. It should support understanding and
 retention, not replace reading or encourage unauthorized copying of books.
+Its market-informed identity is source-respectful comprehension support:
+summaries should help users preview, review, remember, and discuss material
+while keeping source limits, copyright boundaries, attribution, and user notes
+visible.
 
 ## Target Users
 
@@ -47,6 +51,8 @@ retention, not replace reading or encourage unauthorized copying of books.
 - Summaries can become unreliable if users cannot review source context or
   revision history.
 - AI summaries can misrepresent source material if output is not reviewed.
+- Summaries can flatten nuance, author voice, argument structure, and evidence
+  if they are treated as substitutes for reading.
 - Full source text, highlights, and notes can be long or sensitive, so list and
   dashboard APIs should not expose them casually.
 - Summary tools can drift into copyright-risky full-book ingestion, file
@@ -68,6 +74,8 @@ retention, not replace reading or encourage unauthorized copying of books.
   revision notes only through detail endpoints where needed.
 - Support AI-assisted summarization only after quality, copyright, privacy, and
   governance review.
+- Support reflection prompts that help users connect summaries back to source
+  context, not just consume shorter text.
 - Support exportable reading notes only after user review and explicit action.
 - Preserve user review before treating any generated summary as accurate.
 
@@ -76,6 +84,8 @@ retention, not replace reading or encourage unauthorized copying of books.
 - AI-assisted summary generation for user-provided excerpts or notes.
 - Chapter extraction and structured section summaries after file/privacy review.
 - Citation and source reference helpers for user-provided material.
+- Source-rights and attribution guidance for public-domain, user-owned, or
+  excerpt-based material.
 - Reading-review prompts and spaced review reminders.
 - Exportable study notes, discussion guides, or Markdown summaries.
 - Integration with Study Planner, Course Tracker, and AI Notes Summarizer.
@@ -132,6 +142,8 @@ claim perfect summary accuracy, or silently process private source text.
   connected.
 - Summary output is reviewable and clearly tied to user-provided source
   material.
+- Users understand that summaries are study aids and previews, not complete
+  substitutes for the source work.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether summaries are manual, AI-assisted, or otherwise
@@ -182,6 +194,7 @@ Book Summary Generator is not intended to become:
 - A citation-management suite.
 - A plagiarism bypass tool.
 - An unmanaged AI summary factory.
+- A commercial book-summary library without licensing review.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -192,6 +205,8 @@ Every Book Summary Generator feature should:
 
 - Preserve source context, summary text, notes, highlights, and history.
 - Improve reading comprehension before automating summarization.
+- Encourage review, reflection, and source respect instead of shallow
+  consumption.
 - Keep generated summaries reviewable and tied to user-provided material.
 - Keep full text out of list and dashboard payloads.
 - Treat AI summarization as governed infrastructure, not a default shortcut.

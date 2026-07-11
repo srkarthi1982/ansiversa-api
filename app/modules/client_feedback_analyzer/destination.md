@@ -27,6 +27,10 @@ The mature product should serve consultants, service teams, product teams,
 freelancers, account managers, and small businesses that need a lightweight way
 to review client feedback. It should help teams understand patterns and prepare
 better follow-up, not replace account management or automate client decisions.
+Its market-informed identity is feedback-to-action review: source comments,
+themes, sentiment, sample size, uncertainty, and follow-up decisions should
+stay connected so users can act without mistaking analysis for objective client
+truth.
 
 ## Target Users
 
@@ -47,6 +51,8 @@ better follow-up, not replace account management or automate client decisions.
 - Feedback can be misread if insights are detached from source comments.
 - Manual sentiment and priority labels are useful, but should remain reviewable
   rather than treated as objective truth.
+- Small or noisy feedback sets can be misleading if themes are presented
+  without sample-size, source, or confidence context.
 - AI-assisted feedback analysis can create privacy, bias, and overconfidence
   risks if not governed.
 - Feedback tools can drift into CRM ownership, ticketing, surveys, surveillance,
@@ -72,11 +78,14 @@ better follow-up, not replace account management or automate client decisions.
 - Support exportable reports only after user review and explicit action.
 - Preserve source feedback next to insights so recommendations remain
   evidence-based.
+- Show source count, date range, segment, or sample-size context where useful
+  so users know how much evidence supports a theme.
 
 ## Advanced Capabilities
 
 - AI-assisted sentiment extraction with visible confidence and review status.
 - Theme clustering across selected feedback records.
+- Sample-size and confidence indicators for themes, reports, and trend views.
 - Client-level and segment-level trend dashboards.
 - Report export for reviewed summaries and recommendations.
 - Bulk import from user-provided CSV or notes after privacy review.
@@ -134,6 +143,8 @@ unquestioned truth.
 - Users can create, edit, review, and revisit client feedback records easily.
 - Client profiles, source feedback, insights, and reports remain connected.
 - Recommendations are tied to visible feedback evidence.
+- Insights remain traceable to original comments, selected segments, and review
+  context before they become follow-up actions.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether sentiment, insights, and reports are manual,
@@ -188,6 +199,7 @@ Client Feedback Analyzer is not intended to become:
 - A contact enrichment service.
 - A customer success platform.
 - An automated client-decision engine.
+- An enterprise voice-of-customer platform by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -199,6 +211,8 @@ Every Client Feedback Analyzer feature should:
 - Preserve client context, source feedback, insights, and reports together.
 - Keep recommendations evidence-backed and reviewable.
 - Treat sentiment and priority as review signals, not objective truth.
+- Make confidence, sample size, and source coverage visible when analysis is
+  used for decisions.
 - Keep full feedback and contact details out of list and dashboard payloads.
 - Treat AI analysis as governed infrastructure, not a default shortcut.
 - Avoid CRM, ticketing, survey, surveillance, and account-scoring scope.

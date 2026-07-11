@@ -29,6 +29,9 @@ communication, support responses, content drafts, product copy, study material,
 and internal notes. It should help users prepare better multilingual text while
 preserving reviewability, user ownership, and clear limits around AI-generated
 or user-authored translations.
+Its market-informed identity is meaning-preserving multilingual communication:
+source text, literal meaning, tone adjustment, cultural nuance, and user
+acceptance should remain visible so fluency never silently replaces intent.
 
 ## Target Users
 
@@ -48,6 +51,8 @@ or user-authored translations.
   patterns.
 - Tone changes can alter meaning if users cannot review source and output
   together.
+- Literal translation, natural phrasing, and tone repair can each solve
+  different problems, so users need clear mode separation.
 - AI translation can create accuracy, privacy, cultural, legal, and authorship
   concerns if execution is not governed.
 - Full source and translated text can be large or sensitive, so list and
@@ -74,11 +79,14 @@ or user-authored translations.
 - Support import/export and cross-app handoffs only through explicit user
   action and review.
 - Preserve user accountability by making output reviewable before reuse.
+- Warn clearly when legal, medical, immigration, academic, financial, or other
+  high-stakes text requires qualified human review.
 
 ## Advanced Capabilities
 
 - AI provider-backed translation and tone fixing with visible provider/model
   context.
+- Source/literal/tone-adjusted comparison views for meaning-preservation review.
 - Confidence, quality, or review status indicators for translated records.
 - Glossaries, term preferences, and project-specific style rules.
 - Reusable variables for names, products, policies, and repeated phrases.
@@ -144,6 +152,8 @@ automate high-stakes translation decisions.
 - Users understand whether output is user-authored, deterministic, AI-assisted,
   or provider-generated.
 - Translation and tone changes are reviewable before reuse or export.
+- Users can see where meaning, formality, idiom, or cultural nuance may have
+  shifted before accepting output.
 - Any AI execution, import/export, batch operation, team review, or cross-app
   handoff is explicit and governance-reviewed.
 - The product does not drift into certified translation, legal/medical
@@ -192,6 +202,7 @@ AI Translator and Tone Fixer is not intended to become:
 - A chat application.
 - A publishing platform.
 - An unmanaged AI translation engine.
+- A high-stakes official document translation workflow by default.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -202,6 +213,7 @@ Every AI Translator and Tone Fixer feature should:
 
 - Preserve source text, translated text, tone, and review context.
 - Keep translation and tone changes reviewable before reuse.
+- Preserve meaning and user intent before optimizing fluency or polish.
 - Treat AI translation as governed infrastructure, not a default shortcut.
 - Keep full text out of list and dashboard payloads.
 - Be honest about language quality, cultural nuance, and high-stakes limits.

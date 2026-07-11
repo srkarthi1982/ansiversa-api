@@ -27,6 +27,10 @@ The mature product should serve job seekers, career changers, students,
 coaches, and professionals who compare roles and prepare applications. It
 should help users understand job descriptions more clearly, not decide their
 career for them or claim objective hiring outcomes.
+Its market-informed identity is explainable role-decoding: requirements,
+skills, seniority, red flags, inclusive-language concerns, and preparation
+signals should remain tied to highlighted job-posting evidence rather than a
+single opaque fit score.
 
 ## Target Users
 
@@ -45,6 +49,8 @@ career for them or claim objective hiring outcomes.
 - Fit analysis can become subjective unless evidence and recommendations stay
   connected to the job posting.
 - AI extraction can overstate match quality or hide uncertainty if not reviewed.
+- Employer-focused clarity and inclusion review is a different workflow from
+  candidate preparation, and those modes should not be blurred casually.
 - Career tools can drift into scraping, applicant tracking, recruiting
   decisions, or guaranteed job-match scoring if boundaries are unclear.
 
@@ -68,10 +74,14 @@ career for them or claim objective hiring outcomes.
   integration with Resume Builder.
 - Preserve user review before treating any match score or recommendation as
   actionable.
+- Keep candidate-first and employer-review signals clearly labeled if both are
+  ever supported.
 
 ## Advanced Capabilities
 
 - AI-assisted extraction of skills, responsibilities, keywords, and seniority.
+- Highlighted source spans for extracted requirements, red flags, and
+  recommendations.
 - Resume comparison with visible evidence and gap explanations.
 - Keyword coverage scoring and preparation checklists.
 - Role comparison across saved job descriptions.
@@ -130,6 +140,8 @@ user's behalf, make hiring decisions, guarantee fit, or replace career judgment.
 - Users can save, analyze, review, and revisit job descriptions easily.
 - Job descriptions, analyses, skill matches, and history remain connected.
 - Match scores and recommendations are tied to visible evidence and review.
+- Users can see uncertainty, source wording, and mode boundaries before using
+  analysis for applications or hiring-content review.
 - Dashboard and list APIs stay lightweight while detail endpoints provide full
   text only where needed.
 - Users understand whether analysis is manually entered, AI-assisted, or
@@ -182,6 +194,7 @@ Job Description Analyzer is not intended to become:
 - A legal employment advice product.
 - A guaranteed job-fit scoring engine.
 - A resume builder.
+- A legal compliance or hiring fairness certification tool.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -193,6 +206,8 @@ Every Job Description Analyzer feature should:
 - Preserve job description, analysis, skill evidence, and history context.
 - Improve role understanding before automating career decisions.
 - Keep match scores explainable and reviewable.
+- Separate source-backed evidence from recommendations, assumptions, and user
+  decisions.
 - Keep full job and analysis text out of list and dashboard payloads.
 - Treat AI extraction as governed infrastructure, not a default shortcut.
 - Avoid scraping, applying, recruiting, and hiring-decision scope.

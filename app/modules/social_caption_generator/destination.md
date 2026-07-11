@@ -27,6 +27,10 @@ The mature product should serve creators, marketers, small businesses,
 students, and teams who repeatedly write captions for campaigns and posts. It
 should help users create stronger social text while preserving reviewability,
 brand judgment, platform awareness, and clear limits around automation.
+Its market-informed identity is brand-safe caption drafting: captions should
+fit the platform, audience, asset, and campaign goal without inventing claims,
+stuffing hashtags, promising virality, or pushing users toward automated
+posting.
 
 ## Target Users
 
@@ -46,6 +50,8 @@ brand judgment, platform awareness, and clear limits around automation.
 - Reusable caption structures are valuable but easy to lose.
 - Social content can become risky if AI generates misleading, spammy, or
   off-brand posts without review.
+- Product claims, offers, testimonials, sensitive topics, and regulated
+  statements need explicit user review before any caption is reused.
 - Publishing and analytics integrations can add account permissions, platform
   policy risk, and data handling complexity.
 - Caption tools can drift into scheduling, posting, ad optimization, follower
@@ -69,10 +75,14 @@ brand judgment, platform awareness, and clear limits around automation.
   and governance review.
 - Support copy/export and cross-app handoffs only through explicit user action.
 - Preserve user review before any caption is used externally.
+- Keep hashtags, claims, calls to action, and platform constraints reviewable
+  as separate pieces of the caption workflow.
 
 ## Advanced Capabilities
 
 - AI-assisted caption drafts with visible provider/model and review boundaries.
+- Claim-review prompts for products, offers, testimonials, and sensitive
+  campaign topics.
 - Platform-specific caption checks for length, hashtag count, and tone.
 - Favorite, shortlist, and approval workflows for caption options.
 - Reusable campaign and caption template presets.
@@ -138,6 +148,8 @@ social accounts without explicit governance.
 - Users understand whether captions are manual, template-based, AI-assisted, or
   provider-generated.
 - Generated or suggested captions remain reviewable before external use.
+- Captions preserve brand voice, factual claims, and platform fit without
+  implying engagement or reach guarantees.
 - Any AI provider, export, publishing integration, analytics integration, or
   cross-app handoff is explicit and governance-reviewed.
 - The product does not drift into social account management, scheduling,
@@ -187,6 +199,7 @@ Social Caption Generator is not intended to become:
 - A marketing analytics platform.
 - A content marketplace.
 - An unmanaged AI content factory.
+- A virality, reach, or engagement-prediction product.
 
 These directions should remain out of scope unless the destination itself is
 reviewed and intentionally changed.
@@ -198,6 +211,7 @@ Every Social Caption Generator feature should:
 - Preserve campaign context, caption text, templates, and review history.
 - Improve caption creation without absorbing social account operations.
 - Keep generated output reviewable before external use.
+- Keep brand voice, factual accuracy, and claim safety ahead of volume.
 - Keep full text out of list and dashboard payloads.
 - Treat AI caption generation as governed infrastructure, not a default
   shortcut.
