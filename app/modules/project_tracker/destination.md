@@ -24,6 +24,7 @@ The mature product should feel operational and compact. It should support repeat
 - Families coordinating simple household projects.
 - Small teams that need lightweight coordination without enterprise overhead.
 - Ansiversa users who want private project notes inside the same platform as their other tools.
+- Users who want clear status, ownership, blockers, and due dates without configuring a large work-management suite.
 
 ## Core User Problems
 
@@ -33,6 +34,7 @@ The mature product should feel operational and compact. It should support repeat
 - Small projects need weekly review signals, not complex reporting.
 - Project and task notes can be sensitive and should remain user-owned, minimally exposed, and protected by clear API contracts.
 - Users benefit from project organization that can later hand off to calendar, documents, or finance tools without merging app responsibilities.
+- People stop updating projects when the tracker demands too many fields, views, or notifications.
 
 ## Final Capabilities
 
@@ -51,7 +53,9 @@ The mature product should feel operational and compact. It should support repeat
 
 - Optional recurring task helpers.
 - Local project templates for common project types.
+- Board/list review modes only after they can remain lightweight and distinct from competitor workflow cloning.
 - Simple workload view by due date or priority.
+- Blocker and stale-project review signals that help users update status without heavy reporting.
 - Explicit handoff to calendar or task prioritization after user action.
 - Explicit handoff to Markdown Editor for project notes or summaries.
 - Expanded sync/collaboration behavior only after privacy and architecture approval.
@@ -85,6 +89,7 @@ Users return weekly to review active projects, update task status, check due dat
 - Users can create and update projects quickly.
 - Users can add and manage tasks without heavy workflow overhead.
 - Search, filters, status, priority, due dates, and insights support repeat review.
+- Blockers, stale projects, and upcoming due dates are easy to find without maintaining a complex board.
 - DB-backed V1 privacy and ownership boundaries are clear and trustworthy.
 - The app does not drift into enterprise project management before the destination is reviewed.
 - Any future sync, AI, notification, calendar, or collaboration feature is explicit and governed.
@@ -117,6 +122,7 @@ Project Tracker is not intended to become:
 - A time-tracking or employee-monitoring product.
 - A Gantt chart or portfolio management platform by default.
 - A notification-heavy task pressure system.
+- A clone of Trello, Asana, Jira, monday.com, ClickUp, or any competitor workflow.
 
 These directions should remain out of scope unless the destination itself is reviewed and intentionally changed.
 
@@ -128,6 +134,7 @@ Every Project Tracker feature should:
 - Keep user-created records editable.
 - Make privacy boundaries visible.
 - Prefer clear tasks and review signals over heavy process.
+- Make status, ownership, blockers, and due dates visible before adding new views.
 - Keep integrations explicit and user-controlled.
 - Avoid collaboration, sync, AI, and notification drift without approval.
 - Stay inside the Ansiversa platform shell and mini-app boundary.

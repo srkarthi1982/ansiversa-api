@@ -22,6 +22,7 @@ It should remain a planning and reflection tool, not a diagnosis, treatment, coa
 - Students and professionals balancing rest, focus, movement, and routines.
 - Ansiversa users who want a lightweight private planning space.
 - People who need reflection history without medical or therapeutic claims.
+- Users who abandoned habit apps because setup, streaks, reminders, or gamification became pressure.
 
 ## Core User Problems
 
@@ -30,6 +31,7 @@ It should remain a planning and reflection tool, not a diagnosis, treatment, coa
 - Reflection notes need to remain private, editable, and easy to revisit.
 - Mood and progress context should support review without becoming automated diagnosis.
 - Wellness data can be sensitive, so API payloads must remain owner-scoped and minimal.
+- Rigid streaks and noisy reminders can make wellness planning feel punitive instead of supportive.
 
 ## Final Capabilities
 
@@ -45,6 +47,7 @@ It should remain a planning and reflection tool, not a diagnosis, treatment, coa
 
 - Goal templates and gentle cadence planning.
 - Weekly or monthly review summaries.
+- Forgiving consistency views that emphasize learning and adjustment instead of perfect streaks.
 - Reminder handoff only after notification governance.
 - Optional exports after privacy and portability review.
 - Cross-app handoffs to Mood Journal, Fitness Tracker, or Markdown Editor only after explicit user action.
@@ -76,6 +79,7 @@ Users return weekly to review active goals, update progress, record reflections,
 - Search and filters make review practical.
 - Reflection body and notes persist separately and reopen correctly.
 - Dashboard counters reflect useful progress without overclaiming.
+- Weekly review supports learning and adjustment without punishing missed goals.
 - The app does not drift into medical advice, fitness logging, or therapy.
 - Any future AI, reminder, health, or cross-app feature is explicit and governed.
 
@@ -106,6 +110,8 @@ Wellness and Goal Planner is not intended to become:
 - A family task manager.
 - A hidden AI coaching system.
 - A notification-heavy pressure tool.
+- A gamified companion, avatar, or rewards system by default.
+- A wearable health-insight platform.
 
 ## Guiding Principles
 
@@ -114,6 +120,7 @@ Every Wellness and Goal Planner feature should:
 - Preserve calm personal planning.
 - Keep user-created records editable.
 - Keep reflection data private and minimally exposed.
+- Make review forgiving, non-punitive, and focused on sustainable adjustment.
 - Avoid health, medical, AI, notification, and coaching drift without approval.
 - Stay inside the Ansiversa platform shell and mini-app boundary.
 

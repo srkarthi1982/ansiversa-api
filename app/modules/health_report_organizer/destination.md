@@ -19,6 +19,7 @@ Health Report Organizer should become Ansiversa's private health-document index:
 - Users with multiple providers, facilities, labs, or clinics.
 - Users preparing for appointments who need notes and questions linked to reports.
 - Users who want structure without a heavy clinical portal.
+- Users who want a non-clinical index for document records without storing the medical files themselves.
 
 ## Core User Problems
 
@@ -27,6 +28,7 @@ Health Report Organizer should become Ansiversa's private health-document index:
 - Facility and lab details are hard to keep connected to reports.
 - Attachment locations and document filenames can become unclear over time.
 - Questions and follow-up notes are separated from the report that triggered them.
+- Provider portals fragment medical records, and users need a personal reference layer that is easier to search.
 
 ## Final Capabilities
 
@@ -46,6 +48,9 @@ Health Report Organizer should become Ansiversa's private health-document index:
 - Optional secure file uploads after privacy and storage governance approval.
 - Exportable report packets for appointments.
 - Timeline grouping by facility, category, and report type.
+- Naming and duplicate-review helpers for document records.
+- Privacy-reviewed sharing or export workflows that keep users in control of what leaves Ansiversa.
+- Facility and provider contact history after the core record workflow matures.
 - Cross-app links to Medicine Reminder, Doctor Visit Tracker, Medical Expense Tracker, and Emergency Contacts Organizer.
 - Optional family member profiles if Partner/Astra approve multi-person health tracking.
 - Provider portal import only after explicit integration governance.
@@ -71,6 +76,7 @@ Users return weekly or before appointments to add new reports, mark reports revi
 - Users can create and find reports quickly.
 - Categories and facilities make records easier to browse.
 - Attachment metadata clarifies where source documents live.
+- Document records remain metadata-first until secure file upload is explicitly approved.
 - Notes stay connected to the right report.
 - The app preserves medical boundaries and does not imply diagnosis, treatment, or official EHR replacement.
 
@@ -96,6 +102,7 @@ This estimate describes product maturity, not feature completion. Workflow Ready
 - Do not interpret lab values or imaging results as clinical guidance.
 - Do not recommend treatment.
 - Do not claim EHR or provider-portal integration in V1.
+- Do not imply Apple Health, Google Health, MyChart, or provider import exists before explicit integration approval.
 - Do not store actual medical files until storage and privacy governance are approved.
 - Do not introduce AI medical guidance.
 
@@ -104,6 +111,7 @@ This estimate describes product maturity, not feature completion. Workflow Ready
 - Health data is sensitive.
 - The app organizes records; it does not practice medicine.
 - Users own the workflow and review every record.
+- Refuse to store medical files until storage, privacy, retention, and deletion governance exists.
 - Keep summaries practical and non-diagnostic.
 - Prefer clarity, searchability, and privacy over clinical complexity.
 

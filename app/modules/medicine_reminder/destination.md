@@ -17,6 +17,7 @@ Medicine Reminder should become Ansiversa's calm medication routine workspace: a
 - People managing daily or weekly medicines.
 - Caregivers supporting a family member's routine.
 - Users with temporary prescriptions.
+- Users tracking supplements or non-prescription routines alongside prescribed medicines.
 - Users with chronic routines who want a personal adherence record.
 - Users preparing notes for pharmacy or doctor conversations.
 
@@ -27,6 +28,7 @@ Medicine Reminder should become Ansiversa's calm medication routine workspace: a
 - Refills can be noticed too late.
 - Users need a history of taken, missed, skipped, and late doses.
 - Users want notes for side effects, questions, or medication changes.
+- Complex, temporary, or as-needed routines are hard to track when reminder setup assumes only simple daily schedules.
 
 ## Final Capabilities
 
@@ -48,6 +50,8 @@ Medicine Reminder should become Ansiversa's calm medication routine workspace: a
 - Calendar integration.
 - Refill quantity calculations.
 - Medication cabinet print view.
+- Better support for temporary, paused, or as-needed medicines without forcing them into a permanent daily routine.
+- Reminder quieting and cadence controls after notification governance review.
 - Optional family member profiles if Partner/Astra approve multi-person health tracking.
 
 ## AI Opportunities
@@ -71,6 +75,7 @@ Users return weekly to confirm medication routines, review missed doses, update 
 - Users can create medicines and schedules quickly.
 - Dose logging is faster than relying on memory.
 - Missed and late doses are visible without shame-based messaging.
+- Temporary and as-needed routines remain visible without being treated as clinical instructions.
 - The API preserves privacy with owner-scoped minimal responses.
 - The app remains practical and avoids medical advice claims.
 
@@ -97,12 +102,14 @@ This estimate describes product maturity, not feature completion. Workflow Ready
 - Do not provide drug-interaction claims without approved clinical data.
 - Do not replace emergency care or clinician advice.
 - Do not create hidden caregiver sharing.
+- Do not imply notification delivery, pharmacy integration, or caregiver workflows are active before explicit approval.
 
 ## Guiding Principles
 
 - User control comes first.
 - Medication data is sensitive.
 - Reminders support routines; they do not guarantee adherence.
+- Every workflow must distinguish personal organization from clinical safety or medical decision-making.
 - Use clear language and avoid fear-based messaging.
 - Keep the app useful even without AI or external integrations.
 

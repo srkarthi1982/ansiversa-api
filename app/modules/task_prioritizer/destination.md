@@ -21,6 +21,7 @@ At maturity, Task Prioritizer should help users answer practical questions like 
 - Solo builders deciding what to work on next.
 - Families organizing personal or household tasks.
 - Ansiversa users who want a lightweight priority layer without external task services.
+- Users who want help ranking work while keeping manual control over scheduling and final decisions.
 
 ## Core User Problems
 
@@ -29,6 +30,7 @@ At maturity, Task Prioritizer should help users answer practical questions like 
 - Manual judgment matters and should not be hidden behind opaque automation.
 - Prioritization history helps users understand why a task moved up or down.
 - Priority data can reveal sensitive plans, deadlines, and personal concerns, so API payloads must remain minimal and owner-scoped.
+- Tasks disconnected from goals or projects are difficult to prioritize meaningfully.
 
 ## Final Capabilities
 
@@ -46,6 +48,7 @@ At maturity, Task Prioritizer should help users answer practical questions like 
 
 - Rule-management UI for category-specific scoring behavior.
 - Explainable scoring panels showing why a score changed.
+- Today/backlog separation or daily planning views that reduce overload without becoming a calendar.
 - Import/export after repeated use patterns are validated.
 - Optional reminder handoff only after notification governance.
 - Explicit handoff from Project Tracker or Work Log Tracker after user action.
@@ -57,6 +60,7 @@ At maturity, Task Prioritizer should help users answer practical questions like 
 - Explain tradeoffs between urgent and important tasks.
 - Suggest priority changes from user-provided task context.
 - Summarize overdue or stale tasks into a weekly review.
+- Explain why a priority was suggested using visible task inputs instead of opaque scoring.
 
 AI features must not receive task titles, notes, due dates, scores, or priority history by default. Any AI handoff must be explicit, privacy-reviewed, and clear about what local data is being sent.
 
@@ -78,6 +82,7 @@ Users return daily or weekly to review their highest-priority work, adjust task 
 - Search and filters make priority review fast.
 - Manual override is visible and reversible through task editing.
 - Recalculation is predictable and local.
+- Today priorities and backlog items stay distinguishable so review reduces overload.
 - History explains priority changes without bloated payloads.
 - The app does not drift into enterprise project management, reminders, or AI automation without governance review.
 
@@ -108,6 +113,7 @@ Task Prioritizer is not intended to become:
 - A file storage system.
 - A hidden AI decision engine.
 - A collaboration or employee-monitoring tool.
+- An auto-scheduler that rearranges user calendars by default.
 
 ## Guiding Principles
 
@@ -116,6 +122,7 @@ Every Task Prioritizer feature should:
 - Keep priority reasoning visible.
 - Preserve user-created task editability.
 - Keep manual judgment first-class.
+- Keep goal, project, and calendar context explicit instead of assuming user intent.
 - Keep data owner-scoped and minimally exposed.
 - Avoid AI, notification, calendar, and collaboration drift without approval.
 - Stay inside the Ansiversa platform shell and mini-app boundary.
