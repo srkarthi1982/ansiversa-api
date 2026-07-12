@@ -41,7 +41,7 @@ The first release keeps payloads compact, avoids document storage, and groups da
 
 ## Current Status
 
-Workflow Ready. VAT Assistant UAE remains `active` / `comingSoon` with version `null`; destination metadata remains null. A read-only remote-state audit confirmed the production-configured isolated database was accidentally migrated early to Alembic head `20260712_0001_vat_assistant_uae` with empty starting tables. It is not promoted to Live.
+Approved live at version `1.0.0`. The parent Apps catalog stores VAT Assistant UAE as `active` / `live` with destination progress `20 / 100`, destination status `approved`, and destination reviewed date `2026-07-12`. The production-configured isolated database is verified at Alembic head `20260712_0001_vat_assistant_uae`; a read-only remote-state audit confirmed the schema was migrated early during validation before live promotion.
 
 ## Known Limitations
 

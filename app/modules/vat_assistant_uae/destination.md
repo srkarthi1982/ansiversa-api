@@ -2,9 +2,9 @@
 
 ## Document Status
 
-Status: Draft
-Destination Progress: 18 / 100
-Destination Status: Draft
+Status: Approved
+Destination Progress: 20 / 100
+Destination Status: Approved
 Reviewed At: 2026-07-12
 
 ## Purpose
@@ -60,4 +60,8 @@ AI may eventually summarize user-entered VAT records or identify missing fields 
 
 ## Journey Progress Rationale
 
-Workflow Ready V1 establishes the isolated data model, protected workflow, CRUD foundation, deterministic summaries, and owner-scoped storage. Remaining maturity requires exports, attachments, adviser review, audit trail, import workflows, and stronger governance around official filing-adjacent use.
+Approved V1 establishes the isolated data model, protected workflow, CRUD foundation, deterministic summaries, owner-scoped storage, browser-verified workflow, and live catalog promotion. Remaining maturity requires exports, attachments, adviser review, audit trail, import workflows, and stronger governance around official filing-adjacent use.
+
+## Governance Notes
+
+VAT Assistant UAE is approved live at version `1.0.0` after Astra review, manual browser verification, production migration verification, Partner approval, and destination metadata sync from this document. The parent Apps catalog stores the app as `active` / `live` with destination progress `20 / 100`.
