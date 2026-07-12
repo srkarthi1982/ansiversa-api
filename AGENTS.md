@@ -1184,9 +1184,9 @@ enough to stand on its own.
 Current status:
 
 ```text
-Platform + 58 live solution apps
-Remaining toward 100 solution apps: 42
-Current next step: Medicine Reminder App #060 Astra review; AI Integration checkpoint remains pending after review.
+Platform + 63 live solution apps
+Remaining toward 100 solution apps: 37
+Current next step: Vehicle Maintenance Tracker App #065 development.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-12: Promoted Car Pool App #064 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `26 / 100` approved on `2026-07-12`, overview metadata validation, manual My Trips bug-fix verification, tracked catalog export update, and production catalog verification at 63 live / 37 comingSoon.
 * 2026-07-12: Synced parent overview metadata for Car Pool App #064 so the primary and final `Explore` actions now serve `/car-pool/rides`, verified the persisted `overview:car-pool` record, and re-ran overview CTA validation.
 * 2026-07-12: Ran Car Pool App #064 production-configured isolated database migration to Alembic head `20260712_0001_car_pool`, verified `CarPoolRides`, `CarPoolPassengers`, `CarPoolRequests`, required indexes, foreign keys, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-12: Implemented Car Pool App #064 backend to Workflow Ready with isolated `CAR_POOL_DATABASE_URL`, `CarPoolRides`, `CarPoolPassengers`, and `CarPoolRequests` models, owner-scoped protected CRUD APIs, duplicate ride, local join/leave, request approve/reject actions, dashboard insights, Alembic migration `20260712_0001_car_pool`, overview Explore routing to `/car-pool/rides`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, and no Apps row live promotion.

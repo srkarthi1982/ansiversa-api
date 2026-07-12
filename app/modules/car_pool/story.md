@@ -38,7 +38,7 @@ List and dashboard responses return summary fields only. Notes and request messa
 
 ## Current Status
 
-Workflow Ready. Car Pool is implemented as an active `comingSoon` mini app with protected frontend workflow routes, isolated backend persistence, local migration verification, overview Explore routing to `/car-pool/rides`, and no live promotion.
+Approved live at version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync, overview CTA validation, production database migration verification, and manual workflow verification with the My Trips full-ride join fix.
 
 ## Known Limitations
 
@@ -50,4 +50,4 @@ Future approved versions may add reminder support, recurring ride improvements, 
 
 ## Current Implementation
 
-The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_car_pool`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Rides, My Trips, Requests, and Insights. The parent Apps catalog keeps Car Pool as `active` with `launchStatus = comingSoon` and `version = null`.
+The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_car_pool`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Rides, My Trips, Requests, and Insights. The parent Apps catalog stores Car Pool as `active` with `launchStatus = live`, `version = 1.0.0`, and destination metadata `26 / 100`.
