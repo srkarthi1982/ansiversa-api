@@ -2,7 +2,7 @@
 
 ## Status
 
-Workflow Ready marketing notes. Not live.
+Approved live marketing notes for version `1.0.0`.
 
 ## Positioning
 

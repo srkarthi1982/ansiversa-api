@@ -38,7 +38,7 @@ List and dashboard responses return summary fields only. Notes are represented b
 
 ## Current Status
 
-Workflow Ready. Vehicle Maintenance Tracker is implemented as an active `comingSoon` mini app with protected frontend workflow routes, isolated backend persistence, local migration verification, overview Explore routing to `/vehicle-maintenance-tracker/vehicles`, and no live promotion.
+Approved live at version `1.0.0`. Vehicle Maintenance Tracker is implemented as an active `live` mini app with protected frontend workflow routes, isolated backend persistence, production migration verification, overview Explore routing to `/vehicle-maintenance-tracker/vehicles`, and destination metadata `24 / 100`.
 
 ## Known Limitations
 
@@ -50,4 +50,4 @@ Future approved versions may add reminder notifications, recurring service templ
 
 ## Current Implementation
 
-The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_vehicle_maintenance_tracker`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Vehicles, Maintenance, Reminders, and Insights. The parent Apps catalog keeps Vehicle Maintenance Tracker as `active` with `launchStatus = comingSoon` and `version = null`.
+The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_vehicle_maintenance_tracker`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Vehicles, Maintenance, Reminders, and Insights. The parent Apps catalog stores Vehicle Maintenance Tracker as `active` with `launchStatus = live`, `version = 1.0.0`, and destination metadata `24 / 100`.
