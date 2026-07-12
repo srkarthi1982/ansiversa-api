@@ -1,4 +1,4 @@
-# AI Translator & Tone Fixer Market Study
+# AI Translator and Tone Fixer Market Study
 
 ## Document Status
 
@@ -24,7 +24,7 @@ All product decisions require Partner approval and are reflected separately in `
 
 ## Purpose
 
-This document captures market intelligence for AI Translator & Tone Fixer so
+This document captures market intelligence for AI Translator and Tone Fixer so
 future product decisions can be grounded in public competitor patterns, user
 pain points, and Ansiversa's platform direction.
 
