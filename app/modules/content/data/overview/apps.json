@@ -1523,7 +1523,7 @@
 			"key": "trip-cost-calculator",
 			"slug": "trip-cost-calculator",
 			"name": "Trip Cost Calculator",
-			"description": "Trip Cost Calculator for the Ansiversa app ecosystem.",
+			"description": "Estimate, record, compare, and analyze trip costs across travelers, distance, categories, and monthly activity.",
 			"categoryId": "cat_mobility-and-travel",
 			"status": "active",
 			"isFeatured": 0,

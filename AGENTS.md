@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 65 live solution apps
 Remaining toward 100 solution apps: 35
-Current next step: Trip Cost Calculator App #067 development.
+Current next step: Trip Cost Calculator App #067 Astra review.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-12: Implemented Trip Cost Calculator App #067 backend to Workflow Ready with isolated `TRIP_COST_CALCULATOR_DATABASE_URL`, `TripCostTrips` and `TripCostExpenses` models, owner-scoped protected CRUD APIs, duplicate trip, comparison summaries, dashboard insights, Alembic migration `20260712_0001_trip_cost_calculator`, overview Explore routing to `/trip-cost-calculator/trips`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, and no Apps row live promotion.
 * 2026-07-12: Promoted Parking Expense Tracker App #066 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `22 / 100` approved on `2026-07-12`, overview metadata sync, browser workflow verification, tracked catalog update, and production catalog verification at 65 live / 35 comingSoon.
 * 2026-07-12: Ran Parking Expense Tracker App #066 production-configured isolated database migration to Alembic head `20260712_0001_parking_expense_tracker`, verified `ParkingExpenseLocations`, `ParkingExpenseEntries`, required indexes, foreign key, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-12: Implemented Parking Expense Tracker App #066 backend to Workflow Ready with isolated `PARKING_EXPENSE_TRACKER_DATABASE_URL`, `ParkingExpenseLocations` and `ParkingExpenseEntries` models, owner-scoped protected CRUD APIs, dashboard insights, Alembic migration `20260712_0001_parking_expense_tracker`, overview Explore routing to `/parking-expense-tracker/expenses`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, and no Apps row live promotion.

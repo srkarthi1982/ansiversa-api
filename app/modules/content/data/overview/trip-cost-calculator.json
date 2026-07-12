@@ -1,1 +1,89 @@
-{"hero":{"kicker":"Mobility & Travel · Ansiversa mini app","title":"Trip Cost Calculator","description":"Trip Cost Calculator for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/trip-cost-calculator"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Trip Cost Calculator","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Mobility & Travel"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Trip Cost Calculator focused and easy to revisit","description":"Trip Cost Calculator provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Trip Cost Calculator overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Trip Cost Calculator","description":"Trip Cost Calculator is useful for people who need a dedicated mobility & travel workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Trip Cost Calculator essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /trip-cost-calculator."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /trip-cost-calculator."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Trip Cost Calculator follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Trip Cost Calculator","description":"Explore Trip Cost Calculator from its active Ansiversa route.","action":{"label":"Explore","path":"/trip-cost-calculator"}}}
+{
+  "hero": {
+    "kicker": "Mobility & Travel · Ansiversa mini app",
+    "title": "Trip Cost Calculator",
+    "description": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+    "points": ["Trip cost records", "Category breakdowns", "Comparison insights"],
+    "primaryAction": { "label": "Explore", "path": "/trip-cost-calculator/trips" }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Trips → Cost Items → Comparison → Insights",
+    "steps": ["Create trips with travelers and distance", "Add cost items by category", "Compare trips and review spending insights"]
+  },
+  "stats": [
+    { "label": "Category", "value": "Mobility & Travel" },
+    { "label": "Workflow", "value": "Trip costs" },
+    { "label": "Access", "value": "Protected" }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Understand the full cost of a trip",
+    "description": "Trip Cost Calculator keeps trip budgets and actual costs in one private workspace.",
+    "items": [
+      { "kicker": "Trips", "title": "Start with the journey", "description": "Record destination, dates, travelers, vehicle, distance, currency, and notes." },
+      { "kicker": "Costs", "title": "Capture expense details", "description": "Add fuel, parking, tolls, food, accommodation, tickets, shopping, transport, and miscellaneous costs." },
+      { "kicker": "Review", "title": "Compare and learn", "description": "See total cost, cost per traveler, cost per kilometer, category breakdowns, and monthly activity." }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A practical companion for travel planning",
+    "description": "The workflow is built for quick entry, clear comparison, and calm review after trips.",
+    "items": [
+      { "title": "Grounded", "description": "Trips and costs are user-entered records, not live booking or payment data." },
+      { "title": "Comparable", "description": "Different trips can be reviewed side by side using consistent cost metrics." },
+      { "title": "Private", "description": "Records are scoped to the authenticated user." }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Trip Cost Calculator",
+    "description": "Useful for people who want to understand the actual cost of travel before and after a trip.",
+    "items": [
+      { "title": "Drivers", "description": "Track fuel, toll, parking, and vehicle-related trip costs." },
+      { "title": "Families", "description": "Estimate and review costs per traveler." },
+      { "title": "Frequent travelers", "description": "Compare recurring trips and category patterns." }
+    ]
+  },
+  "resourceSection": {
+    "title": "Trip cost essentials",
+    "description": "Core records stay focused on trips, costs, comparison, and insights.",
+    "items": [
+      { "title": "Trip records", "description": "Name, route, dates, travelers, vehicle, distance, currency, and notes." },
+      { "title": "Cost items", "description": "Categorized expense records attached to trips." },
+      { "title": "Insight summaries", "description": "Totals, averages, categories, monthly spend, and recent activity." }
+    ]
+  },
+  "groupedSection": {
+    "title": "From estimate to review",
+    "description": "The app supports both planning and post-trip analysis.",
+    "groups": [
+      {
+        "kicker": "Plan",
+        "title": "Create a trip",
+        "items": [
+          { "name": "Route", "description": "Capture where the trip starts and ends." },
+          { "name": "Travelers", "description": "Calculate cost per traveler from saved expense items." }
+        ]
+      },
+      {
+        "kicker": "Analyze",
+        "title": "Compare costs",
+        "items": [
+          { "name": "Categories", "description": "Review which cost types drive the trip total." },
+          { "name": "Distance", "description": "Use distance to calculate cost per kilometer." }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with Ansiversa workflow standards",
+    "description": "Trip Cost Calculator uses protected routes, owner-scoped APIs, isolated persistence, and shared UI patterns.",
+    "items": ["Explore CTA routes to /trip-cost-calculator/trips.", "CRUD records are owner-scoped.", "Overview metadata follows the shared catalog contract."]
+  },
+  "finalCta": {
+    "title": "Open Trip Cost Calculator",
+    "description": "Start with Trips, then add cost items and compare spending.",
+    "action": { "label": "Explore", "path": "/trip-cost-calculator/trips" }
+  }
+}
