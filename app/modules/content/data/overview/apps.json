@@ -1454,7 +1454,7 @@
 			"key": "car-pool",
 			"slug": "car-pool",
 			"name": "Car Pool",
-			"description": "Car Pool for the Ansiversa app ecosystem.",
+			"description": "Plan ride offers, local trip joins, and passenger requests without live matching, payments, or external messaging.",
 			"categoryId": "cat_mobility-and-travel",
 			"status": "active",
 			"isFeatured": 0,

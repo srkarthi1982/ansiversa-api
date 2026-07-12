@@ -61,6 +61,7 @@ from app.modules.medicine_reminder.routes import router as medicine_reminder_rou
 from app.modules.health_report_organizer.routes import router as health_report_organizer_router
 from app.modules.family_task_planner.routes import router as family_task_planner_router
 from app.modules.rent_a_car.routes import router as rent_a_car_router
+from app.modules.car_pool.routes import router as car_pool_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -404,6 +405,11 @@ def register_routes(app: FastAPI) -> None:
         rent_a_car_router,
         prefix=f"{settings.API_V1_PREFIX}/rent-a-car",
         tags=["Rent a Car"],
+    )
+    app.include_router(
+        car_pool_router,
+        prefix=f"{settings.API_V1_PREFIX}/car-pool",
+        tags=["Car Pool"],
     )
     app.include_router(
         content_router, 

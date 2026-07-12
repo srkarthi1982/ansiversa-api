@@ -27,6 +27,7 @@ DEFAULT_MEDICINE_REMINDER_DATABASE_URL = "sqlite:///./medicine_reminder.db"
 DEFAULT_HEALTH_REPORT_ORGANIZER_DATABASE_URL = "sqlite:///./health_report_organizer.db"
 DEFAULT_FAMILY_TASK_PLANNER_DATABASE_URL = "sqlite:///./family_task_planner.db"
 DEFAULT_RENT_A_CAR_DATABASE_URL = "sqlite:///./rent_a_car.db"
+DEFAULT_CAR_POOL_DATABASE_URL = "sqlite:///./car_pool.db"
 
 
 class Settings(BaseSettings):
@@ -84,6 +85,7 @@ class Settings(BaseSettings):
     HEALTH_REPORT_ORGANIZER_DATABASE_URL: str = DEFAULT_HEALTH_REPORT_ORGANIZER_DATABASE_URL
     FAMILY_TASK_PLANNER_DATABASE_URL: str = DEFAULT_FAMILY_TASK_PLANNER_DATABASE_URL
     RENT_A_CAR_DATABASE_URL: str = DEFAULT_RENT_A_CAR_DATABASE_URL
+    CAR_POOL_DATABASE_URL: str = DEFAULT_CAR_POOL_DATABASE_URL
     QUIZ_ATTEMPT_EXPIRE_HOURS: int = Field(default=2, gt=0, le=24)
     JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
