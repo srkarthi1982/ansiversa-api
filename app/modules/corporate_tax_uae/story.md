@@ -41,7 +41,7 @@ The first release keeps payloads compact, avoids large document storage, and gro
 
 ## Current Status
 
-Workflow Ready. Corporate Tax UAE remains `active` / `comingSoon` with version `null`. Local and production-configured isolated database migrations are verified at Alembic head `20260712_0001_corporate_tax_uae`. It is not promoted to Live.
+Approved live at version `1.0.0`. Corporate Tax UAE is stored in the parent Apps catalog as `active` / `live` with destination progress `20 / 100`, destination status `approved`, and destination reviewed date `2026-07-12`. Local and production-configured isolated database migrations are verified at Alembic head `20260712_0001_corporate_tax_uae`.
 
 ## Known Limitations
 
@@ -63,4 +63,4 @@ Workflow Ready. Corporate Tax UAE remains `active` / `comingSoon` with version `
 
 ## Current Implementation
 
-The backend implements isolated SQLAlchemy models, Alembic migration `20260712_0001_corporate_tax_uae`, schemas, repository/service layer, owner isolation, stable operation IDs, defensive estimate calculations, and overview metadata. The production-configured isolated database has been migrated to head with the expected tables, indexes, foreign keys, empty starting row counts, and module Alembic version table. The app preserves clear product safety boundaries across documentation, API summaries, and frontend copy.
+The backend implements isolated SQLAlchemy models, Alembic migration `20260712_0001_corporate_tax_uae`, schemas, repository/service layer, owner isolation, stable operation IDs, defensive estimate calculations, and overview metadata. The production-configured isolated database has been migrated to head with the expected tables, indexes, foreign keys, empty starting row counts, and module Alembic version table. The app preserves clear product safety boundaries across documentation, API summaries, and frontend copy, and its first approved release is live.

@@ -10,11 +10,18 @@ It is not legal, accounting, audit, filing, or tax advice. It does not replace t
 
 The mature product should become a review-ready preparation workspace for UAE businesses: periods are structured, assumptions are visible, obligations are trackable, supporting documents can be attached, and adviser collaboration is possible without implying official compliance or filing acceptance.
 
+## Document Status
+
+Status: Approved
+Destination Progress: 20 / 100
+Destination Status: Approved
+Reviewed At: 2026-07-12
+
 ## Journey Progress
 
 - Destination: 100 / 100
 - Current Journey Progress: 20 / 100
-- Status: draft
+- Status: approved
 - Last Reviewed: 2026-07-12
 
 ## Workflow Destination
@@ -58,4 +65,4 @@ The mature product should become a review-ready preparation workspace for UAE bu
 
 ## Governance Notes
 
-Promotion to Live requires Astra review, manual browser verification, production migration verification, Partner approval, and destination metadata sync from this document. Until approval, the app remains `active` / `comingSoon` with version `null`.
+Corporate Tax UAE is approved live at version `1.0.0` after Astra review, manual browser verification, production migration verification, Partner approval, and destination metadata sync from this document. The parent Apps catalog stores the app as `active` / `live` with destination progress `20 / 100`.
