@@ -53,7 +53,7 @@ Dashboard payloads stay bounded to trip and cost summaries. Notes are previewed 
 
 ## Current Status
 
-Workflow Ready. Trip Cost Calculator is implemented as an active `comingSoon` mini app with protected frontend workflow routes, isolated backend persistence, local migration verification, overview Explore routing to `/trip-cost-calculator/trips`, and no live promotion.
+Workflow Ready. Trip Cost Calculator is implemented as an active `comingSoon` mini app with protected frontend workflow routes, isolated backend persistence, local and production-configured migration verification, overview Explore routing to `/trip-cost-calculator/trips`, and no live promotion.
 
 ## Known Limitations
 
@@ -65,4 +65,4 @@ Future approved versions may add estimate templates, exports, receipt attachment
 
 ## Current Implementation
 
-The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_trip_cost_calculator`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Trips, Cost Items, Comparison, and Insights. The parent Apps catalog keeps Trip Cost Calculator as `active` with `launchStatus = comingSoon` and `version = null`.
+The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_trip_cost_calculator`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Trips, Cost Items, Comparison, and Insights. The production-configured isolated database has been migrated to head with the expected tables, indexes, foreign key, empty starting row counts, and module Alembic version table. The parent Apps catalog keeps Trip Cost Calculator as `active` with `launchStatus = comingSoon` and `version = null`.
