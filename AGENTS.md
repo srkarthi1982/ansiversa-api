@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-12: Synced parent overview metadata for Car Pool App #064 so the primary and final `Explore` actions now serve `/car-pool/rides`, verified the persisted `overview:car-pool` record, and re-ran overview CTA validation.
 * 2026-07-12: Ran Car Pool App #064 production-configured isolated database migration to Alembic head `20260712_0001_car_pool`, verified `CarPoolRides`, `CarPoolPassengers`, `CarPoolRequests`, required indexes, foreign keys, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-12: Implemented Car Pool App #064 backend to Workflow Ready with isolated `CAR_POOL_DATABASE_URL`, `CarPoolRides`, `CarPoolPassengers`, and `CarPoolRequests` models, owner-scoped protected CRUD APIs, duplicate ride, local join/leave, request approve/reject actions, dashboard insights, Alembic migration `20260712_0001_car_pool`, overview Explore routing to `/car-pool/rides`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, and no Apps row live promotion.
 * 2026-07-11: Promoted Rent a Car App #063 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `28 / 100` approved on `2026-07-11`, overview metadata sync, tracked catalog export update, and production catalog verification at 62 live / 38 comingSoon.
