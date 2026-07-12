@@ -1546,7 +1546,7 @@
 			"key": "corporate-tax-uae",
 			"slug": "corporate-tax-uae",
 			"name": "Corporate Tax UAE",
-			"description": "Corporate Tax UAE for the Ansiversa app ecosystem.",
+			"description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
 			"categoryId": "cat_business-and-uae",
 			"status": "active",
 			"isFeatured": 0,

@@ -1,1 +1,97 @@
-{"hero":{"kicker":"Business & UAE · Ansiversa mini app","title":"Corporate Tax UAE","description":"Corporate Tax UAE for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/corporate-tax-uae"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Corporate Tax UAE","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Business"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Corporate Tax UAE focused and easy to revisit","description":"Corporate Tax UAE provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Corporate Tax UAE overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Corporate Tax UAE","description":"Corporate Tax UAE is useful for people who need a dedicated business & uae workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Corporate Tax UAE essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /corporate-tax-uae."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /corporate-tax-uae."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Corporate Tax UAE follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Corporate Tax UAE","description":"Explore Corporate Tax UAE from its active Ansiversa route.","action":{"label":"Explore","path":"/corporate-tax-uae"}}}
+{
+  "hero": {
+    "kicker": "Business & UAE · Ansiversa mini app",
+    "title": "Corporate Tax UAE",
+    "description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+    "points": ["Tax period records", "Adjustment schedules", "Obligation tracking"],
+    "primaryAction": { "label": "Explore", "path": "/corporate-tax-uae/tax-periods" }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Tax Periods → Adjustments → Obligations → Insights",
+    "steps": [
+      "Create tax periods with entity and financial-year details",
+      "Record user-entered taxable-income adjustments and assumptions",
+      "Track obligations and review estimate-only insights"
+    ]
+  },
+  "stats": [
+    { "label": "Category", "value": "Business & UAE" },
+    { "label": "Workflow", "value": "Tax planning records" },
+    { "label": "Access", "value": "Protected" }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep tax planning records organized without replacing professional review",
+    "description": "Corporate Tax UAE is a private record-keeping workspace for estimates and preparation notes, not a filing or advisory product.",
+    "items": [
+      { "kicker": "Periods", "title": "Structure the filing year", "description": "Save entity, financial year, filing date, profit, revenue, status, and assumption details." },
+      { "kicker": "Adjustments", "title": "Make assumptions visible", "description": "Capture user-entered increases and decreases to taxable income with reference notes and review status." },
+      { "kicker": "Obligations", "title": "Track external work", "description": "Record deadlines, adviser review, filing preparation, payment, document collection, and completion outside Ansiversa." }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm preparation workspace for UAE business records",
+    "description": "The app keeps estimates transparent, groups currencies, and reminds users that authoritative sources and qualified professionals remain required.",
+    "items": [
+      { "title": "Transparent", "description": "Calculations show basis, assumptions, thresholds, rates, and estimate labels." },
+      { "title": "Private", "description": "All records are scoped to the authenticated user." },
+      { "title": "Bounded", "description": "The app does not provide legal, accounting, audit, filing, or tax advice." }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Corporate Tax UAE",
+    "description": "Useful for UAE businesses that want a structured planning record before professional review or external filing.",
+    "items": [
+      { "title": "Small businesses", "description": "Keep periods, adjustment notes, and obligations in one protected workspace." },
+      { "title": "Finance teams", "description": "Prepare user-entered schedules for adviser review without treating them as official filings." },
+      { "title": "Founders", "description": "Track deadlines and assumptions alongside supporting notes." }
+    ]
+  },
+  "resourceSection": {
+    "title": "Corporate tax workspace essentials",
+    "description": "V1 focuses on records, estimates, and task tracking with clear safety boundaries.",
+    "items": [
+      { "title": "Tax periods", "description": "Financial year, entity identity, revenue, accounting profit, taxable estimate, currency, and status." },
+      { "title": "Adjustments", "description": "User-entered categories, direction, amount, reference, explanation, and treatment review status." },
+      { "title": "Obligations", "description": "Due dates, priority, responsible person, completion date, and external references." }
+    ]
+  },
+  "groupedSection": {
+    "title": "From records to review-ready estimates",
+    "description": "The workflow keeps calculations defensible by separating entered facts, assumptions, and external review status.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Create the period",
+        "items": [
+          { "name": "Financial year", "description": "Capture the relevant period and filing due date." },
+          { "name": "Assumptions", "description": "Store the rate, threshold, effective date, and reference note used for estimates." }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Check estimates and obligations",
+        "items": [
+          { "name": "Currency grouping", "description": "Totals are grouped by currency to avoid silent conversion." },
+          { "name": "Professional review", "description": "Records indicate whether user-entered treatments need adviser review." }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with Ansiversa workflow standards",
+    "description": "Corporate Tax UAE uses protected routes, owner-scoped APIs, isolated persistence, shared UI patterns, and estimate-only tax safeguards.",
+    "items": [
+      "Explore CTA routes to /corporate-tax-uae/tax-periods.",
+      "CRUD records are owner-scoped.",
+      "Tax outputs are labelled estimates and calculated only from stored user records."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Corporate Tax UAE",
+    "description": "Start with Tax Periods, then add adjustments, obligations, and estimate-only insights.",
+    "action": { "label": "Explore", "path": "/corporate-tax-uae/tax-periods" }
+  }
+}

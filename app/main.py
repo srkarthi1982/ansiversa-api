@@ -65,6 +65,7 @@ from app.modules.car_pool.routes import router as car_pool_router
 from app.modules.vehicle_maintenance_tracker.routes import router as vehicle_maintenance_tracker_router
 from app.modules.parking_expense_tracker.routes import router as parking_expense_tracker_router
 from app.modules.trip_cost_calculator.routes import router as trip_cost_calculator_router
+from app.modules.corporate_tax_uae.routes import router as corporate_tax_uae_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -428,6 +429,11 @@ def register_routes(app: FastAPI) -> None:
         trip_cost_calculator_router,
         prefix=f"{settings.API_V1_PREFIX}/trip-cost-calculator",
         tags=["Trip Cost Calculator"],
+    )
+    app.include_router(
+        corporate_tax_uae_router,
+        prefix=f"{settings.API_V1_PREFIX}/corporate-tax-uae",
+        tags=["Corporate Tax UAE"],
     )
     app.include_router(
         content_router, 
