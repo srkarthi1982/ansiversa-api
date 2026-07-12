@@ -41,7 +41,7 @@ The first release keeps payloads compact, avoids document storage, and groups da
 
 ## Current Status
 
-Workflow Ready. VAT Assistant UAE remains `active` / `comingSoon` with version `null`; destination metadata remains null. Local isolated database migration is verified at Alembic head `20260712_0001_vat_assistant_uae`. It is not promoted to Live and no production migration has been run.
+Workflow Ready. VAT Assistant UAE remains `active` / `comingSoon` with version `null`; destination metadata remains null. The production-configured isolated database migration is verified at Alembic head `20260712_0001_vat_assistant_uae` with empty starting tables. It is not promoted to Live.
 
 ## Known Limitations
 
