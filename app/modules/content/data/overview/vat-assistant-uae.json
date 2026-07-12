@@ -1,1 +1,97 @@
-{"hero":{"kicker":"Business & UAE · Ansiversa mini app","title":"VAT Assistant UAE","description":"VAT Assistant UAE for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/vat-assistant-uae"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open VAT Assistant UAE","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Business"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep VAT Assistant UAE focused and easy to revisit","description":"VAT Assistant UAE provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The VAT Assistant UAE overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses VAT Assistant UAE","description":"VAT Assistant UAE is useful for people who need a dedicated business & uae workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"VAT Assistant UAE essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /vat-assistant-uae."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /vat-assistant-uae."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"VAT Assistant UAE follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open VAT Assistant UAE","description":"Explore VAT Assistant UAE from its active Ansiversa route.","action":{"label":"Explore","path":"/vat-assistant-uae"}}}
+{
+  "hero": {
+    "kicker": "Business & UAE · Ansiversa mini app",
+    "title": "VAT Assistant UAE",
+    "description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+    "points": ["Registration records", "VAT return tracking", "Transaction VAT summaries"],
+    "primaryAction": { "label": "Explore", "path": "/vat-assistant-uae/registrations" }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "VAT Registrations → VAT Returns → Transactions → Insights",
+    "steps": [
+      "Create VAT registration records with TRN, status, type, and VAT period details",
+      "Track user-entered VAT returns with output VAT, input VAT, payable VAT, and refund amounts",
+      "Record transactions and review estimate-only VAT summaries by period and rate"
+    ]
+  },
+  "stats": [
+    { "label": "Category", "value": "Business & UAE" },
+    { "label": "Workflow", "value": "VAT recordkeeping" },
+    { "label": "Access", "value": "Protected" }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep VAT preparation records organized without replacing official filing",
+    "description": "VAT Assistant UAE is a private record-keeping workspace for planning and review notes, not an official FTA filing product.",
+    "items": [
+      { "kicker": "Registrations", "title": "Store business VAT identity", "description": "Capture business name, TRN, registration type, status, country, and VAT period." },
+      { "kicker": "Returns", "title": "Track filing amounts", "description": "Record output VAT, input VAT, payable VAT, refund amounts, filing status, and submission dates." },
+      { "kicker": "Transactions", "title": "Review VAT activity", "description": "Save invoices, counterparties, transaction type, taxable amount, rate, VAT amount, and notes." }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm preparation workspace for UAE VAT records",
+    "description": "The app keeps user-entered records structured and labels all summaries as planning information requiring official review.",
+    "items": [
+      { "title": "Structured", "description": "Registrations, returns, and transactions stay separate but connected." },
+      { "title": "Private", "description": "All records are scoped to the authenticated user." },
+      { "title": "Bounded", "description": "The app does not provide professional tax advice or official filing." }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses VAT Assistant UAE",
+    "description": "Useful for UAE businesses that want a structured VAT record before professional review or external filing.",
+    "items": [
+      { "title": "Small businesses", "description": "Keep VAT registration, return, and transaction notes in one protected workspace." },
+      { "title": "Finance teams", "description": "Prepare user-entered VAT schedules before accountant or adviser review." },
+      { "title": "Founders", "description": "Track VAT filing status and transaction assumptions without treating them as official filings." }
+    ]
+  },
+  "resourceSection": {
+    "title": "VAT workspace essentials",
+    "description": "V1 focuses on records, estimates, and workflow tracking with clear safety boundaries.",
+    "items": [
+      { "title": "Registrations", "description": "Business name, TRN, registration type, registration date, VAT period, status, country, and notes." },
+      { "title": "Returns", "description": "VAT period, filing due date, output VAT, input VAT, payable VAT, refund amount, status, and submission date." },
+      { "title": "Transactions", "description": "Date, invoice number, customer or supplier, transaction type, taxable amount, VAT rate, VAT amount, currency, and notes." }
+    ]
+  },
+  "groupedSection": {
+    "title": "From VAT records to review-ready summaries",
+    "description": "The workflow separates registration identity, return-level filing amounts, and transaction-level VAT activity.",
+    "groups": [
+      {
+        "kicker": "Prepare",
+        "title": "Create the registration",
+        "items": [
+          { "name": "VAT identity", "description": "Capture TRN, registration type, VAT period, and status." },
+          { "name": "Return records", "description": "Track filing status and user-entered VAT amounts." }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Check summaries",
+        "items": [
+          { "name": "VAT by period", "description": "Summaries group output VAT, input VAT, and net payable by VAT period." },
+          { "name": "VAT by rate", "description": "Transaction activity groups VAT amounts by user-entered VAT rate." }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with Ansiversa workflow standards",
+    "description": "VAT Assistant UAE uses protected routes, owner-scoped APIs, isolated persistence, shared UI patterns, and explicit filing disclaimers.",
+    "items": [
+      "Explore CTA routes to /vat-assistant-uae/registrations.",
+      "CRUD records are owner-scoped.",
+      "VAT outputs are labelled planning and record-keeping information."
+    ]
+  },
+  "finalCta": {
+    "title": "Open VAT Assistant UAE",
+    "description": "Start with VAT Registrations, then add returns, transactions, and estimate-only insights.",
+    "action": { "label": "Explore", "path": "/vat-assistant-uae/registrations" }
+  }
+}

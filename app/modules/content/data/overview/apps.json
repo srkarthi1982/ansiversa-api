@@ -1569,7 +1569,7 @@
 			"key": "vat-assistant-uae",
 			"slug": "vat-assistant-uae",
 			"name": "VAT Assistant UAE",
-			"description": "VAT Assistant UAE for the Ansiversa app ecosystem.",
+			"description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
 			"categoryId": "cat_business-and-uae",
 			"status": "active",
 			"isFeatured": 0,
