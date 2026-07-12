@@ -54,7 +54,7 @@ Dashboard payloads remain bounded to summary data. Expense notes are previewed i
 
 ## Current Status
 
-Workflow Ready. Parking Expense Tracker is implemented as an active `comingSoon` mini app with protected frontend workflow routes, isolated backend persistence, local and production-configured migration verification, overview Explore routing to `/parking-expense-tracker/expenses`, and no live promotion.
+Approved Live. Parking Expense Tracker is promoted to `active` / `live` at version `1.0.0` after Astra/Partner approval, browser workflow verification, production Apps row promotion, destination metadata sync, local and production-configured migration verification, and overview Explore routing to `/parking-expense-tracker/expenses`.
 
 ## Known Limitations
 
@@ -66,4 +66,4 @@ Future approved versions may add receipt attachments, export packs, recurring pa
 
 ## Current Implementation
 
-The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_parking_expense_tracker`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Parking Expenses, Parking Locations, and Insights. The production-configured isolated database has been migrated to head with the expected tables, indexes, foreign key, empty starting row counts, and module Alembic version table. The parent Apps catalog keeps Parking Expense Tracker as `active` with `launchStatus = comingSoon` and `version = null`.
+The implementation includes isolated SQLAlchemy models, Alembic migration `20260712_0001_parking_expense_tracker`, protected owner-scoped routes, repository/service separation, Pydantic request and response schemas, overview metadata, generated OpenAPI compatibility, and React workflow pages for Parking Expenses, Parking Locations, and Insights. The production-configured isolated database has been migrated to head with the expected tables, indexes, foreign key, empty starting row counts, and module Alembic version table. The parent Apps catalog keeps Parking Expense Tracker as `active` with `launchStatus = live`, `version = 1.0.0`, and approved destination metadata `22 / 100`.
