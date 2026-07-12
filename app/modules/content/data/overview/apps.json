@@ -1477,7 +1477,7 @@
 			"key": "vehicle-maintenance-tracker",
 			"slug": "vehicle-maintenance-tracker",
 			"name": "Vehicle Maintenance Tracker",
-			"description": "Vehicle Maintenance Tracker for the Ansiversa app ecosystem.",
+			"description": "Track vehicle profiles, maintenance history, reminders, odometer readings, and upkeep costs without diagnostics or repair marketplace scope.",
 			"categoryId": "cat_mobility-and-travel",
 			"status": "active",
 			"isFeatured": 0,
