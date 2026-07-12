@@ -63,6 +63,7 @@ from app.modules.family_task_planner.routes import router as family_task_planner
 from app.modules.rent_a_car.routes import router as rent_a_car_router
 from app.modules.car_pool.routes import router as car_pool_router
 from app.modules.vehicle_maintenance_tracker.routes import router as vehicle_maintenance_tracker_router
+from app.modules.parking_expense_tracker.routes import router as parking_expense_tracker_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -416,6 +417,11 @@ def register_routes(app: FastAPI) -> None:
         vehicle_maintenance_tracker_router,
         prefix=f"{settings.API_V1_PREFIX}/vehicle-maintenance-tracker",
         tags=["Vehicle Maintenance Tracker"],
+    )
+    app.include_router(
+        parking_expense_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/parking-expense-tracker",
+        tags=["Parking Expense Tracker"],
     )
     app.include_router(
         content_router, 

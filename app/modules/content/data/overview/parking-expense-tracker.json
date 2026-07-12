@@ -1,1 +1,170 @@
-{"hero":{"kicker":"Mobility & Travel · Ansiversa mini app","title":"Parking Expense Tracker","description":"Parking Expense Tracker for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/parking-expense-tracker"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Parking Expense Tracker","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Mobility & Travel"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Parking Expense Tracker focused and easy to revisit","description":"Parking Expense Tracker provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Parking Expense Tracker overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Parking Expense Tracker","description":"Parking Expense Tracker is useful for people who need a dedicated mobility & travel workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Parking Expense Tracker essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /parking-expense-tracker."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /parking-expense-tracker."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Parking Expense Tracker follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Parking Expense Tracker","description":"Explore Parking Expense Tracker from its active Ansiversa route.","action":{"label":"Explore","path":"/parking-expense-tracker"}}}
+{
+	"hero": {
+		"kicker": "Mobility & Travel · Ansiversa mini app",
+		"title": "Parking Expense Tracker",
+		"description": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+		"points": [
+			"Record parking expenses",
+			"Organize frequent locations",
+			"Review monthly parking costs"
+		],
+		"primaryAction": {
+			"label": "Explore",
+			"path": "/parking-expense-tracker/expenses"
+		}
+	},
+	"flow": {
+		"kicker": "Workflow",
+		"title": "Parking Expenses → Parking Locations → Insights",
+		"steps": [
+			"Record parking sessions with amount, duration, vehicle, purpose, and payment method",
+			"Maintain reusable parking locations with city, area, type, and default hourly rate",
+			"Filter expenses by vehicle, payment method, and date range",
+			"Review monthly spending, location totals, payment totals, and average cost"
+		]
+	},
+	"stats": [
+		{
+			"label": "Category",
+			"value": "Mobility & Travel"
+		},
+		{
+			"label": "Workflow",
+			"value": "Parking costs"
+		},
+		{
+			"label": "Access",
+			"value": "Protected workspace"
+		}
+	],
+	"timeline": null,
+	"differences": {
+		"title": "Parking spend without reservation or payment scope",
+		"description": "Parking Expense Tracker keeps user-entered parking costs organized without trying to reserve spaces, process payments, or replace official parking receipts.",
+		"items": [
+			{
+				"kicker": "Pillar 01",
+				"title": "Expense records",
+				"description": "Save parking date, time range, calculated duration, amount, currency, vehicle, purpose, and notes."
+			},
+			{
+				"kicker": "Pillar 02",
+				"title": "Location memory",
+				"description": "Keep repeated parking places with city, area, type, rate, and notes."
+			},
+			{
+				"kicker": "Pillar 03",
+				"title": "Cost review",
+				"description": "See totals, monthly spending, average visit cost, and breakdowns by payment method and location."
+			}
+		]
+	},
+	"feel": {
+		"kicker": "How it feels",
+		"title": "A compact parking ledger for everyday mobility",
+		"description": "The workflow is designed for commuters, families, and frequent drivers who need a private record of recurring parking spend.",
+		"items": [
+			{
+				"title": "Fast entry",
+				"description": "The first workflow screen opens directly to parking expense capture."
+			},
+			{
+				"title": "Reusable",
+				"description": "Locations reduce repeated typing for common malls, offices, airports, and street parking."
+			},
+			{
+				"title": "Bounded",
+				"description": "No reservation, payment, receipt forwarding, or official reimbursement workflow is included."
+			}
+		]
+	},
+	"audiences": {
+		"title": "Who uses Parking Expense Tracker",
+		"description": "Parking Expense Tracker supports people who want a clear private view of parking costs.",
+		"items": [
+			{
+				"title": "Commuters",
+				"description": "Track office, mall, and street parking costs over time."
+			},
+			{
+				"title": "Families",
+				"description": "Review parking spend across vehicles and regular destinations."
+			},
+			{
+				"title": "Frequent drivers",
+				"description": "Compare locations, payment methods, sessions, and monthly totals."
+			}
+		]
+	},
+	"resourceSection": {
+		"title": "Parking expense essentials",
+		"description": "The app is a user-entered recordkeeping workflow, not a parking marketplace.",
+		"items": [
+			{
+				"title": "Parking expenses",
+				"description": "Capture amount, date, time, duration, vehicle, payment method, purpose, and notes."
+			},
+			{
+				"title": "Parking locations",
+				"description": "Maintain reusable locations with city, area, parking type, and default hourly rate."
+			},
+			{
+				"title": "Insights",
+				"description": "Review totals, monthly activity, payment breakdown, and location breakdown."
+			}
+		]
+	},
+	"groupedSection": {
+		"title": "A simple spend-tracking workflow",
+		"description": "Each section supports a specific parking cost job without expanding into parking reservations or payments.",
+		"groups": [
+			{
+				"kicker": "Record",
+				"title": "Expenses",
+				"items": [
+					{
+						"name": "Parking Expenses",
+						"description": "Create, edit, delete, search, filter, and review parking sessions."
+					}
+				]
+			},
+			{
+				"kicker": "Organize",
+				"title": "Locations",
+				"items": [
+					{
+						"name": "Parking Locations",
+						"description": "Create, edit, delete, search, and review reusable parking location cards."
+					}
+				]
+			},
+			{
+				"kicker": "Review",
+				"title": "Insights",
+				"items": [
+					{
+						"name": "Insights",
+						"description": "See total spend, monthly activity, payment methods, locations, sessions, and average cost."
+					}
+				]
+			}
+		]
+	},
+	"technicalSection": {
+		"title": "Aligned with the Ansiversa platform model",
+		"description": "Parking Expense Tracker follows protected mini-app routing, isolated API data, generated API types, and shared shell navigation.",
+		"items": [
+			"Protected routes under /parking-expense-tracker/*.",
+			"Owner-scoped backend records in isolated tables.",
+			"Overview Explore CTA routes to /parking-expense-tracker/expenses."
+		]
+	},
+	"finalCta": {
+		"title": "Open Parking Expense Tracker",
+		"description": "Start with expenses, then organize locations and review parking insights.",
+		"action": {
+			"label": "Explore",
+			"path": "/parking-expense-tracker/expenses"
+		}
+	}
+}

@@ -1500,7 +1500,7 @@
 			"key": "parking-expense-tracker",
 			"slug": "parking-expense-tracker",
 			"name": "Parking Expense Tracker",
-			"description": "Parking Expense Tracker for the Ansiversa app ecosystem.",
+			"description": "Track parking expenses, reusable locations, vehicles, payment methods, monthly spend, and average visit costs.",
 			"categoryId": "cat_mobility-and-travel",
 			"status": "active",
 			"isFeatured": 0,
