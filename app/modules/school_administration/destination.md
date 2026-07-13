@@ -2,13 +2,17 @@
 
 ## Document Status
 
-Approved destination draft for Workflow Ready review. Not approved for Live promotion.
+Approved for Live promotion on 2026-07-13 after Astra review, Partner approval, production migration verification, and manual browser verification.
+
+## Destination Status
+
+Approved v1.0
 
 ## Destination
 
 School Administration should mature into a calm, private administration workspace for smaller education operators that need dependable records before they need a full enterprise SIS.
 
-The destination is always `100 / 100`. Current Journey Progress is not approved and must remain unset in the parent Apps table until governance review.
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Product Identity
 
@@ -52,9 +56,11 @@ Only approved future scope should be implemented.
 
 ## Journey Progress
 
-Current Journey Progress: not approved.
+Current Position: 20 / 100
 
-V1 establishes the core record foundation but intentionally does not claim product maturity. Progress should be reviewed only during promotion or governance review.
+Current Journey Progress: 20 / 100
+
+V1 establishes the core record foundation across Students, Classes, Attendance, and Insights while intentionally deferring larger SIS capabilities such as admissions, grading, parent portals, LMS, payments, biometrics, government integrations, imports, attachments, and staff roles.
 
 ## Destination Capabilities
 
@@ -95,4 +101,8 @@ V1 excludes:
 
 ## Governance Notes
 
-No production migration, Live promotion, version assignment, or destination metadata update should occur until Astra review, manual browser verification, and Partner approval are complete.
+Astra: Approved on 2026-07-13.
+
+Partner: Approved School Administration live promotion after manual workflow verification.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes/foreign keys, synced overview metadata, and prepared live promotion metadata.

@@ -85,7 +85,7 @@ The dashboard payload seeds the workflow with summaries needed by the current V1
 
 ## Current Status
 
-Workflow Ready. The app remains `active` / `comingSoon` with `version = null` and no approved destination metadata.
+Approved live at version `1.0.0`. The parent Apps catalog stores School Administration as `active` / `live` with destination progress `20 / 100`, destination status `approved`, and destination reviewed date `2026-07-13`. The production-configured isolated database is verified at Alembic head `20260713_0001_school_administration`.
 
 ## Known Limitations
 
@@ -104,4 +104,4 @@ Potential future directions include fees and invoice tracking, teacher managemen
 
 ## Current Implementation
 
-School Administration V1 is implemented as an owner-scoped FastAPI module with isolated SQLAlchemy models, an Alembic migration, generated OpenAPI contracts, and a React workflow under `src/modules/school-administration`.
+School Administration V1 is implemented as an owner-scoped FastAPI module with isolated SQLAlchemy models, Alembic migration `20260713_0001_school_administration`, generated OpenAPI contracts, production overview metadata routing Explore to `/school-administration/students`, and a React workflow under `src/modules/school-administration`.

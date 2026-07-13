@@ -15,9 +15,13 @@ from pathlib import Path
 
 
 APPROVED_STATUS = "approved"
-EXPECTED_LIVE_DESTINATION_COUNT = 63
-REVIEW_DATE_PATTERN = re.compile(r"Astra: Approved on (?P<date>\d{4}-\d{2}-\d{2})\.")
-PROGRESS_PATTERN = re.compile(r"Current Position:\s*(?P<progress>\d+)\s*/\s*100")
+EXPECTED_LIVE_DESTINATION_COUNT = 69
+REVIEW_DATE_PATTERN = re.compile(
+    r"(?:Astra: Approved on|Reviewed At:|Last Reviewed:)\s*(?P<date>\d{4}-\d{2}-\d{2})"
+)
+PROGRESS_PATTERN = re.compile(
+    r"(?:Current Position|Current Journey Progress|Destination Progress):\s*(?P<progress>\d+)\s*/\s*100"
+)
 
 
 @dataclass(frozen=True)
@@ -51,11 +55,23 @@ def _section_value(lines: list[str], heading: str) -> str:
     return ""
 
 
+def _inline_value(lines: list[str], label: str) -> str:
+    prefix = f"{label}:"
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith(prefix):
+            return stripped[len(prefix) :].strip()
+
+    return ""
+
+
 def parse_destination(path: Path) -> DestinationMetadata | None:
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
     destination_status = _section_value(lines, "## Destination Status")
-    if destination_status != "Approved v1.0":
+    if not destination_status:
+        destination_status = _inline_value(lines, "Destination Status")
+    if destination_status.lower() not in {"approved v1.0", "approved"}:
         return None
 
     progress_match = PROGRESS_PATTERN.search(text)
