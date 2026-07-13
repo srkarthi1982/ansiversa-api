@@ -68,6 +68,7 @@ from app.modules.trip_cost_calculator.routes import router as trip_cost_calculat
 from app.modules.corporate_tax_uae.routes import router as corporate_tax_uae_router
 from app.modules.vat_assistant_uae.routes import router as vat_assistant_uae_router
 from app.modules.school_administration.routes import router as school_administration_router
+from app.modules.subscription_manager.routes import router as subscription_manager_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -446,6 +447,11 @@ def register_routes(app: FastAPI) -> None:
         school_administration_router,
         prefix=f"{settings.API_V1_PREFIX}/school-administration",
         tags=["School Administration"],
+    )
+    app.include_router(
+        subscription_manager_router,
+        prefix=f"{settings.API_V1_PREFIX}/subscription-manager",
+        tags=["Subscription Manager"],
     )
     app.include_router(
         content_router, 

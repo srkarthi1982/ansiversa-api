@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Business & UAE · Ansiversa mini app","title":"Subscription Manager","description":"Subscription Manager for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/subscription-manager"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Subscription Manager","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Business"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Subscription Manager focused and easy to revisit","description":"Subscription Manager provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Subscription Manager overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Subscription Manager","description":"Subscription Manager is useful for people who need a dedicated business & uae workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Subscription Manager essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /subscription-manager."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /subscription-manager."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Subscription Manager follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Subscription Manager","description":"Explore Subscription Manager from its active Ansiversa route.","action":{"label":"Explore","path":"/subscription-manager"}}}
+{
+  "hero": {
+    "kicker": "Business & UAE · Ansiversa mini app",
+    "title": "Subscription Manager",
+    "description": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+    "points": [
+      "Manual subscription records",
+      "Renewal history and status",
+      "Currency-separated insights"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/subscription-manager/subscriptions"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Subscriptions → Categories → Renewals → Insights",
+    "steps": [
+      "Create subscription records with provider, amount, frequency, and next billing date",
+      "Group services by category for clearer review",
+      "Record renewals manually and review spending summaries"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Business & UAE"
+    },
+    {
+      "label": "Workflow",
+      "value": "Subscriptions"
+    },
+    {
+      "label": "Access",
+      "value": "Private"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A private record system for recurring services",
+    "description": "Subscription Manager keeps recurring costs visible without connecting bank accounts, cards, inboxes, or provider APIs.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Track",
+        "description": "Store each subscription with billing amount, frequency, renewal date, payment-method notes, and status."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Organize",
+        "description": "Use categories and filters to separate personal, household, software, entertainment, and business subscriptions."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "Record renewals manually and review upcoming, overdue, trial, active, paused, and cancelled services."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Clear renewal visibility without financial integrations",
+    "description": "The workspace is built for deliberate review: what renews, when it renews, and what it costs in each currency.",
+    "items": [
+      {
+        "title": "Private by default",
+        "description": "All records are user-entered and owner-scoped."
+      },
+      {
+        "title": "Actionable",
+        "description": "Statuses, dates, and cancellation notes make renewal decisions easier to revisit."
+      },
+      {
+        "title": "Transparent",
+        "description": "Currency totals stay separated instead of pretending to convert values."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Subscription Manager",
+    "description": "Subscription Manager is useful for people who need recurring-service visibility without account connections.",
+    "items": [
+      {
+        "title": "Individuals",
+        "description": "Track personal services, trials, and renewal dates."
+      },
+      {
+        "title": "Families",
+        "description": "Keep household subscriptions visible before shared costs surprise anyone."
+      },
+      {
+        "title": "Freelancers and small businesses",
+        "description": "Review recurring software and service costs as operating commitments."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Subscription Manager essentials",
+    "description": "V1 focuses on manual control and avoids risky automation scope.",
+    "items": [
+      {
+        "title": "Subscriptions",
+        "description": "Create, edit, duplicate, pause, cancel, and delete subscription records."
+      },
+      {
+        "title": "Renewals",
+        "description": "Record renewal events manually with amount, date, status, and next billing context."
+      },
+      {
+        "title": "Insights",
+        "description": "Review active counts, trial counts, upcoming renewals, overdue renewals, and spending summaries."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A simple route from record keeping to review",
+    "description": "The workflow starts with subscriptions and builds toward renewal visibility.",
+    "groups": [
+      {
+        "kicker": "Record",
+        "title": "Build the subscription list",
+        "items": [
+          {
+            "name": "Subscriptions",
+            "description": "Store provider, amount, frequency, status, next billing date, and reference details."
+          },
+          {
+            "name": "Categories",
+            "description": "Organize recurring services by purpose."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Understand upcoming commitments",
+        "items": [
+          {
+            "name": "Renewals",
+            "description": "Log each renewal decision or payment manually."
+          },
+          {
+            "name": "Insights",
+            "description": "Summarize stored records by status, category, frequency, month, and currency."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built within the Ansiversa platform model",
+    "description": "Subscription Manager follows the shared mini-app architecture while keeping all domain records owner-scoped.",
+    "items": [
+      "Protected workflow routes for Subscriptions, Categories, Renewals, and Insights.",
+      "Isolated backend database and Alembic migration.",
+      "Overview Explore CTAs route directly into the first real workflow route."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Subscription Manager",
+    "description": "Start with the subscription list and review upcoming renewals from there.",
+    "action": {
+      "label": "Explore",
+      "path": "/subscription-manager/subscriptions"
+    }
+  }
+}
