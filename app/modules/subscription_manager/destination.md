@@ -2,17 +2,17 @@
 
 ## Document Status
 
-Draft prepared for App #071 Workflow Ready development. Not approved for Live promotion.
+Approved for Live promotion on 2026-07-13 after Astra review, Partner approval, production migration verification, and manual browser verification.
 
 ## Destination Status
 
-Draft
+Approved v1.0
 
 ## Destination
 
 Subscription Manager should mature into a private subscription-control workspace for people who want visibility over recurring services before they are surprised by renewals or fragmented monthly spend.
 
-The destination is always `100 / 100`. The current Journey Progress is unapproved until Astra review and Partner approval.
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Product Identity
 
@@ -54,11 +54,11 @@ Only approved future scope should be implemented.
 
 ## Journey Progress
 
-Current Position: Unapproved
+Current Position: 20 / 100
 
-Current Journey Progress: Unapproved
+Current Journey Progress: 20 / 100
 
-V1 establishes the manual record foundation across Subscriptions, Categories, Renewals, and Insights. Journey Progress must be set only after approval.
+V1 establishes the manual record foundation across Subscriptions, Categories, Renewals, and Insights while intentionally deferring payment collection, bank/card connections, automatic cancellation, inbox scanning, receipt ingestion, provider integrations, reminder delivery, imports, exports, and shared household roles.
 
 ## Destination Capabilities
 
@@ -101,8 +101,8 @@ V1 excludes:
 
 ## Governance Notes
 
-Astra: Pending review.
+Astra: Approved on 2026-07-13.
 
-Partner: Pending approval.
+Partner: Approved Subscription Manager live promotion after manual workflow verification.
 
-Codex: Implements Workflow Ready V1 only and must not promote Subscription Manager to Live without approval.
+Codex: Ran production-configured isolated database migration, verified schema/indexes/foreign keys, synced overview metadata, and prepared live promotion metadata.

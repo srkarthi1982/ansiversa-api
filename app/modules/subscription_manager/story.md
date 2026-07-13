@@ -82,7 +82,7 @@ The dashboard payload seeds the V1 workflow with summary arrays and aggregate in
 
 ## Current Status
 
-Workflow Ready review candidate. The production-configured isolated database migration is verified at Alembic head `20260713_0001_subscription_manager`. The parent Apps catalog must remain `active` / `comingSoon` with version `null` and destination metadata unset until Astra review, Partner approval, and a separate Live promotion task.
+Approved live at version `1.0.0`. The parent Apps catalog stores Subscription Manager as `active` / `live` with destination progress `20 / 100`, destination status `approved`, and destination reviewed date `2026-07-13`. The production-configured isolated database migration is verified at Alembic head `20260713_0001_subscription_manager`.
 
 ## Known Limitations
 
