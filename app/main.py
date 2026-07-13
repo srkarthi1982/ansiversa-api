@@ -67,6 +67,7 @@ from app.modules.parking_expense_tracker.routes import router as parking_expense
 from app.modules.trip_cost_calculator.routes import router as trip_cost_calculator_router
 from app.modules.corporate_tax_uae.routes import router as corporate_tax_uae_router
 from app.modules.vat_assistant_uae.routes import router as vat_assistant_uae_router
+from app.modules.school_administration.routes import router as school_administration_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -440,6 +441,11 @@ def register_routes(app: FastAPI) -> None:
         vat_assistant_uae_router,
         prefix=f"{settings.API_V1_PREFIX}/vat-assistant-uae",
         tags=["VAT Assistant UAE"],
+    )
+    app.include_router(
+        school_administration_router,
+        prefix=f"{settings.API_V1_PREFIX}/school-administration",
+        tags=["School Administration"],
     )
     app.include_router(
         content_router, 

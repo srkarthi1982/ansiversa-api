@@ -1,1 +1,171 @@
-{"hero":{"kicker":"Business & UAE · Ansiversa mini app","title":"School Administration","description":"School Administration for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/school-administration"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open School Administration","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Business"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep School Administration focused and easy to revisit","description":"School Administration provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The School Administration overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses School Administration","description":"School Administration is useful for people who need a dedicated business & uae workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"School Administration essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /school-administration."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /school-administration."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"School Administration follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open School Administration","description":"Explore School Administration from its active Ansiversa route.","action":{"label":"Explore","path":"/school-administration"}}}
+{
+  "hero": {
+    "kicker": "School records · Ansiversa mini app",
+    "title": "School Administration",
+    "description": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+    "points": [
+      "Private user-entered records",
+      "Students and class enrolments",
+      "Attendance summaries without SIS or LMS scope"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/school-administration/students"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Students → Classes → Attendance → Insights",
+    "steps": [
+      "Create private student records",
+      "Organize classes and enrolments",
+      "Record attendance and review operational summaries"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Operations"
+    },
+    {
+      "label": "Workflow",
+      "value": "Administration"
+    },
+    {
+      "label": "Access",
+      "value": "Protected records"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Focused school administration without enterprise SIS scope",
+    "description": "School Administration V1 keeps everyday records organized without government integrations, admissions processing, fee collection, parent portals, biometric attendance, grading, or LMS functionality.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Students",
+        "description": "Store admission numbers, guardian contacts, statuses, emergency contacts, support notes, and current class context."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Classes",
+        "description": "Create classes, track capacity, and assign students through explicit enrolments."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Attendance",
+        "description": "Record class/date attendance and review status totals with clear calculation basis."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A quiet school office workspace",
+    "description": "The experience is built for quick scanning, careful updates, and private record keeping rather than public portals or academic content delivery.",
+    "items": [
+      {
+        "title": "Organized records",
+        "description": "Students, classes, enrolments, and attendance are separated into predictable workflow pages."
+      },
+      {
+        "title": "Clear limits",
+        "description": "The app does not pretend to replace a full SIS, LMS, payment gateway, or government reporting system."
+      },
+      {
+        "title": "Operational summaries",
+        "description": "Insights are derived only from stored user records and handle empty datasets cleanly."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses School Administration",
+    "description": "School Administration is for smaller education operators who need private record organization before they need a full enterprise platform.",
+    "items": [
+      {
+        "title": "Small schools",
+        "description": "Maintain students, classes, and daily attendance in one protected workspace."
+      },
+      {
+        "title": "Tutors and training centres",
+        "description": "Track enrolments and attendance without adopting a full SIS."
+      },
+      {
+        "title": "Early-stage institutions",
+        "description": "Start with practical records while future governance considers larger administration needs."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "School Administration essentials",
+    "description": "V1 stays focused on private records and operational summaries.",
+    "items": [
+      {
+        "title": "Students",
+        "description": "CRUD records with admission number uniqueness and guardian/support details."
+      },
+      {
+        "title": "Classes",
+        "description": "CRUD records with capacity, teacher, academic year, and explicit enrolments."
+      },
+      {
+        "title": "Attendance",
+        "description": "Class/date attendance with duplicate prevention and safe attendance-rate calculation."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "What V1 includes and excludes",
+    "description": "The app provides a focused administration workspace, not a complete school information system.",
+    "groups": [
+      {
+        "kicker": "Included",
+        "title": "Private records",
+        "items": [
+          {
+            "name": "Students",
+            "description": "User-entered student profiles."
+          },
+          {
+            "name": "Classes",
+            "description": "Class records and student enrolments."
+          },
+          {
+            "name": "Attendance",
+            "description": "Attendance records and operational insights."
+          }
+        ]
+      },
+      {
+        "kicker": "Excluded",
+        "title": "Out of V1 scope",
+        "items": [
+          {
+            "name": "Portals and payments",
+            "description": "No parent/student portal, admissions processing, or fee collection."
+          },
+          {
+            "name": "Academic systems",
+            "description": "No LMS, exams, grades, biometric attendance, or government reporting."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "School Administration runs inside the shared shell with owner-scoped APIs, isolated persistence, and generated frontend contracts.",
+    "items": [
+      "Protected workflow routes under /school-administration.",
+      "Explicit enrolments instead of free-text-only class storage.",
+      "Owner-scoped students, classes, enrolments, attendance, and insights."
+    ]
+  },
+  "finalCta": {
+    "title": "Open School Administration",
+    "description": "Start with the student records workflow.",
+    "action": {
+      "label": "Explore",
+      "path": "/school-administration/students"
+    }
+  }
+}
