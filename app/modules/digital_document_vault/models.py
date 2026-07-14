@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, ForeignKey, Integer, LargeBinary, String, Text, UniqueConstraint, func
+from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.modules.digital_document_vault.db import DigitalDocumentVaultBase
@@ -39,7 +39,7 @@ class VaultDocument(DigitalDocumentVaultBase):
     stored_file_name: Mapped[str] = mapped_column("storedFileName", String(255), nullable=False)
     mime_type: Mapped[str] = mapped_column("mimeType", String(120), nullable=False)
     file_size: Mapped[int] = mapped_column("fileSize", Integer, nullable=False)
-    file_blob: Mapped[bytes] = mapped_column("fileBlob", LargeBinary, nullable=False)
+    file_blob: Mapped[str] = mapped_column("fileBlob", Text, nullable=False)
     issue_date: Mapped[str | None] = mapped_column("issueDate", String(40), nullable=True)
     expiry_date: Mapped[str | None] = mapped_column("expiryDate", String(40), index=True, nullable=True)
     uploaded_at: Mapped[datetime] = mapped_column("uploadedAt", DateTime(timezone=True), server_default=func.now(), nullable=False)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from base64 import b64decode, b64encode
 from collections import Counter, defaultdict
 from datetime import date, timedelta
 from pathlib import Path
@@ -173,6 +174,16 @@ def _stored_file_name(file_name: str) -> str:
     return f"{uuid4().hex}{extension}"
 
 
+def _blob_to_storage(content: bytes) -> str:
+    return b64encode(content).decode("ascii")
+
+
+def file_blob_from_storage(value: str | bytes) -> bytes:
+    if isinstance(value, bytes):
+        return value
+    return b64decode(value.encode("ascii"))
+
+
 def _apply_metadata(document: VaultDocument, payload: VaultDocumentMetadataRequest) -> None:
     document.title = payload.title
     document.category_id = payload.category_id
@@ -285,7 +296,7 @@ async def create_document(db: Session, user: User, payload: VaultDocumentMetadat
         stored_file_name=_stored_file_name(file_name),
         mime_type=mime_type,
         file_size=len(content),
-        file_blob=content,
+        file_blob=_blob_to_storage(content),
     )
     _apply_metadata(document, payload)
     repository.add(db, document)
@@ -320,7 +331,7 @@ async def replace_document_file(db: Session, user: User, document_id: str, file:
     document.stored_file_name = _stored_file_name(file_name)
     document.mime_type = mime_type
     document.file_size = len(content)
-    document.file_blob = content
+    document.file_blob = _blob_to_storage(content)
     _commit_or_conflict(db, "Unable to replace document file.")
     db.refresh(document)
     return _document_detail(document)

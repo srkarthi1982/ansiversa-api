@@ -116,7 +116,7 @@ async def replace_document_file(document_id: str, db: DigitalDocumentVaultDB, cu
 def download_document(document_id: str, db: DigitalDocumentVaultDB, current_user: CurrentDigitalDocumentVaultUser):
     document = service.get_document_file(db, current_user, document_id)
     return Response(
-        content=document.file_blob,
+        content=service.file_blob_from_storage(document.file_blob),
         media_type=document.mime_type,
         headers={"Content-Disposition": f'attachment; filename="{document.file_name}"'},
     )

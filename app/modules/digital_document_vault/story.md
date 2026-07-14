@@ -37,7 +37,7 @@ Tables:
 - `Categories`: owner-scoped custom category names.
 - `Documents`: owner-scoped document metadata and the uploaded file blob.
 
-Document file bytes are stored in the isolated database in `fileBlob`. The metadata columns retain the original `fileName`, generated `storedFileName`, `mimeType`, `fileSize`, issue date, expiry date, and timestamps.
+Document file payloads are stored in the isolated database in `fileBlob` as base64 text so the same code works with SQLite and the production libSQL driver. The metadata columns retain the original `fileName`, generated `storedFileName`, `mimeType`, `fileSize`, issue date, expiry date, and timestamps.
 
 Indexes support owner lists, category filters, document type filters, expiry filters, uploaded sorting, and update sorting.
 
