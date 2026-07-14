@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Documents & Records · Ansiversa mini app","title":"EMI / Loan Calculator","description":"EMI / Loan Calculator for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/emi-loan-calculator"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open EMI / Loan Calculator","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Documents & Records"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep EMI / Loan Calculator focused and easy to revisit","description":"EMI / Loan Calculator provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The EMI / Loan Calculator overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses EMI / Loan Calculator","description":"EMI / Loan Calculator is useful for people who need a dedicated documents & records workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"EMI / Loan Calculator essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /emi-loan-calculator."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /emi-loan-calculator."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"EMI / Loan Calculator follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open EMI / Loan Calculator","description":"Explore EMI / Loan Calculator from its active Ansiversa route.","action":{"label":"Explore","path":"/emi-loan-calculator"}}}
+{
+  "hero": {
+    "kicker": "Documents & Records · Ansiversa mini app",
+    "title": "EMI / Loan Calculator",
+    "description": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+    "points": [
+      "EMI and interest estimates",
+      "Saved loan scenarios",
+      "Amortization schedule"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/emi-loan-calculator/calculator"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Calculate → Save → Compare → Review",
+    "steps": [
+      "Enter loan amount, rate, duration, fees, currency, and optional extra monthly payment.",
+      "Review EMI, total interest, repayment total, payoff estimate, and amortization schedule.",
+      "Save private scenarios, compare alternatives, and inspect aggregate insights."
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Documents & Records"
+    },
+    {
+      "label": "Workflow",
+      "value": "Loan planning"
+    },
+    {
+      "label": "Access",
+      "value": "Private"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Loan estimates without lender promises",
+    "description": "EMI / Loan Calculator helps users understand repayment scenarios without offering lender rates, approvals, credit scoring, or regulated financial advice.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Calculate",
+        "description": "Use standard reducing-balance EMI math, including zero-interest handling, fees, extra payments, and payoff estimates."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Save",
+        "description": "Store owner-scoped loan scenarios with calculated EMI, interest, repayment, payoff date, and timestamps."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Compare",
+        "description": "Compare saved and temporary scenarios by EMI, total interest, repayment total, duration, payoff date, and extra-payment savings."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "Clear repayment planning in one private workspace",
+    "description": "The app keeps loan calculations understandable, repeatable, and separate from bank integrations.",
+    "items": [
+      {
+        "title": "Transparent",
+        "description": "Every calculation exposes principal, interest, total repayment, and installment-level balance movement."
+      },
+      {
+        "title": "Private",
+        "description": "Saved scenarios are authenticated and owner-scoped."
+      },
+      {
+        "title": "Planning-only",
+        "description": "The product clearly states that actual repayments, fees, rates, and lender terms may differ."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses EMI / Loan Calculator",
+    "description": "Built for people who want to compare repayment scenarios before or after speaking with a lender.",
+    "items": [
+      {
+        "title": "Individuals",
+        "description": "Estimate monthly payments and total interest for personal, vehicle, education, or household loans."
+      },
+      {
+        "title": "Families",
+        "description": "Compare affordability and payoff timelines before discussing shared commitments."
+      },
+      {
+        "title": "Small business owners",
+        "description": "Review planning scenarios for equipment, working capital, or asset purchases without creating lender records."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "EMI / Loan Calculator essentials",
+    "description": "V1 focuses on deterministic repayment planning and avoids regulated lending scope.",
+    "items": [
+      {
+        "title": "Calculator",
+        "description": "Calculate EMI, interest, repayment, fees, payoff date, ratio, and schedule."
+      },
+      {
+        "title": "Saved Loans",
+        "description": "Create, edit, duplicate, delete, search, and revisit owner-scoped scenarios."
+      },
+      {
+        "title": "Compare and Insights",
+        "description": "Compare repayment outcomes and review aggregate saved-scenario statistics."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "From estimate to decision support",
+    "description": "Move from a single calculation toward scenario review without leaving the Ansiversa shell.",
+    "groups": [
+      {
+        "kicker": "Estimate",
+        "title": "Calculate a repayment plan",
+        "items": [
+          {
+            "name": "EMI",
+            "description": "Estimate the regular monthly repayment using reducing-balance math."
+          },
+          {
+            "name": "Schedule",
+            "description": "Inspect each installment's interest, principal, extra payment, and closing balance."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Compare scenarios",
+        "items": [
+          {
+            "name": "Saved scenarios",
+            "description": "Keep named loan plans available for later comparison."
+          },
+          {
+            "name": "Insights",
+            "description": "See aggregate principal, projected interest, and EMI range across saved records."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built within the Ansiversa platform model",
+    "description": "EMI / Loan Calculator follows the shared mini-app architecture and keeps financial planning boundaries explicit.",
+    "items": [
+      "Protected workflow routes for Calculator, Saved Loans, Compare, and Insights.",
+      "Owner-scoped API mounted at /api/v1/emi-loan-calculator with an isolated app database.",
+      "Overview Explore CTAs route directly into /emi-loan-calculator/calculator."
+    ]
+  },
+  "finalCta": {
+    "title": "Open EMI / Loan Calculator",
+    "description": "Start with the calculator and save scenarios only when you want to revisit them.",
+    "action": {
+      "label": "Explore",
+      "path": "/emi-loan-calculator/calculator"
+    }
+  }
+}
