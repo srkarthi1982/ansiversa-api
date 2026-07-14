@@ -1,1 +1,107 @@
-{"hero":{"kicker":"Home & Family · Ansiversa mini app","title":"Household Expense Splitter","description":"Household Expense Splitter for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/household-expense-splitter"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Household Expense Splitter","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Home"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Household Expense Splitter focused and easy to revisit","description":"Household Expense Splitter provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Household Expense Splitter overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Household Expense Splitter","description":"Household Expense Splitter is useful for people who need a dedicated home & family workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Household Expense Splitter essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /household-expense-splitter."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /household-expense-splitter."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Household Expense Splitter follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Household Expense Splitter","description":"Explore Household Expense Splitter from its active Ansiversa route.","action":{"label":"Explore","path":"/household-expense-splitter"}}}
+{
+  "hero": {
+    "kicker": "Home & Family · Ansiversa mini app",
+    "title": "Household Expense Splitter",
+    "description": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+    "points": [
+      "Private owner-scoped household member records",
+      "Equal and manual expense splits",
+      "Settlement and balance summaries without banking or payment processing"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/household-expense-splitter/members"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Members → Expenses → Settlements → Insights",
+    "steps": [
+      "Create household members for a family, couple, roommate group, or shared living setup",
+      "Record shared expenses and split them equally or by manual amounts",
+      "Track settlements and review simple household balances"
+    ]
+  },
+  "stats": [
+    { "label": "Category", "value": "Home" },
+    { "label": "Workflow", "value": "Shared costs" },
+    { "label": "Access", "value": "Private" }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A lightweight household splitter, not a finance platform",
+    "description": "Household Expense Splitter keeps shared living costs understandable without becoming accounting, banking, invoicing, budgeting, payments, tax, subscriptions, OCR, receipt scanning, or AI.",
+    "items": [
+      { "kicker": "Pillar 01", "title": "Members", "description": "Maintain the people who share household expenses." },
+      { "kicker": "Pillar 02", "title": "Expenses", "description": "Record what was paid, who paid, who participated, and how the cost should be split." },
+      { "kicker": "Pillar 03", "title": "Settlements", "description": "Log repayments between members so outstanding balances stay clear." }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A simple ledger for shared living",
+    "description": "The workflow is built for quick household entry and review, not formal finance operations.",
+    "items": [
+      { "title": "Clear participants", "description": "Expenses show who paid and who shares the cost." },
+      { "title": "Simple balances", "description": "Insights summarize who has paid more or less after settlements." },
+      { "title": "Bounded by design", "description": "No bank sync, payments, OCR, receipts, invoices, tax, payroll, or AI workflows are included." }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Household Expense Splitter",
+    "description": "The app is useful for shared households that need a private running record of everyday shared costs.",
+    "items": [
+      { "title": "Roommates", "description": "Split rent-adjacent household purchases, groceries, utilities, and supplies." },
+      { "title": "Couples and families", "description": "Track who paid and what each person owes without formal budgeting software." },
+      { "title": "Shared living groups", "description": "Record settlements when members pay each other back outside Ansiversa." }
+    ]
+  },
+  "resourceSection": {
+    "title": "Household Expense Splitter essentials",
+    "description": "A focused workspace for shared household expenses and settlements.",
+    "items": [
+      { "title": "Members", "description": "Create, edit, and manage active household members." },
+      { "title": "Expenses", "description": "Create equal or manual splits with category, payer, date, notes, and archive status." },
+      { "title": "Settlements", "description": "Record repayments between members and keep outstanding balances current." }
+    ]
+  },
+  "groupedSection": {
+    "title": "A direct shared-expense flow",
+    "description": "The app moves from people to costs to repayment and review.",
+    "groups": [
+      {
+        "kicker": "Record",
+        "title": "Capture shared costs",
+        "items": [
+          { "name": "Members", "description": "Add the people involved in the household split." },
+          { "name": "Expenses", "description": "Record cost, payer, date, participants, and split method." }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Understand balances",
+        "items": [
+          { "name": "Settlements", "description": "Log repayments made outside the app." },
+          { "name": "Insights", "description": "Review totals, category spend, member spend, recent records, and outstanding balances." }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Household Expense Splitter follows the shared mini-app routing, protected workflow, overview metadata, and owner-scoped API patterns.",
+    "items": [
+      "Explore routes to /household-expense-splitter/members.",
+      "Owner-scoped API records and isolated database tables.",
+      "Responsive workflow inside the shared Ansiversa shell."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Household Expense Splitter",
+    "description": "Explore the private shared household expense workflow.",
+    "action": {
+      "label": "Explore",
+      "path": "/household-expense-splitter/members"
+    }
+  }
+}
