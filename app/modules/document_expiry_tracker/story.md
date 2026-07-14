@@ -53,7 +53,7 @@ The module stores compact metadata only. Dashboard and list responses avoid larg
 
 ## Current Status
 
-Workflow Ready for owner review. Catalog status remains `comingSoon`; version remains unset. No production migration or live promotion has been performed.
+Approved live at version `1.0.0`. Catalog status is `active` / `live`, destination metadata is approved at `20 / 100` with `destination_reviewed_at` set to `2026-07-14`, and the production-configured isolated database migration is verified at Alembic head `20260715_0001_document_expiry_tracker`.
 
 ## Known Limitations
 

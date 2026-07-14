@@ -2,17 +2,17 @@
 
 ## Document Status
 
-Draft destination for App #073. Not approved for live promotion.
+Approved for Live promotion on 2026-07-14 after Astra review, Partner approval, production migration verification, and manual browser verification.
 
 ## Destination Status
 
-Not approved.
+Approved v1.0
 
 ## Destination
 
 Document Expiry Tracker should mature into Ansiversa's private renewal planning workspace for personal documents. Its destination is a calm, reliable place to understand which documents need attention, what dates matter, and what the next renewal step is, without pretending to file official renewals or send regulated notifications before those capabilities are approved.
 
-The destination is always `100 / 100`. Current Journey Progress is pending owner review.
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Purpose
 
@@ -42,12 +42,20 @@ The app must not become:
 
 ## Journey Progress
 
-Current Position: ready for owner assessment.
+Current Position: 20 / 100
 
-Current Journey Progress: not approved.
+Current Journey Progress: 20 / 100
 
-V1 creates the manual recordkeeping foundation with CRUD, computed statuses, archive/restore, simple renewal updates, dashboard windows, insights, isolated storage, and clear product boundaries. Remaining maturity includes owner review, live promotion approval, possible reminder delivery, document attachments, export, and governed OCR or AI extraction.
+V1 creates the manual recordkeeping foundation with CRUD, computed statuses, archive/restore, simple renewal updates, dashboard windows, insights, isolated storage, and clear product boundaries. Remaining maturity includes possible reminder delivery, document attachments, export, richer household support, and governed OCR or AI extraction.
 
 ## Current Implementation
 
-The current implementation stores personal document metadata in the isolated `Documents` table. It computes status dynamically from expiry date, reminder days, and archive state. The first workflow route is `/document-expiry-tracker/documents`. Catalog status remains `comingSoon`, and no release version is assigned.
+The current implementation stores personal document metadata in the isolated `Documents` table. It computes status dynamically from expiry date, reminder days, and archive state. The first workflow route is `/document-expiry-tracker/documents`. Catalog status is approved for live release at version `1.0.0`.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-14.
+
+Partner: Approved Document Expiry Tracker live promotion after manual workflow verification.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes/version table, synced overview metadata, and prepared live promotion metadata.
