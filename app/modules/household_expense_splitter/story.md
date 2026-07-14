@@ -73,7 +73,7 @@ V1 stores metadata only and intentionally excludes receipt files, OCR payloads, 
 
 ## Current Status
 
-App #076 is implemented as Workflow Ready for Astra/Partner review. It remains `comingSoon` with `version: null` and no approved destination metadata.
+App #076 is approved live at version `1.0.0`. Destination metadata is approved with Journey Progress `20 / 100` and reviewed on `2026-07-15`.
 
 ## Known Limitations
 
