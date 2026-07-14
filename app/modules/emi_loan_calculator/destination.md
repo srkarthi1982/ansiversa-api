@@ -1,5 +1,19 @@
 # EMI / Loan Calculator Destination
 
+## Document Status
+
+Approved for Live promotion on 2026-07-14 after Astra review, Partner approval, production migration verification, and manual browser verification.
+
+## Destination Status
+
+Approved v1.0
+
+## Destination
+
+EMI / Loan Calculator should mature into Ansiversa's private loan-planning workspace for users who need to estimate repayment commitments, compare scenarios, and understand amortization without being pushed toward a lender or marketplace.
+
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
+
 ## Purpose
 
 EMI / Loan Calculator should become Ansiversa's private loan-planning workspace for users who need to estimate repayment commitments, compare scenarios, and understand amortization without being pushed toward a lender or marketplace.
@@ -47,14 +61,20 @@ V1 is intended to include:
 
 ## Journey Progress
 
-Current Journey Progress: ready for owner assessment.
+Current Position: 20 / 100
 
-Destination status: not approved.
+Current Journey Progress: 20 / 100
 
-Reviewed at: not reviewed.
-
-The app has a useful Workflow Ready V1 foundation with deterministic loan math, saved scenarios, comparison, insights, and schedule review. Remaining maturity includes manual browser review, possible schedule export, richer comparison visualization, accessibility polish, and future governance review for any AI explanation feature.
+V1 establishes the deterministic repayment-planning foundation with EMI calculation, amortization schedule review, saved scenarios, scenario comparison, insights, owner-scoped storage, and explicit planning-only financial boundaries. Remaining maturity includes possible schedule export, richer comparison visualization, accessibility polish, and future governance review for any AI explanation feature.
 
 ## Current Implementation
 
-The current implementation stores only saved loan scenarios. Amortization schedules are calculated dynamically from scenario inputs and are not persisted. The first workflow route is `/emi-loan-calculator/calculator`. Catalog status remains `comingSoon`, and no release version is assigned.
+The current implementation stores only saved loan scenarios. Amortization schedules are calculated dynamically from scenario inputs and are not persisted. The first workflow route is `/emi-loan-calculator/calculator`. Catalog status is approved for live release at version `1.0.0`.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-14.
+
+Partner: Approved EMI / Loan Calculator live promotion after manual workflow verification.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes/version table, synced overview metadata, and prepared live promotion metadata.

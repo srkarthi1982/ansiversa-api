@@ -50,7 +50,7 @@ Amortization schedules are not stored in the database and are not included in da
 
 ## Current Status
 
-Workflow Ready for owner review. Catalog status remains `comingSoon`; version remains unset. No production migration or live promotion has been performed.
+Approved live at version `1.0.0`. Catalog status is `active` / `live`, destination metadata is approved at `20 / 100` with `destination_reviewed_at` set to `2026-07-14`, and the production-configured isolated database migration is verified at Alembic head `20260714_0001_emi_loan_calculator`.
 
 ## Known Limitations
 
