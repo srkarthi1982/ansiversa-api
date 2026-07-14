@@ -71,6 +71,7 @@ from app.modules.school_administration.routes import router as school_administra
 from app.modules.subscription_manager.routes import router as subscription_manager_router
 from app.modules.emi_loan_calculator.routes import router as emi_loan_calculator_router
 from app.modules.document_expiry_tracker.routes import router as document_expiry_tracker_router
+from app.modules.digital_document_vault.routes import router as digital_document_vault_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -464,6 +465,11 @@ def register_routes(app: FastAPI) -> None:
         document_expiry_tracker_router,
         prefix=f"{settings.API_V1_PREFIX}/document-expiry-tracker",
         tags=["Document Expiry Tracker"],
+    )
+    app.include_router(
+        digital_document_vault_router,
+        prefix=f"{settings.API_V1_PREFIX}/digital-document-vault",
+        tags=["Digital Document Vault"],
     )
     app.include_router(
         content_router, 

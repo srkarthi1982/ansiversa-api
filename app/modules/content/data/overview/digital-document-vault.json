@@ -1,1 +1,170 @@
-{"hero":{"kicker":"Documents & Records · Ansiversa mini app","title":"Digital Document Vault","description":"Digital Document Vault for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/digital-document-vault"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Digital Document Vault","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Documents & Records"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Digital Document Vault focused and easy to revisit","description":"Digital Document Vault provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Digital Document Vault overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Digital Document Vault","description":"Digital Document Vault is useful for people who need a dedicated documents & records workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Digital Document Vault essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /digital-document-vault."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /digital-document-vault."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Digital Document Vault follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Digital Document Vault","description":"Explore Digital Document Vault from its active Ansiversa route.","action":{"label":"Explore","path":"/digital-document-vault"}}}
+{
+  "hero": {
+    "kicker": "Documents & Records · Ansiversa mini app",
+    "title": "Digital Document Vault",
+    "description": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+    "points": [
+      "Upload common personal document files",
+      "Organize by category and document type",
+      "Review storage, expiry, and recent upload insights"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/digital-document-vault/documents"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Upload → Organize → Search → Review",
+    "steps": [
+      "Upload a supported document file with title, category, type, tags, and optional dates",
+      "Manage custom categories and keep documents grouped by owner",
+      "Search and filter by title, category, tags, type, and expiry state",
+      "Review storage, type, category, expiry, and recent upload summaries"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Documents & Records"
+    },
+    {
+      "label": "Workflow",
+      "value": "Secure organization"
+    },
+    {
+      "label": "Access",
+      "value": "Protected workspace"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A personal vault without external verification claims",
+    "description": "Digital Document Vault helps users organize files they already own. It does not connect to government systems, cloud drives, identity providers, or document verification services.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Upload",
+        "description": "Store supported PDF, JPG, PNG, and DOCX files with owner-scoped document metadata."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Organize",
+        "description": "Use custom categories, document types, descriptions, tags, and optional issue or expiry dates."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Review",
+        "description": "Download, replace, edit metadata, delete, and review aggregate insights from a protected workflow."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm place for sensitive personal files",
+    "description": "The workflow is designed for users who need a practical document shelf, not a government portal or identity product.",
+    "items": [
+      {
+        "title": "Private",
+        "description": "Documents and categories are scoped to the signed-in owner."
+      },
+      {
+        "title": "Practical",
+        "description": "Files can be uploaded, replaced, downloaded, searched, filtered, and removed."
+      },
+      {
+        "title": "Bounded",
+        "description": "No OCR, AI extraction, external storage sync, notarization, or official verification is included in V1."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Digital Document Vault",
+    "description": "Digital Document Vault supports people who want important files organized in one protected Ansiversa workspace.",
+    "items": [
+      {
+        "title": "Individuals",
+        "description": "Keep personal IDs, certificates, insurance, and household documents easy to find."
+      },
+      {
+        "title": "Families",
+        "description": "Organize scanned copies and digital records by category and type."
+      },
+      {
+        "title": "Everyday planners",
+        "description": "Track optional expiry context for files that need periodic review."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Vault records that stay searchable",
+    "description": "Each document combines an uploaded file with lightweight metadata for retrieval.",
+    "items": [
+      {
+        "title": "Document facts",
+        "description": "Title, category, document type, description, tags, issue date, expiry date, file name, MIME type, and file size."
+      },
+      {
+        "title": "Category management",
+        "description": "Create, rename, and delete categories when no documents are attached."
+      },
+      {
+        "title": "Insights",
+        "description": "Review total documents, storage used, category and type distribution, expiry counts, and recent uploads."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A focused document vault workflow",
+    "description": "Each section supports one part of storing and reviewing personal document files.",
+    "groups": [
+      {
+        "kicker": "Manage",
+        "title": "Documents",
+        "items": [
+          {
+            "name": "Documents",
+            "description": "Upload, edit metadata, replace files, download, search, filter, and delete document records."
+          }
+        ]
+      },
+      {
+        "kicker": "Organize",
+        "title": "Categories",
+        "items": [
+          {
+            "name": "Categories",
+            "description": "Create custom categories and review document counts per category."
+          }
+        ]
+      },
+      {
+        "kicker": "Understand",
+        "title": "Insights",
+        "items": [
+          {
+            "name": "Insights",
+            "description": "Review storage, type, category, expiry, and recent upload summaries."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Digital Document Vault follows protected mini-app routing, isolated API data, generated API types, and shared shell navigation.",
+    "items": [
+      "Protected routes under /digital-document-vault/*.",
+      "Owner-scoped backend records in isolated Documents and Categories tables.",
+      "Overview Explore CTA routes to /digital-document-vault/documents."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Digital Document Vault",
+    "description": "Start with documents, then organize categories and review vault insights.",
+    "action": {
+      "label": "Explore",
+      "path": "/digital-document-vault/documents"
+    }
+  }
+}
