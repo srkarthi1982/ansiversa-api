@@ -1,1 +1,170 @@
-{"hero":{"kicker":"Documents & Records · Ansiversa mini app","title":"Document Expiry Tracker","description":"Document Expiry Tracker for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/document-expiry-tracker"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Document Expiry Tracker","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Documents & Records"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Document Expiry Tracker focused and easy to revisit","description":"Document Expiry Tracker provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Document Expiry Tracker overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Document Expiry Tracker","description":"Document Expiry Tracker is useful for people who need a dedicated documents & records workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Document Expiry Tracker essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /document-expiry-tracker."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /document-expiry-tracker."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Document Expiry Tracker follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Document Expiry Tracker","description":"Explore Document Expiry Tracker from its active Ansiversa route.","action":{"label":"Explore","path":"/document-expiry-tracker"}}}
+{
+  "hero": {
+    "kicker": "Documents & Records · Ansiversa mini app",
+    "title": "Document Expiry Tracker",
+    "description": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+    "points": [
+      "Track important document dates",
+      "Review expiry windows",
+      "Plan renewals without external integrations"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/document-expiry-tracker/documents"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Documents → Expiry Dashboard → Insights",
+    "steps": [
+      "Create a personal document record",
+      "Review computed expiry status and reminder windows",
+      "Archive, restore, or renew records when needed",
+      "Use insights to spot expired and upcoming documents"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Documents & Records"
+    },
+    {
+      "label": "Workflow",
+      "value": "Renewal planning"
+    },
+    {
+      "label": "Access",
+      "value": "Protected workspace"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Expiry tracking without pretending to renew for you",
+    "description": "Document Expiry Tracker keeps the renewal plan organized while leaving official renewal actions outside the product boundary.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Record",
+        "description": "Store title, type, number, authority, country, dates, reminder window, tags, and notes."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Review",
+        "description": "See Active, Expiring Soon, Expired, Archived, no-expiry, and upcoming expiry windows."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Renew",
+        "description": "Mark a document renewed by updating issue and expiry dates while keeping the record in place."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm place for important dates",
+    "description": "The workflow is designed for users who need to see what is expiring without scanning documents, sending alerts, or connecting government services.",
+    "items": [
+      {
+        "title": "Private",
+        "description": "Records are owner-scoped and live inside the protected Ansiversa workflow."
+      },
+      {
+        "title": "Practical",
+        "description": "The first screen opens directly to document management and next renewal actions."
+      },
+      {
+        "title": "Bounded",
+        "description": "No OCR, notifications, email, SMS, calendar sync, or official renewal integrations are included in V1."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Document Expiry Tracker",
+    "description": "Document Expiry Tracker supports households and individuals managing personal expiry dates.",
+    "items": [
+      {
+        "title": "Frequent travelers",
+        "description": "Track passports, visas, residence permits, and travel-related document dates."
+      },
+      {
+        "title": "Households",
+        "description": "Keep family document expiry dates visible in one protected workspace."
+      },
+      {
+        "title": "Everyday planners",
+        "description": "Track licences, insurance, memberships, certificates, and custom documents."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Document records that stay easy to review",
+    "description": "V1 focuses on manually entered metadata and computed expiry states.",
+    "items": [
+      {
+        "title": "Document facts",
+        "description": "Title, type, number, authority, country, issue date, expiry date, notes, and tags."
+      },
+      {
+        "title": "Expiry dashboard",
+        "description": "Active, expiring soon, expired, archived, upcoming 7/30/90 days, and no-expiry counts."
+      },
+      {
+        "title": "Renewal actions",
+        "description": "Archive, restore, delete, and mark renewed with updated date fields."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A focused renewal-planning workflow",
+    "description": "Each section supports one part of the document expiry planning job.",
+    "groups": [
+      {
+        "kicker": "Manage",
+        "title": "Documents",
+        "items": [
+          {
+            "name": "Documents",
+            "description": "Create, edit, search, filter, archive, restore, renew, and delete personal document records."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Expiry Dashboard",
+        "items": [
+          {
+            "name": "Expiry windows",
+            "description": "Review documents by upcoming 7, 30, and 90 day periods, expired records, and no-expiry records."
+          }
+        ]
+      },
+      {
+        "kicker": "Understand",
+        "title": "Insights",
+        "items": [
+          {
+            "name": "Insights",
+            "description": "Review type distribution, country distribution, and upcoming renewals."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Document Expiry Tracker follows protected mini-app routing, isolated API data, generated API types, and shared shell navigation.",
+    "items": [
+      "Protected routes under /document-expiry-tracker/*.",
+      "Owner-scoped backend records in an isolated Documents table.",
+      "Overview Explore CTA routes to /document-expiry-tracker/documents."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Document Expiry Tracker",
+    "description": "Start with your documents, then review expiry windows and insights.",
+    "action": {
+      "label": "Explore",
+      "path": "/document-expiry-tracker/documents"
+    }
+  }
+}

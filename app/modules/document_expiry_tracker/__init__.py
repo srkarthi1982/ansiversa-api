@@ -1,0 +1,1 @@
+"""Document Expiry Tracker module."""
