@@ -72,6 +72,7 @@ from app.modules.subscription_manager.routes import router as subscription_manag
 from app.modules.emi_loan_calculator.routes import router as emi_loan_calculator_router
 from app.modules.document_expiry_tracker.routes import router as document_expiry_tracker_router
 from app.modules.digital_document_vault.routes import router as digital_document_vault_router
+from app.modules.home_inventory_manager.routes import router as home_inventory_manager_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -470,6 +471,11 @@ def register_routes(app: FastAPI) -> None:
         digital_document_vault_router,
         prefix=f"{settings.API_V1_PREFIX}/digital-document-vault",
         tags=["Digital Document Vault"],
+    )
+    app.include_router(
+        home_inventory_manager_router,
+        prefix=f"{settings.API_V1_PREFIX}/home-inventory-manager",
+        tags=["Home Inventory Manager"],
     )
     app.include_router(
         content_router, 

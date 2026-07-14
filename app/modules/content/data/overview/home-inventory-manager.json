@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Home & Family · Ansiversa mini app","title":"Home Inventory Manager","description":"Home Inventory Manager for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/home-inventory-manager"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Home Inventory Manager","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Home"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Home Inventory Manager focused and easy to revisit","description":"Home Inventory Manager provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Home Inventory Manager overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Home Inventory Manager","description":"Home Inventory Manager is useful for people who need a dedicated home & family workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Home Inventory Manager essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /home-inventory-manager."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /home-inventory-manager."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Home Inventory Manager follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Home Inventory Manager","description":"Explore Home Inventory Manager from its active Ansiversa route.","action":{"label":"Explore","path":"/home-inventory-manager"}}}
+{
+  "hero": {
+    "kicker": "Home & Family · Ansiversa mini app",
+    "title": "Home Inventory Manager",
+    "description": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+    "points": [
+      "Owner-scoped household item records",
+      "Category, room, condition, warranty, and archive tracking",
+      "Inventory insights without ecommerce, insurance, barcode, or AI scope"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/home-inventory-manager/items"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Items → Inventory → Insights",
+    "steps": [
+      "Add household belongings with category, room, condition, value, and warranty details",
+      "Search, filter, edit, archive, restore, and delete owner-scoped item records",
+      "Review category, room, condition, warranty, recent, and highest-value summaries"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Home"
+    },
+    {
+      "label": "Workflow",
+      "value": "Items"
+    },
+    {
+      "label": "Access",
+      "value": "Private"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A lightweight household inventory, not a business system",
+    "description": "Home Inventory Manager keeps personal belongings organized without becoming ecommerce, ERP, warehouse management, accounting, insurance, barcode infrastructure, AI inventory, or smart-home integration.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Items",
+        "description": "Record household belongings with practical metadata such as room, category, condition, quantity, value, warranty date, and notes."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Inventory",
+        "description": "Keep the active list searchable, filterable, and easy to review while archiving records that no longer need regular attention."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Insights",
+        "description": "See totals, estimated value, warranty attention, category distribution, room distribution, and high-value items."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm register for household belongings",
+    "description": "The workspace is designed for quick entry, easy review, and private ownership inside the Ansiversa shell.",
+    "items": [
+      {
+        "title": "Fast to update",
+        "description": "Drawer-based create and edit flows keep item maintenance direct."
+      },
+      {
+        "title": "Easy to scan",
+        "description": "Filters and summary cards keep active, archived, warranty, room, and category views clear."
+      },
+      {
+        "title": "Bounded by design",
+        "description": "No images, receipts, barcode scanning, insurance claims, valuation automation, or AI workflows are included in V1."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Home Inventory Manager",
+    "description": "Home Inventory Manager is useful for people who want a private record of household belongings inside Ansiversa.",
+    "items": [
+      {
+        "title": "Homeowners and renters",
+        "description": "Track appliances, furniture, electronics, tools, and other belongings by room and category."
+      },
+      {
+        "title": "Families",
+        "description": "Keep shared household items organized without turning the workflow into a business inventory system."
+      },
+      {
+        "title": "Practical planners",
+        "description": "Review warranties, values, conditions, and archive status when decluttering, moving, or maintaining the home."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Home Inventory Manager essentials",
+    "description": "A focused app for personal belongings, not external inventory operations.",
+    "items": [
+      {
+        "title": "Item records",
+        "description": "Track title, category, room, quantity, purchase details, estimated value, warranty date, brand, model, serial number, condition, and notes."
+      },
+      {
+        "title": "Category control",
+        "description": "Create and rename categories while preventing deletion when items still exist."
+      },
+      {
+        "title": "Inventory review",
+        "description": "Use search, filters, archive/restore, and insights to keep the list manageable."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "A simple household inventory flow",
+    "description": "The app stays centered on personal organization and review.",
+    "groups": [
+      {
+        "kicker": "Capture",
+        "title": "Add belongings",
+        "items": [
+          {
+            "name": "Items",
+            "description": "Create owner-scoped records for household belongings."
+          },
+          {
+            "name": "Categories",
+            "description": "Organize belongings into custom groups."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Understand the inventory",
+        "items": [
+          {
+            "name": "Filters",
+            "description": "Review by category, room, condition, warranty state, and archive state."
+          },
+          {
+            "name": "Insights",
+            "description": "Summarize inventory counts, value, warranty attention, and distribution patterns."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Home Inventory Manager follows the shared mini-app routing, protected workflow, overview metadata, and owner-scoped API patterns.",
+    "items": [
+      "Explore routes to /home-inventory-manager/items.",
+      "Owner-scoped API records and isolated database tables.",
+      "Responsive workflow inside the shared Ansiversa shell."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Home Inventory Manager",
+    "description": "Explore the private household inventory workflow.",
+    "action": {
+      "label": "Explore",
+      "path": "/home-inventory-manager/items"
+    }
+  }
+}
