@@ -28,12 +28,16 @@ Indexes support owner lists, type filters, archived/favourite filters, event-dat
 
 ## Current Status
 
-Workflow Ready for manual verification. The app remains `comingSoon` with `version = null`.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
-No automatic messages, notifications, contact import, calendar sync, sharing, exports, or AI features are implemented.
+No automatic messages, notifications, contact import, calendar sync, sharing, exports, or AI features are implemented. V2 UI polish should replace native browser delete confirmations with shared `AvConfirmDialog` and move create/edit flows into shared drawers for platform consistency.
 
 ## Future Enhancements
 
 Notification reminders, calendar export, printable lists, optional gift suggestions, and message drafts can be considered after V1 approval.
+
+## Current Implementation
+
+The production catalog row is `active` / `live` / `1.0.0`.
