@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Home & Family · Ansiversa mini app","title":"Emergency Contacts Organizer","description":"Emergency Contacts Organizer for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/emergency-contacts-organizer"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Emergency Contacts Organizer","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Home"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Emergency Contacts Organizer focused and easy to revisit","description":"Emergency Contacts Organizer provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Emergency Contacts Organizer overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Emergency Contacts Organizer","description":"Emergency Contacts Organizer is useful for people who need a dedicated home & family workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Emergency Contacts Organizer essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /emergency-contacts-organizer."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /emergency-contacts-organizer."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Emergency Contacts Organizer follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Emergency Contacts Organizer","description":"Explore Emergency Contacts Organizer from its active Ansiversa route.","action":{"label":"Explore","path":"/emergency-contacts-organizer"}}}
+{
+  "hero": {
+    "kicker": "Home & Family · Ansiversa mini app",
+    "title": "Emergency Contacts Organizer",
+    "description": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+    "points": [
+      "Owner-scoped contact records",
+      "Favourite and primary contacts",
+      "Direct phone and email actions"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/emergency-contacts-organizer/contacts"
+    }
+  },
+  "flow": {
+    "kicker": "Contact workflow",
+    "title": "Contacts → Categories → Insights",
+    "steps": [
+      "Create important contacts with phone, email, location, and notes",
+      "Group records by family, medical, police, fire, school, insurance, and custom categories",
+      "Review favourites, primary contacts, and coverage gaps"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Home"
+    },
+    {
+      "label": "Workflow",
+      "value": "Quick access"
+    },
+    {
+      "label": "Access",
+      "value": "Protected"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Important contacts without scattered notes",
+    "description": "Emergency Contacts Organizer keeps user-entered contact information findable while staying clear about its limits.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Fast lookup",
+        "description": "Favourite and primary contacts surface first, with direct phone and email actions where available."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Useful grouping",
+        "description": "Default and custom categories help families, residents, and travellers organize practical contact lists."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Responsible boundary",
+        "description": "The app organizes information but does not contact emergency services or guarantee emergency assistance."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm place for urgent-reference information",
+    "description": "The workflow keeps the contact list simple, readable, and mobile-friendly.",
+    "items": [
+      {
+        "title": "Start with contacts",
+        "description": "Add names, relationships, phone numbers, email, location, priority, and notes."
+      },
+      {
+        "title": "Group what matters",
+        "description": "Use categories for family, medical, public-safety, school, workplace, insurance, roadside, and other contacts."
+      },
+      {
+        "title": "Review readiness",
+        "description": "Use insights to spot favourites, primary contacts, and records missing helpful details."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Emergency Contacts Organizer",
+    "description": "Useful for people who want important contact information kept together without turning Ansiversa into an emergency-response service.",
+    "items": [
+      {
+        "title": "Parents and families",
+        "description": "Keep family, school, caregiver, and medical contacts in one place."
+      },
+      {
+        "title": "Residents",
+        "description": "Save local police, fire, roadside, insurance, and building support contacts for reference."
+      },
+      {
+        "title": "Travellers",
+        "description": "Organize assistance numbers, insurance contacts, and important local details before a trip."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Contact details that are useful under pressure",
+    "description": "Each record keeps the practical information users are likely to need when searching quickly.",
+    "items": [
+      {
+        "title": "Phone and email",
+        "description": "Primary and alternate phone fields plus optional email support quick manual contact."
+      },
+      {
+        "title": "Relationship and category",
+        "description": "Labels make it clear why the contact matters."
+      },
+      {
+        "title": "Location and notes",
+        "description": "Optional address, country or region, and instructions capture important context."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "Organize, mark, and review",
+    "description": "The app focuses on private recordkeeping and quick reference.",
+    "groups": [
+      {
+        "kicker": "Organize",
+        "title": "Contacts and categories",
+        "items": [
+          {
+            "name": "Contacts",
+            "description": "Create, edit, delete, search, filter, and open contact details."
+          },
+          {
+            "name": "Categories",
+            "description": "Use seeded groups or add custom groups for household needs."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Quick-access signals",
+        "items": [
+          {
+            "name": "Favourites",
+            "description": "Mark frequently needed contacts and surface them first."
+          },
+          {
+            "name": "Insights",
+            "description": "Review totals, category coverage, favourites, and records missing useful information."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with the Ansiversa platform model",
+    "description": "Emergency Contacts Organizer follows protected mini-app routing, isolated API data, and generated frontend contracts.",
+    "items": [
+      "Protected routes under /emergency-contacts-organizer/*.",
+      "Owner-scoped backend records in isolated app tables.",
+      "Overview Explore CTA routes to /emergency-contacts-organizer/contacts."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Emergency Contacts Organizer",
+    "description": "Start with contacts, then organize categories and review quick-access coverage.",
+    "action": {
+      "label": "Explore",
+      "path": "/emergency-contacts-organizer/contacts"
+    }
+  }
+}
