@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Vehicle & Driving · Ansiversa mini app","title":"Vehicle Document Tracker","description":"Vehicle Document Tracker for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/vehicle-document-tracker"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Vehicle Document Tracker","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Transport"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Vehicle Document Tracker focused and easy to revisit","description":"Vehicle Document Tracker provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Vehicle Document Tracker overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Vehicle Document Tracker","description":"Vehicle Document Tracker is useful for people who need a dedicated vehicle & driving workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Vehicle Document Tracker essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /vehicle-document-tracker."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /vehicle-document-tracker."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Vehicle Document Tracker follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Vehicle Document Tracker","description":"Explore Vehicle Document Tracker from its active Ansiversa route.","action":{"label":"Explore","path":"/vehicle-document-tracker"}}}
+{
+  "hero": {
+    "kicker": "Vehicle & Driving ? Ansiversa mini app",
+    "title": "Vehicle Document Tracker",
+    "description": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+    "points": [
+      "Track registrations, insurance, inspections, warranties, and custom document types",
+      "Review expiry dates, reminder dates, and recently updated records",
+      "Keep vehicle records separate, searchable, and easy to refresh"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/vehicle-document-tracker/documents"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Add vehicles ? Track documents ? Review renewals",
+    "steps": [
+      "Create vehicle records with practical registration details",
+      "Add document records with issue, expiry, reminder, authority, and status fields",
+      "Use filters and insights to review upcoming renewals and expired documents"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Scope",
+      "value": "Personal"
+    },
+    {
+      "label": "Records",
+      "value": "Vehicles + Documents"
+    },
+    {
+      "label": "Status",
+      "value": "Coming Soon"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Built for personal document organization",
+    "description": "Vehicle Document Tracker keeps reminders and references clear while avoiding official-system, legal, or insurance-provider claims.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Vehicle context",
+        "description": "Group documents by the vehicle they belong to."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Expiry awareness",
+        "description": "Track issue dates, expiry dates, and renewal reminder dates from saved records."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Clear boundary",
+        "description": "Use it as a personal tracker, not as legal advice, compliance verification, or an automatic renewal portal."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm folder for vehicle paperwork",
+    "description": "The workflow favors quick entry, tidy review, and visible renewal pressure without uploads or external integrations.",
+    "items": [
+      {
+        "title": "Searchable",
+        "description": "Find documents by vehicle, type, number, authority, notes, or status."
+      },
+      {
+        "title": "Reminder-aware",
+        "description": "See expiring, expired, and renewal-due records from stored dates."
+      },
+      {
+        "title": "Private by design",
+        "description": "V1 stores metadata only and does not scan, OCR, upload, or validate official files."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Vehicle Document Tracker",
+    "description": "Useful for people who maintain one or more personal vehicles and want clearer renewal visibility.",
+    "items": [
+      {
+        "title": "Individual drivers",
+        "description": "Track registration, insurance, inspection, and warranty dates."
+      },
+      {
+        "title": "Families",
+        "description": "Keep several household vehicles and document types organized."
+      },
+      {
+        "title": "Frequent reviewers",
+        "description": "Check upcoming renewals and expired records before they become surprises."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Vehicle document essentials",
+    "description": "The app focuses on metadata users can safely enter and review themselves.",
+    "items": [
+      {
+        "title": "Vehicle records",
+        "description": "Name, manufacturer, model, year, registration nickname, registration number, and notes."
+      },
+      {
+        "title": "Document records",
+        "description": "Type, reference number, issue date, expiry date, reminder date, authority, status, and notes."
+      },
+      {
+        "title": "Document types",
+        "description": "Default and custom categories keep documents easy to classify."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "From record keeping to renewal review",
+    "description": "Each section supports a direct personal tracking task.",
+    "groups": [
+      {
+        "kicker": "Setup",
+        "title": "Create the vehicle file",
+        "items": [
+          {
+            "name": "Vehicles",
+            "description": "Add each car or vehicle once."
+          },
+          {
+            "name": "Types",
+            "description": "Use defaults or add custom document types."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Monitor document dates",
+        "items": [
+          {
+            "name": "Documents",
+            "description": "Search, filter, sort, edit, archive, restore, and delete records."
+          },
+          {
+            "name": "Insights",
+            "description": "Review expiry pressure, upcoming renewals, document distribution, and recent updates."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Ansiversa implementation boundary",
+    "description": "Vehicle Document Tracker is a protected workflow with isolated persistence and no third-party renewal integrations.",
+    "items": [
+      "API-driven protected routes for vehicles, document types, documents, dashboard, and insights.",
+      "Isolated mini-app database configured by VEHICLE_DOCUMENT_TRACKER_DATABASE_URL.",
+      "No file uploads, OCR, government API integrations, insurance-provider integrations, or legal-compliance verification in V1."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Vehicle Document Tracker",
+    "description": "Start with the documents workspace and review the records that need attention.",
+    "action": {
+      "label": "Explore",
+      "path": "/vehicle-document-tracker/documents"
+    }
+  }
+}

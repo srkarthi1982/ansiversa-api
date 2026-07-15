@@ -2006,7 +2006,7 @@
 			"key": "vehicle-document-tracker",
 			"slug": "vehicle-document-tracker",
 			"name": "Vehicle Document Tracker",
-			"description": "Vehicle Document Tracker for the Ansiversa app ecosystem.",
+			"description": "Organize vehicle registrations, insurance records, inspection certificates, warranties, reminders, and expiry dates without replacing official government or insurance systems.",
 			"categoryId": "cat_vehicle-and-driving",
 			"status": "active",
 			"isFeatured": 0,

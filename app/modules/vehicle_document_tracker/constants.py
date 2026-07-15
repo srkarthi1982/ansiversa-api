@@ -1,0 +1,2 @@
+DATABASE_SETTING = "VEHICLE_DOCUMENT_TRACKER_DATABASE_URL"
+VERSION_TABLE = "vehicle_document_tracker_alembic_version"

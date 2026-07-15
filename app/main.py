@@ -85,6 +85,7 @@ from app.modules.symptom_journal.routes import router as symptom_journal_router
 from app.modules.first_aid_guide.routes import router as first_aid_guide_router
 from app.modules.fuel_expense_tracker.routes import router as fuel_expense_tracker_router
 from app.modules.driver_logbook.routes import router as driver_logbook_router
+from app.modules.vehicle_document_tracker.routes import router as vehicle_document_tracker_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -548,6 +549,11 @@ def register_routes(app: FastAPI) -> None:
         driver_logbook_router,
         prefix=f"{settings.API_V1_PREFIX}/driver-logbook",
         tags=["Driver Logbook"],
+    )
+    app.include_router(
+        vehicle_document_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/vehicle-document-tracker",
+        tags=["Vehicle Document Tracker"],
     )
     app.include_router(
         content_router, 
