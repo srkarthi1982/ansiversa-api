@@ -1,1 +1,95 @@
-{"hero":{"kicker":"Home & Family · Ansiversa mini app","title":"Packing Checklist","description":"Packing Checklist for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/packing-checklist"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Packing Checklist","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Home"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Packing Checklist focused and easy to revisit","description":"Packing Checklist provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Packing Checklist overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Packing Checklist","description":"Packing Checklist is useful for people who need a dedicated home & family workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Packing Checklist essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /packing-checklist."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /packing-checklist."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Packing Checklist follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Packing Checklist","description":"Explore Packing Checklist from its active Ansiversa route.","action":{"label":"Explore","path":"/packing-checklist"}}}
+{
+  "hero": {
+    "kicker": "Home & Family · Ansiversa mini app",
+    "title": "Packing Checklist",
+    "description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+    "points": ["Trip-based checklists", "Category-organized items", "Real packing progress"],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/packing-checklist/checklists"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Plan → Pack → Review",
+    "steps": ["Create a trip checklist", "Add items by category and priority", "Mark items packed and review remaining essentials"]
+  },
+  "stats": [
+    { "label": "Category", "value": "Home" },
+    { "label": "Workflow", "value": "Planning" },
+    { "label": "Access", "value": "Protected" }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A practical packing workspace",
+    "description": "Packing Checklist keeps travel preparation focused on saved lists, item readiness, and category coverage.",
+    "items": [
+      { "kicker": "Trip", "title": "Create checklists", "description": "Track destination, dates, trip type, status, and notes for each packing plan." },
+      { "kicker": "Items", "title": "Pack with structure", "description": "Add quantities, categories, priority, notes, and packed state for every item." },
+      { "kicker": "Progress", "title": "Review readiness", "description": "See packed, remaining, completion percentage, and high-priority gaps from stored data." }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A calm pre-trip checklist",
+    "description": "The app is designed for quick scanning before a journey, school trip, work trip, camping plan, or relocation.",
+    "items": [
+      { "title": "Organized", "description": "Categories keep documents, clothing, electronics, medicines, and other essentials easy to review." },
+      { "title": "Accountable", "description": "Every progress number comes from saved checklist items." },
+      { "title": "Reusable", "description": "Duplicate a previous list and reset packed states for the next trip." }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Packing Checklist",
+    "description": "Packing Checklist supports people preparing for trips or moves where forgotten items create friction.",
+    "items": [
+      { "title": "Families", "description": "Plan shared lists for holidays, school trips, baby items, medicines, and documents." },
+      { "title": "Professionals", "description": "Prepare work-trip equipment, documents, chargers, and presentation items." },
+      { "title": "Travelers", "description": "Reuse packing plans for vacations, camping, sports travel, and relocation." }
+    ]
+  },
+  "resourceSection": {
+    "title": "Packing Checklist essentials",
+    "description": "A protected planner for trip checklists, packing categories, and item readiness.",
+    "items": [
+      { "title": "Checklist records", "description": "Create, edit, duplicate, archive, restore, and delete packing plans." },
+      { "title": "Item tracking", "description": "Add item quantities, categories, priorities, notes, and packed state." },
+      { "title": "Progress review", "description": "Track completion percentage, remaining items, and category distribution." }
+    ]
+  },
+  "groupedSection": {
+    "title": "From checklist to departure review",
+    "description": "The workflow moves from a trip plan into item-level packing and progress insight.",
+    "groups": [
+      {
+        "kicker": "Plan",
+        "title": "Create the trip",
+        "items": [
+          { "name": "Destination", "description": "Store where the checklist is for." },
+          { "name": "Dates", "description": "Track start and end dates when they are known." }
+        ]
+      },
+      {
+        "kicker": "Pack",
+        "title": "Work through items",
+        "items": [
+          { "name": "Categories", "description": "Review essentials by packing group." },
+          { "name": "Progress", "description": "Mark packed items and monitor remaining work." }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Aligned with Ansiversa workflow standards",
+    "description": "Packing Checklist uses protected API-backed records and a focused frontend module.",
+    "items": ["Owner-scoped FastAPI endpoints.", "Isolated Packing Checklist database.", "Overview CTA opens the real checklist workflow."]
+  },
+  "finalCta": {
+    "title": "Open Packing Checklist",
+    "description": "Start with your saved trip checklists.",
+    "action": {
+      "label": "Explore",
+      "path": "/packing-checklist/checklists"
+    }
+  }
+}

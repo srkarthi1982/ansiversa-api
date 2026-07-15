@@ -75,6 +75,7 @@ from app.modules.digital_document_vault.routes import router as digital_document
 from app.modules.home_inventory_manager.routes import router as home_inventory_manager_router
 from app.modules.household_expense_splitter.routes import router as household_expense_splitter_router
 from app.modules.emergency_contacts_organizer.routes import router as emergency_contacts_organizer_router
+from app.modules.packing_checklist.routes import router as packing_checklist_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -488,6 +489,11 @@ def register_routes(app: FastAPI) -> None:
         emergency_contacts_organizer_router,
         prefix=f"{settings.API_V1_PREFIX}/emergency-contacts-organizer",
         tags=["Emergency Contacts Organizer"],
+    )
+    app.include_router(
+        packing_checklist_router,
+        prefix=f"{settings.API_V1_PREFIX}/packing-checklist",
+        tags=["Packing Checklist"],
     )
     app.include_router(
         content_router, 

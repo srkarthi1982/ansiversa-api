@@ -1776,7 +1776,7 @@
 			"key": "packing-checklist",
 			"slug": "packing-checklist",
 			"name": "Packing Checklist",
-			"description": "Packing Checklist for the Ansiversa app ecosystem.",
+			"description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
 			"categoryId": "cat_home-and-family",
 			"status": "active",
 			"isFeatured": 0,

@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 75 live solution apps
 Remaining live approvals toward 100 solution apps: 25
-Current workflow: Emergency Contacts Organizer App #077 is Workflow Ready and pending evening manual verification. Keep it comingSoon/version null until explicit approval.
+Current workflow: Emergency Contacts Organizer App #077 is Workflow Ready and pending evening manual verification. Packing Checklist App #078 is also Workflow Ready and queued for manual verification. Keep both comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Ran Packing Checklist App #078 production-configured isolated database migration to Alembic head `20260715_0001_packing_checklist`, verified `PackingCategories`, `PackingChecklists`, `PackingItems`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
+* 2026-07-15: Implemented Packing Checklist App #078 backend to Workflow Ready with isolated `PACKING_CHECKLIST_DATABASE_URL`, owner-scoped `PackingCategories`, `PackingChecklists`, and `PackingItems` tables, seeded packing categories, protected checklist/category/item CRUD APIs, duplicate/archive/restore actions, pack/unpack item actions, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_packing_checklist`, overview Explore routing to `/packing-checklist/checklists`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Emergency Contacts Organizer App #077 production-configured isolated database migration to Alembic head `20260715_0001_emergency_contacts_organizer`, verified `Categories`, `Contacts`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-15: Implemented Emergency Contacts Organizer App #077 backend to Workflow Ready with isolated `EMERGENCY_CONTACTS_ORGANIZER_DATABASE_URL`, owner-scoped `Categories` and `Contacts` tables, default category seeding, protected contact/category CRUD APIs, favourite/primary actions, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_emergency_contacts_organizer`, overview Explore routing to `/emergency-contacts-organizer/contacts`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-14: Promoted Household Expense Splitter App #076 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_household_expense_splitter`, tracked catalog export update, and production catalog verification at 75 live / 25 comingSoon.
