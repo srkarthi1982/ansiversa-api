@@ -22,4 +22,8 @@ The app stores user-entered personal records only. It does not diagnose conditio
 
 ## Current Status
 
-Workflow Ready for manual verification. The app remains `active / comingSoon / version null` with no live promotion.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
+
+## Current Implementation
+
+The production catalog row is `active` / `live` / `1.0.0`.
