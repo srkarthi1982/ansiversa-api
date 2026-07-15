@@ -1,0 +1,2 @@
+DATABASE_SETTING = "FIRST_AID_GUIDE_DATABASE_URL"
+VERSION_TABLE = "first_aid_guide_alembic_version"

@@ -1937,7 +1937,7 @@
 			"key": "first-aid-guide",
 			"slug": "first-aid-guide",
 			"name": "First Aid Guide",
-			"description": "First Aid Guide for the Ansiversa app ecosystem.",
+			"description": "Browse educational first-aid reference topics, warning notes, bookmarks, and recent views without replacing emergency services or professional care.",
 			"categoryId": "cat_health-and-medical",
 			"status": "active",
 			"isFeatured": 0,
