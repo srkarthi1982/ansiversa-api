@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 75 live solution apps
 Remaining live approvals toward 100 solution apps: 25
-Current workflow: Emergency Contacts Organizer App #077, Packing Checklist App #078, Birthday & Anniversary Reminder App #079, and Home Maintenance Planner App #080 are Workflow Ready and pending manual verification. Keep all four comingSoon/version null until explicit approval.
+Current workflow: Emergency Contacts Organizer App #077, Packing Checklist App #078, Birthday & Anniversary Reminder App #079, Home Maintenance Planner App #080, and Doctor Visit Tracker App #081 are Workflow Ready and pending manual verification. Keep all five comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Ran Doctor Visit Tracker App #081 production-configured isolated database migration to Alembic head `20260715_0001_doctor_visit_tracker`, verified `DoctorSpecialties`, `DoctorVisits`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
+* 2026-07-15: Implemented Doctor Visit Tracker App #081 backend to Workflow Ready with isolated `DOCTOR_VISIT_TRACKER_DATABASE_URL`, owner-scoped specialties and visit records, default specialty seeding, protected specialty/visit CRUD APIs, archive/restore actions, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_doctor_visit_tracker`, overview Explore routing to `/doctor-visit-tracker/visits`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Home Maintenance Planner App #080 production-configured isolated database migration to Alembic head `20260715_0001_home_maintenance_planner`, verified `MaintenanceAreas`, `MaintenanceCategories`, `MaintenanceTasks`, `MaintenanceTaskCompletions`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-15: Implemented Home Maintenance Planner App #080 backend to Workflow Ready with isolated `HOME_MAINTENANCE_PLANNER_DATABASE_URL`, owner-scoped maintenance areas, categories, tasks, and completion history, default area/category seeding, protected task/area/category CRUD APIs, complete/reopen/archive/restore actions, recurrence advancement, cost/provider fields, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_home_maintenance_planner`, overview Explore routing to `/home-maintenance-planner/tasks`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Birthday & Anniversary Reminder App #079 production-configured isolated database migration to Alembic head `20260715_0001_birthday_and_anniversary_reminder`, verified `ReminderTypes`, `ReminderContacts`, `ReminderAcknowledgements`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.

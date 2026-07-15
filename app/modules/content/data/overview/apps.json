@@ -1845,7 +1845,7 @@
 			"key": "doctor-visit-tracker",
 			"slug": "doctor-visit-tracker",
 			"name": "Doctor Visit Tracker",
-			"description": "Doctor Visit Tracker for the Ansiversa app ecosystem.",
+			"description": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes.",
 			"categoryId": "cat_health-and-medical",
 			"status": "active",
 			"isFeatured": 0,
