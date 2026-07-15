@@ -36,11 +36,11 @@ Indexes support owner-scoped list queries, archive/status/trip-type filters, sta
 
 ## Current Status
 
-Workflow Ready. Production-configured database migration may be run for verification, but the app remains `comingSoon` with `version = null`.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
-V1 does not support sharing, reminders, templates, exports, file attachments, AI-generated packing suggestions, or cross-app integrations.
+V1 does not support sharing, reminders, templates, exports, file attachments, AI-generated packing suggestions, or cross-app integrations. V2 UI polish should replace native browser delete confirmations with shared `AvConfirmDialog` and move create/edit flows into shared drawers for platform consistency.
 
 ## Future Enhancements
 
@@ -48,4 +48,4 @@ Starter templates, reminder scheduling, printable lists, packing suggestions, an
 
 ## Current Implementation
 
-The implementation includes SQLAlchemy models, Alembic migration, Pydantic schemas, owner-scoped service logic, FastAPI routes, overview metadata, frontend workflow pages, Zustand lifecycle, and generated API integration.
+The implementation includes SQLAlchemy models, Alembic migration, Pydantic schemas, owner-scoped service logic, FastAPI routes, overview metadata, frontend workflow pages, Zustand lifecycle, and generated API integration. The production catalog row is `active` / `live` / `1.0.0`.
