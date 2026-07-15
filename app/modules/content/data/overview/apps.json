@@ -1868,7 +1868,7 @@
 			"key": "water-intake-tracker",
 			"slug": "water-intake-tracker",
 			"name": "Water Intake Tracker",
-			"description": "Water Intake Tracker for the Ansiversa app ecosystem.",
+			"description": "Log daily hydration, personal goals, drink types, and intake history.",
 			"categoryId": "cat_health-and-medical",
 			"status": "active",
 			"isFeatured": 0,
