@@ -39,7 +39,7 @@ Indexes cover owner queries, category filtering, date sorting, severity filters,
 
 ## Current Status
 
-Workflow Ready for manual verification. No live promotion has been performed.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, backend database-authentication fix verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
@@ -51,4 +51,4 @@ Possible future improvements include export, print-friendly appointment summarie
 
 ## Current Implementation
 
-The implementation provides owner-scoped FastAPI endpoints, SQLAlchemy models, Pydantic validation, default categories, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation.
+The production catalog row is `active` / `live` / `1.0.0`. The implementation provides owner-scoped FastAPI endpoints, SQLAlchemy models, Pydantic validation, default categories, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation.

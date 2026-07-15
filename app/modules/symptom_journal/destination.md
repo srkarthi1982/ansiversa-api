@@ -1,12 +1,18 @@
 # Symptom Journal Destination
 
+## Document Status
+
+Approved for Live promotion on 2026-07-15 after Astra review, Partner approval, production migration verification, production catalog verification, backend authentication fix verification, and manual browser verification.
+
 ## Destination Status
 
-Unapproved for live launch. The app remains `active` / `comingSoon` / `version = null`.
+Approved v1.0
 
 ## Product Destination
 
 Symptom Journal should become a private personal health observation notebook where users can record symptoms, severity, body locations, triggers, relief methods tried, notes, and follow-up notes over time.
+
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Principles
 
@@ -36,4 +42,16 @@ Symptom Journal should become a private personal health observation notebook whe
 
 ## Journey Progress
 
-V1 is prepared for manual verification and must remain behind the coming-soon gate until explicit approval.
+Current Position: 20 / 100
+
+Current Journey Progress: 20 / 100
+
+V1 creates the private symptom observation foundation with owner-scoped categories, symptom entry CRUD, archive/restore actions, search/filter/sort controls, dashboard summaries, insights, production migration, database authentication fix verification, and verified production workflow behavior. Remaining maturity includes exports, appointment-summary printing, optional reminders, and richer charts after approval.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-15.
+
+Partner: Approved Symptom Journal live promotion after owner-review browser verification and backend authentication fix verification.
+
+Codex: Verified Turso connectivity, smoke-tested dashboard/categories/entries/insights API responses, removed temporary smoke-test data, synced overview metadata, promoted the production Apps row, synced destination metadata, and verified production catalog counts.
