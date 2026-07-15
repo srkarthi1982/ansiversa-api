@@ -1799,7 +1799,7 @@
 			"key": "birthday-and-anniversary-reminder",
 			"slug": "birthday-and-anniversary-reminder",
 			"name": "Birthday & Anniversary Reminder",
-			"description": "Birthday & Anniversary Reminder for the Ansiversa app ecosystem.",
+			"description": "Track birthdays, anniversaries, and important dates with annual reminder progress.",
 			"categoryId": "cat_home-and-family",
 			"status": "active",
 			"isFeatured": 0,

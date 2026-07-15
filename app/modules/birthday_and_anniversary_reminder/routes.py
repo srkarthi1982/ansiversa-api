@@ -1,0 +1,1 @@
+from app.modules.birthday_and_anniversary_reminder.router import router

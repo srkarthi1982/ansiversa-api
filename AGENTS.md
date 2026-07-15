@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 75 live solution apps
 Remaining live approvals toward 100 solution apps: 25
-Current workflow: Emergency Contacts Organizer App #077 is Workflow Ready and pending evening manual verification. Packing Checklist App #078 is also Workflow Ready and queued for manual verification. Keep both comingSoon/version null until explicit approval.
+Current workflow: Emergency Contacts Organizer App #077, Packing Checklist App #078, and Birthday & Anniversary Reminder App #079 are Workflow Ready and pending manual verification. Keep all three comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Ran Birthday & Anniversary Reminder App #079 production-configured isolated database migration to Alembic head `20260715_0001_birthday_and_anniversary_reminder`, verified `ReminderTypes`, `ReminderContacts`, `ReminderAcknowledgements`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
+* 2026-07-15: Implemented Birthday & Anniversary Reminder App #079 backend to Workflow Ready with isolated `BIRTHDAY_AND_ANNIVERSARY_REMINDER_DATABASE_URL`, owner-scoped `ReminderTypes`, `ReminderContacts`, and `ReminderAcknowledgements` tables, default reminder type seeding, protected reminder/type CRUD APIs, favourite/archive/restore/acknowledge actions, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_birthday_and_anniversary_reminder`, overview Explore routing to `/birthday-and-anniversary-reminder/reminders`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Packing Checklist App #078 production-configured isolated database migration to Alembic head `20260715_0001_packing_checklist`, verified `PackingCategories`, `PackingChecklists`, `PackingItems`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-15: Implemented Packing Checklist App #078 backend to Workflow Ready with isolated `PACKING_CHECKLIST_DATABASE_URL`, owner-scoped `PackingCategories`, `PackingChecklists`, and `PackingItems` tables, seeded packing categories, protected checklist/category/item CRUD APIs, duplicate/archive/restore actions, pack/unpack item actions, search/filter/sort support, dashboard and insights summaries, Alembic migration `20260715_0001_packing_checklist`, overview Explore routing to `/packing-checklist/checklists`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Emergency Contacts Organizer App #077 production-configured isolated database migration to Alembic head `20260715_0001_emergency_contacts_organizer`, verified `Categories`, `Contacts`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
