@@ -80,6 +80,7 @@ from app.modules.birthday_and_anniversary_reminder.routes import router as birth
 from app.modules.home_maintenance_planner.routes import router as home_maintenance_planner_router
 from app.modules.doctor_visit_tracker.routes import router as doctor_visit_tracker_router
 from app.modules.water_intake_tracker.routes import router as water_intake_tracker_router
+from app.modules.vaccination_tracker.routes import router as vaccination_tracker_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -518,6 +519,11 @@ def register_routes(app: FastAPI) -> None:
         water_intake_tracker_router,
         prefix=f"{settings.API_V1_PREFIX}/water-intake-tracker",
         tags=["Water Intake Tracker"],
+    )
+    app.include_router(
+        vaccination_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/vaccination-tracker",
+        tags=["Vaccination Tracker"],
     )
     app.include_router(
         content_router, 

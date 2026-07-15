@@ -1891,7 +1891,7 @@
 			"key": "vaccination-tracker",
 			"slug": "vaccination-tracker",
 			"name": "Vaccination Tracker",
-			"description": "Vaccination Tracker for the Ansiversa app ecosystem.",
+			"description": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress.",
 			"categoryId": "cat_health-and-medical",
 			"status": "active",
 			"isFeatured": 0,
