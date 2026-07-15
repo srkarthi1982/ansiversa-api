@@ -34,7 +34,7 @@ List responses return the fields visible in the workflow. Detail endpoints suppo
 
 ## Current Status
 
-Workflow Ready and queued for manual verification. The app remains `active / comingSoon / version null`. No live promotion has been performed.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, manual browser workflow verification, and production smoke verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
@@ -46,4 +46,4 @@ Future versions may add secure document vault integration, notification delivery
 
 ## Current Implementation
 
-The current implementation includes full CRUD for vehicles, document types, and document records, date validation, owner isolation, archive/restore behavior, search/filter/sort, dashboard summaries, insights, metadata, and production migration readiness.
+The current implementation includes full CRUD for vehicles, document types, and document records, date validation, owner isolation, archive/restore behavior, search/filter/sort, dashboard summaries, insights, metadata, and production migration readiness. The parent Apps catalog stores Vehicle Document Tracker as `active` with `launchStatus = live`, `version = 1.0.0`, and approved destination metadata `20 / 100`.
