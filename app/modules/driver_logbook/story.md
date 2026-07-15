@@ -39,7 +39,7 @@ Indexes cover owner-scoped vehicle lookup, archive filters, vehicle names, updat
 
 ## Current Status
 
-Workflow Ready for manual verification. No live promotion has been performed.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, manual browser workflow verification, and odometer-derived distance save validation. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
@@ -51,4 +51,4 @@ Possible future improvements include CSV export, trip templates, printable perso
 
 ## Current Implementation
 
-The implementation provides owner-scoped vehicles and trips, FastAPI endpoints, SQLAlchemy models, Pydantic schemas, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation. Trip validation rejects impossible odometer ordering while deriving saved distance from valid start and end odometer readings when both are present.
+The implementation provides owner-scoped vehicles and trips, FastAPI endpoints, SQLAlchemy models, Pydantic schemas, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation. Trip validation rejects impossible odometer ordering while deriving saved distance from valid start and end odometer readings when both are present. The parent Apps catalog stores Driver Logbook as `active` with `launchStatus = live`, `version = 1.0.0`, and approved destination metadata `20 / 100`.
