@@ -1,15 +1,26 @@
 # Emergency Contacts Organizer Destination
 
+## Document Status
+
+Approved for Live promotion on 2026-07-15 after Astra review, Partner approval, production migration verification, production catalog verification, and manual browser verification.
+
+## Destination Status
+
+Approved v1.0
+
 ## Destination Vision
 
 Emergency Contacts Organizer should become a private quick-reference workspace for important contacts. Its mature form helps users keep essential family, medical, school, workplace, roadside, insurance, and local assistance contacts organized and easy to find.
 
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
+
 ## Current Readiness State
 
-Status: workflow ready for evening manual verification  
-Destination status: not approved  
-Destination reviewed at: null  
-Live promotion: not performed
+Status: approved live at version `1.0.0`
+Destination status: approved
+Destination reviewed at: 2026-07-15
+Current Journey Progress: 20 / 100
+Live promotion: completed after Astra review, Partner approval, production migration verification, and manual browser verification
 
 ## Core Workflows
 
@@ -46,7 +57,8 @@ The UI and documentation must avoid fear-based copy and emergency-response promi
 - Backend APIs enforce owner scoping.
 - Contact CRUD, category CRUD, favourite/primary actions, search/filter, details, and insights work.
 - Overview CTA routes to `/emergency-contacts-organizer/contacts`.
-- App remains `comingSoon`, version `null`, destination not approved.
+- App is `active` / `live` at version `1.0.0`.
+- Destination metadata is synced to `20 / 100`, `approved`, reviewed on `2026-07-15`.
 
 ## Readiness Checklist
 
@@ -55,6 +67,22 @@ The UI and documentation must avoid fear-based copy and emergency-response promi
 - [x] Frontend workflow created.
 - [x] Overview metadata updated.
 - [x] Mandatory documentation created.
-- [ ] Evening manual verification completed.
-- [ ] Partner/Astra approval granted.
-- [ ] Live promotion completed.
+- [x] Manual browser verification completed.
+- [x] Partner/Astra approval granted.
+- [x] Live promotion completed.
+
+## Journey Progress
+
+Current Position: 20 / 100
+
+Current Journey Progress: 20 / 100
+
+V1 creates the private emergency contact organizer foundation with owner-scoped contacts and categories, default category seeding, contact CRUD, category CRUD, favourite/primary actions, search, filters, sorting, dashboard metrics, insights, production migration, and verified production workflow behavior. Remaining maturity includes optional export/print, platform notification reminders, and approved cross-app links.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-15.
+
+Partner: Approved Emergency Contacts Organizer live promotion after owner-review browser verification.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes/version table, synced overview metadata, promoted the production Apps row, synced destination metadata, and verified production catalog counts.

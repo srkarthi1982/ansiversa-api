@@ -50,7 +50,7 @@ List responses are lightweight and detail records are loaded when the user opens
 
 ## Current Status
 
-The app is implemented to Workflow Ready for evening manual verification. It remains `comingSoon`, version `null`, and destination not approved.
+The app is approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
@@ -64,4 +64,4 @@ V1 does not support sharing, exports, file attachments, background reminders, pu
 
 ## Current Implementation
 
-The backend follows the current FastAPI, SQLAlchemy 2, service/repository, and isolated Alembic pattern. The frontend follows the current React, TypeScript, Zustand, React Router, generated API client, and shared-component mini-app pattern.
+The backend follows the current FastAPI, SQLAlchemy 2, service/repository, and isolated Alembic pattern. The frontend follows the current React, TypeScript, Zustand, React Router, generated API client, and shared-component mini-app pattern. The production catalog row is `active` / `live` / `1.0.0`.
