@@ -1184,9 +1184,9 @@ enough to stand on its own.
 Current status:
 
 ```text
-Platform + 81 live solution apps
-Remaining live approvals toward 100 solution apps: 19
-Current workflow: Vaccination Tracker App #083, Symptom Journal App #084, First Aid Guide App #085, Fuel Expense Tracker App #086, Driver Logbook App #087, and Vehicle Document Tracker App #088 are Workflow Ready and pending manual verification. Keep these six comingSoon/version null until explicit approval.
+Platform + 82 live solution apps
+Remaining live approvals toward 100 solution apps: 18
+Current workflow: Symptom Journal App #084, First Aid Guide App #085, Fuel Expense Tracker App #086, Driver Logbook App #087, and Vehicle Document Tracker App #088 are Workflow Ready and pending manual verification. Keep these five comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Promoted Vaccination Tracker App #083 backend to approved live version `1.0.0` after Astra/Partner approval, backend database-auth fix verification, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_vaccination_tracker`, tracked catalog export update, and production catalog verification at 82 live / 18 comingSoon.
 * 2026-07-15: Fixed Vaccination Tracker App #083 production fetch failures by passing the shared libSQL/Turso auth connect args into the isolated vaccination tracker database engine, verified the isolated version table at `20260715_0001_vaccination_tracker`, smoke-tested dashboard/profiles/vaccines/records/insights API responses, removed temporary smoke-test profile and vaccine rows, and kept the app `comingSoon` with version `null`.
 * 2026-07-15: Promoted Water Intake Tracker App #082 backend to approved live version `1.0.0` after Astra/Partner approval, backend database-auth fix verification, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_water_intake_tracker`, tracked catalog export update, and production catalog verification at 81 live / 19 comingSoon.
 * 2026-07-15: Fixed Water Intake Tracker App #082 production fetch failures by passing the shared libSQL/Turso auth connect args into the isolated water intake database engine, verified the isolated version table at `20260715_0001_water_intake_tracker`, smoke-tested dashboard/entries/drink-types/insights API responses, removed the temporary smoke-test goal row, and kept the app `comingSoon` with version `null`.
