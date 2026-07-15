@@ -1,0 +1,2 @@
+DATABASE_SETTING = "FUEL_EXPENSE_TRACKER_DATABASE_URL"
+VERSION_TABLE = "fuel_expense_tracker_alembic_version"

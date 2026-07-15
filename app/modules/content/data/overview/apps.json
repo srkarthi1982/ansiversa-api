@@ -1960,7 +1960,7 @@
 			"key": "fuel-expense-tracker",
 			"slug": "fuel-expense-tracker",
 			"name": "Fuel Expense Tracker",
-			"description": "Fuel Expense Tracker for the Ansiversa app ecosystem.",
+			"description": "Track vehicle fuel purchases, fuel economy, monthly fuel costs, and station spending without vehicle diagnostics.",
 			"categoryId": "cat_vehicle-and-driving",
 			"status": "active",
 			"isFeatured": 0,

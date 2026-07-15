@@ -1,1 +1,167 @@
-{"hero":{"kicker":"Vehicle & Driving · Ansiversa mini app","title":"Fuel Expense Tracker","description":"Fuel Expense Tracker for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/fuel-expense-tracker"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Fuel Expense Tracker","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Transport"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Fuel Expense Tracker focused and easy to revisit","description":"Fuel Expense Tracker provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Fuel Expense Tracker overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Fuel Expense Tracker","description":"Fuel Expense Tracker is useful for people who need a dedicated vehicle & driving workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Fuel Expense Tracker essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /fuel-expense-tracker."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /fuel-expense-tracker."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Fuel Expense Tracker follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Fuel Expense Tracker","description":"Explore Fuel Expense Tracker from its active Ansiversa route.","action":{"label":"Explore","path":"/fuel-expense-tracker"}}}
+{
+  "hero": {
+    "kicker": "Vehicle & Driving - Ansiversa mini app",
+    "title": "Fuel Expense Tracker",
+    "description": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+    "points": [
+      "Log fuel purchases by vehicle",
+      "Review total and monthly fuel costs",
+      "Compare station and vehicle spending"
+    ],
+    "primaryAction": {
+      "label": "Explore",
+      "path": "/fuel-expense-tracker/entries"
+    }
+  },
+  "flow": {
+    "kicker": "Workflow",
+    "title": "Vehicles -> Entries -> Insights",
+    "steps": [
+      "Add each vehicle you want to track",
+      "Record fuel purchases with date, odometer, quantity, cost, station, and payment notes",
+      "Review totals, recent entries, fuel economy, and station summaries"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Category",
+      "value": "Vehicle & Driving"
+    },
+    {
+      "label": "Primary record",
+      "value": "Fuel entry"
+    },
+    {
+      "label": "Status",
+      "value": "Manual verification"
+    }
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "A focused fuel spending log",
+    "description": "Fuel Expense Tracker keeps purchase records and cost analysis separate from maintenance, diagnostics, and trip planning tools.",
+    "items": [
+      {
+        "kicker": "Pillar 01",
+        "title": "Vehicle list",
+        "description": "Maintain a simple vehicle roster with odometer unit, fuel type, notes, and archive controls."
+      },
+      {
+        "kicker": "Pillar 02",
+        "title": "Fuel entries",
+        "description": "Capture each purchase with quantity, total cost, derived unit price, station, payment method, full-tank flag, and notes."
+      },
+      {
+        "kicker": "Pillar 03",
+        "title": "Cost review",
+        "description": "Summarize fuel spend by month, vehicle, and station using only the user's stored records."
+      }
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A clean logbook for fuel costs",
+    "description": "The workflow is built for repeated quick entry, then calm review when users want to understand spending patterns.",
+    "items": [
+      {
+        "title": "Fast entry",
+        "description": "The entry form keeps the expected purchase fields together."
+      },
+      {
+        "title": "Clear totals",
+        "description": "Dashboard metrics show total cost, monthly cost, total fuel, and average price."
+      },
+      {
+        "title": "Personal tracking",
+        "description": "Fuel economy estimates come from user-entered odometer readings, not connected vehicle diagnostics."
+      }
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Fuel Expense Tracker",
+    "description": "The app is for individuals and households who want a reliable fuel purchase history.",
+    "items": [
+      {
+        "title": "Commuters",
+        "description": "Keep a searchable record of regular fuel purchases."
+      },
+      {
+        "title": "Families",
+        "description": "Track costs across multiple personal vehicles."
+      },
+      {
+        "title": "Budget reviewers",
+        "description": "Review monthly fuel spending without mixing it into general expenses."
+      }
+    ]
+  },
+  "resourceSection": {
+    "title": "Fuel tracking essentials",
+    "description": "The app focuses on records the user can verify from receipts, odometer readings, and station details.",
+    "items": [
+      {
+        "title": "Vehicles",
+        "description": "Name, fuel type, odometer unit, and archive status."
+      },
+      {
+        "title": "Entries",
+        "description": "Purchase date, odometer, quantity, cost, station, payment method, and notes."
+      },
+      {
+        "title": "Insights",
+        "description": "Monthly cost, vehicle spend, station frequency, and recent purchases."
+      }
+    ]
+  },
+  "groupedSection": {
+    "title": "From receipt to review",
+    "description": "Fuel Expense Tracker keeps the path from purchase logging to cost insight short and predictable.",
+    "groups": [
+      {
+        "kicker": "Capture",
+        "title": "Add records",
+        "items": [
+          {
+            "name": "Vehicle",
+            "description": "Select the vehicle before saving a purchase."
+          },
+          {
+            "name": "Receipt fields",
+            "description": "Record quantity, total cost, currency, station, and payment method."
+          }
+        ]
+      },
+      {
+        "kicker": "Review",
+        "title": "Understand costs",
+        "items": [
+          {
+            "name": "Monthly totals",
+            "description": "See recent spending by month."
+          },
+          {
+            "name": "Vehicle comparison",
+            "description": "Compare total fuel cost across stored vehicles."
+          }
+        ]
+      }
+    ]
+  },
+  "technicalSection": {
+    "title": "Built as an isolated mini app",
+    "description": "Fuel Expense Tracker follows the Ansiversa mini-app pattern with its own database, API routes, overview metadata, and workflow pages.",
+    "items": [
+      "Isolated database configured by FUEL_EXPENSE_TRACKER_DATABASE_URL.",
+      "Owner-scoped vehicle and fuel entry records.",
+      "Coming-soon catalog status preserved until manual verification approves launch."
+    ]
+  },
+  "finalCta": {
+    "title": "Open Fuel Expense Tracker",
+    "description": "Start with fuel entries, then review vehicles and insights.",
+    "action": {
+      "label": "Explore",
+      "path": "/fuel-expense-tracker/entries"
+    }
+  }
+}

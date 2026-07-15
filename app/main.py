@@ -83,6 +83,7 @@ from app.modules.water_intake_tracker.routes import router as water_intake_track
 from app.modules.vaccination_tracker.routes import router as vaccination_tracker_router
 from app.modules.symptom_journal.routes import router as symptom_journal_router
 from app.modules.first_aid_guide.routes import router as first_aid_guide_router
+from app.modules.fuel_expense_tracker.routes import router as fuel_expense_tracker_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -536,6 +537,11 @@ def register_routes(app: FastAPI) -> None:
         first_aid_guide_router,
         prefix=f"{settings.API_V1_PREFIX}/first-aid-guide",
         tags=["First Aid Guide"],
+    )
+    app.include_router(
+        fuel_expense_tracker_router,
+        prefix=f"{settings.API_V1_PREFIX}/fuel-expense-tracker",
+        tags=["Fuel Expense Tracker"],
     )
     app.include_router(
         content_router, 
