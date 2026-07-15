@@ -1,0 +1,2 @@
+DATABASE_SETTING = "DRIVER_LOGBOOK_DATABASE_URL"
+VERSION_TABLE = "driver_logbook_alembic_version"

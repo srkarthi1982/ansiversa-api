@@ -1983,7 +1983,7 @@
 			"key": "driver-logbook",
 			"slug": "driver-logbook",
 			"name": "Driver Logbook",
-			"description": "Driver Logbook for the Ansiversa app ecosystem.",
+			"description": "Record personal driving trips, vehicle history, odometer-based distance, trip purposes, and driving summaries without regulatory compliance claims.",
 			"categoryId": "cat_vehicle-and-driving",
 			"status": "active",
 			"isFeatured": 0,
