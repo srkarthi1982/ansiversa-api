@@ -65,10 +65,7 @@ class TripCreateRequest(BaseModel):
             if self.end_odometer < self.start_odometer:
                 raise ValueError("End odometer cannot be lower than start odometer.")
             calculated = (self.end_odometer - self.start_odometer).quantize(Decimal("0.1"))
-            if self.distance is None:
-                self.distance = calculated
-            elif self.distance != calculated:
-                raise ValueError("Distance must match the odometer difference.")
+            self.distance = calculated
         if self.distance is None:
             self.distance = Decimal("0.0")
         return self

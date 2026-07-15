@@ -6,11 +6,11 @@ Driver Logbook helps users keep a personal record of driving trips and vehicle u
 
 ## Workflow
 
-Users add vehicles, record driving trips, filter and review trip history, archive old trips, and open insights for distance, purpose, vehicle, and monthly summaries.
+Users add vehicles, record driving trips, filter and review trip history, archive old trips, and open insights for distance, purpose, vehicle, and monthly summaries. When both start and end odometer readings are provided, distance is derived from those readings so the odometer pair remains the source of truth.
 
 ## User Journey
 
-The user opens `/driver-logbook/trips`, creates or selects a vehicle, records a trip with date, time, odometer readings, purpose, route notes, and distance, then reviews dashboard metrics and insights.
+The user opens `/driver-logbook/trips`, creates or selects a vehicle, records a trip with date, time, odometer readings, purpose, route notes, and optional distance, then reviews dashboard metrics and insights.
 
 ## Database Design
 
@@ -51,4 +51,4 @@ Possible future improvements include CSV export, trip templates, printable perso
 
 ## Current Implementation
 
-The implementation provides owner-scoped vehicles and trips, FastAPI endpoints, SQLAlchemy models, Pydantic schemas, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation.
+The implementation provides owner-scoped vehicles and trips, FastAPI endpoints, SQLAlchemy models, Pydantic schemas, Alembic migration, React routes, typed API integration, Zustand state, and readiness documentation. Trip validation rejects impossible odometer ordering while deriving saved distance from valid start and end odometer readings when both are present.

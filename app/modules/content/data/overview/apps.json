@@ -1946,14 +1946,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "first-aid-guide",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 20,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-15"
 		},
 		{
 			"id": "app_fuel-expense-tracker",
@@ -1969,14 +1969,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "fuel-expense-tracker",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 20,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-15"
 		},
 		{
 			"id": "app_driver-logbook",

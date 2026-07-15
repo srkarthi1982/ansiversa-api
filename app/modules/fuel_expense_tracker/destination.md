@@ -1,12 +1,18 @@
 # Fuel Expense Tracker Destination
 
+## Document Status
+
+Approved for Live promotion on 2026-07-15 after Astra review, Partner approval, production migration verification, production catalog verification, backend authentication fix verification, and manual browser verification.
+
 ## Destination Status
 
-Unapproved for live launch. The app remains `active` / `comingSoon` / `version = null`.
+Approved v1.0
 
 ## Product Destination
 
 Fuel Expense Tracker should be a focused vehicle fuel purchase log with vehicle records, fuel entries, dashboard totals, and spending insights.
+
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Principles
 
@@ -35,4 +41,16 @@ Fuel Expense Tracker should be a focused vehicle fuel purchase log with vehicle 
 
 ## Journey Progress
 
-V1 is prepared for manual verification and must remain behind the coming-soon gate until explicit approval.
+Current Position: 20 / 100
+
+Current Journey Progress: 20 / 100
+
+V1 creates the personal fuel expense foundation with owner-scoped vehicles, fuel entry CRUD, archive/restore actions, search/filter/sort controls, dashboard summaries, insights, production migration, database authentication fix verification, and verified production workflow behavior. Remaining maturity includes receipt attachments, CSV export, recurring vehicle defaults, and optional printable summaries after approval.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-15.
+
+Partner: Approved Fuel Expense Tracker live promotion after owner-review browser verification and backend authentication fix verification.
+
+Codex: Fixed isolated database auth wiring, verified Turso connectivity, smoke-tested dashboard/vehicles/entries/insights behavior, synced overview metadata, promoted the production Apps row, synced destination metadata, and verified production catalog counts.
