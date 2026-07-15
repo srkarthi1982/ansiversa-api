@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 APPROVED_STATUS = "approved"
-EXPECTED_LIVE_DESTINATION_COUNT = 80
+EXPECTED_LIVE_DESTINATION_COUNT = 81
 REVIEW_DATE_PATTERN = re.compile(
     r"(?:Astra: Approved on|Reviewed At:|Last Reviewed:)\s*(?P<date>\d{4}-\d{2}-\d{2})"
 )

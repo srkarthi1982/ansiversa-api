@@ -23,7 +23,7 @@ The API is mounted at `/api/v1/water-intake-tracker` and provides dashboard, ins
 
 ## Current Status
 
-The V1 workflow is ready for manual verification. The app remains `comingSoon` with `version = null` and has not been promoted live.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, isolated database authentication fix verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
@@ -32,3 +32,7 @@ No reminders, wearable integrations, health recommendations, or medical guidance
 ## Future Enhancements
 
 Potential future work may include reminders, quick-add presets, exports, and optional cross-app wellness summaries after governance review.
+
+## Current Implementation
+
+The production catalog row is `active` / `live` / `1.0.0`. The isolated database engine uses the shared libSQL/Turso connection helpers so production requests include the required database auth token.

@@ -1,8 +1,18 @@
 # Water Intake Tracker Destination
 
+## Document Status
+
+Approved for Live promotion on 2026-07-15 after Astra review, Partner approval, production migration verification, production catalog verification, backend authentication fix verification, and manual browser verification.
+
+## Destination Status
+
+Approved v1.0
+
 ## Destination
 
 Water Intake Tracker is a private personal wellness log for hydration habits. Users can set their own daily water goal, log intake entries, review progress, and inspect daily, weekly, and monthly summaries.
+
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Product Boundary
 
@@ -19,8 +29,33 @@ The app does not provide medical advice, diagnose dehydration, prescribe water i
 - Dashboard with today's intake, remaining amount, completion percentage, achieved state, weekly/monthly averages, and streak.
 - Insights with best hydration day, weekly trend, drink type totals, recent entries, and daily summaries.
 - Overview Explore CTA routes to `/water-intake-tracker/entries`.
-- Production migration verified while preserving `comingSoon` and `version = null`.
+- Production migration verified.
+- App is `active` / `live` at version `1.0.0`.
+- Destination metadata is synced to `20 / 100`, `approved`, reviewed on `2026-07-15`.
 
 ## Current Verification State
 
-Workflow Ready after implementation and production migration. Manual verification is required before any live promotion.
+Approved live after implementation, production migration, backend authentication fix verification, and manual browser verification.
+
+## Journey Progress
+
+Current Position: 20 / 100
+
+Current Journey Progress: 20 / 100
+
+V1 creates the private hydration tracker foundation with owner-scoped goals and entries, goal management, entry CRUD, unit conversion, search, filters, sorting, pagination, dashboard KPIs, insights, production migration, database authentication fix verification, and verified production workflow behavior. Remaining maturity includes reminders, quick-add presets, exports, and approved cross-app wellness summaries.
+
+## Future Direction
+
+- Add reminders only through the approved platform notification layer.
+- Add quick-add presets after V1 usage review.
+- Add exports after product review.
+- Consider approved cross-app wellness summaries without medical guidance claims.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-15.
+
+Partner: Approved Water Intake Tracker live promotion after owner-review browser verification and backend authentication fix verification.
+
+Codex: Fixed isolated database auth wiring, verified Turso connectivity, smoke-tested dashboard/entries/drink-types/insights API responses, removed temporary smoke-test data, synced overview metadata, promoted the production Apps row, synced destination metadata, and verified production catalog counts.
