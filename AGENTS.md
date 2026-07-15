@@ -1186,7 +1186,7 @@ Current status:
 ```text
 Platform + 75 live solution apps
 Remaining live approvals toward 100 solution apps: 25
-Current workflow: Emergency Contacts Organizer App #077, Packing Checklist App #078, Birthday & Anniversary Reminder App #079, Home Maintenance Planner App #080, Doctor Visit Tracker App #081, Water Intake Tracker App #082, and Vaccination Tracker App #083 are Workflow Ready and pending manual verification. Keep all seven comingSoon/version null until explicit approval.
+Current workflow: Emergency Contacts Organizer App #077, Packing Checklist App #078, Birthday & Anniversary Reminder App #079, Home Maintenance Planner App #080, Doctor Visit Tracker App #081, Water Intake Tracker App #082, Vaccination Tracker App #083, and Symptom Journal App #084 are Workflow Ready and pending manual verification. Keep all eight comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Ran Symptom Journal App #084 production-configured isolated database migration to Alembic head `20260715_0001_symptom_journal`, verified `SymptomCategories`, `SymptomEntries`, 14 required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
+* 2026-07-15: Implemented Symptom Journal App #084 backend to Workflow Ready with isolated `SYMPTOM_JOURNAL_DATABASE_URL`, owner-scoped symptom categories and entries, default category seeding, protected category/entry CRUD APIs, archive/restore actions, severity and temperature validation, search/filter/sort/pagination support, dashboard and insights summaries, Alembic migration `20260715_0001_symptom_journal`, overview Explore routing to `/symptom-journal/entries`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Vaccination Tracker App #083 production-configured isolated database migration to Alembic head `20260715_0001_vaccination_tracker`, verified `VaccinationProfiles`, `VaccineTypes`, `VaccinationRecords`, 20 required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.
 * 2026-07-15: Implemented Vaccination Tracker App #083 backend to Workflow Ready with isolated `VACCINATION_TRACKER_DATABASE_URL`, owner-scoped profiles, vaccine types, and vaccination records, default vaccine type seeding, protected profile/vaccine/record CRUD APIs, archive/restore actions, duplicate dose protection, search/filter/sort/pagination support, due-date dashboard and insights summaries, Alembic migration `20260715_0001_vaccination_tracker`, overview Explore routing to `/vaccination-tracker/records`, market-study/destination/story/marketing documentation, generated OpenAPI contracts, local migration validation, compileall verification, service smoke tests, production migration verification, and no production Apps row live promotion. The app remains `comingSoon` with `version = null`.
 * 2026-07-15: Ran Water Intake Tracker App #082 production-configured isolated database migration to Alembic head `20260715_0001_water_intake_tracker`, verified `WaterGoals`, `WaterEntries`, required indexes, custom version table, empty starting row counts, and kept the parent Apps row `comingSoon` with version `null`.

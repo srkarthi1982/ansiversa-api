@@ -1,0 +1,2 @@
+DATABASE_SETTING = "SYMPTOM_JOURNAL_DATABASE_URL"
+VERSION_TABLE = "symptom_journal_alembic_version"

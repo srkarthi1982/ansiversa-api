@@ -1914,7 +1914,7 @@
 			"key": "symptom-journal",
 			"slug": "symptom-journal",
 			"name": "Symptom Journal",
-			"description": "Symptom Journal for the Ansiversa app ecosystem.",
+			"description": "Record personal symptom observations, severity, triggers, body areas, and follow-up notes without diagnosis or treatment advice.",
 			"categoryId": "cat_health-and-medical",
 			"status": "active",
 			"isFeatured": 0,

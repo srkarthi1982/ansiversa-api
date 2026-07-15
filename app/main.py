@@ -81,6 +81,7 @@ from app.modules.home_maintenance_planner.routes import router as home_maintenan
 from app.modules.doctor_visit_tracker.routes import router as doctor_visit_tracker_router
 from app.modules.water_intake_tracker.routes import router as water_intake_tracker_router
 from app.modules.vaccination_tracker.routes import router as vaccination_tracker_router
+from app.modules.symptom_journal.routes import router as symptom_journal_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -524,6 +525,11 @@ def register_routes(app: FastAPI) -> None:
         vaccination_tracker_router,
         prefix=f"{settings.API_V1_PREFIX}/vaccination-tracker",
         tags=["Vaccination Tracker"],
+    )
+    app.include_router(
+        symptom_journal_router,
+        prefix=f"{settings.API_V1_PREFIX}/symptom-journal",
+        tags=["Symptom Journal"],
     )
     app.include_router(
         content_router, 
