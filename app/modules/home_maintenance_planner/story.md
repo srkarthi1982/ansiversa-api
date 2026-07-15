@@ -39,11 +39,11 @@ List responses return task summaries. Detail endpoints return the full editable 
 
 ## Current Status
 
-Workflow Ready for manual verification. The app remains `active / comingSoon / version null` with no live promotion.
+Approved live at version `1.0.0` after Astra review, Partner approval, production-configured isolated database migration verification, production Apps row promotion, overview metadata sync, and manual browser workflow verification. Destination metadata is synced at `20 / 100`, status `approved`, reviewed on `2026-07-15`.
 
 ## Known Limitations
 
-The app does not send notifications, upload invoices, diagnose home issues, dispatch contractors, certify safety, or provide regulatory compliance guidance.
+The app does not send notifications, upload invoices, diagnose home issues, dispatch contractors, certify safety, or provide regulatory compliance guidance. V2 UI polish should replace native browser delete confirmations with shared `AvConfirmDialog` and move create/edit flows into shared drawers for platform consistency.
 
 ## Future Enhancements
 
@@ -51,5 +51,4 @@ Future approved versions may add calendar export, safer attachment handling, sha
 
 ## Current Implementation
 
-The current implementation is an owner-scoped FastAPI, SQLAlchemy, Alembic, React, TypeScript, and Zustand workflow designed for manual planning and record keeping.
-
+The current implementation is an owner-scoped FastAPI, SQLAlchemy, Alembic, React, TypeScript, and Zustand workflow designed for manual planning and record keeping. The production catalog row is `active` / `live` / `1.0.0`.

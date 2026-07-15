@@ -1184,9 +1184,9 @@ enough to stand on its own.
 Current status:
 
 ```text
-Platform + 78 live solution apps
-Remaining live approvals toward 100 solution apps: 22
-Current workflow: Home Maintenance Planner App #080, Doctor Visit Tracker App #081, Water Intake Tracker App #082, Vaccination Tracker App #083, Symptom Journal App #084, First Aid Guide App #085, Fuel Expense Tracker App #086, Driver Logbook App #087, and Vehicle Document Tracker App #088 are Workflow Ready and pending manual verification. Keep these nine comingSoon/version null until explicit approval.
+Platform + 79 live solution apps
+Remaining live approvals toward 100 solution apps: 21
+Current workflow: Doctor Visit Tracker App #081, Water Intake Tracker App #082, Vaccination Tracker App #083, Symptom Journal App #084, First Aid Guide App #085, Fuel Expense Tracker App #086, Driver Logbook App #087, and Vehicle Document Tracker App #088 are Workflow Ready and pending manual verification. Keep these eight comingSoon/version null until explicit approval.
 ```
 
 ---
@@ -1212,6 +1212,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-15: Promoted Home Maintenance Planner App #080 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_home_maintenance_planner`, tracked catalog export update, and production catalog verification at 79 live / 21 comingSoon.
 * 2026-07-15: Promoted Birthday & Anniversary Reminder App #079 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_birthday_and_anniversary_reminder`, tracked catalog export update, and production catalog verification at 78 live / 22 comingSoon.
 * 2026-07-15: Promoted Packing Checklist App #078 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_packing_checklist`, tracked catalog export update, and production catalog verification at 77 live / 23 comingSoon.
 * 2026-07-15: Promoted Emergency Contacts Organizer App #077 backend to approved live version `1.0.0` after Astra/Partner approval, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_emergency_contacts_organizer`, tracked catalog export update, and production catalog verification at 76 live / 24 comingSoon.

@@ -1,13 +1,15 @@
 ﻿# Home Maintenance Planner Destination
 
-Document Status: Not approved for live promotion
-Destination Status: null
-Destination Reviewed At: null
+Document Status: Approved for Live promotion on 2026-07-15 after Astra review, Partner approval, production migration verification, production catalog verification, and manual browser verification.
+Destination Status: approved
+Destination Reviewed At: 2026-07-15
 Created: 2026-07-15
 
 ## Product Vision
 
 Home Maintenance Planner should become a practical private workspace for planning recurring and one-time household maintenance. It helps users keep due dates, areas, categories, provider details, and cost records together without claiming professional inspection or safety certification.
+
+The destination is always `100 / 100`. The current approved Journey Progress is `20 / 100`.
 
 ## Core Workflows
 
@@ -52,11 +54,12 @@ Home Maintenance Planner is not a substitute for qualified professionals. It mus
 - Search, filters, sorting, cost fields, provider fields, and validation work.
 - Overview CTA opens `/home-maintenance-planner/tasks`.
 - Production DB migration is applied and verified.
-- App remains active / comingSoon / version null.
+- App is `active` / `live` at version `1.0.0`.
+- Destination metadata is synced to `20 / 100`, `approved`, reviewed on `2026-07-15`.
 
 ## Manual Verification Requirements
 
-Manual verification should confirm create/edit/delete, recurrence, completion, reopening, filters, insights, costs, mobile layout, keyboard labels, owner isolation, and public catalog coming-soon status.
+Manual verification confirmed create/edit/delete, recurrence, completion, reopening, filters, insights, costs, task counts, overdue calculations, workflow navigation, and overview routing.
 
 ## Readiness Checklist
 
@@ -65,5 +68,30 @@ Manual verification should confirm create/edit/delete, recurrence, completion, r
 - Documentation lifecycle complete.
 - Overview metadata synced and validated.
 - Production migration verified.
-- No live promotion.
+- Manual browser verification complete.
+- Partner/Astra approval granted.
+- Live promotion complete.
 
+## Journey Progress
+
+Current Position: 20 / 100
+
+Current Journey Progress: 20 / 100
+
+V1 creates the private home maintenance planner foundation with owner-scoped tasks, areas, categories, completion history, complete/reopen/archive/delete actions, recurring next-due behavior, search, filters, sorting, dashboard metrics, insights, cost summaries, production migration, and verified production workflow behavior. Remaining maturity includes shared drawer-based create/edit flows, shared confirmation dialogs, calendar export, safer attachment handling, shared household collaboration, and approved cross-app summaries.
+
+## Future Direction
+
+- Move create/edit flows from inline panels to shared `AvDrawer`.
+- Replace native browser delete confirmations with shared `AvConfirmDialog`.
+- Add calendar export after review.
+- Add safer attachment handling only after storage governance approval.
+- Consider shared household collaboration through approved access controls.
+
+## Governance Notes
+
+Astra: Approved on 2026-07-15.
+
+Partner: Approved Home Maintenance Planner live promotion after owner-review browser verification, with V2 UI polish notes for shared drawer forms and shared confirmation dialogs.
+
+Codex: Ran production-configured isolated database migration, verified schema/indexes/version table, synced overview metadata, promoted the production Apps row, synced destination metadata, and verified production catalog counts.
