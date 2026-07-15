@@ -77,6 +77,7 @@ from app.modules.household_expense_splitter.routes import router as household_ex
 from app.modules.emergency_contacts_organizer.routes import router as emergency_contacts_organizer_router
 from app.modules.packing_checklist.routes import router as packing_checklist_router
 from app.modules.birthday_and_anniversary_reminder.routes import router as birthday_and_anniversary_reminder_router
+from app.modules.home_maintenance_planner.routes import router as home_maintenance_planner_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -500,6 +501,11 @@ def register_routes(app: FastAPI) -> None:
         birthday_and_anniversary_reminder_router,
         prefix=f"{settings.API_V1_PREFIX}/birthday-and-anniversary-reminder",
         tags=["Birthday & Anniversary Reminder"],
+    )
+    app.include_router(
+        home_maintenance_planner_router,
+        prefix=f"{settings.API_V1_PREFIX}/home-maintenance-planner",
+        tags=["Home Maintenance Planner"],
     )
     app.include_router(
         content_router, 

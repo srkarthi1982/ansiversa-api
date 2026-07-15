@@ -1822,7 +1822,7 @@
 			"key": "home-maintenance-planner",
 			"slug": "home-maintenance-planner",
 			"name": "Home Maintenance Planner",
-			"description": "Home Maintenance Planner for the Ansiversa app ecosystem.",
+			"description": "Plan recurring and one-time home maintenance tasks with due dates, priorities, costs, and service details.",
 			"categoryId": "cat_home-and-family",
 			"status": "active",
 			"isFeatured": 0,

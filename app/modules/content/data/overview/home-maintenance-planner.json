@@ -1,1 +1,75 @@
-{"hero":{"kicker":"Home & Family · Ansiversa mini app","title":"Home Maintenance Planner","description":"Home Maintenance Planner for the Ansiversa app ecosystem.","points":["Focused workspace","Organized information","Clear review flow"],"primaryAction":{"label":"Explore","path":"/home-maintenance-planner"}},"flow":{"kicker":"Workflow","title":"Open → Organize → Review","steps":["Open Home Maintenance Planner","Keep important information organized","Review the workspace when needed"]},"stats":[{"label":"Category","value":"Home"},{"label":"Workflow","value":"Focused"},{"label":"Access","value":"Web"}],"timeline":null,"differences":{"title":"Keep Home Maintenance Planner focused and easy to revisit","description":"Home Maintenance Planner provides a dedicated Ansiversa workspace for its core workflow without mixing it into unrelated tools.","items":[{"kicker":"Pillar 01","title":"Open","description":"Start from a dedicated app route in the Ansiversa shell."},{"kicker":"Pillar 02","title":"Organize","description":"Keep related information together in one focused workspace."},{"kicker":"Pillar 03","title":"Review","description":"Return to the app when the workflow needs attention."}]},"feel":{"kicker":"How it feels","title":"A direct path into the right workspace","description":"The Home Maintenance Planner overview keeps the purpose, route, and expected workflow clear before deeper features are added.","items":[{"title":"Easy to find","description":"The app has a stable route and catalog identity."},{"title":"Focused by design","description":"The page stays centered on the app purpose."},{"title":"Ready to evolve","description":"The overview can support future app-specific workflows without changing the shell."}]},"audiences":{"title":"Who uses Home Maintenance Planner","description":"Home Maintenance Planner is useful for people who need a dedicated home & family workspace inside Ansiversa.","items":[{"title":"Individuals","description":"Use a focused app route for a specific task."},{"title":"Families and teams","description":"Keep related information easy to understand and revisit."},{"title":"Power users","description":"Move between Ansiversa apps while keeping each workflow separate."}]},"resourceSection":{"title":"Home Maintenance Planner essentials","description":"A concise overview keeps the app purpose clear while implementation matures.","items":[{"title":"Stable route","description":"Available at /home-maintenance-planner."},{"title":"Catalog alignment","description":"Connected to the active Ansiversa app registry."},{"title":"Shared shell","description":"Runs inside the same Ansiversa navigation and layout system."}]},"groupedSection":{"title":"A simple route-to-workspace flow","description":"The overview supports a clear path from discovery to future app-specific work.","groups":[{"kicker":"Discover","title":"Find the app","items":[{"name":"Catalog","description":"The app appears in the active catalog."},{"name":"Route","description":"The route is aligned with the app slug: /home-maintenance-planner."}]},{"kicker":"Use","title":"Open the workspace","items":[{"name":"Overview","description":"Review the app purpose and entry point."},{"name":"Future workflow","description":"App-specific functionality can be added without changing catalog identity."}]}]},"technicalSection":{"title":"Aligned with the Ansiversa platform model","description":"Home Maintenance Planner follows the shared mini-app overview metadata pattern.","items":["API-driven overview metadata.","Catalog key, slug, and route alignment.","Responsive presentation through the shared Ansiversa shell."]},"finalCta":{"title":"Open Home Maintenance Planner","description":"Explore Home Maintenance Planner from its active Ansiversa route.","action":{"label":"Explore","path":"/home-maintenance-planner"}}}
+{
+  "hero": {
+    "kicker": "Home & Family - Ansiversa mini app",
+    "title": "Home Maintenance Planner",
+    "description": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+    "points": ["Task scheduling", "Recurring maintenance", "Cost and provider records"],
+    "primaryAction": {"label": "Explore", "path": "/home-maintenance-planner/tasks"}
+  },
+  "flow": {
+    "kicker": "Maintenance flow",
+    "title": "Plan ? Track ? Complete ? Review",
+    "steps": ["Create a task for a home area and category", "Set a due date, priority, recurrence, and reminder lead time", "Complete recurring work and let the next due date move forward", "Review overdue, upcoming, and cost summaries"]
+  },
+  "stats": [
+    {"label": "Tasks", "value": "Tracked"},
+    {"label": "Recurring", "value": "Planned"},
+    {"label": "Costs", "value": "Recorded"}
+  ],
+  "timeline": null,
+  "differences": {
+    "title": "Keep household work visible without turning it into a project system",
+    "description": "Home Maintenance Planner focuses on personal scheduling and records for apartments, homes, villas, and family residences.",
+    "items": [
+      {"kicker": "Pillar 01", "title": "Areas and categories", "description": "Organize work by spaces such as kitchen, bathroom, HVAC, plumbing, appliances, exterior, and general maintenance."},
+      {"kicker": "Pillar 02", "title": "Recurring due dates", "description": "Weekly, monthly, quarterly, six-monthly, yearly, and custom schedules move forward predictably when completed."},
+      {"kicker": "Pillar 03", "title": "Service records", "description": "Optional provider, reference, estimated cost, actual cost, and notes fields keep useful context near each task."}
+    ]
+  },
+  "feel": {
+    "kicker": "How it feels",
+    "title": "A practical maintenance board for the home",
+    "description": "The workflow keeps attention on what is due, what is overdue, and what was completed recently.",
+    "items": [
+      {"title": "Clear priorities", "description": "Due-soon and overdue indicators help users decide what to handle next."},
+      {"title": "Reusable setup", "description": "Default areas and categories reduce setup time while still allowing personal labels."},
+      {"title": "Plain records", "description": "Costs and provider details are optional notes, not a contractor marketplace or inspection system."}
+    ]
+  },
+  "audiences": {
+    "title": "Who uses Home Maintenance Planner",
+    "description": "Useful for people who need a private record of home maintenance work and reminders.",
+    "items": [
+      {"title": "Families", "description": "Coordinate recurring household work such as AC servicing, cleaning, and appliance care."},
+      {"title": "Homeowners and villa residents", "description": "Track exterior, garden, roof, plumbing, and servicing tasks in one place."},
+      {"title": "Renters", "description": "Remember appliance care, filter cleaning, minor upkeep, and landlord reference notes."}
+    ]
+  },
+  "resourceSection": {
+    "title": "Maintenance planning essentials",
+    "description": "Keep the useful details close to the task without adding heavy operations tooling.",
+    "items": [
+      {"title": "Tasks", "description": "Create, edit, complete, reopen, archive, restore, and delete maintenance tasks."},
+      {"title": "Schedules", "description": "Use one-time or recurring schedules with predictable next due dates."},
+      {"title": "Insights", "description": "Review overdue work, upcoming tasks, priorities, categories, areas, and cost totals."}
+    ]
+  },
+  "groupedSection": {
+    "title": "From home area to completed work",
+    "description": "Use one protected workflow for maintenance planning and record keeping.",
+    "groups": [
+      {"kicker": "Plan", "title": "Set up the work", "items": [{"name": "Areas", "description": "Group tasks by room, system, or exterior area."}, {"name": "Categories", "description": "Classify the kind of work being planned."}]},
+      {"kicker": "Track", "title": "Keep due dates visible", "items": [{"name": "Tasks", "description": "Search, filter, sort, and update maintenance tasks."}, {"name": "Insights", "description": "Review overdue, upcoming, recent completion, and cost patterns."}]}
+    ]
+  },
+  "technicalSection": {
+    "title": "Built for private maintenance records",
+    "description": "Home Maintenance Planner follows the shared Ansiversa mini-app architecture.",
+    "items": ["Authenticated owner-scoped records.", "API-driven overview metadata and generated API contracts.", "Planning-only wording with no professional inspection, safety guarantee, emergency service, or contractor certification claims."]
+  },
+  "finalCta": {
+    "title": "Ready to organize home maintenance?",
+    "description": "Open the planner and create the first maintenance task.",
+    "action": {"label": "Explore", "path": "/home-maintenance-planner/tasks"}
+  }
+}
