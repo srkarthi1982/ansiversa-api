@@ -1,0 +1,1 @@
+VERSION_TABLE="emergency_checklist_alembic_version"

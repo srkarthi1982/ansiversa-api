@@ -97,6 +97,7 @@ from app.modules.net_worth_tracker.routes import router as net_worth_tracker_rou
 from app.modules.decision_maker.routes import router as decision_maker_router
 from app.modules.errand_planner.routes import router as errand_planner_router
 from app.modules.local_services_finder.routes import router as local_services_finder_router
+from app.modules.emergency_checklist.routes import router as emergency_checklist_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -589,6 +590,7 @@ def register_routes(app: FastAPI) -> None:
     app.include_router(decision_maker_router,prefix=f"{settings.API_V1_PREFIX}/decision-maker",tags=["Decision Maker"])
     app.include_router(errand_planner_router,prefix=f"{settings.API_V1_PREFIX}/errand-planner",tags=["Errand Planner"])
     app.include_router(local_services_finder_router,prefix=f"{settings.API_V1_PREFIX}/local-services-finder",tags=["Local Services Finder"])
+    app.include_router(emergency_checklist_router,prefix=f"{settings.API_V1_PREFIX}/emergency-checklist",tags=["Emergency Checklist"])
     app.include_router(
         content_router, 
         prefix="/api/v1",

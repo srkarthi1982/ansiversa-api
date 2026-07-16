@@ -2282,7 +2282,7 @@
 			"key": "emergency-checklist",
 			"slug": "emergency-checklist",
 			"name": "Emergency Checklist",
-			"description": "Emergency Checklist for the Ansiversa app ecosystem.",
+			"description": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
 			"categoryId": "cat_daily-life",
 			"status": "active",
 			"isFeatured": 0,
