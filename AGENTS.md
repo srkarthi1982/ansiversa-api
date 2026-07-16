@@ -524,7 +524,38 @@ For every new mini app, before approval:
 11. `market-study.md`, `destination.md`, `story.md`, and `marketing.md`
     present and aligned
 12. apps.json/catalog/readiness docs updated
-13. Production migration and promotion only after manual approval
+13. Mandatory authenticated Codex E2E gate passed with evidence
+14. Karthik manual acceptance approval completed
+15. Production migration and live promotion only after explicit approval
+
+## Mandatory Codex End-to-End Testing Gate
+
+Before presenting an application for user review, Codex must complete authenticated end-to-end testing with the dedicated normal-user Ansiversa test account. Compile, typecheck, lint, build, API tests, and migration validation do not replace this gate.
+
+Codex must:
+
+1. Log in through the real Ansiversa login workflow.
+2. Open the app Overview and follow `Explore` into the first real workflow.
+3. Test every route and workflow documented in `story.md`.
+4. Test create, view, edit, delete, search, filters, pagination, refresh, persistence, and back-button navigation where applicable.
+5. Test valid, invalid, boundary, duplicate, and stale-form inputs.
+6. Test loading, empty, populated, error, filtered-empty, unauthorized, and missing-record states.
+7. Test direct URLs and invalid or inaccessible record IDs.
+8. Test desktop and mobile viewports for overflow, drawer/dialog behavior, focus, and responsive layout.
+9. Inspect browser console output and failed network/API requests.
+10. Record every defect, fix every in-scope defect, retest affected workflows after each fix, and run a complete regression pass after the final fix.
+11. Remove disposable test records where appropriate.
+12. Provide screenshots or equivalent browser evidence and a structured E2E report covering executed, passed, and failed cases; defects and fixes; regression results; and remaining limitations.
+
+Codex must not mark an app ready for user review until this gate passes. If credentials, browser access, or another required test dependency is unavailable, report the app as technically implemented but E2E-blocked.
+
+Test credentials must be supplied through environment variables or an existing authenticated browser session. They must never be committed, documented, printed, logged, or shown in screenshots. The test account must have no administrative privileges.
+
+The approval order is permanent:
+
+1. Codex technical and authenticated E2E approval
+2. Karthik manual acceptance approval
+3. Live promotion
 
 ## Story Documentation Contract
 

@@ -11,3 +11,5 @@ The backend uses the isolated `MEETING_SCHEDULER_DATABASE_URL` and three tables:
 API routes live under `/api/v1/meeting-scheduler`: dashboard; paginated meeting list/create; meeting detail/update/delete; nested participant create/update/delete; and nested agenda item create/update/delete. Operation IDs are stable and the generated frontend contract is the API boundary.
 
 V1 deliberately excludes invitation delivery, calendar integration, conferencing, availability checking, reminders, AI generation, and external credentials. Participant response values are organizational labels entered by the owner, not proof of external communication.
+
+Before manual acceptance, authenticated E2E coverage must include overlapping schedules, end-before-start rejection, the same-date midnight-spanning boundary, duplicate participants, invalid participant email, cancelled/completed presentation, cascade deletion with child records, stale drawer state, refresh persistence, back navigation, invalid detail IDs, and filtered-empty results. Overlap and duplicate-participant cases are currently permitted organizational records unless the product destination is explicitly changed.
