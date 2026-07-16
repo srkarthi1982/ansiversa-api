@@ -1,0 +1,19 @@
+from datetime import date,datetime
+from decimal import Decimal
+from uuid import uuid4
+from sqlalchemy import Boolean,Date,DateTime,ForeignKey,Index,Numeric,String,Text,UniqueConstraint,func
+from sqlalchemy.orm import Mapped,mapped_column,relationship
+from .db import Base
+def uid():return str(uuid4())
+class Account(Base):
+ __tablename__="NetWorthAccounts";__table_args__=(Index("ix_nw_accounts_user_status","userId","status"),Index("ix_nw_accounts_user_type","userId","accountType"),Index("ix_nw_accounts_user_currency","userId","currencyCode"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);user_id:Mapped[str]=mapped_column("userId",String(36),index=True);name:Mapped[str]=mapped_column(String(180));account_type:Mapped[str]=mapped_column("accountType",String(12));category:Mapped[str]=mapped_column(String(30));currency_code:Mapped[str]=mapped_column("currencyCode",String(3));institution_name:Mapped[str|None]=mapped_column("institutionName",String(180));current_balance:Mapped[Decimal]=mapped_column("currentBalance",Numeric(16,2));valuation_date:Mapped[date]=mapped_column("valuationDate",Date);include_in_net_worth:Mapped[bool]=mapped_column("includeInNetWorth",Boolean);status:Mapped[str]=mapped_column(String(12));notes:Mapped[str|None]=mapped_column(Text);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now());updated_at:Mapped[datetime]=mapped_column("updatedAt",DateTime,server_default=func.now(),onupdate=func.now());entries:Mapped[list["BalanceEntry"]]=relationship(cascade="all, delete-orphan")
+class BalanceEntry(Base):
+ __tablename__="NetWorthBalanceEntries";__table_args__=(Index("ix_nw_entries_account_date","accountId","balanceDate","createdAt"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);account_id:Mapped[str]=mapped_column("accountId",String(36),ForeignKey("NetWorthAccounts.id",ondelete="CASCADE"),index=True);balance_date:Mapped[date]=mapped_column("balanceDate",Date);balance_amount:Mapped[Decimal]=mapped_column("balanceAmount",Numeric(16,2));change_reason:Mapped[str|None]=mapped_column("changeReason",String(180));notes:Mapped[str|None]=mapped_column(Text);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now());updated_at:Mapped[datetime]=mapped_column("updatedAt",DateTime,server_default=func.now(),onupdate=func.now())
+class Snapshot(Base):
+ __tablename__="NetWorthSnapshots";__table_args__=(UniqueConstraint("userId","snapshotDate",name="uq_nw_snapshot_user_date"),Index("ix_nw_snapshots_user_date","userId","snapshotDate"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);user_id:Mapped[str]=mapped_column("userId",String(36),index=True);snapshot_date:Mapped[date]=mapped_column("snapshotDate",Date);name:Mapped[str]=mapped_column(String(180));notes:Mapped[str|None]=mapped_column(Text);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now());items:Mapped[list["SnapshotItem"]]=relationship(cascade="all, delete-orphan")
+class SnapshotItem(Base):
+ __tablename__="NetWorthSnapshotItems";__table_args__=(Index("ix_nw_snapshot_items_snapshot_currency","snapshotId","currencyCode"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);snapshot_id:Mapped[str]=mapped_column("snapshotId",String(36),ForeignKey("NetWorthSnapshots.id",ondelete="CASCADE"),index=True);account_id:Mapped[str|None]=mapped_column("accountId",String(36));account_name:Mapped[str]=mapped_column("accountName",String(180));account_type:Mapped[str]=mapped_column("accountType",String(12));category:Mapped[str]=mapped_column(String(30));currency_code:Mapped[str]=mapped_column("currencyCode",String(3));balance_amount:Mapped[Decimal]=mapped_column("balanceAmount",Numeric(16,2));included:Mapped[bool]=mapped_column(Boolean);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now())
