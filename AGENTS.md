@@ -1217,7 +1217,7 @@ Current status:
 ```text
 Platform + 87 live solution apps
 Remaining live approvals toward 100 solution apps: 13
-Current workflow: Meeting Scheduler App #089 and Leave Planner App #090 are Workflow Ready but pending authenticated E2E and manual verification. Keep both comingSoon/version null until explicit approval. Shift Planner App #091 is next in the development queue.
+Current workflow: Meeting Scheduler App #089, Leave Planner App #090, and Shift Planner App #091 are Workflow Ready but pending authenticated E2E and manual verification. Keep all three comingSoon/version null until explicit approval. Work Log Tracker App #092 is next in the development queue.
 ```
 
 ---
@@ -1242,6 +1242,8 @@ Next milestone:
 ---
 
 ## Task Log (Recent)
+
+* 2026-07-16: Implemented Shift Planner App #091 backend to Workflow Ready with isolated `SHIFT_PLANNER_DATABASE_URL`, owner-scoped shift types, lightweight members, and shifts; overnight and break-aware duration; same-member conflict prevention; safe historical deactivation; protected CRUD, combined filters, pagination, metrics, migration `20260716_0003_shift_planner`, overview routing, lifecycle documentation, generated contracts, compileall, and regression tests. Ran the production-configured migration to head and verified all three application tables, the custom version table, twelve indexes, two foreign keys, and empty starting row counts. The app remains `comingSoon` with `version = null`; authenticated E2E remains pending.
 
 * 2026-07-16: Implemented Leave Planner App #090 backend to Workflow Ready with isolated `LEAVE_PLANNER_DATABASE_URL`, owner-scoped leave types and entries, weekday and half-day duration rules, overlap prevention, safe historical type deactivation, protected CRUD APIs, combined search/filter/pagination, dashboard balances, Alembic migration `20260716_0002_leave_planner`, overview routing to `/leave-planner/leaves`, lifecycle documentation, generated OpenAPI contracts, compileall, and service tests. Ran the production-configured migration to head and verified `LeaveTypes`, `LeaveEntries`, the custom version table, ten indexes, one foreign key, and empty starting row counts. The app remains `comingSoon` with `version = null`; authenticated E2E remains pending.
 * 2026-07-16: Implemented Meeting Scheduler App #089 backend to Workflow Ready with isolated `MEETING_SCHEDULER_DATABASE_URL`, owner-scoped meetings with nested participants and agenda items, protected CRUD APIs, search/status/period filters, pagination, dashboard summaries, Alembic migration `20260716_0001_meeting_scheduler`, overview Explore routing to `/meeting-scheduler/meetings`, lifecycle documentation, generated OpenAPI contracts, compileall verification, service smoke tests, and production migration verification covering the custom version table, three empty starting tables, nine indexes, and two cascade foreign keys. The app remains `comingSoon` with `version = null` and no live promotion.

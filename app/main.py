@@ -88,6 +88,7 @@ from app.modules.driver_logbook.routes import router as driver_logbook_router
 from app.modules.vehicle_document_tracker.routes import router as vehicle_document_tracker_router
 from app.modules.meeting_scheduler.routes import router as meeting_scheduler_router
 from app.modules.leave_planner.routes import router as leave_planner_router
+from app.modules.shift_planner.routes import router as shift_planner_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -566,6 +567,11 @@ def register_routes(app: FastAPI) -> None:
         leave_planner_router,
         prefix=f"{settings.API_V1_PREFIX}/leave-planner",
         tags=["Leave Planner"],
+    )
+    app.include_router(
+        shift_planner_router,
+        prefix=f"{settings.API_V1_PREFIX}/shift-planner",
+        tags=["Shift Planner"],
     )
     app.include_router(
         content_router, 
