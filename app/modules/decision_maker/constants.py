@@ -1,0 +1,1 @@
+VERSION_TABLE="decision_maker_alembic_version"
