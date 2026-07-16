@@ -2259,7 +2259,7 @@
 			"key": "local-services-finder",
 			"slug": "local-services-finder",
 			"name": "Local Services Finder",
-			"description": "Local Services Finder for the Ansiversa app ecosystem.",
+			"description": "Maintain a private directory of trusted local service providers with contact details, ratings, notes, and preferred markers.",
 			"categoryId": "cat_daily-life",
 			"status": "active",
 			"isFeatured": 0,

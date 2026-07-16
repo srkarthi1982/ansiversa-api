@@ -1,0 +1,1 @@
+VERSION_TABLE="local_services_finder_alembic_version"
