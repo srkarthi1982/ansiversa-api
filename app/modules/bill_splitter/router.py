@@ -1,0 +1,32 @@
+from datetime import date
+from fastapi import APIRouter,Query,Response
+from app.modules.bill_splitter import service as s
+from app.modules.bill_splitter.dependencies import CurrentUser,DB
+from app.modules.bill_splitter.schemas import *
+router=APIRouter()
+@router.get("/dashboard",response_model=Dashboard,operation_id="getBillSplitterDashboard")
+def dashboard(db:DB,current_user:CurrentUser):return s.dashboard(db,current_user)
+@router.get("/bills",response_model=BillList,operation_id="listBillSplitterBills")
+def bills(db:DB,current_user:CurrentUser,q:str|None=None,status:Status|None=None,currency:str|None=None,period:Period="all",date_from:date|None=Query(None,alias="dateFrom"),date_to:date|None=Query(None,alias="dateTo"),page:int=Query(1,ge=1),page_size:int=Query(20,alias="pageSize",ge=1,le=100)):return s.list_bills(db,current_user,q,status,currency,period,date_from,date_to,page,page_size)
+@router.post("/bills",response_model=BillDetail,status_code=201,operation_id="createBillSplitterBill")
+def create_bill(payload:BillCreate,db:DB,current_user:CurrentUser):return s.save_bill(db,current_user,payload)
+@router.get("/bills/{bill_id}",response_model=BillDetail,operation_id="getBillSplitterBill")
+def get_bill(bill_id:str,db:DB,current_user:CurrentUser):return s.get_bill(db,current_user,bill_id)
+@router.put("/bills/{bill_id}",response_model=BillDetail,operation_id="updateBillSplitterBill")
+def update_bill(bill_id:str,payload:BillUpdate,db:DB,current_user:CurrentUser):return s.save_bill(db,current_user,payload,bill_id)
+@router.delete("/bills/{bill_id}",status_code=204,operation_id="deleteBillSplitterBill")
+def delete_bill(bill_id:str,db:DB,current_user:CurrentUser):s.delete_bill(db,current_user,bill_id);return Response(status_code=204)
+@router.post("/bills/{bill_id}/participants",response_model=BillDetail,status_code=201,operation_id="createBillParticipant")
+def create_participant(bill_id:str,payload:ParticipantCreate,db:DB,current_user:CurrentUser):return s.save_participant(db,current_user,bill_id,payload)
+@router.put("/bills/{bill_id}/participants/{participant_id}",response_model=BillDetail,operation_id="updateBillParticipant")
+def update_participant(bill_id:str,participant_id:str,payload:ParticipantUpdate,db:DB,current_user:CurrentUser):return s.save_participant(db,current_user,bill_id,payload,participant_id)
+@router.delete("/bills/{bill_id}/participants/{participant_id}",status_code=204,operation_id="deleteBillParticipant")
+def delete_participant(bill_id:str,participant_id:str,db:DB,current_user:CurrentUser):s.delete_participant(db,current_user,bill_id,participant_id);return Response(status_code=204)
+@router.post("/bills/{bill_id}/items",response_model=BillDetail,status_code=201,operation_id="createBillItem")
+def create_item(bill_id:str,payload:ItemCreate,db:DB,current_user:CurrentUser):return s.save_item(db,current_user,bill_id,payload)
+@router.put("/bills/{bill_id}/items/{item_id}",response_model=BillDetail,operation_id="updateBillItem")
+def update_item(bill_id:str,item_id:str,payload:ItemUpdate,db:DB,current_user:CurrentUser):return s.save_item(db,current_user,bill_id,payload,item_id)
+@router.delete("/bills/{bill_id}/items/{item_id}",status_code=204,operation_id="deleteBillItem")
+def delete_item(bill_id:str,item_id:str,db:DB,current_user:CurrentUser):s.delete_item(db,current_user,bill_id,item_id);return Response(status_code=204)
+@router.put("/bills/{bill_id}/items/{item_id}/allocations",response_model=BillDetail,operation_id="replaceBillItemAllocations")
+def allocations(bill_id:str,item_id:str,payload:AllocationReplace,db:DB,current_user:CurrentUser):return s.replace_allocations(db,current_user,bill_id,item_id,payload)
