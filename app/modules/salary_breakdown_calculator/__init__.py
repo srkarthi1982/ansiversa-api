@@ -1,0 +1,1 @@
+"""Salary Breakdown Calculator module."""

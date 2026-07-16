@@ -1,0 +1,9 @@
+# Salary Breakdown Calculator Story
+
+Authenticated users save scenarios and manage nested earnings and deductions under `/api/v1/salary-breakdown-calculator`. The API provides dashboard, paginated search/filter CRUD, authoritative detail calculations, and a non-persisted comparison endpoint. `SalaryScenarios`, `SalaryEarnings`, and `SalaryDeductions` cascade only within the owning scenario.
+
+Frequency factors are weekly 52, biweekly 26, semimonthly 24, monthly 12, quarterly 4, and annual 1. Decimal values use two-place half-up rounding. Recurring gross is annualized base plus recurring earnings; one-time earnings remain separate. Fixed deductions annualize only when recurring. Percentage deductions apply to annual base or recurring gross. Recurring net is gross less recurring deductions, and negative recurring net is rejected. One-time deductions remain separate. Archived scenarios are viewable/comparable but nested records are read-only until restored.
+
+List search covers scenario and component names, description, and notes. Filters combine status, display frequency, currency, created/updated ranges, and pagination; active records order before draft and archived records, then latest updates. Dashboard money remains grouped by currency. Same-currency comparison returns annual differences; cross-currency comparison returns each side without monetary differences or conversion.
+
+Frontend routes provide overview, scenarios, detail, and comparison workflows. Create/edit forms use `AvFormDrawer`; deletes use `AvRecordActions` and `AvConfirmDialog`. The production-configured isolated migration is verified at `20260716_0007_salary_breakdown_calculator`. Status remains Workflow Ready at Level 3, `comingSoon`, version `null`; destination approval, authenticated E2E, manual acceptance, and live promotion remain pending.
