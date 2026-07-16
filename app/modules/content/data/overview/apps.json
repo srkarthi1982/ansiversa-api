@@ -2236,7 +2236,7 @@
 			"key": "errand-planner",
 			"slug": "errand-planner",
 			"name": "Errand Planner",
-			"description": "Errand Planner for the Ansiversa app ecosystem.",
+			"description": "Organize errands with categories, priorities, due dates, locations, notes, completion, and archive tracking.",
 			"categoryId": "cat_daily-life",
 			"status": "active",
 			"isFeatured": 0,

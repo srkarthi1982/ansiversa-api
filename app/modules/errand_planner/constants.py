@@ -1,0 +1,1 @@
+VERSION_TABLE="errand_planner_alembic_version"

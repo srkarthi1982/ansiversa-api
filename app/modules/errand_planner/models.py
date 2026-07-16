@@ -1,0 +1,12 @@
+from datetime import date,datetime
+from uuid import uuid4
+from sqlalchemy import Date,DateTime,ForeignKey,Index,Integer,String,Text,UniqueConstraint,func
+from sqlalchemy.orm import Mapped,mapped_column,relationship
+from .db import Base
+def uid():return str(uuid4())
+class ErrandCategory(Base):
+ __tablename__="ErrandCategories";__table_args__=(UniqueConstraint("userId","name",name="uq_errand_category_user_name"),Index("ix_errand_categories_user_sort","userId","sortOrder"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);user_id:Mapped[str]=mapped_column("userId",String(36),index=True);name:Mapped[str]=mapped_column(String(80));color:Mapped[str|None]=mapped_column(String(40));sort_order:Mapped[int]=mapped_column("sortOrder",Integer,default=0);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now());updated_at:Mapped[datetime]=mapped_column("updatedAt",DateTime,server_default=func.now(),onupdate=func.now());errands:Mapped[list["Errand"]]=relationship(back_populates="category")
+class Errand(Base):
+ __tablename__="Errands";__table_args__=(Index("ix_errands_user_status","userId","status"),Index("ix_errands_user_due","userId","dueDate"),Index("ix_errands_user_priority","userId","priority"),Index("ix_errands_user_category","userId","categoryId"),Index("ix_errands_user_updated","userId","updatedAt"),)
+ id:Mapped[str]=mapped_column(String(36),primary_key=True,default=uid);user_id:Mapped[str]=mapped_column("userId",String(36),index=True);title:Mapped[str]=mapped_column(String(180));description:Mapped[str|None]=mapped_column(Text);category_id:Mapped[str|None]=mapped_column("categoryId",String(36),ForeignKey("ErrandCategories.id",ondelete="SET NULL"),index=True);priority:Mapped[str]=mapped_column(String(12));due_date:Mapped[date|None]=mapped_column("dueDate",Date);estimated_minutes:Mapped[int|None]=mapped_column("estimatedMinutes",Integer);location:Mapped[str|None]=mapped_column(String(240));status:Mapped[str]=mapped_column(String(15));notes:Mapped[str|None]=mapped_column(Text);created_at:Mapped[datetime]=mapped_column("createdAt",DateTime,server_default=func.now());updated_at:Mapped[datetime]=mapped_column("updatedAt",DateTime,server_default=func.now(),onupdate=func.now());completed_at:Mapped[datetime|None]=mapped_column("completedAt",DateTime);category:Mapped[ErrandCategory|None]=relationship(back_populates="errands")
