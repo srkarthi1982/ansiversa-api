@@ -1,0 +1,11 @@
+# Savings Goal Planner Story
+
+An authenticated user opens `/savings-goal-planner/goals`, creates a goal in an `AvFormDrawer`, and reviews target, saved, remaining, percentage, deadline, weekly/monthly pace, and status. Goal detail at `/savings-goal-planner/goals/:goalId` contains contribution/correction history and milestones. All create/edit flows use `AvFormDrawer`; all deletes use `AvRecordActions` and its shared `AvConfirmDialog`.
+
+The backend exposes dashboard and paginated goal CRUD plus nested transaction and milestone endpoints under `/api/v1/savings-goal-planner`. `SavingsGoals`, `SavingsTransactions`, and `SavingsMilestones` are owner-scoped through the parent goal. Search covers name, description, category, and notes; filters combine status, category, priority, currency, due-soon/overdue/completed periods, target-date range, and pagination. Default ordering places active goals first, then nearest dated goals, then newest ties.
+
+Amounts use `Decimal`, two decimal places, and half-up rounding. Current saved equals starting amount plus contributions/increases minus withdrawals/decreases. Negative balances and overfunding are rejected. Remaining is floored at zero; progress reaches at most 100%. Full funding automatically completes an active goal. A decrease can reopen it. Paused, cancelled, and archived goals block transactions; archived goals block milestone changes. Pace divides remaining value across exact remaining days using seven-day weeks and 30.44-day planning months, with zero pace for funded, undated, due-today, or overdue goals.
+
+Milestones are stably ordered and derive reached, missed, or pending from current savings and date unless cancelled. Transaction changes recalculate goal and milestones; deleting a milestone never changes money; confirmed goal deletion cascades nested history. Dashboard amounts remain grouped by currency and exclude cancelled/archived goals.
+
+Shared generated API clients, Zustand helpers, authenticated states, page headers, cards, feedback, pagination, form drawers, record actions, and empty states cover loading, first-use empty, filtered-empty, API error, unauthorized, refresh, and missing direct URLs. Status remains Workflow Ready / Level 3, `comingSoon`, version `null`; destination approval and authenticated E2E remain pending.

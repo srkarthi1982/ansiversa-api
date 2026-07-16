@@ -91,6 +91,7 @@ from app.modules.leave_planner.routes import router as leave_planner_router
 from app.modules.shift_planner.routes import router as shift_planner_router
 from app.modules.work_log_tracker.routes import router as work_log_tracker_router
 from app.modules.bill_splitter.routes import router as bill_splitter_router
+from app.modules.savings_goal_planner.routes import router as savings_goal_planner_router
 from app.modules.profile.routes import router as profile_router
 from app.modules.proposal_writer.routes import router as proposal_writer_router
 from app.modules.quiz.routes import router as quiz_router
@@ -577,6 +578,7 @@ def register_routes(app: FastAPI) -> None:
     )
     app.include_router(work_log_tracker_router,prefix=f"{settings.API_V1_PREFIX}/work-log-tracker",tags=["Work Log Tracker"])
     app.include_router(bill_splitter_router,prefix=f"{settings.API_V1_PREFIX}/bill-splitter",tags=["Bill Splitter"])
+    app.include_router(savings_goal_planner_router,prefix=f"{settings.API_V1_PREFIX}/savings-goal-planner",tags=["Savings Goal Planner"])
     app.include_router(
         content_router, 
         prefix="/api/v1",
