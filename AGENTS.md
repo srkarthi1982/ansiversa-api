@@ -1217,7 +1217,7 @@ Current status:
 ```text
 Platform + 87 live solution apps
 Remaining live approvals toward 100 solution apps: 13
-Current workflow: Meeting Scheduler App #089 is Workflow Ready and pending manual verification. Keep it comingSoon/version null until explicit approval. Leave Planner App #090 is next in the development queue.
+Current workflow: Meeting Scheduler App #089 and Leave Planner App #090 are Workflow Ready but pending authenticated E2E and manual verification. Keep both comingSoon/version null until explicit approval. Shift Planner App #091 is next in the development queue.
 ```
 
 ---
@@ -1243,6 +1243,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-16: Implemented Leave Planner App #090 backend to Workflow Ready with isolated `LEAVE_PLANNER_DATABASE_URL`, owner-scoped leave types and entries, weekday and half-day duration rules, overlap prevention, safe historical type deactivation, protected CRUD APIs, combined search/filter/pagination, dashboard balances, Alembic migration `20260716_0002_leave_planner`, overview routing to `/leave-planner/leaves`, lifecycle documentation, generated OpenAPI contracts, compileall, and service tests. Ran the production-configured migration to head and verified `LeaveTypes`, `LeaveEntries`, the custom version table, ten indexes, one foreign key, and empty starting row counts. The app remains `comingSoon` with `version = null`; authenticated E2E remains pending.
 * 2026-07-16: Implemented Meeting Scheduler App #089 backend to Workflow Ready with isolated `MEETING_SCHEDULER_DATABASE_URL`, owner-scoped meetings with nested participants and agenda items, protected CRUD APIs, search/status/period filters, pagination, dashboard summaries, Alembic migration `20260716_0001_meeting_scheduler`, overview Explore routing to `/meeting-scheduler/meetings`, lifecycle documentation, generated OpenAPI contracts, compileall verification, service smoke tests, and production migration verification covering the custom version table, three empty starting tables, nine indexes, and two cascade foreign keys. The app remains `comingSoon` with `version = null` and no live promotion.
 * 2026-07-15: Fixed Symptom Journal App #084 production fetch failures by passing the shared libSQL/Turso auth connect args into the isolated symptom journal database engine, verified the isolated version table at `20260715_0001_symptom_journal`, smoke-tested dashboard/categories/entries/insights API responses plus entry creation, removed temporary smoke-test entry and category rows, and kept the app `comingSoon` with version `null`.
 * 2026-07-15: Promoted Vaccination Tracker App #083 backend to approved live version `1.0.0` after Astra/Partner approval, backend database-auth fix verification, production Apps row promotion, destination metadata sync `20 / 100` approved on `2026-07-15`, overview metadata sync, production migration verification at `20260715_0001_vaccination_tracker`, tracked catalog export update, and production catalog verification at 82 live / 18 comingSoon.
