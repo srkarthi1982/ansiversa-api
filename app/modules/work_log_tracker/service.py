@@ -19,12 +19,20 @@ def minutes(p):
  a,b=interval(p.work_date,p.start_time,p.end_time);gross=int((b-a).total_seconds()/60)
  if p.break_minutes>=gross:raise HTTPException(422,"Break must be shorter than elapsed work time.")
  return gross-p.break_minutes
-def pr(x):return ProjectResponse(name=x.name,code=x.code,client_name=x.client_name,description=x.description,default_billable=x.default_billable,is_active=x.is_active,id=x.id,log_count=len(x.logs),logged_minutes=sum(l.duration_minutes for l in x.logs if l.status!="cancelled"),created_at=x.created_at,updated_at=x.updated_at)
+def pr(x):return ProjectResponse(name=x.name,code=x.code,client_name=x.client_name,description=x.description,default_billable=x.default_billable,is_active=x.is_active,id=x.id,log_count=len(x.logs),logged_minutes=sum(l.duration_minutes for l in x.logs if l.status not in {"planned","cancelled"}),created_at=x.created_at,updated_at=x.updated_at)
 def lr(x):return LogResponse(project_id=x.project_id,title=x.title,work_date=x.work_date,start_time=x.start_time,end_time=x.end_time,manual_duration_minutes=x.duration_minutes if x.entry_mode=="manual" else None,break_minutes=x.break_minutes,entry_mode=x.entry_mode,status=x.status,is_billable=x.is_billable,accomplishments=x.accomplishments,blockers=x.blockers,notes=x.notes,id=x.id,project_name=x.project.name,duration_minutes=x.duration_minutes,is_overnight=bool(x.entry_mode=="timed" and x.end_time<=x.start_time),created_at=x.created_at,updated_at=x.updated_at)
 def list_projects(db,u):return[pr(x) for x in db.scalars(select(WorkProject).options(selectinload(WorkProject.logs)).where(WorkProject.owner_id==owner(u)).order_by(WorkProject.is_active.desc(),WorkProject.name))]
+def ensure_unique_project(db,o,p,id=None):
+ name=(p.name or "").strip().lower();code=(p.code or "").strip().lower() if p.code else None
+ q=select(WorkProject).where(WorkProject.owner_id==o)
+ if id:q=q.where(WorkProject.id!=id)
+ checks=[func.lower(WorkProject.name)==name]
+ if code:checks.append(func.lower(WorkProject.code)==code)
+ if db.scalar(q.where(or_(*checks))):raise HTTPException(409,"A project with this name or code already exists.")
 def save_project(db,u,p,id=None):
  x=project(db,owner(u),id) if id else WorkProject(owner_id=owner(u))
  if id and not x:missing("Project")
+ ensure_unique_project(db,owner(u),p,id)
  for k,v in p.model_dump().items():setattr(x,k,v)
  if not id:db.add(x)
  try:db.commit()

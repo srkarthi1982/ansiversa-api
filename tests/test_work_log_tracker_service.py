@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 from app.modules.work_log_tracker.db import WorkLogBase
 from app.modules.work_log_tracker.schemas import LogCreate,ProjectCreate
-from app.modules.work_log_tracker.service import dashboard,delete_project,get_log,list_logs,save_log,save_project
+from app.modules.work_log_tracker.service import dashboard,delete_project,get_log,list_logs,list_projects,save_log,save_project
 
 class WorkLogTrackerTests(unittest.TestCase):
  def setUp(self):
@@ -21,6 +21,8 @@ class WorkLogTrackerTests(unittest.TestCase):
  def test_projects_duplicates_ownership_and_safe_delete(self):
   self.assertTrue(self.p.default_billable)
   with self.assertRaises(HTTPException):save_project(self.db,self.a,ProjectCreate(name="Platform",code="OTHER"))
+  with self.assertRaises(HTTPException):save_project(self.db,self.a,ProjectCreate(name="platform",code="LOWER"))
+  with self.assertRaises(HTTPException):save_project(self.db,self.a,ProjectCreate(name="Other platform",code="plat"))
   foreign=save_project(self.db,self.b,ProjectCreate(name="Foreign"))
   with self.assertRaises(HTTPException):save_log(self.db,self.a,self.timed(projectId=foreign.id))
   created=save_log(self.db,self.a,self.timed())
@@ -39,8 +41,10 @@ class WorkLogTrackerTests(unittest.TestCase):
   with self.assertRaises(HTTPException):save_log(self.db,self.a,self.timed(title="Overlap",startTime="16:00",endTime="18:00",breakMinutes=0))
   save_log(self.db,self.a,self.timed(title="Back",startTime="17:00",endTime="18:00",breakMinutes=0))
   save_log(self.db,self.a,self.timed(title="Cancelled",startTime="10:00",endTime="11:00",breakMinutes=0,status="cancelled"))
+  save_log(self.db,self.a,self.timed(title="Planned",workDate="2026-07-21",status="planned"))
   save_log(self.db,self.a,self.manual(title="Manual overlap"));save_log(self.db,self.a,self.manual(title="Manual overlap two"))
   result=list_logs(self.db,self.a," implementation ",self.p.id,"completed","timed",True,"all",None,None,1,10);self.assertEqual(result.total,1)
+  self.assertEqual(list_projects(self.db,self.a)[0].logged_minutes,690)
   with self.assertRaises(HTTPException):list_logs(self.db,self.a,None,None,None,None,None,"all",date(2026,7,22),date(2026,7,20),1,10)
   metrics=dashboard(self.db,self.a);self.assertGreater(metrics.billable_minutes,0);self.assertGreater(metrics.non_billable_minutes,0)
   switched=save_log(self.db,self.a,self.manual(title="Switched",workDate="2026-07-22"),first.id);self.assertIsNone(switched.start_time);self.assertEqual(switched.break_minutes,0)
