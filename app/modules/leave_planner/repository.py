@@ -4,6 +4,10 @@ from sqlalchemy.orm import Session, selectinload
 from app.modules.leave_planner.models import LeaveEntry, LeaveType
 
 def get_type(db, owner, id): return db.scalar(select(LeaveType).options(selectinload(LeaveType.entries)).where(LeaveType.id == id, LeaveType.owner_id == owner))
+def get_type_by_name(db, owner, name, exclude=None):
+    query=select(LeaveType).where(LeaveType.owner_id == owner, func.lower(LeaveType.name) == name.lower())
+    if exclude: query=query.where(LeaveType.id != exclude)
+    return db.scalar(query)
 def list_types(db, owner): return list(db.scalars(select(LeaveType).options(selectinload(LeaveType.entries)).where(LeaveType.owner_id == owner).order_by(LeaveType.is_active.desc(), LeaveType.name)))
 def get_entry(db, owner, id): return db.scalar(select(LeaveEntry).options(selectinload(LeaveEntry.leave_type)).where(LeaveEntry.id == id, LeaveEntry.owner_id == owner))
 def list_entries(db: Session, owner: str, q, type_id, status, period, date_from, date_to, page, size):
@@ -21,7 +25,7 @@ def list_entries(db: Session, owner: str, q, type_id, status, period, date_from,
     total=db.scalar(select(func.count(LeaveEntry.id)).where(*f)) or 0
     items=list(db.scalars(select(LeaveEntry).options(selectinload(LeaveEntry.leave_type)).where(*f).order_by(LeaveEntry.start_date.desc(), LeaveEntry.created_at.desc()).offset((page-1)*size).limit(size)))
     return items,total
-def overlap(db, owner, start, end, exclude=None):
+def overlaps(db, owner, start, end, exclude=None):
     q=select(LeaveEntry).where(LeaveEntry.owner_id==owner, LeaveEntry.status.notin_(["cancelled","rejected"]), LeaveEntry.start_date <= end, LeaveEntry.end_date >= start)
     if exclude: q=q.where(LeaveEntry.id != exclude)
-    return db.scalar(q)
+    return list(db.scalars(q))
