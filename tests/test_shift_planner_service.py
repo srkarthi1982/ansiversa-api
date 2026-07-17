@@ -23,6 +23,10 @@ class ShiftPlannerTests(unittest.TestCase):
         with self.assertRaises(HTTPException):save_shift(self.db,self.a,self.payload(memberId=None,title="Bad",breakMinutes=480))
         with self.assertRaises(ValidationError):MemberCreate(name="Bad",email="invalid")
         with self.assertRaises(ValidationError):self.payload(breakMinutes=-1)
+    def test_shift_type_names_are_unique_ignoring_case(self):
+        with self.assertRaises(HTTPException) as duplicate:
+            save_type(self.db,self.a,TypeCreate(name="  MORNING  ",defaultStartTime="09:00",defaultEndTime="17:00"))
+        self.assertEqual(duplicate.exception.status_code,409)
     def test_overlap_back_to_back_cancelled_and_other_member(self):
         first=save_shift(self.db,self.a,self.payload())
         with self.assertRaises(HTTPException) as conflict:save_shift(self.db,self.a,self.payload(title="Overlap",startTime="16:00",endTime="18:00"))

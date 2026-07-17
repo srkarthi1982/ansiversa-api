@@ -21,6 +21,7 @@ def mr(x):return MemberResponse(name=x.name,email=x.email,phone=x.phone,role=x.r
 def sr(x):return ShiftResponse(shift_type_id=x.shift_type_id,member_id=x.member_id,title=x.title,shift_date=x.shift_date,start_time=x.start_time,end_time=x.end_time,break_minutes=x.break_minutes,location=x.location,status=x.status,notes=x.notes,id=x.id,shift_type_name=x.shift_type.name,member_name=x.member.name if x.member else None,duration_minutes=x.duration_minutes,is_overnight=x.end_time<=x.start_time,created_at=x.created_at,updated_at=x.updated_at)
 def list_types(db,u):return [tr(x) for x in r.types(db,owner(u))]
 def save_type(db,u,p,id=None):
+    if r.type_with_name(db,owner(u),p.name,id):raise HTTPException(409,"A shift type with this name already exists.")
     x=r.get_type(db,owner(u),id) if id else ShiftType(owner_id=owner(u))
     if id and not x:missing("Shift type")
     for k,v in p.model_dump().items():setattr(x,k,v)

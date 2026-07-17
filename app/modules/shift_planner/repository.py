@@ -3,6 +3,10 @@ from sqlalchemy import func,or_,select
 from sqlalchemy.orm import selectinload
 from app.modules.shift_planner.models import Shift,ShiftMember,ShiftType
 def get_type(db,owner,id): return db.scalar(select(ShiftType).options(selectinload(ShiftType.shifts)).where(ShiftType.id==id,ShiftType.owner_id==owner))
+def type_with_name(db,owner,name,exclude=None):
+    q=select(ShiftType).where(ShiftType.owner_id==owner,func.lower(ShiftType.name)==name.casefold())
+    if exclude:q=q.where(ShiftType.id!=exclude)
+    return db.scalar(q)
 def types(db,owner): return list(db.scalars(select(ShiftType).options(selectinload(ShiftType.shifts)).where(ShiftType.owner_id==owner).order_by(ShiftType.is_active.desc(),ShiftType.name)))
 def get_member(db,owner,id): return db.scalar(select(ShiftMember).options(selectinload(ShiftMember.shifts)).where(ShiftMember.id==id,ShiftMember.owner_id==owner))
 def members(db,owner): return list(db.scalars(select(ShiftMember).options(selectinload(ShiftMember.shifts)).where(ShiftMember.owner_id==owner).order_by(ShiftMember.is_active.desc(),ShiftMember.name)))

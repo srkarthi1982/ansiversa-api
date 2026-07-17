@@ -13,7 +13,7 @@ End time at or before start time means the following day. Net minutes equal gros
 Routes are `/shift-planner`, `/shifts`, `/shifts/:shiftId`, `/types`, and `/members`. The React module uses generated API contracts, Zustand, shared store helpers, `AvAppOverviewPage`, `AvAuthenticatedPageState`, `AvPageHeader`, `AvCardEmptyState`, `AvInlineFeedback`, `AvFormDrawer`, `AvRecordActions`/`AvConfirmDialog`, `AvPagination`, and shared cards. All create/edit flows use drawers; all deletion flows use confirmed record actions. The shifts page distinguishes first-use and filtered-empty states and exposes combined search, status/type/member/period/date filters, pagination, and metrics.
 
 ## Performance and current status
-Owner/date, owner/status, owner/member/date, reference, and active-record indexes support the main access paths. The app is Workflow Ready / Level 3 but remains `comingSoon`, version `null`, destination pending, and blocked from manual review until authenticated browser E2E can run.
+Owner/date, owner/status, owner/member/date, reference, and active-record indexes support the main access paths. Authenticated localhost browser E2E and the permanent Playwright regression gate passed on 2026-07-17. The app is Workflow Ready / Level 3 but remains `comingSoon`, version `null`, destination pending, and awaits Karthik manual acceptance.
 
 ## Limitations and future direction
 No recurrence, drag-and-drop calendar, payroll, attendance, notifications, external calendars, legal calculations, or AI scheduling. A weekly view may be considered after evidence and approval.
