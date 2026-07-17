@@ -70,11 +70,17 @@ def list_bills(db,u,q,status,currency,period,date_from,date_to,page,size):
  if date_from:f.append(Bill.bill_date>=date_from)
  if date_to:f.append(Bill.bill_date<=date_to)
  total=db.scalar(select(func.count(Bill.id)).where(*f))or 0;rows=list(db.scalars(select(Bill).options(selectinload(Bill.participants),selectinload(Bill.items)).where(*f).order_by(Bill.bill_date.desc(),Bill.created_at.desc()).offset((page-1)*size).limit(size)));return BillList(items=[bs(x)for x in rows],total=total,page=page,page_size=size,pages=ceil(total/size)if total else 0)
+def ensure_unique_participant(db,b,p,id=None):
+ name=(p.name or "").strip().lower()
+ q=select(Participant).where(Participant.bill_id==b.id,func.lower(Participant.name)==name)
+ if id:q=q.where(Participant.id!=id)
+ if db.scalar(q):raise HTTPException(409,"Participant names must be unique within a bill.")
 def save_participant(db,u,bill_id,p,id=None):
  b=bill(db,owner(u),bill_id)
  if not b:missing("Bill")
  x=participant(b,id)if id else Participant(bill_id=b.id,sort_order=len(b.participants))
  if id and not x:missing("Participant")
+ ensure_unique_participant(db,b,p,id)
  for k,v in p.model_dump().items():setattr(x,k,v)
  if id and x.paid_amount>x.share_amount:raise HTTPException(422,"Paid amount cannot exceed the participant share.")
  if not id:db.add(x)
