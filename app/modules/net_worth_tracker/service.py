@@ -21,11 +21,18 @@ def entries(x):
 def account(x,detail=False):
  data=dict(id=x.id,name=x.name,account_type=x.account_type,category=x.category,currency_code=x.currency_code,institutionName=x.institution_name,currentBalance=x.current_balance,valuationDate=x.valuation_date,includeInNetWorth=x.include_in_net_worth,status=x.status,notes=x.notes,entry_count=len(x.entries),created_at=x.created_at,updated_at=x.updated_at)
  return AccountDetail(**data,entries=entries(x)) if detail else AccountSummary(**data)
+def unique_name(db,user,name,id=None):
+ existing=db.scalar(select(Account.id).where(Account.user_id==str(user.id),func.lower(Account.name)==name.lower()))
+ if existing and existing!=id:fail(409,"An account with this name already exists.")
+def restore_only(x,p):
+ data=p.model_dump();return data["status"]=="active" and all(getattr(x,k)==v for k,v in data.items() if k!="status")
 def recalc(db,x):
  latest=db.scalar(select(BalanceEntry).where(BalanceEntry.account_id==x.id).order_by(BalanceEntry.balance_date.desc(),BalanceEntry.created_at.desc(),BalanceEntry.id.desc()))
  x.current_balance=q(latest.balance_amount if latest else 0);x.valuation_date=latest.balance_date if latest else x.valuation_date;db.flush()
 def save_account(db,user,p,id=None):
  x=owned(db,user,id) if id else Account(user_id=str(user.id))
+ if id and x.status=="archived" and not restore_only(x,p):fail(409,"Archived accounts are read-only until restored.")
+ unique_name(db,user,p.name,id)
  prior=x.current_balance if id else None
  for k,v in p.model_dump().items():setattr(x,k,v)
  x.current_balance=q(x.current_balance)

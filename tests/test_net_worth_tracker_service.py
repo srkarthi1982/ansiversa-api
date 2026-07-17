@@ -19,12 +19,17 @@ class NetWorthTests(unittest.TestCase):
    with self.assertRaises(ValidationError):AccountCreate(**p)
   self.make();self.make("Loan","liability","personal_loan",150);self.make("USD","asset","cash",20,"USD");self.make("Excluded","asset","cash",999,"AED",False);d=dashboard(self.db,self.a);aed=next(x for x in d.totals if x.currency_code=="AED");self.assertEqual(str(aed.net_worth),"-50.00");self.assertEqual(len(d.totals),2)
   with self.assertRaises(HTTPException):get_account(self.db,self.b,self.make("Private").id)
+  self.make("Unique")
+  with self.assertRaises(HTTPException):self.make(" unique ")
  def test_balance_recalculation_archive_and_safe_delete(self):
   x=self.make();x=save_entry(self.db,self.a,x.id,BalanceCreate(balanceDate=self.today+timedelta(1),balanceAmount=200));eid=x.entries[0].id;x=save_entry(self.db,self.a,x.id,BalanceCreate(balanceDate=self.today+timedelta(1),balanceAmount=250),eid);self.assertEqual(str(x.current_balance),"250.00");delete_entry(self.db,self.a,x.id,eid);self.assertEqual(str(get_account(self.db,self.a,x.id).current_balance),"100.00")
   with self.assertRaises(HTTPException):delete_account(self.db,self.a,x.id)
   z=self.make("Empty",amount=0);delete_account(self.db,self.a,z.id)
   archived=save_account(self.db,self.a,AccountCreate(name="Cash",accountType="asset",category="cash",currentBalance=100,valuationDate=self.today,status="archived"),x.id)
   with self.assertRaises(HTTPException):save_entry(self.db,self.a,archived.id,BalanceCreate(balanceDate=self.today,balanceAmount=1))
+  with self.assertRaises(HTTPException):save_account(self.db,self.a,AccountCreate(name="Cash edited",accountType="asset",category="cash",currentBalance=100,valuationDate=self.today,status="archived"),archived.id)
+  restored=save_account(self.db,self.a,AccountCreate(name="Cash",accountType="asset",category="cash",currentBalance=100,valuationDate=self.today,status="active"),archived.id)
+  self.assertEqual(restored.status,"active")
  def test_snapshot_immutability_comparison_and_duplicate(self):
   x=self.make();p=create_snapshot(self.db,self.a,SnapshotCreate(snapshotDate=self.today-timedelta(1),name="Before"));save_entry(self.db,self.a,x.id,BalanceCreate(balanceDate=self.today,balanceAmount=150));c=create_snapshot(self.db,self.a,SnapshotCreate(snapshotDate=self.today,name="After"));cmp=compare(self.db,self.a,p.id,c.id);self.assertEqual(str(cmp.currencies[0].net_worth_difference),"50.00");self.assertEqual(str(p.items[0].balance_amount),"100.00")
   with self.assertRaises(HTTPException):create_snapshot(self.db,self.a,SnapshotCreate(snapshotDate=self.today,name="Duplicate"))
