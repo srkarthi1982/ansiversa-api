@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-17: Certified Salary Breakdown Calculator App #095 backend behavior during authenticated E2E by revalidating focused salary service coverage for six-frequency normalization, deduction order, negative recurring-net rollback, same/cross-currency comparison, ownership isolation, filters, pagination, cascade delete, overview CTA validation, and backend compileall. No backend code change was required; the app remains `comingSoon` with `version = null`, and no live promotion was performed.
+
 * 2026-07-17: Certified Savings Goal Planner App #094 backend behavior during authenticated E2E hardening by blocking transaction deletion while goals are paused, cancelled, or archived, extending focused service regression coverage, and revalidating Savings Goal Planner service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 
 * 2026-07-17: Certified Bill Splitter App #093 backend behavior during authenticated E2E hardening by adding case-insensitive bill participant uniqueness, extending focused service regression coverage, and revalidating Bill Splitter service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
