@@ -26,11 +26,14 @@ class SavingsTests(unittest.TestCase):
   with self.assertRaises(HTTPException):self.tx("withdrawal","300")
   self.g=save_milestone(self.db,self.a,self.g.id,MilestoneCreate(name="First",targetAmount="200"));self.assertEqual(self.g.milestones[0].status,"reached");mid=self.g.milestones[0].id;delete_milestone(self.db,self.a,self.g.id,mid)
   with self.assertRaises(HTTPException):get_goal(self.db,self.b,self.g.id)
+  tx_id=self.g.transactions[0].id
   paused=GoalCreate(name="Emergency Fund",targetAmount=1000,startingAmount=100,status="paused");self.g=save_goal(self.db,self.a,paused,self.g.id)
   with self.assertRaises(HTTPException):self.tx("contribution","1")
+  with self.assertRaises(HTTPException):delete_tx(self.db,self.a,self.g.id,tx_id)
   for status in("cancelled","archived"):
    self.g=save_goal(self.db,self.a,GoalCreate(name="Emergency Fund",targetAmount=1000,startingAmount=100,status=status),self.g.id)
    with self.assertRaises(HTTPException):self.tx("contribution","1")
+   with self.assertRaises(HTTPException):delete_tx(self.db,self.a,self.g.id,tx_id)
  def test_validation_filters_dashboard_currency_and_cascade(self):
   for payload in [dict(name=" ",targetAmount=1),dict(name="x",targetAmount=0),dict(name="x",targetAmount=1,startingAmount=2),dict(name="x",targetAmount=1,currencyCode="US")]:
    with self.assertRaises(ValidationError):GoalCreate(**payload)

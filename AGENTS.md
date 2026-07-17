@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-17: Certified Savings Goal Planner App #094 backend behavior during authenticated E2E hardening by blocking transaction deletion while goals are paused, cancelled, or archived, extending focused service regression coverage, and revalidating Savings Goal Planner service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
+
 * 2026-07-17: Certified Bill Splitter App #093 backend behavior during authenticated E2E hardening by adding case-insensitive bill participant uniqueness, extending focused service regression coverage, and revalidating Bill Splitter service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 
 * 2026-07-17: Certified Work Log Tracker App #092 backend behavior during authenticated E2E hardening by adding case-insensitive owner-scoped project name/code uniqueness, excluding planned logs from project logged-minute summaries, and extending service regression tests for both rules. Revalidated `tests.test_work_log_tracker_service` and backend compileall while keeping the app `comingSoon` with `version = null` and no live promotion.

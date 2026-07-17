@@ -82,7 +82,7 @@ def save_tx(db,u,goal_id,p,id=None):
 def delete_tx(db,u,goal_id,id):
  g=get_model(db,oid(u),goal_id)
  if not g:missing("Goal")
- if g.status=="archived":raise HTTPException(409,"Archived goals are read-only.")
+ if g.status in{"paused","cancelled","archived"}:raise HTTPException(409,f"Transactions are blocked while a goal is {g.status}.")
  x=next((x for x in g.transactions if x.id==id),None)
  if not x:missing("Transaction")
  projected=balance(g,skip=id);db.delete(x);db.flush();derive(g,projected);db.commit()
