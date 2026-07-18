@@ -23,7 +23,9 @@ The current implementation provides the core private itinerary, day, activity, c
 
 ## Destination Status
 
-`draft`
+`approved`
+
+Reviewed for live promotion on `2026-07-18`.
 
 ## Current Boundaries
 
@@ -31,5 +33,4 @@ The app does not own flights, hotel booking, payments, live travel advisories, m
 
 ## Promotion Note
 
-This document describes the intended mature product. It does not approve live promotion. Promotion must follow the separate Promotion Checklist after certification, Astra review, and Partner manual acceptance.
-
+Approved for live promotion after certification, Astra review, Partner manual browser verification, and UI alignment. Promotion must still follow the separate Promotion Checklist and preserve the current Journey Progress metadata.

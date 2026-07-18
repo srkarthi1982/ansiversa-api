@@ -58,7 +58,7 @@ List responses avoid nested day/activity details. Detail records load nested dat
 
 ## Current Status
 
-The module is real Workflow Ready, `comingSoon`, and `version: null`. It is awaiting a separate Astra certification assignment. It has not been promoted.
+Approved Live. App #046 is promoted to `active` / `live` with version `1.0.0` after certification, Astra review, Partner manual browser verification, UI alignment, production migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion.
 
 ## Known Limitations
 
