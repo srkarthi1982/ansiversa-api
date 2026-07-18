@@ -18,11 +18,11 @@ Only active options with every active criterion rated receive scores and ranks. 
 
 ## State and deletion rules
 
-Evaluating requires two active options and one active criterion. Decided requires a complete matrix and selected active option; `decidedAt` is synchronized. Decided evaluations require an explicit move to revisiting before nested changes. Archived decisions are read-only until restored. Cancelled decisions need no selection. A selected option cannot be deleted. Option/criterion deletion removes dependent ratings transactionally and recalculates results. Decision deletion cascades all nested records.
+Evaluating requires two active options and one active criterion. Decided requires a complete matrix and selected active option; `decidedAt` is synchronized. Decided evaluations require an explicit move to revisiting before nested changes. Archived decisions are restore-only until restored: metadata, nested records, ratings, and deletion are blocked while archived. Cancelled decisions need no selection. A selected option cannot be deleted. Option/criterion deletion removes dependent ratings transactionally and recalculates results. Decision deletion cascades all nested records after the record is restored if it was archived.
 
 ## API, lists, and performance
 
-Stable operations provide dashboard, paginated/searchable/filterable decisions, owner-scoped detail/update/delete, nested option/criterion CRUD, transactional rating-matrix upsert, and rating deletion. Default presentation prioritizes evaluating/revisiting, nearest target date, then recent updates. Query indexes cover user/status/type/target, nested ordering, and ratings.
+Stable operations provide dashboard, paginated/searchable/filterable lightweight decision summaries, owner-scoped detail/update/delete, nested option/criterion CRUD, transactional rating-matrix upsert, and rating deletion. Detail responses provide full edit/view fields. Default presentation prioritizes evaluating/revisiting, nearest target date, then recent updates. Query indexes cover user/status/type/target, nested ordering, and ratings.
 
 ## Current status and limitations
 

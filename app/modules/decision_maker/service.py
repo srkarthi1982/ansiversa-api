@@ -37,16 +37,20 @@ def result(x):
 def summary(x):
  _,_,_,done=result(x);return DecisionSummary(id=x.id,title=x.title,question=x.question,description=x.description,decision_type=x.decision_type,rating_scale=x.rating_scale,status=x.status,target_date=x.target_date,selected_option_id=x.selected_option_id,outcome=x.outcome,reflection=x.reflection,notes=x.notes,option_count=len(x.options),criterion_count=len(x.criteria),evaluation_complete=done,created_at=x.created_at,updated_at=x.updated_at,decided_at=x.decided_at)
 def detail(x):
- opts,criteria,ratings,done=result(x);base=summary(x).model_dump();return DecisionDetail(**base,options=opts,criteria=criteria,ratings=ratings,warning="Scores support structured thinking; the user remains responsible for the final choice.")
+ opts,criteria,ratings,done=result(x);base=summary(x).model_dump();return DecisionDetail(**base,description=x.description,selected_option_id=x.selected_option_id,outcome=x.outcome,reflection=x.reflection,notes=x.notes,options=opts,criteria=criteria,ratings=ratings,warning="Scores support structured thinking; the user remains responsible for the final choice.")
 def validate_state(x,p):
  opts,criteria=active(x);ratings={(r.option_id,r.criterion_id) for r in x.ratings};complete=bool(len(opts)>=2 and criteria and all((o.id,c.id) in ratings for o in opts for c in criteria));selected=next((o for o in x.options if o.id==p.selected_option_id and o.is_active),None) if p.selected_option_id else None
  if p.selected_option_id and not selected:fail(422,"Selected option must be an active option in this decision.")
  if p.status=="evaluating" and (len(opts)<2 or not criteria):fail(409,"Evaluating requires two active options and one active criterion.")
  if p.status=="decided" and (not selected or not complete):fail(409,"Decided requires a selected option and a complete rating matrix.")
  if p.rating_scale!=x.rating_scale and x.ratings:fail(409,"Rating scale cannot change after ratings exist.")
+def restore_only(x,p):
+ if x.status!="archived":return
+ changed=[k for k,v in p.model_dump().items() if k!="status" and getattr(x,k)!=v]
+ if p.status=="archived" or changed:fail(409,"Archived decisions are restore-only until restored.")
 def save_decision(db,user,p,id=None):
  x=owned(db,user,id) if id else Decision(user_id=str(user.id),rating_scale=p.rating_scale)
- if id:validate_state(x,p)
+ if id:restore_only(x,p);validate_state(x,p)
  elif p.status not in {"draft","cancelled"} or p.selected_option_id:fail(409,"New decisions must begin as draft or cancelled without a selected option.")
  for k,v in p.model_dump().items():setattr(x,k,v)
  x.decided_at=datetime.now() if x.status=="decided" else None
@@ -108,6 +112,9 @@ def delete_rating(db,user,did,id):
  x=owned(db,user,did);mutable(x);r=next((r for r in x.ratings if r.id==id),None)
  if not r:fail(404,"Rating not found.")
  db.delete(r);db.commit()
-def delete_decision(db,user,id):db.delete(owned(db,user,id));db.commit()
+def delete_decision(db,user,id):
+ x=owned(db,user,id)
+ if x.status=="archived":fail(409,"Restore the decision before deleting it.")
+ db.delete(x);db.commit()
 def dashboard(db,user):
  xs=db.scalars(select(Decision).where(Decision.user_id==str(user.id)).options(selectinload(Decision.options),selectinload(Decision.criteria),selectinload(Decision.ratings)).order_by(Decision.updated_at.desc())).unique().all();today=date.today();counts={s:sum(x.status==s for x in xs) for s in ["draft","evaluating","decided","revisiting","archived"]};open_states={"draft","evaluating","revisiting"};return Dashboard(total=len(xs),**counts,due_soon=sum(x.status in open_states and x.target_date is not None and today<=x.target_date<=today+timedelta(days=7) for x in xs),overdue=sum(x.status in open_states and x.target_date is not None and x.target_date<today for x in xs),recent=[summary(x) for x in xs[:5]])
