@@ -15,12 +15,14 @@ from pathlib import Path
 
 
 APPROVED_STATUS = "approved"
-EXPECTED_LIVE_DESTINATION_COUNT = 87
+EXPECTED_LIVE_DESTINATION_COUNT = 90
 REVIEW_DATE_PATTERN = re.compile(
-    r"(?:Astra: Approved on|Reviewed At:|Last Reviewed:)\s*(?P<date>\d{4}-\d{2}-\d{2})"
+    r"(?:Astra: Approved on|Reviewed At:|Reviewed date:|Last Reviewed:|Reviewed for live promotion on)\s*`?(?P<date>\d{4}-\d{2}-\d{2})`?",
+    re.IGNORECASE,
 )
 PROGRESS_PATTERN = re.compile(
-    r"(?:Current Position|Current Journey Progress|Destination Progress):\s*(?P<progress>\d+)\s*/\s*100"
+    r"(?:Current Position|Current Journey Progress|Destination Progress|Journey progress):\s*`?(?P<progress>\d+)\s*/\s*100`?",
+    re.IGNORECASE,
 )
 
 
@@ -71,10 +73,16 @@ def parse_destination(path: Path) -> DestinationMetadata | None:
     destination_status = _section_value(lines, "## Destination Status")
     if not destination_status:
         destination_status = _inline_value(lines, "Destination Status")
+    if not destination_status and re.search(r"Development state:\s*Approved Live", text, re.IGNORECASE):
+        destination_status = APPROVED_STATUS
+    destination_status = destination_status.strip("`").strip()
     if destination_status.lower() not in {"approved v1.0", "approved"}:
         return None
 
     progress_match = PROGRESS_PATTERN.search(text)
+    if progress_match is None:
+        progress_value = _section_value(lines, "## Current Journey Progress").strip("`").strip()
+        progress_match = re.search(r"(?P<progress>\d+)\s*/\s*100", progress_value)
     if progress_match is None:
         raise ValueError(f"{path}: approved destination is missing Journey Progress.")
 

@@ -8,4 +8,4 @@ The backend is authoritative and uses two-decimal `Decimal` math backed by `NUME
 ## UI and shared resources
 Overview Explore opens `/bills`. Responsive Bills and Bill Detail use generated contracts, Zustand, shared store helpers, authenticated state, headers, cards, feedback, empty states, `AvFormDrawer`, `AvRecordActions`/`AvConfirmDialog`, and pagination. Detail manages participants, items, allocation modes, totals, shares, and recorded settlements.
 ## Status and limitations
-Workflow Ready / Level 3, `comingSoon`, version `null`, destination pending, authenticated E2E unavailable. No settlement history, payment processing, banking, OCR, exchange conversion, accounting integration, tax advice, or AI.
+Approved Live at version `1.0.0` after authenticated E2E, Astra review, Partner manual verification, production-configured isolated migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion. No settlement history, payment processing, banking, OCR, exchange conversion, accounting integration, tax advice, or AI.
