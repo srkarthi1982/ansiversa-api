@@ -22,6 +22,9 @@ class ErrandPlannerTests(unittest.TestCase):
   e=self.make();self.assertTrue(e.is_due_today);self.assertTrue(e.is_due_soon);self.assertFalse(e.is_overdue)
   with self.assertRaises(HTTPException):get_errand(self.db,self.b,e.id)
   self.assertEqual(list_errands(self.db,self.a,"milk",None,self.cat.id,"high",None,True,None,None,None,1,10).total,1)
+  summary=list_errands(self.db,self.a,"milk",None,self.cat.id,"high",None,True,None,None,None,1,10).items[0]
+  self.assertNotIn("description",summary.model_dump())
+  self.assertNotIn("notes",summary.model_dump())
   self.assertEqual(dashboard(self.db,self.a).pending,1);self.assertEqual(list_categories(self.db,self.a).items[0].errand_count,1)
   with self.assertRaises(HTTPException):list_errands(self.db,self.a,due_from=date.today(),due_to=date.today()-timedelta(days=1))
  def test_status_archive_restore_delete_category_rules(self):
@@ -30,6 +33,7 @@ class ErrandPlannerTests(unittest.TestCase):
   e=set_status(self.db,self.a,e.id,"completed");self.assertIsNotNone(e.completed_at)
   e=archive(self.db,self.a,e.id);self.assertEqual(e.status,"archived")
   with self.assertRaises(HTTPException):save_errand(self.db,self.a,ErrandCreate(title="Blocked",status="pending"),e.id)
+  with self.assertRaises(HTTPException):delete_errand(self.db,self.a,e.id)
   e=restore(self.db,self.a,e.id);self.assertEqual(e.status,"completed")
   e=set_status(self.db,self.a,e.id,"pending");self.assertIsNone(e.completed_at)
   with self.assertRaises(HTTPException):delete_category(self.db,self.a,self.cat.id)

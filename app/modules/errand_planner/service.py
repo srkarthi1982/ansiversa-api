@@ -25,7 +25,10 @@ def flags(x):
  return open_status and x.due_date is not None and x.due_date<today,open_status and x.due_date==today,open_status and x.due_date is not None and today<=x.due_date<=today+timedelta(days=7)
 def summarize(x):
  overdue,due_today,due_soon=flags(x);c=x.category
- return ErrandSummary(id=x.id,title=x.title,description=x.description,category_id=x.category_id,category_name=c.name if c else None,category_color=c.color if c else None,priority=x.priority,due_date=x.due_date,estimated_minutes=x.estimated_minutes,location=x.location,status=x.status,notes=x.notes,is_overdue=overdue,is_due_today=due_today,is_due_soon=due_soon,created_at=x.created_at,updated_at=x.updated_at,completed_at=x.completed_at)
+ return ErrandSummary(id=x.id,title=x.title,category_id=x.category_id,category_name=c.name if c else None,category_color=c.color if c else None,priority=x.priority,due_date=x.due_date,estimated_minutes=x.estimated_minutes,location=x.location,status=x.status,is_overdue=overdue,is_due_today=due_today,is_due_soon=due_soon,created_at=x.created_at,updated_at=x.updated_at,completed_at=x.completed_at)
+def detail(x):
+ y=summarize(x)
+ return ErrandDetail(**y.model_dump(),description=x.description,notes=x.notes)
 def category_response(db,c):
  count=db.scalar(select(func.count()).select_from(Errand).where(Errand.category_id==c.id)) or 0
  return CategoryResponse(id=c.id,name=c.name,color=c.color,sort_order=c.sort_order,errand_count=count,created_at=c.created_at,updated_at=c.updated_at)
@@ -42,7 +45,7 @@ def save_errand(db,user,p,id=None):
  if x.status!="completed":x.completed_at=None
  if not id:db.add(x)
  db.commit();db.refresh(x);return get_errand(db,user,x.id)
-def get_errand(db,user,id):return summarize(owned_errand(db,user,id))
+def get_errand(db,user,id):return detail(owned_errand(db,user,id))
 def list_errands(db,user,qv=None,status=None,category_id=None,priority=None,overdue=None,due_today=None,due_soon=None,due_from=None,due_to=None,page=1,page_size=12):
  if due_from and due_to and due_from>due_to:fail(422,"Due-from date cannot be after due-to date.")
  stmt=select(Errand).where(Errand.user_id==str(user.id)).options(selectinload(Errand.category));term=(qv or "").strip()
@@ -67,7 +70,8 @@ def restore(db,user,id):
  x=owned_errand(db,user,id)
  if x.status!="archived":fail(409,"Only archived errands can be restored.")
  x.status="completed";db.commit();return get_errand(db,user,id)
-def delete_errand(db,user,id):db.delete(owned_errand(db,user,id));db.commit()
+def delete_errand(db,user,id):
+ x=owned_errand(db,user,id);assert_mutable(x);db.delete(x);db.commit()
 def save_category(db,user,p,id=None):
  x=owned_category(db,user,id) if id else ErrandCategory(user_id=str(user.id))
  duplicate=db.scalar(select(ErrandCategory).where(ErrandCategory.user_id==str(user.id),func.lower(ErrandCategory.name)==p.name.lower(),ErrandCategory.id!=(id or "")))

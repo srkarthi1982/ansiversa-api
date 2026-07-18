@@ -74,4 +74,4 @@ Errand Planner is Workflow Ready / Level 3 candidate, `comingSoon`, version `nul
 
 ## Current Implementation
 
-The implementation provides protected CRUD for errands and categories, combined list filters, deterministic ordering, overdue/due-today/due-soon flags, status actions, archive/restore behavior, duplicate category protection, category delete protection, generated OpenAPI contracts, service tests, and shared frontend drawer/delete patterns.
+The implementation provides protected CRUD for errands and categories, lightweight list summaries with detail-only description and notes loaded from the detail endpoint, combined list filters, deterministic ordering, overdue/due-today/due-soon flags, status actions, archive/restore behavior, archived restore-only protection, duplicate category protection, category delete protection, generated OpenAPI contracts, service tests, and shared frontend drawer/delete patterns.

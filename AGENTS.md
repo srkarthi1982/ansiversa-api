@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-18: Certified Errand Planner App #098 backend behavior during authenticated E2E hardening by narrowing list/dashboard summaries to frontend-required fields, keeping detail-only description and notes on detail/create/update/status responses, enforcing archived errand restore-only behavior before delete/update, updating module story documentation, extending focused service regression coverage, and revalidating Errand Planner service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
+
 * 2026-07-18: Certified Decision Maker App #097 backend behavior during authenticated E2E hardening by narrowing list summaries to frontend-required fields, keeping full edit/view fields on detail responses, enforcing archived decision restore-only behavior, blocking archived decision deletion until restore, updating module story documentation, extending focused service regression coverage, and revalidating Decision Maker service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 * 2026-07-18: Certified Net Worth Tracker App #096 backend behavior during authenticated E2E hardening by adding case-insensitive owner-scoped account-name uniqueness, blocking archived account metadata/balance updates except restore-only activation, updating module story documentation, extending focused service regression coverage, and revalidating Net Worth Tracker service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 
