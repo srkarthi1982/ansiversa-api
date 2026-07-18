@@ -58,4 +58,4 @@ Approved templates, review reminders, household collaboration, and export/print 
 
 ## Current Implementation
 
-Archived checklists are read-only until restored. Completion percentage is calculated from completed items over total items. Reset marks every item incomplete. Owner isolation is enforced for categories, checklists, and item mutations through the parent checklist.
+Archived checklists are read-only until restored, including update, item mutation, archive, and hard-delete operations. Completion percentage is calculated from completed items over total items. Reset marks every item incomplete. Owner isolation is enforced for categories, checklists, and item mutations through the parent checklist.

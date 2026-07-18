@@ -59,9 +59,10 @@ def list_checklists(db,user,qv=None,category_id=None,archived=None,completion=No
  if completion=="incomplete":xs=[x for x in xs if counts(x)[3]<100]
  total=len(xs);start=(page-1)*page_size;page_xs=xs[start:start+page_size]
  return EmergencyChecklistList(items=[checklist_response(x) for x in page_xs],total=total,page=page,page_size=page_size,pages=max(1,ceil(total/page_size)))
-def delete_checklist(db,user,id):db.delete(owned_checklist(db,user,id));db.commit()
+def delete_checklist(db,user,id):
+ x=owned_checklist(db,user,id);ensure_mutable(x);db.delete(x);db.commit()
 def archive(db,user,id):
- x=owned_checklist(db,user,id);x.archived=True;db.commit();return get_checklist(db,user,id)
+ x=owned_checklist(db,user,id);ensure_mutable(x);x.archived=True;db.commit();return get_checklist(db,user,id)
 def restore(db,user,id):
  x=owned_checklist(db,user,id);x.archived=False;db.commit();return get_checklist(db,user,id)
 def reset(db,user,id):

@@ -29,6 +29,7 @@ class EmergencyChecklistTests(unittest.TestCase):
   with self.assertRaises(HTTPException):self.make(title="home fire plan")
   x=archive(self.db,self.a,x.id);self.assertTrue(x.archived)
   with self.assertRaises(HTTPException):save_item(self.db,self.a,x.id,ChecklistItemCreate(title="Blocked"))
+  with self.assertRaises(HTTPException):delete_checklist(self.db,self.a,x.id)
   x=restore(self.db,self.a,x.id);self.assertFalse(x.archived)
   x=save_item(self.db,self.a,x.id,ChecklistItemCreate(title="Water",sortOrder=1));x=delete_item(self.db,self.a,x.id,x.items[0].id);self.assertEqual(x.total_items,0)
   with self.assertRaises(HTTPException):delete_category(self.db,self.a,self.cat.id)
