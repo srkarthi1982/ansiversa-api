@@ -23,12 +23,17 @@ class LocalServicesFinderTests(unittest.TestCase):
   with self.assertRaises(HTTPException):self.make(businessName="bright fix")
   with self.assertRaises(HTTPException):get_provider(self.db,self.b,p.id)
   found=list_providers(self.db,self.a,"bright",self.cat.id,True,False,5,date.today()-timedelta(days=1),date.today()+timedelta(days=1),1,10);self.assertEqual(found.total,1)
+  summary=found.items[0]
+  self.assertNotIn("alternate_phone",summary.model_dump())
+  self.assertNotIn("email",summary.model_dump())
+  self.assertNotIn("website",summary.model_dump())
   d=dashboard(self.db,self.a);self.assertEqual(d.providers,1);self.assertEqual(d.preferred,1);self.assertEqual(d.recently_contacted,1);self.assertEqual(d.categories,1)
   with self.assertRaises(HTTPException):list_providers(self.db,self.a,last_contacted_from=date.today(),last_contacted_to=date.today()-timedelta(days=1))
  def test_archive_restore_preferred_category_delete(self):
   p=self.make(preferred=False,rating=3);p=set_preferred(self.db,self.a,p.id,True);self.assertTrue(p.preferred)
   p=archive(self.db,self.a,p.id);self.assertTrue(p.archived)
   with self.assertRaises(HTTPException):save_provider(self.db,self.a,ProviderCreate(businessName="Blocked"),p.id)
+  with self.assertRaises(HTTPException):delete_provider(self.db,self.a,p.id)
   p=restore(self.db,self.a,p.id);self.assertFalse(p.archived)
   with self.assertRaises(HTTPException):delete_category(self.db,self.a,self.cat.id)
   delete_provider(self.db,self.a,p.id);delete_category(self.db,self.a,self.cat.id);self.assertEqual(list_categories(self.db,self.a).total,0)

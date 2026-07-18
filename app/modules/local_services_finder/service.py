@@ -27,7 +27,10 @@ def duplicate_provider(db,user,p,id=None):
  if db.scalar(stmt):fail(409,"Provider already exists in this category.")
 def provider_response(x):
  c=x.category
- return ProviderSummary(id=x.id,business_name=x.business_name,category_id=x.category_id,category_name=c.name if c else None,category_color=c.color if c else None,contact_person=x.contact_person,phone=x.phone,alternate_phone=x.alternate_phone,email=x.email,website=x.website,address=x.address,city=x.city,area=x.area,notes=x.notes,rating=x.rating,preferred=x.preferred,archived=x.archived,last_contacted=x.last_contacted,created_at=x.created_at,updated_at=x.updated_at)
+ return ProviderSummary(id=x.id,business_name=x.business_name,category_id=x.category_id,category_name=c.name if c else None,category_color=c.color if c else None,contact_person=x.contact_person,phone=x.phone,address=x.address,city=x.city,area=x.area,notes=x.notes,rating=x.rating,preferred=x.preferred,archived=x.archived,last_contacted=x.last_contacted,created_at=x.created_at,updated_at=x.updated_at)
+def provider_detail(x):
+ y=provider_response(x)
+ return ProviderDetail(**y.model_dump(),alternate_phone=x.alternate_phone,email=x.email,website=x.website)
 def category_response(db,c):
  count=db.scalar(select(func.count()).select_from(ServiceProvider).where(ServiceProvider.category_id==c.id)) or 0
  return CategoryResponse(id=c.id,name=c.name,color=c.color,sort_order=c.sort_order,provider_count=count,created_at=c.created_at,updated_at=c.updated_at)
@@ -38,7 +41,7 @@ def save_provider(db,user,p,id=None):
  for k,v in p.model_dump().items():setattr(x,k,v)
  if not id:db.add(x)
  db.commit();db.refresh(x);return get_provider(db,user,x.id)
-def get_provider(db,user,id):return ProviderDetail(**provider_response(owned_provider(db,user,id)).model_dump())
+def get_provider(db,user,id):return provider_detail(owned_provider(db,user,id))
 def list_providers(db,user,qv=None,category_id=None,preferred=None,archived=None,rating=None,last_contacted_from=None,last_contacted_to=None,page=1,page_size=12):
  if last_contacted_from and last_contacted_to and last_contacted_from>last_contacted_to:fail(422,"Last-contacted-from date cannot be after last-contacted-to date.")
  stmt=select(ServiceProvider).where(ServiceProvider.user_id==str(user.id)).options(selectinload(ServiceProvider.category));term=(qv or "").strip()
@@ -50,9 +53,10 @@ def list_providers(db,user,qv=None,category_id=None,preferred=None,archived=None
  if last_contacted_from:stmt=stmt.where(ServiceProvider.last_contacted>=last_contacted_from)
  if last_contacted_to:stmt=stmt.where(ServiceProvider.last_contacted<=last_contacted_to)
  total=db.scalar(select(func.count()).select_from(stmt.order_by(None).subquery())) or 0;pref=case((ServiceProvider.preferred==True,0),else_=1);arch=case((ServiceProvider.archived==False,0),else_=1);xs=db.scalars(stmt.order_by(arch,pref,ServiceProvider.business_name.asc(),ServiceProvider.updated_at.desc()).offset((page-1)*page_size).limit(page_size)).unique().all();return ProviderList(items=[provider_response(x) for x in xs],total=total,page=page,page_size=page_size,pages=max(1,ceil(total/page_size)))
-def delete_provider(db,user,id):db.delete(owned_provider(db,user,id));db.commit()
+def delete_provider(db,user,id):
+ x=owned_provider(db,user,id);ensure_mutable(x);db.delete(x);db.commit()
 def archive(db,user,id):
- x=owned_provider(db,user,id);x.archived=True;db.commit();return get_provider(db,user,id)
+ x=owned_provider(db,user,id);ensure_mutable(x);x.archived=True;db.commit();return get_provider(db,user,id)
 def restore(db,user,id):
  x=owned_provider(db,user,id);x.archived=False;db.commit();return get_provider(db,user,id)
 def set_preferred(db,user,id,value):

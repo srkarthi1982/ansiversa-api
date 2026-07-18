@@ -37,8 +37,9 @@ class ProviderWrite(BaseModel):
   return v
 class ProviderCreate(ProviderWrite):pass
 class ProviderUpdate(ProviderWrite):pass
-class ProviderSummary(ProviderWrite):
- id:str;category_name:str|None=Field(serialization_alias="categoryName");category_color:str|None=Field(serialization_alias="categoryColor");archived:bool;created_at:datetime=Field(serialization_alias="createdAt");updated_at:datetime=Field(serialization_alias="updatedAt");model_config=ConfigDict(populate_by_name=True)
-class ProviderDetail(ProviderSummary):pass
+class ProviderSummary(BaseModel):
+ id:str;business_name:str=Field(serialization_alias="businessName");category_id:str|None=Field(serialization_alias="categoryId");category_name:str|None=Field(serialization_alias="categoryName");category_color:str|None=Field(serialization_alias="categoryColor");contact_person:str|None=Field(serialization_alias="contactPerson");phone:str|None;address:str|None;city:str|None;area:str|None;notes:str|None;rating:int|None;preferred:bool;archived:bool;last_contacted:date|None=Field(serialization_alias="lastContacted");created_at:datetime=Field(serialization_alias="createdAt");updated_at:datetime=Field(serialization_alias="updatedAt");model_config=ConfigDict(populate_by_name=True)
+class ProviderDetail(ProviderSummary):
+ alternate_phone:str|None=Field(serialization_alias="alternatePhone");email:str|None;website:str|None
 class ProviderList(BaseModel):items:list[ProviderSummary];total:int;page:int;page_size:int=Field(serialization_alias="pageSize");pages:int
 class Dashboard(BaseModel):providers:int;preferred:int;archived:int;recently_contacted:int=Field(serialization_alias="recentlyContacted");categories:int;recent:list[ProviderSummary];model_config=ConfigDict(populate_by_name=True)

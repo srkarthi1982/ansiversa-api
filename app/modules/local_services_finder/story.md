@@ -73,4 +73,4 @@ Local Services Finder is Workflow Ready / Level 3 candidate, `comingSoon`, versi
 
 ## Current Implementation
 
-The implementation provides protected CRUD for providers and categories, combined list filters, deterministic ordering, preferred markers, archive/restore behavior, duplicate provider protection within category, duplicate category protection, category delete protection, generated OpenAPI contracts, service tests, and shared frontend drawer/delete patterns.
+The implementation provides protected CRUD for providers and categories, lightweight list summaries with alternate phone, email, and website loaded from the detail endpoint, combined list filters, deterministic ordering, preferred markers, archive/restore behavior, archived restore-only protection, duplicate provider protection within category, duplicate category protection, category delete protection, generated OpenAPI contracts, service tests, and shared frontend drawer/delete patterns.

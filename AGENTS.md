@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-18: Certified Local Services Finder App #099 backend behavior during authenticated E2E hardening by narrowing list/dashboard summaries to frontend-required fields, keeping detail-only alternate phone, email, and website on detail/create/update/action responses, enforcing archived provider restore-only behavior before delete/update/archive/prefer/unprefer, updating module story documentation, extending focused service regression coverage, and revalidating Local Services Finder service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
+
 * 2026-07-18: Certified Errand Planner App #098 backend behavior during authenticated E2E hardening by narrowing list/dashboard summaries to frontend-required fields, keeping detail-only description and notes on detail/create/update/status responses, enforcing archived errand restore-only behavior before delete/update, updating module story documentation, extending focused service regression coverage, and revalidating Errand Planner service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 
 * 2026-07-18: Certified Decision Maker App #097 backend behavior during authenticated E2E hardening by narrowing list summaries to frontend-required fields, keeping full edit/view fields on detail responses, enforcing archived decision restore-only behavior, blocking archived decision deletion until restore, updating module story documentation, extending focused service regression coverage, and revalidating Decision Maker service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
