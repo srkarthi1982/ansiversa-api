@@ -11,12 +11,12 @@ Overview → Leaves → Leave detail, with Leave types as the allowance-manageme
 ## Progress
 
 - Journey progress: `20 / 100`
-- Development state: Workflow Ready for review
-- Approval: pending
-- Reviewed date: not set
-- Launch status: `comingSoon`
-- Version: `null`
-- Production migration: pending explicit instruction
+- Development state: Approved Live
+- Approval: approved after Astra review and Partner manual verification
+- Reviewed date: `2026-07-18`
+- Launch status: `live`
+- Version: `1.0.0`
+- Production migration: verified at `20260716_0002_leave_planner`
 
 ## Calculation contract
 

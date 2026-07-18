@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-18: Promoted Leave Planner App #090 to approved live version `1.0.0` after Astra review and Partner manual verification, production-configured isolated migration verification at `20260716_0002_leave_planner`, parent Apps row promotion to `active` / `live`, destination metadata sync to `20 / 100` / `approved` / `2026-07-18`, overview metadata sync, catalog count verification at 89 live / 11 comingSoon, and validation; no business-logic changes were made.
+
 * 2026-07-18: Promoted Travel Itinerary Builder App #046 to approved live version `1.0.0` after Astra review and Partner manual verification, production-configured isolated migration verification at `20260718_0001_travel_itinerary_builder`, parent Apps row promotion to `active` / `live`, destination metadata sync to `20 / 100` / `approved` / `2026-07-18`, overview metadata sync, catalog count verification at 88 live / 12 comingSoon, and validation; no business-logic changes were made.
 
 * 2026-07-18: Certified Travel Itinerary Builder App #046 backend behavior during authenticated E2E hardening by moving activity time ordering validation into the service layer for user-safe API errors, updating focused service regression coverage, removing placeholder-era story language, and revalidating Travel Itinerary Builder service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.

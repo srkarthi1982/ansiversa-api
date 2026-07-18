@@ -6,4 +6,4 @@ The isolated backend uses `LeaveTypes` and `LeaveEntries`. Every query and mutat
 
 The dashboard exposes allowance, used, planned, remaining, and upcoming counts. List search covers title, reason, notes, and type name. Type, status, period, and date filters combine with pagination.
 
-The frontend uses `AvAppOverviewPage`, `AvAuthenticatedPageState`, `AvFormDrawer`, `AvRecordActions`, `AvConfirmDialog`, `AvPagination`, shared cards, empty states, page headers, inline feedback, generated contracts, and shared store helpers. The app remains `comingSoon`, `version = null`, pending authenticated E2E and human approval.
+The frontend uses `AvAppOverviewPage`, `AvAuthenticatedPageState`, `AvFormDrawer`, `AvRecordActions`, `AvConfirmDialog`, `AvPagination`, shared cards, empty states, page headers, inline feedback, generated contracts, and shared store helpers. The app is approved live at version `1.0.0` after authenticated E2E, Astra review, Partner manual verification, production migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion.
