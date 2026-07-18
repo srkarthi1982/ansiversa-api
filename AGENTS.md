@@ -1243,6 +1243,8 @@ Next milestone:
 
 ## Task Log (Recent)
 
+* 2026-07-18: Implemented Travel Itinerary Builder App #046 backend to Workflow Ready with isolated `TRAVEL_ITINERARY_BUILDER_DATABASE_URL`, owner-scoped itineraries and categories, itinerary day and activity CRUD through parent ownership, date-range validation, duplicate trip/day/activity/category rules, lightweight list/dashboard responses, complete detail DTOs, migration `20260718_0001_travel_itinerary_builder`, lifecycle documentation, generated contracts, focused service tests, local isolated migration verification, and no live promotion.
+
 * 2026-07-18: Certified Emergency Checklist App #100 backend behavior during authenticated E2E hardening by enforcing archived checklist restore-only behavior before archive/delete/update/item mutations, updating module story documentation, extending focused service regression coverage, and revalidating Emergency Checklist service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
 
 * 2026-07-18: Certified Local Services Finder App #099 backend behavior during authenticated E2E hardening by narrowing list/dashboard summaries to frontend-required fields, keeping detail-only alternate phone, email, and website on detail/create/update/action responses, enforcing archived provider restore-only behavior before delete/update/archive/prefer/unprefer, updating module story documentation, extending focused service regression coverage, and revalidating Local Services Finder service tests plus backend compileall. The app remains `comingSoon` with `version = null`; no live promotion was performed.
