@@ -75,5 +75,4 @@ Possible future improvements include map links, document attachment support, res
 
 ## Current Implementation
 
-The backend lives under `app/modules/travel_itinerary_builder`. The frontend lives under `src/modules/travel-itinerary-builder`. The app is data-backed, protected, and no workflow page remains a placeholder.
-
+The backend lives under `app/modules/travel_itinerary_builder`. The frontend lives under `src/modules/travel-itinerary-builder`. The app is data-backed, protected, and all workflow routes render real product behavior.

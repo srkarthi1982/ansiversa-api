@@ -132,12 +132,6 @@ class ActivityWrite(BaseModel):
     def tidy(cls, value):
         return clean(value)
 
-    @model_validator(mode="after")
-    def validate_times(self):
-        if self.start_time and self.end_time and self.end_time <= self.start_time:
-            raise ValueError("End time must be after start time.")
-        return self
-
 
 class ActivityCreate(ActivityWrite):
     pass
@@ -202,4 +196,3 @@ class TravelDashboard(BaseModel):
     total_activities: int = Field(serialization_alias="totalActivities")
     recent: list[ItinerarySummary]
     model_config = ConfigDict(populate_by_name=True)
-

@@ -124,8 +124,14 @@ class TravelItineraryBuilderTests(unittest.TestCase):
                 trip.id,
                 ItineraryDayCreate(dayDate=day.day_date, title="Duplicate"),
             )
-        with self.assertRaises(ValidationError):
-            ActivityCreate(title="Dinner", startTime=time(20, 0), endTime=time(19, 0))
+        with self.assertRaises(HTTPException):
+            save_activity(
+                self.db,
+                self.a,
+                trip.id,
+                day.id,
+                ActivityCreate(title="Dinner", startTime=time(20, 0), endTime=time(19, 0)),
+            )
         trip = save_activity(
             self.db,
             self.a,
@@ -164,4 +170,3 @@ class TravelItineraryBuilderTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

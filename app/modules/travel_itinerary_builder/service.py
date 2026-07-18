@@ -306,6 +306,8 @@ def save_activity(
 ) -> ItineraryDetail:
     day = owned_day(db, user, itinerary_id, day_id)
     category_for(db, user, payload.category_id)
+    if payload.start_time and payload.end_time and payload.end_time <= payload.start_time:
+        fail(422, "End time must be after start time.")
     duplicate = db.scalar(
         select(TravelActivity).where(
             TravelActivity.day_id == day.id,
@@ -408,4 +410,3 @@ def dashboard(db: Session, user) -> TravelDashboard:
         total_activities=sum(len(day.activities) for itinerary in itineraries for day in itinerary.days),
         recent=[summary(itinerary) for itinerary in itineraries[:5]],
     )
-
