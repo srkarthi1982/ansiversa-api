@@ -150,6 +150,8 @@ Current truthful claims:
 - Ansiversa supports shared parent services.
 - Ansiversa hosts modular mini-app APIs.
 - Ansiversa uses a permanent 100-app catalog and category model.
+- Ansiversa AI Assistant Phase 2 uses backend-owned deterministic public
+  knowledge retrieval through `/api/v1/assistant/query`.
 - Ansiversa has a formal documentation lifecycle.
 - Ansiversa has completed `marketing.md` coverage for live story-backed apps.
 
@@ -167,7 +169,8 @@ Claims to avoid today:
 
 Known platform limitations:
 
-- AI gateway is a future platform capability, not the current universal runtime.
+- OpenAI-powered AI generation is a future platform capability, not the current
+  assistant runtime.
 - Stripe monetization and entitlement logic are future platform capabilities.
 - Cross-app dashboards and recommendations are still evolving.
 - Some apps are V1 or workflow-ready rather than mature full-featured products.

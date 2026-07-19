@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+* 2026-07-19: Implemented Ansiversa AI Assistant Phase 2 Backend Knowledge Retrieval Foundation with `POST /api/v1/assistant/query`, deterministic public catalog/page/FAQ retrieval, validated navigation actions, safe source metadata, focused service tests, and no OpenAI, external AI APIs, migrations, or user-data indexing.
+
 * 2026-07-19: Aligned current user-facing platform copy with the permanent curated 100-app boundary: Ansiversa is permanently curated at exactly 100 solution apps, growth after 100 is horizontal, and apps may be replaced while the total catalog boundary remains 100.
 
 * 2026-07-19: Promoted Salary Breakdown Calculator App #095 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `20 / 100`, overview metadata sync, production-configured isolated migration verification, validation, and final catalog verification at 100 live / 0 comingSoon.
@@ -1260,6 +1262,8 @@ Next milestone:
 ---
 
 ## Task Log (Recent)
+
+* 2026-07-19: Implemented Ansiversa AI Assistant Phase 2 Backend Knowledge Retrieval Foundation with `POST /api/v1/assistant/query`, deterministic public catalog/page/FAQ retrieval, validated navigation actions, safe source metadata, focused service tests, and no OpenAI, external AI APIs, migrations, or user-data indexing.
 
 * 2026-07-19: Promoted Shift Planner App #091 to approved live version `1.0.0` after Astra review and Partner manual verification, production-configured isolated migration verification at `20260716_0003_shift_planner`, parent Apps row promotion to `active` / `live`, destination metadata sync to `18 / 100` / `approved` / `2026-07-19`, overview metadata sync, catalog count verification at 92 live / 8 comingSoon, and validation; no business-logic changes were made.
 

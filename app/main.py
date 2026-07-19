@@ -12,6 +12,7 @@ from app.modules.admin.routes import router as admin_router
 from app.modules.admin.users_routes import router as admin_users_router
 from app.modules.ai_translator_and_tone_fixer.routes import router as ai_translator_and_tone_fixer_router
 from app.modules.ai_job_interviewer.routes import router as ai_job_interviewer_router
+from app.modules.assistant.routes import router as assistant_router
 from app.modules.apps.routes import apps_router, categories_router
 from app.modules.auth.routes import router as auth_router
 from app.modules.book_summary_generator.routes import router as book_summary_generator_router
@@ -132,6 +133,11 @@ def register_routes(app: FastAPI) -> None:
         auth_router,
         prefix=f"{settings.API_V1_PREFIX}/auth",
         tags=["Auth"],
+    )
+    app.include_router(
+        assistant_router,
+        prefix=f"{settings.API_V1_PREFIX}/assistant",
+        tags=["Assistant"],
     )
     app.include_router(
         apps_router,
