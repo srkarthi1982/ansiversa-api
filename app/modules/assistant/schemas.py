@@ -1,15 +1,24 @@
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 AssistantActionType = Literal["app", "platform", "account", "legal"]
 AssistantSourceType = Literal["app", "platform", "account", "legal", "faq"]
 AssistantConfidence = Literal["high", "medium", "low"]
+AssistantResponseMode = Literal["deterministic", "openai_grounded", "fallback"]
 
 
 class AssistantQueryRequest(BaseModel):
     message: str = Field(min_length=1, max_length=1000)
+
+    @field_validator("message")
+    @classmethod
+    def validate_message(cls, value: str) -> str:
+        message = value.strip()
+        if not message:
+            raise ValueError("Message is required.")
+        return message
 
 
 class AssistantAction(BaseModel):
@@ -29,3 +38,4 @@ class AssistantQueryResponse(BaseModel):
     actions: list[AssistantAction]
     sources: list[AssistantSource]
     confidence: AssistantConfidence
+    response_mode: AssistantResponseMode = Field(serialization_alias="responseMode")

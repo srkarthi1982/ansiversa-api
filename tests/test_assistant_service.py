@@ -1,6 +1,9 @@
 import unittest
 
-from app.modules.assistant.schemas import AssistantAction
+from pydantic import ValidationError
+
+from app.modules.assistant.openai_provider import OpenAIProviderError
+from app.modules.assistant.schemas import AssistantAction, AssistantQueryRequest
 from app.modules.assistant.service import (
     AssistantKnowledgeIndex,
     KnowledgeEntry,
@@ -37,6 +40,19 @@ def page(key, title, route, summary, aliases=(), source_type="platform"):
         action_type=source_type if source_type != "faq" else "platform",
         rank_weight=3,
     )
+
+
+class FakeProvider:
+    def __init__(self, answer="Grounded answer from approved context.", error=None):
+        self.answer = answer
+        self.error = error
+        self.calls = []
+
+    def generate_answer(self, question, context):
+        self.calls.append({"question": question, "context": context})
+        if self.error:
+            raise self.error
+        return self.answer
 
 
 class AssistantServiceTests(unittest.TestCase):
@@ -123,6 +139,7 @@ class AssistantServiceTests(unittest.TestCase):
         response = query_index("Document Expiry Tracker", self.index)
         self.assertEqual(response.sources[0].title, "Document Expiry Tracker")
         self.assert_action(response, "/document-expiry-tracker")
+        self.assertEqual(response.response_mode, "deterministic")
 
         response = query_index("salary breakdown", self.index)
         self.assertEqual(response.sources[0].title, "Salary Breakdown Calculator")
@@ -148,10 +165,12 @@ class AssistantServiceTests(unittest.TestCase):
                 response = query_index(message, self.index)
                 self.assert_action(response, route)
                 self.assertIn(response.confidence, {"high", "medium"})
+                self.assertEqual(response.response_mode, "deterministic")
 
     def test_unknown_fallback_has_no_sources(self):
         response = query_index("zzzz unknown nothing", self.index)
         self.assertEqual(response.confidence, "low")
+        self.assertEqual(response.response_mode, "fallback")
         self.assertEqual(response.sources, [])
         self.assertEqual(response.actions[0], AssistantAction(type="platform", label="Browse Apps", route="/apps"))
 
@@ -164,6 +183,107 @@ class AssistantServiceTests(unittest.TestCase):
         combined = f"{response.answer} {' '.join(source.title for source in response.sources)}"
         self.assertNotIn("Secrets", combined)
         self.assertNotIn("AGENTS", combined)
+
+    def test_strong_app_query_uses_grounded_openai(self):
+        provider = FakeProvider("Document Expiry Tracker helps you monitor renewal deadlines.")
+        response = query_index("Document Expiry Tracker", self.index, answer_provider=provider)
+        self.assertEqual(response.response_mode, "openai_grounded")
+        self.assertEqual(response.answer, "Document Expiry Tracker helps you monitor renewal deadlines.")
+        self.assertEqual(len(provider.calls), 1)
+        self.assert_action(response, "/document-expiry-tracker")
+
+    def test_platform_page_skips_openai(self):
+        provider = FakeProvider()
+        response = query_index("pricing", self.index, answer_provider=provider)
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertEqual(provider.calls, [])
+        self.assert_action(response, "/pricing")
+
+    def test_no_match_skips_openai_and_does_not_fabricate(self):
+        provider = FakeProvider()
+        response = query_index("unknown beta roadmap feature", self.index, answer_provider=provider)
+        self.assertEqual(response.response_mode, "fallback")
+        self.assertEqual(provider.calls, [])
+        self.assertEqual(response.sources, [])
+        self.assertNotIn("beta roadmap", response.answer.lower())
+
+    def test_provider_timeout_exception_and_empty_output_fallback(self):
+        for error in (TimeoutError("timeout"), OpenAIProviderError("failed"), RuntimeError("failed")):
+            with self.subTest(error=type(error).__name__):
+                response = query_index(
+                    "Document Expiry Tracker",
+                    self.index,
+                    answer_provider=FakeProvider(error=error),
+                )
+                self.assertEqual(response.response_mode, "deterministic")
+                self.assertIn("Document Expiry Tracker is an Ansiversa app", response.answer)
+
+        response = query_index("Document Expiry Tracker", self.index, answer_provider=FakeProvider(""))
+        self.assertEqual(response.response_mode, "deterministic")
+
+    def test_model_output_cannot_create_routes_or_actions(self):
+        response = query_index(
+            "Document Expiry Tracker",
+            self.index,
+            answer_provider=FakeProvider("Open /admin/secrets now."),
+        )
+        self.assertEqual(response.response_mode, "openai_grounded")
+        self.assertFalse(any(action.route == "/admin/secrets" for action in response.actions))
+        self.assertTrue(
+            all(
+                action.route
+                in {
+                    "/document-expiry-tracker",
+                    "/salary-breakdown-calculator",
+                    "/net-worth-tracker",
+                    "/savings-goal-planner",
+                    "/about",
+                    "/pricing",
+                    "/faq",
+                    "/contact",
+                    "/privacy",
+                    "/terms",
+                    "/apps",
+                }
+                for action in response.actions
+            )
+        )
+
+    def test_provider_receives_only_bounded_public_context(self):
+        provider = FakeProvider()
+        response = query_index(
+            "Document Expiry Tracker",
+            self.index,
+            answer_provider=provider,
+            max_context_chars=180,
+        )
+        self.assertEqual(response.response_mode, "openai_grounded")
+        context = provider.calls[0]["context"]
+        self.assertLessEqual(len(context), 180)
+        self.assertIn("Document Expiry Tracker", context)
+        self.assertNotIn("AGENTS", context)
+        self.assertNotIn("Secrets", context)
+        self.assertNotIn("credentials", context)
+        self.assertNotIn("/document-expiry-tracker", context)
+
+    def test_simple_app_navigation_skips_openai(self):
+        provider = FakeProvider()
+        response = query_index("open Document Expiry Tracker", self.index, answer_provider=provider)
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertEqual(provider.calls, [])
+        self.assert_action(response, "/document-expiry-tracker")
+
+    def test_multiple_app_matches_have_max_three_deterministic_actions(self):
+        response = query_index("finance", self.index, answer_provider=FakeProvider())
+        self.assertLessEqual(len(response.actions), 3)
+        self.assertTrue(all(action.type == "app" for action in response.actions))
+
+    def test_request_rejects_empty_and_long_messages(self):
+        with self.assertRaises(ValidationError):
+            AssistantQueryRequest(message="   ")
+
+        with self.assertRaises(ValidationError):
+            AssistantQueryRequest(message="x" * 1001)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+* 2026-07-19: Implemented Ansiversa AI Assistant Phase 3 Grounded OpenAI Response Generation with server-side Responses API integration, deterministic retrieval/action authority, bounded public context, response mode metadata, provider failure fallback, focused mocked service tests, and no embeddings, vector database, tool calls, migrations, or frontend secrets.
+
 * 2026-07-19: Implemented Ansiversa AI Assistant Phase 2 Backend Knowledge Retrieval Foundation with `POST /api/v1/assistant/query`, deterministic public catalog/page/FAQ retrieval, validated navigation actions, safe source metadata, focused service tests, and no OpenAI, external AI APIs, migrations, or user-data indexing.
 
 * 2026-07-19: Aligned current user-facing platform copy with the permanent curated 100-app boundary: Ansiversa is permanently curated at exactly 100 solution apps, growth after 100 is horizontal, and apps may be replaced while the total catalog boundary remains 100.

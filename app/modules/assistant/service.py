@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Protocol
 
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
 from app.modules.apps.models import AppCatalogItem, Category
+from app.modules.assistant.openai_provider import OpenAIResponseProvider
 from app.modules.assistant.schemas import (
     AssistantAction,
     AssistantQueryResponse,
@@ -51,6 +53,34 @@ class RankedEntry:
 class AssistantKnowledgeIndex:
     entries: tuple[KnowledgeEntry, ...]
     allowed_routes: frozenset[str]
+
+
+@dataclass(frozen=True)
+class DeterministicAssistantResult:
+    answer: str
+    actions: list[AssistantAction]
+    sources: list[AssistantSource]
+    confidence: Literal["high", "medium", "low"]
+    top_entries: tuple[KnowledgeEntry, ...]
+
+    def to_response(
+        self,
+        *,
+        answer: str | None = None,
+        response_mode: Literal["deterministic", "openai_grounded", "fallback"] = "deterministic",
+    ) -> AssistantQueryResponse:
+        return AssistantQueryResponse(
+            answer=answer or self.answer,
+            actions=self.actions,
+            sources=self.sources,
+            confidence=self.confidence,
+            response_mode=response_mode,
+        )
+
+
+class AssistantAnswerProvider(Protocol):
+    def generate_answer(self, question: str, context: str) -> str | None:
+        ...
 
 
 APP_ALIASES: dict[str, tuple[str, ...]] = {
@@ -231,6 +261,16 @@ FALLBACK_ACTIONS: tuple[AssistantAction, ...] = (
     AssistantAction(type="platform", label="Browse Apps", route="/apps"),
     AssistantAction(type="platform", label="Open FAQ", route="/faq"),
 )
+
+NAVIGATION_INTENTS = {
+    "open",
+    "go",
+    "show",
+    "find",
+    "launch",
+    "take",
+    "browse",
+}
 
 
 def normalize_text(value: str) -> str:
@@ -465,14 +505,14 @@ def _answer_for_match(entries: list[KnowledgeEntry], message: str) -> str:
     return primary.summary
 
 
-def query_index(message: str, index: AssistantKnowledgeIndex) -> AssistantQueryResponse:
+def retrieve_deterministic(message: str, index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
         allowed_routes=index.allowed_routes,
     )
     ranked = rank_entries(message, public_index)
     if not ranked:
-        return AssistantQueryResponse(
+        return DeterministicAssistantResult(
             answer=(
                 "I could not find a confident match in the public Ansiversa knowledge base. "
                 "Try an app name, category, platform page, or common topic such as pricing, FAQ, or documents."
@@ -480,6 +520,7 @@ def query_index(message: str, index: AssistantKnowledgeIndex) -> AssistantQueryR
             actions=list(FALLBACK_ACTIONS),
             sources=[],
             confidence="low",
+            top_entries=(),
         )
 
     top_entries: list[KnowledgeEntry] = []
@@ -496,14 +537,117 @@ def query_index(message: str, index: AssistantKnowledgeIndex) -> AssistantQueryR
     confidence = "high" if best_score >= 70 else "medium"
     actions = _safe_actions(top_entries, index.allowed_routes) or list(FALLBACK_ACTIONS)
 
-    return AssistantQueryResponse(
+    return DeterministicAssistantResult(
         answer=_answer_for_match(top_entries, message),
         actions=actions,
         sources=_sources(top_entries),
         confidence=confidence,
+        top_entries=tuple(top_entries),
     )
+
+
+def _is_simple_navigation_query(message: str, result: DeterministicAssistantResult) -> bool:
+    if not result.top_entries:
+        return False
+
+    if result.top_entries[0].source_type != "app":
+        return True
+
+    tokens = normalize_text(message).split()
+    return bool(tokens and tokens[0] in NAVIGATION_INTENTS)
+
+
+def _select_response_mode(
+    message: str,
+    result: DeterministicAssistantResult,
+    *,
+    provider_available: bool,
+) -> Literal["deterministic", "openai_grounded", "fallback"]:
+    if result.confidence == "low" or not result.sources:
+        return "fallback"
+
+    if not provider_available or _is_simple_navigation_query(message, result):
+        return "deterministic"
+
+    if result.top_entries[0].source_type == "app":
+        return "openai_grounded"
+
+    return "deterministic"
+
+
+def _provider_context(
+    entries: tuple[KnowledgeEntry, ...],
+    actions: list[AssistantAction],
+    *,
+    max_chars: int,
+) -> str:
+    permitted_action_labels = ", ".join(action.label for action in actions)
+    chunks: list[str] = []
+    for entry in entries[:3]:
+        if entry.visibility != "public":
+            continue
+        chunks.append(
+            "\n".join(
+                (
+                    f"Title: {entry.title}",
+                    f"Type: {entry.source_type}",
+                    f"Category: {entry.category or 'Platform'}",
+                    f"Summary: {entry.summary}",
+                )
+            )
+        )
+
+    if permitted_action_labels:
+        chunks.append(f"Permitted action labels: {permitted_action_labels}")
+
+    context = "\n\n---\n\n".join(chunks)
+    if len(context) <= max_chars:
+        return context
+
+    return context[:max_chars].rsplit(" ", 1)[0].strip()
+
+
+def query_index(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    *,
+    answer_provider: AssistantAnswerProvider | None = None,
+    max_context_chars: int = 3500,
+) -> AssistantQueryResponse:
+    deterministic = retrieve_deterministic(message, index)
+    provider_available = answer_provider is not None
+    response_mode = _select_response_mode(
+        message,
+        deterministic,
+        provider_available=provider_available,
+    )
+    if response_mode != "openai_grounded" or answer_provider is None:
+        return deterministic.to_response(response_mode=response_mode)
+
+    try:
+        context = _provider_context(
+            deterministic.top_entries,
+            deterministic.actions,
+            max_chars=max_context_chars,
+        )
+        ai_answer = answer_provider.generate_answer(message, context)
+    except Exception:
+        return deterministic.to_response(response_mode="deterministic")
+
+    if not ai_answer:
+        return deterministic.to_response(response_mode="deterministic")
+
+    return deterministic.to_response(answer=ai_answer, response_mode="openai_grounded")
 
 
 def query_assistant(db: Session, message: str) -> AssistantQueryResponse:
     index = build_knowledge_index(db)
-    return query_index(message, index)
+    provider = OpenAIResponseProvider() if settings.ASSISTANT_OPENAI_ENABLED else None
+    if provider is not None and not provider.is_configured:
+        provider = None
+    return query_index(
+        message,
+        index,
+        answer_provider=provider,
+        max_context_chars=settings.ASSISTANT_MAX_CONTEXT_CHARS,
+    )
