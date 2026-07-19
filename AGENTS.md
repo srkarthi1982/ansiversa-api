@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+* 2026-07-19: Promoted Net Worth Tracker App #096 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `0 / 100`, overview metadata sync, production-configured isolated migration verification, and validation.
+
 * 2026-07-19: Promoted Meeting Scheduler App #089 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `20 / 100`, overview metadata sync, production-configured isolated migration verification, and validation.
 
 * 2026-07-19: Promoted Emergency Checklist App #100 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `20 / 100`, overview metadata sync, production-configured isolated migration verification, and validation.

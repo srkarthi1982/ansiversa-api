@@ -22,4 +22,4 @@ Stable operations provide dashboard, paginated/filterable accounts, nested balan
 
 ## Current status and limitations
 
-The workflow is technically Level 3 while remaining `comingSoon`, version `null`, destination approval pending. The production-configured isolated migration is verified at `20260716_0008_net_worth_tracker`. No bank linking, imports, feeds, conversions, charts, exports, custom categories, advice, or official statements are included. Authenticated browser E2E, manual acceptance, and live promotion require separate approval.
+The workflow is Approved Live at version `1.0.0` after authenticated browser verification, Astra review, Partner manual verification, UI action polish, production-configured isolated migration verification at `20260716_0008_net_worth_tracker`, destination metadata sync, overview metadata sync, and parent Apps row promotion. No bank linking, imports, feeds, conversions, charts, exports, custom categories, advice, or official statements are included.

@@ -2190,7 +2190,7 @@
 			"key": "net-worth-tracker",
 			"slug": "net-worth-tracker",
 			"name": "Net Worth Tracker",
-			"description": "Net Worth Tracker for the Ansiversa app ecosystem.",
+			"description": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
 			"categoryId": "cat_personal-finance",
 			"status": "active",
 			"isFeatured": 0,
@@ -2199,14 +2199,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "net-worth-tracker",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 0,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-19"
 		},
 		{
 			"id": "app_decision-maker",
