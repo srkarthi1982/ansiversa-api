@@ -54,7 +54,7 @@ List responses return only fields displayed by the list UI. Dashboard returns co
 
 ## Current Status
 
-Local Services Finder is Workflow Ready / Level 3 candidate, `comingSoon`, version `null`. Production-configured migration `20260716_0011_local_services_finder` is applied and verified for the isolated database. Authenticated browser E2E, Karthik manual acceptance, destination approval, and live promotion remain pending.
+Local Services Finder is Approved Live at version `1.0.0` after authenticated E2E, Astra review, Partner manual verification, production-configured isolated migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion.
 
 ## Known Limitations
 

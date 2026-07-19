@@ -4,12 +4,9 @@
 
 Local Services Finder is App #099 (`local-services-finder`) in the Daily Life category. It is a private personal directory for trusted local providers, not a public business search engine, marketplace, booking platform, map, or review product.
 
-## Destination Status
-
-- Launch status: `comingSoon`
-- Version: `null`
-- Destination approval: pending Partner/Astra review
-- Journey Progress: not approved
+Destination Status: approved
+Current Journey Progress: 20 / 100
+Reviewed At: 2026-07-19
 
 ## Mature Destination
 
@@ -51,6 +48,6 @@ At 100 / 100, Local Services Finder helps users keep trusted local service provi
 - 80 / 100: Stronger contact history and household sharing if approved.
 - 100 / 100: Reliable private provider memory with excellent retrieval, trust markers, and clear platform boundaries.
 
-## Current Destination Boundary
+## Promotion
 
-The approved development task covers Workflow Ready Level 3 only. Do not promote live, approve destination progress, or populate destination metadata until Partner/Astra explicitly approve.
+Approved live at version `1.0.0` after Astra review, Partner manual verification, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.
