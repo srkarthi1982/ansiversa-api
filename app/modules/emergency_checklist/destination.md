@@ -6,11 +6,17 @@ Emergency Checklist is App #100 (`emergency-checklist`). It is the final planned
 
 ## Destination Status
 
+approved
+
 - Destination: 100 / 100
 - Journey Progress: 20 / 100
-- Destination status: draft
-- Destination reviewed at: pending
-- Destination approval: pending Partner/Astra review
+- Destination status: approved
+- Destination reviewed at: 2026-07-19
+- Destination approval: approved by Astra and Partner for live promotion
+
+Destination Status: approved
+Current Journey Progress: 20 / 100
+Reviewed At: 2026-07-19
 
 ## Mature Product Destination
 
@@ -26,3 +32,7 @@ Emergency Checklist does not provide SOS, dispatch, medical advice, disaster mon
 - Review cadence and platform reminders.
 - Household sharing after permissions mature.
 - Export or print views.
+
+## Promotion
+
+Approved live at version `1.0.0` after Astra review, Partner manual verification, UI action polish, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.

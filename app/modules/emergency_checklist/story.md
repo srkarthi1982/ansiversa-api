@@ -46,7 +46,7 @@ Indexes cover owner/category, archive filtering, updated sorting, and item sort/
 
 ## Current Status
 
-Emergency Checklist is Workflow Ready / Level 3 candidate, `comingSoon`, version `null`. Production-configured migration `20260716_0012_emergency_checklist` is applied and verified for the isolated database. Authenticated browser E2E, Karthik manual acceptance, destination approval, and live promotion remain pending.
+Emergency Checklist is Approved Live at version `1.0.0` after authenticated browser E2E, Astra review, Partner manual verification, UI action polish, production-configured migration verification at `20260716_0012_emergency_checklist`, destination metadata sync, overview metadata sync, and parent Apps row promotion.
 
 ## Known Limitations
 
