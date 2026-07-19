@@ -11,7 +11,7 @@ from app.modules.favorites.models import Favorite
 def _is_favoritable_app(app: AppCatalogItem) -> bool:
     return (
         app.visibility == "public"
-        and app.status == "live"
+        and app.status == "active"
         and app.launch_status == "live"
     )
 
