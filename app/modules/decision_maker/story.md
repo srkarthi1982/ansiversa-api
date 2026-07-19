@@ -26,4 +26,4 @@ Stable operations provide dashboard, paginated/searchable/filterable lightweight
 
 ## Current status and limitations
 
-The implementation targets Workflow Ready Level 3 while remaining `comingSoon`, version `null`, destination approval pending. Production migration `20260716_0009_decision_maker` is applied and verified. No AI recommendation, external research, random choice, voting, collaboration, sharing, integration, professional advice, or outcome guarantee exists. Authenticated browser E2E, manual acceptance, and live promotion require separate approval.
+Approved Live at version `1.0.0` after authenticated E2E, Astra review, Partner manual verification, production-configured isolated migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion. Production migration `20260716_0009_decision_maker` is applied and verified. No AI recommendation, external research, random choice, voting, collaboration, sharing, integration, professional advice, or outcome guarantee exists.
