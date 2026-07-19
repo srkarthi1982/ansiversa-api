@@ -56,15 +56,19 @@ class OpenAIResponseProvider:
         model: str | None = None,
         timeout_seconds: float | None = None,
         max_output_tokens: int | None = None,
+        temperature: float | None = None,
     ) -> None:
         self.api_key = api_key if api_key is not None else settings.OPENAI_API_KEY
         self.model = model or settings.ASSISTANT_OPENAI_MODEL
         self.timeout_seconds = timeout_seconds or settings.ASSISTANT_OPENAI_TIMEOUT_SECONDS
         self.max_output_tokens = max_output_tokens or settings.ASSISTANT_OPENAI_MAX_OUTPUT_TOKENS
+        self.temperature = (
+            temperature if temperature is not None else settings.ASSISTANT_OPENAI_TEMPERATURE
+        )
 
     @property
     def is_configured(self) -> bool:
-        return bool(self.api_key and settings.ASSISTANT_OPENAI_ENABLED)
+        return bool(self.api_key and settings.AI_GATEWAY_ENABLED and settings.ASSISTANT_OPENAI_ENABLED)
 
     def generate_answer(self, question: str, context: str) -> str | None:
         if not self.is_configured:
@@ -86,6 +90,7 @@ class OpenAIResponseProvider:
                             f"Approved public Ansiversa context:\n{context}"
                         ),
                         "max_output_tokens": self.max_output_tokens,
+                        "temperature": self.temperature,
                     },
                 )
                 response.raise_for_status()

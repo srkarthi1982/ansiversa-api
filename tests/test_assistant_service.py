@@ -283,7 +283,7 @@ class AssistantServiceTests(unittest.TestCase):
             AssistantQueryRequest(message="   ")
 
         with self.assertRaises(ValidationError):
-            AssistantQueryRequest(message="x" * 1001)
+            AssistantQueryRequest(message="x" * 2001)
 
 
 if __name__ == "__main__":

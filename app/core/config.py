@@ -173,11 +173,16 @@ class Settings(BaseSettings):
     AUTH_COOKIE_SAMESITE: Literal["lax", "strict", "none"] | None = None
     AUTH_COOKIE_MAX_AGE_SECONDS: int | None = Field(default=None, gt=0)
     API_TIMING_ENABLED: bool = True
+    AI_GATEWAY_ENABLED: bool = True
     OPENAI_API_KEY: str | None = None
     ASSISTANT_OPENAI_ENABLED: bool = True
-    ASSISTANT_OPENAI_MODEL: str = "gpt-5.6-luna"
-    ASSISTANT_OPENAI_TIMEOUT_SECONDS: float = Field(default=6.0, gt=0, le=30)
-    ASSISTANT_OPENAI_MAX_OUTPUT_TOKENS: int = Field(default=220, ge=64, le=1000)
+    ASSISTANT_OPENAI_MODEL: str = "gpt-4.1-mini"
+    ASSISTANT_OPENAI_TIMEOUT_SECONDS: float = Field(default=20.0, gt=0, le=60)
+    ASSISTANT_OPENAI_MAX_OUTPUT_TOKENS: int = Field(default=600, ge=64, le=2000)
+    ASSISTANT_OPENAI_TEMPERATURE: float = Field(default=0.2, ge=0, le=2)
+    AI_MAX_CONTEXT_CHUNKS: int = Field(default=5, ge=1, le=10)
+    AI_MAX_USER_MESSAGE_LENGTH: int = Field(default=2000, ge=1, le=5000)
+    AI_DEBUG: bool = False
     ASSISTANT_MAX_CONTEXT_CHARS: int = Field(default=3500, ge=500, le=10000)
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()

@@ -580,10 +580,11 @@ def _provider_context(
     actions: list[AssistantAction],
     *,
     max_chars: int,
+    max_chunks: int,
 ) -> str:
     permitted_action_labels = ", ".join(action.label for action in actions)
     chunks: list[str] = []
-    for entry in entries[:3]:
+    for entry in entries[:max_chunks]:
         if entry.visibility != "public":
             continue
         chunks.append(
@@ -629,6 +630,7 @@ def query_index(
             deterministic.top_entries,
             deterministic.actions,
             max_chars=max_context_chars,
+            max_chunks=settings.AI_MAX_CONTEXT_CHUNKS,
         )
         ai_answer = answer_provider.generate_answer(message, context)
     except Exception:
@@ -642,6 +644,9 @@ def query_index(
 
 def query_assistant(db: Session, message: str) -> AssistantQueryResponse:
     index = build_knowledge_index(db)
+    if not settings.AI_GATEWAY_ENABLED:
+        return retrieve_deterministic(message, index).to_response(response_mode="deterministic")
+
     provider = OpenAIResponseProvider() if settings.ASSISTANT_OPENAI_ENABLED else None
     if provider is not None and not provider.is_configured:
         provider = None

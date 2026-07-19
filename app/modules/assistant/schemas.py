@@ -2,6 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.core.config import settings
+
 
 AssistantActionType = Literal["app", "platform", "account", "legal"]
 AssistantSourceType = Literal["app", "platform", "account", "legal", "faq"]
@@ -10,7 +12,7 @@ AssistantResponseMode = Literal["deterministic", "openai_grounded", "fallback"]
 
 
 class AssistantQueryRequest(BaseModel):
-    message: str = Field(min_length=1, max_length=1000)
+    message: str = Field(min_length=1, max_length=settings.AI_MAX_USER_MESSAGE_LENGTH)
 
     @field_validator("message")
     @classmethod
