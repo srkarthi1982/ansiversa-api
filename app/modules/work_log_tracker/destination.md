@@ -1,6 +1,13 @@
 # Work Log Tracker Destination
-Proposed; approval pending; progress 18/100; no reviewed date.
+
+Destination Status: approved
+Current Journey Progress: 18 / 100
+Reviewed At: 2026-07-19
 
 The Level 3 destination records work against reusable projects through timed or manual logs. Timed logs support overnight work, subtract a valid break, reject active overlaps, and allow back-to-back boundaries. Manual logs require 1–1440 minutes and may overlap. Completed/in-progress/paused records contribute to relevant time totals; planned and cancelled records do not. Billable totals are time classifications only, never money or invoicing.
 
 No separate category entity is included because projects plus searchable narrative fields meet the first-release need without redundant management. No surveillance, payroll, billing, attendance, legal overtime, integrations, approvals, or AI automation.
+
+## Promotion
+
+Approved live at version `1.0.0` after Astra review, Partner manual verification, UI action polish, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.

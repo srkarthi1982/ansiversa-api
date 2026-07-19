@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 APPROVED_STATUS = "approved"
-EXPECTED_LIVE_DESTINATION_COUNT = 95
+EXPECTED_LIVE_DESTINATION_COUNT = 96
 REVIEW_DATE_PATTERN = re.compile(
     r"(?:Astra: Approved on|Reviewed At:|Reviewed date:|Last Reviewed:|Reviewed for live promotion on)\s*`?(?P<date>\d{4}-\d{2}-\d{2})`?",
     re.IGNORECASE,
