@@ -4,12 +4,9 @@
 
 Errand Planner is App #098 (`errand-planner`) in the Daily Life category. At maturity, it should be a calm personal errand workspace for organizing practical outside-the-home tasks without becoming a map, delivery tracker, calendar, or project-management replacement.
 
-## Destination Status
-
-- Launch status: `comingSoon`
-- Version: `null`
-- Destination approval: pending Partner/Astra review
-- Journey Progress: not approved
+Destination Status: approved
+Current Journey Progress: 20 / 100
+Reviewed At: 2026-07-19
 
 ## Mature Destination
 
@@ -49,6 +46,6 @@ At 100 / 100, Errand Planner helps users decide what errands need attention, whe
 - 80 / 100: Household or small-team errand sharing if the product boundary is approved.
 - 100 / 100: Reliable, private, cross-device errand planning with reminders, review surfaces, and clear boundaries.
 
-## Current Destination Boundary
+## Promotion
 
-The approved development task covers Workflow Ready Level 3 only. Do not promote live, approve destination progress, or populate destination metadata until Partner/Astra explicitly approve.
+Approved live at version `1.0.0` after Astra review, Partner manual verification, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.

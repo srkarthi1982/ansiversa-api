@@ -54,7 +54,7 @@ The list endpoint returns only fields displayed by the list UI. Dashboard return
 
 ## Current Status
 
-Errand Planner is Workflow Ready / Level 3 candidate, `comingSoon`, version `null`. The production-configured isolated migration is verified at `20260716_0010_errand_planner` with empty starting app tables. Authenticated browser E2E, Karthik manual acceptance, destination approval, and live promotion remain pending.
+Errand Planner is Approved Live at version `1.0.0` after authenticated E2E, Astra review, Partner manual verification, production-configured isolated migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion.
 
 ## Known Limitations
 
