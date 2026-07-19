@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+* 2026-07-19: Polished Ansiversa AI Assistant deterministic responses for financial-advice safety questions and explicit out-of-scope prompts so they no longer fall through to generic About matches, with focused tests for guidance, uncertainty, and validated actions.
+
 * 2026-07-19: Added the Ansiversa AI Assistant environment contract with namespaced OpenAI provider settings, master gateway/debug switches, message/context limits, local `.env` placeholder values, `.env.example` documentation, and matching runtime configuration support.
 
 * 2026-07-19: Implemented Ansiversa AI Assistant Phase 3 Grounded OpenAI Response Generation with server-side Responses API integration, deterministic retrieval/action authority, bounded public context, response mode metadata, provider failure fallback, focused mocked service tests, and no embeddings, vector database, tool calls, migrations, or frontend secrets.

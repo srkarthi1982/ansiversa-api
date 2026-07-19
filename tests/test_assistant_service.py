@@ -121,6 +121,7 @@ class AssistantServiceTests(unittest.TestCase):
                     "/salary-breakdown-calculator",
                     "/net-worth-tracker",
                     "/savings-goal-planner",
+                    "/expense-tracker",
                     "/about",
                     "/pricing",
                     "/faq",
@@ -173,6 +174,23 @@ class AssistantServiceTests(unittest.TestCase):
         self.assertEqual(response.response_mode, "fallback")
         self.assertEqual(response.sources, [])
         self.assertEqual(response.actions[0], AssistantAction(type="platform", label="Browse Apps", route="/apps"))
+
+    def test_financial_advice_question_returns_safety_guidance(self):
+        response = query_index("Can Ansiversa give financial advice?", self.index, answer_provider=FakeProvider())
+        self.assertEqual(response.confidence, "high")
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("does not provide professional financial advice", response.answer)
+        self.assert_action(response, "/salary-breakdown-calculator")
+        self.assert_action(response, "/savings-goal-planner")
+        self.assertFalse(any(source.title == "About" for source in response.sources))
+
+    def test_explicit_out_of_scope_question_does_not_route_to_about(self):
+        response = query_index("Tell me something that is not in Ansiversa.", self.index, answer_provider=FakeProvider())
+        self.assertEqual(response.confidence, "low")
+        self.assertEqual(response.response_mode, "fallback")
+        self.assertIn("could not find that topic", response.answer)
+        self.assertIn("apps, platform features, pricing, accounts, navigation, and policies", response.answer)
+        self.assertFalse(any(action.route == "/about" for action in response.actions))
 
     def test_invalid_routes_are_not_emitted(self):
         response = query_index("brokenroute", self.index)

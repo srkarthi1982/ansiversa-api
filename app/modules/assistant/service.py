@@ -262,6 +262,12 @@ FALLBACK_ACTIONS: tuple[AssistantAction, ...] = (
     AssistantAction(type="platform", label="Open FAQ", route="/faq"),
 )
 
+FINANCIAL_GUIDANCE_ACTIONS: tuple[AssistantAction, ...] = (
+    AssistantAction(type="app", label="Open Salary Breakdown Calculator", route="/salary-breakdown-calculator"),
+    AssistantAction(type="app", label="Open Savings Goal Planner", route="/savings-goal-planner"),
+    AssistantAction(type="app", label="Open Expense Tracker", route="/expense-tracker"),
+)
+
 NAVIGATION_INTENTS = {
     "open",
     "go",
@@ -270,6 +276,22 @@ NAVIGATION_INTENTS = {
     "launch",
     "take",
     "browse",
+}
+
+FINANCIAL_ADVICE_TERMS = {
+    "financial advice",
+    "finance advice",
+    "investment advice",
+    "money advice",
+    "advise me financially",
+}
+
+OUT_OF_SCOPE_TERMS = {
+    "not in ansiversa",
+    "outside ansiversa",
+    "not part of ansiversa",
+    "something else",
+    "unrelated to ansiversa",
 }
 
 
@@ -505,7 +527,62 @@ def _answer_for_match(entries: list[KnowledgeEntry], message: str) -> str:
     return primary.summary
 
 
+def _filter_allowed_actions(
+    actions: tuple[AssistantAction, ...],
+    allowed_routes: frozenset[str],
+) -> list[AssistantAction]:
+    return [action for action in actions if action.route in allowed_routes]
+
+
+def _is_financial_advice_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    return "advice" in normalized and any(term in normalized for term in FINANCIAL_ADVICE_TERMS)
+
+
+def _is_explicit_out_of_scope_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    return any(term in normalized for term in OUT_OF_SCOPE_TERMS)
+
+
+def _financial_guidance_result(index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
+    actions = _filter_allowed_actions(FINANCIAL_GUIDANCE_ACTIONS, index.allowed_routes)
+    if not actions:
+        actions = list(FALLBACK_ACTIONS)
+
+    return DeterministicAssistantResult(
+        answer=(
+            "Ansiversa provides tools to help you organize, calculate, and understand "
+            "financial information, but it does not provide professional financial advice. "
+            "For important financial decisions, consult a qualified financial advisor."
+        ),
+        actions=actions,
+        sources=[],
+        confidence="high",
+        top_entries=(),
+    )
+
+
+def _out_of_scope_result() -> DeterministicAssistantResult:
+    return DeterministicAssistantResult(
+        answer=(
+            "I could not find that topic within the current Ansiversa knowledge base. "
+            "I can help with apps, platform features, pricing, accounts, navigation, "
+            "and policies. If you are looking for something else, try rephrasing your question."
+        ),
+        actions=list(FALLBACK_ACTIONS),
+        sources=[],
+        confidence="low",
+        top_entries=(),
+    )
+
+
 def retrieve_deterministic(message: str, index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
+    if _is_financial_advice_query(message):
+        return _financial_guidance_result(index)
+
+    if _is_explicit_out_of_scope_query(message):
+        return _out_of_scope_result()
+
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
         allowed_routes=index.allowed_routes,
@@ -563,8 +640,11 @@ def _select_response_mode(
     *,
     provider_available: bool,
 ) -> Literal["deterministic", "openai_grounded", "fallback"]:
-    if result.confidence == "low" or not result.sources:
+    if result.confidence == "low":
         return "fallback"
+
+    if not result.top_entries:
+        return "deterministic"
 
     if not provider_available or _is_simple_navigation_query(message, result):
         return "deterministic"
