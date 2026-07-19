@@ -16,15 +16,21 @@ Meeting Scheduler should give an authenticated user one calm place to create a m
 
 ## Destination progress
 
+approved
+
 - Journey progress: `20 / 100`
-- Development state: Workflow Ready for review
-- Destination approval: pending Partner/Astra review
-- Reviewed date: not set
-- Catalog version: `null`
-- Launch status: `comingSoon`
+- Development state: Approved Live
+- Destination approval: approved by Astra and Partner for live promotion
+- Reviewed date: 2026-07-19
+- Catalog version: `1.0.0`
+- Launch status: `live`
 - Production migration: verified at `20260716_0001_meeting_scheduler`
 
-The score reflects a complete V1 workflow that has not received visual approval or live promotion. No approval date or live version is assigned.
+Destination Status: approved
+Current Journey Progress: 20 / 100
+Reviewed At: 2026-07-19
+
+The score reflects a complete V1 workflow that has received visual approval and live promotion.
 
 ## Safety and scope
 
@@ -38,3 +44,7 @@ All records are owner-scoped. Participant information is stored only as user-ent
 - Verify list search, filters, pagination, and empty states.
 - Verify invalid and inaccessible meeting IDs.
 - Verify desktop and mobile layouts before approval.
+
+## Promotion
+
+Approved live at version `1.0.0` after Astra review, Partner manual verification, UI action polish, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.

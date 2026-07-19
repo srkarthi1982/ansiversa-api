@@ -1,6 +1,6 @@
 # Meeting Scheduler Story
 
-Meeting Scheduler is App #089 (`meeting-scheduler`). It helps authenticated users keep general-purpose meeting schedules, participant response labels, and ordered agenda items together. It remains `comingSoon` with `version = null` while awaiting review.
+Meeting Scheduler is App #089 (`meeting-scheduler`). It helps authenticated users keep general-purpose meeting schedules, participant response labels, and ordered agenda items together. It is Approved Live at version `1.0.0` after authenticated workflow verification, Astra review, Partner manual verification, UI action polish, production-configured isolated migration verification, destination metadata sync, overview metadata sync, and parent Apps row promotion.
 
 The overview at `/meeting-scheduler` uses shared API-driven metadata. Explore opens `/meeting-scheduler/meetings`, the primary protected workflow. The list page provides dashboard counts, search, status and upcoming/past filters, pagination, meeting cards, and create/edit/delete actions. `/meeting-scheduler/meetings/:meetingId` shows the schedule, participants, and ordered agenda.
 

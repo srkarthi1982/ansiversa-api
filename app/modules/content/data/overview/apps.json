@@ -2029,7 +2029,7 @@
 			"key": "meeting-scheduler",
 			"slug": "meeting-scheduler",
 			"name": "Meeting Scheduler",
-			"description": "Meeting Scheduler for the Ansiversa app ecosystem.",
+			"description": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
 			"categoryId": "cat_work-and-planning",
 			"status": "active",
 			"isFeatured": 0,
@@ -2038,14 +2038,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "meeting-scheduler",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 20,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-19"
 		},
 		{
 			"id": "app_leave-planner",
