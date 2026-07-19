@@ -1,8 +1,8 @@
 # Savings Goal Planner Destination
 
-## Destination Status
-
-Pending approval. No reviewed date is recorded.
+Destination Status: approved
+Current Journey Progress: 20 / 100
+Reviewed At: 2026-07-19
 
 ## Product Boundary
 
@@ -13,3 +13,7 @@ It does not own expenses, household bills, bank accounts, payments, investments,
 ## Level 3 Destination
 
 Protected goal history and details, three isolated tables, decimal-authoritative calculations, nested transaction and milestone management, combined filters and pagination, per-currency dashboard totals, direct URL safety, and responsive shared Ansiversa UI.
+
+## Promotion
+
+Approved live at version `1.0.0` after Astra review, Partner manual verification, production-configured isolated migration verification, Apps row promotion, destination metadata sync, overview metadata sync, and validation.

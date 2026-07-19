@@ -2153,14 +2153,14 @@
 			"createdAt": "2026-06-19 11:49:45",
 			"updatedAt": "2026-06-19 11:49:45",
 			"capabilities": "[]",
-			"launchStatus": "comingSoon",
+			"launchStatus": "live",
 			"visibility": "public",
 			"pricingGate": "free",
 			"logoKey": "savings-goal-planner",
-			"version": null,
-			"destination_progress": null,
-			"destination_status": null,
-			"destination_reviewed_at": null
+			"version": "1.0.0",
+			"destination_progress": 20,
+			"destination_status": "approved",
+			"destination_reviewed_at": "2026-07-19"
 		},
 		{
 			"id": "app_salary-breakdown-calculator",
