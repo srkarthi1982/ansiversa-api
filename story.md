@@ -140,16 +140,16 @@ At the time this platform story was created:
 
 ## Current Product Truth
 
-Ansiversa currently provides a platform foundation and a growing set of
-individual solution apps. It is not yet a fully mature AI operating system,
-payment platform, or cross-app intelligence layer.
+Ansiversa currently provides a platform foundation and a fixed curated catalog
+of 100 individual solution apps. It is not yet a fully mature AI operating
+system, payment platform, or cross-app intelligence layer.
 
 Current truthful claims:
 
 - Ansiversa has a central API foundation.
 - Ansiversa supports shared parent services.
 - Ansiversa hosts modular mini-app APIs.
-- Ansiversa uses a growing app catalog and category model.
+- Ansiversa uses a permanent 100-app catalog and category model.
 - Ansiversa has a formal documentation lifecycle.
 - Ansiversa has completed `marketing.md` coverage for live story-backed apps.
 
@@ -160,7 +160,8 @@ Claims to avoid today:
 - Do not claim Stripe subscriptions or entitlements are live unless verified.
 - Do not claim mobile apps are live unless implemented.
 - Do not claim Ansiversa replaces professional advice.
-- Do not claim all 100 apps are complete if the current count is lower.
+- Do not imply Ansiversa will routinely add apps beyond the permanent
+  100-app boundary.
 
 ## Current Limitations
 

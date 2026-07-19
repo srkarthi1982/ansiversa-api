@@ -466,7 +466,7 @@ implementation knowledge, and marketing governance.
 Posts:
 
 ```text
-Ansiversa is not just 100 apps.
+Ansiversa is 100 carefully curated apps in one consistent platform.
 It is one ecosystem for practical clarity across everyday life and work.
 ```
 
@@ -532,7 +532,7 @@ Do not claim:
 - Ansiversa replaces professional advice.
 - Every app is AI-powered today.
 - AI can make decisions for users.
-- All 100 apps are complete unless verified.
+- Apps will be routinely added beyond the permanent 100-app boundary.
 - Stripe payments are live unless verified.
 - Mobile apps are live unless verified.
 - Cross-app intelligence is fully implemented unless verified.

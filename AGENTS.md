@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+* 2026-07-19: Aligned current user-facing platform copy with the permanent curated 100-app boundary: Ansiversa is permanently curated at exactly 100 solution apps, growth after 100 is horizontal, and apps may be replaced while the total catalog boundary remains 100.
+
 * 2026-07-19: Promoted Salary Breakdown Calculator App #095 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `20 / 100`, overview metadata sync, production-configured isolated migration verification, validation, and final catalog verification at 100 live / 0 comingSoon.
 
 * 2026-07-19: Promoted Net Worth Tracker App #096 to approved live version `1.0.0` after Astra review, Partner manual verification, UI action polish, production Apps row promotion, destination metadata sync `0 / 100`, overview metadata sync, production-configured isolated migration verification, and validation.
@@ -1231,9 +1233,9 @@ enough to stand on its own.
 Current status:
 
 ```text
-Platform + 87 live solution apps
-Remaining live approvals toward 100 solution apps: 13
-Current workflow: Apps #089 Meeting Scheduler, #090 Leave Planner, #091 Shift Planner, and #092 Work Log Tracker are Workflow Ready but pending authenticated E2E and manual verification. Keep all four comingSoon/version null until explicit approval. Bill Splitter App #093 is next in the development queue.
+Platform + 100 live solution apps
+Remaining live approvals toward 100 solution apps: 0
+Current workflow: Post-100 platform work must focus on horizontal improvements across shared capabilities, quality, accessibility, performance, PWA, search, payments, AI integration, security, and user experience.
 ```
 
 ---
