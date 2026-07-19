@@ -3,7 +3,12 @@ import unittest
 from pydantic import ValidationError
 
 from app.modules.assistant.openai_provider import OpenAIProviderError
-from app.modules.assistant.schemas import AssistantAction, AssistantQueryRequest
+from app.modules.assistant.schemas import (
+    AssistantAction,
+    AssistantClientContext,
+    AssistantContextApp,
+    AssistantQueryRequest,
+)
 from app.modules.assistant.service import (
     AssistantKnowledgeIndex,
     KnowledgeEntry,
@@ -18,6 +23,8 @@ def app(slug, name, description, category, aliases=()):
         source_type="app",
         route=f"/{slug}",
         summary=description,
+        catalog_id=f"{slug}-id",
+        app_key=slug,
         category=category,
         aliases=aliases,
         keywords=(slug.replace("-", " "), category),
@@ -118,6 +125,7 @@ class AssistantServiceTests(unittest.TestCase):
             allowed_routes=frozenset(
                 {
                     "/document-expiry-tracker",
+                    "/document-expiry-tracker/documents",
                     "/salary-breakdown-calculator",
                     "/net-worth-tracker",
                     "/savings-goal-planner",
@@ -295,6 +303,77 @@ class AssistantServiceTests(unittest.TestCase):
         response = query_index("finance", self.index, answer_provider=FakeProvider())
         self.assertLessEqual(len(response.actions), 3)
         self.assertTrue(all(action.type == "app" for action in response.actions))
+
+    def test_current_page_context_answers_follow_up(self):
+        response = query_index(
+            "What do I get?",
+            self.index,
+            context=AssistantClientContext(currentRoute="/pricing", currentPage="Pricing"),
+            answer_provider=FakeProvider(),
+        )
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("Pricing explains plans", response.answer)
+        self.assert_action(response, "/pricing")
+
+    def test_current_app_context_answers_create_one_without_recommending_same_app(self):
+        context = AssistantClientContext(
+            currentRoute="/document-expiry-tracker/documents",
+            currentPage="Documents",
+            currentApp=AssistantContextApp(
+                slug="document-expiry-tracker",
+                name="Document Expiry Tracker",
+                route="/document-expiry-tracker/documents",
+            ),
+        )
+        response = query_index("How do I add one?", self.index, context=context, answer_provider=FakeProvider())
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("currently in Document Expiry Tracker", response.answer)
+        self.assertEqual(response.actions[0].label, "Stay on Documents")
+        self.assertEqual(response.actions[0].route, "/document-expiry-tracker/documents")
+
+    def test_current_app_context_still_allows_explicit_open_navigation(self):
+        context = AssistantClientContext(
+            currentRoute="/document-expiry-tracker",
+            currentPage="Document Expiry Tracker",
+            currentApp=AssistantContextApp(
+                slug="document-expiry-tracker",
+                name="Document Expiry Tracker",
+                route="/document-expiry-tracker",
+            ),
+        )
+        response = query_index("Open Document Expiry Tracker", self.index, context=context)
+        self.assert_action(response, "/document-expiry-tracker")
+
+    def test_last_opened_app_context_handles_back_navigation(self):
+        response = query_index(
+            "Take me back.",
+            self.index,
+            context=AssistantClientContext(
+                lastOpenedApp=AssistantContextApp(
+                    slug="salary-breakdown-calculator",
+                    name="Salary Breakdown Calculator",
+                ),
+            ),
+            answer_provider=FakeProvider(),
+        )
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("last opened app was Salary Breakdown Calculator", response.answer)
+        self.assert_action(response, "/salary-breakdown-calculator")
+
+    def test_recent_and_favorite_context_prefer_matching_apps(self):
+        favorite_response = query_index(
+            "tracker",
+            self.index,
+            context=AssistantClientContext(favoriteAppIds=["net-worth-tracker-id"]),
+        )
+        self.assertEqual(favorite_response.sources[0].title, "Net Worth Tracker")
+
+        recent_response = query_index(
+            "tracker",
+            self.index,
+            context=AssistantClientContext(recentAppKeys=["document-expiry-tracker"]),
+        )
+        self.assertEqual(recent_response.sources[0].title, "Document Expiry Tracker")
 
     def test_request_rejects_empty_and_long_messages(self):
         with self.assertRaises(ValidationError):

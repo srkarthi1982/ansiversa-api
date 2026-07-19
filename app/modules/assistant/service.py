@@ -14,6 +14,7 @@ from app.modules.apps.models import AppCatalogItem, Category
 from app.modules.assistant.openai_provider import OpenAIResponseProvider
 from app.modules.assistant.schemas import (
     AssistantAction,
+    AssistantClientContext,
     AssistantQueryResponse,
     AssistantSource,
 )
@@ -33,6 +34,8 @@ class KnowledgeEntry:
     source_type: SourceType
     route: str
     summary: str
+    catalog_id: str | None = None
+    app_key: str | None = None
     category: str | None = None
     aliases: tuple[str, ...] = ()
     keywords: tuple[str, ...] = ()
@@ -278,6 +281,34 @@ NAVIGATION_INTENTS = {
     "browse",
 }
 
+BACK_NAVIGATION_TERMS = {
+    "go back",
+    "take me back",
+    "back to it",
+    "back to that app",
+    "return to it",
+    "return to that app",
+}
+
+RECENT_REFERENCE_TERMS = {
+    "using something",
+    "used something",
+    "something yesterday",
+    "recent app",
+    "recent apps",
+    "what was i using",
+    "what did i use",
+}
+
+CURRENT_APP_CREATE_TERMS = {
+    "add one",
+    "create one",
+    "make one",
+    "new one",
+    "add this",
+    "create this",
+}
+
 FINANCIAL_ADVICE_TERMS = {
     "financial advice",
     "finance advice",
@@ -328,6 +359,8 @@ def _build_app_entries(db: Session) -> tuple[KnowledgeEntry, ...]:
     statement = (
         select(
             AppCatalogItem.slug,
+            AppCatalogItem.id,
+            AppCatalogItem.key,
             AppCatalogItem.name,
             AppCatalogItem.description,
             AppCatalogItem.status,
@@ -355,9 +388,16 @@ def _build_app_entries(db: Session) -> tuple[KnowledgeEntry, ...]:
                 source_type="app",
                 route=route,
                 summary=str(row["description"]),
+                catalog_id=str(row["id"]),
+                app_key=str(row["key"]),
                 category=str(row["category_name"]),
                 aliases=APP_ALIASES.get(slug, ()),
-                keywords=(slug.replace("-", " "), str(row["category_name"]), str(row["launch_status"])),
+                keywords=(
+                    slug.replace("-", " "),
+                    str(row["key"]),
+                    str(row["category_name"]),
+                    str(row["launch_status"]),
+                ),
                 action_label=f"Open {row['name']}",
                 action_type="app",
                 rank_weight=5 if row["launch_status"] == "live" else 1,
@@ -407,7 +447,27 @@ def build_knowledge_index(db: Session) -> AssistantKnowledgeIndex:
     return AssistantKnowledgeIndex(entries=public_entries, allowed_routes=allowed_routes)
 
 
-def score_entry(message: str, entry: KnowledgeEntry) -> RankedEntry | None:
+def _entry_matches_context_app(entry: KnowledgeEntry, context_app: object | None) -> bool:
+    if entry.source_type != "app" or context_app is None:
+        return False
+
+    context_id = getattr(context_app, "id", None)
+    context_key = getattr(context_app, "key", None)
+    context_slug = getattr(context_app, "slug", None)
+    entry_slug = entry.id.split(":", 1)[1] if ":" in entry.id else ""
+
+    return bool(
+        (context_id and entry.catalog_id == context_id) or
+        (context_slug and entry_slug == context_slug) or
+        (context_key and entry.app_key == context_key)
+    )
+
+
+def score_entry(
+    message: str,
+    entry: KnowledgeEntry,
+    context: AssistantClientContext | None = None,
+) -> RankedEntry | None:
     normalized = normalize_text(message)
     if not normalized:
         return None
@@ -459,14 +519,38 @@ def score_entry(message: str, entry: KnowledgeEntry) -> RankedEntry | None:
         score += min(len(overlap), 6) * 8
         reason = reason or "token"
 
+    if context is not None and entry.source_type == "app":
+        if context.favorite_app_ids and entry.id.startswith("app:"):
+            if entry.catalog_id in context.favorite_app_ids:
+                score += 12
+                reason = reason or "favorite"
+
+        if context.recent_app_keys:
+            recent_keys = set(context.recent_app_keys[:10])
+            if entry.app_key in recent_keys:
+                score += 10
+                reason = reason or "recent"
+
+        if _entry_matches_context_app(entry, context.current_app):
+            score += 8
+            reason = reason or "current-app"
+
     if score <= entry.rank_weight:
         return None
 
     return RankedEntry(entry=entry, score=score, reason=reason or "match")
 
 
-def rank_entries(message: str, index: AssistantKnowledgeIndex) -> list[RankedEntry]:
-    ranked = [match for entry in index.entries if (match := score_entry(message, entry))]
+def rank_entries(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None = None,
+) -> list[RankedEntry]:
+    ranked = [
+        match
+        for entry in index.entries
+        if (match := score_entry(message, entry, context))
+    ]
     ranked.sort(
         key=lambda match: (
             match.score,
@@ -576,18 +660,180 @@ def _out_of_scope_result() -> DeterministicAssistantResult:
     )
 
 
-def retrieve_deterministic(message: str, index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
+def _find_entry_by_route(
+    route: str | None,
+    index: AssistantKnowledgeIndex,
+) -> KnowledgeEntry | None:
+    if not route:
+        return None
+
+    return next((entry for entry in index.entries if entry.route == route), None)
+
+
+def _find_app_entry_by_context_app(
+    context_app: object | None,
+    index: AssistantKnowledgeIndex,
+) -> KnowledgeEntry | None:
+    if context_app is None:
+        return None
+
+    return next(
+        (
+            entry
+            for entry in index.entries
+            if entry.source_type == "app" and _entry_matches_context_app(entry, context_app)
+        ),
+        None,
+    )
+
+
+def _single_entry_result(
+    entry: KnowledgeEntry,
+    answer: str,
+    index: AssistantKnowledgeIndex,
+    *,
+    confidence: Literal["high", "medium", "low"] = "high",
+    action_label: str | None = None,
+    action_route: str | None = None,
+) -> DeterministicAssistantResult:
+    action = AssistantAction(
+        type=entry.action_type or "platform",
+        label=action_label or entry.action_label or f"Open {entry.title}",
+        route=action_route or entry.route,
+    )
+    actions = [action] if action.route in index.allowed_routes else []
+
+    return DeterministicAssistantResult(
+        answer=answer,
+        actions=actions,
+        sources=_sources([entry]),
+        confidence=confidence,
+        top_entries=(entry,),
+    )
+
+
+def _is_back_navigation_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    return any(term in normalized for term in BACK_NAVIGATION_TERMS)
+
+
+def _is_recent_reference_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    return any(term in normalized for term in RECENT_REFERENCE_TERMS)
+
+
+def _is_current_page_follow_up(message: str) -> bool:
+    normalized = normalize_text(message)
+    return normalized in {
+        "what do i get",
+        "what is this",
+        "tell me more",
+        "how does this work",
+        "can i change my picture",
+        "can i update my profile picture",
+    }
+
+
+def _is_current_app_create_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    return any(term in normalized for term in CURRENT_APP_CREATE_TERMS)
+
+
+def _is_simple_navigation_message(message: str) -> bool:
+    tokens = normalize_text(message).split()
+    return bool(tokens and tokens[0] in NAVIGATION_INTENTS)
+
+
+def _context_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+) -> DeterministicAssistantResult | None:
+    if context is None:
+        return None
+
+    if _is_back_navigation_query(message):
+        last_entry = _find_app_entry_by_context_app(context.last_opened_app, index)
+        if last_entry is not None:
+            return _single_entry_result(
+                last_entry,
+                f"Your last opened app was {last_entry.title}. I can take you back there.",
+                index,
+                action_label=f"Open {last_entry.title}",
+            )
+
+    if _is_recent_reference_query(message) and context.recent_app_keys:
+        recent_entries: list[KnowledgeEntry] = []
+        for app_key in context.recent_app_keys[:3]:
+            entry = next(
+                (
+                    candidate
+                    for candidate in index.entries
+                    if candidate.source_type == "app" and candidate.app_key == app_key
+                ),
+                None,
+            )
+            if entry is not None:
+                recent_entries.append(entry)
+
+        if recent_entries:
+            actions = _safe_actions(recent_entries, index.allowed_routes)
+            return DeterministicAssistantResult(
+                answer=(
+                    f"Your most recent app is {recent_entries[0].title}. "
+                    "I can open it or show other recently used apps."
+                ),
+                actions=actions or list(FALLBACK_ACTIONS),
+                sources=_sources(recent_entries),
+                confidence="high",
+                top_entries=tuple(recent_entries),
+            )
+
+    current_route_entry = _find_entry_by_route(context.current_route, index)
+    if current_route_entry is not None and _is_current_page_follow_up(message):
+        return _single_entry_result(
+            current_route_entry,
+            current_route_entry.summary,
+            index,
+        )
+
+    current_app_entry = _find_app_entry_by_context_app(context.current_app, index)
+    if current_app_entry is not None and _is_current_app_create_query(message):
+        page = context.current_page or "this page"
+        answer = (
+            f"You are currently in {current_app_entry.title} on {page}. "
+            "Use the Create or Add action on this page to add a new record in the current workflow."
+        )
+        return _single_entry_result(
+            current_app_entry,
+            answer,
+            index,
+            action_label=f"Stay on {page}",
+            action_route=context.current_route or current_app_entry.route,
+        )
+
+    return None
+
+
+def retrieve_deterministic(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None = None,
+) -> DeterministicAssistantResult:
     if _is_financial_advice_query(message):
         return _financial_guidance_result(index)
 
     if _is_explicit_out_of_scope_query(message):
         return _out_of_scope_result()
 
+    if context_result := _context_result(message, index, context):
+        return context_result
+
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
         allowed_routes=index.allowed_routes,
     )
-    ranked = rank_entries(message, public_index)
+    ranked = rank_entries(message, public_index, context)
     if not ranked:
         return DeterministicAssistantResult(
             answer=(
@@ -612,7 +858,19 @@ def retrieve_deterministic(message: str, index: AssistantKnowledgeIndex) -> Dete
 
     best_score = ranked[0].score
     confidence = "high" if best_score >= 70 else "medium"
-    actions = _safe_actions(top_entries, index.allowed_routes) or list(FALLBACK_ACTIONS)
+    action_entries = top_entries
+    if (
+        context is not None
+        and top_entries
+        and _entry_matches_context_app(top_entries[0], context.current_app)
+        and not _is_simple_navigation_message(message)
+    ):
+        action_entries = [
+            entry
+            for entry in top_entries
+            if not _entry_matches_context_app(entry, context.current_app)
+        ]
+    actions = _safe_actions(action_entries, index.allowed_routes) or list(FALLBACK_ACTIONS)
 
     return DeterministicAssistantResult(
         answer=_answer_for_match(top_entries, message),
@@ -630,8 +888,7 @@ def _is_simple_navigation_query(message: str, result: DeterministicAssistantResu
     if result.top_entries[0].source_type != "app":
         return True
 
-    tokens = normalize_text(message).split()
-    return bool(tokens and tokens[0] in NAVIGATION_INTENTS)
+    return _is_simple_navigation_message(message)
 
 
 def _select_response_mode(
@@ -642,6 +899,9 @@ def _select_response_mode(
 ) -> Literal["deterministic", "openai_grounded", "fallback"]:
     if result.confidence == "low":
         return "fallback"
+
+    if _is_current_app_create_query(message):
+        return "deterministic"
 
     if not result.top_entries:
         return "deterministic"
@@ -661,9 +921,21 @@ def _provider_context(
     *,
     max_chars: int,
     max_chunks: int,
+    context: AssistantClientContext | None = None,
 ) -> str:
     permitted_action_labels = ", ".join(action.label for action in actions)
     chunks: list[str] = []
+    if context is not None:
+        context_lines = [
+            f"Current route: {context.current_route or 'Unknown'}",
+            f"Current page: {context.current_page or 'Unknown'}",
+        ]
+        if context.current_app is not None and context.current_app.name:
+            context_lines.append(f"Current app: {context.current_app.name}")
+        if context.current_category:
+            context_lines.append(f"Current category: {context.current_category}")
+        chunks.append("\n".join(context_lines))
+
     for entry in entries[:max_chunks]:
         if entry.visibility != "public":
             continue
@@ -692,10 +964,11 @@ def query_index(
     message: str,
     index: AssistantKnowledgeIndex,
     *,
+    context: AssistantClientContext | None = None,
     answer_provider: AssistantAnswerProvider | None = None,
     max_context_chars: int = 3500,
 ) -> AssistantQueryResponse:
-    deterministic = retrieve_deterministic(message, index)
+    deterministic = retrieve_deterministic(message, index, context)
     provider_available = answer_provider is not None
     response_mode = _select_response_mode(
         message,
@@ -711,6 +984,7 @@ def query_index(
             deterministic.actions,
             max_chars=max_context_chars,
             max_chunks=settings.AI_MAX_CONTEXT_CHUNKS,
+            context=context,
         )
         ai_answer = answer_provider.generate_answer(message, context)
     except Exception:
@@ -722,10 +996,14 @@ def query_index(
     return deterministic.to_response(answer=ai_answer, response_mode="openai_grounded")
 
 
-def query_assistant(db: Session, message: str) -> AssistantQueryResponse:
+def query_assistant(
+    db: Session,
+    message: str,
+    context: AssistantClientContext | None = None,
+) -> AssistantQueryResponse:
     index = build_knowledge_index(db)
     if not settings.AI_GATEWAY_ENABLED:
-        return retrieve_deterministic(message, index).to_response(response_mode="deterministic")
+        return retrieve_deterministic(message, index, context).to_response(response_mode="deterministic")
 
     provider = OpenAIResponseProvider() if settings.ASSISTANT_OPENAI_ENABLED else None
     if provider is not None and not provider.is_configured:
@@ -733,6 +1011,7 @@ def query_assistant(db: Session, message: str) -> AssistantQueryResponse:
     return query_index(
         message,
         index,
+        context=context,
         answer_provider=provider,
         max_context_chars=settings.ASSISTANT_MAX_CONTEXT_CHARS,
     )

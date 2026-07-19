@@ -15,4 +15,4 @@ def query_ansiversa_assistant(
     payload: AssistantQueryRequest,
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> AssistantQueryResponse:
-    return query_assistant(db, payload.message)
+    return query_assistant(db, payload.message, payload.context)

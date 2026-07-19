@@ -2,26 +2,39 @@
 
 ## Purpose
 
-Ansiversa AI Assistant is the platform help and navigation assistant. Phase 3
-keeps retrieval, routing, and source authority deterministic while allowing a
-server-side OpenAI provider to turn approved public context into clearer prose.
+Ansiversa AI Assistant is the platform help and navigation assistant. Phase 4
+keeps retrieval, routing, and source authority deterministic while using
+session-only frontend context to improve relevance. OpenAI remains only an
+optional server-side explanation layer for approved grounded results.
 
 ## Workflow
 
-The frontend sends a user message to `POST /api/v1/assistant/query`. The
-backend builds a public knowledge index from the Apps catalog, public overview
-metadata, platform page summaries, and published user-facing FAQs. It first
-produces a deterministic answer, validated navigation actions, safe source
-metadata, and confidence. Strong app-information queries may then send only
-bounded public context to OpenAI for response wording. Platform navigation,
-unknown queries, weak matches, and provider failures use the deterministic path.
+The frontend sends a user message and optional session context to
+`POST /api/v1/assistant/query`. The backend builds a public knowledge index from
+the Apps catalog, public overview metadata, platform page summaries, and
+published user-facing FAQs. It first applies deterministic context handling for
+current page/app follow-ups, last-opened-app navigation, recent app references,
+and favorite/recent preference. It then produces a deterministic answer,
+validated navigation actions, safe source metadata, and confidence. Strong
+app-information queries may send only bounded public context plus concise
+session context to OpenAI for response wording. Platform navigation, unknown
+queries, weak matches, and provider failures use the deterministic path.
 
 ## API Design
 
 Request:
 
 ```json
-{ "message": "pricing" }
+{
+  "message": "What do I get?",
+  "context": {
+    "currentRoute": "/pricing",
+    "currentPage": "Pricing",
+    "recentAppKeys": ["course-tracker"],
+    "favoriteAppIds": ["app_123"],
+    "conversationHistory": []
+  }
+}
 ```
 
 Response:
@@ -61,6 +74,25 @@ The retrieval service is a deterministic hybrid matcher. It supports exact app
 names, aliases, slugs, title phrases, categories, keywords, and platform page
 terms. Ranking favors exact canonical app names first, then aliases, slugs,
 title phrases, category matches, description keywords, and platform keywords.
+Session context can boost matching favorite and recent apps, resolve current
+page/app follow-up questions, and answer "go back" requests through the last
+opened app. Context improves retrieval only; it does not authorize new routes,
+new actions, or general chat behavior.
+
+## Context Layer
+
+The assistant accepts session-only context from the frontend:
+
+- current route and page
+- current app and category when inside a solution app
+- last opened app
+- recent app keys
+- favorite app IDs
+- bounded grounded conversation history
+
+The backend treats this as relevance input, not permanent memory. It does not
+persist the context, create embeddings, ingest repository documents, perform
+autonomous actions, or generate routes from user text.
 
 ## Route Safety
 
@@ -83,9 +115,16 @@ details to the user.
 
 ## Current Status
 
-Phase 3 uses the OpenAI Responses API only as an optional explanation layer.
-There are no embeddings, vector databases, repository search, tool calls,
-backend workflow actions, or schema changes.
+Phase 4 supports the frozen assistant architecture:
+
+```text
+Context improves retrieval.
+Retrieval stays deterministic.
+OpenAI only explains grounded results.
+```
+
+There are no embeddings, vector databases, repository search, permanent memory,
+tool calls, backend workflow actions, migrations, or schema-breaking changes.
 
 ## Future Enhancements
 
