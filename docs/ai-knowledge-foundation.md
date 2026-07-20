@@ -126,6 +126,14 @@ Read-only routes serve the generated files:
 /api/v1/knowledge/public/metadata
 ```
 
+Production deployment uses the backend as the canonical publisher and the
+frontend host as the canonical public discovery domain. The frontend Vercel
+configuration rewrites only the approved public AI artifact paths to
+`https://api.ansiversa.com`, so crawlers can discover the files at
+`https://ansiversa.com` without duplicating generated content in the frontend
+bundle. Deployment operations and smoke verification are documented in
+`docs/ai-seo-public-deployment.md`.
+
 The public JSON export includes platform facts, public pages, 14 categories,
 100 public apps, aliases, capabilities, canonical routes, relationships,
 visibility, schema version, and a deterministic generated timestamp. The
@@ -139,6 +147,7 @@ Build and check commands:
 ```bash
 python -m app.modules.knowledge.build_public
 python -m app.modules.knowledge.check_public
+python -m app.modules.knowledge.verify_public_deployment --base-url https://ansiversa.com --api-base-url https://api.ansiversa.com
 ```
 
 Publisher validation enforces exactly 100 public apps, 14 categories, no

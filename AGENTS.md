@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-20 - Implemented AI SEO Public Deployment and Crawl Readiness fixes by making backend public knowledge routes serve cached deterministic registry-derived responses independent of runtime filesystem artifact visibility, adding the read-only production smoke verifier, documenting canonical web/API topology, cache policy, robots/sitemap behavior, Search Console checklist, baseline evidence template, and monitoring cadence, with no Assistant behavior, embeddings, vector database, OpenAI calls, or App #101 changes.
+
 2026-07-20 - Implemented Ansiversa AI SEO Public Knowledge Publishing Phase 1 with registry-derived public artifacts (`llms.txt`, `llms-full.txt`, AI sitemap, public AI JSON export, JSON-LD graph, reusable metadata, and robots hints), read-only public knowledge routes, deterministic publisher validation, visibility filtering, no Assistant behavior changes, no embeddings/vector/RAG, and no exposure of authenticated/internal/restricted/future/source-path documentation.
 
 2026-07-20 - Implemented AI Knowledge Foundation Phase 2 Assistant Retrieval Parity by migrating `/api/v1/assistant/query` to load deterministic knowledge from the cached Canonical AI Knowledge Registry, preserving the Assistant API/UI/OpenAI boundary, route-safe actions, context behavior, fallback behavior, related-app and future/current separation, visibility filtering, and legacy DB/FAQ retrieval only as a logged registry-failure fallback.

@@ -33,6 +33,11 @@ AI crawlers and search systems can read the generated public knowledge files:
 files describe only approved public platform, category, page, app, alias,
 capability, and relationship facts.
 
+In production, the canonical discovery URLs live on `https://ansiversa.com`.
+The frontend host rewrites only the approved public AI artifact paths to the
+backend publisher on `https://api.ansiversa.com`, preserving one generated
+source while avoiding React SPA fallback for crawler files.
+
 ## Database Design
 
 The registry is file-backed and introduces no database tables or migrations.
@@ -47,6 +52,11 @@ adapter. The Assistant API contract remains `POST /api/v1/assistant/query`.
 Public AI publishing exposes read-only generated artifacts at root paths such
 as `/llms.txt` and `/public-ai-knowledge.json`, plus convenience API routes
 under `/api/v1/knowledge/public`.
+
+The root artifact routes return deterministic cached responses from the
+registry-derived publisher. This keeps production serving healthy even when the
+deployment runtime does not expose the repository `public/` directory as a
+filesystem path.
 
 ## Shared Components Used
 
@@ -95,5 +105,6 @@ The current implementation includes deterministic registry build/check commands,
 explicit visibility values, source traceability, current/future separation,
 related-app generation, platform/account/legal page records, a cached registry
 adapter, Assistant retrieval integration, route-safe actions, OpenAI explanation
-boundaries, public AI artifact generation, public artifact routes, JSON/XML
-validation, forbidden-content screening, and focused parity tests.
+boundaries, public AI artifact generation, public artifact routes, production
+deployment smoke verification, JSON/XML validation, forbidden-content screening,
+and focused parity tests.

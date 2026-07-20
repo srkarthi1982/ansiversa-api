@@ -175,8 +175,8 @@ purpose, audiences, current capabilities, use cases, aliases, related apps, and
 separately marked future direction from allowlisted route and metadata sources.
 Visibility and source traceability are explicit, and build/check commands
 enforce drift and secret scanning. Assistant retrieval now consumes the cached
-registry as its normal knowledge source. No registry content is published for AI
-SEO yet.
+registry as its normal knowledge source. Public AI SEO artifacts are generated
+from the same registry and exposed through governed public deployment routes.
 
 ## Current Limitations
 
@@ -207,4 +207,6 @@ memory.
 
 ## Revision History
 
+- 2026-07-20: Updated AI Knowledge Foundation status for public AI SEO
+  publishing and deployment readiness.
 - 2026-07-10: Created platform-level story document for `ansiversa-api`.

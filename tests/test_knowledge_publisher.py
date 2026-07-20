@@ -144,3 +144,30 @@ def test_public_artifact_routes_are_served():
         response = client.get(route)
         assert response.status_code == 200
         assert response.headers["content-type"].startswith(expected_content_type)
+        assert not response.text.lstrip().lower().startswith("<!doctype html>")
+        assert response.headers["cache-control"] == "public, max-age=3600"
+        assert response.headers["x-robots-tag"] == "index, follow"
+
+
+def test_public_artifacts_exclude_stale_boundary_and_include_bill_splitter(artifacts):
+    serialized = "\n".join(
+        (
+            _serialized_json(artifacts.knowledge),
+            _serialized_json(artifacts.jsonld),
+            _serialized_json(artifacts.metadata),
+            artifacts.sitemap,
+            artifacts.llms,
+            artifacts.llms_full,
+            artifacts.robots,
+        )
+    )
+    assert "100+" not in serialized
+    assert "bill-splitter" in serialized
+    assert artifacts.knowledge["platform"]["appCount"] == 100
+    assert artifacts.knowledge["platform"]["catalogBoundary"]["fixedAppCount"] == 100
+
+
+def test_robots_references_public_ai_resources(artifacts):
+    assert "Sitemap: https://ansiversa.com/ai-sitemap.xml" in artifacts.robots
+    assert "LLMs: https://ansiversa.com/llms.txt" in artifacts.robots
+    assert "qa.ansiversa.com" not in artifacts.robots

@@ -2,17 +2,14 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 from fastapi import APIRouter
-from starlette.responses import FileResponse
+from starlette.responses import Response
 
 from app.modules.knowledge.publisher import (
-    LLMS_FULL_PATH,
-    LLMS_PATH,
-    PUBLIC_AI_JSONLD_PATH,
-    PUBLIC_AI_KNOWLEDGE_PATH,
-    PUBLIC_AI_METADATA_PATH,
-    PUBLIC_AI_SITEMAP_PATH,
-    ROBOTS_PATH,
+    _serialized_json,
+    build_public_artifacts,
 )
 
 router = APIRouter()
@@ -23,58 +20,76 @@ PUBLIC_CACHE_HEADERS = {
 }
 
 
-def _file(path, media_type: str) -> FileResponse:
-    return FileResponse(path, media_type=media_type, headers=PUBLIC_CACHE_HEADERS)
+@lru_cache(maxsize=1)
+def _artifact_payloads() -> dict[str, str]:
+    artifacts = build_public_artifacts()
+    return {
+        "llms": artifacts.llms,
+        "llms-full": artifacts.llms_full,
+        "sitemap": artifacts.sitemap,
+        "knowledge": _serialized_json(artifacts.knowledge),
+        "jsonld": _serialized_json(artifacts.jsonld),
+        "metadata": _serialized_json(artifacts.metadata),
+        "robots": artifacts.robots,
+    }
+
+
+def _artifact(name: str, media_type: str) -> Response:
+    return Response(
+        content=_artifact_payloads()[name],
+        media_type=media_type,
+        headers=PUBLIC_CACHE_HEADERS,
+    )
 
 
 @router.get("/llms.txt", include_in_schema=False)
-def get_llms_txt() -> FileResponse:
-    return _file(LLMS_PATH, "text/plain; charset=utf-8")
+def get_llms_txt() -> Response:
+    return _artifact("llms", "text/plain; charset=utf-8")
 
 
 @router.get("/llms-full.txt", include_in_schema=False)
-def get_llms_full_txt() -> FileResponse:
-    return _file(LLMS_FULL_PATH, "text/plain; charset=utf-8")
+def get_llms_full_txt() -> Response:
+    return _artifact("llms-full", "text/plain; charset=utf-8")
 
 
 @router.get("/ai-sitemap.xml", include_in_schema=False)
-def get_ai_sitemap_xml() -> FileResponse:
-    return _file(PUBLIC_AI_SITEMAP_PATH, "application/xml; charset=utf-8")
+def get_ai_sitemap_xml() -> Response:
+    return _artifact("sitemap", "application/xml; charset=utf-8")
 
 
 @router.get("/public-ai-knowledge.json", include_in_schema=False)
-def get_public_ai_knowledge_json() -> FileResponse:
-    return _file(PUBLIC_AI_KNOWLEDGE_PATH, "application/json; charset=utf-8")
+def get_public_ai_knowledge_json() -> Response:
+    return _artifact("knowledge", "application/json; charset=utf-8")
 
 
 @router.get("/public-ai-jsonld.json", include_in_schema=False)
-def get_public_ai_jsonld_json() -> FileResponse:
-    return _file(PUBLIC_AI_JSONLD_PATH, "application/ld+json; charset=utf-8")
+def get_public_ai_jsonld_json() -> Response:
+    return _artifact("jsonld", "application/ld+json; charset=utf-8")
 
 
 @router.get("/public-ai-metadata.json", include_in_schema=False)
-def get_public_ai_metadata_json() -> FileResponse:
-    return _file(PUBLIC_AI_METADATA_PATH, "application/json; charset=utf-8")
+def get_public_ai_metadata_json() -> Response:
+    return _artifact("metadata", "application/json; charset=utf-8")
 
 
 @router.get("/robots.txt", include_in_schema=False)
-def get_robots_txt() -> FileResponse:
-    return _file(ROBOTS_PATH, "text/plain; charset=utf-8")
+def get_robots_txt() -> Response:
+    return _artifact("robots", "text/plain; charset=utf-8")
 
 
 api_router = APIRouter()
 
 
 @api_router.get("/public")
-def get_public_knowledge() -> FileResponse:
-    return _file(PUBLIC_AI_KNOWLEDGE_PATH, "application/json; charset=utf-8")
+def get_public_knowledge() -> Response:
+    return _artifact("knowledge", "application/json; charset=utf-8")
 
 
 @api_router.get("/public/jsonld")
-def get_public_jsonld() -> FileResponse:
-    return _file(PUBLIC_AI_JSONLD_PATH, "application/ld+json; charset=utf-8")
+def get_public_jsonld() -> Response:
+    return _artifact("jsonld", "application/ld+json; charset=utf-8")
 
 
 @api_router.get("/public/metadata")
-def get_public_metadata() -> FileResponse:
-    return _file(PUBLIC_AI_METADATA_PATH, "application/json; charset=utf-8")
+def get_public_metadata() -> Response:
+    return _artifact("metadata", "application/json; charset=utf-8")
