@@ -30,6 +30,70 @@ TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 OVERVIEW_DATA_DIR = Path(__file__).resolve().parents[1] / "content" / "data" / "overview"
 LOGGER = logging.getLogger(__name__)
 PHRASE_STOPWORDS = {"a", "an", "and", "for", "in", "of", "on", "or", "the", "to"}
+ALIAS_PHRASE_STOPWORDS = PHRASE_STOPWORDS | {"app", "apps", "help", "question", "questions", "support"}
+COLLECTION_QUERY_TERMS = {
+    "all",
+    "apps",
+    "app",
+    "have",
+    "many",
+    "show",
+    "list",
+    "find",
+    "which",
+    "what",
+    "with",
+    "for",
+    "help",
+    "helps",
+    "need",
+    "you",
+    "do",
+    "does",
+    "ansiversa",
+}
+CATEGORY_ALIASES: dict[str, tuple[str, ...]] = {
+    "Business & UAE": ("business", "uae", "tax", "vat", "corporate"),
+    "Career & Professional": ("career", "professional", "job", "resume", "interview", "portfolio", "linkedin"),
+    "Content & AI Writing": ("content", "writing", "ai writing", "email", "grammar", "caption", "speech", "proposal", "prompt"),
+    "Daily Life": ("daily", "errand", "checklist", "reminder"),
+    "Documents & Records": ("document", "documents", "records", "vault", "expiry", "passport"),
+    "Health & Medical": ("health", "medical", "medicine", "symptom", "hydration", "vaccination"),
+    "Home & Family": ("home", "family", "household", "meal"),
+    "Learning & Education": ("learning", "education", "course", "courses", "study", "lesson", "quiz", "textbook", "language"),
+    "Mobility & Travel": ("mobility", "travel", "trip", "itinerary", "parking", "car pool", "rent"),
+    "Personal Finance": ("personal finance", "money", "finance", "financial", "budget", "budgeting", "expense", "savings", "bill", "salary", "net worth"),
+    "Personal Life & Wellness": ("personal life", "wellness", "goal", "birthday", "anniversary"),
+    "Utilities & Productivity": ("utility", "utilities", "productivity", "tool", "formatter", "scanner"),
+    "Vehicle & Driving": ("vehicle", "driving", "driver", "fuel", "car", "maintenance"),
+    "Work & Planning": ("work", "planning", "project", "task", "shift", "meeting", "decision", "schedule"),
+}
+RESTRICTED_REQUEST_TERMS = {
+    "agents md",
+    "agent md",
+    "story md",
+    "certification",
+    "promotion",
+    "internal notes",
+    "system prompt",
+    "developer message",
+    "hidden",
+    "secret",
+    "private data",
+    "authenticated data",
+}
+PROMPT_INJECTION_TERMS = {
+    "ignore instructions",
+    "ignore previous",
+    "disregard instructions",
+    "reveal prompt",
+    "show prompt",
+    "print prompt",
+}
+PROFESSIONAL_BOUNDARY_TERMS: dict[str, tuple[str, ...]] = {
+    "medical": ("diagnosis", "diagnose", "treatment", "prescribe", "dosage", "dose advice", "medical advice"),
+    "legal": ("legal advice", "lawsuit", "sue", "contract advice"),
+}
 
 
 @dataclass(frozen=True)
@@ -355,7 +419,14 @@ def normalize_text(value: str) -> str:
 
 
 def tokenize(value: str) -> set[str]:
-    return set(normalize_text(value).split())
+    tokens = set(normalize_text(value).split())
+    expanded = set(tokens)
+    for token in tokens:
+        if len(token) > 3 and token.endswith("ies"):
+            expanded.add(f"{token[:-3]}y")
+        elif len(token) > 3 and token.endswith("s"):
+            expanded.add(token[:-1])
+    return expanded
 
 
 def _extract_overview_route(app_slug: str) -> str | None:
@@ -702,7 +773,7 @@ def score_entry(
         score += 70
         reason = "title-phrase"
     elif any(
-        alias and len(alias) > 2 and alias not in PHRASE_STOPWORDS and alias in normalized
+        alias and len(alias) > 2 and alias not in ALIAS_PHRASE_STOPWORDS and alias in normalized
         for alias in aliases
     ):
         score += 65
@@ -845,6 +916,70 @@ def _is_financial_advice_query(message: str) -> bool:
     return "advice" in normalized and any(term in normalized for term in FINANCIAL_ADVICE_TERMS)
 
 
+def _is_restricted_request(message: str) -> bool:
+    normalized = normalize_text(message)
+    return any(term in normalized for term in RESTRICTED_REQUEST_TERMS | PROMPT_INJECTION_TERMS)
+
+
+def _restricted_request_result() -> DeterministicAssistantResult:
+    return DeterministicAssistantResult(
+        answer=(
+            "I can only answer from public Ansiversa knowledge. I cannot expose "
+            "internal instructions, private records, restricted documents, or hidden implementation notes."
+        ),
+        actions=list(FALLBACK_ACTIONS),
+        sources=[],
+        confidence="low",
+        top_entries=(),
+    )
+
+
+def _professional_boundary_area(message: str) -> str | None:
+    normalized = normalize_text(message)
+    if _is_financial_advice_query(message):
+        return "financial"
+    for area, terms in PROFESSIONAL_BOUNDARY_TERMS.items():
+        if any(term in normalized for term in terms):
+            return area
+    return None
+
+
+def _professional_boundary_result(area: str, index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
+    if area == "medical":
+        entries = [
+            entry
+            for slug in ("medicine-reminder", "symptom-journal", "health-report-organizer")
+            if (entry := _app_entry_by_slug(index, slug)) is not None
+        ]
+        actions = _safe_actions(entries, index.allowed_routes) or list(FALLBACK_ACTIONS)
+        answer = (
+            "Ansiversa can help organize health information, reminders, and records, "
+            "but it does not provide medical diagnosis, treatment, dosage, or emergency advice. "
+            "For medical decisions, consult a qualified healthcare professional."
+        )
+        return DeterministicAssistantResult(
+            answer=answer,
+            actions=actions,
+            sources=_sources(entries),
+            confidence="high",
+            top_entries=tuple(entries[:3]),
+        )
+
+    if area == "legal":
+        return DeterministicAssistantResult(
+            answer=(
+                "Ansiversa can help organize documents and information, but it does not "
+                "provide professional legal advice. For legal decisions, consult a qualified legal professional."
+            ),
+            actions=list(FALLBACK_ACTIONS),
+            sources=[],
+            confidence="high",
+            top_entries=(),
+        )
+
+    return _financial_guidance_result(index)
+
+
 def _is_explicit_out_of_scope_query(message: str) -> bool:
     normalized = normalize_text(message)
     return any(term in normalized for term in OUT_OF_SCOPE_TERMS)
@@ -857,6 +992,148 @@ def _is_related_app_query(message: str) -> bool:
 
 def _is_future_query(message: str) -> bool:
     return bool(tokenize(message) & FUTURE_TERMS)
+
+
+def _contains_specific_app_reference(message: str, index: AssistantKnowledgeIndex) -> bool:
+    normalized = normalize_text(message)
+    tokens = tokenize(message)
+    for entry in index.entries:
+        if entry.source_type != "app":
+            continue
+        title = normalize_text(entry.title)
+        slug = _entry_slug(entry).replace("-", " ")
+        if title and title in normalized:
+            return True
+        if slug and slug in normalized:
+            return True
+        for alias in entry.aliases:
+            alias_tokens = tokenize(alias)
+            significant_alias_tokens = {
+                token
+                for token in alias_tokens
+                if len(token) > 2 and token not in ALIAS_PHRASE_STOPWORDS
+            }
+            if significant_alias_tokens and significant_alias_tokens <= tokens:
+                return True
+        if len(tokens & tokenize(entry.title)) >= 2:
+            return True
+    return False
+
+
+def _generic_future_result(index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
+    apps_entry = next((entry for entry in index.entries if entry.route == "/apps"), None)
+    entries = [apps_entry] if apps_entry is not None else []
+    return DeterministicAssistantResult(
+        answer=(
+            "I can explain approved public future direction for a specific Ansiversa app, "
+            "but I cannot expose internal roadmap details or implementation plans. "
+            "Ask about a specific app if you want its approved public future direction."
+        ),
+        actions=_safe_actions(entries, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(entries),
+        confidence="low",
+        top_entries=tuple(entries),
+    )
+
+
+def _category_for_message(message: str) -> str | None:
+    normalized = normalize_text(message)
+    for category, aliases in CATEGORY_ALIASES.items():
+        category_text = normalize_text(category)
+        if category_text in normalized or any(normalize_text(alias) in normalized for alias in aliases):
+            return category
+    return None
+
+
+def _is_collection_query(message: str) -> bool:
+    tokens = tokenize(message)
+    normalized = normalize_text(message)
+    return (
+        "app" in tokens
+        or "apps" in tokens
+        or "all" in tokens
+        or "many" in tokens
+        or normalized.startswith(("show me", "list", "which", "what"))
+    )
+
+
+def _collection_answer_result(
+    entries: list[KnowledgeEntry],
+    index: AssistantKnowledgeIndex,
+    *,
+    label: str,
+) -> DeterministicAssistantResult:
+    ordered = sorted(entries, key=lambda entry: entry.title)
+    names = ", ".join(entry.title for entry in ordered)
+    answer = f"Ansiversa has {len(ordered)} public {label}: {names}."
+    return DeterministicAssistantResult(
+        answer=answer,
+        actions=_safe_actions(ordered, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(ordered),
+        confidence="high",
+        top_entries=tuple(ordered[:3]),
+    )
+
+
+def _category_collection_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    tokens = tokenize(message)
+    if not _is_collection_query(message) or not (
+        {"apps", "all", "many", "list"} & tokens
+        or normalize_text(message).startswith("show")
+    ):
+        return None
+    category = _category_for_message(message)
+    if category is None:
+        return None
+    matches = [
+        entry
+        for entry in index.entries
+        if entry.source_type == "app" and entry.visibility == "public" and entry.category == category
+    ]
+    if not matches:
+        return None
+    return _collection_answer_result(matches, index, label=f"apps in {category}")
+
+
+def _family_collection_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    if not _is_collection_query(message):
+        return None
+    tokens = tokenize(message)
+    candidates = [
+        token
+        for token in tokens
+        if len(token) > 3 and token not in COLLECTION_QUERY_TERMS and token not in FUTURE_TERMS
+    ]
+    if not candidates:
+        return None
+
+    app_entries = [
+        entry
+        for entry in index.entries
+        if entry.source_type == "app" and entry.visibility == "public"
+    ]
+    best_token = ""
+    best_matches: list[KnowledgeEntry] = []
+    for token in candidates:
+        matches = [
+            entry
+            for entry in app_entries
+            if token in tokenize(" ".join((entry.title, _entry_slug(entry), *entry.aliases)))
+        ]
+        if len(matches) > len(best_matches):
+            best_token = token
+            best_matches = matches
+
+    if len(best_matches) < 2:
+        return None
+
+    return _collection_answer_result(best_matches, index, label=f'apps matching "{best_token}"')
 
 
 def _financial_guidance_result(index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
@@ -948,8 +1225,14 @@ def _future_result(
 
     ranked = rank_entries(message, index, context)
     primary = next((match.entry for match in ranked if match.entry.source_type == "app"), None)
-    if primary is None or not primary.future_summary:
+    if primary is None:
         return None
+    if not primary.future_summary:
+        answer = (
+            f"{primary.title} does not have approved public future-direction details in the "
+            "current Ansiversa knowledge base. Current functionality remains the grounded source."
+        )
+        return _single_entry_result(primary, answer, index, confidence="high")
 
     answer = (
         f"Approved future direction for {primary.title}: {primary.future_summary} "
@@ -1124,8 +1407,11 @@ def retrieve_deterministic(
     index: AssistantKnowledgeIndex,
     context: AssistantClientContext | None = None,
 ) -> DeterministicAssistantResult:
-    if _is_financial_advice_query(message):
-        return _financial_guidance_result(index)
+    if _is_restricted_request(message):
+        return _restricted_request_result()
+
+    if professional_area := _professional_boundary_area(message):
+        return _professional_boundary_result(professional_area, index)
 
     if _is_explicit_out_of_scope_query(message):
         return _out_of_scope_result()
@@ -1133,11 +1419,20 @@ def retrieve_deterministic(
     if context_result := _context_result(message, index, context):
         return context_result
 
+    if _is_future_query(message) and not _contains_specific_app_reference(message, index):
+        return _generic_future_result(index)
+
     if future_result := _future_result(message, index, context):
         return future_result
 
     if related_result := _related_apps_result(message, index, context):
         return related_result
+
+    if category_result := _category_collection_result(message, index):
+        return category_result
+
+    if family_result := _family_collection_result(message, index):
+        return family_result
 
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
