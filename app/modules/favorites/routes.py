@@ -1,3 +1,4 @@
+from datetime import timedelta
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
@@ -6,6 +7,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_parent_db
 from app.modules.auth.models import User
 from app.modules.auth.service import get_current_user
+from app.modules.apps.models import AppCatalogItem
 from app.modules.favorites.models import Favorite
 from app.modules.favorites.schemas import (
     AddFavoriteRequest,
@@ -20,6 +22,7 @@ from app.modules.favorites.service import (
     list_user_favorites,
     remove_user_favorite,
 )
+from app.modules.activity.service import record_activity_safely
 
 router = APIRouter()
 
@@ -53,6 +56,11 @@ def add_favorite(
 ) -> AddFavoriteResponse:
     favorite = add_user_favorite(db, current_user, payload.app_id)
     response = _serialize_favorite(favorite)
+    record_activity_safely(user_id=current_user.id, activity_type="favorited",
+        title=f"Favorited {favorite.app.name}", description=f"Added {favorite.app.name} to Your Apps.",
+        source="app", source_app_slug=favorite.app.slug, action_route=f"/{favorite.app.slug}",
+        action_label=f"Open {favorite.app.name}", entity_type="app", entity_id=favorite.app.id,
+        deduplication_window=timedelta(minutes=10))
 
     return AddFavoriteResponse(
         favorite_id=response.favorite_id,
@@ -67,6 +75,13 @@ def remove_favorite(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> RemoveFavoriteResponse:
+    app = db.get(AppCatalogItem, app_id)
     remove_user_favorite(db, current_user, app_id)
+    if app:
+        record_activity_safely(user_id=current_user.id, activity_type="unfavorited",
+            title=f"Removed {app.name} from favorites", description=f"Removed {app.name} from Your Apps.",
+            source="app", source_app_slug=app.slug, action_route=f"/{app.slug}",
+            action_label=f"Open {app.name}", entity_type="app", entity_id=app.id,
+            deduplication_window=timedelta(minutes=10))
 
     return RemoveFavoriteResponse(ok=True, app_id=app_id)

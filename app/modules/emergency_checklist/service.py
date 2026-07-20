@@ -4,6 +4,7 @@ from sqlalchemy import case,func,or_,select
 from sqlalchemy.orm import selectinload
 from .models import ChecklistCategory,ChecklistItem,EmergencyChecklist
 from .schemas import *
+from app.modules.activity.service import record_activity_safely
 def fail(code,msg):raise HTTPException(code,msg)
 def owned_category(db,user,id):
  x=db.scalar(select(ChecklistCategory).where(ChecklistCategory.id==id,ChecklistCategory.user_id==str(user.id)))
@@ -72,7 +73,9 @@ def reset(db,user,id):
 def complete_all(db,user,id):
  x=owned_checklist(db,user,id);ensure_mutable(x)
  for item in x.items:item.completed=True
- db.commit();return get_checklist(db,user,id)
+ db.commit()
+ record_activity_safely(user_id=str(user.id),activity_type="completed",title="Completed an emergency checklist",description="Completed a checklist in Emergency Checklist.",source="app",source_app_slug="emergency-checklist",action_route=f"/emergency-checklist/checklists/{id}",action_label="Open checklist",entity_type="checklist",entity_id=str(id))
+ return get_checklist(db,user,id)
 def save_item(db,user,checklist_id,p,item_id=None):
  checklist=owned_checklist(db,user,checklist_id);ensure_mutable(checklist)
  item=owned_item(db,user,checklist_id,item_id)[1] if item_id else ChecklistItem(checklist_id=checklist.id)

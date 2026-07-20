@@ -8,6 +8,7 @@ from app.modules.auth.models import User
 from app.modules.meeting_scheduler import repository
 from app.modules.meeting_scheduler.models import Meeting, MeetingAgendaItem, MeetingParticipant
 from app.modules.meeting_scheduler.schemas import MeetingSchedulerAgendaItemCreateRequest, MeetingSchedulerAgendaItemUpdateRequest, MeetingSchedulerDashboardResponse, MeetingSchedulerMeetingCreateRequest, MeetingSchedulerMeetingDetailResponse, MeetingSchedulerMeetingListResponse, MeetingSchedulerMeetingResponse, MeetingSchedulerMeetingUpdateRequest, MeetingSchedulerParticipantCreateRequest, MeetingSchedulerParticipantUpdateRequest
+from app.modules.activity.service import record_activity_safely
 
 
 def _owner(user: User) -> str:
@@ -33,6 +34,10 @@ def list_meetings(db: Session, user: User, q, status_filter, period, page, page_
 def create_meeting(db: Session, user: User, payload: MeetingSchedulerMeetingCreateRequest):
     meeting = Meeting(owner_id=_owner(user), **payload.model_dump())
     db.add(meeting); db.commit(); db.refresh(meeting)
+    record_activity_safely(user_id=str(user.id), activity_type="created", title="Created a meeting",
+        description="Added a meeting in Meeting Scheduler.", source="app", source_app_slug="meeting-scheduler",
+        action_route=f"/meeting-scheduler/meetings/{meeting.id}", action_label="Open meeting",
+        entity_type="meeting", entity_id=str(meeting.id))
     return _meeting_response(meeting)
 
 
@@ -49,6 +54,10 @@ def update_meeting(db: Session, user: User, meeting_id: str, payload: MeetingSch
     if not meeting: _not_found("Meeting")
     for key, value in payload.model_dump().items(): setattr(meeting, key, value)
     db.commit(); db.refresh(meeting)
+    record_activity_safely(user_id=str(user.id), activity_type="updated", title="Updated a meeting",
+        description="Updated a meeting in Meeting Scheduler.", source="app", source_app_slug="meeting-scheduler",
+        action_route=f"/meeting-scheduler/meetings/{meeting.id}", action_label="Open meeting",
+        entity_type="meeting", entity_id=str(meeting.id))
     return _meeting_response(meeting)
 
 

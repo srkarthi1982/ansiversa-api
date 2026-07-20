@@ -30,6 +30,7 @@ from app.modules.auth.service import (
     reset_password,
     set_auth_cookie,
 )
+from app.modules.activity.service import record_activity_safely
 
 router = APIRouter()
 
@@ -111,4 +112,8 @@ def change_current_user_password(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> PasswordActionResponse:
-    return change_password(db, current_user, payload)
+    response = change_password(db, current_user, payload)
+    record_activity_safely(user_id=current_user.id, activity_type="account",
+        title="Changed password", description="Updated account security.", source="account",
+        action_route="/profile", action_label="Open Profile")
+    return response

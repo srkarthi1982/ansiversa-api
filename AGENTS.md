@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-20 - Added Universal Activity Timeline Phase 1 with the parent `ActivityTimeline` table, owner-scoped list/summary APIs, bounded safe publisher contract, canonical route validation, 30-minute navigation deduplication, latest-1,000 retention, failure-safe shared integrations, and three pilot apps. This is a private journey history—not `AuditLogs`, analytics, surveillance, or app-owned record history—and stores no prompts, raw payloads, or private record values.
+
 2026-07-20 - Expanded the existing parent `Notifications` infrastructure into Notifications Center Phase 1 with owner-scoped pagination/filtering/counts, bounded types, sanitized source/action responses, canonical internal-route validation, idempotent read/read-all behavior, a governed shared publisher service, existing `UserPreferences` notification controls, focused tests, and no duplicate notification persistence. Push, email, SMS, scheduling, public publishing, and production seed data remain deferred.
 
 * 2026-07-19: Implemented Ansiversa AI Assistant Phase 4 Context & Conversation Memory support with optional session context in `/assistant/query`, deterministic route/app/recent/favorite/history-aware retrieval, bounded OpenAI context forwarding, route-safe actions, focused service tests, and no migrations or permanent memory.

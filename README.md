@@ -640,3 +640,6 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 ### Notifications Center
 
 Authenticated notification endpoints live under `/api/v1/me/notifications`: `GET /`, `GET /unread-count`, `PATCH /{notification_id}/read`, `PATCH /read-all`, and `GET/PATCH /preferences`. Lists use `page`/`pageSize`, optional `unreadOnly`, and optional bounded `type`, and return `items`, `total`, `unreadCount`, `page`, and `pageSize`. The existing parent `Notifications` table is authoritative; raw metadata is never exposed and action routes are internal-route validated.
+### Universal Activity Timeline
+
+Authenticated `GET /api/v1/activity` supports `page`, `pageSize`, bounded `type`, and canonical app-slug filters; `GET /api/v1/activity/summary` returns the latest five safe items. Dedicated `POST /api/v1/activity/navigation` and `/platform-event` endpoints accept only governed navigation or generic shared-shell events. There is no unrestricted activity-create or admin-browse endpoint. The parent `ActivityTimeline` table retains the latest 1,000 owner-scoped records and stores safe summaries rather than user content.

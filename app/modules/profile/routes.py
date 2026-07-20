@@ -1,3 +1,4 @@
+from datetime import timedelta
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
@@ -17,6 +18,7 @@ from app.modules.profile.service import (
     update_user_profile,
     upsert_preferences,
 )
+from app.modules.activity.service import record_activity_safely
 
 router = APIRouter()
 
@@ -34,7 +36,12 @@ def update_profile(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> User:
-    return update_user_profile(db, current_user, payload)
+    user = update_user_profile(db, current_user, payload)
+    record_activity_safely(user_id=current_user.id, activity_type="account",
+        title="Updated profile", description="Updated account profile information.",
+        source="account", action_route="/profile", action_label="Open Profile",
+        deduplication_window=timedelta(minutes=10))
+    return user
 
 
 @router.get("/preferences", response_model=PreferencesResponse)

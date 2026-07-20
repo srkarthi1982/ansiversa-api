@@ -40,7 +40,9 @@ def save_goal(db,u,p,id=None):
   if id and balance(g)>g.target_amount:raise HTTPException(422,"The new target cannot be below the current saved amount.")
   if p.status=="completed" and balance(g)<g.target_amount:raise HTTPException(422,"A goal cannot be completed before it is fully funded.")
   if not id:db.add(g)
-  db.flush();derive(g);db.commit();return detail(get_model(db,oid(u),g.id))
+  db.flush();derive(g);db.commit()
+  record_activity_safely(user_id=str(u.id),activity_type="updated" if id else "created",title="Updated a savings goal" if id else "Created a savings goal",description="Updated a goal in Savings Goal Planner." if id else "Added a goal in Savings Goal Planner.",source="app",source_app_slug="savings-goal-planner",action_route=f"/savings-goal-planner/goals/{g.id}",action_label="Open goal",entity_type="goal",entity_id=str(g.id))
+  return detail(get_model(db,oid(u),g.id))
  except Exception:db.rollback();raise
 def get_goal(db,u,id):
  g=get_model(db,oid(u),id)
@@ -109,3 +111,4 @@ def dashboard(db,u):
  for code in sorted({g.currency_code for g in included}):
   group=[g for g in included if g.currency_code==code];currencies.append(CurrencyTotal(currency_code=code,target_amount=money(sum((g.target_amount for g in group),Z)),saved_amount=money(sum((g.current_amount for g in group),Z)),remaining_amount=money(sum((max(Z,g.target_amount-g.current_amount)for g in group),Z))))
  recent=sum(x.transaction_type=="contribution"and x.transaction_date>=today-timedelta(days=30)for g in rows for x in g.transactions);return Dashboard(active_goals=sum(g.status in{"active","paused"}for g in rows),completed_goals=sum(g.status=="completed"for g in rows),due_soon_goals=sum(metrics(g)[7]for g in rows),overdue_goals=sum(metrics(g)[6]for g in rows),recent_contributions=recent,currency_totals=currencies)
+from app.modules.activity.service import record_activity_safely
