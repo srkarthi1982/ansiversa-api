@@ -1,0 +1,3637 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://ansiversa.com/#organization",
+      "@type": "Organization",
+      "description": "One consistent platform for focused everyday solution apps.",
+      "name": "Ansiversa",
+      "url": "https://ansiversa.com"
+    },
+    {
+      "@id": "https://ansiversa.com/#website",
+      "@type": "WebSite",
+      "description": "A permanently curated ecosystem of exactly 100 solution apps.",
+      "name": "Ansiversa",
+      "publisher": {
+        "@id": "https://ansiversa.com/#organization"
+      },
+      "url": "https://ansiversa.com"
+    },
+    {
+      "@id": "https://ansiversa.com/apps#collection",
+      "@type": "CollectionPage",
+      "description": "A public catalog of 100 curated Ansiversa solution apps.",
+      "hasPart": [
+        {
+          "@id": "https://ansiversa.com/quiz#software"
+        },
+        {
+          "@id": "https://ansiversa.com/research-assistant#software"
+        },
+        {
+          "@id": "https://ansiversa.com/ai-notes-summarizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/concept-explainer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/study-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/course-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/dictionary-plus#software"
+        },
+        {
+          "@id": "https://ansiversa.com/formula-finder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/lesson-builder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/memory-trainer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/daily-word-challenge#software"
+        },
+        {
+          "@id": "https://ansiversa.com/smart-textbook-scanner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/resume-builder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/visiting-card-maker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/interview-coach#software"
+        },
+        {
+          "@id": "https://ansiversa.com/job-description-analyzer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/portfolio-creator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/meeting-minutes-ai#software"
+        },
+        {
+          "@id": "https://ansiversa.com/proposal-writer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/invoice-receipt-maker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/contract-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/presentation-designer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/career-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/linkedin-bio-optimizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/client-feedback-analyzer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/book-summary-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/social-caption-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/prompt-builder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/speech-writer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/ai-translator-and-tone-fixer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/snippet-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/price-checker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/qr-code-creator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/clipboard-manager#software"
+        },
+        {
+          "@id": "https://ansiversa.com/password-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/api-tester#software"
+        },
+        {
+          "@id": "https://ansiversa.com/json-formatter#software"
+        },
+        {
+          "@id": "https://ansiversa.com/markdown-editor#software"
+        },
+        {
+          "@id": "https://ansiversa.com/time-zone-scheduler#software"
+        },
+        {
+          "@id": "https://ansiversa.com/browser-pdf-reader#software"
+        },
+        {
+          "@id": "https://ansiversa.com/wellness-and-goal-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/meal-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/fitness-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/mood-journal#software"
+        },
+        {
+          "@id": "https://ansiversa.com/expense-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/travel-itinerary-builder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/language-learning-buddy#software"
+        },
+        {
+          "@id": "https://ansiversa.com/eco-habit-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/interview-scheduler#software"
+        },
+        {
+          "@id": "https://ansiversa.com/job-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/ai-job-interviewer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/email-assistant#software"
+        },
+        {
+          "@id": "https://ansiversa.com/grammar-and-paraphrasing-assistant#software"
+        },
+        {
+          "@id": "https://ansiversa.com/creative-title-generator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/file-optimizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/voice-converter#software"
+        },
+        {
+          "@id": "https://ansiversa.com/project-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/task-prioritizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/goal-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/medicine-reminder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/health-report-organizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/family-task-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/rent-a-car#software"
+        },
+        {
+          "@id": "https://ansiversa.com/car-pool#software"
+        },
+        {
+          "@id": "https://ansiversa.com/vehicle-maintenance-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/parking-expense-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/trip-cost-calculator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/corporate-tax-uae#software"
+        },
+        {
+          "@id": "https://ansiversa.com/vat-assistant-uae#software"
+        },
+        {
+          "@id": "https://ansiversa.com/school-administration#software"
+        },
+        {
+          "@id": "https://ansiversa.com/subscription-manager#software"
+        },
+        {
+          "@id": "https://ansiversa.com/emi-loan-calculator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/document-expiry-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/digital-document-vault#software"
+        },
+        {
+          "@id": "https://ansiversa.com/home-inventory-manager#software"
+        },
+        {
+          "@id": "https://ansiversa.com/household-expense-splitter#software"
+        },
+        {
+          "@id": "https://ansiversa.com/emergency-contacts-organizer#software"
+        },
+        {
+          "@id": "https://ansiversa.com/packing-checklist#software"
+        },
+        {
+          "@id": "https://ansiversa.com/birthday-and-anniversary-reminder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/home-maintenance-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/doctor-visit-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/water-intake-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/vaccination-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/symptom-journal#software"
+        },
+        {
+          "@id": "https://ansiversa.com/first-aid-guide#software"
+        },
+        {
+          "@id": "https://ansiversa.com/fuel-expense-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/driver-logbook#software"
+        },
+        {
+          "@id": "https://ansiversa.com/vehicle-document-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/meeting-scheduler#software"
+        },
+        {
+          "@id": "https://ansiversa.com/leave-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/shift-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/work-log-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/bill-splitter#software"
+        },
+        {
+          "@id": "https://ansiversa.com/savings-goal-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/salary-breakdown-calculator#software"
+        },
+        {
+          "@id": "https://ansiversa.com/net-worth-tracker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/decision-maker#software"
+        },
+        {
+          "@id": "https://ansiversa.com/errand-planner#software"
+        },
+        {
+          "@id": "https://ansiversa.com/local-services-finder#software"
+        },
+        {
+          "@id": "https://ansiversa.com/emergency-checklist#software"
+        }
+      ],
+      "isPartOf": {
+        "@id": "https://ansiversa.com/#website"
+      },
+      "name": "Ansiversa Apps",
+      "url": "https://ansiversa.com/apps"
+    },
+    {
+      "@id": "https://ansiversa.com/faq#faq",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One consistent platform for focused everyday solution apps."
+          },
+          "name": "What is Ansiversa?"
+        },
+        {
+          "@type": "Question",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ansiversa is permanently curated at exactly 100 solution apps."
+          },
+          "name": "How many apps does Ansiversa include?"
+        }
+      ],
+      "name": "Ansiversa FAQ",
+      "url": "https://ansiversa.com/faq"
+    },
+    {
+      "@id": "https://ansiversa.com/quiz#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Schools & teachers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Coaching institutes"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Teams & HR"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Self learners"
+        }
+      ],
+      "description": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "quiz",
+        "learning & education"
+      ],
+      "name": "Quiz",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/quiz"
+    },
+    {
+      "@id": "https://ansiversa.com/research-assistant#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Self learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Collect research topics, organize manual notes, save references, and track progress in one focused workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "research assistant",
+        "learning & education",
+        "research",
+        "assistant"
+      ],
+      "name": "Research Assistant",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/research-assistant"
+    },
+    {
+      "@id": "https://ansiversa.com/ai-notes-summarizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Researchers"
+        }
+      ],
+      "description": "Turn long notes into focused summaries with key points, action items, and saved document history.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "ai notes summarizer",
+        "learning & education",
+        "ai",
+        "notes",
+        "summarizer",
+        "summarize notes",
+        "note summary"
+      ],
+      "name": "AI Notes Summarizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/ai-notes-summarizer"
+    },
+    {
+      "@id": "https://ansiversa.com/concept-explainer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Self learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Break difficult ideas into clear explanation steps and review checks you create manually.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "concept explainer",
+        "learning & education",
+        "concept",
+        "explainer"
+      ],
+      "name": "Concept Explainer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/concept-explainer"
+    },
+    {
+      "@id": "https://ansiversa.com/study-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Self-learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Create a study plan, break it into tasks, log focused study sessions, and review progress.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "study planner",
+        "learning & education",
+        "study",
+        "planner"
+      ],
+      "name": "Study Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/study-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/course-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Online learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Create courses, organize modules, log learning progress, and review completion.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "course tracker",
+        "learning & education",
+        "course",
+        "tracker"
+      ],
+      "name": "Course Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/course-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/dictionary-plus#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Writers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Language learners"
+        }
+      ],
+      "description": "Look up words and review clear definitions with phonetic guidance.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "dictionary+",
+        "dictionary plus",
+        "learning & education",
+        "dictionary",
+        "plus"
+      ],
+      "name": "Dictionary+",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/dictionary-plus"
+    },
+    {
+      "@id": "https://ansiversa.com/formula-finder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Educators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "formula finder",
+        "learning & education",
+        "formula",
+        "finder"
+      ],
+      "name": "Formula Finder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/formula-finder"
+    },
+    {
+      "@id": "https://ansiversa.com/lesson-builder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Teachers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Tutors"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Trainers"
+        }
+      ],
+      "description": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "lesson builder",
+        "learning & education",
+        "lesson",
+        "builder"
+      ],
+      "name": "Lesson Builder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/lesson-builder"
+    },
+    {
+      "@id": "https://ansiversa.com/memory-trainer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Curious learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        }
+      ],
+      "description": "Create memory sessions, recall generated sequences, review performance, and track progress.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "memory trainer",
+        "learning & education",
+        "memory",
+        "trainer"
+      ],
+      "name": "Memory Trainer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/memory-trainer"
+    },
+    {
+      "@id": "https://ansiversa.com/daily-word-challenge#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Writers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Curious learners"
+        }
+      ],
+      "description": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "daily word challenge",
+        "learning & education",
+        "daily",
+        "word",
+        "challenge"
+      ],
+      "name": "Daily Word Challenge",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/daily-word-challenge"
+    },
+    {
+      "@id": "https://ansiversa.com/smart-textbook-scanner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Learning & Education",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Educators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Self learners"
+        }
+      ],
+      "description": "Scan textbook material, organize pages, extract notes, and review focused study points.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "smart textbook scanner",
+        "learning & education",
+        "smart",
+        "textbook",
+        "scanner"
+      ],
+      "name": "Smart Textbook Scanner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/smart-textbook-scanner"
+    },
+    {
+      "@id": "https://ansiversa.com/resume-builder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "resume builder",
+        "career & professional",
+        "resume",
+        "builder"
+      ],
+      "name": "Resume Builder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/resume-builder"
+    },
+    {
+      "@id": "https://ansiversa.com/visiting-card-maker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        }
+      ],
+      "description": "Design stylish business cards that present professional contact details clearly.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "visiting card maker",
+        "career & professional",
+        "visiting",
+        "card",
+        "maker"
+      ],
+      "name": "Visiting Card Maker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/visiting-card-maker"
+    },
+    {
+      "@id": "https://ansiversa.com/interview-coach#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Practice interviews and review feedback to improve future responses.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "interview coach",
+        "career & professional",
+        "interview",
+        "coach"
+      ],
+      "name": "Interview Coach",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/interview-coach"
+    },
+    {
+      "@id": "https://ansiversa.com/job-description-analyzer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Power users"
+        }
+      ],
+      "description": "Extract required skills quickly.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "job description analyzer",
+        "career & professional",
+        "job",
+        "description",
+        "analyzer"
+      ],
+      "name": "Job Description Analyzer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/job-description-analyzer"
+    },
+    {
+      "@id": "https://ansiversa.com/portfolio-creator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        }
+      ],
+      "description": "Build a professional portfolio from profiles, projects, skills, and publish settings.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "portfolio creator",
+        "career & professional",
+        "portfolio",
+        "creator"
+      ],
+      "name": "Portfolio Creator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/portfolio-creator"
+    },
+    {
+      "@id": "https://ansiversa.com/meeting-minutes-ai#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Project teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Managers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Client teams"
+        }
+      ],
+      "description": "Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "meeting minutes ai",
+        "career & professional",
+        "meeting",
+        "minutes",
+        "ai"
+      ],
+      "name": "Meeting Minutes AI",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/meeting-minutes-ai"
+    },
+    {
+      "@id": "https://ansiversa.com/proposal-writer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Consultants"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        }
+      ],
+      "description": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "proposal writer",
+        "career & professional",
+        "proposal",
+        "writer"
+      ],
+      "name": "Proposal Writer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/proposal-writer"
+    },
+    {
+      "@id": "https://ansiversa.com/invoice-receipt-maker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Independent professionals"
+        }
+      ],
+      "description": "Create branded invoices and receipts with clear business and transaction details.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "invoice and receipt maker",
+        "invoice receipt maker",
+        "career & professional",
+        "invoice",
+        "receipt",
+        "maker"
+      ],
+      "name": "Invoice and Receipt Maker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/invoice-receipt-maker"
+    },
+    {
+      "@id": "https://ansiversa.com/contract-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Consultants"
+        }
+      ],
+      "description": "Prepare clear contract drafts from guided inputs and reusable sections.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "contract generator",
+        "career & professional",
+        "contract",
+        "generator"
+      ],
+      "name": "Contract Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/contract-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/presentation-designer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Educators"
+        }
+      ],
+      "description": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "presentation designer",
+        "career & professional",
+        "presentation",
+        "designer"
+      ],
+      "name": "Presentation Designer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/presentation-designer"
+    },
+    {
+      "@id": "https://ansiversa.com/career-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Plan career goals, roadmaps, milestones, and review activity in one clear workflow.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "career planner",
+        "career & professional",
+        "career",
+        "planner"
+      ],
+      "name": "Career Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/career-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/linkedin-bio-optimizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Career changers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "linkedin bio optimizer",
+        "career & professional",
+        "linkedin",
+        "bio",
+        "optimizer"
+      ],
+      "name": "LinkedIn Bio Optimizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/linkedin-bio-optimizer"
+    },
+    {
+      "@id": "https://ansiversa.com/client-feedback-analyzer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Client teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Product teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Service teams"
+        }
+      ],
+      "description": "Group client feedback and review the insights that emerge across responses.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "client feedback analyzer",
+        "career & professional",
+        "client",
+        "feedback",
+        "analyzer"
+      ],
+      "name": "Client Feedback Analyzer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/client-feedback-analyzer"
+    },
+    {
+      "@id": "https://ansiversa.com/book-summary-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Readers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Book groups"
+        }
+      ],
+      "description": "Create clear summaries for books and chapters, then keep notes and revision history connected.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "book summary generator",
+        "content & ai writing",
+        "book",
+        "summary",
+        "generator"
+      ],
+      "name": "Book Summary Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/book-summary-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/social-caption-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Creators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Marketers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        }
+      ],
+      "description": "Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "social caption generator",
+        "content & ai writing",
+        "social",
+        "caption",
+        "generator"
+      ],
+      "name": "Social Caption Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/social-caption-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/prompt-builder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Creators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "AI learners"
+        }
+      ],
+      "description": "Design reusable AI prompts with a clear purpose, context, and instruction.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "prompt builder",
+        "content & ai writing",
+        "prompt",
+        "builder"
+      ],
+      "name": "Prompt Builder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/prompt-builder"
+    },
+    {
+      "@id": "https://ansiversa.com/speech-writer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Event speakers"
+        }
+      ],
+      "description": "Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "speech writer",
+        "content & ai writing",
+        "speech",
+        "writer"
+      ],
+      "name": "Speech Writer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/speech-writer"
+    },
+    {
+      "@id": "https://ansiversa.com/ai-translator-and-tone-fixer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Power users"
+        }
+      ],
+      "description": "Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "ai translator and tone fixer",
+        "content & ai writing",
+        "ai",
+        "translator",
+        "and",
+        "tone",
+        "fixer"
+      ],
+      "name": "AI Translator and Tone Fixer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/ai-translator-and-tone-fixer"
+    },
+    {
+      "@id": "https://ansiversa.com/snippet-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Technical teams"
+        }
+      ],
+      "description": "Store and reuse code snippets in a clear, focused collection.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "snippet generator",
+        "utilities & productivity",
+        "snippet",
+        "generator"
+      ],
+      "name": "Snippet Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/snippet-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/price-checker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Shoppers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Budget-conscious users"
+        }
+      ],
+      "description": "Compare and organize product prices manually with browser-local analysis history.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "price checker",
+        "utilities & productivity",
+        "price",
+        "checker"
+      ],
+      "name": "Price Checker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/price-checker"
+    },
+    {
+      "@id": "https://ansiversa.com/qr-code-creator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        }
+      ],
+      "description": "Turn text and URLs into downloadable QR codes directly in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "qr code creator",
+        "utilities & productivity",
+        "qr",
+        "code",
+        "creator",
+        "qr code"
+      ],
+      "name": "QR Code Creator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/qr-code-creator"
+    },
+    {
+      "@id": "https://ansiversa.com/clipboard-manager#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Privacy-conscious users"
+        }
+      ],
+      "description": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "clipboard manager",
+        "utilities & productivity",
+        "clipboard",
+        "manager"
+      ],
+      "name": "Clipboard Manager",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/clipboard-manager"
+    },
+    {
+      "@id": "https://ansiversa.com/password-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Technical teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        }
+      ],
+      "description": "Generate strong, customizable passwords securely in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "password generator",
+        "utilities & productivity",
+        "password",
+        "generator"
+      ],
+      "name": "Password Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/password-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/api-tester#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Technical teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Learners"
+        }
+      ],
+      "description": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "api tester",
+        "utilities & productivity",
+        "api",
+        "tester"
+      ],
+      "name": "API Tester",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/api-tester"
+    },
+    {
+      "@id": "https://ansiversa.com/json-formatter#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Technical teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "API testers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Learners"
+        }
+      ],
+      "description": "Format, validate, and organize JSON through a focused editing workflow.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "json formatter",
+        "utilities & productivity",
+        "json",
+        "formatter",
+        "json validator",
+        "format json"
+      ],
+      "name": "JSON Formatter",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/json-formatter"
+    },
+    {
+      "@id": "https://ansiversa.com/markdown-editor#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Developers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Technical writers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students and creators"
+        }
+      ],
+      "description": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "markdown editor",
+        "utilities & productivity",
+        "markdown",
+        "editor"
+      ],
+      "name": "Markdown Editor",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/markdown-editor"
+    },
+    {
+      "@id": "https://ansiversa.com/time-zone-scheduler#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Remote teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Recruiters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        }
+      ],
+      "description": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "time zone scheduler",
+        "utilities & productivity",
+        "time",
+        "zone",
+        "scheduler"
+      ],
+      "name": "Time Zone Scheduler",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/time-zone-scheduler"
+    },
+    {
+      "@id": "https://ansiversa.com/browser-pdf-reader#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Privacy-conscious users"
+        }
+      ],
+      "description": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "browser pdf reader",
+        "utilities & productivity",
+        "browser",
+        "pdf",
+        "reader"
+      ],
+      "name": "Browser PDF Reader",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/browser-pdf-reader"
+    },
+    {
+      "@id": "https://ansiversa.com/wellness-and-goal-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Goal setters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Habit builders"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        }
+      ],
+      "description": "Set goals and track daily habits through a focused wellness-planning workflow.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "wellness and goal planner",
+        "personal life & wellness",
+        "wellness",
+        "and",
+        "goal",
+        "planner"
+      ],
+      "name": "Wellness and Goal Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/wellness-and-goal-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/meal-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Busy households"
+        }
+      ],
+      "description": "Create practical weekly meal plans and keep everyday food decisions organized.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "meal planner",
+        "personal life & wellness",
+        "meal",
+        "planner"
+      ],
+      "name": "Meal Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/meal-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/fitness-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday movers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Manual trackers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Ansiversa users"
+        }
+      ],
+      "description": "Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "fitness tracker",
+        "personal life & wellness",
+        "fitness",
+        "tracker"
+      ],
+      "name": "Fitness Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/fitness-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/mood-journal#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Reflective users"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Routine builders"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        }
+      ],
+      "description": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "mood journal",
+        "personal life & wellness",
+        "mood",
+        "journal"
+      ],
+      "name": "Mood Journal",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/mood-journal"
+    },
+    {
+      "@id": "https://ansiversa.com/expense-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        }
+      ],
+      "description": "Record everyday spending, organize expenses, and understand what was spent.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "expense tracker",
+        "personal life & wellness",
+        "expense",
+        "tracker"
+      ],
+      "name": "Expense Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/expense-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/travel-itinerary-builder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Solo travelers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Groups"
+        }
+      ],
+      "description": "Organize destinations, activities, and practical trip details into one clear itinerary.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "travel itinerary builder",
+        "personal life & wellness",
+        "travel",
+        "itinerary",
+        "builder"
+      ],
+      "name": "Travel Itinerary Builder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/travel-itinerary-builder"
+    },
+    {
+      "@id": "https://ansiversa.com/language-learning-buddy#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Language learners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Routine builders"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday users"
+        }
+      ],
+      "description": "Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "language learning buddy",
+        "personal life & wellness",
+        "language",
+        "learning",
+        "buddy"
+      ],
+      "name": "Language Learning Buddy",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/language-learning-buddy"
+    },
+    {
+      "@id": "https://ansiversa.com/eco-habit-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        }
+      ],
+      "description": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "eco habit tracker",
+        "personal life & wellness",
+        "eco",
+        "habit",
+        "tracker"
+      ],
+      "name": "Eco Habit Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/eco-habit-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/interview-scheduler#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Recruiters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Hiring teams"
+        }
+      ],
+      "description": "Organize interview appointments, rounds, and calendar reminders.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "interview scheduler",
+        "career & professional",
+        "interview",
+        "scheduler"
+      ],
+      "name": "Interview Scheduler",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/interview-scheduler"
+    },
+    {
+      "@id": "https://ansiversa.com/job-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Career planners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Track job listings, applications, and insights in one organized workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "job tracker",
+        "career & professional",
+        "job",
+        "tracker"
+      ],
+      "name": "Job Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/job-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/ai-job-interviewer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Run structured mock interview sessions, record answers, and review progress without requiring AI integration.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "ai job interviewer",
+        "career & professional",
+        "ai",
+        "job",
+        "interviewer"
+      ],
+      "name": "AI Job Interviewer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/ai-job-interviewer"
+    },
+    {
+      "@id": "https://ansiversa.com/email-assistant#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Career & Professional",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Managers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Client-facing teams"
+        }
+      ],
+      "description": "Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "email assistant",
+        "career & professional",
+        "email",
+        "assistant"
+      ],
+      "name": "Email Assistant",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/email-assistant"
+    },
+    {
+      "@id": "https://ansiversa.com/grammar-and-paraphrasing-assistant#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Creators"
+        }
+      ],
+      "description": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "grammar and paraphrasing assistant",
+        "content & ai writing",
+        "grammar",
+        "and",
+        "paraphrasing",
+        "assistant"
+      ],
+      "name": "Grammar and Paraphrasing Assistant",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/grammar-and-paraphrasing-assistant"
+    },
+    {
+      "@id": "https://ansiversa.com/creative-title-generator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Content & AI Writing",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Content creators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Marketing teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Solo builders"
+        }
+      ],
+      "description": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "creative title generator",
+        "content & ai writing",
+        "creative",
+        "title",
+        "generator"
+      ],
+      "name": "Creative Title Generator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/creative-title-generator"
+    },
+    {
+      "@id": "https://ansiversa.com/file-optimizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Privacy-conscious users"
+        }
+      ],
+      "description": "Estimate file compression locally from file metadata without uploading private files.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "file optimizer",
+        "utilities & productivity",
+        "file",
+        "optimizer"
+      ],
+      "name": "File Optimizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/file-optimizer"
+    },
+    {
+      "@id": "https://ansiversa.com/voice-converter#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Writers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Privacy-conscious users"
+        }
+      ],
+      "description": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "voice converter",
+        "utilities & productivity",
+        "voice",
+        "converter"
+      ],
+      "name": "Voice Converter",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/voice-converter"
+    },
+    {
+      "@id": "https://ansiversa.com/project-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Solo builders"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students and professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and small teams"
+        }
+      ],
+      "description": "Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "project tracker",
+        "utilities & productivity",
+        "project",
+        "tracker"
+      ],
+      "name": "Project Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/project-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/task-prioritizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Utilities & Productivity",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Power users"
+        }
+      ],
+      "description": "Task Prioritizer for the Ansiversa app ecosystem.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "task prioritizer",
+        "utilities & productivity",
+        "task",
+        "prioritizer"
+      ],
+      "name": "Task Prioritizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/task-prioritizer"
+    },
+    {
+      "@id": "https://ansiversa.com/goal-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Power users"
+        }
+      ],
+      "description": "Set measurable goals, track milestones, and record progress check-ins in one focused workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "goal tracker",
+        "personal life & wellness",
+        "goal",
+        "tracker"
+      ],
+      "name": "Goal Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/goal-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/medicine-reminder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Caregivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Appointment planners"
+        }
+      ],
+      "description": "Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "medicine reminder",
+        "personal life & wellness",
+        "medicine",
+        "reminder"
+      ],
+      "name": "Medicine Reminder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/medicine-reminder"
+    },
+    {
+      "@id": "https://ansiversa.com/health-report-organizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Caregivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Appointment planners"
+        }
+      ],
+      "description": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "health report organizer",
+        "personal life & wellness",
+        "health",
+        "report",
+        "organizer"
+      ],
+      "name": "Health Report Organizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/health-report-organizer"
+    },
+    {
+      "@id": "https://ansiversa.com/family-task-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Life & Wellness",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Couples and shared homes"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Caregivers"
+        }
+      ],
+      "description": "Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "family task planner",
+        "personal life & wellness",
+        "family",
+        "task",
+        "planner"
+      ],
+      "name": "Family Task Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/family-task-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/rent-a-car#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Mobility & Travel",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Trip planners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent travelers"
+        }
+      ],
+      "description": "A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "rent a car",
+        "mobility & travel",
+        "rent",
+        "a",
+        "car"
+      ],
+      "name": "Rent a Car",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/rent-a-car"
+    },
+    {
+      "@id": "https://ansiversa.com/car-pool#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Mobility & Travel",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Commuters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families and groups"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Occasional travelers"
+        }
+      ],
+      "description": "A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "car pool",
+        "mobility & travel",
+        "car",
+        "pool"
+      ],
+      "name": "Car Pool",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/car-pool"
+    },
+    {
+      "@id": "https://ansiversa.com/vehicle-maintenance-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Mobility & Travel",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Vehicle owners"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent drivers"
+        }
+      ],
+      "description": "A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "vehicle maintenance tracker",
+        "mobility & travel",
+        "vehicle",
+        "maintenance",
+        "tracker"
+      ],
+      "name": "Vehicle Maintenance Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/vehicle-maintenance-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/parking-expense-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Mobility & Travel",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Commuters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent drivers"
+        }
+      ],
+      "description": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "parking expense tracker",
+        "mobility & travel",
+        "parking",
+        "expense",
+        "tracker"
+      ],
+      "name": "Parking Expense Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/parking-expense-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/trip-cost-calculator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Mobility & Travel",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Drivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent travelers"
+        }
+      ],
+      "description": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "trip cost calculator",
+        "mobility & travel",
+        "trip",
+        "cost",
+        "calculator"
+      ],
+      "name": "Trip Cost Calculator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/trip-cost-calculator"
+    },
+    {
+      "@id": "https://ansiversa.com/corporate-tax-uae#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Business & UAE",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Finance teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Founders"
+        }
+      ],
+      "description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "corporate tax uae",
+        "business & uae",
+        "corporate",
+        "tax",
+        "uae"
+      ],
+      "name": "Corporate Tax UAE",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/corporate-tax-uae"
+    },
+    {
+      "@id": "https://ansiversa.com/vat-assistant-uae#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Business & UAE",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Small businesses"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Finance teams"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Founders"
+        }
+      ],
+      "description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "vat assistant uae",
+        "business & uae",
+        "vat",
+        "assistant",
+        "uae"
+      ],
+      "name": "VAT Assistant UAE",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/vat-assistant-uae"
+    },
+    {
+      "@id": "https://ansiversa.com/school-administration#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Business & UAE",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Small schools"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Tutors and training centres"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Early-stage institutions"
+        }
+      ],
+      "description": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "school administration",
+        "business & uae",
+        "school",
+        "administration"
+      ],
+      "name": "School Administration",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/school-administration"
+    },
+    {
+      "@id": "https://ansiversa.com/subscription-manager#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Business & UAE",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers and small businesses"
+        }
+      ],
+      "description": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "subscription manager",
+        "business & uae",
+        "subscription",
+        "manager"
+      ],
+      "name": "Subscription Manager",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/subscription-manager"
+    },
+    {
+      "@id": "https://ansiversa.com/emi-loan-calculator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Documents & Records",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small business owners"
+        }
+      ],
+      "description": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "emi / loan calculator",
+        "emi loan calculator",
+        "documents & records",
+        "emi",
+        "loan",
+        "calculator",
+        "monthly payment"
+      ],
+      "name": "EMI / Loan Calculator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/emi-loan-calculator"
+    },
+    {
+      "@id": "https://ansiversa.com/document-expiry-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Documents & Records",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent travelers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday planners"
+        }
+      ],
+      "description": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "document expiry tracker",
+        "documents & records",
+        "document",
+        "expiry",
+        "tracker"
+      ],
+      "name": "Document Expiry Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/document-expiry-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/digital-document-vault#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Documents & Records",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Everyday planners"
+        }
+      ],
+      "description": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "digital document vault",
+        "documents & records",
+        "digital",
+        "document",
+        "vault"
+      ],
+      "name": "Digital Document Vault",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/digital-document-vault"
+    },
+    {
+      "@id": "https://ansiversa.com/home-inventory-manager#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Homeowners and renters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Practical planners"
+        }
+      ],
+      "description": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "home inventory manager",
+        "home & family",
+        "home",
+        "inventory",
+        "manager"
+      ],
+      "name": "Home Inventory Manager",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/home-inventory-manager"
+    },
+    {
+      "@id": "https://ansiversa.com/household-expense-splitter#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Roommates"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Couples and families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Shared living groups"
+        }
+      ],
+      "description": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "household expense splitter",
+        "home & family",
+        "household",
+        "expense",
+        "splitter"
+      ],
+      "name": "Household Expense Splitter",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/household-expense-splitter"
+    },
+    {
+      "@id": "https://ansiversa.com/emergency-contacts-organizer#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Parents and families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Residents"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Travellers"
+        }
+      ],
+      "description": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "emergency contacts organizer",
+        "home & family",
+        "emergency",
+        "contacts",
+        "organizer"
+      ],
+      "name": "Emergency Contacts Organizer",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/emergency-contacts-organizer"
+    },
+    {
+      "@id": "https://ansiversa.com/packing-checklist#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Travelers"
+        }
+      ],
+      "description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "packing checklist",
+        "home & family",
+        "packing",
+        "checklist"
+      ],
+      "name": "Packing Checklist",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/packing-checklist"
+    },
+    {
+      "@id": "https://ansiversa.com/birthday-and-anniversary-reminder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Friends"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        }
+      ],
+      "description": "Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "birthday & anniversary reminder",
+        "birthday and anniversary reminder",
+        "home & family",
+        "birthday",
+        "and",
+        "anniversary",
+        "reminder"
+      ],
+      "name": "Birthday & Anniversary Reminder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/birthday-and-anniversary-reminder"
+    },
+    {
+      "@id": "https://ansiversa.com/home-maintenance-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Home & Family",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Homeowners and villa residents"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Renters"
+        }
+      ],
+      "description": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "home maintenance planner",
+        "home & family",
+        "home",
+        "maintenance",
+        "planner"
+      ],
+      "name": "Home Maintenance Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/home-maintenance-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/doctor-visit-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Health & Medical",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Care organizers"
+        }
+      ],
+      "description": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "doctor visit tracker",
+        "health & medical",
+        "doctor",
+        "visit",
+        "tracker"
+      ],
+      "name": "Doctor Visit Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/doctor-visit-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/water-intake-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Health & Medical",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Routine builders"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Wellness organizers"
+        }
+      ],
+      "description": "Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "water intake tracker",
+        "health & medical",
+        "water",
+        "intake",
+        "tracker"
+      ],
+      "name": "Water Intake Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/water-intake-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/vaccination-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Health & Medical",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Parents"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Adults"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        }
+      ],
+      "description": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "vaccination tracker",
+        "health & medical",
+        "vaccination",
+        "tracker"
+      ],
+      "name": "Vaccination Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/vaccination-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/symptom-journal#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Health & Medical",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Adults"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Caregivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Appointment preparation"
+        }
+      ],
+      "description": "Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "symptom journal",
+        "health & medical",
+        "symptom",
+        "journal"
+      ],
+      "name": "Symptom Journal",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/symptom-journal"
+    },
+    {
+      "@id": "https://ansiversa.com/first-aid-guide#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Health & Medical",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Preparedness planners"
+        }
+      ],
+      "description": "Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "first aid guide",
+        "health & medical",
+        "first",
+        "aid",
+        "guide"
+      ],
+      "name": "First Aid Guide",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/first-aid-guide"
+    },
+    {
+      "@id": "https://ansiversa.com/fuel-expense-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Vehicle & Driving",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Commuters"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Budget reviewers"
+        }
+      ],
+      "description": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "fuel expense tracker",
+        "vehicle & driving",
+        "fuel",
+        "expense",
+        "tracker"
+      ],
+      "name": "Fuel Expense Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/fuel-expense-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/driver-logbook#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Vehicle & Driving",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Personal drivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Record keepers"
+        }
+      ],
+      "description": "Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "driver logbook",
+        "vehicle & driving",
+        "driver",
+        "logbook"
+      ],
+      "name": "Driver Logbook",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/driver-logbook"
+    },
+    {
+      "@id": "https://ansiversa.com/vehicle-document-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Vehicle & Driving",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individual drivers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Frequent reviewers"
+        }
+      ],
+      "description": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "vehicle document tracker",
+        "vehicle & driving",
+        "vehicle",
+        "document",
+        "tracker"
+      ],
+      "name": "Vehicle Document Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/vehicle-document-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/meeting-scheduler#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Work & Planning",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Coordinators"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Project owners"
+        }
+      ],
+      "description": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "meeting scheduler",
+        "work & planning",
+        "meeting",
+        "scheduler"
+      ],
+      "name": "Meeting Scheduler",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/meeting-scheduler"
+    },
+    {
+      "@id": "https://ansiversa.com/leave-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Work & Planning",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Employees"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Career changers"
+        }
+      ],
+      "description": "Plan personal leave, define allowances, and understand used, planned, and remaining balances.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "leave planner",
+        "work & planning",
+        "leave",
+        "planner"
+      ],
+      "name": "Leave Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/leave-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/shift-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Work & Planning",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Family businesses"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Service teams"
+        }
+      ],
+      "description": "Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "shift planner",
+        "work & planning",
+        "shift",
+        "planner"
+      ],
+      "name": "Shift Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/shift-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/work-log-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Work & Planning",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Freelancers and consultants"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Students and makers"
+        }
+      ],
+      "description": "Record timed or manual work, organize it by project, and review private activity summaries without surveillance.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "work log tracker",
+        "work & planning",
+        "work",
+        "log",
+        "tracker"
+      ],
+      "name": "Work Log Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/work-log-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/bill-splitter#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Finance",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Friends"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Trip groups"
+        }
+      ],
+      "description": "Build a private bill, allocate item-level costs, and record settlement progress without moving money.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "bill splitter",
+        "personal finance",
+        "bill",
+        "splitter"
+      ],
+      "name": "Bill Splitter",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/bill-splitter"
+    },
+    {
+      "@id": "https://ansiversa.com/savings-goal-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Finance",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Travellers and makers"
+        }
+      ],
+      "description": "Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "savings goal planner",
+        "personal finance",
+        "savings",
+        "goal",
+        "planner"
+      ],
+      "name": "Savings Goal Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/savings-goal-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/salary-breakdown-calculator#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Finance",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Job seekers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Budget planners"
+        }
+      ],
+      "description": "Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "salary breakdown calculator",
+        "personal finance",
+        "salary",
+        "breakdown",
+        "calculator",
+        "pay",
+        "income",
+        "gross salary",
+        "net salary",
+        "allowance",
+        "deduction"
+      ],
+      "name": "Salary Breakdown Calculator",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/salary-breakdown-calculator"
+    },
+    {
+      "@id": "https://ansiversa.com/net-worth-tracker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Personal Finance",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Planners"
+        }
+      ],
+      "description": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "net worth tracker",
+        "personal finance",
+        "net",
+        "worth",
+        "tracker"
+      ],
+      "name": "Net Worth Tracker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/net-worth-tracker"
+    },
+    {
+      "@id": "https://ansiversa.com/decision-maker#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Daily Life",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Professionals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Consumers"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Planners"
+        }
+      ],
+      "description": "Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "decision maker",
+        "daily life",
+        "decision",
+        "maker"
+      ],
+      "name": "Decision Maker",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/decision-maker"
+    },
+    {
+      "@id": "https://ansiversa.com/errand-planner#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Daily Life",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small-business users"
+        }
+      ],
+      "description": "Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "errand planner",
+        "daily life",
+        "errand",
+        "planner"
+      ],
+      "name": "Errand Planner",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/errand-planner"
+    },
+    {
+      "@id": "https://ansiversa.com/local-services-finder#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Daily Life",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Households"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "New residents"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Small-business users"
+        }
+      ],
+      "description": "Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "local services finder",
+        "daily life",
+        "local",
+        "services",
+        "finder"
+      ],
+      "name": "Local Services Finder",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/local-services-finder"
+    },
+    {
+      "@id": "https://ansiversa.com/emergency-checklist#software",
+      "@type": "SoftwareApplication",
+      "applicationCategory": "Daily Life",
+      "audience": [
+        {
+          "@type": "Audience",
+          "audienceType": "Individuals"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Families"
+        },
+        {
+          "@type": "Audience",
+          "audienceType": "Workers"
+        }
+      ],
+      "description": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
+      "isPartOf": {
+        "@id": "https://ansiversa.com/apps#collection"
+      },
+      "keywords": [
+        "emergency checklist",
+        "daily life",
+        "emergency",
+        "checklist"
+      ],
+      "name": "Emergency Checklist",
+      "operatingSystem": "Web",
+      "url": "https://ansiversa.com/emergency-checklist"
+    }
+  ]
+}

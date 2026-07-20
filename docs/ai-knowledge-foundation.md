@@ -4,8 +4,9 @@
 
 Phase 1 created a deterministic internal registry from approved public metadata
 and canonical route identity. Phase 2 makes the Ansiversa AI Assistant consume
-that registry as its normal retrieval source. It introduces no public SEO
-surface.
+that registry as its normal retrieval source. AI SEO Public Knowledge
+Publishing Phase 1 exposes only governed public knowledge as deterministic
+machine-readable artifacts.
 
 ```text
 allowlisted documentation and registries
@@ -13,11 +14,13 @@ allowlisted documentation and registries
   -> app/modules/knowledge/data/ansiversa-knowledge.json
   -> cached backend adapter
   -> assistant deterministic retriever
+  -> public knowledge publisher
+  -> llms.txt, llms-full.txt, AI sitemap, JSON-LD, public AI JSON, metadata
 ```
 
-The backend owns generation, visibility enforcement, and assistant retrieval.
-The frontend must not import the internal artifact; a future phase may expose a
-bounded public subset.
+The backend owns generation, visibility enforcement, assistant retrieval, and
+public AI publishing. The frontend must not import the internal registry
+artifact.
 
 ## Source hierarchy and current limitation
 
@@ -85,12 +88,67 @@ retriever as an explicit compatibility fallback.
 OpenAI remains the explanation layer only. It may rewrite grounded public app
 answers from bounded registry context, but it cannot create routes, actions,
 apps, capabilities, prices, policies, future plans, or source facts. No
-embedding, vector storage, public API, JSON-LD, `llms.txt`, sitemap, robots,
-crawler submission, or frontend import is added.
+embedding, vector storage, crawler submission, or frontend import is added.
+
+## Public Knowledge Publishing
+
+The public publisher generates a bounded public knowledge surface from the
+Canonical AI Knowledge Registry. It publishes only records with
+`visibility: public` and omits source references, authenticated/account-only
+records, internal records, restricted records, future direction, story paths,
+certification language, promotion documents, user data, and implementation
+notes.
+
+Generated artifacts live under `public/`:
+
+```text
+public/llms.txt
+public/llms-full.txt
+public/ai-sitemap.xml
+public/public-ai-knowledge.json
+public/public-ai-jsonld.json
+public/public-ai-metadata.json
+public/robots.txt
+```
+
+Read-only routes serve the generated files:
+
+```text
+/llms.txt
+/llms-full.txt
+/ai-sitemap.xml
+/public-ai-knowledge.json
+/public-ai-jsonld.json
+/public-ai-metadata.json
+/robots.txt
+/api/v1/knowledge/public
+/api/v1/knowledge/public/jsonld
+/api/v1/knowledge/public/metadata
+```
+
+The public JSON export includes platform facts, public pages, 14 categories,
+100 public apps, aliases, capabilities, canonical routes, relationships,
+visibility, schema version, and a deterministic generated timestamp. The
+JSON-LD graph uses schema.org `Organization`, `WebSite`, `CollectionPage`,
+`FAQPage`, and one `SoftwareApplication` node per app. `llms.txt` follows the
+emerging convention of a single H1, blockquote summary, and structured Markdown
+link sections; `llms-full.txt` provides expanded public app context.
+
+Build and check commands:
+
+```bash
+python -m app.modules.knowledge.build_public
+python -m app.modules.knowledge.check_public
+```
+
+Publisher validation enforces exactly 100 public apps, 14 categories, no
+duplicate routes, canonical Ansiversa URLs, valid JSON, valid XML, valid
+schema.org JSON-LD shape, public visibility only, and forbidden-content
+screening.
 
 Readiness is 100/100 for purpose, audience, current capabilities, aliases,
-related apps, assistant retrieval parity, and traceability. Sixty-nine apps
-have an explicitly marked future section. There are zero app extraction gaps and
-one governance warning for the missing locked catalog source. A future
-public-subset API must filter visibility and omit repository paths before use by
-Search or AI SEO.
+related apps, assistant retrieval parity, public AI publishing, and
+traceability. Sixty-nine internal registry app records have an explicitly marked
+future section, but future direction is not exposed in public publishing
+artifacts. There are zero app extraction gaps and one governance warning for the
+missing locked catalog source.

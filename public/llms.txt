@@ -1,0 +1,143 @@
+# Ansiversa
+
+> One consistent platform for focused everyday solution apps.
+
+A permanently curated ecosystem of exactly 100 solution apps.
+
+## Core Resources
+
+- [Home](https://ansiversa.com): Ansiversa platform home.
+- [Apps](https://ansiversa.com/apps): Catalog of 100 curated solution apps.
+- [Public AI Knowledge](https://ansiversa.com/public-ai-knowledge.json): Machine-readable public knowledge export.
+- [Full LLM Context](https://ansiversa.com/llms-full.txt): Expanded public app and category context.
+
+## Categories
+
+- Business & UAE
+- Career & Professional
+- Content & AI Writing
+- Daily Life
+- Documents & Records
+- Health & Medical
+- Home & Family
+- Learning & Education
+- Mobility & Travel
+- Personal Finance
+- Personal Life & Wellness
+- Utilities & Productivity
+- Vehicle & Driving
+- Work & Planning
+
+## Public Pages
+
+- [100 carefully curated apps. One consistent platform.](https://ansiversa.com): Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.
+- [About](https://ansiversa.com/about): About is an Ansiversa public page.
+- [Apps](https://ansiversa.com/apps): Apps is an Ansiversa public page.
+- [One subscription. 100 curated apps.](https://ansiversa.com/pricing): Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.
+- [Privacy](https://ansiversa.com/privacy): Privacy is an Ansiversa public page.
+- [Terms](https://ansiversa.com/terms): Terms is an Ansiversa public page.
+- [FAQ](https://ansiversa.com/faq): Frequently asked questions
+- [Contact](https://ansiversa.com/contact): Contact the Ansiversa team
+
+## Public Apps
+
+- [Quiz](https://ansiversa.com/quiz): Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.
+- [Research Assistant](https://ansiversa.com/research-assistant): Collect research topics, organize manual notes, save references, and track progress in one focused workspace.
+- [AI Notes Summarizer](https://ansiversa.com/ai-notes-summarizer): Turn long notes into focused summaries with key points, action items, and saved document history.
+- [Concept Explainer](https://ansiversa.com/concept-explainer): Break difficult ideas into clear explanation steps and review checks you create manually.
+- [Study Planner](https://ansiversa.com/study-planner): Create a study plan, break it into tasks, log focused study sessions, and review progress.
+- [Course Tracker](https://ansiversa.com/course-tracker): Create courses, organize modules, log learning progress, and review completion.
+- [Dictionary+](https://ansiversa.com/dictionary-plus): Look up words and review clear definitions with phonetic guidance.
+- [Formula Finder](https://ansiversa.com/formula-finder): Search bundled formulas, explore clear explanations, and save useful references in your browser.
+- [Lesson Builder](https://ansiversa.com/lesson-builder): Build structured lesson plans quickly with clear objectives, activities, and review points.
+- [Memory Trainer](https://ansiversa.com/memory-trainer): Create memory sessions, recall generated sequences, review performance, and track progress.
+- [Daily Word Challenge](https://ansiversa.com/daily-word-challenge): Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.
+- [Smart Textbook Scanner](https://ansiversa.com/smart-textbook-scanner): Scan textbook material, organize pages, extract notes, and review focused study points.
+- [Resume Builder](https://ansiversa.com/resume-builder): Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.
+- [Visiting Card Maker](https://ansiversa.com/visiting-card-maker): Design stylish business cards that present professional contact details clearly.
+- [Interview Coach](https://ansiversa.com/interview-coach): Practice interviews and review feedback to improve future responses.
+- [Job Description Analyzer](https://ansiversa.com/job-description-analyzer): Extract required skills quickly.
+- [Portfolio Creator](https://ansiversa.com/portfolio-creator): Build a professional portfolio from profiles, projects, skills, and publish settings.
+- [Meeting Minutes AI](https://ansiversa.com/meeting-minutes-ai): Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.
+- [Proposal Writer](https://ansiversa.com/proposal-writer): Create structured client proposals from project context, proposal sections, drafts, and review history.
+- [Invoice and Receipt Maker](https://ansiversa.com/invoice-receipt-maker): Create branded invoices and receipts with clear business and transaction details.
+- [Contract Generator](https://ansiversa.com/contract-generator): Prepare clear contract drafts from guided inputs and reusable sections.
+- [Presentation Designer](https://ansiversa.com/presentation-designer): Design clean, consistent slides that keep a presentation clear and visually coherent.
+- [Career Planner](https://ansiversa.com/career-planner): Plan career goals, roadmaps, milestones, and review activity in one clear workflow.
+- [LinkedIn Bio Optimizer](https://ansiversa.com/linkedin-bio-optimizer): Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.
+- [Client Feedback Analyzer](https://ansiversa.com/client-feedback-analyzer): Group client feedback and review the insights that emerge across responses.
+- [Book Summary Generator](https://ansiversa.com/book-summary-generator): Create clear summaries for books and chapters, then keep notes and revision history connected.
+- [Social Caption Generator](https://ansiversa.com/social-caption-generator): Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.
+- [Prompt Builder](https://ansiversa.com/prompt-builder): Design reusable AI prompts with a clear purpose, context, and instruction.
+- [Speech Writer](https://ansiversa.com/speech-writer): Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.
+- [AI Translator and Tone Fixer](https://ansiversa.com/ai-translator-and-tone-fixer): Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.
+- [Snippet Generator](https://ansiversa.com/snippet-generator): Store and reuse code snippets in a clear, focused collection.
+- [Price Checker](https://ansiversa.com/price-checker): Compare and organize product prices manually with browser-local analysis history.
+- [QR Code Creator](https://ansiversa.com/qr-code-creator): Turn text and URLs into downloadable QR codes directly in your browser.
+- [Clipboard Manager](https://ansiversa.com/clipboard-manager): Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.
+- [Password Generator](https://ansiversa.com/password-generator): Generate strong, customizable passwords securely in your browser.
+- [API Tester](https://ansiversa.com/api-tester): Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.
+- [JSON Formatter](https://ansiversa.com/json-formatter): Format, validate, and organize JSON through a focused editing workflow.
+- [Markdown Editor](https://ansiversa.com/markdown-editor): Write Markdown, preview the rendered result, and export reusable documents directly in your browser.
+- [Time Zone Scheduler](https://ansiversa.com/time-zone-scheduler): Compare one meeting time across participant time zones and save lightweight schedules in your browser.
+- [Browser PDF Reader](https://ansiversa.com/browser-pdf-reader): Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.
+- [Wellness and Goal Planner](https://ansiversa.com/wellness-and-goal-planner): Set goals and track daily habits through a focused wellness-planning workflow.
+- [Meal Planner](https://ansiversa.com/meal-planner): Create practical weekly meal plans and keep everyday food decisions organized.
+- [Fitness Tracker](https://ansiversa.com/fitness-tracker): Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.
+- [Mood Journal](https://ansiversa.com/mood-journal): Record today’s mood, review recent entries, and reflect privately in your browser.
+- [Expense Tracker](https://ansiversa.com/expense-tracker): Record everyday spending, organize expenses, and understand what was spent.
+- [Travel Itinerary Builder](https://ansiversa.com/travel-itinerary-builder): Organize destinations, activities, and practical trip details into one clear itinerary.
+- [Language Learning Buddy](https://ansiversa.com/language-learning-buddy): Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.
+- [Eco Habit Tracker](https://ansiversa.com/eco-habit-tracker): Build eco-friendly habits, track daily progress, and maintain streaks in your browser.
+- [Interview Scheduler](https://ansiversa.com/interview-scheduler): Organize interview appointments, rounds, and calendar reminders.
+- [Job Tracker](https://ansiversa.com/job-tracker): Track job listings, applications, and insights in one organized workspace.
+- [AI Job Interviewer](https://ansiversa.com/ai-job-interviewer): Run structured mock interview sessions, record answers, and review progress without requiring AI integration.
+- [Email Assistant](https://ansiversa.com/email-assistant): Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.
+- [Grammar and Paraphrasing Assistant](https://ansiversa.com/grammar-and-paraphrasing-assistant): Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.
+- [Creative Title Generator](https://ansiversa.com/creative-title-generator): Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.
+- [File Optimizer](https://ansiversa.com/file-optimizer): Estimate file compression locally from file metadata without uploading private files.
+- [Voice Converter](https://ansiversa.com/voice-converter): Turn typed text into browser-native speech previews without uploading text or generating audio files.
+- [Project Tracker](https://ansiversa.com/project-tracker): Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.
+- [Task Prioritizer](https://ansiversa.com/task-prioritizer): Task Prioritizer for the Ansiversa app ecosystem.
+- [Goal Tracker](https://ansiversa.com/goal-tracker): Set measurable goals, track milestones, and record progress check-ins in one focused workspace.
+- [Medicine Reminder](https://ansiversa.com/medicine-reminder): Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.
+- [Health Report Organizer](https://ansiversa.com/health-report-organizer): Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.
+- [Family Task Planner](https://ansiversa.com/family-task-planner): Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.
+- [Rent a Car](https://ansiversa.com/rent-a-car): A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.
+- [Car Pool](https://ansiversa.com/car-pool): A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.
+- [Vehicle Maintenance Tracker](https://ansiversa.com/vehicle-maintenance-tracker): A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.
+- [Parking Expense Tracker](https://ansiversa.com/parking-expense-tracker): A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.
+- [Trip Cost Calculator](https://ansiversa.com/trip-cost-calculator): Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.
+- [Corporate Tax UAE](https://ansiversa.com/corporate-tax-uae): Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.
+- [VAT Assistant UAE](https://ansiversa.com/vat-assistant-uae): Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.
+- [School Administration](https://ansiversa.com/school-administration): A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.
+- [Subscription Manager](https://ansiversa.com/subscription-manager): Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.
+- [EMI / Loan Calculator](https://ansiversa.com/emi-loan-calculator): Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.
+- [Document Expiry Tracker](https://ansiversa.com/document-expiry-tracker): A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.
+- [Digital Document Vault](https://ansiversa.com/digital-document-vault): A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.
+- [Home Inventory Manager](https://ansiversa.com/home-inventory-manager): Create a private household inventory for belongings, rooms, values, warranties, and archive status.
+- [Household Expense Splitter](https://ansiversa.com/household-expense-splitter): Record shared household expenses, split costs between members, track settlements, and review simple balances.
+- [Emergency Contacts Organizer](https://ansiversa.com/emergency-contacts-organizer): Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.
+- [Packing Checklist](https://ansiversa.com/packing-checklist): Plan trip packing lists, organize items by category, and track what is packed before departure.
+- [Birthday & Anniversary Reminder](https://ansiversa.com/birthday-and-anniversary-reminder): Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.
+- [Home Maintenance Planner](https://ansiversa.com/home-maintenance-planner): Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.
+- [Doctor Visit Tracker](https://ansiversa.com/doctor-visit-tracker): Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.
+- [Water Intake Tracker](https://ansiversa.com/water-intake-tracker): Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.
+- [Vaccination Tracker](https://ansiversa.com/vaccination-tracker): Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.
+- [Symptom Journal](https://ansiversa.com/symptom-journal): Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.
+- [First Aid Guide](https://ansiversa.com/first-aid-guide): Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.
+- [Fuel Expense Tracker](https://ansiversa.com/fuel-expense-tracker): Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.
+- [Driver Logbook](https://ansiversa.com/driver-logbook): Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.
+- [Vehicle Document Tracker](https://ansiversa.com/vehicle-document-tracker): Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.
+- [Meeting Scheduler](https://ansiversa.com/meeting-scheduler): Organize meeting schedules, participants, response labels, and agendas in one private workspace.
+- [Leave Planner](https://ansiversa.com/leave-planner): Plan personal leave, define allowances, and understand used, planned, and remaining balances.
+- [Shift Planner](https://ansiversa.com/shift-planner): Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.
+- [Work Log Tracker](https://ansiversa.com/work-log-tracker): Record timed or manual work, organize it by project, and review private activity summaries without surveillance.
+- [Bill Splitter](https://ansiversa.com/bill-splitter): Build a private bill, allocate item-level costs, and record settlement progress without moving money.
+- [Savings Goal Planner](https://ansiversa.com/savings-goal-planner): Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.
+- [Salary Breakdown Calculator](https://ansiversa.com/salary-breakdown-calculator): Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.
+- [Net Worth Tracker](https://ansiversa.com/net-worth-tracker): Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.
+- [Decision Maker](https://ansiversa.com/decision-maker): Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.
+- [Errand Planner](https://ansiversa.com/errand-planner): Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.
+- [Local Services Finder](https://ansiversa.com/local-services-finder): Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.
+- [Emergency Checklist](https://ansiversa.com/emergency-checklist): Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.

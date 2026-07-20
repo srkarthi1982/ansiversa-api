@@ -1,0 +1,3391 @@
+{
+  "canonicalSource": "Canonical AI Knowledge Registry",
+  "generatedAt": "2026-07-20T00:00:00Z",
+  "pages": [
+    {
+      "aiDescription": "Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.",
+      "canonical": "https://ansiversa.com",
+      "description": "Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "home"
+      ],
+      "openGraph": {
+        "description": "Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.",
+        "title": "100 carefully curated apps. One consistent platform. | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com"
+      },
+      "route": "/",
+      "title": "100 carefully curated apps. One consistent platform. | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.",
+        "title": "100 carefully curated apps. One consistent platform. | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "About is an Ansiversa public page.",
+      "canonical": "https://ansiversa.com/about",
+      "description": "About is an Ansiversa public page.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "about"
+      ],
+      "openGraph": {
+        "description": "About is an Ansiversa public page.",
+        "title": "About | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/about"
+      },
+      "route": "/about",
+      "title": "About | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "About is an Ansiversa public page.",
+        "title": "About | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Apps is an Ansiversa public page.",
+      "canonical": "https://ansiversa.com/apps",
+      "description": "Apps is an Ansiversa public page.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "apps"
+      ],
+      "openGraph": {
+        "description": "Apps is an Ansiversa public page.",
+        "title": "Apps | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/apps"
+      },
+      "route": "/apps",
+      "title": "Apps | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Apps is an Ansiversa public page.",
+        "title": "Apps | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.",
+      "canonical": "https://ansiversa.com/pricing",
+      "description": "Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "pricing"
+      ],
+      "openGraph": {
+        "description": "Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.",
+        "title": "One subscription. 100 curated apps. | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/pricing"
+      },
+      "route": "/pricing",
+      "title": "One subscription. 100 curated apps. | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.",
+        "title": "One subscription. 100 curated apps. | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Privacy is an Ansiversa public page.",
+      "canonical": "https://ansiversa.com/privacy",
+      "description": "Privacy is an Ansiversa public page.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "privacy"
+      ],
+      "openGraph": {
+        "description": "Privacy is an Ansiversa public page.",
+        "title": "Privacy | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/privacy"
+      },
+      "route": "/privacy",
+      "title": "Privacy | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Privacy is an Ansiversa public page.",
+        "title": "Privacy | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Terms is an Ansiversa public page.",
+      "canonical": "https://ansiversa.com/terms",
+      "description": "Terms is an Ansiversa public page.",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "terms"
+      ],
+      "openGraph": {
+        "description": "Terms is an Ansiversa public page.",
+        "title": "Terms | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/terms"
+      },
+      "route": "/terms",
+      "title": "Terms | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Terms is an Ansiversa public page.",
+        "title": "Terms | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Frequently asked questions",
+      "canonical": "https://ansiversa.com/faq",
+      "description": "Frequently asked questions",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "faq",
+        "help",
+        "frequently",
+        "asked",
+        "questions",
+        "support"
+      ],
+      "openGraph": {
+        "description": "Frequently asked questions",
+        "title": "FAQ | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/faq"
+      },
+      "route": "/faq",
+      "title": "FAQ | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Frequently asked questions",
+        "title": "FAQ | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Contact the Ansiversa team",
+      "canonical": "https://ansiversa.com/contact",
+      "description": "Contact the Ansiversa team",
+      "keywords": [
+        "Ansiversa",
+        "100 apps",
+        "solution apps",
+        "productivity",
+        "contact",
+        "support",
+        "help",
+        "message",
+        "team"
+      ],
+      "openGraph": {
+        "description": "Contact the Ansiversa team",
+        "title": "Contact | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/contact"
+      },
+      "route": "/contact",
+      "title": "Contact | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Contact the Ansiversa team",
+        "title": "Contact | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+      "canonical": "https://ansiversa.com/quiz",
+      "description": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+      "keywords": [
+        "Quiz",
+        "Learning & Education",
+        "quiz",
+        "learning & education",
+        "Structured taxonomy: platform → subject → topic → roadmap",
+        "Instant scoring with server-ready breakdown",
+        "Attempts saved per user for progress tracking",
+        "Turn notes into recall-ready prompts. — Teach with notes, then convert them into instant quizzes."
+      ],
+      "openGraph": {
+        "description": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+        "title": "Quiz | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/quiz"
+      },
+      "route": "/quiz",
+      "title": "Quiz | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.",
+        "title": "Quiz | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Collect research topics, organize manual notes, save references, and track progress in one focused workspace.",
+      "canonical": "https://ansiversa.com/research-assistant",
+      "description": "Collect research topics, organize manual notes, save references, and track progress in one focused workspace.",
+      "keywords": [
+        "Research Assistant",
+        "Learning & Education",
+        "research assistant",
+        "learning & education",
+        "research",
+        "assistant",
+        "Create research topics",
+        "Add manual notes",
+        "Track references and status",
+        "Research topic — Store the title, question, summary, and progress status."
+      ],
+      "openGraph": {
+        "description": "Collect research topics, organize manual notes, save references, and track progress in one focused workspace.",
+        "title": "Research Assistant | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/research-assistant"
+      },
+      "route": "/research-assistant",
+      "title": "Research Assistant | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Collect research topics, organize manual notes, save references, and track progress in one focused workspace.",
+        "title": "Research Assistant | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Turn long notes into focused summaries with key points, action items, and saved document history.",
+      "canonical": "https://ansiversa.com/ai-notes-summarizer",
+      "description": "Turn long notes into focused summaries with key points, action items, and saved document history.",
+      "keywords": [
+        "AI Notes Summarizer",
+        "Learning & Education",
+        "ai notes summarizer",
+        "learning & education",
+        "ai",
+        "notes",
+        "summarizer",
+        "summarize notes",
+        "note summary",
+        "Paste long notes",
+        "Generate summary",
+        "Review key points and actions",
+        "Source notes — Provide the full notes that need summarizing."
+      ],
+      "openGraph": {
+        "description": "Turn long notes into focused summaries with key points, action items, and saved document history.",
+        "title": "AI Notes Summarizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/ai-notes-summarizer"
+      },
+      "route": "/ai-notes-summarizer",
+      "title": "AI Notes Summarizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Turn long notes into focused summaries with key points, action items, and saved document history.",
+        "title": "AI Notes Summarizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Break difficult ideas into clear explanation steps and review checks you create manually.",
+      "canonical": "https://ansiversa.com/concept-explainer",
+      "description": "Break difficult ideas into clear explanation steps and review checks you create manually.",
+      "keywords": [
+        "Concept Explainer",
+        "Learning & Education",
+        "concept explainer",
+        "learning & education",
+        "concept",
+        "explainer",
+        "Create a concept",
+        "Build explanation steps",
+        "Review with check questions",
+        "Concept record — Store the title, topic, and short context."
+      ],
+      "openGraph": {
+        "description": "Break difficult ideas into clear explanation steps and review checks you create manually.",
+        "title": "Concept Explainer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/concept-explainer"
+      },
+      "route": "/concept-explainer",
+      "title": "Concept Explainer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Break difficult ideas into clear explanation steps and review checks you create manually.",
+        "title": "Concept Explainer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create a study plan, break it into tasks, log focused study sessions, and review progress.",
+      "canonical": "https://ansiversa.com/study-planner",
+      "description": "Create a study plan, break it into tasks, log focused study sessions, and review progress.",
+      "keywords": [
+        "Study Planner",
+        "Learning & Education",
+        "study planner",
+        "learning & education",
+        "study",
+        "planner",
+        "Plan learning goals",
+        "Track study tasks",
+        "Review logged progress",
+        "Study plans — Create current-user plans with subjects, goals, dates, and status."
+      ],
+      "openGraph": {
+        "description": "Create a study plan, break it into tasks, log focused study sessions, and review progress.",
+        "title": "Study Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/study-planner"
+      },
+      "route": "/study-planner",
+      "title": "Study Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create a study plan, break it into tasks, log focused study sessions, and review progress.",
+        "title": "Study Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create courses, organize modules, log learning progress, and review completion.",
+      "canonical": "https://ansiversa.com/course-tracker",
+      "description": "Create courses, organize modules, log learning progress, and review completion.",
+      "keywords": [
+        "Course Tracker",
+        "Learning & Education",
+        "course tracker",
+        "learning & education",
+        "course",
+        "tracker",
+        "Create course records",
+        "Manage learning modules",
+        "Review completion progress",
+        "Courses — Create protected course records with goals, dates, and status."
+      ],
+      "openGraph": {
+        "description": "Create courses, organize modules, log learning progress, and review completion.",
+        "title": "Course Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/course-tracker"
+      },
+      "route": "/course-tracker",
+      "title": "Course Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create courses, organize modules, log learning progress, and review completion.",
+        "title": "Course Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Look up words and review clear definitions with phonetic guidance.",
+      "canonical": "https://ansiversa.com/dictionary-plus",
+      "description": "Look up words and review clear definitions with phonetic guidance.",
+      "keywords": [
+        "Dictionary+",
+        "Learning & Education",
+        "dictionary+",
+        "dictionary plus",
+        "learning & education",
+        "dictionary",
+        "plus",
+        "Instant word lookup",
+        "Clear definitions",
+        "Phonetic guidance",
+        "Word lookup — Find the word you need to understand."
+      ],
+      "openGraph": {
+        "description": "Look up words and review clear definitions with phonetic guidance.",
+        "title": "Dictionary+ | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/dictionary-plus"
+      },
+      "route": "/dictionary-plus",
+      "title": "Dictionary+ | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Look up words and review clear definitions with phonetic guidance.",
+        "title": "Dictionary+ | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+      "canonical": "https://ansiversa.com/formula-finder",
+      "description": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+      "keywords": [
+        "Formula Finder",
+        "Learning & Education",
+        "formula finder",
+        "learning & education",
+        "formula",
+        "finder",
+        "25 bundled formulas",
+        "Search and category filtering",
+        "Browser-local favorites",
+        "Bundled reference data — Explore 25 formulas across five subject categories."
+      ],
+      "openGraph": {
+        "description": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+        "title": "Formula Finder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/formula-finder"
+      },
+      "route": "/formula-finder",
+      "title": "Formula Finder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Search bundled formulas, explore clear explanations, and save useful references in your browser.",
+        "title": "Formula Finder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
+      "canonical": "https://ansiversa.com/lesson-builder",
+      "description": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
+      "keywords": [
+        "Lesson Builder",
+        "Learning & Education",
+        "lesson builder",
+        "learning & education",
+        "lesson",
+        "builder",
+        "Structured lesson plans",
+        "Clear learning objectives",
+        "Organized activities",
+        "Learning objective — Define the outcome the lesson should support."
+      ],
+      "openGraph": {
+        "description": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
+        "title": "Lesson Builder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/lesson-builder"
+      },
+      "route": "/lesson-builder",
+      "title": "Lesson Builder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build structured lesson plans quickly with clear objectives, activities, and review points.",
+        "title": "Lesson Builder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create memory sessions, recall generated sequences, review performance, and track progress.",
+      "canonical": "https://ansiversa.com/memory-trainer",
+      "description": "Create memory sessions, recall generated sequences, review performance, and track progress.",
+      "keywords": [
+        "Memory Trainer",
+        "Learning & Education",
+        "memory trainer",
+        "learning & education",
+        "memory",
+        "trainer",
+        "Memory sessions",
+        "Sequence recall",
+        "Progress tracking",
+        "Memory games — Define reusable recall challenges."
+      ],
+      "openGraph": {
+        "description": "Create memory sessions, recall generated sequences, review performance, and track progress.",
+        "title": "Memory Trainer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/memory-trainer"
+      },
+      "route": "/memory-trainer",
+      "title": "Memory Trainer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create memory sessions, recall generated sequences, review performance, and track progress.",
+        "title": "Memory Trainer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+      "canonical": "https://ansiversa.com/daily-word-challenge",
+      "description": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+      "keywords": [
+        "Daily Word Challenge",
+        "Learning & Education",
+        "daily word challenge",
+        "learning & education",
+        "daily",
+        "word",
+        "challenge",
+        "20 bundled words",
+        "Deterministic daily challenge",
+        "Browser-local learning progress",
+        "Bundled words — Explore 20 words across three difficulty levels."
+      ],
+      "openGraph": {
+        "description": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+        "title": "Daily Word Challenge | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/daily-word-challenge"
+      },
+      "route": "/daily-word-challenge",
+      "title": "Daily Word Challenge | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.",
+        "title": "Daily Word Challenge | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Scan textbook material, organize pages, extract notes, and review focused study points.",
+      "canonical": "https://ansiversa.com/smart-textbook-scanner",
+      "description": "Scan textbook material, organize pages, extract notes, and review focused study points.",
+      "keywords": [
+        "Smart Textbook Scanner",
+        "Learning & Education",
+        "smart textbook scanner",
+        "learning & education",
+        "smart",
+        "textbook",
+        "scanner",
+        "Create textbook scans",
+        "Organize scanned pages",
+        "Extract review notes",
+        "Textbook scans — Create protected scan records with subject, source, goal, and status."
+      ],
+      "openGraph": {
+        "description": "Scan textbook material, organize pages, extract notes, and review focused study points.",
+        "title": "Smart Textbook Scanner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/smart-textbook-scanner"
+      },
+      "route": "/smart-textbook-scanner",
+      "title": "Smart Textbook Scanner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Scan textbook material, organize pages, extract notes, and review focused study points.",
+        "title": "Smart Textbook Scanner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.",
+      "canonical": "https://ansiversa.com/resume-builder",
+      "description": "Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.",
+      "keywords": [
+        "Resume Builder",
+        "Career & Professional",
+        "resume builder",
+        "career & professional",
+        "resume",
+        "builder",
+        "Resume project workspace",
+        "Section-based resume structure",
+        "Preview and completion review",
+        "Create the resume container. — Each resume starts as a project tied to the current user."
+      ],
+      "openGraph": {
+        "description": "Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.",
+        "title": "Resume Builder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/resume-builder"
+      },
+      "route": "/resume-builder",
+      "title": "Resume Builder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.",
+        "title": "Resume Builder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Design stylish business cards that present professional contact details clearly.",
+      "canonical": "https://ansiversa.com/visiting-card-maker",
+      "description": "Design stylish business cards that present professional contact details clearly.",
+      "keywords": [
+        "Visiting Card Maker",
+        "Career & Professional",
+        "visiting card maker",
+        "career & professional",
+        "visiting",
+        "card",
+        "maker",
+        "Business card design",
+        "Professional details",
+        "Stylish presentation",
+        "Contact details — Add the information the card should present."
+      ],
+      "openGraph": {
+        "description": "Design stylish business cards that present professional contact details clearly.",
+        "title": "Visiting Card Maker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/visiting-card-maker"
+      },
+      "route": "/visiting-card-maker",
+      "title": "Visiting Card Maker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Design stylish business cards that present professional contact details clearly.",
+        "title": "Visiting Card Maker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Practice interviews and review feedback to improve future responses.",
+      "canonical": "https://ansiversa.com/interview-coach",
+      "description": "Practice interviews and review feedback to improve future responses.",
+      "keywords": [
+        "Interview Coach",
+        "Career & Professional",
+        "interview coach",
+        "career & professional",
+        "interview",
+        "coach",
+        "Interview practice",
+        "Response feedback",
+        "Focused improvement",
+        "Practice response — Work through an interview answer."
+      ],
+      "openGraph": {
+        "description": "Practice interviews and review feedback to improve future responses.",
+        "title": "Interview Coach | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/interview-coach"
+      },
+      "route": "/interview-coach",
+      "title": "Interview Coach | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Practice interviews and review feedback to improve future responses.",
+        "title": "Interview Coach | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Extract required skills quickly.",
+      "canonical": "https://ansiversa.com/job-description-analyzer",
+      "description": "Extract required skills quickly.",
+      "keywords": [
+        "Job Description Analyzer",
+        "Career & Professional",
+        "job description analyzer",
+        "career & professional",
+        "job",
+        "description",
+        "analyzer",
+        "Focused workspace",
+        "Organized information",
+        "Clear review flow",
+        "Stable route — Available at /job-description-analyzer."
+      ],
+      "openGraph": {
+        "description": "Extract required skills quickly.",
+        "title": "Job Description Analyzer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/job-description-analyzer"
+      },
+      "route": "/job-description-analyzer",
+      "title": "Job Description Analyzer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Extract required skills quickly.",
+        "title": "Job Description Analyzer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build a professional portfolio from profiles, projects, skills, and publish settings.",
+      "canonical": "https://ansiversa.com/portfolio-creator",
+      "description": "Build a professional portfolio from profiles, projects, skills, and publish settings.",
+      "keywords": [
+        "Portfolio Creator",
+        "Career & Professional",
+        "portfolio creator",
+        "career & professional",
+        "portfolio",
+        "creator",
+        "Portfolio profiles",
+        "Project showcases",
+        "Skill and publish planning",
+        "Profile — Capture the professional introduction and contact context."
+      ],
+      "openGraph": {
+        "description": "Build a professional portfolio from profiles, projects, skills, and publish settings.",
+        "title": "Portfolio Creator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/portfolio-creator"
+      },
+      "route": "/portfolio-creator",
+      "title": "Portfolio Creator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build a professional portfolio from profiles, projects, skills, and publish settings.",
+        "title": "Portfolio Creator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.",
+      "canonical": "https://ansiversa.com/meeting-minutes-ai",
+      "description": "Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.",
+      "keywords": [
+        "Meeting Minutes AI",
+        "Career & Professional",
+        "meeting minutes ai",
+        "career & professional",
+        "meeting",
+        "minutes",
+        "ai",
+        "Meeting records",
+        "Notes and transcript capture",
+        "Action-item follow-through",
+        "Meeting summaries — Maintain a concise record of the discussion."
+      ],
+      "openGraph": {
+        "description": "Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.",
+        "title": "Meeting Minutes AI | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/meeting-minutes-ai"
+      },
+      "route": "/meeting-minutes-ai",
+      "title": "Meeting Minutes AI | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.",
+        "title": "Meeting Minutes AI | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+      "canonical": "https://ansiversa.com/proposal-writer",
+      "description": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+      "keywords": [
+        "Proposal Writer",
+        "Career & Professional",
+        "proposal writer",
+        "career & professional",
+        "proposal",
+        "writer",
+        "Client proposal projects",
+        "Editable proposal sections",
+        "Draft and review workflow",
+        "Client context — Clarify who the proposal is for and what it should achieve."
+      ],
+      "openGraph": {
+        "description": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+        "title": "Proposal Writer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/proposal-writer"
+      },
+      "route": "/proposal-writer",
+      "title": "Proposal Writer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create structured client proposals from project context, proposal sections, drafts, and review history.",
+        "title": "Proposal Writer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create branded invoices and receipts with clear business and transaction details.",
+      "canonical": "https://ansiversa.com/invoice-receipt-maker",
+      "description": "Create branded invoices and receipts with clear business and transaction details.",
+      "keywords": [
+        "Invoice and Receipt Maker",
+        "Career & Professional",
+        "invoice and receipt maker",
+        "invoice receipt maker",
+        "career & professional",
+        "invoice",
+        "receipt",
+        "maker",
+        "Branded invoices",
+        "Receipt creation",
+        "Clear transaction details",
+        "Transaction details — Add the information the document should show."
+      ],
+      "openGraph": {
+        "description": "Create branded invoices and receipts with clear business and transaction details.",
+        "title": "Invoice and Receipt Maker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/invoice-receipt-maker"
+      },
+      "route": "/invoice-receipt-maker",
+      "title": "Invoice and Receipt Maker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create branded invoices and receipts with clear business and transaction details.",
+        "title": "Invoice and Receipt Maker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Prepare clear contract drafts from guided inputs and reusable sections.",
+      "canonical": "https://ansiversa.com/contract-generator",
+      "description": "Prepare clear contract drafts from guided inputs and reusable sections.",
+      "keywords": [
+        "Contract Generator",
+        "Career & Professional",
+        "contract generator",
+        "career & professional",
+        "contract",
+        "generator",
+        "Guided drafting flow",
+        "Reusable contract sections",
+        "Review-ready output",
+        "Party details — Capture the people and organizations involved."
+      ],
+      "openGraph": {
+        "description": "Prepare clear contract drafts from guided inputs and reusable sections.",
+        "title": "Contract Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/contract-generator"
+      },
+      "route": "/contract-generator",
+      "title": "Contract Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Prepare clear contract drafts from guided inputs and reusable sections.",
+        "title": "Contract Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+      "canonical": "https://ansiversa.com/presentation-designer",
+      "description": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+      "keywords": [
+        "Presentation Designer",
+        "Career & Professional",
+        "presentation designer",
+        "career & professional",
+        "presentation",
+        "designer",
+        "Clean slide design",
+        "Consistent presentation style",
+        "Clear visual structure",
+        "Deck structure — Organize the presentation into a clear sequence."
+      ],
+      "openGraph": {
+        "description": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+        "title": "Presentation Designer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/presentation-designer"
+      },
+      "route": "/presentation-designer",
+      "title": "Presentation Designer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Design clean, consistent slides that keep a presentation clear and visually coherent.",
+        "title": "Presentation Designer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan career goals, roadmaps, milestones, and review activity in one clear workflow.",
+      "canonical": "https://ansiversa.com/career-planner",
+      "description": "Plan career goals, roadmaps, milestones, and review activity in one clear workflow.",
+      "keywords": [
+        "Career Planner",
+        "Career & Professional",
+        "career planner",
+        "career & professional",
+        "career",
+        "planner",
+        "Career goals",
+        "Roadmaps",
+        "Milestone tracking",
+        "Goals — Define the intended career outcome."
+      ],
+      "openGraph": {
+        "description": "Plan career goals, roadmaps, milestones, and review activity in one clear workflow.",
+        "title": "Career Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/career-planner"
+      },
+      "route": "/career-planner",
+      "title": "Career Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan career goals, roadmaps, milestones, and review activity in one clear workflow.",
+        "title": "Career Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.",
+      "canonical": "https://ansiversa.com/linkedin-bio-optimizer",
+      "description": "Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.",
+      "keywords": [
+        "LinkedIn Bio Optimizer",
+        "Career & Professional",
+        "linkedin bio optimizer",
+        "career & professional",
+        "linkedin",
+        "bio",
+        "optimizer",
+        "Profile bio workspace",
+        "Reusable templates",
+        "Version history",
+        "Profiles — Store headline, bio, target role, keywords, and tone."
+      ],
+      "openGraph": {
+        "description": "Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.",
+        "title": "LinkedIn Bio Optimizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/linkedin-bio-optimizer"
+      },
+      "route": "/linkedin-bio-optimizer",
+      "title": "LinkedIn Bio Optimizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.",
+        "title": "LinkedIn Bio Optimizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Group client feedback and review the insights that emerge across responses.",
+      "canonical": "https://ansiversa.com/client-feedback-analyzer",
+      "description": "Group client feedback and review the insights that emerge across responses.",
+      "keywords": [
+        "Client Feedback Analyzer",
+        "Career & Professional",
+        "client feedback analyzer",
+        "career & professional",
+        "client",
+        "feedback",
+        "analyzer",
+        "Feedback grouping",
+        "Client insight review",
+        "Clear response patterns",
+        "Client responses — Gather the feedback that needs analysis."
+      ],
+      "openGraph": {
+        "description": "Group client feedback and review the insights that emerge across responses.",
+        "title": "Client Feedback Analyzer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/client-feedback-analyzer"
+      },
+      "route": "/client-feedback-analyzer",
+      "title": "Client Feedback Analyzer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Group client feedback and review the insights that emerge across responses.",
+        "title": "Client Feedback Analyzer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create clear summaries for books and chapters, then keep notes and revision history connected.",
+      "canonical": "https://ansiversa.com/book-summary-generator",
+      "description": "Create clear summaries for books and chapters, then keep notes and revision history connected.",
+      "keywords": [
+        "Book Summary Generator",
+        "Content & AI Writing",
+        "book summary generator",
+        "content & ai writing",
+        "book",
+        "summary",
+        "generator",
+        "Book collections",
+        "Summary workflow",
+        "Notes and history",
+        "Book collection — Store source text, category, author, and private notes."
+      ],
+      "openGraph": {
+        "description": "Create clear summaries for books and chapters, then keep notes and revision history connected.",
+        "title": "Book Summary Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/book-summary-generator"
+      },
+      "route": "/book-summary-generator",
+      "title": "Book Summary Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create clear summaries for books and chapters, then keep notes and revision history connected.",
+        "title": "Book Summary Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "canonical": "https://ansiversa.com/social-caption-generator",
+      "description": "Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "keywords": [
+        "Social Caption Generator",
+        "Content & AI Writing",
+        "social caption generator",
+        "content & ai writing",
+        "social",
+        "caption",
+        "generator",
+        "Caption projects",
+        "Generated captions",
+        "Reusable templates",
+        "Projects — Store the campaign brief and target platform context."
+      ],
+      "openGraph": {
+        "description": "Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.",
+        "title": "Social Caption Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/social-caption-generator"
+      },
+      "route": "/social-caption-generator",
+      "title": "Social Caption Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.",
+        "title": "Social Caption Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Design reusable AI prompts with a clear purpose, context, and instruction.",
+      "canonical": "https://ansiversa.com/prompt-builder",
+      "description": "Design reusable AI prompts with a clear purpose, context, and instruction.",
+      "keywords": [
+        "Prompt Builder",
+        "Content & AI Writing",
+        "prompt builder",
+        "content & ai writing",
+        "prompt",
+        "builder",
+        "Reusable AI prompts",
+        "Clear prompt structure",
+        "Focused instructions",
+        "Purpose — Define what the AI prompt should accomplish."
+      ],
+      "openGraph": {
+        "description": "Design reusable AI prompts with a clear purpose, context, and instruction.",
+        "title": "Prompt Builder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/prompt-builder"
+      },
+      "route": "/prompt-builder",
+      "title": "Prompt Builder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Design reusable AI prompts with a clear purpose, context, and instruction.",
+        "title": "Prompt Builder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "canonical": "https://ansiversa.com/speech-writer",
+      "description": "Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.",
+      "keywords": [
+        "Speech Writer",
+        "Content & AI Writing",
+        "speech writer",
+        "content & ai writing",
+        "speech",
+        "writer",
+        "Speech projects",
+        "Editable drafts",
+        "Reusable templates",
+        "Projects — Store event purpose, audience, date, tone, and notes."
+      ],
+      "openGraph": {
+        "description": "Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.",
+        "title": "Speech Writer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/speech-writer"
+      },
+      "route": "/speech-writer",
+      "title": "Speech Writer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.",
+        "title": "Speech Writer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.",
+      "canonical": "https://ansiversa.com/ai-translator-and-tone-fixer",
+      "description": "Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.",
+      "keywords": [
+        "AI Translator and Tone Fixer",
+        "Content & AI Writing",
+        "ai translator and tone fixer",
+        "content & ai writing",
+        "ai",
+        "translator",
+        "and",
+        "tone",
+        "fixer",
+        "Focused workspace",
+        "Organized information",
+        "Clear review flow",
+        "Stable route — Available at /ai-translator-and-tone-fixer/projects."
+      ],
+      "openGraph": {
+        "description": "Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.",
+        "title": "AI Translator and Tone Fixer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/ai-translator-and-tone-fixer"
+      },
+      "route": "/ai-translator-and-tone-fixer",
+      "title": "AI Translator and Tone Fixer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.",
+        "title": "AI Translator and Tone Fixer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Store and reuse code snippets in a clear, focused collection.",
+      "canonical": "https://ansiversa.com/snippet-generator",
+      "description": "Store and reuse code snippets in a clear, focused collection.",
+      "keywords": [
+        "Snippet Generator",
+        "Utilities & Productivity",
+        "snippet generator",
+        "utilities & productivity",
+        "snippet",
+        "generator",
+        "Code-snippet storage",
+        "Reusable code",
+        "Focused snippet organization",
+        "Code snippet — Capture useful code."
+      ],
+      "openGraph": {
+        "description": "Store and reuse code snippets in a clear, focused collection.",
+        "title": "Snippet Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/snippet-generator"
+      },
+      "route": "/snippet-generator",
+      "title": "Snippet Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Store and reuse code snippets in a clear, focused collection.",
+        "title": "Snippet Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Compare and organize product prices manually with browser-local analysis history.",
+      "canonical": "https://ansiversa.com/price-checker",
+      "description": "Compare and organize product prices manually with browser-local analysis history.",
+      "keywords": [
+        "Price Checker",
+        "Utilities & Productivity",
+        "price checker",
+        "utilities & productivity",
+        "price",
+        "checker",
+        "Manual price comparisons",
+        "Local analysis history",
+        "Analyze — Create a product price comparison.",
+        "Analyses — Search, filter, edit, duplicate, delete, or clear saved comparisons."
+      ],
+      "openGraph": {
+        "description": "Compare and organize product prices manually with browser-local analysis history.",
+        "title": "Price Checker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/price-checker"
+      },
+      "route": "/price-checker",
+      "title": "Price Checker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Compare and organize product prices manually with browser-local analysis history.",
+        "title": "Price Checker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Turn text and URLs into downloadable QR codes directly in your browser.",
+      "canonical": "https://ansiversa.com/qr-code-creator",
+      "description": "Turn text and URLs into downloadable QR codes directly in your browser.",
+      "keywords": [
+        "QR Code Creator",
+        "Utilities & Productivity",
+        "qr code creator",
+        "utilities & productivity",
+        "qr",
+        "code",
+        "creator",
+        "qr code",
+        "Text and URL QR generation",
+        "Live preview and PNG download",
+        "Browser-only processing with no saved content",
+        "Text and URLs — Provide the content the QR code should contain."
+      ],
+      "openGraph": {
+        "description": "Turn text and URLs into downloadable QR codes directly in your browser.",
+        "title": "QR Code Creator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/qr-code-creator"
+      },
+      "route": "/qr-code-creator",
+      "title": "QR Code Creator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Turn text and URLs into downloadable QR codes directly in your browser.",
+        "title": "QR Code Creator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+      "canonical": "https://ansiversa.com/clipboard-manager",
+      "description": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+      "keywords": [
+        "Clipboard Manager",
+        "Utilities & Productivity",
+        "clipboard manager",
+        "utilities & productivity",
+        "clipboard",
+        "manager",
+        "Browser-local history",
+        "Manual paste fallback",
+        "Workspace — Add and save text entries with optional labels.",
+        "History — Search, copy, delete, and clear local entries."
+      ],
+      "openGraph": {
+        "description": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+        "title": "Clipboard Manager | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/clipboard-manager"
+      },
+      "route": "/clipboard-manager",
+      "title": "Clipboard Manager | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.",
+        "title": "Clipboard Manager | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Generate strong, customizable passwords securely in your browser.",
+      "canonical": "https://ansiversa.com/password-generator",
+      "description": "Generate strong, customizable passwords securely in your browser.",
+      "keywords": [
+        "Password Generator",
+        "Utilities & Productivity",
+        "password generator",
+        "utilities & productivity",
+        "password",
+        "generator",
+        "Browser-only password generation",
+        "Custom length and character sets",
+        "Strength review before copying",
+        "Custom length — Choose a password length that fits your security needs."
+      ],
+      "openGraph": {
+        "description": "Generate strong, customizable passwords securely in your browser.",
+        "title": "Password Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/password-generator"
+      },
+      "route": "/password-generator",
+      "title": "Password Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Generate strong, customizable passwords securely in your browser.",
+        "title": "Password Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+      "canonical": "https://ansiversa.com/api-tester",
+      "description": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+      "keywords": [
+        "API Tester",
+        "Utilities & Productivity",
+        "api tester",
+        "utilities & productivity",
+        "api",
+        "tester",
+        "Browser-local requests",
+        "Explicit fetch runs",
+        "Local run history",
+        "Request — Method, URL, headers, and body saved in browser storage."
+      ],
+      "openGraph": {
+        "description": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+        "title": "API Tester | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/api-tester"
+      },
+      "route": "/api-tester",
+      "title": "API Tester | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.",
+        "title": "API Tester | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Format, validate, and organize JSON through a focused editing workflow.",
+      "canonical": "https://ansiversa.com/json-formatter",
+      "description": "Format, validate, and organize JSON through a focused editing workflow.",
+      "keywords": [
+        "JSON Formatter",
+        "Utilities & Productivity",
+        "json formatter",
+        "utilities & productivity",
+        "json",
+        "formatter",
+        "json validator",
+        "format json",
+        "Format and beautify JSON",
+        "Minify large JSON payloads",
+        "Validate JSON instantly",
+        "Format JSON — Beautify compact JSON into a readable structure."
+      ],
+      "openGraph": {
+        "description": "Format, validate, and organize JSON through a focused editing workflow.",
+        "title": "JSON Formatter | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/json-formatter"
+      },
+      "route": "/json-formatter",
+      "title": "JSON Formatter | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Format, validate, and organize JSON through a focused editing workflow.",
+        "title": "JSON Formatter | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+      "canonical": "https://ansiversa.com/markdown-editor",
+      "description": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+      "keywords": [
+        "Markdown Editor",
+        "Utilities & Productivity",
+        "markdown editor",
+        "utilities & productivity",
+        "markdown",
+        "editor",
+        "Browser-only Markdown editing",
+        "Live rendered preview",
+        "Markdown and HTML export",
+        "Live preview — Render common Markdown structures immediately."
+      ],
+      "openGraph": {
+        "description": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+        "title": "Markdown Editor | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/markdown-editor"
+      },
+      "route": "/markdown-editor",
+      "title": "Markdown Editor | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Write Markdown, preview the rendered result, and export reusable documents directly in your browser.",
+        "title": "Markdown Editor | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+      "canonical": "https://ansiversa.com/time-zone-scheduler",
+      "description": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+      "keywords": [
+        "Time Zone Scheduler",
+        "Utilities & Productivity",
+        "time zone scheduler",
+        "utilities & productivity",
+        "time",
+        "zone",
+        "scheduler",
+        "Browser-local schedules",
+        "My Time highlight",
+        "Native time-zone conversion",
+        "Schedule — Title, base date, base time, and base time zone."
+      ],
+      "openGraph": {
+        "description": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+        "title": "Time Zone Scheduler | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/time-zone-scheduler"
+      },
+      "route": "/time-zone-scheduler",
+      "title": "Time Zone Scheduler | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Compare one meeting time across participant time zones and save lightweight schedules in your browser.",
+        "title": "Time Zone Scheduler | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+      "canonical": "https://ansiversa.com/browser-pdf-reader",
+      "description": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+      "keywords": [
+        "Browser PDF Reader",
+        "Utilities & Productivity",
+        "browser pdf reader",
+        "utilities & productivity",
+        "browser",
+        "pdf",
+        "reader",
+        "Local PDF viewing",
+        "Metadata-only sessions",
+        "Workspace — Select a PDF, view it, navigate pages, and set zoom.",
+        "History — Search, edit, reopen, delete, or clear local reading sessions."
+      ],
+      "openGraph": {
+        "description": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+        "title": "Browser PDF Reader | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/browser-pdf-reader"
+      },
+      "route": "/browser-pdf-reader",
+      "title": "Browser PDF Reader | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.",
+        "title": "Browser PDF Reader | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Set goals and track daily habits through a focused wellness-planning workflow.",
+      "canonical": "https://ansiversa.com/wellness-and-goal-planner",
+      "description": "Set goals and track daily habits through a focused wellness-planning workflow.",
+      "keywords": [
+        "Wellness and Goal Planner",
+        "Personal Life & Wellness",
+        "wellness and goal planner",
+        "personal life & wellness",
+        "wellness",
+        "and",
+        "goal",
+        "planner",
+        "Goal setting",
+        "Daily habit tracking",
+        "Wellness planning",
+        "Wellness goals — Set what to work toward."
+      ],
+      "openGraph": {
+        "description": "Set goals and track daily habits through a focused wellness-planning workflow.",
+        "title": "Wellness and Goal Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/wellness-and-goal-planner"
+      },
+      "route": "/wellness-and-goal-planner",
+      "title": "Wellness and Goal Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Set goals and track daily habits through a focused wellness-planning workflow.",
+        "title": "Wellness and Goal Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create practical weekly meal plans and keep everyday food decisions organized.",
+      "canonical": "https://ansiversa.com/meal-planner",
+      "description": "Create practical weekly meal plans and keep everyday food decisions organized.",
+      "keywords": [
+        "Meal Planner",
+        "Personal Life & Wellness",
+        "meal planner",
+        "personal life & wellness",
+        "meal",
+        "planner",
+        "Reusable recipes",
+        "Weekly meal plans",
+        "Calendar scheduling",
+        "Recipe ideas — Maintain a useful set of reusable options."
+      ],
+      "openGraph": {
+        "description": "Create practical weekly meal plans and keep everyday food decisions organized.",
+        "title": "Meal Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/meal-planner"
+      },
+      "route": "/meal-planner",
+      "title": "Meal Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create practical weekly meal plans and keep everyday food decisions organized.",
+        "title": "Meal Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.",
+      "canonical": "https://ansiversa.com/fitness-tracker",
+      "description": "Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.",
+      "keywords": [
+        "Fitness Tracker",
+        "Personal Life & Wellness",
+        "fitness tracker",
+        "personal life & wellness",
+        "fitness",
+        "tracker",
+        "Activity records",
+        "Session logs",
+        "Progress review",
+        "Activities — Store repeatable activity records."
+      ],
+      "openGraph": {
+        "description": "Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.",
+        "title": "Fitness Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/fitness-tracker"
+      },
+      "route": "/fitness-tracker",
+      "title": "Fitness Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.",
+        "title": "Fitness Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+      "canonical": "https://ansiversa.com/mood-journal",
+      "description": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+      "keywords": [
+        "Mood Journal",
+        "Personal Life & Wellness",
+        "mood journal",
+        "personal life & wellness",
+        "mood",
+        "journal",
+        "Date-keyed mood entries",
+        "Searchable recent reflections",
+        "Browser-local privacy",
+        "Today’s entry — Save or update one date-keyed mood entry for today."
+      ],
+      "openGraph": {
+        "description": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+        "title": "Mood Journal | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/mood-journal"
+      },
+      "route": "/mood-journal",
+      "title": "Mood Journal | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record today’s mood, review recent entries, and reflect privately in your browser.",
+        "title": "Mood Journal | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record everyday spending, organize expenses, and understand what was spent.",
+      "canonical": "https://ansiversa.com/expense-tracker",
+      "description": "Record everyday spending, organize expenses, and understand what was spent.",
+      "keywords": [
+        "Expense Tracker",
+        "Personal Life & Wellness",
+        "expense tracker",
+        "personal life & wellness",
+        "expense",
+        "tracker",
+        "Fast expense entry",
+        "Category-based review",
+        "Local spending insights",
+        "Expense records — Create, edit, duplicate, delete, search, and filter expenses."
+      ],
+      "openGraph": {
+        "description": "Record everyday spending, organize expenses, and understand what was spent.",
+        "title": "Expense Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/expense-tracker"
+      },
+      "route": "/expense-tracker",
+      "title": "Expense Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record everyday spending, organize expenses, and understand what was spent.",
+        "title": "Expense Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize destinations, activities, and practical trip details into one clear itinerary.",
+      "canonical": "https://ansiversa.com/travel-itinerary-builder",
+      "description": "Organize destinations, activities, and practical trip details into one clear itinerary.",
+      "keywords": [
+        "Travel Itinerary Builder",
+        "Personal Life & Wellness",
+        "travel itinerary builder",
+        "personal life & wellness",
+        "travel",
+        "itinerary",
+        "builder",
+        "Day-by-day planning",
+        "Reusable trip details",
+        "Clear travel overview",
+        "Places — Collect destinations and important stops."
+      ],
+      "openGraph": {
+        "description": "Organize destinations, activities, and practical trip details into one clear itinerary.",
+        "title": "Travel Itinerary Builder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/travel-itinerary-builder"
+      },
+      "route": "/travel-itinerary-builder",
+      "title": "Travel Itinerary Builder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize destinations, activities, and practical trip details into one clear itinerary.",
+        "title": "Travel Itinerary Builder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.",
+      "canonical": "https://ansiversa.com/language-learning-buddy",
+      "description": "Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.",
+      "keywords": [
+        "Language Learning Buddy",
+        "Personal Life & Wellness",
+        "language learning buddy",
+        "personal life & wellness",
+        "language",
+        "learning",
+        "buddy",
+        "Vocabulary library",
+        "Practice sessions",
+        "Progress review",
+        "Vocabulary — Store words, translations, language, category, and difficulty."
+      ],
+      "openGraph": {
+        "description": "Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.",
+        "title": "Language Learning Buddy | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/language-learning-buddy"
+      },
+      "route": "/language-learning-buddy",
+      "title": "Language Learning Buddy | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.",
+        "title": "Language Learning Buddy | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+      "canonical": "https://ansiversa.com/eco-habit-tracker",
+      "description": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+      "keywords": [
+        "Eco Habit Tracker",
+        "Personal Life & Wellness",
+        "eco habit tracker",
+        "personal life & wellness",
+        "eco",
+        "habit",
+        "tracker",
+        "10 bundled habits",
+        "Daily progress tracking",
+        "Browser-local streaks",
+        "Bundled habits — Start with 10 practical habits across five categories."
+      ],
+      "openGraph": {
+        "description": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+        "title": "Eco Habit Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/eco-habit-tracker"
+      },
+      "route": "/eco-habit-tracker",
+      "title": "Eco Habit Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build eco-friendly habits, track daily progress, and maintain streaks in your browser.",
+        "title": "Eco Habit Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize interview appointments, rounds, and calendar reminders.",
+      "canonical": "https://ansiversa.com/interview-scheduler",
+      "description": "Organize interview appointments, rounds, and calendar reminders.",
+      "keywords": [
+        "Interview Scheduler",
+        "Career & Professional",
+        "interview scheduler",
+        "career & professional",
+        "interview",
+        "scheduler",
+        "Interview scheduling",
+        "Round tracking",
+        "Calendar reminders",
+        "Schedules — Store the candidate and role context."
+      ],
+      "openGraph": {
+        "description": "Organize interview appointments, rounds, and calendar reminders.",
+        "title": "Interview Scheduler | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/interview-scheduler"
+      },
+      "route": "/interview-scheduler",
+      "title": "Interview Scheduler | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize interview appointments, rounds, and calendar reminders.",
+        "title": "Interview Scheduler | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Track job listings, applications, and insights in one organized workspace.",
+      "canonical": "https://ansiversa.com/job-tracker",
+      "description": "Track job listings, applications, and insights in one organized workspace.",
+      "keywords": [
+        "Job Tracker",
+        "Career & Professional",
+        "job tracker",
+        "career & professional",
+        "job",
+        "tracker",
+        "Job listing tracker",
+        "Application pipeline",
+        "Insight review",
+        "Jobs — Store the opportunity details."
+      ],
+      "openGraph": {
+        "description": "Track job listings, applications, and insights in one organized workspace.",
+        "title": "Job Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/job-tracker"
+      },
+      "route": "/job-tracker",
+      "title": "Job Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Track job listings, applications, and insights in one organized workspace.",
+        "title": "Job Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Run structured mock interview sessions, record answers, and review progress without requiring AI integration.",
+      "canonical": "https://ansiversa.com/ai-job-interviewer",
+      "description": "Run structured mock interview sessions, record answers, and review progress without requiring AI integration.",
+      "keywords": [
+        "AI Job Interviewer",
+        "Career & Professional",
+        "ai job interviewer",
+        "career & professional",
+        "ai",
+        "job",
+        "interviewer",
+        "Mock interview sessions",
+        "Typed answer practice",
+        "Manual progress results",
+        "Interview session — Capture role, company, level, type, and target date."
+      ],
+      "openGraph": {
+        "description": "Run structured mock interview sessions, record answers, and review progress without requiring AI integration.",
+        "title": "AI Job Interviewer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/ai-job-interviewer"
+      },
+      "route": "/ai-job-interviewer",
+      "title": "AI Job Interviewer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Run structured mock interview sessions, record answers, and review progress without requiring AI integration.",
+        "title": "AI Job Interviewer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.",
+      "canonical": "https://ansiversa.com/email-assistant",
+      "description": "Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.",
+      "keywords": [
+        "Email Assistant",
+        "Career & Professional",
+        "email assistant",
+        "career & professional",
+        "email",
+        "assistant",
+        "Email project planning",
+        "Draft and template workspace",
+        "History for sent and reviewed emails",
+        "Project records — Capture the purpose and audience for each email workflow."
+      ],
+      "openGraph": {
+        "description": "Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.",
+        "title": "Email Assistant | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/email-assistant"
+      },
+      "route": "/email-assistant",
+      "title": "Email Assistant | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.",
+        "title": "Email Assistant | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+      "canonical": "https://ansiversa.com/grammar-and-paraphrasing-assistant",
+      "description": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+      "keywords": [
+        "Grammar and Paraphrasing Assistant",
+        "Content & AI Writing",
+        "grammar and paraphrasing assistant",
+        "content & ai writing",
+        "grammar",
+        "and",
+        "paraphrasing",
+        "assistant",
+        "Editable text projects",
+        "Corrected and paraphrased output",
+        "Result history with scores",
+        "Projects — Create, update, and delete long-lived writing records."
+      ],
+      "openGraph": {
+        "description": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+        "title": "Grammar and Paraphrasing Assistant | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/grammar-and-paraphrasing-assistant"
+      },
+      "route": "/grammar-and-paraphrasing-assistant",
+      "title": "Grammar and Paraphrasing Assistant | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.",
+        "title": "Grammar and Paraphrasing Assistant | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+      "canonical": "https://ansiversa.com/creative-title-generator",
+      "description": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+      "keywords": [
+        "Creative Title Generator",
+        "Content & AI Writing",
+        "creative title generator",
+        "content & ai writing",
+        "creative",
+        "title",
+        "generator",
+        "Project-based title briefs",
+        "Multiple generated title options",
+        "Scored V1 placeholder results",
+        "Projects — Create, edit, and delete title briefs."
+      ],
+      "openGraph": {
+        "description": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+        "title": "Creative Title Generator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/creative-title-generator"
+      },
+      "route": "/creative-title-generator",
+      "title": "Creative Title Generator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.",
+        "title": "Creative Title Generator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Estimate file compression locally from file metadata without uploading private files.",
+      "canonical": "https://ansiversa.com/file-optimizer",
+      "description": "Estimate file compression locally from file metadata without uploading private files.",
+      "keywords": [
+        "File Optimizer",
+        "Utilities & Productivity",
+        "file optimizer",
+        "utilities & productivity",
+        "file",
+        "optimizer",
+        "Metadata-only file picker",
+        "Simulated compression profiles",
+        "Browser-local history",
+        "Compressor — Add metadata and generate a simulated compression result."
+      ],
+      "openGraph": {
+        "description": "Estimate file compression locally from file metadata without uploading private files.",
+        "title": "File Optimizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/file-optimizer"
+      },
+      "route": "/file-optimizer",
+      "title": "File Optimizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Estimate file compression locally from file metadata without uploading private files.",
+        "title": "File Optimizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+      "canonical": "https://ansiversa.com/voice-converter",
+      "description": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+      "keywords": [
+        "Voice Converter",
+        "Utilities & Productivity",
+        "voice converter",
+        "utilities & productivity",
+        "voice",
+        "converter",
+        "Native Speech Synthesis",
+        "Browser-local sessions",
+        "Workspace — Add text, choose a voice, tune settings, preview speech, and save sessions.",
+        "History — Search, replay, delete, and clear browser-local sessions."
+      ],
+      "openGraph": {
+        "description": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+        "title": "Voice Converter | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/voice-converter"
+      },
+      "route": "/voice-converter",
+      "title": "Voice Converter | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Turn typed text into browser-native speech previews without uploading text or generating audio files.",
+        "title": "Voice Converter | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.",
+      "canonical": "https://ansiversa.com/project-tracker",
+      "description": "Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.",
+      "keywords": [
+        "Project Tracker",
+        "Utilities & Productivity",
+        "project tracker",
+        "utilities & productivity",
+        "project",
+        "tracker",
+        "DB-backed project records",
+        "Task-level planning",
+        "Progress review",
+        "Projects — Create, edit, delete, search, and filter saved project records."
+      ],
+      "openGraph": {
+        "description": "Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.",
+        "title": "Project Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/project-tracker"
+      },
+      "route": "/project-tracker",
+      "title": "Project Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.",
+        "title": "Project Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Task Prioritizer for the Ansiversa app ecosystem.",
+      "canonical": "https://ansiversa.com/task-prioritizer",
+      "description": "Task Prioritizer for the Ansiversa app ecosystem.",
+      "keywords": [
+        "Task Prioritizer",
+        "Utilities & Productivity",
+        "task prioritizer",
+        "utilities & productivity",
+        "task",
+        "prioritizer",
+        "Focused workspace",
+        "Organized information",
+        "Clear review flow",
+        "Stable route — Available at /task-prioritizer/prioritize."
+      ],
+      "openGraph": {
+        "description": "Task Prioritizer for the Ansiversa app ecosystem.",
+        "title": "Task Prioritizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/task-prioritizer"
+      },
+      "route": "/task-prioritizer",
+      "title": "Task Prioritizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Task Prioritizer for the Ansiversa app ecosystem.",
+        "title": "Task Prioritizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Set measurable goals, track milestones, and record progress check-ins in one focused workspace.",
+      "canonical": "https://ansiversa.com/goal-tracker",
+      "description": "Set measurable goals, track milestones, and record progress check-ins in one focused workspace.",
+      "keywords": [
+        "Goal Tracker",
+        "Personal Life & Wellness",
+        "goal tracker",
+        "personal life & wellness",
+        "goal",
+        "tracker",
+        "Goal planning",
+        "Milestone tracking",
+        "Progress check-ins",
+        "Goals — Store the long-lived outcome."
+      ],
+      "openGraph": {
+        "description": "Set measurable goals, track milestones, and record progress check-ins in one focused workspace.",
+        "title": "Goal Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/goal-tracker"
+      },
+      "route": "/goal-tracker",
+      "title": "Goal Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Set measurable goals, track milestones, and record progress check-ins in one focused workspace.",
+        "title": "Goal Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.",
+      "canonical": "https://ansiversa.com/medicine-reminder",
+      "description": "Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.",
+      "keywords": [
+        "Medicine Reminder",
+        "Personal Life & Wellness",
+        "medicine reminder",
+        "personal life & wellness",
+        "medicine",
+        "reminder",
+        "Medicine records",
+        "Reminder schedules",
+        "Dose history and notes",
+        "Medicines — Store the core medicine record."
+      ],
+      "openGraph": {
+        "description": "Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.",
+        "title": "Medicine Reminder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/medicine-reminder"
+      },
+      "route": "/medicine-reminder",
+      "title": "Medicine Reminder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.",
+        "title": "Medicine Reminder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+      "canonical": "https://ansiversa.com/health-report-organizer",
+      "description": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+      "keywords": [
+        "Health Report Organizer",
+        "Personal Life & Wellness",
+        "health report organizer",
+        "personal life & wellness",
+        "health",
+        "report",
+        "organizer",
+        "Report records",
+        "Categories and facilities",
+        "Attachment metadata and notes",
+        "Health reports — Create report records with date, type, status, priority, summary, category, and facility."
+      ],
+      "openGraph": {
+        "description": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+        "title": "Health Report Organizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/health-report-organizer"
+      },
+      "route": "/health-report-organizer",
+      "title": "Health Report Organizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.",
+        "title": "Health Report Organizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.",
+      "canonical": "https://ansiversa.com/family-task-planner",
+      "description": "Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.",
+      "keywords": [
+        "Family Task Planner",
+        "Personal Life & Wellness",
+        "family task planner",
+        "personal life & wellness",
+        "family",
+        "task",
+        "planner",
+        "Today and upcoming task summaries",
+        "Family member workload overview",
+        "Simple categories and schedule review",
+        "Task management — Create, edit, delete, duplicate, complete, reopen, search, filter, and sort tasks."
+      ],
+      "openGraph": {
+        "description": "Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.",
+        "title": "Family Task Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/family-task-planner"
+      },
+      "route": "/family-task-planner",
+      "title": "Family Task Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.",
+        "title": "Family Task Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.",
+      "canonical": "https://ansiversa.com/rent-a-car",
+      "description": "A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.",
+      "keywords": [
+        "Rent a Car",
+        "Mobility & Travel",
+        "rent a car",
+        "mobility & travel",
+        "rent",
+        "a",
+        "car",
+        "Plan rental searches",
+        "Compare user-entered vehicle options",
+        "Track confirmed booking references",
+        "Search records — Pickup/dropoff, dates, driver age group, vehicle needs, budget, notes, and status."
+      ],
+      "openGraph": {
+        "description": "A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.",
+        "title": "Rent a Car | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/rent-a-car"
+      },
+      "route": "/rent-a-car",
+      "title": "Rent a Car | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.",
+        "title": "Rent a Car | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.",
+      "canonical": "https://ansiversa.com/car-pool",
+      "description": "A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.",
+      "keywords": [
+        "Car Pool",
+        "Mobility & Travel",
+        "car pool",
+        "mobility & travel",
+        "car",
+        "pool",
+        "Create and manage ride offers",
+        "Join or leave saved trips locally",
+        "Review passenger requests and activity",
+        "Ride records — Route, departure, seat, vehicle, driver, meeting point, price-reference, and status details."
+      ],
+      "openGraph": {
+        "description": "A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.",
+        "title": "Car Pool | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/car-pool"
+      },
+      "route": "/car-pool",
+      "title": "Car Pool | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.",
+        "title": "Car Pool | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.",
+      "canonical": "https://ansiversa.com/vehicle-maintenance-tracker",
+      "description": "A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.",
+      "keywords": [
+        "Vehicle Maintenance Tracker",
+        "Mobility & Travel",
+        "vehicle maintenance tracker",
+        "mobility & travel",
+        "vehicle",
+        "maintenance",
+        "tracker",
+        "Track vehicle profiles",
+        "Record maintenance history",
+        "Review upcoming and overdue reminders",
+        "Vehicles — Profile each vehicle and keep odometer/status information current."
+      ],
+      "openGraph": {
+        "description": "A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.",
+        "title": "Vehicle Maintenance Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/vehicle-maintenance-tracker"
+      },
+      "route": "/vehicle-maintenance-tracker",
+      "title": "Vehicle Maintenance Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.",
+        "title": "Vehicle Maintenance Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+      "canonical": "https://ansiversa.com/parking-expense-tracker",
+      "description": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+      "keywords": [
+        "Parking Expense Tracker",
+        "Mobility & Travel",
+        "parking expense tracker",
+        "mobility & travel",
+        "parking",
+        "expense",
+        "tracker",
+        "Record parking expenses",
+        "Organize frequent locations",
+        "Review monthly parking costs",
+        "Parking expenses — Capture amount, date, time, duration, vehicle, payment method, purpose, and notes."
+      ],
+      "openGraph": {
+        "description": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+        "title": "Parking Expense Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/parking-expense-tracker"
+      },
+      "route": "/parking-expense-tracker",
+      "title": "Parking Expense Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.",
+        "title": "Parking Expense Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+      "canonical": "https://ansiversa.com/trip-cost-calculator",
+      "description": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+      "keywords": [
+        "Trip Cost Calculator",
+        "Mobility & Travel",
+        "trip cost calculator",
+        "mobility & travel",
+        "trip",
+        "cost",
+        "calculator",
+        "Trip cost records",
+        "Category breakdowns",
+        "Comparison insights",
+        "Trip records — Name, route, dates, travelers, vehicle, distance, currency, and notes."
+      ],
+      "openGraph": {
+        "description": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+        "title": "Trip Cost Calculator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/trip-cost-calculator"
+      },
+      "route": "/trip-cost-calculator",
+      "title": "Trip Cost Calculator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.",
+        "title": "Trip Cost Calculator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+      "canonical": "https://ansiversa.com/corporate-tax-uae",
+      "description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+      "keywords": [
+        "Corporate Tax UAE",
+        "Business & UAE",
+        "corporate tax uae",
+        "business & uae",
+        "corporate",
+        "tax",
+        "uae",
+        "Tax period records",
+        "Adjustment schedules",
+        "Obligation tracking",
+        "Tax periods — Financial year, entity identity, revenue, accounting profit, taxable estimate, currency, and status."
+      ],
+      "openGraph": {
+        "description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+        "title": "Corporate Tax UAE | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/corporate-tax-uae"
+      },
+      "route": "/corporate-tax-uae",
+      "title": "Corporate Tax UAE | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.",
+        "title": "Corporate Tax UAE | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+      "canonical": "https://ansiversa.com/vat-assistant-uae",
+      "description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+      "keywords": [
+        "VAT Assistant UAE",
+        "Business & UAE",
+        "vat assistant uae",
+        "business & uae",
+        "vat",
+        "assistant",
+        "uae",
+        "Registration records",
+        "VAT return tracking",
+        "Transaction VAT summaries",
+        "Registrations — Business name, TRN, registration type, registration date, VAT period, status, country, and notes."
+      ],
+      "openGraph": {
+        "description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+        "title": "VAT Assistant UAE | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/vat-assistant-uae"
+      },
+      "route": "/vat-assistant-uae",
+      "title": "VAT Assistant UAE | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.",
+        "title": "VAT Assistant UAE | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+      "canonical": "https://ansiversa.com/school-administration",
+      "description": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+      "keywords": [
+        "School Administration",
+        "Business & UAE",
+        "school administration",
+        "business & uae",
+        "school",
+        "administration",
+        "Private user-entered records",
+        "Students and class enrolments",
+        "Attendance summaries without SIS or LMS scope",
+        "Students — CRUD records with admission number uniqueness and guardian/support details."
+      ],
+      "openGraph": {
+        "description": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+        "title": "School Administration | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/school-administration"
+      },
+      "route": "/school-administration",
+      "title": "School Administration | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.",
+        "title": "School Administration | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+      "canonical": "https://ansiversa.com/subscription-manager",
+      "description": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+      "keywords": [
+        "Subscription Manager",
+        "Business & UAE",
+        "subscription manager",
+        "business & uae",
+        "subscription",
+        "manager",
+        "Manual subscription records",
+        "Renewal history and status",
+        "Currency-separated insights",
+        "Subscriptions — Create, edit, duplicate, pause, cancel, and delete subscription records."
+      ],
+      "openGraph": {
+        "description": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+        "title": "Subscription Manager | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/subscription-manager"
+      },
+      "route": "/subscription-manager",
+      "title": "Subscription Manager | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.",
+        "title": "Subscription Manager | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+      "canonical": "https://ansiversa.com/emi-loan-calculator",
+      "description": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+      "keywords": [
+        "EMI / Loan Calculator",
+        "Documents & Records",
+        "emi / loan calculator",
+        "emi loan calculator",
+        "documents & records",
+        "emi",
+        "loan",
+        "calculator",
+        "monthly payment",
+        "EMI and interest estimates",
+        "Saved loan scenarios",
+        "Amortization schedule",
+        "Calculator — Calculate EMI, interest, repayment, fees, payoff date, ratio, and schedule."
+      ],
+      "openGraph": {
+        "description": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+        "title": "EMI / Loan Calculator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/emi-loan-calculator"
+      },
+      "route": "/emi-loan-calculator",
+      "title": "EMI / Loan Calculator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.",
+        "title": "EMI / Loan Calculator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+      "canonical": "https://ansiversa.com/document-expiry-tracker",
+      "description": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+      "keywords": [
+        "Document Expiry Tracker",
+        "Documents & Records",
+        "document expiry tracker",
+        "documents & records",
+        "document",
+        "expiry",
+        "tracker",
+        "Track important document dates",
+        "Review expiry windows",
+        "Plan renewals without external integrations",
+        "Document facts — Title, type, number, authority, country, issue date, expiry date, notes, and tags."
+      ],
+      "openGraph": {
+        "description": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+        "title": "Document Expiry Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/document-expiry-tracker"
+      },
+      "route": "/document-expiry-tracker",
+      "title": "Document Expiry Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.",
+        "title": "Document Expiry Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+      "canonical": "https://ansiversa.com/digital-document-vault",
+      "description": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+      "keywords": [
+        "Digital Document Vault",
+        "Documents & Records",
+        "digital document vault",
+        "documents & records",
+        "digital",
+        "document",
+        "vault",
+        "Upload common personal document files",
+        "Organize by category and document type",
+        "Review storage, expiry, and recent upload insights",
+        "Document facts — Title, category, document type, description, tags, issue date, expiry date, file name, MIME type, and file size."
+      ],
+      "openGraph": {
+        "description": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+        "title": "Digital Document Vault | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/digital-document-vault"
+      },
+      "route": "/digital-document-vault",
+      "title": "Digital Document Vault | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.",
+        "title": "Digital Document Vault | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+      "canonical": "https://ansiversa.com/home-inventory-manager",
+      "description": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+      "keywords": [
+        "Home Inventory Manager",
+        "Home & Family",
+        "home inventory manager",
+        "home & family",
+        "home",
+        "inventory",
+        "manager",
+        "Category, room, condition, warranty, and archive tracking",
+        "Inventory insights without ecommerce, insurance, barcode, or AI scope",
+        "Item records — Track title, category, room, quantity, purchase details, estimated value, warranty date, brand, model, serial number, condition, and notes.",
+        "Category control — Create and rename categories while preventing deletion when items still exist."
+      ],
+      "openGraph": {
+        "description": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+        "title": "Home Inventory Manager | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/home-inventory-manager"
+      },
+      "route": "/home-inventory-manager",
+      "title": "Home Inventory Manager | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Create a private household inventory for belongings, rooms, values, warranties, and archive status.",
+        "title": "Home Inventory Manager | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+      "canonical": "https://ansiversa.com/household-expense-splitter",
+      "description": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+      "keywords": [
+        "Household Expense Splitter",
+        "Home & Family",
+        "household expense splitter",
+        "home & family",
+        "household",
+        "expense",
+        "splitter",
+        "Equal and manual expense splits",
+        "Settlement and balance summaries without banking or payment processing",
+        "Members — Create, edit, and manage active household members.",
+        "Expenses — Create equal or manual splits with category, payer, date, notes, and archive status."
+      ],
+      "openGraph": {
+        "description": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+        "title": "Household Expense Splitter | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/household-expense-splitter"
+      },
+      "route": "/household-expense-splitter",
+      "title": "Household Expense Splitter | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record shared household expenses, split costs between members, track settlements, and review simple balances.",
+        "title": "Household Expense Splitter | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+      "canonical": "https://ansiversa.com/emergency-contacts-organizer",
+      "description": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+      "keywords": [
+        "Emergency Contacts Organizer",
+        "Home & Family",
+        "emergency contacts organizer",
+        "home & family",
+        "emergency",
+        "contacts",
+        "organizer",
+        "Favourite and primary contacts",
+        "Direct phone and email actions",
+        "Phone and email — Primary and alternate phone fields plus optional email support quick manual contact.",
+        "Relationship and category — Labels make it clear why the contact matters."
+      ],
+      "openGraph": {
+        "description": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+        "title": "Emergency Contacts Organizer | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/emergency-contacts-organizer"
+      },
+      "route": "/emergency-contacts-organizer",
+      "title": "Emergency Contacts Organizer | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.",
+        "title": "Emergency Contacts Organizer | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+      "canonical": "https://ansiversa.com/packing-checklist",
+      "description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+      "keywords": [
+        "Packing Checklist",
+        "Home & Family",
+        "packing checklist",
+        "home & family",
+        "packing",
+        "checklist",
+        "Trip-based checklists",
+        "Category-organized items",
+        "Real packing progress",
+        "Checklist records — Create, edit, duplicate, archive, restore, and delete packing plans."
+      ],
+      "openGraph": {
+        "description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+        "title": "Packing Checklist | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/packing-checklist"
+      },
+      "route": "/packing-checklist",
+      "title": "Packing Checklist | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan trip packing lists, organize items by category, and track what is packed before departure.",
+        "title": "Packing Checklist | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.",
+      "canonical": "https://ansiversa.com/birthday-and-anniversary-reminder",
+      "description": "Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.",
+      "keywords": [
+        "Birthday & Anniversary Reminder",
+        "Home & Family",
+        "birthday & anniversary reminder",
+        "birthday and anniversary reminder",
+        "home & family",
+        "birthday",
+        "and",
+        "anniversary",
+        "reminder",
+        "Recurring annual dates",
+        "Upcoming and missed views",
+        "Gift ideas and notes",
+        "Reminder records — Create, edit, archive, restore, favourite, acknowledge, and delete reminders."
+      ],
+      "openGraph": {
+        "description": "Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.",
+        "title": "Birthday & Anniversary Reminder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/birthday-and-anniversary-reminder"
+      },
+      "route": "/birthday-and-anniversary-reminder",
+      "title": "Birthday & Anniversary Reminder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.",
+        "title": "Birthday & Anniversary Reminder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+      "canonical": "https://ansiversa.com/home-maintenance-planner",
+      "description": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+      "keywords": [
+        "Home Maintenance Planner",
+        "Home & Family",
+        "home maintenance planner",
+        "home & family",
+        "home",
+        "maintenance",
+        "planner",
+        "Task scheduling",
+        "Recurring maintenance",
+        "Cost and provider records",
+        "Tasks — Create, edit, complete, reopen, archive, restore, and delete maintenance tasks."
+      ],
+      "openGraph": {
+        "description": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+        "title": "Home Maintenance Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/home-maintenance-planner"
+      },
+      "route": "/home-maintenance-planner",
+      "title": "Home Maintenance Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.",
+        "title": "Home Maintenance Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.",
+      "canonical": "https://ansiversa.com/doctor-visit-tracker",
+      "description": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.",
+      "keywords": [
+        "Doctor Visit Tracker",
+        "Health & Medical",
+        "doctor visit tracker",
+        "health & medical",
+        "doctor",
+        "visit",
+        "tracker",
+        "Visit records",
+        "Specialty tracking",
+        "Follow-up and cost review",
+        "Visits — Create, edit, archive, restore, and delete visit records."
+      ],
+      "openGraph": {
+        "description": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.",
+        "title": "Doctor Visit Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/doctor-visit-tracker"
+      },
+      "route": "/doctor-visit-tracker",
+      "title": "Doctor Visit Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.",
+        "title": "Doctor Visit Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.",
+      "canonical": "https://ansiversa.com/water-intake-tracker",
+      "description": "Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.",
+      "keywords": [
+        "Water Intake Tracker",
+        "Health & Medical",
+        "water intake tracker",
+        "health & medical",
+        "water",
+        "intake",
+        "tracker",
+        "Daily entries",
+        "Personal goals",
+        "Weekly and monthly summaries",
+        "Entries — Create, edit, delete, search, and filter water intake records."
+      ],
+      "openGraph": {
+        "description": "Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.",
+        "title": "Water Intake Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/water-intake-tracker"
+      },
+      "route": "/water-intake-tracker",
+      "title": "Water Intake Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.",
+        "title": "Water Intake Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.",
+      "canonical": "https://ansiversa.com/vaccination-tracker",
+      "description": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.",
+      "keywords": [
+        "Vaccination Tracker",
+        "Health & Medical",
+        "vaccination tracker",
+        "health & medical",
+        "vaccination",
+        "tracker",
+        "Profiles",
+        "Dose records",
+        "Upcoming and overdue review",
+        "Profiles — Create, edit, archive, restore, and delete profiles when safe."
+      ],
+      "openGraph": {
+        "description": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.",
+        "title": "Vaccination Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/vaccination-tracker"
+      },
+      "route": "/vaccination-tracker",
+      "title": "Vaccination Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.",
+        "title": "Vaccination Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.",
+      "canonical": "https://ansiversa.com/symptom-journal",
+      "description": "Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.",
+      "keywords": [
+        "Symptom Journal",
+        "Health & Medical",
+        "symptom journal",
+        "health & medical",
+        "symptom",
+        "journal",
+        "Personal journal",
+        "Severity and triggers",
+        "History review",
+        "Categories — Use default organizational labels or create custom symptom categories."
+      ],
+      "openGraph": {
+        "description": "Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.",
+        "title": "Symptom Journal | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/symptom-journal"
+      },
+      "route": "/symptom-journal",
+      "title": "Symptom Journal | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.",
+        "title": "Symptom Journal | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.",
+      "canonical": "https://ansiversa.com/first-aid-guide",
+      "description": "Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.",
+      "keywords": [
+        "First Aid Guide",
+        "Health & Medical",
+        "first aid guide",
+        "health & medical",
+        "first",
+        "aid",
+        "guide",
+        "Educational topics",
+        "Bookmarks",
+        "Emergency warning notes",
+        "Guides — Browse topics with summaries, steps, avoid lists, emergency warnings, prevention, and related topics."
+      ],
+      "openGraph": {
+        "description": "Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.",
+        "title": "First Aid Guide | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/first-aid-guide"
+      },
+      "route": "/first-aid-guide",
+      "title": "First Aid Guide | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.",
+        "title": "First Aid Guide | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+      "canonical": "https://ansiversa.com/fuel-expense-tracker",
+      "description": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+      "keywords": [
+        "Fuel Expense Tracker",
+        "Vehicle & Driving",
+        "fuel expense tracker",
+        "vehicle & driving",
+        "fuel",
+        "expense",
+        "tracker",
+        "Log fuel purchases by vehicle",
+        "Review total and monthly fuel costs",
+        "Compare station and vehicle spending",
+        "Vehicles — Name, fuel type, odometer unit, and archive status."
+      ],
+      "openGraph": {
+        "description": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+        "title": "Fuel Expense Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/fuel-expense-tracker"
+      },
+      "route": "/fuel-expense-tracker",
+      "title": "Fuel Expense Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.",
+        "title": "Fuel Expense Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.",
+      "canonical": "https://ansiversa.com/driver-logbook",
+      "description": "Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.",
+      "keywords": [
+        "Driver Logbook",
+        "Vehicle & Driving",
+        "driver logbook",
+        "vehicle & driving",
+        "driver",
+        "logbook",
+        "Create vehicles for trip tracking",
+        "Record trips with odometer and purpose details",
+        "Review distance, duration, and purpose summaries",
+        "Vehicles — Vehicle name, manufacturer, model, year, registration nickname, odometer unit, and notes."
+      ],
+      "openGraph": {
+        "description": "Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.",
+        "title": "Driver Logbook | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/driver-logbook"
+      },
+      "route": "/driver-logbook",
+      "title": "Driver Logbook | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.",
+        "title": "Driver Logbook | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+      "canonical": "https://ansiversa.com/vehicle-document-tracker",
+      "description": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+      "keywords": [
+        "Vehicle Document Tracker",
+        "Vehicle & Driving",
+        "vehicle document tracker",
+        "vehicle & driving",
+        "vehicle",
+        "document",
+        "tracker",
+        "Track registrations, insurance, inspections, warranties, and custom document types",
+        "Review expiry dates, reminder dates, and recently updated records",
+        "Keep vehicle records separate, searchable, and easy to refresh",
+        "Vehicle records — Name, manufacturer, model, year, registration nickname, registration number, and notes."
+      ],
+      "openGraph": {
+        "description": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+        "title": "Vehicle Document Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/vehicle-document-tracker"
+      },
+      "route": "/vehicle-document-tracker",
+      "title": "Vehicle Document Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.",
+        "title": "Vehicle Document Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
+      "canonical": "https://ansiversa.com/meeting-scheduler",
+      "description": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
+      "keywords": [
+        "Meeting Scheduler",
+        "Work & Planning",
+        "meeting scheduler",
+        "work & planning",
+        "meeting",
+        "scheduler",
+        "Meeting records",
+        "Participant responses",
+        "Ordered agendas",
+        "Meetings — Create, edit, search, filter, review, and delete schedules."
+      ],
+      "openGraph": {
+        "description": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
+        "title": "Meeting Scheduler | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/meeting-scheduler"
+      },
+      "route": "/meeting-scheduler",
+      "title": "Meeting Scheduler | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize meeting schedules, participants, response labels, and agendas in one private workspace.",
+        "title": "Meeting Scheduler | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan personal leave, define allowances, and understand used, planned, and remaining balances.",
+      "canonical": "https://ansiversa.com/leave-planner",
+      "description": "Plan personal leave, define allowances, and understand used, planned, and remaining balances.",
+      "keywords": [
+        "Leave Planner",
+        "Work & Planning",
+        "leave planner",
+        "work & planning",
+        "leave",
+        "planner",
+        "Custom allowances",
+        "Weekday leave planning",
+        "Clear balance summaries",
+        "Leave types — Define allowances, carry-forward, and active state."
+      ],
+      "openGraph": {
+        "description": "Plan personal leave, define allowances, and understand used, planned, and remaining balances.",
+        "title": "Leave Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/leave-planner"
+      },
+      "route": "/leave-planner",
+      "title": "Leave Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan personal leave, define allowances, and understand used, planned, and remaining balances.",
+        "title": "Leave Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.",
+      "canonical": "https://ansiversa.com/shift-planner",
+      "description": "Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.",
+      "keywords": [
+        "Shift Planner",
+        "Work & Planning",
+        "shift planner",
+        "work & planning",
+        "shift",
+        "planner",
+        "Reusable shift types",
+        "Member assignments",
+        "Break-aware hours",
+        "Shift types — Reusable timing and break defaults."
+      ],
+      "openGraph": {
+        "description": "Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.",
+        "title": "Shift Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/shift-planner"
+      },
+      "route": "/shift-planner",
+      "title": "Shift Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.",
+        "title": "Shift Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record timed or manual work, organize it by project, and review private activity summaries without surveillance.",
+      "canonical": "https://ansiversa.com/work-log-tracker",
+      "description": "Record timed or manual work, organize it by project, and review private activity summaries without surveillance.",
+      "keywords": [
+        "Work Log Tracker",
+        "Work & Planning",
+        "work log tracker",
+        "work & planning",
+        "work",
+        "log",
+        "tracker",
+        "Timed and manual entries",
+        "Project context",
+        "Billable time labels",
+        "Projects — Reusable organizational context."
+      ],
+      "openGraph": {
+        "description": "Record timed or manual work, organize it by project, and review private activity summaries without surveillance.",
+        "title": "Work Log Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/work-log-tracker"
+      },
+      "route": "/work-log-tracker",
+      "title": "Work Log Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record timed or manual work, organize it by project, and review private activity summaries without surveillance.",
+        "title": "Work Log Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Build a private bill, allocate item-level costs, and record settlement progress without moving money.",
+      "canonical": "https://ansiversa.com/bill-splitter",
+      "description": "Build a private bill, allocate item-level costs, and record settlement progress without moving money.",
+      "keywords": [
+        "Bill Splitter",
+        "Personal Finance",
+        "bill splitter",
+        "personal finance",
+        "bill",
+        "splitter",
+        "Equal, single, and custom splits",
+        "Deterministic cent reconciliation",
+        "Private settlement records",
+        "Participants — Names, optional email, notes, shares, and paid amounts."
+      ],
+      "openGraph": {
+        "description": "Build a private bill, allocate item-level costs, and record settlement progress without moving money.",
+        "title": "Bill Splitter | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/bill-splitter"
+      },
+      "route": "/bill-splitter",
+      "title": "Bill Splitter | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Build a private bill, allocate item-level costs, and record settlement progress without moving money.",
+        "title": "Bill Splitter | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.",
+      "canonical": "https://ansiversa.com/savings-goal-planner",
+      "description": "Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.",
+      "keywords": [
+        "Savings Goal Planner",
+        "Personal Finance",
+        "savings goal planner",
+        "personal finance",
+        "savings",
+        "goal",
+        "planner",
+        "Contribution and correction history",
+        "Goal milestones",
+        "Per-currency summaries",
+        "Goals — Target, starting balance, deadline, priority, and state."
+      ],
+      "openGraph": {
+        "description": "Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.",
+        "title": "Savings Goal Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/savings-goal-planner"
+      },
+      "route": "/savings-goal-planner",
+      "title": "Savings Goal Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.",
+        "title": "Savings Goal Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.",
+      "canonical": "https://ansiversa.com/salary-breakdown-calculator",
+      "description": "Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.",
+      "keywords": [
+        "Salary Breakdown Calculator",
+        "Personal Finance",
+        "salary breakdown calculator",
+        "personal finance",
+        "salary",
+        "breakdown",
+        "calculator",
+        "pay",
+        "income",
+        "gross salary",
+        "net salary",
+        "allowance",
+        "deduction",
+        "Six pay frequencies",
+        "Fixed and percentage deductions",
+        "Factual scenario comparison",
+        "Scenarios — Base salary, currency, period, and work assumptions."
+      ],
+      "openGraph": {
+        "description": "Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.",
+        "title": "Salary Breakdown Calculator | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/salary-breakdown-calculator"
+      },
+      "route": "/salary-breakdown-calculator",
+      "title": "Salary Breakdown Calculator | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.",
+        "title": "Salary Breakdown Calculator | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
+      "canonical": "https://ansiversa.com/net-worth-tracker",
+      "description": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
+      "keywords": [
+        "Net Worth Tracker",
+        "Personal Finance",
+        "net worth tracker",
+        "personal finance",
+        "net",
+        "worth",
+        "tracker",
+        "Manual asset and liability accounts",
+        "Immutable dated snapshots",
+        "Currency-separated net worth",
+        "Accounts — Assets and liabilities with inclusion and archive controls."
+      ],
+      "openGraph": {
+        "description": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
+        "title": "Net Worth Tracker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/net-worth-tracker"
+      },
+      "route": "/net-worth-tracker",
+      "title": "Net Worth Tracker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.",
+        "title": "Net Worth Tracker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.",
+      "canonical": "https://ansiversa.com/decision-maker",
+      "description": "Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.",
+      "keywords": [
+        "Decision Maker",
+        "Daily Life",
+        "decision maker",
+        "daily life",
+        "decision",
+        "maker",
+        "Weighted criteria",
+        "Complete-option ranking",
+        "Neutral final selection",
+        "Options — Alternatives with context and trade-offs."
+      ],
+      "openGraph": {
+        "description": "Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.",
+        "title": "Decision Maker | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/decision-maker"
+      },
+      "route": "/decision-maker",
+      "title": "Decision Maker | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.",
+        "title": "Decision Maker | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.",
+      "canonical": "https://ansiversa.com/errand-planner",
+      "description": "Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.",
+      "keywords": [
+        "Errand Planner",
+        "Daily Life",
+        "errand planner",
+        "daily life",
+        "errand",
+        "planner",
+        "Due today, due soon, and overdue views",
+        "Category and priority filters",
+        "Complete, reopen, archive, and restore",
+        "Errands — Create, edit, delete, complete, reopen, archive, restore, search, filter, and paginate records."
+      ],
+      "openGraph": {
+        "description": "Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.",
+        "title": "Errand Planner | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/errand-planner"
+      },
+      "route": "/errand-planner",
+      "title": "Errand Planner | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.",
+        "title": "Errand Planner | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.",
+      "canonical": "https://ansiversa.com/local-services-finder",
+      "description": "Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.",
+      "keywords": [
+        "Local Services Finder",
+        "Daily Life",
+        "local services finder",
+        "daily life",
+        "local",
+        "services",
+        "finder",
+        "Private provider directory",
+        "Category and rating filters",
+        "Preferred, archive, and restore workflow",
+        "Providers — Create, edit, delete, prefer, unprefer, archive, restore, search, filter, and paginate provider records."
+      ],
+      "openGraph": {
+        "description": "Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.",
+        "title": "Local Services Finder | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/local-services-finder"
+      },
+      "route": "/local-services-finder",
+      "title": "Local Services Finder | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.",
+        "title": "Local Services Finder | Ansiversa"
+      },
+      "visibility": "public"
+    },
+    {
+      "aiDescription": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
+      "canonical": "https://ansiversa.com/emergency-checklist",
+      "description": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
+      "keywords": [
+        "Emergency Checklist",
+        "Daily Life",
+        "emergency checklist",
+        "daily life",
+        "emergency",
+        "checklist",
+        "Reusable preparedness checklists",
+        "Item completion and reset",
+        "Private planning, not emergency response",
+        "Checklists — Create, edit, delete, archive, restore, complete, reset, search, filter, and paginate reusable checklists."
+      ],
+      "openGraph": {
+        "description": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
+        "title": "Emergency Checklist | Ansiversa",
+        "type": "website",
+        "url": "https://ansiversa.com/emergency-checklist"
+      },
+      "route": "/emergency-checklist",
+      "title": "Emergency Checklist | Ansiversa",
+      "twitter": {
+        "card": "summary",
+        "description": "Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.",
+        "title": "Emergency Checklist | Ansiversa"
+      },
+      "visibility": "public"
+    }
+  ],
+  "schemaVersion": 1
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ansiversa.com/ai-sitemap.xml
+LLMs: https://ansiversa.com/llms.txt

@@ -15,7 +15,9 @@ deterministic builder. The committed artifact is
 regenerates the registry in memory and fails if the committed artifact drifts.
 The Assistant loads the registry through the cached `KnowledgeRegistry.load()`
 adapter and converts registry records into its existing deterministic retrieval
-model.
+model. Public AI publishing then converts the same registry into generated
+public artifacts under `public/` without rereading upstream source files during
+publication.
 
 ## User Journey
 
@@ -24,6 +26,12 @@ help, navigation, platform questions, related apps, current capabilities, or
 approved future direction. The Assistant retrieves matching public registry
 records, creates route-safe actions, and optionally lets OpenAI improve wording
 from bounded registry context.
+
+AI crawlers and search systems can read the generated public knowledge files:
+`llms.txt`, `llms-full.txt`, `ai-sitemap.xml`, `public-ai-knowledge.json`,
+`public-ai-jsonld.json`, `public-ai-metadata.json`, and `robots.txt`. These
+files describe only approved public platform, category, page, app, alias,
+capability, and relationship facts.
 
 ## Database Design
 
@@ -34,44 +42,51 @@ generation.
 
 ## API Design
 
-The module exposes no public API. Its consumer boundary is the Python
-`KnowledgeRegistry` adapter. The Assistant API contract remains
-`POST /api/v1/assistant/query`; no schema-breaking response fields were added
-for Phase 2.
+The internal registry consumer boundary is the Python `KnowledgeRegistry`
+adapter. The Assistant API contract remains `POST /api/v1/assistant/query`.
+Public AI publishing exposes read-only generated artifacts at root paths such
+as `/llms.txt` and `/public-ai-knowledge.json`, plus convenience API routes
+under `/api/v1/knowledge/public`.
 
 ## Shared Components Used
 
-The module uses backend standard library parsing, JSON serialization, bounded
-path validation, and the existing Assistant deterministic ranking and route
-validation layer. It does not use embeddings, a vector database, crawler APIs,
-or OpenAI calls.
+The module uses backend standard library parsing, JSON serialization, XML
+generation, bounded path validation, the existing Assistant deterministic
+ranking and route validation layer, and FastAPI file responses. It does not use
+embeddings, a vector database, crawler APIs, RAG, or OpenAI calls.
 
 ## Performance Considerations
 
 `KnowledgeRegistry.load()` is cached with a single loaded artifact per process.
 Normal assistant requests do not parse Markdown, overview JSON, FAQ rows, or
 route registries. The in-memory registry is bounded to exactly 100 app records,
-14 categories, and approved platform/account/legal page records.
+14 categories, and approved platform/account/legal page records. Public
+publishing writes deterministic files from the cached registry, so public
+artifact serving reads static generated files rather than rebuilding knowledge
+on each request.
 
 ## Current Status
 
-Phase 2 is active for Assistant retrieval parity. The Assistant reads from the
-Canonical AI Knowledge Registry as the normal retrieval source. Legacy DB/FAQ
-retrieval exists only as an explicit logged fallback if the registry cannot load
-or validate at runtime.
+Phase 2 is active for Assistant retrieval parity, and AI SEO Public Knowledge
+Publishing Phase 1 is active for public crawler artifacts. The Assistant reads
+from the Canonical AI Knowledge Registry as the normal retrieval source. Legacy
+DB/FAQ retrieval exists only as an explicit logged fallback if the registry
+cannot load or validate at runtime. Public publishing does not change Assistant
+behavior.
 
 ## Known Limitations
 
 The locked `approved-apps.md` source is still missing from the workspace, so
-the registry gap report retains one governance warning. The registry is
-internal backend infrastructure and is not published as JSON-LD, `llms.txt`,
-sitemap content, robots metadata, or a public API.
+the registry gap report retains one governance warning. The public publisher
+does not expose future direction, source references, `AGENTS.md`, story files,
+certification documents, promotion documents, authenticated records, internal
+records, restricted records, or user data.
 
 ## Future Enhancements
 
-Future phases may expose a bounded public subset for search or AI SEO after
-visibility filtering and repository-path omission are approved. Future work may
-also expand registry source coverage, but assistant facts must continue to come
+Future phases may connect public metadata into frontend page rendering or
+deployment automation after approval. Future work may also expand registry
+source coverage, but assistant facts and public AI facts must continue to come
 from the registry rather than independent request-time source reads.
 
 ## Current Implementation
@@ -80,4 +95,5 @@ The current implementation includes deterministic registry build/check commands,
 explicit visibility values, source traceability, current/future separation,
 related-app generation, platform/account/legal page records, a cached registry
 adapter, Assistant retrieval integration, route-safe actions, OpenAI explanation
-boundaries, and focused parity tests.
+boundaries, public AI artifact generation, public artifact routes, JSON/XML
+validation, forbidden-content screening, and focused parity tests.

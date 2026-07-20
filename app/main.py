@@ -42,6 +42,8 @@ from app.modules.interview_coach.routes import router as interview_coach_router
 from app.modules.interview_scheduler.routes import router as interview_scheduler_router
 from app.modules.job_description_analyzer.routes import router as job_description_analyzer_router
 from app.modules.job_tracker.routes import router as job_tracker_router
+from app.modules.knowledge.routes import api_router as knowledge_api_router
+from app.modules.knowledge.routes import router as knowledge_public_router
 from app.modules.lesson_builder.routes import router as lesson_builder_router
 from app.modules.linkedin_bio_optimizer.routes import router as linkedin_bio_optimizer_router
 from app.modules.memory_trainer.routes import router as memory_trainer_router
@@ -125,6 +127,15 @@ def register_middleware(app: FastAPI) -> None:
 
 
 def register_routes(app: FastAPI) -> None:
+    app.include_router(
+        knowledge_public_router,
+        tags=["AI Knowledge"],
+    )
+    app.include_router(
+        knowledge_api_router,
+        prefix=f"{settings.API_V1_PREFIX}/knowledge",
+        tags=["AI Knowledge"],
+    )
     app.include_router(
         health_router,
         prefix=f"{settings.API_V1_PREFIX}/health",

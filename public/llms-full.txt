@@ -1,0 +1,959 @@
+# Ansiversa Full Public AI Context
+
+> One consistent platform for focused everyday solution apps.
+
+Official description: A permanently curated ecosystem of exactly 100 solution apps.
+Catalog size: 100 public solution apps.
+
+## Categories
+
+- Business & UAE (cat_business-and-uae)
+- Career & Professional (cat_career)
+- Content & AI Writing (cat_writing)
+- Daily Life (cat_daily-life)
+- Documents & Records (cat_documents-and-records)
+- Health & Medical (cat_health-and-medical)
+- Home & Family (cat_home-and-family)
+- Learning & Education (cat_learning)
+- Mobility & Travel (cat_mobility-and-travel)
+- Personal Finance (cat_personal-finance)
+- Personal Life & Wellness (cat_lifestyle)
+- Utilities & Productivity (cat_utility)
+- Vehicle & Driving (cat_vehicle-and-driving)
+- Work & Planning (cat_work-and-planning)
+
+## Public Pages
+
+### 100 carefully curated apps. One consistent platform.
+- URL: https://ansiversa.com
+- Summary: Learn, plan, create, manage, and solve everyday needs with one account across a fixed ecosystem of 100 useful apps.
+
+### About
+- URL: https://ansiversa.com/about
+- Summary: About is an Ansiversa public page.
+
+### Apps
+- URL: https://ansiversa.com/apps
+- Summary: Apps is an Ansiversa public page.
+
+### One subscription. 100 curated apps.
+- URL: https://ansiversa.com/pricing
+- Summary: Start free with focused access, then choose a simple Individual plan when you are ready for the full Ansiversa ecosystem.
+
+### Privacy
+- URL: https://ansiversa.com/privacy
+- Summary: Privacy is an Ansiversa public page.
+
+### Terms
+- URL: https://ansiversa.com/terms
+- Summary: Terms is an Ansiversa public page.
+
+### FAQ
+- URL: https://ansiversa.com/faq
+- Summary: Frequently asked questions
+
+### Contact
+- URL: https://ansiversa.com/contact
+- Summary: Contact the Ansiversa team
+
+## Public Apps
+
+### Quiz
+- URL: https://ansiversa.com/quiz
+- Category: Learning & Education
+- Purpose: Build clean, focused quizzes that feel premium to take and effortless to manage. Pick a topic, run the quiz, and store results automatically.
+- Audience: Schools & teachers, Coaching institutes, Teams & HR, Self learners
+- Aliases: quiz, learning & education
+- Capabilities: Structured taxonomy: platform → subject → topic → roadmap; Instant scoring with server-ready breakdown; Attempts saved per user for progress tracking; Turn notes into recall-ready prompts. — Teach with notes, then convert them into instant quizzes.; Scale up to timed mock exams. — Start with quizzes, then build full exam flows.; Bring quizzes into live battles. — Use quiz content for fast, competitive revisions.; Roadmap-first taxonomy: platform → subject → topic → roadmap.; Results designed to save per user with full answer review.
+- Related apps: Research Assistant, AI Notes Summarizer, Concept Explainer
+
+### Research Assistant
+- URL: https://ansiversa.com/research-assistant
+- Category: Learning & Education
+- Purpose: Collect research topics, organize manual notes, save references, and track progress in one focused workspace.
+- Audience: Students, Self learners, Professionals
+- Aliases: research assistant, learning & education, research, assistant
+- Capabilities: Create research topics; Add manual notes; Track references and status; Research topic — Store the title, question, summary, and progress status.; Notes — Add ordered findings that belong to the topic.; References — Save source titles, links, and context notes.
+- Related apps: Quiz, AI Notes Summarizer, Concept Explainer
+
+### AI Notes Summarizer
+- URL: https://ansiversa.com/ai-notes-summarizer
+- Category: Learning & Education
+- Purpose: Turn long notes into focused summaries with key points, action items, and saved document history.
+- Audience: Students, Professionals, Researchers
+- Aliases: ai notes summarizer, learning & education, ai, notes, summarizer, summarize notes, note summary
+- Capabilities: Paste long notes; Generate summary; Review key points and actions; Source notes — Provide the full notes that need summarizing.; Clear summary — Condense the material into key points and actions.; Review history — Return to saved documents and previous summaries.
+- Related apps: Research Assistant, Concept Explainer, Quiz
+
+### Concept Explainer
+- URL: https://ansiversa.com/concept-explainer
+- Category: Learning & Education
+- Purpose: Break difficult ideas into clear explanation steps and review checks you create manually.
+- Audience: Students, Self learners, Professionals
+- Aliases: concept explainer, learning & education, concept, explainer
+- Capabilities: Create a concept; Build explanation steps; Review with check questions; Concept record — Store the title, topic, and short context.; Explanation steps — Add the ordered pieces that explain the idea.; Check questions — Create simple prompts and expected answers for review.
+- Related apps: AI Notes Summarizer, Study Planner, Research Assistant
+
+### Study Planner
+- URL: https://ansiversa.com/study-planner
+- Category: Learning & Education
+- Purpose: Create a study plan, break it into tasks, log focused study sessions, and review progress.
+- Audience: Students, Self-learners, Professionals
+- Aliases: study planner, learning & education, study, planner
+- Capabilities: Plan learning goals; Track study tasks; Review logged progress; Study plans — Create current-user plans with subjects, goals, dates, and status.; Study tasks — Add prioritized tasks under plans and update task status.; Study logs — Record focused minutes and reflections for progress review.; Protected API routes under /api/v1/study-planner.; Current-user owned StudyPlans, StudyPlanTasks, and StudyLogs tables.
+- Related apps: Concept Explainer, Course Tracker, AI Notes Summarizer
+
+### Course Tracker
+- URL: https://ansiversa.com/course-tracker
+- Category: Learning & Education
+- Purpose: Create courses, organize modules, log learning progress, and review completion.
+- Audience: Students, Online learners, Professionals
+- Aliases: course tracker, learning & education, course, tracker
+- Capabilities: Create course records; Manage learning modules; Review completion progress; Courses — Create protected course records with goals, dates, and status.; Course modules — Add ordered modules under courses and update progress status.; Progress logs — Record minutes, summaries, and reflections for completion review.; Protected API routes under /api/v1/course-tracker.; Current-user owned Courses, CourseModules, and CourseProgressLogs tables.
+- Related apps: Study Planner, Dictionary+, Concept Explainer
+
+### Dictionary+
+- URL: https://ansiversa.com/dictionary-plus
+- Category: Learning & Education
+- Purpose: Look up words and review clear definitions with phonetic guidance.
+- Audience: Students, Writers, Language learners
+- Aliases: dictionary+, dictionary plus, learning & education, dictionary, plus
+- Capabilities: Instant word lookup; Clear definitions; Phonetic guidance; Word lookup — Find the word you need to understand.; Definition — Review its meaning in a readable format.; Phonetics — Use phonetic spelling to guide pronunciation.; Definition and phonetic-ready lookup flow.; Responsive presentation across devices.
+- Related apps: Course Tracker, Formula Finder, Study Planner
+
+### Formula Finder
+- URL: https://ansiversa.com/formula-finder
+- Category: Learning & Education
+- Purpose: Search bundled formulas, explore clear explanations, and save useful references in your browser.
+- Audience: Students, Educators, Professionals
+- Aliases: formula finder, learning & education, formula, finder
+- Capabilities: 25 bundled formulas; Search and category filtering; Browser-local favorites; Bundled reference data — Explore 25 formulas across five subject categories.; Focused filtering — Search reference fields and narrow results by category.; Local favorites — Store only favorite formula IDs in this browser.; Metadata-driven overview content.; Bundled browser reference data with local favorites.
+- Related apps: Dictionary+, Lesson Builder, Course Tracker
+
+### Lesson Builder
+- URL: https://ansiversa.com/lesson-builder
+- Category: Learning & Education
+- Purpose: Build structured lesson plans quickly with clear objectives, activities, and review points.
+- Audience: Teachers, Tutors, Trainers
+- Aliases: lesson builder, learning & education, lesson, builder
+- Capabilities: Structured lesson plans; Clear learning objectives; Organized activities; Learning objective — Define the outcome the lesson should support.; Activity sequence — Organize the work learners will complete.; Lesson review — Check alignment before using the plan.; Objective and activity-ready planning structure.; Responsive presentation across devices.
+- Related apps: Formula Finder, Memory Trainer, Dictionary+
+
+### Memory Trainer
+- URL: https://ansiversa.com/memory-trainer
+- Category: Learning & Education
+- Purpose: Create memory sessions, recall generated sequences, review performance, and track progress.
+- Audience: Students, Curious learners, Everyday users
+- Aliases: memory trainer, learning & education, memory, trainer
+- Capabilities: Memory sessions; Sequence recall; Progress tracking; Memory games — Define reusable recall challenges.; Focused rounds — Persist each sequence, answer, and result.; Progress summary — Track completed sessions and best accuracy.; Responsive presentation across devices.
+- Related apps: Lesson Builder, Daily Word Challenge, Formula Finder
+
+### Daily Word Challenge
+- URL: https://ansiversa.com/daily-word-challenge
+- Category: Learning & Education
+- Purpose: Discover one deterministic daily word, explore vocabulary, and track learning progress in your browser.
+- Audience: Students, Writers, Curious learners
+- Aliases: daily word challenge, learning & education, daily, word, challenge
+- Capabilities: 20 bundled words; Deterministic daily challenge; Browser-local learning progress; Bundled words — Explore 20 words across three difficulty levels.; Daily challenge — Receive one deterministic word for the local date.; Local progress — Store learned word IDs and current streak progress in this browser.; Metadata-driven overview content.; Deterministic daily selection with date-based browser progress.
+- Related apps: Memory Trainer, Smart Textbook Scanner, Lesson Builder
+
+### Smart Textbook Scanner
+- URL: https://ansiversa.com/smart-textbook-scanner
+- Category: Learning & Education
+- Purpose: Scan textbook material, organize pages, extract notes, and review focused study points.
+- Audience: Students, Educators, Self learners
+- Aliases: smart textbook scanner, learning & education, smart, textbook, scanner
+- Capabilities: Create textbook scans; Organize scanned pages; Extract review notes; Textbook scans — Create protected scan records with subject, source, goal, and status.; Textbook pages — Organize page text and page numbers under each scan.; Extracted notes — Capture headings, key points, summaries, and note types for review.; Protected API routes under /api/v1/smart-textbook-scanner.; Current-user owned TextbookScans, TextbookPages, and ExtractedNotes tables.
+- Related apps: Daily Word Challenge, Memory Trainer, Lesson Builder
+
+### Resume Builder
+- URL: https://ansiversa.com/resume-builder
+- Category: Career & Professional
+- Purpose: Build ATS-safe resume projects with organized sections, reusable resume items, preview, and completion review.
+- Audience: Students, Job seekers, Professionals
+- Aliases: resume builder, career & professional, resume, builder
+- Capabilities: Resume project workspace; Section-based resume structure; Preview and completion review; Create the resume container. — Each resume starts as a project tied to the current user.; Shape the resume structure. — Enabled sections define what appears in the preview.; Add resume content. — Items hold the user-authored resume details.; Reuses existing ResumeProject, ResumeSection, and ResumeItem tables.; Keeps Bookmark, Faq, and _astro_db_snapshot untouched.
+- Related apps: Visiting Card Maker, Interview Coach, Job Description Analyzer
+
+### Visiting Card Maker
+- URL: https://ansiversa.com/visiting-card-maker
+- Category: Career & Professional
+- Purpose: Design stylish business cards that present professional contact details clearly.
+- Audience: Professionals, Freelancers, Small businesses
+- Aliases: visiting card maker, career & professional, visiting, card, maker
+- Capabilities: Business card design; Professional details; Stylish presentation; Contact details — Add the information the card should present.; Card design — Create a stylish visual arrangement.; Final review — Check the complete business card.; Professional-detail and card-design-ready structure.; Responsive presentation across devices.
+- Related apps: Resume Builder, Interview Coach, Job Description Analyzer
+
+### Interview Coach
+- URL: https://ansiversa.com/interview-coach
+- Category: Career & Professional
+- Purpose: Practice interviews and review feedback to improve future responses.
+- Audience: Job seekers, Students, Professionals
+- Aliases: interview coach, career & professional, interview, coach
+- Capabilities: Interview practice; Response feedback; Focused improvement; Practice response — Work through an interview answer.; Feedback — Review guidance on the response.; Next attempt — Apply feedback during continued practice.; Interview-practice and feedback-ready flow.; Responsive presentation across devices.
+- Related apps: Visiting Card Maker, Job Description Analyzer, Resume Builder
+
+### Job Description Analyzer
+- URL: https://ansiversa.com/job-description-analyzer
+- Category: Career & Professional
+- Purpose: Extract required skills quickly.
+- Audience: Individuals, Families and teams, Power users
+- Aliases: job description analyzer, career & professional, job, description, analyzer
+- Capabilities: Focused workspace; Organized information; Clear review flow; Stable route — Available at /job-description-analyzer.; Catalog alignment — Connected to the active Ansiversa app registry.; Shared shell — Runs inside the same Ansiversa navigation and layout system.; Catalog key, slug, and route alignment.; Responsive presentation through the shared Ansiversa shell.
+- Related apps: Interview Coach, Portfolio Creator, Visiting Card Maker
+
+### Portfolio Creator
+- URL: https://ansiversa.com/portfolio-creator
+- Category: Career & Professional
+- Purpose: Build a professional portfolio from profiles, projects, skills, and publish settings.
+- Audience: Students, Professionals, Freelancers
+- Aliases: portfolio creator, career & professional, portfolio, creator
+- Capabilities: Portfolio profiles; Project showcases; Skill and publish planning; Profile — Capture the professional introduction and contact context.; Projects — Document work samples, roles, links, and outcomes.; Publish settings — Prepare visibility, slug, theme, and published state.; Protected API routes under /api/v1/portfolio-creator.; Current-user owned profiles, projects, skills, and publish settings.
+- Related apps: Job Description Analyzer, Meeting Minutes AI, Interview Coach
+
+### Meeting Minutes AI
+- URL: https://ansiversa.com/meeting-minutes-ai
+- Category: Career & Professional
+- Purpose: Turn meeting notes and transcripts into clear summaries, decisions, and actionable next steps.
+- Audience: Project teams, Managers, Client teams
+- Aliases: meeting minutes ai, career & professional, meeting, minutes, ai
+- Capabilities: Meeting records; Notes and transcript capture; Action-item follow-through; Meeting summaries — Maintain a concise record of the discussion.; Decision logs — Preserve important agreements and context.; Action lists — Track next steps, owners, and follow-up.; User-scoped meeting records with notes, action items, and summaries.
+- Related apps: Portfolio Creator, Proposal Writer, Job Description Analyzer
+
+### Proposal Writer
+- URL: https://ansiversa.com/proposal-writer
+- Category: Career & Professional
+- Purpose: Create structured client proposals from project context, proposal sections, drafts, and review history.
+- Audience: Freelancers, Consultants, Small businesses
+- Aliases: proposal writer, career & professional, proposal, writer
+- Capabilities: Client proposal projects; Editable proposal sections; Draft and review workflow; Client context — Clarify who the proposal is for and what it should achieve.; Section library — Draft scope, deliverables, pricing, and next-step sections.; Activity trail — Record review and submission milestones.; Protected project, section, draft, and history workflow.; Lightweight dashboard responses with detail endpoints for full text.
+- Related apps: Meeting Minutes AI, Invoice and Receipt Maker, Portfolio Creator
+
+### Invoice and Receipt Maker
+- URL: https://ansiversa.com/invoice-receipt-maker
+- Category: Career & Professional
+- Purpose: Create branded invoices and receipts with clear business and transaction details.
+- Audience: Freelancers, Small businesses, Independent professionals
+- Aliases: invoice and receipt maker, invoice receipt maker, career & professional, invoice, receipt, maker
+- Capabilities: Branded invoices; Receipt creation; Clear transaction details; Transaction details — Add the information the document should show.; Business branding — Present the invoice or receipt consistently.; Final review — Check the complete document before use.; Transaction-detail and branding-ready document structure.; Responsive presentation across devices.
+- Related apps: Proposal Writer, Contract Generator, Meeting Minutes AI
+
+### Contract Generator
+- URL: https://ansiversa.com/contract-generator
+- Category: Career & Professional
+- Purpose: Prepare clear contract drafts from guided inputs and reusable sections.
+- Audience: Freelancers, Small teams, Consultants
+- Aliases: contract generator, career & professional, contract, generator
+- Capabilities: Guided drafting flow; Reusable contract sections; Review-ready output; Party details — Capture the people and organizations involved.; Terms and obligations — Describe responsibilities and expected outcomes.; Review notes — Keep unresolved items visible before final use.; Reusable section-oriented content model.; Draft-first workflow that keeps review responsibility with the user.
+- Related apps: Invoice and Receipt Maker, Presentation Designer, Proposal Writer
+
+### Presentation Designer
+- URL: https://ansiversa.com/presentation-designer
+- Category: Career & Professional
+- Purpose: Design clean, consistent slides that keep a presentation clear and visually coherent.
+- Audience: Professionals, Students, Educators
+- Aliases: presentation designer, career & professional, presentation, designer
+- Capabilities: Clean slide design; Consistent presentation style; Clear visual structure; Deck structure — Organize the presentation into a clear sequence.; Slide consistency — Maintain a coherent visual approach.; Final review — Check the complete deck before presenting.; Deck and slide-ready design structure.; Responsive presentation across devices.
+- Related apps: Contract Generator, Career Planner, Invoice and Receipt Maker
+
+### Career Planner
+- URL: https://ansiversa.com/career-planner
+- Category: Career & Professional
+- Purpose: Plan career goals, roadmaps, milestones, and review activity in one clear workflow.
+- Audience: Students, Job seekers, Professionals
+- Aliases: career planner, career & professional, career, planner
+- Capabilities: Career goals; Roadmaps; Milestone tracking; Goals — Define the intended career outcome.; Roadmaps — Group focused work under each goal.; Milestones — Track ordered checkpoints and success metrics.; Responsive presentation across devices.
+- Related apps: Presentation Designer, LinkedIn Bio Optimizer, Contract Generator
+
+### LinkedIn Bio Optimizer
+- URL: https://ansiversa.com/linkedin-bio-optimizer
+- Category: Career & Professional
+- Purpose: Create, improve, and manage LinkedIn bios with professional profile context, reusable templates, and saved versions.
+- Audience: Job seekers, Career changers, Professionals
+- Aliases: linkedin bio optimizer, career & professional, linkedin, bio, optimizer
+- Capabilities: Profile bio workspace; Reusable templates; Version history; Profiles — Store headline, bio, target role, keywords, and tone.; Templates — Create reusable bio structures.; Versions — Preserve optimized drafts and change summaries.; Protected bio, template, and version workflow.; Responsive presentation across devices.
+- Related apps: Career Planner, Client Feedback Analyzer, Presentation Designer
+
+### Client Feedback Analyzer
+- URL: https://ansiversa.com/client-feedback-analyzer
+- Category: Career & Professional
+- Purpose: Group client feedback and review the insights that emerge across responses.
+- Audience: Client teams, Product teams, Service teams
+- Aliases: client feedback analyzer, career & professional, client, feedback, analyzer
+- Capabilities: Feedback grouping; Client insight review; Clear response patterns; Client responses — Gather the feedback that needs analysis.; Feedback groups — Organize related comments together.; Review insights — Examine the patterns found across responses.; Feedback grouping and insight-ready review flow.; Responsive presentation across devices.
+- Related apps: LinkedIn Bio Optimizer, Career Planner, Presentation Designer
+
+### Book Summary Generator
+- URL: https://ansiversa.com/book-summary-generator
+- Category: Content & AI Writing
+- Purpose: Create clear summaries for books and chapters, then keep notes and revision history connected.
+- Audience: Students, Readers, Book groups
+- Aliases: book summary generator, content & ai writing, book, summary, generator
+- Capabilities: Book collections; Summary workflow; Notes and history; Book collection — Store source text, category, author, and private notes.; Summary record — Capture the summary, key points, and action items.; Review notes — Track highlights, observations, and historical changes.; Protected Books, Summaries, Notes, and History routes.; Responsive presentation across devices.
+- Related apps: Social Caption Generator, Prompt Builder, Speech Writer
+
+### Social Caption Generator
+- URL: https://ansiversa.com/social-caption-generator
+- Category: Content & AI Writing
+- Purpose: Plan caption projects, draft platform-ready captions, save reusable templates, and track revision history in one owner-scoped workspace.
+- Audience: Creators, Marketers, Small businesses
+- Aliases: social caption generator, content & ai writing, social, caption, generator
+- Capabilities: Caption projects; Generated captions; Reusable templates; Projects — Store the campaign brief and target platform context.; Captions — Hold generated or manually refined caption text, hashtags, and calls to action.; Templates and history — Capture reusable wording patterns and track generation or edit events.; Lightweight dashboard and list responses with detail endpoints for editable records.; Protected workflow pages under /social-caption-generator/projects, captions, templates, and history.
+- Related apps: Book Summary Generator, Prompt Builder, Speech Writer
+
+### Prompt Builder
+- URL: https://ansiversa.com/prompt-builder
+- Category: Content & AI Writing
+- Purpose: Design reusable AI prompts with a clear purpose, context, and instruction.
+- Audience: Creators, Professionals, AI learners
+- Aliases: prompt builder, content & ai writing, prompt, builder
+- Capabilities: Reusable AI prompts; Clear prompt structure; Focused instructions; Purpose — Define what the AI prompt should accomplish.; Context and instruction — Build the prompt with clear direction.; Reusable prompt — Review the final prompt for repeated use.; Purpose, context, and instruction-ready prompt structure.; Responsive presentation across devices.
+- Related apps: Social Caption Generator, Speech Writer, Book Summary Generator
+
+### Speech Writer
+- URL: https://ansiversa.com/speech-writer
+- Category: Content & AI Writing
+- Purpose: Plan speech projects, draft occasion-ready speeches, save reusable templates, and track revision history in one owner-scoped workspace.
+- Audience: Professionals, Students, Event speakers
+- Aliases: speech writer, content & ai writing, speech, writer
+- Capabilities: Speech projects; Editable drafts; Reusable templates; Projects — Store event purpose, audience, date, tone, and notes.; Speeches — Hold editable drafts, key messages, speaker context, and readiness status.; Templates and history — Capture reusable structures and track drafting, review, or delivery events.; Lightweight dashboard and list responses with detail endpoints for editable records.; Protected workflow pages under /speech-writer/projects, speeches, templates, and history.
+- Related apps: Prompt Builder, AI Translator and Tone Fixer, Social Caption Generator
+
+### AI Translator and Tone Fixer
+- URL: https://ansiversa.com/ai-translator-and-tone-fixer
+- Category: Content & AI Writing
+- Purpose: Translate and tone-fix text inside a protected projects, translations, templates, and history workspace.
+- Audience: Individuals, Families and teams, Power users
+- Aliases: ai translator and tone fixer, content & ai writing, ai, translator, and, tone, fixer
+- Capabilities: Focused workspace; Organized information; Clear review flow; Stable route — Available at /ai-translator-and-tone-fixer/projects.; Catalog alignment — Connected to the active Ansiversa app registry.; Shared shell — Runs inside the same Ansiversa navigation and layout system.; Catalog key, slug, and route alignment.; Responsive presentation through the shared Ansiversa shell.
+- Related apps: Speech Writer, Prompt Builder, Social Caption Generator
+
+### Snippet Generator
+- URL: https://ansiversa.com/snippet-generator
+- Category: Utilities & Productivity
+- Purpose: Store and reuse code snippets in a clear, focused collection.
+- Audience: Developers, Students, Technical teams
+- Aliases: snippet generator, utilities & productivity, snippet, generator
+- Capabilities: Code-snippet storage; Reusable code; Focused snippet organization; Code snippet — Capture useful code.; Organized storage — Keep the snippet clear and available.; Reuse — Return to stored code when needed.; Code-snippet storage and reuse-ready structure.; Responsive presentation across devices.
+- Related apps: Price Checker, QR Code Creator, Clipboard Manager
+
+### Price Checker
+- URL: https://ansiversa.com/price-checker
+- Category: Utilities & Productivity
+- Purpose: Compare and organize product prices manually with browser-local analysis history.
+- Audience: Shoppers, Households, Budget-conscious users
+- Aliases: price checker, utilities & productivity, price, checker
+- Capabilities: Manual price comparisons; Local analysis history; Analyze — Create a product price comparison.; Analyses — Search, filter, edit, duplicate, delete, or clear saved comparisons.; Insights — Review total products, average price, highest and lowest prices, estimated savings, and most-used store.
+- Related apps: Snippet Generator, QR Code Creator, Clipboard Manager
+
+### QR Code Creator
+- URL: https://ansiversa.com/qr-code-creator
+- Category: Utilities & Productivity
+- Purpose: Turn text and URLs into downloadable QR codes directly in your browser.
+- Audience: Professionals, Small businesses, Everyday users
+- Aliases: qr code creator, utilities & productivity, qr, code, creator, qr code
+- Capabilities: Text and URL QR generation; Live preview and PNG download; Browser-only processing with no saved content; Text and URLs — Provide the content the QR code should contain.; Live preview — Review size and color changes instantly.; PNG download — Save the completed QR code locally.; Metadata-driven overview content.; Browser-only QR generation with no saved content.
+- Related apps: Price Checker, Clipboard Manager, Snippet Generator
+
+### Clipboard Manager
+- URL: https://ansiversa.com/clipboard-manager
+- Category: Utilities & Productivity
+- Purpose: Save useful text snippets locally, search your browser-only clipboard history, and copy entries back when needed.
+- Audience: Professionals, Developers, Privacy-conscious users
+- Aliases: clipboard manager, utilities & productivity, clipboard, manager
+- Capabilities: Browser-local history; Manual paste fallback; Workspace — Add and save text entries with optional labels.; History — Search, copy, delete, and clear local entries.; Insights — View total entries, recent saves, longest entry, and copy activity.
+- Related apps: QR Code Creator, Password Generator, Price Checker
+
+### Password Generator
+- URL: https://ansiversa.com/password-generator
+- Category: Utilities & Productivity
+- Purpose: Generate strong, customizable passwords securely in your browser.
+- Audience: Professionals, Technical teams, Everyday users, Developers
+- Aliases: password generator, utilities & productivity, password, generator
+- Capabilities: Browser-only password generation; Custom length and character sets; Strength review before copying; Custom length — Choose a password length that fits your security needs.; Character sets — Include uppercase, lowercase, numbers, and symbols.; Strength check — Review whether the generated password is weak, medium, strong, or very strong.; Runs entirely in the browser with no server dependency.; Uses secure browser randomness for password generation.
+- Related apps: Clipboard Manager, API Tester, QR Code Creator
+
+### API Tester
+- URL: https://ansiversa.com/api-tester
+- Category: Utilities & Productivity
+- Purpose: Save and run lightweight API requests from the browser without sending URLs, headers, tokens, or payloads through Ansiversa servers.
+- Audience: Developers, Technical teams, Learners
+- Aliases: api tester, utilities & productivity, api, tester
+- Capabilities: Browser-local requests; Explicit fetch runs; Local run history; Request — Method, URL, headers, and body saved in browser storage.; Run — Explicit browser fetch execution when the target API allows cross-origin calls.; History — Status, timing, and previews stored locally for later review.
+- Related apps: Password Generator, JSON Formatter, Clipboard Manager
+
+### JSON Formatter
+- URL: https://ansiversa.com/json-formatter
+- Category: Utilities & Productivity
+- Purpose: Format, validate, and organize JSON through a focused editing workflow.
+- Audience: Developers, Technical teams, API testers, Learners
+- Aliases: json formatter, utilities & productivity, json, formatter, json validator, format json
+- Capabilities: Format and beautify JSON; Minify large JSON payloads; Validate JSON instantly; Format JSON — Beautify compact JSON into a readable structure.; Minify JSON — Reduce whitespace and line breaks for compact output.; Validate JSON — Confirm that JSON syntax is correct before use.; Runs entirely in the browser with no server dependency.; Supports formatting, minification, and validation workflows.
+- Related apps: API Tester, Markdown Editor, Password Generator
+
+### Markdown Editor
+- URL: https://ansiversa.com/markdown-editor
+- Category: Utilities & Productivity
+- Purpose: Write Markdown, preview the rendered result, and export reusable documents directly in your browser.
+- Audience: Developers, Technical writers, Students and creators
+- Aliases: markdown editor, utilities & productivity, markdown, editor
+- Capabilities: Browser-only Markdown editing; Live rendered preview; Markdown and HTML export; Live preview — Render common Markdown structures immediately.; Document statistics — Track characters, words, and lines in realtime.; Browser exports — Download Markdown and HTML files without a server.; Metadata-driven overview content.; Safe browser-only Markdown rendering with no saved history.
+- Related apps: JSON Formatter, Time Zone Scheduler, API Tester
+
+### Time Zone Scheduler
+- URL: https://ansiversa.com/time-zone-scheduler
+- Category: Utilities & Productivity
+- Purpose: Compare one meeting time across participant time zones and save lightweight schedules in your browser.
+- Audience: Remote teams, Recruiters, Freelancers
+- Aliases: time zone scheduler, utilities & productivity, time, zone, scheduler
+- Capabilities: Browser-local schedules; My Time highlight; Native time-zone conversion; Schedule — Title, base date, base time, and base time zone.; Participants — Multiple IANA time-zone names included in the comparison.; Insights — Local totals, unique zones, most-used zone, average participants, and recent schedules.
+- Related apps: Markdown Editor, Browser PDF Reader, JSON Formatter
+
+### Browser PDF Reader
+- URL: https://ansiversa.com/browser-pdf-reader
+- Category: Utilities & Productivity
+- Purpose: Open local PDFs in the browser and save lightweight reading-session metadata without uploading documents.
+- Audience: Students, Professionals, Privacy-conscious users
+- Aliases: browser pdf reader, utilities & productivity, browser, pdf, reader
+- Capabilities: Local PDF viewing; Metadata-only sessions; Workspace — Select a PDF, view it, navigate pages, and set zoom.; History — Search, edit, reopen, delete, or clear local reading sessions.; Insights — Review total documents, pages viewed, average pages, and recent sessions.
+- Related apps: Time Zone Scheduler, Markdown Editor, JSON Formatter
+
+### Wellness and Goal Planner
+- URL: https://ansiversa.com/wellness-and-goal-planner
+- Category: Personal Life & Wellness
+- Purpose: Set goals and track daily habits through a focused wellness-planning workflow.
+- Audience: Goal setters, Habit builders, Everyday users
+- Aliases: wellness and goal planner, personal life & wellness, wellness, and, goal, planner
+- Capabilities: Goal setting; Daily habit tracking; Wellness planning; Wellness goals — Set what to work toward.; Daily habits — Track the supporting routine.; Progress review — Review ongoing progress.; Lightweight dashboard and list responses with detail endpoints for editable records.; Protected workflow pages under /wellness-and-goal-planner/goals, areas, and reflections.
+- Related apps: Meal Planner, Fitness Tracker, Mood Journal
+
+### Meal Planner
+- URL: https://ansiversa.com/meal-planner
+- Category: Personal Life & Wellness
+- Purpose: Create practical weekly meal plans and keep everyday food decisions organized.
+- Audience: Individuals, Families, Busy households
+- Aliases: meal planner, personal life & wellness, meal, planner
+- Capabilities: Reusable recipes; Weekly meal plans; Calendar scheduling; Recipe ideas — Maintain a useful set of reusable options.; Weekly plans — Create a plan for each week you want to organize.; Calendar review — See what is planned for each date and meal type.; Protected recipe, plan, and calendar workflow.; Responsive presentation across devices.
+- Related apps: Wellness and Goal Planner, Fitness Tracker, Mood Journal
+
+### Fitness Tracker
+- URL: https://ansiversa.com/fitness-tracker
+- Category: Personal Life & Wellness
+- Purpose: Create activities, log completed sessions, and review activity history in a practical non-clinical workspace.
+- Audience: Everyday movers, Manual trackers, Ansiversa users
+- Aliases: fitness tracker, personal life & wellness, fitness, tracker
+- Capabilities: Activity records; Session logs; Progress review; Activities — Store repeatable activity records.; Logs — Record completed sessions.; Insights — Review recent activity and totals.; Protected activities, logs, and insights workflow.; Responsive presentation across devices.
+- Related apps: Meal Planner, Mood Journal, Wellness and Goal Planner
+
+### Mood Journal
+- URL: https://ansiversa.com/mood-journal
+- Category: Personal Life & Wellness
+- Purpose: Record today’s mood, review recent entries, and reflect privately in your browser.
+- Audience: Reflective users, Routine builders, Everyday users
+- Aliases: mood journal, personal life & wellness, mood, journal
+- Capabilities: Date-keyed mood entries; Searchable recent reflections; Browser-local privacy; Today’s entry — Save or update one date-keyed mood entry for today.; Recent reflections — Search and filter entries stored in this browser.; Current streak — Count consecutive local dates with a saved entry.; Metadata-driven overview content.; Responsive Record → Review → Reflect workflow.
+- Related apps: Fitness Tracker, Expense Tracker, Meal Planner
+
+### Expense Tracker
+- URL: https://ansiversa.com/expense-tracker
+- Category: Personal Life & Wellness
+- Purpose: Record everyday spending, organize expenses, and understand what was spent.
+- Audience: Individuals, Students, Households
+- Aliases: expense tracker, personal life & wellness, expense, tracker
+- Capabilities: Fast expense entry; Category-based review; Local spending insights; Expense records — Create, edit, duplicate, delete, search, and filter expenses.; Category management — Create and maintain categories for recurring spending areas.; History and insights — Review lifecycle events and local summaries from recorded expenses.; Protected Expenses, Categories, History, and Insights workflow routes.; Lightweight dashboard responses with detail endpoints for editing.
+- Related apps: Mood Journal, Travel Itinerary Builder, Fitness Tracker
+
+### Travel Itinerary Builder
+- URL: https://ansiversa.com/travel-itinerary-builder
+- Category: Personal Life & Wellness
+- Purpose: Organize destinations, activities, and practical trip details into one clear itinerary.
+- Audience: Solo travelers, Families, Groups
+- Aliases: travel itinerary builder, personal life & wellness, travel, itinerary, builder
+- Capabilities: Day-by-day planning; Reusable trip details; Clear travel overview; Places — Collect destinations and important stops.; Activities — Organize what to do and when.; Travel notes — Keep reminders and practical context together.; Day and activity-ready content structure.; Responsive itinerary presentation.
+- Related apps: Expense Tracker, Language Learning Buddy, Mood Journal
+
+### Language Learning Buddy
+- URL: https://ansiversa.com/language-learning-buddy
+- Category: Personal Life & Wellness
+- Purpose: Build a vocabulary list, record practice sessions, and review learning progress in a focused daily language workflow.
+- Audience: Language learners, Routine builders, Everyday users
+- Aliases: language learning buddy, personal life & wellness, language, learning, buddy
+- Capabilities: Vocabulary library; Practice sessions; Progress review; Vocabulary — Store words, translations, language, category, and difficulty.; Practice — Record dated practice sessions with result and confidence.; Progress — Review recent practice and learning status.; Protected vocabulary, practice, and progress workflow.
+- Related apps: Travel Itinerary Builder, Eco Habit Tracker, Expense Tracker
+
+### Eco Habit Tracker
+- URL: https://ansiversa.com/eco-habit-tracker
+- Category: Personal Life & Wellness
+- Purpose: Build eco-friendly habits, track daily progress, and maintain streaks in your browser.
+- Audience: Individuals, Families, Students
+- Aliases: eco habit tracker, personal life & wellness, eco, habit, tracker
+- Capabilities: 10 bundled habits; Daily progress tracking; Browser-local streaks; Bundled habits — Start with 10 practical habits across five categories.; Daily progress — Store today’s completed habit IDs in this browser.; Current streak — Count consecutive days with at least one completed habit.; Metadata-driven overview content.; Date-based browser progress with local streak calculation.
+- Related apps: Language Learning Buddy, Travel Itinerary Builder, Expense Tracker
+
+### Interview Scheduler
+- URL: https://ansiversa.com/interview-scheduler
+- Category: Career & Professional
+- Purpose: Organize interview appointments, rounds, and calendar reminders.
+- Audience: Job seekers, Recruiters, Hiring teams
+- Aliases: interview scheduler, career & professional, interview, scheduler
+- Capabilities: Interview scheduling; Round tracking; Calendar reminders; Schedules — Store the candidate and role context.; Rounds — Plan each interview step.; Calendar — Track interview timing and reminders.; Protected schedule, round, and calendar workflow.; Responsive presentation across devices.
+- Related apps: Job Tracker, AI Job Interviewer, Email Assistant
+
+### Job Tracker
+- URL: https://ansiversa.com/job-tracker
+- Category: Career & Professional
+- Purpose: Track job listings, applications, and insights in one organized workspace.
+- Audience: Job seekers, Career planners, Professionals
+- Aliases: job tracker, career & professional, job, tracker
+- Capabilities: Job listing tracker; Application pipeline; Insight review; Jobs — Store the opportunity details.; Applications — Track the pipeline for each role.; Insights — Record priorities and recommendations.; Protected jobs, applications, and insights workflow.; Responsive presentation across devices.
+- Related apps: Interview Scheduler, AI Job Interviewer, Email Assistant
+
+### AI Job Interviewer
+- URL: https://ansiversa.com/ai-job-interviewer
+- Category: Career & Professional
+- Purpose: Run structured mock interview sessions, record answers, and review progress without requiring AI integration.
+- Audience: Job seekers, Students, Professionals
+- Aliases: ai job interviewer, career & professional, ai, job, interviewer
+- Capabilities: Mock interview sessions; Typed answer practice; Manual progress results; Interview session — Capture role, company, level, type, and target date.; Question bank — Add behavioral, technical, role, company, and closing questions.; Result summary — Track progress score, strengths, improvements, and next steps.; Protected API routes under /api/v1/ai-job-interviewer.; Current-user owned sessions, questions, answers, and results.
+- Related apps: Job Tracker, Email Assistant, Interview Scheduler
+
+### Email Assistant
+- URL: https://ansiversa.com/email-assistant
+- Category: Career & Professional
+- Purpose: Organize email projects, write drafts, reuse templates, and keep a clear history of follow-up work.
+- Audience: Job seekers, Managers, Client-facing teams
+- Aliases: email assistant, career & professional, email, assistant
+- Capabilities: Email project planning; Draft and template workspace; History for sent and reviewed emails; Project records — Capture the purpose and audience for each email workflow.; Reusable templates — Maintain strong patterns for repeat communication.; History entries — Preserve key draft, sent, review, and archive events.; User-scoped email project, draft, template, and history records.
+- Related apps: AI Job Interviewer, Job Tracker, Interview Scheduler
+
+### Grammar and Paraphrasing Assistant
+- URL: https://ansiversa.com/grammar-and-paraphrasing-assistant
+- Category: Content & AI Writing
+- Purpose: Save source text, correct grammar, paraphrase into a clear tone, and review generated results from one focused writing workspace.
+- Audience: Students, Professionals, Creators
+- Aliases: grammar and paraphrasing assistant, content & ai writing, grammar, and, paraphrasing, assistant
+- Capabilities: Editable text projects; Corrected and paraphrased output; Result history with scores; Projects — Create, update, and delete long-lived writing records.; Results — Store generated corrected and paraphrased output with readability scores.; History — Track completed placeholder jobs and generation actions.; Lightweight dashboard/list responses and detail endpoints for full text.; Protected workflow routes under /grammar-and-paraphrasing-assistant/projects, editor, results, and history.
+- Related apps: Creative Title Generator, AI Translator and Tone Fixer, Speech Writer
+
+### Creative Title Generator
+- URL: https://ansiversa.com/creative-title-generator
+- Category: Content & AI Writing
+- Purpose: Turn a topic, audience, and style direction into organized title ideas for articles, videos, products, email, and social posts.
+- Audience: Content creators, Marketing teams, Solo builders
+- Aliases: creative title generator, content & ai writing, creative, title, generator
+- Capabilities: Project-based title briefs; Multiple generated title options; Scored V1 placeholder results; Projects — Create, edit, and delete title briefs.; Generator — Choose type, style, and keywords before generating title options.; Results and history — Review generated titles and previous jobs.; Protected project, generation, result, and history APIs.
+- Related apps: Grammar and Paraphrasing Assistant, AI Translator and Tone Fixer, Speech Writer
+
+### File Optimizer
+- URL: https://ansiversa.com/file-optimizer
+- Category: Utilities & Productivity
+- Purpose: Estimate file compression locally from file metadata without uploading private files.
+- Audience: Professionals, Students, Privacy-conscious users
+- Aliases: file optimizer, utilities & productivity, file, optimizer
+- Capabilities: Metadata-only file picker; Simulated compression profiles; Browser-local history; Compressor — Add metadata and generate a simulated compression result.; History — Search, delete, and clear local records.; Insights — Review total files, original size, estimated savings, average savings, and recent activity.
+- Related apps: Voice Converter, Project Tracker, Task Prioritizer
+
+### Voice Converter
+- URL: https://ansiversa.com/voice-converter
+- Category: Utilities & Productivity
+- Purpose: Turn typed text into browser-native speech previews without uploading text or generating audio files.
+- Audience: Writers, Students, Privacy-conscious users
+- Aliases: voice converter, utilities & productivity, voice, converter
+- Capabilities: Native Speech Synthesis; Browser-local sessions; Workspace — Add text, choose a voice, tune settings, preview speech, and save sessions.; History — Search, replay, delete, and clear browser-local sessions.; Insights — Review total sessions, total characters, average length, most-used voice, and recent activity.
+- Related apps: File Optimizer, Project Tracker, Task Prioritizer
+
+### Project Tracker
+- URL: https://ansiversa.com/project-tracker
+- Category: Utilities & Productivity
+- Purpose: Organize projects, tasks, priorities, due dates, and progress signals inside the Ansiversa shell with user-owned database persistence.
+- Audience: Solo builders, Students and professionals, Families and small teams
+- Aliases: project tracker, utilities & productivity, project, tracker
+- Capabilities: DB-backed project records; Task-level planning; Progress review; Projects — Create, edit, delete, search, and filter saved project records.; Tasks — Create, edit, delete, search, and filter project tasks.; Insights — Review active projects, completed projects, blocked tasks, overdue tasks, and upcoming tasks.; Catalog key, slug, logo key, and route identity remain project-tracker.
+- Related apps: Voice Converter, Task Prioritizer, File Optimizer
+
+### Task Prioritizer
+- URL: https://ansiversa.com/task-prioritizer
+- Category: Utilities & Productivity
+- Purpose: Task Prioritizer for the Ansiversa app ecosystem.
+- Audience: Individuals, Families and teams, Power users
+- Aliases: task prioritizer, utilities & productivity, task, prioritizer
+- Capabilities: Focused workspace; Organized information; Clear review flow; Stable route — Available at /task-prioritizer/prioritize.; Catalog alignment — Connected to the active Ansiversa app registry.; Shared shell — Runs inside the same Ansiversa navigation and layout system.; Catalog key, slug, and route alignment.; Responsive presentation through the shared Ansiversa shell.
+- Related apps: Project Tracker, Voice Converter, File Optimizer
+
+### Goal Tracker
+- URL: https://ansiversa.com/goal-tracker
+- Category: Personal Life & Wellness
+- Purpose: Set measurable goals, track milestones, and record progress check-ins in one focused workspace.
+- Audience: Individuals, Families and teams, Power users
+- Aliases: goal tracker, personal life & wellness, goal, tracker
+- Capabilities: Goal planning; Milestone tracking; Progress check-ins; Goals — Store the long-lived outcome.; Milestones — Break goals into checkpoints.; Check-ins — Record progress and notes over time.; Protected goals, milestones, check-ins, and insights workflow.; Responsive presentation across devices.
+- Related apps: Medicine Reminder, Health Report Organizer, Family Task Planner
+
+### Medicine Reminder
+- URL: https://ansiversa.com/medicine-reminder
+- Category: Personal Life & Wellness
+- Purpose: Organize medicines, reminder schedules, dose history, and refill notes in one focused Ansiversa workspace.
+- Audience: Individuals, Caregivers, Appointment planners
+- Aliases: medicine reminder, personal life & wellness, medicine, reminder
+- Capabilities: Medicine records; Reminder schedules; Dose history and notes; Medicines — Store the core medicine record.; Schedules — Define the reminder structure.; History — Record dose outcomes and notes.; Protected medicine, schedule, dose-log, and note workflow.
+- Related apps: Goal Tracker, Health Report Organizer, Family Task Planner
+
+### Health Report Organizer
+- URL: https://ansiversa.com/health-report-organizer
+- Category: Personal Life & Wellness
+- Purpose: Organize health reports, categories, facilities, document references, and follow-up notes in one private workflow.
+- Audience: Individuals, Caregivers, Appointment planners
+- Aliases: health report organizer, personal life & wellness, health, report, organizer
+- Capabilities: Report records; Categories and facilities; Attachment metadata and notes; Health reports — Create report records with date, type, status, priority, summary, category, and facility.; Documents and notes — Track file names, sources, storage locations, links, and report-specific notes.; Insights — Review total reports, reviewed records, follow-up load, attachment count, and recent activity.; Explore CTA enters /health-report-organizer/reports.; Protected workflow routes run inside the persistent Ansiversa shell.
+- Related apps: Medicine Reminder, Family Task Planner, Goal Tracker
+
+### Family Task Planner
+- URL: https://ansiversa.com/family-task-planner
+- Category: Personal Life & Wellness
+- Purpose: Organize household responsibilities, assign family ownership, and keep daily work moving without turning home life into project management.
+- Audience: Families, Couples and shared homes, Caregivers
+- Aliases: family task planner, personal life & wellness, family, task, planner
+- Capabilities: Today and upcoming task summaries; Family member workload overview; Simple categories and schedule review; Task management — Create, edit, delete, duplicate, complete, reopen, search, filter, and sort tasks.; Household setup — Maintain family members and categories with active or inactive status.; Review surfaces — Use dashboard, calendar, and insights views to understand upcoming work and completion patterns.; Protected workflow routes inside the persistent shell.; Lightweight dashboard/list responses with detail responses for editing.
+- Related apps: Health Report Organizer, Medicine Reminder, Goal Tracker
+
+### Rent a Car
+- URL: https://ansiversa.com/rent-a-car
+- Category: Mobility & Travel
+- Purpose: A planning workspace for rental searches, vehicle option comparison, booking references, and travel-day rental details.
+- Audience: Trip planners, Families, Frequent travelers
+- Aliases: rent a car, mobility & travel, rent, a, car
+- Capabilities: Plan rental searches; Compare user-entered vehicle options; Track confirmed booking references; Search records — Pickup/dropoff, dates, driver age group, vehicle needs, budget, notes, and status.; Vehicle options — Provider, vehicle class, estimated costs, deposits, mileage, cancellation notes, and preference.; Booking records — Confirmed references, totals, provider contacts, instructions, status, and cancellation deadlines.; Overview Explore CTA routes to /rent-a-car/searches.
+- Related apps: Car Pool, Vehicle Maintenance Tracker, Parking Expense Tracker
+
+### Car Pool
+- URL: https://ansiversa.com/car-pool
+- Category: Mobility & Travel
+- Purpose: A private planning workspace for ride offers, local trip joins, passenger requests, and weekly carpool activity without live matching, payments, or external messaging.
+- Audience: Commuters, Families and groups, Occasional travelers
+- Aliases: car pool, mobility & travel, car, pool
+- Capabilities: Create and manage ride offers; Join or leave saved trips locally; Review passenger requests and activity; Ride records — Route, departure, seat, vehicle, driver, meeting point, price-reference, and status details.; Trip records — Joined passengers, seats, local leave actions, and trip state.; Request records — Passenger request details, pickup notes, pending/approved/rejected status, and response notes.; Overview Explore CTA routes to /car-pool/rides.
+- Related apps: Rent a Car, Vehicle Maintenance Tracker, Parking Expense Tracker
+
+### Vehicle Maintenance Tracker
+- URL: https://ansiversa.com/vehicle-maintenance-tracker
+- Category: Mobility & Travel
+- Purpose: A protected workspace for vehicles, service history, maintenance reminders, costs, odometer readings, and monthly upkeep activity.
+- Audience: Vehicle owners, Families, Frequent drivers
+- Aliases: vehicle maintenance tracker, mobility & travel, vehicle, maintenance, tracker
+- Capabilities: Track vehicle profiles; Record maintenance history; Review upcoming and overdue reminders; Vehicles — Profile each vehicle and keep odometer/status information current.; Maintenance records — Save service category, date, odometer, provider, cost, next due signals, and notes.; Reminders — Track upcoming, overdue, completed, and dismissed maintenance reminders.; Overview Explore CTA routes to /vehicle-maintenance-tracker/vehicles.
+- Related apps: Car Pool, Parking Expense Tracker, Rent a Car
+
+### Parking Expense Tracker
+- URL: https://ansiversa.com/parking-expense-tracker
+- Category: Mobility & Travel
+- Purpose: A protected workspace for parking locations, parking sessions, payment methods, vehicles, notes, and monthly parking spend.
+- Audience: Commuters, Families, Frequent drivers
+- Aliases: parking expense tracker, mobility & travel, parking, expense, tracker
+- Capabilities: Record parking expenses; Organize frequent locations; Review monthly parking costs; Parking expenses — Capture amount, date, time, duration, vehicle, payment method, purpose, and notes.; Parking locations — Maintain reusable locations with city, area, parking type, and default hourly rate.; Insights — Review totals, monthly activity, payment breakdown, and location breakdown.; Overview Explore CTA routes to /parking-expense-tracker/expenses.
+- Related apps: Vehicle Maintenance Tracker, Trip Cost Calculator, Car Pool
+
+### Trip Cost Calculator
+- URL: https://ansiversa.com/trip-cost-calculator
+- Category: Mobility & Travel
+- Purpose: Plan, record, compare, and review the total cost of trips across travelers, distance, and expense categories.
+- Audience: Drivers, Families, Frequent travelers
+- Aliases: trip cost calculator, mobility & travel, trip, cost, calculator
+- Capabilities: Trip cost records; Category breakdowns; Comparison insights; Trip records — Name, route, dates, travelers, vehicle, distance, currency, and notes.; Cost items — Categorized expense records attached to trips.; Insight summaries — Totals, averages, categories, monthly spend, and recent activity.; Explore CTA routes to /trip-cost-calculator/trips.; Overview metadata follows the shared catalog contract.
+- Related apps: Parking Expense Tracker, Vehicle Maintenance Tracker, Car Pool
+
+### Corporate Tax UAE
+- URL: https://ansiversa.com/corporate-tax-uae
+- Category: Business & UAE
+- Purpose: Organize UAE corporate tax periods, user-entered adjustments, obligations, and estimate assumptions in a private workspace.
+- Audience: Small businesses, Finance teams, Founders
+- Aliases: corporate tax uae, business & uae, corporate, tax, uae
+- Capabilities: Tax period records; Adjustment schedules; Obligation tracking; Tax periods — Financial year, entity identity, revenue, accounting profit, taxable estimate, currency, and status.; Adjustments — User-entered categories, direction, amount, reference, explanation, and treatment review status.; Obligations — Due dates, priority, responsible person, completion date, and external references.; Explore CTA routes to /corporate-tax-uae/tax-periods.; Tax outputs are labelled estimates and calculated only from stored user records.
+- Related apps: VAT Assistant UAE, School Administration, Subscription Manager
+
+### VAT Assistant UAE
+- URL: https://ansiversa.com/vat-assistant-uae
+- Category: Business & UAE
+- Purpose: Organize UAE VAT registrations, returns, transactions, and estimate-only VAT summaries in a private workspace.
+- Audience: Small businesses, Finance teams, Founders
+- Aliases: vat assistant uae, business & uae, vat, assistant, uae
+- Capabilities: Registration records; VAT return tracking; Transaction VAT summaries; Registrations — Business name, TRN, registration type, registration date, VAT period, status, country, and notes.; Returns — VAT period, filing due date, output VAT, input VAT, payable VAT, refund amount, status, and submission date.; Transactions — Date, invoice number, customer or supplier, transaction type, taxable amount, VAT rate, VAT amount, currency, and notes.; Explore CTA routes to /vat-assistant-uae/registrations.; VAT outputs are labelled planning and record-keeping information.
+- Related apps: Corporate Tax UAE, School Administration, Subscription Manager
+
+### School Administration
+- URL: https://ansiversa.com/school-administration
+- Category: Business & UAE
+- Purpose: A calm private workspace for smaller schools, tutors, training centres, and early-stage institutions to organize students, classes, enrolments, attendance, and summaries.
+- Audience: Small schools, Tutors and training centres, Early-stage institutions
+- Aliases: school administration, business & uae, school, administration
+- Capabilities: Private user-entered records; Students and class enrolments; Attendance summaries without SIS or LMS scope; Students — CRUD records with admission number uniqueness and guardian/support details.; Classes — CRUD records with capacity, teacher, academic year, and explicit enrolments.; Attendance — Class/date attendance with duplicate prevention and safe attendance-rate calculation.; Protected workflow routes under /school-administration.; Explicit enrolments instead of free-text-only class storage.
+- Related apps: VAT Assistant UAE, Subscription Manager, Corporate Tax UAE
+
+### Subscription Manager
+- URL: https://ansiversa.com/subscription-manager
+- Category: Business & UAE
+- Purpose: Track recurring services, renewal dates, categories, and subscription spend in one private manual workspace.
+- Audience: Individuals, Families, Freelancers and small businesses
+- Aliases: subscription manager, business & uae, subscription, manager
+- Capabilities: Manual subscription records; Renewal history and status; Currency-separated insights; Subscriptions — Create, edit, duplicate, pause, cancel, and delete subscription records.; Renewals — Record renewal events manually with amount, date, status, and next billing context.; Insights — Review active counts, trial counts, upcoming renewals, overdue renewals, and spending summaries.; Protected workflow routes for Subscriptions, Categories, Renewals, and Insights.; Overview Explore CTAs route directly into the first real workflow route.
+- Related apps: School Administration, VAT Assistant UAE, Corporate Tax UAE
+
+### EMI / Loan Calculator
+- URL: https://ansiversa.com/emi-loan-calculator
+- Category: Documents & Records
+- Purpose: Estimate loan repayments, compare scenarios, save private planning records, and review reducing-balance amortization schedules.
+- Audience: Individuals, Families, Small business owners
+- Aliases: emi / loan calculator, emi loan calculator, documents & records, emi, loan, calculator, monthly payment
+- Capabilities: EMI and interest estimates; Saved loan scenarios; Amortization schedule; Calculator — Calculate EMI, interest, repayment, fees, payoff date, ratio, and schedule.; Compare and Insights — Compare repayment outcomes and review aggregate saved-scenario statistics.; Protected workflow routes for Calculator, Saved Loans, Compare, and Insights.; Overview Explore CTAs route directly into /emi-loan-calculator/calculator.
+- Related apps: Document Expiry Tracker, Digital Document Vault
+
+### Document Expiry Tracker
+- URL: https://ansiversa.com/document-expiry-tracker
+- Category: Documents & Records
+- Purpose: A private workspace for tracking passport, ID, licence, permit, insurance, certificate, and other personal document expiry dates.
+- Audience: Frequent travelers, Households, Everyday planners
+- Aliases: document expiry tracker, documents & records, document, expiry, tracker
+- Capabilities: Track important document dates; Review expiry windows; Plan renewals without external integrations; Document facts — Title, type, number, authority, country, issue date, expiry date, notes, and tags.; Expiry dashboard — Active, expiring soon, expired, archived, upcoming 7/30/90 days, and no-expiry counts.; Renewal actions — Archive, restore, delete, and mark renewed with updated date fields.; Overview Explore CTA routes to /document-expiry-tracker/documents.
+- Related apps: EMI / Loan Calculator, Digital Document Vault
+
+### Digital Document Vault
+- URL: https://ansiversa.com/digital-document-vault
+- Category: Documents & Records
+- Purpose: A private owner-scoped vault for storing personal digital document files with searchable metadata, categories, tags, and expiry context.
+- Audience: Individuals, Families, Everyday planners
+- Aliases: digital document vault, documents & records, digital, document, vault
+- Capabilities: Upload common personal document files; Organize by category and document type; Review storage, expiry, and recent upload insights; Document facts — Title, category, document type, description, tags, issue date, expiry date, file name, MIME type, and file size.; Category management — Create, rename, and delete categories when no documents are attached.; Insights — Review total documents, storage used, category and type distribution, expiry counts, and recent uploads.; Overview Explore CTA routes to /digital-document-vault/documents.
+- Related apps: Document Expiry Tracker, EMI / Loan Calculator
+
+### Home Inventory Manager
+- URL: https://ansiversa.com/home-inventory-manager
+- Category: Home & Family
+- Purpose: Create a private household inventory for belongings, rooms, values, warranties, and archive status.
+- Audience: Homeowners and renters, Families, Practical planners
+- Aliases: home inventory manager, home & family, home, inventory, manager
+- Capabilities: Category, room, condition, warranty, and archive tracking; Inventory insights without ecommerce, insurance, barcode, or AI scope; Item records — Track title, category, room, quantity, purchase details, estimated value, warranty date, brand, model, serial number, condition, and notes.; Category control — Create and rename categories while preventing deletion when items still exist.; Inventory review — Use search, filters, archive/restore, and insights to keep the list manageable.; Explore routes to /home-inventory-manager/items.; Responsive workflow inside the shared Ansiversa shell.
+- Related apps: Household Expense Splitter, Emergency Contacts Organizer, Packing Checklist
+
+### Household Expense Splitter
+- URL: https://ansiversa.com/household-expense-splitter
+- Category: Home & Family
+- Purpose: Record shared household expenses, split costs between members, track settlements, and review simple balances.
+- Audience: Roommates, Couples and families, Shared living groups
+- Aliases: household expense splitter, home & family, household, expense, splitter
+- Capabilities: Equal and manual expense splits; Settlement and balance summaries without banking or payment processing; Members — Create, edit, and manage active household members.; Expenses — Create equal or manual splits with category, payer, date, notes, and archive status.; Settlements — Record repayments between members and keep outstanding balances current.; Explore routes to /household-expense-splitter/members.; Responsive workflow inside the shared Ansiversa shell.
+- Related apps: Home Inventory Manager, Emergency Contacts Organizer, Packing Checklist
+
+### Emergency Contacts Organizer
+- URL: https://ansiversa.com/emergency-contacts-organizer
+- Category: Home & Family
+- Purpose: Keep important family, medical, school, workplace, insurance, and assistance contacts in one protected workspace.
+- Audience: Parents and families, Residents, Travellers
+- Aliases: emergency contacts organizer, home & family, emergency, contacts, organizer
+- Capabilities: Favourite and primary contacts; Direct phone and email actions; Phone and email — Primary and alternate phone fields plus optional email support quick manual contact.; Relationship and category — Labels make it clear why the contact matters.; Location and notes — Optional address, country or region, and instructions capture important context.; Overview Explore CTA routes to /emergency-contacts-organizer/contacts.
+- Related apps: Household Expense Splitter, Packing Checklist, Home Inventory Manager
+
+### Packing Checklist
+- URL: https://ansiversa.com/packing-checklist
+- Category: Home & Family
+- Purpose: Plan trip packing lists, organize items by category, and track what is packed before departure.
+- Audience: Families, Professionals, Travelers
+- Aliases: packing checklist, home & family, packing, checklist
+- Capabilities: Trip-based checklists; Category-organized items; Real packing progress; Checklist records — Create, edit, duplicate, archive, restore, and delete packing plans.; Item tracking — Add item quantities, categories, priorities, notes, and packed state.; Progress review — Track completion percentage, remaining items, and category distribution.; Overview CTA opens the real checklist workflow.
+- Related apps: Emergency Contacts Organizer, Birthday & Anniversary Reminder, Household Expense Splitter
+
+### Birthday & Anniversary Reminder
+- URL: https://ansiversa.com/birthday-and-anniversary-reminder
+- Category: Home & Family
+- Purpose: Remember birthdays, anniversaries, and meaningful dates with annual reminder tracking.
+- Audience: Families, Friends, Professionals
+- Aliases: birthday & anniversary reminder, birthday and anniversary reminder, home & family, birthday, and, anniversary, reminder
+- Capabilities: Recurring annual dates; Upcoming and missed views; Gift ideas and notes; Reminder records — Create, edit, archive, restore, favourite, acknowledge, and delete reminders.; Occasion types — Use seeded types or add custom occasion groups.; Insights — Review monthly distribution, favourites, upcoming reminders, and recently added records.; Overview CTA opens the real reminders workflow.
+- Related apps: Packing Checklist, Home Maintenance Planner, Emergency Contacts Organizer
+
+### Home Maintenance Planner
+- URL: https://ansiversa.com/home-maintenance-planner
+- Category: Home & Family
+- Purpose: Plan recurring and one-time home maintenance tasks, track due dates, record costs, and keep service details organized.
+- Audience: Families, Homeowners and villa residents, Renters
+- Aliases: home maintenance planner, home & family, home, maintenance, planner
+- Capabilities: Task scheduling; Recurring maintenance; Cost and provider records; Tasks — Create, edit, complete, reopen, archive, restore, and delete maintenance tasks.; Schedules — Use one-time or recurring schedules with predictable next due dates.; Insights — Review overdue work, upcoming tasks, priorities, categories, areas, and cost totals.
+- Related apps: Birthday & Anniversary Reminder, Packing Checklist, Emergency Contacts Organizer
+
+### Doctor Visit Tracker
+- URL: https://ansiversa.com/doctor-visit-tracker
+- Category: Health & Medical
+- Purpose: Record doctor appointments, visit history, follow-ups, costs, and personal medical notes in a private organizer.
+- Audience: Individuals, Families, Care organizers
+- Aliases: doctor visit tracker, health & medical, doctor, visit, tracker
+- Capabilities: Visit records; Specialty tracking; Follow-up and cost review; Visits — Create, edit, archive, restore, and delete visit records.; Specialties — Use default specialties or add personal labels.; Insights — Review visits by specialty, month, status, upcoming follow-ups, and costs.
+- Related apps: Water Intake Tracker, Vaccination Tracker, Symptom Journal
+
+### Water Intake Tracker
+- URL: https://ansiversa.com/water-intake-tracker
+- Category: Health & Medical
+- Purpose: Log daily hydration, personal goals, drink types, and intake history in a private wellness tracker.
+- Audience: Individuals, Routine builders, Wellness organizers
+- Aliases: water intake tracker, health & medical, water, intake, tracker
+- Capabilities: Daily entries; Personal goals; Weekly and monthly summaries; Entries — Create, edit, delete, search, and filter water intake records.; Goals — Set a personal daily goal and preferred unit.; Insights — Review today's intake, weekly/monthly averages, best day, streak, trend, and drink type totals.
+- Related apps: Doctor Visit Tracker, Vaccination Tracker, Symptom Journal
+
+### Vaccination Tracker
+- URL: https://ansiversa.com/vaccination-tracker
+- Category: Health & Medical
+- Purpose: Organize vaccination profiles, dose records, upcoming due dates, and multi-dose progress in a private record-keeping workspace.
+- Audience: Parents, Adults, Families
+- Aliases: vaccination tracker, health & medical, vaccination, tracker
+- Capabilities: Profiles; Dose records; Upcoming and overdue review; Profiles — Create, edit, archive, restore, and delete profiles when safe.; Vaccines — Use default organizational labels or add custom vaccine types.; Records — Create, edit, archive, restore, delete, search, filter, and sort vaccination records.; Insights — Review records by vaccine, profile, status, and year with recent activity.
+- Related apps: Water Intake Tracker, Symptom Journal, Doctor Visit Tracker
+
+### Symptom Journal
+- URL: https://ansiversa.com/symptom-journal
+- Category: Health & Medical
+- Purpose: Record personal health observations, symptom patterns, severity, triggers, and follow-up notes over time without diagnosis or treatment advice.
+- Audience: Adults, Caregivers, Appointment preparation
+- Aliases: symptom journal, health & medical, symptom, journal
+- Capabilities: Personal journal; Severity and triggers; History review; Categories — Use default organizational labels or create custom symptom categories.; Entries — Create, edit, archive, restore, delete, search, filter, and sort journal entries.; Follow-up notes — Add additional context after the original entry.; Insights — Review counts, average severity, common categories, body areas, recurring titles, and recent entries.
+- Related apps: Vaccination Tracker, First Aid Guide, Water Intake Tracker
+
+### First Aid Guide
+- URL: https://ansiversa.com/first-aid-guide
+- Category: Health & Medical
+- Purpose: Browse concise educational first-aid reference topics, warning notes, prevention tips, bookmarks, and recently viewed guides. Not a substitute for emergency services or professional care.
+- Audience: Individuals, Families, Preparedness planners
+- Aliases: first aid guide, health & medical, first, aid, guide
+- Capabilities: Educational topics; Bookmarks; Emergency warning notes; Guides — Browse topics with summaries, steps, avoid lists, emergency warnings, prevention, and related topics.; Categories — Review organizational categories for first-aid reference topics.; Bookmarks — Save favourite guides for quick access.; Insights — Review recently viewed, favourite, and most-viewed topics from personal history.; System-managed categories and guide content.
+- Related apps: Symptom Journal, Vaccination Tracker, Water Intake Tracker
+
+### Fuel Expense Tracker
+- URL: https://ansiversa.com/fuel-expense-tracker
+- Category: Vehicle & Driving
+- Purpose: Track vehicle fuel purchases, fuel quantity, odometer readings, station spending, and monthly fuel cost trends from your own entries.
+- Audience: Commuters, Families, Budget reviewers
+- Aliases: fuel expense tracker, vehicle & driving, fuel, expense, tracker
+- Capabilities: Log fuel purchases by vehicle; Review total and monthly fuel costs; Compare station and vehicle spending; Vehicles — Name, fuel type, odometer unit, and archive status.; Entries — Purchase date, odometer, quantity, cost, station, payment method, and notes.; Insights — Monthly cost, vehicle spend, station frequency, and recent purchases.; Coming-soon catalog status preserved until manual verification approves launch.
+- Related apps: Driver Logbook, Vehicle Document Tracker
+
+### Driver Logbook
+- URL: https://ansiversa.com/driver-logbook
+- Category: Vehicle & Driving
+- Purpose: Record personal driving trips, vehicles, odometer readings, purposes, locations, and distance summaries from your own driving records.
+- Audience: Personal drivers, Households, Record keepers
+- Aliases: driver logbook, vehicle & driving, driver, logbook
+- Capabilities: Create vehicles for trip tracking; Record trips with odometer and purpose details; Review distance, duration, and purpose summaries; Vehicles — Vehicle name, manufacturer, model, year, registration nickname, odometer unit, and notes.; Trips — Trip date, start/end time, start/end odometer, distance, purpose, locations, and notes.; Insights — Recent trips, longest trip, monthly distance, vehicle distance, and purpose summaries.; Coming-soon catalog status preserved until manual verification approves launch.
+- Related apps: Fuel Expense Tracker, Vehicle Document Tracker
+
+### Vehicle Document Tracker
+- URL: https://ansiversa.com/vehicle-document-tracker
+- Category: Vehicle & Driving
+- Purpose: Organize vehicle documents, expiry dates, renewal reminders, and document history for personal reference without replacing official government or insurance systems.
+- Audience: Individual drivers, Families, Frequent reviewers
+- Aliases: vehicle document tracker, vehicle & driving, vehicle, document, tracker
+- Capabilities: Track registrations, insurance, inspections, warranties, and custom document types; Review expiry dates, reminder dates, and recently updated records; Keep vehicle records separate, searchable, and easy to refresh; Vehicle records — Name, manufacturer, model, year, registration nickname, registration number, and notes.; Document records — Type, reference number, issue date, expiry date, reminder date, authority, status, and notes.; Document types — Default and custom categories keep documents easy to classify.
+- Related apps: Driver Logbook, Fuel Expense Tracker
+
+### Meeting Scheduler
+- URL: https://ansiversa.com/meeting-scheduler
+- Category: Work & Planning
+- Purpose: Organize meeting schedules, participants, response labels, and agendas in one private workspace.
+- Audience: Individuals, Coordinators, Project owners
+- Aliases: meeting scheduler, work & planning, meeting, scheduler
+- Capabilities: Meeting records; Participant responses; Ordered agendas; Meetings — Create, edit, search, filter, review, and delete schedules.; Participants — Record names, optional email, roles, response labels, and notes.; Agenda — Order discussion items with durations and progress labels.
+- Related apps: Leave Planner, Shift Planner, Work Log Tracker
+
+### Leave Planner
+- URL: https://ansiversa.com/leave-planner
+- Category: Work & Planning
+- Purpose: Plan personal leave, define allowances, and understand used, planned, and remaining balances.
+- Audience: Employees, Freelancers, Career changers
+- Aliases: leave planner, work & planning, leave, planner
+- Capabilities: Custom allowances; Weekday leave planning; Clear balance summaries; Leave types — Define allowances, carry-forward, and active state.; Leave entries — Create, edit, search, filter, review, and delete personal leave.; Balances — See used, planned, remaining, and upcoming totals.
+- Related apps: Meeting Scheduler, Shift Planner, Work Log Tracker
+
+### Shift Planner
+- URL: https://ansiversa.com/shift-planner
+- Category: Work & Planning
+- Purpose: Plan daytime and overnight shifts, assign a lightweight roster, prevent conflicts, and review net scheduled hours.
+- Audience: Individuals, Family businesses, Service teams
+- Aliases: shift planner, work & planning, shift, planner
+- Capabilities: Reusable shift types; Member assignments; Break-aware hours; Shift types — Reusable timing and break defaults.; Members — Optional assignees with lightweight contact details.; Shifts — Daytime or overnight records with conflict checks.; Every record belongs to the signed-in user.; Cancelled shifts do not block new assignments.
+- Related apps: Leave Planner, Work Log Tracker, Meeting Scheduler
+
+### Work Log Tracker
+- URL: https://ansiversa.com/work-log-tracker
+- Category: Work & Planning
+- Purpose: Record timed or manual work, organize it by project, and review private activity summaries without surveillance.
+- Audience: Professionals, Freelancers and consultants, Students and makers
+- Aliases: work log tracker, work & planning, work, log, tracker
+- Capabilities: Timed and manual entries; Project context; Billable time labels; Projects — Reusable organizational context.; Work logs — Timed or manual durable activity records.; Summaries — Today, week, month, status, and billing-state metrics.; Manual entries may overlap; active timed entries may not.; Referenced projects are deactivated instead of destroying history.
+- Related apps: Shift Planner, Leave Planner, Meeting Scheduler
+
+### Bill Splitter
+- URL: https://ansiversa.com/bill-splitter
+- Category: Personal Finance
+- Purpose: Build a private bill, allocate item-level costs, and record settlement progress without moving money.
+- Audience: Friends, Households, Trip groups
+- Aliases: bill splitter, personal finance, bill, splitter
+- Capabilities: Equal, single, and custom splits; Deterministic cent reconciliation; Private settlement records; Participants — Names, optional email, notes, shares, and paid amounts.; Items — Quantity, unit price, line total, and allocation method.; History — Search, filters, pagination, direct details, and durable refresh.; Decimal arithmetic is authoritative; floating point is presentation-only.; Nested records cascade only with their owning bill.
+- Related apps: Savings Goal Planner, Salary Breakdown Calculator, Net Worth Tracker
+
+### Savings Goal Planner
+- URL: https://ansiversa.com/savings-goal-planner
+- Category: Personal Finance
+- Purpose: Track private fixed-currency savings targets, contributions, milestones, and transparent deadline pace.
+- Audience: Individuals, Families, Travellers and makers
+- Aliases: savings goal planner, personal finance, savings, goal, planner
+- Capabilities: Contribution and correction history; Goal milestones; Per-currency summaries; Goals — Target, starting balance, deadline, priority, and state.; Transactions — Dated contribution and correction history.; Milestones — Derived reached, pending, and missed stages.; Three cascade-linked application tables.; Two-decimal half-up authoritative arithmetic.
+- Related apps: Bill Splitter, Salary Breakdown Calculator, Net Worth Tracker
+
+### Salary Breakdown Calculator
+- URL: https://ansiversa.com/salary-breakdown-calculator
+- Category: Personal Finance
+- Purpose: Model private salary scenarios with explicit frequency normalization, recurring and one-time components, and estimated net pay.
+- Audience: Job seekers, Professionals, Budget planners
+- Aliases: salary breakdown calculator, personal finance, salary, breakdown, calculator, pay, income, gross salary, net salary, allowance, deduction
+- Capabilities: Six pay frequencies; Fixed and percentage deductions; Factual scenario comparison; Scenarios — Base salary, currency, period, and work assumptions.; Components — Recurring and one-time earnings and deductions.; Comparison — Factual side-by-side values without recommendations.; Three cascade-linked app tables.; Stable operation IDs and generated contracts.
+- Related apps: Savings Goal Planner, Net Worth Tracker, Bill Splitter
+
+### Net Worth Tracker
+- URL: https://ansiversa.com/net-worth-tracker
+- Category: Personal Finance
+- Purpose: Record private assets and liabilities, preserve balance history, and compare immutable snapshots by currency.
+- Audience: Individuals, Households, Planners
+- Aliases: net worth tracker, personal finance, net, worth, tracker
+- Capabilities: Manual asset and liability accounts; Immutable dated snapshots; Currency-separated net worth; Accounts — Assets and liabilities with inclusion and archive controls.; Balance history — Dated authoritative values with recalculation.; Snapshots — Immutable captured balances and currency-separated totals.; Four isolated app tables.; History-aware deletion and archived read-only rules.
+- Related apps: Salary Breakdown Calculator, Savings Goal Planner, Bill Splitter
+
+### Decision Maker
+- URL: https://ansiversa.com/decision-maker
+- Category: Daily Life
+- Purpose: Compare real options with criteria, weights, ratings, and transparent results while keeping human judgment in control.
+- Audience: Professionals, Consumers, Planners
+- Aliases: decision maker, daily life, decision, maker
+- Capabilities: Weighted criteria; Complete-option ranking; Neutral final selection; Options — Alternatives with context and trade-offs.; Criteria — Positive weights, normalized shares, and higher/lower direction.; Results — Completion, contributions, scores, ties, ranking, and selection.; Four cascade-linked app tables.; Decimal scoring and stable generated contracts.
+- Related apps: Errand Planner, Local Services Finder, Emergency Checklist
+
+### Errand Planner
+- URL: https://ansiversa.com/errand-planner
+- Category: Daily Life
+- Purpose: Organize everyday errands with categories, priorities, due dates, locations, estimates, notes, and clear completion status.
+- Audience: Individuals, Households, Small-business users
+- Aliases: errand planner, daily life, errand, planner
+- Capabilities: Due today, due soon, and overdue views; Category and priority filters; Complete, reopen, archive, and restore; Errands — Create, edit, delete, complete, reopen, archive, restore, search, filter, and paginate records.; Categories — Create and manage simple user-owned categories with color and sort order.; Dashboard — Review pending, in-progress, completed, overdue, due-today, due-soon, archived, and cancelled counts.; Shared drawer forms, confirmation dialogs, pagination, feedback, and empty states.
+- Related apps: Decision Maker, Local Services Finder, Emergency Checklist
+
+### Local Services Finder
+- URL: https://ansiversa.com/local-services-finder
+- Category: Daily Life
+- Purpose: Maintain a private directory of trusted local service providers with contact details, categories, ratings, notes, and preferred markers.
+- Audience: Households, New residents, Small-business users
+- Aliases: local services finder, daily life, local, services, finder
+- Capabilities: Private provider directory; Category and rating filters; Preferred, archive, and restore workflow; Providers — Create, edit, delete, prefer, unprefer, archive, restore, search, filter, and paginate provider records.; Categories — Create and manage simple user-owned service categories with color and sort order.; Dashboard — Review active providers, preferred providers, archived providers, recently contacted providers, and categories.; Shared drawer forms, confirmation dialogs, pagination, feedback, and empty states.
+- Related apps: Errand Planner, Emergency Checklist, Decision Maker
+
+### Emergency Checklist
+- URL: https://ansiversa.com/emergency-checklist
+- Category: Daily Life
+- Purpose: Prepare reusable private emergency checklists with categories, items, notes, completion tracking, reset, archive, and restore workflows.
+- Audience: Individuals, Families, Workers
+- Aliases: emergency checklist, daily life, emergency, checklist
+- Capabilities: Reusable preparedness checklists; Item completion and reset; Private planning, not emergency response; Checklists — Create, edit, delete, archive, restore, complete, reset, search, filter, and paginate reusable checklists.; Items — Create, edit, delete, complete, reopen, and order checklist items.; Categories — Group checklists by emergency context with color and sort order.; Shared drawer forms, confirmation dialogs, pagination, feedback, and empty states.
+- Related apps: Local Services Finder, Errand Planner, Decision Maker
