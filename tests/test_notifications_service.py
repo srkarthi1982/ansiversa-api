@@ -111,6 +111,13 @@ class NotificationServiceTests(unittest.TestCase):
         self.assertFalse(updated.notifications_enabled)
         self.assertFalse(get_notification_preferences(self.db, self.user).reminder_notifications_enabled)
 
+    def test_list_with_no_notifications_returns_empty_contract(self):
+        items, total, unread = list_user_notifications(self.db, self.user, page=1,
+            page_size=20, unread_only=False, notification_type=None)
+
+        self.assertEqual(items, [])
+        self.assertEqual((total, unread), (0, 0))
+
 
 if __name__ == "__main__":
     unittest.main()
