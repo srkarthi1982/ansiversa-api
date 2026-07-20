@@ -6,6 +6,10 @@ from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 DEFAULT_CORS_ORIGINS = [
     "http://localhost:4321",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173",
     "https://qa.ansiversa.com",
     "https://ansiversa.com",
     "https://www.ansiversa.com",

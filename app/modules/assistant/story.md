@@ -77,12 +77,26 @@ roadmap material.
 
 The retrieval service is a deterministic hybrid matcher. It supports exact app
 names, aliases, slugs, title phrases, categories, user problems, capabilities,
-related-app requests, and platform page terms. Ranking favors exact canonical
-names first, then aliases, slugs, title phrases, category matches, bounded
-phrase matches, and token overlap. Session context can boost matching favorite
-and recent apps, resolve current page/app follow-up questions, and answer "go
-back" requests through the last opened app. Context improves retrieval only; it
-does not authorize new routes, new actions, or general chat behavior.
+related-app requests, platform page terms, and bounded fuzzy app-name matching
+for common typos. Ranking favors exact canonical names first, then aliases,
+slugs, title phrases, category matches, bounded phrase matches, token overlap,
+and app-only fuzzy title or slug matches. Specific app references win over
+broader family collections so app questions do not drift into category or page
+answers.
+
+The assistant has deterministic branches for public catalog counts, public
+category counts, app-family collections such as builder or tracker, and curated
+recommendation groups for common user intents such as students, writing,
+productivity, AI apps, planners, personal finance, expenses, interviews, small
+business workflows, invoices, and textbook scanning. Recommendation answers may
+list the requested number of apps, while navigation actions remain route-safe
+and compact. Future-direction retrieval is intent-aware: temporal phrases such
+as "next week" do not trigger roadmap/future-direction answers.
+
+Session context can boost matching favorite and recent apps, resolve current
+page/app follow-up questions, and answer "go back" requests through the last
+opened app. Context improves retrieval only; it does not authorize new routes,
+new actions, or general chat behavior.
 
 The registry is loaded through the cached `KnowledgeRegistry.load()` adapter.
 The assistant does not parse overview JSON, FAQ rows, route registries, or

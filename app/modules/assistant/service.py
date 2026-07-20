@@ -4,6 +4,7 @@ import json
 import logging
 import re
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 from pathlib import Path
 from time import perf_counter
 from typing import Literal, Protocol
@@ -75,12 +76,15 @@ RESTRICTED_REQUEST_TERMS = {
     "certification",
     "promotion",
     "internal notes",
+    "internal api",
+    "internal apis",
     "system prompt",
     "developer message",
     "hidden",
     "secret",
     "private data",
     "authenticated data",
+    "unpublished",
 }
 PROMPT_INJECTION_TERMS = {
     "ignore instructions",
@@ -91,8 +95,23 @@ PROMPT_INJECTION_TERMS = {
     "print prompt",
 }
 PROFESSIONAL_BOUNDARY_TERMS: dict[str, tuple[str, ...]] = {
-    "medical": ("diagnosis", "diagnose", "treatment", "prescribe", "dosage", "dose advice", "medical advice"),
-    "legal": ("legal advice", "lawsuit", "sue", "contract advice"),
+    "medical": (
+        "diagnosis",
+        "diagnose",
+        "treatment",
+        "prescribe",
+        "dosage",
+        "dose advice",
+        "medical advice",
+        "medicine should",
+        "medicine i should",
+        "what medicine",
+        "heart attack",
+        "chest pain",
+        "antibiotic",
+        "antibiotics",
+    ),
+    "legal": ("legal advice", "legal problem", "legal problems", "lawsuit", "sue", "contract advice"),
 }
 
 
@@ -127,6 +146,7 @@ class RankedEntry:
 class AssistantKnowledgeIndex:
     entries: tuple[KnowledgeEntry, ...]
     allowed_routes: frozenset[str]
+    categories: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -394,6 +414,9 @@ OUT_OF_SCOPE_TERMS = {
     "not part of ansiversa",
     "something else",
     "unrelated to ansiversa",
+    "don t exist",
+    "dont exist",
+    "do not exist",
 }
 
 RELATED_APP_TERMS = {
@@ -412,6 +435,134 @@ FUTURE_TERMS = {
     "coming",
     "next",
 }
+NUMBER_WORDS: dict[str, int] = {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+}
+RECOMMENDATION_QUERY_TERMS = {
+    "recommend",
+    "recommendation",
+    "recommendations",
+    "should",
+    "use",
+    "first",
+    "help",
+    "helps",
+    "available",
+}
+RECOMMENDATION_GROUPS: dict[str, tuple[str, ...]] = {
+    "student": (
+        "course-tracker",
+        "quiz",
+        "smart-textbook-scanner",
+        "study-planner",
+        "resume-builder",
+        "ai-notes-summarizer",
+        "concept-explainer",
+        "dictionary-plus",
+    ),
+    "writing": (
+        "speech-writer",
+        "resume-builder",
+        "prompt-builder",
+        "email-assistant",
+        "grammar-and-paraphrasing-assistant",
+        "ai-translator-and-tone-fixer",
+        "creative-title-generator",
+        "proposal-writer",
+    ),
+    "finance": (
+        "bill-splitter",
+        "net-worth-tracker",
+        "salary-breakdown-calculator",
+        "savings-goal-planner",
+        "expense-tracker",
+        "emi-loan-calculator",
+        "subscription-manager",
+        "household-expense-splitter",
+        "fuel-expense-tracker",
+        "parking-expense-tracker",
+    ),
+    "expense": (
+        "expense-tracker",
+        "fuel-expense-tracker",
+        "parking-expense-tracker",
+        "household-expense-splitter",
+        "bill-splitter",
+        "salary-breakdown-calculator",
+        "net-worth-tracker",
+    ),
+    "interview": (
+        "ai-job-interviewer",
+        "interview-coach",
+        "job-description-analyzer",
+        "resume-builder",
+        "career-planner",
+        "email-assistant",
+        "interview-scheduler",
+    ),
+    "productivity": (
+        "task-prioritizer",
+        "project-tracker",
+        "clipboard-manager",
+        "api-tester",
+        "browser-pdf-reader",
+        "markdown-editor",
+        "json-formatter",
+        "time-zone-scheduler",
+        "meeting-scheduler",
+        "work-log-tracker",
+    ),
+    "ai": (
+        "ai-translator-and-tone-fixer",
+        "ai-job-interviewer",
+        "ai-notes-summarizer",
+        "meeting-minutes-ai",
+        "prompt-builder",
+        "smart-textbook-scanner",
+    ),
+    "planner": (
+        "study-planner",
+        "career-planner",
+        "meal-planner",
+        "family-task-planner",
+        "errand-planner",
+        "wellness-and-goal-planner",
+        "home-maintenance-planner",
+        "leave-planner",
+        "shift-planner",
+        "savings-goal-planner",
+    ),
+    "small-business": (
+        "invoice-receipt-maker",
+        "corporate-tax-uae",
+        "vat-assistant-uae",
+        "subscription-manager",
+        "contract-generator",
+        "proposal-writer",
+        "meeting-scheduler",
+        "client-feedback-analyzer",
+    ),
+    "invoice": (
+        "invoice-receipt-maker",
+        "contract-generator",
+        "proposal-writer",
+    ),
+    "textbook": (
+        "smart-textbook-scanner",
+        "book-summary-generator",
+        "concept-explainer",
+        "study-planner",
+    ),
+}
 
 
 def normalize_text(value: str) -> str:
@@ -427,6 +578,45 @@ def tokenize(value: str) -> set[str]:
         elif len(token) > 3 and token.endswith("s"):
             expanded.add(token[:-1])
     return expanded
+
+
+def _fuzzy_ratio(left: str, right: str) -> float:
+    return SequenceMatcher(None, left, right).ratio()
+
+
+def _fuzzy_token_score(message_tokens: set[str], candidate_tokens: set[str]) -> int:
+    score = 0
+    used_candidates: set[str] = set()
+    for message_token in sorted(message_tokens, key=len, reverse=True):
+        if len(message_token) < 4:
+            continue
+        best_candidate = ""
+        best_ratio = 0.0
+        for candidate in candidate_tokens - used_candidates:
+            if len(candidate) < 4:
+                continue
+            ratio = _fuzzy_ratio(message_token, candidate)
+            if ratio > best_ratio:
+                best_candidate = candidate
+                best_ratio = ratio
+        if best_ratio >= 0.82:
+            score += 18
+            used_candidates.add(best_candidate)
+        elif best_ratio >= 0.74:
+            score += 10
+            used_candidates.add(best_candidate)
+    return score
+
+
+def _requested_count(message: str, *, default: int = 3, maximum: int = 10) -> int:
+    normalized = normalize_text(message)
+    tokens = normalized.split()
+    for token in tokens:
+        if token.isdigit():
+            return max(1, min(int(token), maximum))
+        if token in NUMBER_WORDS:
+            return max(1, min(NUMBER_WORDS[token], maximum))
+    return default
 
 
 def _extract_overview_route(app_slug: str) -> str | None:
@@ -538,8 +728,21 @@ def build_legacy_knowledge_index(db: Session) -> AssistantKnowledgeIndex:
     entries = (*_build_app_entries(db), *PLATFORM_ENTRIES, *_build_faq_entries(db))
     public_entries = tuple(entry for entry in entries if entry.visibility == "public")
     allowed_routes = frozenset({entry.route for entry in public_entries} | {"/apps", "/faq"})
+    categories = tuple(
+        sorted(
+            {
+                entry.category
+                for entry in public_entries
+                if entry.source_type == "app" and entry.category
+            }
+        )
+    )
 
-    return AssistantKnowledgeIndex(entries=public_entries, allowed_routes=allowed_routes)
+    return AssistantKnowledgeIndex(
+        entries=public_entries,
+        allowed_routes=allowed_routes,
+        categories=categories,
+    )
 
 
 def _registry_page_summary(page: dict[str, object]) -> str:
@@ -717,7 +920,16 @@ def build_registry_knowledge_index(
         }
         | {"/apps", "/faq"}
     )
-    return AssistantKnowledgeIndex(entries=visible_entries, allowed_routes=allowed_routes)
+    categories = tuple(
+        str(category["name"])
+        for category in registry.data.get("categories", ())
+        if isinstance(category, dict) and category.get("visibility", "public") in allowed
+    )
+    return AssistantKnowledgeIndex(
+        entries=visible_entries,
+        allowed_routes=allowed_routes,
+        categories=categories,
+    )
 
 
 def build_knowledge_index(db: Session | None = None) -> AssistantKnowledgeIndex:
@@ -811,6 +1023,16 @@ def score_entry(
     if overlap:
         score += min(len(overlap), 6) * 8
         reason = reason or "token"
+
+    if entry.source_type == "app":
+        canonical_tokens = tokenize(" ".join((entry.title, slug, *entry.aliases)))
+        fuzzy_score = _fuzzy_token_score(message_tokens, canonical_tokens)
+        if fuzzy_score:
+            score += min(fuzzy_score, 54)
+            reason = reason or "fuzzy"
+        if len(message_tokens) >= 2 and fuzzy_score >= 28:
+            score += 35
+            reason = "fuzzy-app-name"
 
     if context is not None and entry.source_type == "app":
         if context.favorite_app_ids and entry.id.startswith("app:"):
@@ -991,7 +1213,16 @@ def _is_related_app_query(message: str) -> bool:
 
 
 def _is_future_query(message: str) -> bool:
-    return bool(tokenize(message) & FUTURE_TERMS)
+    normalized = normalize_text(message)
+    tokens = tokenize(message)
+    if "next" in tokens and not ({"future", "planned", "plans", "roadmap", "coming"} & tokens):
+        return False
+    if "next" in tokens and any(
+        term in normalized
+        for term in ("next week", "next month", "next year", "next day", "next monday", "next tuesday", "next wednesday", "next thursday", "next friday")
+    ):
+        return False
+    return bool(tokens & FUTURE_TERMS)
 
 
 def _contains_specific_app_reference(message: str, index: AssistantKnowledgeIndex) -> bool:
@@ -1013,7 +1244,7 @@ def _contains_specific_app_reference(message: str, index: AssistantKnowledgeInde
                 for token in alias_tokens
                 if len(token) > 2 and token not in ALIAS_PHRASE_STOPWORDS
             }
-            if significant_alias_tokens and significant_alias_tokens <= tokens:
+            if len(significant_alias_tokens) >= 2 and significant_alias_tokens <= tokens:
                 return True
         if len(tokens & tokenize(entry.title)) >= 2:
             return True
@@ -1043,6 +1274,92 @@ def _category_for_message(message: str) -> str | None:
         if category_text in normalized or any(normalize_text(alias) in normalized for alias in aliases):
             return category
     return None
+
+
+def _category_count_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    tokens = tokenize(message)
+    if "category" not in tokens and "categories" not in tokens:
+        return None
+    if not ({"how", "many", "count", "list", "what", "which"} & tokens):
+        return None
+    categories = index.categories or tuple(
+        sorted(
+            {
+                entry.category
+                for entry in index.entries
+                if entry.source_type == "app" and entry.category
+            }
+        )
+    )
+    if not categories:
+        return None
+
+    apps_entry = next((entry for entry in index.entries if entry.route == "/apps"), None)
+    entries = [apps_entry] if apps_entry is not None else []
+    names = ", ".join(categories)
+    return DeterministicAssistantResult(
+        answer=f"Ansiversa has {len(categories)} public app categories: {names}.",
+        actions=_safe_actions(entries, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(entries),
+        confidence="high",
+        top_entries=tuple(entries),
+    )
+
+
+def _catalog_count_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    tokens = tokenize(message)
+    if not ({"app", "apps"} & tokens and {"how", "many", "count"} & tokens):
+        return None
+    candidates = {
+        token
+        for token in tokens
+        if len(token) > 3 and token not in COLLECTION_QUERY_TERMS and token not in FUTURE_TERMS
+    }
+    if candidates:
+        return None
+    public_app_count = len(
+        [
+            entry
+            for entry in index.entries
+            if entry.source_type == "app" and entry.visibility == "public"
+        ]
+    )
+    about_entry = next((entry for entry in index.entries if entry.id == "platform:ansiversa"), None)
+    entries = [about_entry] if about_entry is not None else []
+    return DeterministicAssistantResult(
+        answer=f"Ansiversa has {public_app_count} carefully curated solution apps.",
+        actions=_safe_actions(entries, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(entries),
+        confidence="high",
+        top_entries=tuple(entries),
+    )
+
+
+def _catalog_boundary_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    normalized = normalize_text(message)
+    if not re.search(r"\bapp\s+10[1-9]\b", normalized):
+        return None
+    apps_entry = next((entry for entry in index.entries if entry.route == "/apps"), None)
+    entries = [apps_entry] if apps_entry is not None else []
+    return DeterministicAssistantResult(
+        answer=(
+            "There is no App #101 in the current Ansiversa ecosystem. "
+            "Ansiversa is permanently limited to 100 carefully curated solution apps."
+        ),
+        actions=_safe_actions(entries, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(entries),
+        confidence="high",
+        top_entries=tuple(entries),
+    )
 
 
 def _is_collection_query(message: str) -> bool:
@@ -1075,6 +1392,106 @@ def _collection_answer_result(
     )
 
 
+def _recommendation_group_for_message(message: str) -> str | None:
+    normalized = normalize_text(message)
+    tokens = tokenize(message)
+    if "student" in tokens or "college" in tokens or "university" in tokens:
+        return "student"
+    if "interview" in tokens:
+        return "interview"
+    if "productivity" in tokens or "productive" in tokens:
+        return "productivity"
+    if "writing" in tokens or "write" in tokens or "writer" in tokens or "speech" in tokens:
+        return "writing"
+    if "invoice" in tokens or "invoices" in tokens or "receipt" in tokens or "receipts" in tokens:
+        return "invoice"
+    if "textbook" in tokens or "textbooks" in tokens or "scan" in tokens or "scanner" in tokens:
+        return "textbook"
+    if "expense" in tokens or "expenses" in tokens or "spending" in tokens:
+        return "expense"
+    if "finance" in tokens or "finances" in tokens or "financial" in tokens or "money" in tokens:
+        return "finance"
+    if "planner" in tokens or "planners" in tokens:
+        return "planner"
+    if "ai" in tokens and ("app" in tokens or "apps" in tokens or "available" in tokens):
+        return "ai"
+    if "business" in tokens or "freelance" in tokens or "client" in tokens:
+        return "small-business"
+    if "split" in tokens and "bill" in tokens:
+        return "finance"
+    if "resume" in tokens or "resumes" in tokens or "cv" in tokens:
+        return "student" if "student" in normalized else "writing"
+    return None
+
+
+def _is_recommendation_query(message: str) -> bool:
+    tokens = tokenize(message)
+    normalized = normalize_text(message)
+    return bool(tokens & RECOMMENDATION_QUERY_TERMS) or normalized.startswith(("i need", "i want", "which app", "what apps"))
+
+
+def _is_bare_recommendation_topic(message: str, group: str) -> bool:
+    normalized = normalize_text(message)
+    tokens = tokenize(message)
+    if len(tokens) > 2:
+        return False
+    bare_terms = {
+        "expense": {"expense", "expenses"},
+        "finance": {"finance", "finances", "money"},
+        "interview": {"interview"},
+        "writing": {"writing"},
+        "ai": {"ai"},
+        "planner": {"planner", "planners"},
+    }
+    return normalized in bare_terms.get(group, set())
+
+
+def _recommendation_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    group = _recommendation_group_for_message(message)
+    if group is None:
+        return None
+    if not _is_recommendation_query(message) and not _is_bare_recommendation_topic(message, group):
+        return None
+
+    tokens = tokenize(message)
+    default_count = 5 if ({"recommend", "available"} & tokens or "apps" in tokens) else 3
+    requested = _requested_count(message, default=default_count, maximum=8)
+    if "first" in tokens:
+        requested = max(requested, 3)
+
+    entries = [
+        entry
+        for slug in RECOMMENDATION_GROUPS[group]
+        if (entry := _app_entry_by_slug(index, slug)) is not None
+    ]
+    if not entries:
+        return None
+
+    selected = entries[:requested]
+    lines = [f"- {entry.title}: {entry.summary}" for entry in selected]
+    group_labels = {
+        "ai": "AI",
+        "finance": "Personal Finance",
+        "small-business": "small business",
+    }
+    group_label = group_labels.get(group, group.replace("-", " "))
+    if "first" in tokens:
+        answer = f"Start with {selected[0].title}. Then consider:\n\n" + "\n".join(lines[1:])
+    else:
+        answer = f"Recommended Ansiversa apps for {group_label}:\n\n" + "\n".join(lines)
+
+    return DeterministicAssistantResult(
+        answer=answer,
+        actions=_safe_actions(selected, index.allowed_routes) or list(FALLBACK_ACTIONS),
+        sources=_sources(selected),
+        confidence="high",
+        top_entries=tuple(selected[:3]),
+    )
+
+
 def _category_collection_result(
     message: str,
     index: AssistantKnowledgeIndex,
@@ -1103,6 +1520,8 @@ def _family_collection_result(
     index: AssistantKnowledgeIndex,
 ) -> DeterministicAssistantResult | None:
     if not _is_collection_query(message):
+        return None
+    if _contains_specific_app_reference(message, index):
         return None
     tokens = tokenize(message)
     candidates = [
@@ -1189,6 +1608,8 @@ def _related_apps_result(
     context: AssistantClientContext | None,
 ) -> DeterministicAssistantResult | None:
     if not _is_related_app_query(message):
+        return None
+    if _category_for_message(message) is not None and not _contains_specific_app_reference(message, index):
         return None
 
     ranked = rank_entries(message, index, context)
@@ -1419,6 +1840,18 @@ def retrieve_deterministic(
     if context_result := _context_result(message, index, context):
         return context_result
 
+    if catalog_boundary_result := _catalog_boundary_result(message, index):
+        return catalog_boundary_result
+
+    if catalog_count_result := _catalog_count_result(message, index):
+        return catalog_count_result
+
+    if category_count_result := _category_count_result(message, index):
+        return category_count_result
+
+    if recommendation_result := _recommendation_result(message, index):
+        return recommendation_result
+
     if _is_future_query(message) and not _contains_specific_app_reference(message, index):
         return _generic_future_result(index)
 
@@ -1451,9 +1884,15 @@ def retrieve_deterministic(
             top_entries=(),
         )
 
+    best_score = ranked[0].score
     top_entries: list[KnowledgeEntry] = []
     seen_ids: set[str] = set()
+    specific_app_reference = _contains_specific_app_reference(message, public_index)
     for match in ranked:
+        if specific_app_reference and top_entries and top_entries[0].source_type == "app":
+            break
+        if top_entries and match.score < max(70, best_score - 25):
+            continue
         if match.entry.id in seen_ids:
             continue
         top_entries.append(match.entry)
@@ -1461,7 +1900,6 @@ def retrieve_deterministic(
         if len(top_entries) == 3:
             break
 
-    best_score = ranked[0].score
     confidence = "high" if best_score >= 70 else "medium"
     action_entries = top_entries
     if (
