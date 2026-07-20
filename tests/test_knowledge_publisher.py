@@ -146,6 +146,7 @@ def test_public_artifact_routes_are_served():
         assert response.headers["content-type"].startswith(expected_content_type)
         assert not response.text.lstrip().lower().startswith("<!doctype html>")
         assert response.headers["cache-control"] == "public, max-age=3600"
+        assert response.headers["access-control-allow-origin"] == "*"
         assert response.headers["x-robots-tag"] == "index, follow"
 
 

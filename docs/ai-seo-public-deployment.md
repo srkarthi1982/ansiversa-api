@@ -59,12 +59,15 @@ Public AI artifacts are safe for public caching with bounded freshness:
 
 ```text
 Cache-Control: public, max-age=3600
+Access-Control-Allow-Origin: *
 X-Robots-Tag: index, follow
 ```
 
 Artifacts are not content-hashed, so they must not use immutable or year-long
 caching. Authenticated Assistant and user APIs must not inherit this public
-artifact cache policy.
+artifact cache policy. Public artifact responses include explicit wildcard CORS
+because they contain no user-specific data and may be consumed from crawler,
+browser, or diagnostic contexts.
 
 ## Robots And Sitemap
 
