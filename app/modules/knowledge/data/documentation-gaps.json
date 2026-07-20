@@ -1,0 +1,10 @@
+{
+  "gaps": [
+    {
+      "expectedSource": "approved-apps.md",
+      "field": "lockedCatalogSource",
+      "slug": "platform"
+    }
+  ],
+  "schemaVersion": 1
+}

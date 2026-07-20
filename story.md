@@ -165,6 +165,17 @@ Claims to avoid today:
 - Do not imply Ansiversa will routinely add apps beyond the permanent
   100-app boundary.
 
+## AI Knowledge Foundation
+
+Phase 1 provides a generated, backend-owned canonical knowledge registry for
+the parent platform, public pages, 14 categories, and exactly 100 solution
+apps. It deterministically derives public purpose, audiences, current
+capabilities, use cases, aliases, related apps, and separately marked future
+direction from allowlisted route and metadata sources. Visibility and source
+traceability are explicit, and build/check commands enforce drift and secret
+scanning. Production Assistant retrieval remains unchanged until a later
+parity phase; no registry content is published for AI SEO yet.
+
 ## Current Limitations
 
 Known platform limitations:

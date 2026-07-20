@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-20 - Implemented AI Knowledge Foundation Phase 1 as a backend-owned deterministic canonical registry with 100 app records, 14 categories, public platform/page knowledge, explicit visibility, current/future separation, source traceability, allowlisted bounded Markdown/JSON parsing, secret scanning, related-app generation, build/check drift commands, an immutable test adapter, readiness/gap artifacts, focused tests, and no production Assistant switch, OpenAI calls, embeddings, public AI SEO output, database changes, or App #101.
+
 2026-07-20 - Ran the parent production migration against `ansiversadb-ansiversa.aws-ap-south-1.turso.io`, advancing Alembic from `20260703_0001` through Notifications Center `20260720_0001` to Universal Activity Timeline `20260720_0002` head. Verified both parent tables and the Activity Timeline owner/time and owner/type/time indexes in production.
 
 2026-07-20 - Added Universal Activity Timeline Phase 1 with the parent `ActivityTimeline` table, owner-scoped list/summary APIs, bounded safe publisher contract, canonical route validation, 30-minute navigation deduplication, latest-1,000 retention, failure-safe shared integrations, and three pilot apps. This is a private journey history—not `AuditLogs`, analytics, surveillance, or app-owned record history—and stores no prompts, raw payloads, or private record values.

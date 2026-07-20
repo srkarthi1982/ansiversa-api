@@ -126,6 +126,17 @@ OpenAI only explains grounded results.
 There are no embeddings, vector databases, repository search, permanent memory,
 tool calls, backend workflow actions, migrations, or schema-breaking changes.
 
+## Knowledge Foundation Phase 1 Boundary
+
+The backend now owns a generated canonical knowledge registry and a cached,
+public-by-default lookup adapter. Focused parity tests cover app names, aliases,
+categories, user problems, current capabilities, future-state labeling,
+related apps, and visibility filtering. Phase 1 does not replace
+`build_knowledge_index` or change `/assistant/query`; production answers and
+OpenAI gating remain exactly as before. The registry is ready for a controlled
+Phase 2 retriever comparison after the missing locked `approved-apps.md` source
+is restored or formally superseded.
+
 ## Future Enhancements
 
 Future phases can add richer context, memory, personalization, and safe actions
