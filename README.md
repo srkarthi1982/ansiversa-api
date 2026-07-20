@@ -637,3 +637,6 @@ After deployment, verify `/`, `/docs`, `/api/v1/health/`, `/api/v1/health/db/`,
 `/api/v1/faqs`, plus protected workflow dashboards such as
 `/api/v1/invoice-receipt-maker/dashboard`, and protected admin verification at
 `/api/v1/admin/status` and `/api/v1/admin/categories`.
+### Notifications Center
+
+Authenticated notification endpoints live under `/api/v1/me/notifications`: `GET /`, `GET /unread-count`, `PATCH /{notification_id}/read`, `PATCH /read-all`, and `GET/PATCH /preferences`. Lists use `page`/`pageSize`, optional `unreadOnly`, and optional bounded `type`, and return `items`, `total`, `unreadCount`, `page`, and `pageSize`. The existing parent `Notifications` table is authoritative; raw metadata is never exposed and action routes are internal-route validated.

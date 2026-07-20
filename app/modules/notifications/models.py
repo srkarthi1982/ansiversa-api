@@ -13,6 +13,7 @@ class Notification(ParentBase):
     __table_args__ = (
         Index("Notifications_userId_idx", "userId"),
         Index("Notifications_userId_isRead_idx", "userId", "isRead"),
+        Index("Notifications_userId_createdAt_idx", "userId", "createdAt"),
     )
 
     id: Mapped[str] = mapped_column(

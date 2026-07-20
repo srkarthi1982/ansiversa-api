@@ -95,3 +95,8 @@ configuration, auth routes, content and overview metadata routes, app catalog
 routes, protected user modules, admin modules, isolated mini-app route
 registration, isolated mini-app Alembic configurations, and living story files
 for implemented modules.
+## Notifications Center Phase 1
+
+The parent `Notifications` table remains the sole notification persistence source. The shared API now supports current-user pagination, unread and type filtering, unread counts, read-one/read-all mutations, and preferences stored on the existing `UserPreferences` row. Raw `metadataJson` is never returned; it is normalized into an optional approved source app and validated internal action.
+
+Future apps must publish through `app.modules.notifications.service.create_notification(...)`, which validates the owner, bounded notification type, active public source app, and internal route before writing. It is deliberately not exposed as a public write endpoint. Phase 1 is in-app only and adds no push, email, SMS, scheduler, broadcast, analytics, or production seed behavior.

@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-20 - Expanded the existing parent `Notifications` infrastructure into Notifications Center Phase 1 with owner-scoped pagination/filtering/counts, bounded types, sanitized source/action responses, canonical internal-route validation, idempotent read/read-all behavior, a governed shared publisher service, existing `UserPreferences` notification controls, focused tests, and no duplicate notification persistence. Push, email, SMS, scheduling, public publishing, and production seed data remain deferred.
+
 * 2026-07-19: Implemented Ansiversa AI Assistant Phase 4 Context & Conversation Memory support with optional session context in `/assistant/query`, deterministic route/app/recent/favorite/history-aware retrieval, bounded OpenAI context forwarding, route-safe actions, focused service tests, and no migrations or permanent memory.
 
 * 2026-07-19: Polished Ansiversa AI Assistant deterministic responses for financial-advice safety questions and explicit out-of-scope prompts so they no longer fall through to generic About matches, with focused tests for guidance, uncertainty, and validated actions.

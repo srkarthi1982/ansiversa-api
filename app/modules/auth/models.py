@@ -141,6 +141,15 @@ class UserPreference(ParentBase):
         nullable=False,
     )
     theme: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    notifications_enabled: Mapped[bool] = mapped_column(
+        "notificationsEnabled", Boolean, default=True, server_default="1", nullable=False
+    )
+    reminder_notifications_enabled: Mapped[bool] = mapped_column(
+        "reminderNotificationsEnabled", Boolean, default=True, server_default="1", nullable=False
+    )
+    system_notifications_enabled: Mapped[bool] = mapped_column(
+        "systemNotificationsEnabled", Boolean, default=True, server_default="1", nullable=False
+    )
     updated_at: Mapped[datetime] = mapped_column(
         "updatedAt",
         DateTime(timezone=True),
