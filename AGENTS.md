@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-20 - Implemented AI Knowledge Foundation Phase 2 Assistant Retrieval Parity by migrating `/api/v1/assistant/query` to load deterministic knowledge from the cached Canonical AI Knowledge Registry, preserving the Assistant API/UI/OpenAI boundary, route-safe actions, context behavior, fallback behavior, related-app and future/current separation, visibility filtering, and legacy DB/FAQ retrieval only as a logged registry-failure fallback.
+
 2026-07-20 - Implemented AI Knowledge Foundation Phase 1 as a backend-owned deterministic canonical registry with 100 app records, 14 categories, public platform/page knowledge, explicit visibility, current/future separation, source traceability, allowlisted bounded Markdown/JSON parsing, secret scanning, related-app generation, build/check drift commands, an immutable test adapter, readiness/gap artifacts, focused tests, and no production Assistant switch, OpenAI calls, embeddings, public AI SEO output, database changes, or App #101.
 
 2026-07-20 - Ran the parent production migration against `ansiversadb-ansiversa.aws-ap-south-1.turso.io`, advancing Alembic from `20260703_0001` through Notifications Center `20260720_0001` to Universal Activity Timeline `20260720_0002` head. Verified both parent tables and the Activity Timeline owner/time and owner/type/time indexes in production.

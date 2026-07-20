@@ -2,18 +2,22 @@
 
 ## Purpose and architecture
 
-Phase 1 creates a deterministic internal registry from approved public metadata
-and canonical route identity. It introduces no public SEO surface.
+Phase 1 created a deterministic internal registry from approved public metadata
+and canonical route identity. Phase 2 makes the Ansiversa AI Assistant consume
+that registry as its normal retrieval source. It introduces no public SEO
+surface.
 
 ```text
 allowlisted documentation and registries
   -> deterministic builder and validator
   -> app/modules/knowledge/data/ansiversa-knowledge.json
-  -> testable backend adapter
+  -> cached backend adapter
+  -> assistant deterministic retriever
 ```
 
-The backend owns generation and visibility enforcement. The frontend must not
-import the internal artifact; a future phase may expose a bounded public subset.
+The backend owns generation, visibility enforcement, and assistant retrieval.
+The frontend must not import the internal artifact; a future phase may expose a
+bounded public subset.
 
 ## Source hierarchy and current limitation
 
@@ -65,14 +69,28 @@ separation, length bounds, and secret exclusion.
 
 ## Consumer boundaries and readiness
 
-`KnowledgeRegistry` is an immutable cached reader supporting public-by-default
-exact, alias, category, problem, capability, and related-app lookup. It is a
-Phase 1 adapter only; production Assistant retrieval remains unchanged. No
-OpenAI call, embedding, vector storage, public API, JSON-LD, `llms.txt`, sitemap,
-robots, crawler submission, or frontend import is added.
+`KnowledgeRegistry` is a cached reader supporting public-by-default exact,
+alias, category, problem, capability, page, and related-app lookup. The
+Assistant converts cached registry records into its existing deterministic
+retrieval model, preserving the `/api/v1/assistant/query` API contract,
+validated actions, confidence handling, response modes, OpenAI provider
+boundary, session context behavior, and fallback behavior.
+
+The Assistant no longer reads the Apps catalog, overview JSON, FAQ rows, route
+registry, page metadata, or Markdown files during normal requests. Those sources
+remain upstream inputs to the registry builder only. If registry loading fails,
+the backend logs the failure and uses the previous deterministic DB/FAQ
+retriever as an explicit compatibility fallback.
+
+OpenAI remains the explanation layer only. It may rewrite grounded public app
+answers from bounded registry context, but it cannot create routes, actions,
+apps, capabilities, prices, policies, future plans, or source facts. No
+embedding, vector storage, public API, JSON-LD, `llms.txt`, sitemap, robots,
+crawler submission, or frontend import is added.
 
 Readiness is 100/100 for purpose, audience, current capabilities, aliases,
-related apps, and traceability. Sixty-nine apps have an explicitly marked future
-section. There are zero app extraction gaps and one governance warning for the
-missing locked catalog source. A future public-subset API must filter visibility and omit repository
-paths before use by Search or AI SEO.
+related apps, assistant retrieval parity, and traceability. Sixty-nine apps
+have an explicitly marked future section. There are zero app extraction gaps and
+one governance warning for the missing locked catalog source. A future
+public-subset API must filter visibility and omit repository paths before use by
+Search or AI SEO.

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
+from time import perf_counter
 from typing import Literal, Protocol
 
 from sqlalchemy import and_, select
@@ -19,12 +21,15 @@ from app.modules.assistant.schemas import (
     AssistantSource,
 )
 from app.modules.faqs.models import Faq
+from app.modules.knowledge.registry import KnowledgeRegistry
 
 SourceType = Literal["app", "platform", "account", "legal", "faq"]
 ActionType = Literal["app", "platform", "account", "legal"]
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 OVERVIEW_DATA_DIR = Path(__file__).resolve().parents[1] / "content" / "data" / "overview"
+LOGGER = logging.getLogger(__name__)
+PHRASE_STOPWORDS = {"a", "an", "and", "for", "in", "of", "on", "or", "the", "to"}
 
 
 @dataclass(frozen=True)
@@ -43,6 +48,8 @@ class KnowledgeEntry:
     action_type: ActionType | None = None
     visibility: str = "public"
     rank_weight: int = 0
+    related_app_slugs: tuple[str, ...] = ()
+    future_summary: str | None = None
 
 
 @dataclass(frozen=True)
@@ -325,6 +332,23 @@ OUT_OF_SCOPE_TERMS = {
     "unrelated to ansiversa",
 }
 
+RELATED_APP_TERMS = {
+    "similar",
+    "related",
+    "alternative",
+    "alternatives",
+    "like",
+}
+
+FUTURE_TERMS = {
+    "future",
+    "planned",
+    "plans",
+    "roadmap",
+    "coming",
+    "next",
+}
+
 
 def normalize_text(value: str) -> str:
     return " ".join(TOKEN_PATTERN.findall(value.lower()))
@@ -439,12 +463,194 @@ def _build_faq_entries(db: Session) -> tuple[KnowledgeEntry, ...]:
     return tuple(entries)
 
 
-def build_knowledge_index(db: Session) -> AssistantKnowledgeIndex:
+def build_legacy_knowledge_index(db: Session) -> AssistantKnowledgeIndex:
     entries = (*_build_app_entries(db), *PLATFORM_ENTRIES, *_build_faq_entries(db))
     public_entries = tuple(entry for entry in entries if entry.visibility == "public")
     allowed_routes = frozenset({entry.route for entry in public_entries} | {"/apps", "/faq"})
 
     return AssistantKnowledgeIndex(entries=public_entries, allowed_routes=allowed_routes)
+
+
+def _registry_page_summary(page: dict[str, object]) -> str:
+    summary = page.get("summary")
+    if isinstance(summary, str) and summary.strip():
+        return summary.strip()
+
+    name = str(page.get("name") or "This page")
+    route = str(page.get("route") or "")
+    fallback_by_route = {
+        "/about": "About explains Ansiversa as one platform with one account, one navigation system, and a fixed 100-app ecosystem.",
+        "/apps": "Apps is the complete catalog of 100 carefully curated Ansiversa solution apps.",
+        "/privacy": "Privacy explains Ansiversa data-use and privacy rules.",
+        "/terms": "Terms explains the rules for using Ansiversa.",
+        "/faq": "FAQ answers common questions about Ansiversa, accounts, apps, access, and support.",
+        "/contact": "Contact is where users can reach Ansiversa for platform questions and support.",
+    }
+    return fallback_by_route.get(route, f"{name} is an Ansiversa platform page.")
+
+
+def _registry_action_type_for_route(route: str) -> ActionType:
+    if route in {"/privacy", "/terms"}:
+        return "legal"
+    if route in {"/profile", "/settings", "/subscription"}:
+        return "account"
+    return "platform"
+
+
+def _registry_action_label(name: str, action_type: ActionType) -> str:
+    if action_type == "legal":
+        return f"Open {name}"
+    if name.lower().startswith("one subscription"):
+        return "Open Pricing"
+    if name.lower().startswith("100 carefully"):
+        return "Open Home"
+    return f"Open {name}"
+
+
+def _registry_app_entry(app: dict[str, object]) -> KnowledgeEntry:
+    slug = str(app["slug"])
+    name = str(app["name"])
+    category = str(app["category"])
+    capabilities = tuple(str(value) for value in app.get("currentCapabilities") or ())
+    problems = tuple(str(value) for value in app.get("problemsSolved") or ())
+    use_cases = tuple(str(value) for value in app.get("commonUseCases") or ())
+    phrases = tuple(str(value) for value in app.get("searchPhrases") or ())
+    aliases = tuple(str(value) for value in app.get("searchAliases") or ())
+    future = app.get("futureDirection")
+    future_summary = (
+        str(future.get("summary"))
+        if isinstance(future, dict) and isinstance(future.get("summary"), str)
+        else None
+    )
+    related = tuple(
+        str(item["slug"])
+        for item in app.get("relatedApps") or ()
+        if isinstance(item, dict) and isinstance(item.get("slug"), str)
+    )
+
+    return KnowledgeEntry(
+        id=f"app:{slug}",
+        title=name,
+        source_type="app",
+        route=str(app.get("exploreRoute") or app.get("overviewRoute") or f"/{slug}"),
+        summary=str(app.get("shortDescription") or app.get("purpose") or ""),
+        catalog_id=str(app.get("id") or ""),
+        app_key=slug,
+        category=category,
+        aliases=aliases,
+        keywords=(
+            slug.replace("-", " "),
+            category,
+            str(app.get("categoryId") or ""),
+            str(app.get("currentState") or ""),
+            *capabilities,
+            *problems,
+            *use_cases,
+            *phrases,
+        ),
+        action_label=f"Open {name}",
+        action_type="app",
+        visibility=str(app.get("visibility") or "public"),
+        rank_weight=5 if app.get("launchStatus") == "live" else 1,
+        related_app_slugs=related,
+        future_summary=future_summary,
+    )
+
+
+def _registry_page_entry(page: dict[str, object]) -> KnowledgeEntry:
+    route = str(page.get("route") or "/")
+    name = str(page.get("name") or "Ansiversa")
+    action_type = _registry_action_type_for_route(route)
+    source_type: SourceType = action_type if action_type in {"account", "legal"} else "platform"
+    aliases = tuple(str(value) for value in page.get("searchAliases") or ())
+    raw_id = str(page.get("id") or f"page:{route}")
+    if raw_id.startswith("page_"):
+        entry_id = raw_id.replace("page_", "platform:", 1)
+    elif raw_id.startswith("account_"):
+        entry_id = raw_id.replace("account_", "account:", 1)
+    elif raw_id.startswith("legal_"):
+        entry_id = raw_id.replace("legal_", "legal:", 1)
+    elif raw_id.startswith("platform_"):
+        entry_id = raw_id.replace("platform_", "platform:", 1)
+    else:
+        entry_id = raw_id
+
+    return KnowledgeEntry(
+        id=entry_id,
+        title=name,
+        source_type=source_type,
+        route=route,
+        summary=_registry_page_summary(page),
+        aliases=aliases,
+        keywords=(route.strip("/") or "home", name, *aliases),
+        action_label=_registry_action_label(name, action_type),
+        action_type=action_type,
+        visibility=str(page.get("visibility") or "public"),
+        rank_weight=3,
+    )
+
+
+def _registry_platform_entry(registry: KnowledgeRegistry) -> KnowledgeEntry:
+    platform = registry.data["platform"]
+    boundary = platform["catalogBoundary"]
+    fixed_count = int(platform["appCount"])
+    summary = (
+        f"{platform['name']} is {platform['purpose']} It is {platform['positioning']} "
+        f"Users use one account across {fixed_count} curated solution apps. "
+        f"The catalog is permanently limited to {boundary['fixedAppCount']} apps, "
+        f"with horizontal improvement and replacement allowed instead of routine expansion."
+    )
+    return KnowledgeEntry(
+        id="platform:ansiversa",
+        title=str(platform["name"]),
+        source_type="platform",
+        route="/about",
+        summary=summary,
+        aliases=tuple(str(value) for value in platform.get("searchAliases") or ())
+        + ("what is ansiversa", "how many apps", "why only 100 apps", "one account"),
+        keywords=(
+            str(platform["shortName"]),
+            str(platform["tagline"]),
+            *[str(value) for value in platform.get("coreCapabilities") or ()],
+            *[str(value) for value in platform.get("platformFeatures") or ()],
+            "fixed 100 app catalog",
+            "one login",
+            "one account",
+        ),
+        action_label="Open About",
+        action_type="platform",
+        visibility=str(platform.get("visibility") or "public"),
+        rank_weight=4,
+    )
+
+
+def build_registry_knowledge_index(
+    *,
+    allowed_visibility: set[str] | None = None,
+) -> AssistantKnowledgeIndex:
+    registry = KnowledgeRegistry.load()
+    allowed = allowed_visibility or {"public"}
+    apps = registry.apps(allowed)
+    pages = registry.pages(allowed)
+    entries = (
+        *[_registry_app_entry(app) for app in apps],
+        *[_registry_page_entry(page) for page in pages],
+        _registry_platform_entry(registry),
+    )
+    visible_entries = tuple(entry for entry in entries if entry.visibility in allowed)
+    allowed_routes = frozenset(
+        {
+            entry.route
+            for entry in visible_entries
+            if entry.route.startswith("/") and not entry.route.startswith("//")
+        }
+        | {"/apps", "/faq"}
+    )
+    return AssistantKnowledgeIndex(entries=visible_entries, allowed_routes=allowed_routes)
+
+
+def build_knowledge_index(db: Session | None = None) -> AssistantKnowledgeIndex:
+    return build_registry_knowledge_index()
 
 
 def _entry_matches_context_app(entry: KnowledgeEntry, context_app: object | None) -> bool:
@@ -484,7 +690,7 @@ def score_entry(
     reason = ""
 
     if normalized == title:
-        score += 100
+        score += 200
         reason = "exact-name"
     elif any(normalized == alias for alias in aliases):
         score += 90
@@ -495,7 +701,10 @@ def score_entry(
     elif title and title in normalized:
         score += 70
         reason = "title-phrase"
-    elif any(alias and alias in normalized for alias in aliases):
+    elif any(
+        alias and len(alias) > 2 and alias not in PHRASE_STOPWORDS and alias in normalized
+        for alias in aliases
+    ):
         score += 65
         reason = "alias-phrase"
     elif slug and slug in normalized:
@@ -506,10 +715,23 @@ def score_entry(
         score += 45
         reason = reason or "category"
 
+    keyword_bonus_count = 0
+    keyword_phrase_matched = False
     for keyword in keywords:
-        if keyword and keyword in normalized:
-            score += 35
+        if keyword and len(keyword) > 2 and keyword not in PHRASE_STOPWORDS and keyword in normalized:
+            if keyword_bonus_count < 3:
+                score += 35
+                keyword_bonus_count += 1
             reason = reason or "keyword"
+        elif (
+            keyword
+            and len(normalized) > 5
+            and normalized in keyword
+            and not keyword_phrase_matched
+        ):
+            score += 55
+            keyword_phrase_matched = True
+            reason = reason or "phrase-in-keyword"
 
     searchable_tokens = tokenize(
         " ".join((entry.title, entry.summary, entry.category or "", *entry.aliases, *entry.keywords))
@@ -628,6 +850,15 @@ def _is_explicit_out_of_scope_query(message: str) -> bool:
     return any(term in normalized for term in OUT_OF_SCOPE_TERMS)
 
 
+def _is_related_app_query(message: str) -> bool:
+    tokens = tokenize(message)
+    return bool(tokens & RELATED_APP_TERMS) and ("app" in tokens or "apps" in tokens)
+
+
+def _is_future_query(message: str) -> bool:
+    return bool(tokenize(message) & FUTURE_TERMS)
+
+
 def _financial_guidance_result(index: AssistantKnowledgeIndex) -> DeterministicAssistantResult:
     actions = _filter_allowed_actions(FINANCIAL_GUIDANCE_ACTIONS, index.allowed_routes)
     if not actions:
@@ -657,6 +888,79 @@ def _out_of_scope_result() -> DeterministicAssistantResult:
         sources=[],
         confidence="low",
         top_entries=(),
+    )
+
+
+def _entry_slug(entry: KnowledgeEntry) -> str:
+    return entry.id.split(":", 1)[1] if entry.id.startswith("app:") else ""
+
+
+def _app_entry_by_slug(index: AssistantKnowledgeIndex, slug: str) -> KnowledgeEntry | None:
+    return next(
+        (
+            entry
+            for entry in index.entries
+            if entry.source_type == "app" and _entry_slug(entry) == slug
+        ),
+        None,
+    )
+
+
+def _related_apps_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+) -> DeterministicAssistantResult | None:
+    if not _is_related_app_query(message):
+        return None
+
+    ranked = rank_entries(message, index, context)
+    primary = next((match.entry for match in ranked if match.entry.source_type == "app"), None)
+    if primary is None or not primary.related_app_slugs:
+        return None
+
+    related_entries = [
+        entry
+        for slug in primary.related_app_slugs
+        if (entry := _app_entry_by_slug(index, slug)) is not None
+    ]
+    if not related_entries:
+        return None
+
+    related_names = ", ".join(entry.title for entry in related_entries)
+    entries = [primary, *related_entries]
+    return DeterministicAssistantResult(
+        answer=f"Apps related to {primary.title}: {related_names}.",
+        actions=_safe_actions(related_entries, index.allowed_routes) or _safe_actions([primary], index.allowed_routes),
+        sources=_sources(entries),
+        confidence="high",
+        top_entries=tuple(entries[:3]),
+    )
+
+
+def _future_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+) -> DeterministicAssistantResult | None:
+    if not _is_future_query(message):
+        return None
+
+    ranked = rank_entries(message, index, context)
+    primary = next((match.entry for match in ranked if match.entry.source_type == "app"), None)
+    if primary is None or not primary.future_summary:
+        return None
+
+    answer = (
+        f"Approved future direction for {primary.title}: {primary.future_summary} "
+        "This is future direction, not current functionality."
+    )
+    return DeterministicAssistantResult(
+        answer=answer,
+        actions=_safe_actions([primary], index.allowed_routes),
+        sources=_sources([primary]),
+        confidence="high",
+        top_entries=(primary,),
     )
 
 
@@ -829,6 +1133,12 @@ def retrieve_deterministic(
     if context_result := _context_result(message, index, context):
         return context_result
 
+    if future_result := _future_result(message, index, context):
+        return future_result
+
+    if related_result := _related_apps_result(message, index, context):
+        return related_result
+
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
         allowed_routes=index.allowed_routes,
@@ -899,6 +1209,9 @@ def _select_response_mode(
 ) -> Literal["deterministic", "openai_grounded", "fallback"]:
     if result.confidence == "low":
         return "fallback"
+
+    if _is_future_query(message):
+        return "deterministic"
 
     if _is_current_app_create_query(message):
         return "deterministic"
@@ -1001,7 +1314,19 @@ def query_assistant(
     message: str,
     context: AssistantClientContext | None = None,
 ) -> AssistantQueryResponse:
-    index = build_knowledge_index(db)
+    start = perf_counter()
+    try:
+        index = build_knowledge_index()
+        LOGGER.debug(
+            "Assistant registry retrieval index loaded in %.2fms with %s entries.",
+            (perf_counter() - start) * 1000,
+            len(index.entries),
+        )
+    except Exception:
+        LOGGER.exception(
+            "Assistant registry retrieval failed; using legacy deterministic fallback."
+        )
+        index = build_legacy_knowledge_index(db)
     if not settings.AI_GATEWAY_ENABLED:
         return retrieve_deterministic(message, index, context).to_response(response_mode="deterministic")
 

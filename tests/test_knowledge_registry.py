@@ -127,3 +127,13 @@ def test_adapter_related_and_future_contract(generated):
     assert registry.related("salary-breakdown-calculator")
     future = next(app for app in registry.apps() if app["futureDirection"])
     assert future["futureDirection"]["state"] == "future"
+
+
+def test_adapter_pages_and_cache_contract():
+    KnowledgeRegistry.load.cache_clear()
+    first = KnowledgeRegistry.load()
+    second = KnowledgeRegistry.load()
+    assert first is second
+    page_routes = {page["route"] for page in first.pages()}
+    assert {"/pricing", "/about", "/privacy", "/terms", "/faq", "/contact"} <= page_routes
+    assert {"/profile", "/settings", "/subscription", "/login", "/register"} <= page_routes

@@ -10337,12 +10337,85 @@
       "visibility": "public"
     },
     {
+      "id": "page_activity",
+      "name": "Activity",
+      "route": "/activity",
+      "searchAliases": [
+        "activity",
+        "timeline",
+        "history",
+        "recent",
+        "personal",
+        "journey"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "page-activity",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Review your recent Ansiversa journey",
+      "visibility": "public"
+    },
+    {
+      "id": "platform_ai_assistant",
+      "name": "Ansiversa AI",
+      "route": "/dashboard",
+      "searchAliases": [
+        "ai assistant",
+        "help",
+        "ai",
+        "assistant",
+        "ansiversa",
+        "chatbot",
+        "support",
+        "guide"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "platform-ai-assistant",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Ask the platform assistant for help",
+      "visibility": "public"
+    },
+    {
+      "id": "page_dashboard",
+      "name": "Dashboard",
+      "route": "/dashboard",
+      "searchAliases": [
+        "dashboard",
+        "home",
+        "platform",
+        "overview"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "page-dashboard",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Your platform overview",
+      "visibility": "public"
+    },
+    {
       "id": "page_faq",
       "name": "FAQ",
       "route": "/faq",
       "searchAliases": [
         "faq",
-        "help"
+        "help",
+        "frequently",
+        "asked",
+        "questions",
+        "support"
       ],
       "sourceReferences": [
         {
@@ -10361,7 +10434,10 @@
       "route": "/contact",
       "searchAliases": [
         "contact",
-        "help"
+        "support",
+        "help",
+        "message",
+        "team"
       ],
       "sourceReferences": [
         {
@@ -10372,6 +10448,117 @@
         }
       ],
       "summary": "Contact the Ansiversa team",
+      "visibility": "public"
+    },
+    {
+      "id": "account_profile",
+      "name": "Profile",
+      "route": "/profile",
+      "searchAliases": [
+        "profile",
+        "account",
+        "user",
+        "manage"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "account-profile",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Manage your account",
+      "visibility": "public"
+    },
+    {
+      "id": "account_settings",
+      "name": "Settings",
+      "route": "/settings",
+      "searchAliases": [
+        "settings",
+        "preferences",
+        "theme",
+        "language",
+        "account"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "account-settings",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Manage preferences",
+      "visibility": "public"
+    },
+    {
+      "id": "account_subscription",
+      "name": "Subscription",
+      "route": "/subscription",
+      "searchAliases": [
+        "subscription",
+        "billing",
+        "plan",
+        "account",
+        "payment"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "account-subscription",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Billing and plan",
+      "visibility": "public"
+    },
+    {
+      "id": "account_login",
+      "name": "Login",
+      "route": "/login",
+      "searchAliases": [
+        "login",
+        "sign in",
+        "sign",
+        "in",
+        "account"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "account-login",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Sign in to Ansiversa",
+      "visibility": "public"
+    },
+    {
+      "id": "account_register",
+      "name": "Register",
+      "route": "/register",
+      "searchAliases": [
+        "register",
+        "sign up",
+        "create account",
+        "sign",
+        "up",
+        "create",
+        "account"
+      ],
+      "sourceReferences": [
+        {
+          "path": "src/shared/components/command-palette/searchIndex.ts",
+          "repository": "ansiversa",
+          "section": "account-register",
+          "visibility": "public"
+        }
+      ],
+      "summary": "Create your account",
       "visibility": "public"
     }
   ],
@@ -10405,8 +10592,16 @@
       "/pricing",
       "/privacy",
       "/terms",
+      "/activity",
+      "/dashboard",
+      "/dashboard",
       "/faq",
-      "/contact"
+      "/contact",
+      "/profile",
+      "/settings",
+      "/subscription",
+      "/login",
+      "/register"
     ],
     "platformFeatures": [
       "Favorites",
@@ -10440,7 +10635,7 @@
   },
   "schemaVersion": 1,
   "sourceRevision": {
-    "backend": "sha256:f63bbc5d049cdc882027d2e139cd0e3e31d2184ba39b265a02bcbc5e4f82529e",
+    "backend": "sha256:1291a4b76ef591345be9fc672e657775558ebe20eb4351f445f905e236ad55a1",
     "frontend": "sha256:b61632ddb9e8d91880ced76fae530ceba0109d5c6c9f66ad741f538ba7cbffbf"
   },
   "validation": {

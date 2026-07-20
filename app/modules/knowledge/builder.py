@@ -264,9 +264,30 @@ def _platform_pages() -> list[dict[str, Any]]:
         summary = normalize_text(str(hero.get("description") or data.get("introduction") or "")) or None
         pages.append({"id": f"page_{key}", "name": str(hero.get("title") or key.title()), "route": route, "summary": summary, "searchAliases": [key], "sourceReferences": [_source_ref(path, "public metadata")], "visibility": "public"})
     search_text = _read_text(FRONTEND_SEARCH_INDEX, FRONTEND_ROOT)
-    for key, route, name in (("faq", "/faq", "FAQ"), ("contact", "/contact", "Contact")):
-        match = re.search(rf"id:\s*'page-{key}'.*?description:\s*'([^']+)'", search_text, re.S)
-        pages.append({"id": f"page_{key}", "name": name, "route": route, "summary": normalize_text(match.group(1)) if match else None, "searchAliases": [key, "help"], "sourceReferences": [_source_ref(FRONTEND_SEARCH_INDEX, f"page-{key}", "ansiversa")], "visibility": "public"})
+    frontend_pages = (
+        ("page-activity", "activity", "/activity", "Activity", ["activity", "timeline", "history"]),
+        ("platform-ai-assistant", "ai-assistant", "/dashboard", "Ansiversa AI", ["ai assistant", "help"]),
+        ("page-dashboard", "dashboard", "/dashboard", "Dashboard", ["dashboard", "home"]),
+        ("page-faq", "faq", "/faq", "FAQ", ["faq", "help"]),
+        ("page-contact", "contact", "/contact", "Contact", ["contact", "support", "help"]),
+        ("account-profile", "profile", "/profile", "Profile", ["profile", "account"]),
+        ("account-settings", "settings", "/settings", "Settings", ["settings", "preferences"]),
+        ("account-subscription", "subscription", "/subscription", "Subscription", ["subscription", "billing", "plan"]),
+        ("account-login", "login", "/login", "Login", ["login", "sign in"]),
+        ("account-register", "register", "/register", "Register", ["register", "sign up", "create account"]),
+    )
+    existing_routes = {page["route"] for page in pages}
+    existing_ids = {page["id"] for page in pages}
+    for source_id, key, route, name, aliases in frontend_pages:
+        if source_id in existing_ids:
+            continue
+        match = re.search(rf"id:\s*'{re.escape(source_id)}'.*?description:\s*'([^']+)'.*?searchText:\s*'([^']+)'", search_text, re.S)
+        search_aliases = aliases
+        if match:
+            search_aliases = list(dict.fromkeys([*aliases, *normalize_text(match.group(2)).lower().split()]))
+        if route in existing_routes and source_id.startswith("page-"):
+            continue
+        pages.append({"id": source_id.replace("-", "_"), "name": name, "route": route, "summary": normalize_text(match.group(1)) if match else None, "searchAliases": search_aliases[:12], "sourceReferences": [_source_ref(FRONTEND_SEARCH_INDEX, source_id, "ansiversa")], "visibility": "public"})
     return pages
 
 

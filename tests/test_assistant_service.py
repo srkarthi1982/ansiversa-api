@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from pydantic import ValidationError
 
@@ -12,8 +13,11 @@ from app.modules.assistant.schemas import (
 from app.modules.assistant.service import (
     AssistantKnowledgeIndex,
     KnowledgeEntry,
+    build_registry_knowledge_index,
     query_index,
+    query_assistant,
 )
+from app.modules.knowledge.registry import KnowledgeRegistry
 
 
 def app(slug, name, description, category, aliases=()):
@@ -381,6 +385,110 @@ class AssistantServiceTests(unittest.TestCase):
 
         with self.assertRaises(ValidationError):
             AssistantQueryRequest(message="x" * 2001)
+
+    def test_registry_index_supports_exact_alias_category_problem_and_capability_lookup(self):
+        registry_index = build_registry_knowledge_index()
+
+        exact = query_index("Bill Splitter", registry_index)
+        self.assertEqual(exact.sources[0].title, "Bill Splitter")
+        self.assert_action(exact, "/bill-splitter/bills")
+
+        for query, expected in (
+            ("net salary", "Salary Breakdown Calculator"),
+            ("fuel", "Fuel Expense Tracker"),
+            ("trip", "Trip Cost Calculator"),
+            ("vaccination", "Vaccination Tracker"),
+        ):
+            with self.subTest(query=query):
+                response = query_index(query, registry_index)
+                self.assertEqual(response.sources[0].title, expected)
+
+        category = query_index("Health & Medical", registry_index)
+        self.assertTrue(category.actions)
+        self.assertTrue(all(action.type == "app" for action in category.actions))
+
+        problem = query_index("split each line equally", registry_index)
+        self.assertEqual(problem.sources[0].title, "Bill Splitter")
+
+        capability = query_index("Fixed and percentage deductions", registry_index)
+        self.assertEqual(capability.sources[0].title, "Salary Breakdown Calculator")
+
+    def test_registry_index_supports_platform_pages_and_platform_questions(self):
+        registry_index = build_registry_knowledge_index()
+        for message, route in (
+            ("pricing", "/pricing"),
+            ("about", "/about"),
+            ("privacy", "/privacy"),
+            ("terms", "/terms"),
+            ("faq", "/faq"),
+            ("contact", "/contact"),
+        ):
+            with self.subTest(message=message):
+                response = query_index(message, registry_index)
+                self.assert_action(response, route)
+                self.assertIn(response.confidence, {"high", "medium"})
+
+        platform = query_index("How many apps does Ansiversa have?", registry_index)
+        self.assertIn("100", platform.answer)
+        self.assert_action(platform, "/about")
+
+        account = query_index("Can I use one account?", registry_index)
+        self.assertIn("one account", account.answer.lower())
+
+    def test_registry_index_supports_related_apps(self):
+        registry_index = build_registry_knowledge_index()
+        response = query_index("apps similar to bill splitter", registry_index)
+        self.assertEqual(response.sources[0].title, "Bill Splitter")
+        self.assertIn("Apps related to Bill Splitter", response.answer)
+        self.assertTrue(response.actions)
+        self.assertFalse(any(action.route == "/bill-splitter/bills" for action in response.actions))
+
+    def test_registry_future_answers_do_not_merge_into_current_functionality(self):
+        registry_index = build_registry_knowledge_index()
+        response = query_index("What is planned for Quiz?", registry_index, answer_provider=FakeProvider())
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("Approved future direction for Quiz", response.answer)
+        self.assertIn("not current functionality", response.answer)
+
+        current = query_index("Quiz", registry_index)
+        self.assertNotIn("V2:", current.answer)
+
+    def test_registry_visibility_blocks_internal_and_restricted_records(self):
+        data = KnowledgeRegistry.load().data.copy()
+        apps = [dict(app) for app in data["apps"]]
+        apps[0]["visibility"] = "internal"
+        apps[1]["visibility"] = "restricted"
+        data["apps"] = apps
+        with patch("app.modules.assistant.service.KnowledgeRegistry.load", return_value=KnowledgeRegistry(data)):
+            registry_index = build_registry_knowledge_index()
+
+        blocked_titles = {apps[0]["name"], apps[1]["name"]}
+        self.assertTrue(blocked_titles.isdisjoint({entry.title for entry in registry_index.entries}))
+
+    def test_registry_visibility_can_include_authenticated_records_explicitly(self):
+        data = KnowledgeRegistry.load().data.copy()
+        apps = [dict(app) for app in data["apps"]]
+        apps[0]["visibility"] = "authenticated"
+        data["apps"] = apps
+        with patch("app.modules.assistant.service.KnowledgeRegistry.load", return_value=KnowledgeRegistry(data)):
+            public_index = build_registry_knowledge_index()
+            authenticated_index = build_registry_knowledge_index(
+                allowed_visibility={"public", "authenticated"}
+            )
+
+        self.assertNotIn(apps[0]["name"], {entry.title for entry in public_index.entries})
+        self.assertIn(apps[0]["name"], {entry.title for entry in authenticated_index.entries})
+
+    def test_query_assistant_logs_and_uses_legacy_fallback_when_registry_fails(self):
+        with (
+            patch("app.modules.assistant.service.KnowledgeRegistry.load", side_effect=ValueError("corrupt")),
+            patch("app.modules.assistant.service.build_legacy_knowledge_index", return_value=self.index),
+            self.assertLogs("app.modules.assistant.service", level="ERROR") as logs,
+        ):
+            response = query_assistant(object(), "Document Expiry Tracker")
+
+        self.assertEqual(response.sources[0].title, "Document Expiry Tracker")
+        self.assertTrue(any("legacy deterministic fallback" in message for message in logs.output))
 
 
 if __name__ == "__main__":

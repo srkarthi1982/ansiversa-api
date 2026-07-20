@@ -150,8 +150,9 @@ Current truthful claims:
 - Ansiversa supports shared parent services.
 - Ansiversa hosts modular mini-app APIs.
 - Ansiversa uses a permanent 100-app catalog and category model.
-- Ansiversa AI Assistant Phase 2 uses backend-owned deterministic public
-  knowledge retrieval through `/api/v1/assistant/query`.
+- Ansiversa AI Assistant uses backend-owned deterministic public knowledge
+  retrieval from the Canonical AI Knowledge Registry through
+  `/api/v1/assistant/query`.
 - Ansiversa has a formal documentation lifecycle.
 - Ansiversa has completed `marketing.md` coverage for live story-backed apps.
 
@@ -167,21 +168,22 @@ Claims to avoid today:
 
 ## AI Knowledge Foundation
 
-Phase 1 provides a generated, backend-owned canonical knowledge registry for
-the parent platform, public pages, 14 categories, and exactly 100 solution
-apps. It deterministically derives public purpose, audiences, current
-capabilities, use cases, aliases, related apps, and separately marked future
-direction from allowlisted route and metadata sources. Visibility and source
-traceability are explicit, and build/check commands enforce drift and secret
-scanning. Production Assistant retrieval remains unchanged until a later
-parity phase; no registry content is published for AI SEO yet.
+The AI Knowledge Foundation provides a generated, backend-owned canonical
+knowledge registry for the parent platform, public/account/legal pages, 14
+categories, and exactly 100 solution apps. It deterministically derives public
+purpose, audiences, current capabilities, use cases, aliases, related apps, and
+separately marked future direction from allowlisted route and metadata sources.
+Visibility and source traceability are explicit, and build/check commands
+enforce drift and secret scanning. Assistant retrieval now consumes the cached
+registry as its normal knowledge source. No registry content is published for AI
+SEO yet.
 
 ## Current Limitations
 
 Known platform limitations:
 
-- OpenAI-powered AI generation is a future platform capability, not the current
-  assistant runtime.
+- OpenAI-powered app generation and cross-app intelligence are future platform
+  capabilities, not current assistant retrieval behavior.
 - Stripe monetization and entitlement logic are future platform capabilities.
 - Cross-app dashboards and recommendations are still evolving.
 - Some apps are V1 or workflow-ready rather than mature full-featured products.
