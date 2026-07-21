@@ -9,9 +9,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-SCHEMA_VERSION = 1
-GENERATOR_VERSION = "1.0.0"
-GENERATED_AT = "2026-07-20T00:00:00Z"
+SCHEMA_VERSION = 2
+GENERATOR_VERSION = "1.1.0"
+GENERATED_AT = "2026-07-21T00:00:00Z"
 VISIBILITIES = {"public", "authenticated", "internal", "restricted"}
 MAX_TEXT = 2_000
 MAX_LIST = 12
@@ -291,6 +291,47 @@ def _platform_pages() -> list[dict[str, Any]]:
     return pages
 
 
+def _platform_identity_knowledge() -> list[dict[str, Any]]:
+    about_path = BACKEND_ROOT / "app/modules/content/data/about.json"
+    ref = _source_ref(about_path, "approved public identity content")
+
+    def record(
+        identity_id: str,
+        intents: list[str],
+        aliases: list[str],
+        answer: str,
+        facts: list[str],
+        actions: list[tuple[str, str]],
+    ) -> dict[str, Any]:
+        return {
+            "id": identity_id,
+            "visibility": "public",
+            "questionIntents": intents,
+            "aliases": aliases,
+            "answer": answer,
+            "facts": facts,
+            "actions": [{"label": label, "route": route} for label, route in actions],
+            "sourceReferences": [ref],
+        }
+
+    return [
+        record("platform-meaning", ["what does ansiversa mean", "what is the full form of ansiversa"], ["ansiversa meaning", "full form"], "Ansiversa stands for Advanced Next-Gen Software Innovation and Versatility.", ["Advanced Next-Gen Software Innovation and Versatility"], [("Open About", "/about")]),
+        record("platform-purpose", ["what is ansiversa", "what is ansiversa used for", "who is ansiversa for", "is ansiversa an app store", "what makes ansiversa different", "why was ansiversa created", "what problem does ansiversa solve", "what is the ansiversa ecosystem"], ["ansiversa identity", "platform purpose", "ansiversa ecosystem"], "Ansiversa is one consistent platform for exactly 100 curated solution apps across everyday life and work. It gives people one account, familiar navigation, and focused tools instead of a noisy, endlessly expanding app store.", ["exactly 100 curated solution apps", "one account", "consistent platform experience"], [("Open About", "/about"), ("Browse Apps", "/apps")]),
+        record("platform-founder", ["who founded ansiversa", "who is the founder of ansiversa", "who is ansiversa founder", "who created ansiversa", "who designed ansiversa", "who is behind ansiversa", "is ansiversa built by a company or an individual"], ["founder", "creator", "architect"], "Ansiversa was founded and architected by Karthikeyan Ramalingam, Founder and Chief Architect. He leads the platform vision, architecture, quality, and product direction.", ["Karthikeyan Ramalingam", "Founder and Chief Architect"], [("Open About", "/about")]),
+        record("platform-history", ["when was ansiversa started", "where was ansiversa created"], ["ansiversa history", "platform timeline"], "The idea for Ansiversa formed in late 2024, and its name, domain, and long-term mission were established in December 2024. Ansiversa's public information does not specify a creation location.", ["late 2024", "December 2024", "creation location is not publicly specified"], [("Open About", "/about")]),
+        record("platform-owner", ["who owns ansiversa"], ["owner", "legal license holder"], "Ansila Adamkutty is the official owner and legal license holder of Ansiversa, with responsibility for governance, registrations, and formal representation.", ["Ansila Adamkutty", "official owner and legal license holder"], [("Open About", "/about")]),
+        record("platform-operator", ["who operates ansiversa"], ["operator", "operating entity"], "Ansiversa's public information identifies its founder and architect and its official owner and legal license holder, but it does not publish a separate operating entity.", ["no separate operating entity is published"], [("Open About", "/about"), ("Open Contact", "/contact")]),
+        record("astra-identity", ["who is astra", "what is astra", "are you astra", "is astra an ai", "what can astra do", "what can you help me with", "does astra know all ansiversa apps", "can astra open apps for me"], ["astra", "ai assistant", "assistant identity"], "Astra is Ansiversa's built-in AI assistant. I help users understand the platform, discover and compare relevant apps, and open validated destinations across its fixed ecosystem of 100 apps. My answers are grounded in Ansiversa's canonical public knowledge.", ["built-in AI assistant", "canonical public knowledge", "validated destinations"], [("Browse Apps", "/apps"), ("Open About", "/about")]),
+        record("astra-provider", ["are you chatgpt", "which ai powers astra"], ["astra model", "ai provider", "chatgpt"], "I am Astra, Ansiversa's built-in AI assistant. Ansiversa does not publish Astra's underlying model or provider configuration; my role is to provide grounded platform guidance from approved public knowledge.", ["underlying model and provider configuration are not public"], [("Open About", "/about")]),
+        record("fixed-catalog", ["why exactly 100 apps", "why only 100 apps", "will ansiversa add more apps", "will there be app 101", "will there be app #101", "what happens after 100 apps", "what does horizontal improvement mean", "why not keep adding apps", "is the catalog permanent", "how does ansiversa grow", "can apps be replaced"], ["exactly 100", "app 101", "horizontal improvement", "fixed catalog"], "Ansiversa is permanently curated at exactly 100 apps, so there is no routine App #101. Growth is horizontal: shared quality, accessibility, performance, search, security, AI integration, and user experience improve across the ecosystem. An app may be replaced if it is unpopular, unused, or no longer provides enough value, while the total remains 100.", ["exactly 100 apps", "no routine App #101", "horizontal improvement", "replacement may occur while total remains 100"], [("Open About", "/about"), ("Browse Apps", "/apps")]),
+        record("platform-account", ["can i use one account for all apps"], ["one account", "shared account"], "Yes. Ansiversa is designed around one account for its fixed ecosystem of 100 apps.", ["one account for 100 apps"], [("Open About", "/about"), ("Open Login", "/login")]),
+        record("platform-categories", ["are all 100 apps live", "do the apps share the same design"], ["live apps", "shared design"], "Ansiversa has 100 live apps organized across 14 public app categories. The apps use a consistent platform design language and shared experience standards.", ["100 live apps", "14 public app categories", "consistent design language"], [("Browse Apps", "/apps"), ("Open About", "/about")]),
+        record("platform-data", ["does each app have a separate database", "is my data private", "does ansiversa store everything centrally"], ["data architecture", "privacy", "separate database"], "Ansiversa uses clear ownership boundaries for platform and app data rather than treating everything as one central record store. Public privacy details are available in the Privacy Policy; sensitive infrastructure details are not disclosed.", ["clear data ownership boundaries", "high-level public security wording"], [("Open Privacy", "/privacy"), ("Open Terms", "/terms")]),
+        record("creator-program", ["what is the creator program", "can creators build apps for ansiversa"], ["creators", "developers", "creator program"], "Ansiversa is designed to give creators and developers a consistent foundation for improving useful products within clear architecture and experience standards. Public information currently describes carefully supported creator contributions, not an open marketplace or unrestricted app expansion.", ["supported creator contributions", "fixed 100-app boundary remains"], [("Open About", "/about"), ("Open Contact", "/contact")]),
+        record("open-source", ["is ansiversa open source"], ["open source", "source code"], "Ansiversa's public platform information does not state that the platform is open source.", ["open-source status is not publicly stated"], [("Open About", "/about")]),
+    ]
+
+
 def _digest(paths: Iterable[Path], root: Path) -> str:
     digest = hashlib.sha256()
     for path in sorted(paths, key=lambda item: item.as_posix()):
@@ -321,7 +362,7 @@ def build_registry() -> tuple[dict[str, Any], list[dict[str, str]]]:
         "schemaVersion": SCHEMA_VERSION, "generatedAt": GENERATED_AT, "generatorVersion": GENERATOR_VERSION,
         "sourceRevision": {"backend": f"sha256:{_digest(backend_sources, BACKEND_ROOT)}", "frontend": f"sha256:{_digest(frontend_sources, FRONTEND_ROOT)}"},
         "platform": {"name": "Ansiversa", "shortName": "Ansiversa", "canonicalUrl": "https://ansiversa.com", "purpose": "One consistent platform for focused everyday solution apps.", "positioning": "A permanently curated ecosystem of exactly 100 solution apps.", "tagline": "One account. 100 curated apps.", "catalogBoundary": {"fixedAppCount": 100, "growthModel": "horizontal", "replacementAllowed": True, "routineExpansion": False}, "appCount": 100, "categoryCount": len(categories), "audiences": ["individuals", "professionals", "families"], "coreCapabilities": ["app discovery", "shared account", "personal dashboard", "global search", "AI-assisted guidance"], "platformFeatures": ["Favorites", "Recent Apps", "Notifications", "Activity Timeline", "Ansiversa AI"], "navigationDestinations": [page["route"] for page in _platform_pages()], "publicPolicies": ["/privacy", "/terms"], "searchAliases": ["ansiversa", "100 apps", "solution apps"], "sourceReferences": [_source_ref(BACKEND_ROOT / "story.md", "Platform story")], "visibility": "public"},
-        "pages": _platform_pages(), "categories": categories, "apps": apps,
+        "pages": _platform_pages(), "platformIdentityKnowledge": _platform_identity_knowledge(), "categories": categories, "apps": apps,
         "validation": {"appCount": len(apps), "categoryCount": len(categories), "warningCount": len(gaps), "errorCount": 0},
     }
     validate_registry(registry)
@@ -330,6 +371,12 @@ def build_registry() -> tuple[dict[str, Any], list[dict[str, str]]]:
 
 def validate_registry(registry: dict[str, Any]) -> None:
     apps = registry.get("apps") or []
+    identities = registry.get("platformIdentityKnowledge") or []
+    if not identities: raise ValueError("Platform identity knowledge is required")
+    if len({item["id"] for item in identities}) != len(identities): raise ValueError("Duplicate platform identity id")
+    for item in identities:
+        if item.get("visibility") != "public": raise ValueError("Platform identity knowledge must be public")
+        if not item.get("questionIntents") or not item.get("answer") or not item.get("sourceReferences"): raise ValueError("Incomplete platform identity record")
     if len(apps) != 100: raise ValueError(f"Expected exactly 100 apps, found {len(apps)}")
     for field in ("number", "id", "slug", "overviewRoute"):
         values = [app[field] for app in apps]

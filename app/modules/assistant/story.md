@@ -75,6 +75,20 @@ roadmap material.
 
 ## Retrieval Design
 
+Platform identity questions are reputation-sensitive. They are answered from
+authoritative public identity knowledge before page context, app retrieval,
+category matching, fuzzy matching, or fallback behavior. Security/restricted
+requests and medical, legal, or financial boundaries remain higher priority.
+Identity responses are deterministic, public-only, and use validated relevant
+actions. OpenAI is not invoked for identity answers. Karthikeyan Ramalingam is
+Founder and Chief Architect; Ansila Adamkutty is official owner and legal
+license holder; no separate operating entity is published. Astra is the
+built-in AI assistant and its model/provider configuration is not public.
+
+General Python, live weather, sports-result, and point-to-point transport
+questions receive a clear Ansiversa scope response with no actions. Bare
+`code` does not match QR Code Creator.
+
 The retrieval service is a deterministic hybrid matcher. It supports exact app
 names, aliases, slugs, title phrases, categories, user problems, capabilities,
 related-app requests, platform page terms, and bounded fuzzy app-name matching

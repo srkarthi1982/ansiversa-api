@@ -72,6 +72,18 @@ separation, length bounds, and secret exclusion.
 
 ## Consumer boundaries and readiness
 
+### Platform identity priority
+
+Platform identity questions are reputation-sensitive. They must be answered
+from authoritative public identity knowledge before app retrieval, contextual
+retrieval, fuzzy matching, or fallback behavior. Registry schema v2 adds
+public, source-traceable `platformIdentityKnowledge` records. Security and
+professional-safety handling still precede identity, and OpenAI cannot rewrite
+identity facts. Karthikeyan Ramalingam is Founder and Chief Architect; Ansila
+Adamkutty is official owner and legal license holder; no separate operating
+entity is published. Astra is the built-in AI assistant. Provider/model routing
+remains private.
+
 `KnowledgeRegistry` is a cached reader supporting public-by-default exact,
 alias, category, problem, capability, page, and related-app lookup. The
 Assistant converts cached registry records into its existing deterministic

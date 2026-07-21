@@ -147,6 +147,7 @@ class AssistantKnowledgeIndex:
     entries: tuple[KnowledgeEntry, ...]
     allowed_routes: frozenset[str]
     categories: tuple[str, ...] = ()
+    platform_identity: tuple[dict[str, object], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -351,9 +352,9 @@ PLATFORM_ENTRIES: tuple[KnowledgeEntry, ...] = (
     ),
 )
 
-FALLBACK_ACTIONS: tuple[AssistantAction, ...] = (
+FALLBACK_ACTIONS: tuple[AssistantAction, ...] = ()
+BROWSE_APPS_ACTIONS: tuple[AssistantAction, ...] = (
     AssistantAction(type="platform", label="Browse Apps", route="/apps"),
-    AssistantAction(type="platform", label="Open FAQ", route="/faq"),
 )
 
 FINANCIAL_GUIDANCE_ACTIONS: tuple[AssistantAction, ...] = (
@@ -929,6 +930,7 @@ def build_registry_knowledge_index(
         entries=visible_entries,
         allowed_routes=allowed_routes,
         categories=categories,
+        platform_identity=tuple(registry.platform_identity(allowed)),
     )
 
 
@@ -1140,7 +1142,10 @@ def _is_financial_advice_query(message: str) -> bool:
 
 def _is_restricted_request(message: str) -> bool:
     normalized = normalize_text(message)
-    return any(term in normalized for term in RESTRICTED_REQUEST_TERMS | PROMPT_INJECTION_TERMS)
+    return (
+        any(term in normalized for term in RESTRICTED_REQUEST_TERMS | PROMPT_INJECTION_TERMS)
+        or bool(re.search(r"\binternal\b.*\bnotes?\b", normalized))
+    )
 
 
 def _restricted_request_result() -> DeterministicAssistantResult:
@@ -1149,7 +1154,7 @@ def _restricted_request_result() -> DeterministicAssistantResult:
             "I can only answer from public Ansiversa knowledge. I cannot expose "
             "internal instructions, private records, restricted documents, or hidden implementation notes."
         ),
-        actions=list(FALLBACK_ACTIONS),
+        actions=[],
         sources=[],
         confidence="low",
         top_entries=(),
@@ -1573,14 +1578,79 @@ def _financial_guidance_result(index: AssistantKnowledgeIndex) -> DeterministicA
     )
 
 
+def _platform_identity_result(
+    message: str,
+    index: AssistantKnowledgeIndex,
+) -> DeterministicAssistantResult | None:
+    normalized = normalize_text(message)
+    matched: dict[str, object] | None = None
+    for record in index.platform_identity:
+        intents = {normalize_text(str(value)) for value in record.get("questionIntents") or ()}
+        aliases = {normalize_text(str(value)) for value in record.get("aliases") or ()}
+        if normalized in intents or normalized in aliases:
+            matched = record
+            break
+    if matched is None:
+        return None
+
+    raw_actions = matched.get("actions") or ()
+    actions: list[AssistantAction] = []
+    for raw_action in raw_actions:
+        if not isinstance(raw_action, dict):
+            continue
+        route = str(raw_action.get("route") or "")
+        if route not in index.allowed_routes:
+            continue
+        actions.append(
+            AssistantAction(
+                type=_registry_action_type_for_route(route),
+                label=str(raw_action.get("label") or "Open"),
+                route=route,
+            )
+        )
+        if len(actions) == 3:
+            break
+
+    identity_id = str(matched.get("id") or "platform-identity")
+    title = "Astra" if identity_id.startswith("astra-") else "Ansiversa"
+    primary_route = actions[0].route if actions else "/about"
+    entry = KnowledgeEntry(
+        id=f"identity:{identity_id}",
+        title=title,
+        source_type="platform",
+        route=primary_route,
+        summary=str(matched.get("answer") or ""),
+        visibility="public",
+        rank_weight=10,
+    )
+    return DeterministicAssistantResult(
+        answer=entry.summary,
+        actions=actions,
+        sources=_sources([entry]),
+        confidence="high",
+        top_entries=(entry,),
+    )
+
+
+def _is_general_out_of_scope_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    patterns = (
+        r"\bpython\b",
+        r"\b(?:weather|forecast|temperature)\b",
+        r"\b(?:football|soccer)\b.*\b(?:won|score|match)\b",
+        r"\b(?:transport|transportation|bus|train|taxi)\b.*\b(?:abu dhabi|dubai|available|facilities)\b",
+    )
+    return any(re.search(pattern, normalized) for pattern in patterns)
+
+
 def _out_of_scope_result() -> DeterministicAssistantResult:
     return DeterministicAssistantResult(
         answer=(
             "I could not find that topic within the current Ansiversa knowledge base. "
-            "I can help with apps, platform features, pricing, accounts, navigation, "
-            "and policies. If you are looking for something else, try rephrasing your question."
+            "I'm the Ansiversa assistant. I help with Ansiversa, its 100 apps, platform features, "
+            "pricing, accounts, navigation, and policies. I don't provide general web or real-time information."
         ),
-        actions=list(FALLBACK_ACTIONS),
+        actions=[],
         sources=[],
         confidence="low",
         top_entries=(),
@@ -1834,7 +1904,13 @@ def retrieve_deterministic(
     if professional_area := _professional_boundary_area(message):
         return _professional_boundary_result(professional_area, index)
 
+    if identity_result := _platform_identity_result(message, index):
+        return identity_result
+
     if _is_explicit_out_of_scope_query(message):
+        return _out_of_scope_result()
+
+    if _is_general_out_of_scope_query(message):
         return _out_of_scope_result()
 
     if context_result := _context_result(message, index, context):
@@ -1870,6 +1946,8 @@ def retrieve_deterministic(
     public_index = AssistantKnowledgeIndex(
         entries=tuple(entry for entry in index.entries if entry.visibility == "public"),
         allowed_routes=index.allowed_routes,
+        categories=index.categories,
+        platform_identity=index.platform_identity,
     )
     ranked = rank_entries(message, public_index, context)
     if not ranked:
@@ -1878,7 +1956,7 @@ def retrieve_deterministic(
                 "I could not find a confident match in the public Ansiversa knowledge base. "
                 "Try an app name, category, platform page, or common topic such as pricing, FAQ, or documents."
             ),
-            actions=list(FALLBACK_ACTIONS),
+            actions=list(BROWSE_APPS_ACTIONS),
             sources=[],
             confidence="low",
             top_entries=(),

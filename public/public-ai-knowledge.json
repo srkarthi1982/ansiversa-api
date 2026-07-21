@@ -4984,9 +4984,9 @@
     }
   ],
   "canonicalSource": {
-    "generatorVersion": "1.0.0",
+    "generatorVersion": "1.1.0",
     "name": "Canonical AI Knowledge Registry",
-    "schemaVersion": 1
+    "schemaVersion": 2
   },
   "categories": [
     {

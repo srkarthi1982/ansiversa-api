@@ -101,6 +101,12 @@ from the registry rather than independent request-time source reads.
 
 ## Current Implementation
 
+The registry contains a governed `platformIdentityKnowledge` section. Every
+record has public visibility, question intents, aliases, a deterministic
+answer, facts, validated actions, and source references. Platform identity
+questions must resolve from these records before app, contextual, fuzzy, or
+fallback retrieval.
+
 The current implementation includes deterministic registry build/check commands,
 explicit visibility values, source traceability, current/future separation,
 related-app generation, platform/account/legal page records, a cached registry

@@ -44,6 +44,8 @@
 
 * 2026-07-19: Promoted Savings Goal Planner App #094 to approved live version `1.0.0` after Astra review, Partner manual verification, production Apps row promotion, destination metadata sync `20 / 100`, overview metadata sync, production-configured isolated migration verification, and validation.
 
+2026-07-21 - Added governed Platform Identity Knowledge and reputation guardrails: safety boundaries remain first, public identity precedes context/app/fuzzy retrieval, founder/owner/architect roles remain distinct, Astra and the fixed 100-app model receive deterministic answers, and general Python/transport/weather/sports prompts return a zero-action scope response.
+
 ## Repository Purpose
 
 `ansiversa-api` is the central API platform for the Ansiversa ecosystem.

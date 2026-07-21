@@ -28,6 +28,14 @@ class KnowledgeRegistry:
         if not allowed <= VISIBILITIES: raise ValueError("Unknown visibility")
         return [page for page in self.data["pages"] if page["visibility"] in allowed]
 
+    def platform_identity(self, allowed_visibility: set[str] | None = None) -> list[dict[str, Any]]:
+        allowed = allowed_visibility or {"public"}
+        return [
+            item
+            for item in self.data.get("platformIdentityKnowledge", [])
+            if item["visibility"] in allowed
+        ]
+
     def lookup_app(self, query: str, allowed_visibility: set[str] | None = None) -> list[dict[str, Any]]:
         query = normalize_text(query).lower()
         results = []

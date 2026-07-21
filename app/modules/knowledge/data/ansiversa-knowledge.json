@@ -10225,8 +10225,8 @@
       "visibility": "public"
     }
   ],
-  "generatedAt": "2026-07-20T00:00:00Z",
-  "generatorVersion": "1.0.0",
+  "generatedAt": "2026-07-21T00:00:00Z",
+  "generatorVersion": "1.1.0",
   "pages": [
     {
       "id": "page_home",
@@ -10633,9 +10633,509 @@
     "tagline": "One account. 100 curated apps.",
     "visibility": "public"
   },
-  "schemaVersion": 1,
+  "platformIdentityKnowledge": [
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "ansiversa meaning",
+        "full form"
+      ],
+      "answer": "Ansiversa stands for Advanced Next-Gen Software Innovation and Versatility.",
+      "facts": [
+        "Advanced Next-Gen Software Innovation and Versatility"
+      ],
+      "id": "platform-meaning",
+      "questionIntents": [
+        "what does ansiversa mean",
+        "what is the full form of ansiversa"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        },
+        {
+          "label": "Browse Apps",
+          "route": "/apps"
+        }
+      ],
+      "aliases": [
+        "ansiversa identity",
+        "platform purpose",
+        "ansiversa ecosystem"
+      ],
+      "answer": "Ansiversa is one consistent platform for exactly 100 curated solution apps across everyday life and work. It gives people one account, familiar navigation, and focused tools instead of a noisy, endlessly expanding app store.",
+      "facts": [
+        "exactly 100 curated solution apps",
+        "one account",
+        "consistent platform experience"
+      ],
+      "id": "platform-purpose",
+      "questionIntents": [
+        "what is ansiversa",
+        "what is ansiversa used for",
+        "who is ansiversa for",
+        "is ansiversa an app store",
+        "what makes ansiversa different",
+        "why was ansiversa created",
+        "what problem does ansiversa solve",
+        "what is the ansiversa ecosystem"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "founder",
+        "creator",
+        "architect"
+      ],
+      "answer": "Ansiversa was founded and architected by Karthikeyan Ramalingam, Founder and Chief Architect. He leads the platform vision, architecture, quality, and product direction.",
+      "facts": [
+        "Karthikeyan Ramalingam",
+        "Founder and Chief Architect"
+      ],
+      "id": "platform-founder",
+      "questionIntents": [
+        "who founded ansiversa",
+        "who is the founder of ansiversa",
+        "who is ansiversa founder",
+        "who created ansiversa",
+        "who designed ansiversa",
+        "who is behind ansiversa",
+        "is ansiversa built by a company or an individual"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "ansiversa history",
+        "platform timeline"
+      ],
+      "answer": "The idea for Ansiversa formed in late 2024, and its name, domain, and long-term mission were established in December 2024. Ansiversa's public information does not specify a creation location.",
+      "facts": [
+        "late 2024",
+        "December 2024",
+        "creation location is not publicly specified"
+      ],
+      "id": "platform-history",
+      "questionIntents": [
+        "when was ansiversa started",
+        "where was ansiversa created"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "owner",
+        "legal license holder"
+      ],
+      "answer": "Ansila Adamkutty is the official owner and legal license holder of Ansiversa, with responsibility for governance, registrations, and formal representation.",
+      "facts": [
+        "Ansila Adamkutty",
+        "official owner and legal license holder"
+      ],
+      "id": "platform-owner",
+      "questionIntents": [
+        "who owns ansiversa"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        },
+        {
+          "label": "Open Contact",
+          "route": "/contact"
+        }
+      ],
+      "aliases": [
+        "operator",
+        "operating entity"
+      ],
+      "answer": "Ansiversa's public information identifies its founder and architect and its official owner and legal license holder, but it does not publish a separate operating entity.",
+      "facts": [
+        "no separate operating entity is published"
+      ],
+      "id": "platform-operator",
+      "questionIntents": [
+        "who operates ansiversa"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Browse Apps",
+          "route": "/apps"
+        },
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "astra",
+        "ai assistant",
+        "assistant identity"
+      ],
+      "answer": "Astra is Ansiversa's built-in AI assistant. I help users understand the platform, discover and compare relevant apps, and open validated destinations across its fixed ecosystem of 100 apps. My answers are grounded in Ansiversa's canonical public knowledge.",
+      "facts": [
+        "built-in AI assistant",
+        "canonical public knowledge",
+        "validated destinations"
+      ],
+      "id": "astra-identity",
+      "questionIntents": [
+        "who is astra",
+        "what is astra",
+        "are you astra",
+        "is astra an ai",
+        "what can astra do",
+        "what can you help me with",
+        "does astra know all ansiversa apps",
+        "can astra open apps for me"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "astra model",
+        "ai provider",
+        "chatgpt"
+      ],
+      "answer": "I am Astra, Ansiversa's built-in AI assistant. Ansiversa does not publish Astra's underlying model or provider configuration; my role is to provide grounded platform guidance from approved public knowledge.",
+      "facts": [
+        "underlying model and provider configuration are not public"
+      ],
+      "id": "astra-provider",
+      "questionIntents": [
+        "are you chatgpt",
+        "which ai powers astra"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        },
+        {
+          "label": "Browse Apps",
+          "route": "/apps"
+        }
+      ],
+      "aliases": [
+        "exactly 100",
+        "app 101",
+        "horizontal improvement",
+        "fixed catalog"
+      ],
+      "answer": "Ansiversa is permanently curated at exactly 100 apps, so there is no routine App #101. Growth is horizontal: shared quality, accessibility, performance, search, security, AI integration, and user experience improve across the ecosystem. An app may be replaced if it is unpopular, unused, or no longer provides enough value, while the total remains 100.",
+      "facts": [
+        "exactly 100 apps",
+        "no routine App #101",
+        "horizontal improvement",
+        "replacement may occur while total remains 100"
+      ],
+      "id": "fixed-catalog",
+      "questionIntents": [
+        "why exactly 100 apps",
+        "why only 100 apps",
+        "will ansiversa add more apps",
+        "will there be app 101",
+        "will there be app #101",
+        "what happens after 100 apps",
+        "what does horizontal improvement mean",
+        "why not keep adding apps",
+        "is the catalog permanent",
+        "how does ansiversa grow",
+        "can apps be replaced"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        },
+        {
+          "label": "Open Login",
+          "route": "/login"
+        }
+      ],
+      "aliases": [
+        "one account",
+        "shared account"
+      ],
+      "answer": "Yes. Ansiversa is designed around one account for its fixed ecosystem of 100 apps.",
+      "facts": [
+        "one account for 100 apps"
+      ],
+      "id": "platform-account",
+      "questionIntents": [
+        "can i use one account for all apps"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Browse Apps",
+          "route": "/apps"
+        },
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "live apps",
+        "shared design"
+      ],
+      "answer": "Ansiversa has 100 live apps organized across 14 public app categories. The apps use a consistent platform design language and shared experience standards.",
+      "facts": [
+        "100 live apps",
+        "14 public app categories",
+        "consistent design language"
+      ],
+      "id": "platform-categories",
+      "questionIntents": [
+        "are all 100 apps live",
+        "do the apps share the same design"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open Privacy",
+          "route": "/privacy"
+        },
+        {
+          "label": "Open Terms",
+          "route": "/terms"
+        }
+      ],
+      "aliases": [
+        "data architecture",
+        "privacy",
+        "separate database"
+      ],
+      "answer": "Ansiversa uses clear ownership boundaries for platform and app data rather than treating everything as one central record store. Public privacy details are available in the Privacy Policy; sensitive infrastructure details are not disclosed.",
+      "facts": [
+        "clear data ownership boundaries",
+        "high-level public security wording"
+      ],
+      "id": "platform-data",
+      "questionIntents": [
+        "does each app have a separate database",
+        "is my data private",
+        "does ansiversa store everything centrally"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        },
+        {
+          "label": "Open Contact",
+          "route": "/contact"
+        }
+      ],
+      "aliases": [
+        "creators",
+        "developers",
+        "creator program"
+      ],
+      "answer": "Ansiversa is designed to give creators and developers a consistent foundation for improving useful products within clear architecture and experience standards. Public information currently describes carefully supported creator contributions, not an open marketplace or unrestricted app expansion.",
+      "facts": [
+        "supported creator contributions",
+        "fixed 100-app boundary remains"
+      ],
+      "id": "creator-program",
+      "questionIntents": [
+        "what is the creator program",
+        "can creators build apps for ansiversa"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    },
+    {
+      "actions": [
+        {
+          "label": "Open About",
+          "route": "/about"
+        }
+      ],
+      "aliases": [
+        "open source",
+        "source code"
+      ],
+      "answer": "Ansiversa's public platform information does not state that the platform is open source.",
+      "facts": [
+        "open-source status is not publicly stated"
+      ],
+      "id": "open-source",
+      "questionIntents": [
+        "is ansiversa open source"
+      ],
+      "sourceReferences": [
+        {
+          "path": "app/modules/content/data/about.json",
+          "repository": "ansiversa-api",
+          "section": "approved public identity content",
+          "visibility": "public"
+        }
+      ],
+      "visibility": "public"
+    }
+  ],
+  "schemaVersion": 2,
   "sourceRevision": {
-    "backend": "sha256:06de8266140e105b141eeaf8a03b1a884ad51860089b1505354ed75020f8fb90",
+    "backend": "sha256:3343af02da135d9854cd0af47331f23e5c2d3962f5ccd3a12038d26b85942f12",
     "frontend": "sha256:b61632ddb9e8d91880ced76fae530ceba0109d5c6c9f66ad741f538ba7cbffbf"
   },
   "validation": {
