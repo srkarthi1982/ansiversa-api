@@ -41,13 +41,13 @@ No implementation task should be assigned to Codex until the feature has been re
 | ID | Feature | Priority | Status | Notes |
 |----|----------|----------|--------|-------|
 | I1-001 | Astra AI User Data Awareness – Phase 1 | Critical | Discussing | |
-| I1-002 | Astra AI Session Conversation Improvements | High | Proposed | |
-| I1-003 | Astra AI Smart Recommendations | High | Proposed | |
-| I1-004 | Astra AI Context Awareness Improvements | High | Proposed | |
-| I1-005 | Astra AI Cross-App Intelligence | Medium | Proposed | |
-| I1-006 | Astra AI Safe Action Execution | Medium | Proposed | |
-| I1-007 | Notifications Center UI Refinement | High | Proposed | |
-| I1-008 | Activity Timeline UI Refinement | High | Proposed | |
+| I1-002 | Astra AI Tool Framework | Critical | Discussing | |
+| I1-003 | Platform User Context Provider | Critical | Discussing | |
+| I1-004 | Quiz Astra AI Integration | Critical | Discussing | |
+| I1-005 | Course Tracker Astra AI Integration | Medium | Proposed | |
+| I1-006 | Astra Learning Intelligence | High | Discussing | |
+| I1-007 | Notifications Center UI Refinement | High | Discussing | |
+| I1-008 | Astra Dashboard Intelligence | High | Discussing | |
 | I1-009 | Dashboard Personalization | High | Proposed | |
 | I1-010 | Global Search Enhancements | Medium | Proposed | |
 | I1-011 | Command Palette Enhancements | Medium | Proposed | |
