@@ -316,6 +316,12 @@ Requirements:
 
 An equally safe existing platform source may be selected if Favorites is not the best implementation fit.
 
+The demonstration tool is personal-data access and is therefore not approved
+for production operation by I1-002 alone. It must remain disabled by default
+behind a backend-owned feature gate until persisted audit logging,
+consent/user controls, deletion/export handling, and seeded verification gates
+are approved and implemented.
+
 ---
 
 # Tool Selection
@@ -776,6 +782,24 @@ Implemented framework responsibilities:
 The demonstration tool uses the existing Favorites service and remains
 authenticated, owner-scoped, read-only, bounded, route-validated, and
 minimal-output.
+
+Because the demonstration tool reads authenticated personal data, production
+execution is disabled by default through
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`.
+
+When disabled:
+
+- personal-data tool detection does not build or execute the tool registry
+- the Favorites service is not queried
+- no personal data is returned
+- no tool actions are returned
+- the request receives a truthful bounded unavailable response
+- the request does not fall through to unrestricted OpenAI or legacy retrieval
+
+Tests may enable the gate deliberately to preserve framework and demonstration
+tool coverage. Production remains disabled unless explicitly configured after
+approval of persistent audit logging, user controls, deletion/export handling,
+and seeded verification gates.
 
 No app-specific Astra tools were implemented.
 

@@ -281,6 +281,10 @@ Audit sink decision:
 - Runtime implementation is deferred to the task that first implements personal
   data tool execution.
 - Until the audit sink exists, personal-data tools must not go live.
+- Runtime personal-data tools must also remain disabled by default until
+  consent/user controls, deletion/export handling, and seeded verification
+  gates are approved and implemented. I1-002 enforces this with the
+  backend-owned `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` default.
 
 ---
 
@@ -357,6 +361,10 @@ Seed data rules:
 
 I1-001 does not create runtime fixtures, users, or seed scripts. It defines the
 governance those future fixtures must follow.
+
+Personal-data tools may be enabled only in explicitly governed test or
+non-production verification contexts until this seeded verification model is in
+place.
 
 ---
 

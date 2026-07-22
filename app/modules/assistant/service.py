@@ -1688,6 +1688,19 @@ def _tool_response_from_result(result: AssistantToolResult) -> AssistantQueryRes
     )
 
 
+def _personal_data_tools_disabled_response() -> AssistantQueryResponse:
+    return AssistantQueryResponse(
+        answer=(
+            "Personalized Astra data access is not currently available. "
+            "Public Ansiversa guidance is still available."
+        ),
+        actions=[],
+        sources=[],
+        confidence="medium",
+        response_mode="deterministic",
+    )
+
+
 def _query_tool_intent(
     db: Session,
     message: str,
@@ -1703,6 +1716,8 @@ def _query_tool_intent(
         return None
     if not _is_user_favorites_tool_query(message):
         return None
+    if not settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED:
+        return _personal_data_tools_disabled_response()
 
     registry = build_assistant_tool_registry(db)
     executor = AssistantToolExecutor(registry)

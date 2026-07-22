@@ -161,6 +161,15 @@ returns only favorite app names, slugs, routes, count metadata, and route-safe
 actions, and remains owner-scoped to the authenticated user. It is not a
 solution-app integration and does not move app business logic into Astra.
 
+Because Favorites are authenticated personal data, personal-data tool execution
+is disabled by default behind the backend-owned
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` gate. When disabled, the Assistant
+does not build the tool registry, does not query Favorites, returns no personal
+data, and does not fall through to unrestricted retrieval. Tests may enable the
+gate deliberately; production remains disabled until persisted audit logging,
+user controls, deletion/export handling, and seeded verification gates are
+approved and implemented.
+
 ## Route Safety
 
 Every returned action route is validated against the known public routes in the

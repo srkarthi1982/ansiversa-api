@@ -188,6 +188,7 @@ class Settings(BaseSettings):
     AI_MAX_USER_MESSAGE_LENGTH: int = Field(default=2000, ge=1, le=5000)
     AI_DEBUG: bool = False
     ASSISTANT_MAX_CONTEXT_CHARS: int = Field(default=3500, ge=500, le=10000)
+    ASTRA_PERSONAL_DATA_TOOLS_ENABLED: bool = False
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )

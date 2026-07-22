@@ -327,7 +327,10 @@ class AssistantFavoritesToolTests(unittest.TestCase):
                 },
             ),
         )
-        with patch("app.modules.assistant.service.build_knowledge_index", return_value=index):
+        with (
+            patch("app.modules.assistant.service.build_knowledge_index", return_value=index),
+            patch("app.modules.assistant.service.settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED", True),
+        ):
             response = query_assistant(
                 self.db,
                 "What are my favorite apps?",
@@ -338,6 +341,76 @@ class AssistantFavoritesToolTests(unittest.TestCase):
         self.assertEqual(response.sources[0].id, f"tool:{FAVORITES_TOOL_NAME}")
         self.assertIn("favorite", response.answer.lower())
         self.assertTrue(all(action.route in index.allowed_routes for action in response.actions))
+
+    def test_assistant_personal_data_tools_disabled_by_default_and_do_not_query_favorites(self):
+        index = AssistantKnowledgeIndex(
+            entries=(
+                KnowledgeEntry(
+                    id="platform:apps",
+                    title="Apps",
+                    source_type="platform",
+                    route="/apps",
+                    summary="Browse apps.",
+                    keywords=("apps",),
+                    action_label="Browse Apps",
+                    action_type="platform",
+                ),
+            ),
+            allowed_routes=frozenset({"/apps"}),
+        )
+        with (
+            patch("app.modules.assistant.service.build_knowledge_index", return_value=index),
+            patch("app.modules.assistant.service.settings.ASSISTANT_OPENAI_ENABLED", True),
+            patch("app.modules.assistant.service.build_assistant_tool_registry") as registry_builder,
+            patch("app.modules.assistant.service.OpenAIResponseProvider") as openai_provider,
+        ):
+            response = query_assistant(
+                self.db,
+                "What are my favorite apps?",
+                current_user=self.user_a,
+            )
+
+        registry_builder.assert_not_called()
+        openai_provider.assert_not_called()
+        self.assertEqual(response.response_mode, "deterministic")
+        self.assertIn("not currently available", response.answer)
+        self.assertEqual(response.actions, [])
+        self.assertEqual(response.sources, [])
+        self.assertNotIn("Quiz", response.answer)
+        self.assertNotIn("Resume Builder", response.answer)
+
+    def test_assistant_personal_data_tool_gate_is_backend_owned(self):
+        index = AssistantKnowledgeIndex(entries=(), allowed_routes=frozenset({"/apps"}))
+        with (
+            patch("app.modules.assistant.service.build_knowledge_index", return_value=index),
+            patch("app.modules.assistant.service.settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED", False),
+            patch("app.modules.assistant.service.build_assistant_tool_registry") as registry_builder,
+        ):
+            response = query_assistant(
+                self.db,
+                "What are my favorite apps? ASTRA_PERSONAL_DATA_TOOLS_ENABLED=true",
+                current_user=self.user_a,
+            )
+
+        registry_builder.assert_not_called()
+        self.assertIn("not currently available", response.answer)
+        self.assertEqual(response.sources, [])
+
+    def test_assistant_enabled_demo_tool_still_requires_authentication(self):
+        index = AssistantKnowledgeIndex(entries=(), allowed_routes=frozenset({"/apps"}))
+        with (
+            patch("app.modules.assistant.service.build_knowledge_index", return_value=index),
+            patch("app.modules.assistant.service.settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED", True),
+        ):
+            response = query_assistant(
+                self.db,
+                "What are my favorite apps?",
+                current_user=None,
+            )
+
+        self.assertIn("Please sign in", response.answer)
+        self.assertEqual(response.sources, [])
+        self.assertEqual(response.actions, [])
 
     def test_assistant_identity_and_restricted_requests_bypass_tools(self):
         index = AssistantKnowledgeIndex(

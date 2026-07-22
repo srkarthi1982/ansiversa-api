@@ -148,12 +148,19 @@ The tool:
 
 This is a platform user-feature tool, not a solution-app integration.
 
+Production personal-data execution is not approved by I1-002. The
+demonstration tool remains disabled by default behind the backend-owned
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED` setting until persistent audit logging,
+user controls, deletion/export handling, and seeded verification gates are
+approved and implemented.
+
 ---
 
 # Security Model
 
 Phase 1 enforcement:
 
+- personal-data tools are disabled by default
 - authenticated tools require backend-authenticated user context
 - caller-supplied identity fields are rejected
 - write tools are rejected
@@ -188,6 +195,32 @@ personal-data tools go live.
 
 ---
 
+# Release Gate
+
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED` is a server-owned feature gate.
+
+Default:
+
+```text
+false
+```
+
+When disabled:
+
+- personal-data tool intent returns a bounded unavailable response
+- the Favorites service is not queried
+- no personal data is returned
+- no tool actions are generated
+- the request does not fall through to unrestricted retrieval or OpenAI
+
+When enabled in governed test or non-production verification, existing
+authenticated, owner-scoped, read-only execution remains unchanged.
+
+Production must remain disabled until the remaining personal-data release gates
+are approved and implemented.
+
+---
+
 # Extension Points
 
 Future app tools should add:
@@ -211,8 +244,8 @@ Existing public knowledge, identity, safety, discovery, route validation,
 fallback behavior, and optional grounded OpenAI behavior remain compatible.
 
 Guest users continue to receive public Assistant behavior. Authenticated
-personal tools run only when the user is authenticated and the deterministic
-tool intent is approved.
+personal tools run only when the user is authenticated, the deterministic tool
+intent is approved, and the server-owned personal-data tool gate is enabled.
 
 ---
 

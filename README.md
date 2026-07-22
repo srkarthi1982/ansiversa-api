@@ -169,6 +169,12 @@ foundation. It does not implement app-specific tools, the I1-012 Tool Registry,
 I1-003 User Context Provider, write operations, AI memory, recommendations, or
 App #101.
 
+Personal-data tools are disabled by default through the server-owned
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` setting. Production must remain
+disabled until persistent audit logging, user controls, deletion/export
+handling, and seeded verification gates are approved and implemented. Tests and
+governed non-production verification may enable the setting deliberately.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Applied the I1-002 personal-data release-gate correction by keeping the Astra Tool Framework intact while disabling personal-data tool execution by default with server-owned `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`, preserving test-only enabled coverage for the Favorites demonstration tool, documenting that production remains blocked until persistent audit logging, user controls, deletion/export handling, and seeded verification gates are approved and implemented, and introducing no I1-012 registry, I1-003 context provider, app tools, OpenAI tool orchestration, write operations, migrations, or App #101 changes.
+
 2026-07-22 - Implemented I1-002 Astra AI Tool Framework as shared Assistant runtime infrastructure with explicit tool definitions, backend-owned execution context, allowlisted runtime registry, secure executor, argument/result validation, read-only Phase 1 enforcement, bounded route-safe actions, safe audit metadata logging, optional authenticated Assistant context, a platform Favorites summary demonstration tool, focused tests, and `docs/architecture/astra-tool-framework.md`. No solution-app tools, I1-012 registry metadata, I1-003 context provider, OpenAI tool orchestration, write operations, migrations, recommendations, AI memory, or App #101 changes were introduced.
 
 2026-07-22 - Completed the Phase 2 Foundation Checkpoint verification for I1-009 and I1-001 with `docs/iterations/2026-07-next/phase-2-foundation-checkpoint.md`, confirming cross-reference integrity, planning synchronization, governance consistency, I1-002 readiness, documentation-only validation, and no runtime Astra implementation, tool execution, app integration, personal-data queries, migrations, OpenAI calls, or App #101 changes.
@@ -323,11 +325,16 @@ Framework boundaries:
 * actions are filtered to approved internal routes
 * failures return structured safe results without stack traces, SQL, secrets,
   tokens, or raw personal payloads
+* personal-data tools are disabled by default with server-owned
+  `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`
 * audit metadata is safe operational metadata only; persisted personal-data
   audit logging remains a release gate before personal-data tools go live
 
 The I1-002 demonstration tool is `get_user_favorites_summary`, a platform
-Favorites summary tool. It does not create solution-app integrations.
+Favorites summary tool. It does not create solution-app integrations. Because
+Favorites are authenticated personal data, production execution remains disabled
+until persistent audit logging, user controls, deletion/export handling, and
+seeded verification gates are approved and implemented.
 
 I1-002 does not authorize Quiz tools, Course Tracker tools, I1-012 Tool
 Registry metadata/versioning/discovery, I1-003 User Context Provider, OpenAI
