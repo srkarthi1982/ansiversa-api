@@ -146,6 +146,17 @@ I1-009 establishes the contract only. User-data awareness, tool execution,
 context provider work, app pilots, personal-data tools, migrations, and runtime
 Astra orchestration require separate frozen tasks.
 
+The Phase 1 user-data awareness governance contract is documented in:
+
+```text
+docs/astra-user-data-awareness-contract.md
+```
+
+This contract defines authenticated identity, app-owned data boundaries,
+privacy rules, the OpenAI personal-context allowlist, audit model, retention
+and deletion governance, and seeded verification environment rules. It does not
+implement runtime personal-data access.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

@@ -11,6 +11,12 @@ capabilities to Ansiversa applications.
 
 It implements Iteration 1 task `I1-009 — Astra AI Integration Contract`.
 
+The personal-data awareness governance established by I1-001 lives at:
+
+```text
+docs/astra-user-data-awareness-contract.md
+```
+
 ---
 
 # Purpose
@@ -424,8 +430,11 @@ Before personal-data tools go live, the platform must resolve:
 - Consent, retention, deletion, and OpenAI personal-context allowlist
 - Seeded authenticated test-data ownership and environment
 
-These unresolved governance items do not block this contract. They do block
-I1-001/I1-002 personal-data tooling from going live.
+I1-001 resolves those decisions as governance policy in
+`docs/astra-user-data-awareness-contract.md`. Runtime implementation remains
+blocked until a later approved task implements the required audit sink,
+consent/user-control behavior, deletion/export behavior, and seeded
+verification setup.
 
 ---
 

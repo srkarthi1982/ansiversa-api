@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Implemented I1-001 Astra AI User Data Awareness Phase 1 as documentation-only governance with the canonical `docs/astra-user-data-awareness-contract.md`, covering authoritative backend identity, app-owned data boundaries, privacy policy, OpenAI personal-context allowlist, audit policy, retention/deletion governance, seeded verification environment rules, and explicit non-goals. No runtime Astra implementation, tool execution, application integration, personal-data queries, migrations, or App #101 changes were introduced.
+
 2026-07-22 - Implemented I1-009 Astra AI Integration Contract as a documentation-only governance standard with the canonical `docs/astra-ai-integration-contract.md`, app-level `astra-ai.md` template, ownership boundaries, backend/frontend responsibilities, OpenAI/privacy/security limits, tool documentation lifecycle, and explicit non-goals. No runtime Astra orchestration, personal-data tooling, migrations, OpenAI calls, or App #101 changes were introduced.
 
 2026-07-20 - Repaired the production Notifications schema mismatch by adding parent migration `20260720_0003` for missing `message`, `isRead`, and `metadataJson` columns, preserving legacy `body` data through backfill, restoring unread indexes, and keeping the Notifications drawer UI unchanged.
@@ -257,6 +259,43 @@ Before personal-data tools go live, the platform must resolve:
 * audit sink for Astra personal-data tool execution
 * consent, retention, deletion, and OpenAI personal-context allowlist
 * seeded authenticated test-data ownership and environment
+
+## Astra User Data Awareness Contract
+
+The Phase 1 personal-data awareness governance standard lives at:
+
+```text
+docs/astra-user-data-awareness-contract.md
+```
+
+Core rule:
+
+```text
+Backend identity is authoritative.
+Applications own user data.
+Astra receives only approved, minimized context.
+OpenAI never determines identity, ownership, or permissions.
+```
+
+I1-001 defines what Astra is allowed to know about an authenticated user's own
+Ansiversa data. It does not implement runtime data retrieval.
+
+User-data awareness must follow these boundaries:
+
+* authenticated backend user context is the only authoritative identity
+* application services remain the only source of app-owned data
+* personal context must be owner-scoped, purpose-bound, minimized, bounded, and
+  read-only in Phase 1
+* OpenAI receives only categories allowed by the governed personal-context
+  allowlist
+* future personal-data access must be auditable without logging raw personal
+  payloads
+* retention, deletion, export, consent, and seeded verification behavior must
+  follow the governance contract before tools go live
+
+I1-001 does not authorize I1-002 tool execution, I1-003 context provider, app
+pilots, application queries, personal-data queries, runtime audit logging,
+migrations, OpenAI orchestration, AI memory, recommendations, or App #101.
 
 ## Public API Data Discipline
 

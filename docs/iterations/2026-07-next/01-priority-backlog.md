@@ -40,7 +40,7 @@ No implementation task should be assigned to Codex until the feature has been re
 
 | ID | Feature | Priority | Status | Notes |
 |----|----------|----------|--------|-------|
-| I1-001 | Astra AI User Data Awareness – Phase 1 | Critical | Frozen | Wave 1 |
+| I1-001 | Astra AI User Data Awareness – Phase 1 | Critical | Completed | Wave 1 |
 | I1-002 | Astra AI Tool Framework | Critical | Frozen | Wave 1 |
 | I1-003 | Platform User Context Provider | Critical | Frozen | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Critical | Frozen | Wave 2 |
@@ -103,9 +103,9 @@ Any new idea discovered during implementation should return to this backlog inst
 | Proposed | 0 |
 | Discussing | 0 |
 | Approved | 0 |
-| Frozen | 17 |
+| Frozen | 16 |
 | In Progress | 0 |
-| Completed | 1 |
+| Completed | 2 |
 | Deferred | 4 |
 | Cancelled | 0 |
 
