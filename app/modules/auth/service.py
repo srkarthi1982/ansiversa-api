@@ -367,3 +367,44 @@ def get_current_user(
     set_timing_user_id(user.id)
 
     return user
+
+
+def get_optional_current_user(
+    request: Request,
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> User | None:
+    authorization = request.headers.get("authorization") or ""
+    scheme, _, bearer_token = authorization.partition(" ")
+    token = (
+        bearer_token.strip()
+        if scheme.lower() == "bearer" and bearer_token.strip()
+        else request.cookies.get(settings.AUTH_COOKIE_NAME)
+    )
+    if not token:
+        return None
+
+    try:
+        with timing_span("auth.decode_optional_access_token"):
+            payload = decode_access_token(token)
+        if payload.get("type") != "access":
+            return None
+
+        user_id = payload.get("sub")
+        email = payload.get("email")
+        if isinstance(user_id, str) and user_id:
+            with timing_span("auth.optional_current_user_lookup_by_id"):
+                user = get_user_by_id(db, user_id)
+        elif isinstance(email, str) and email:
+            with timing_span("auth.optional_current_user_lookup_by_email"):
+                user = get_user_by_email(db, email)
+        else:
+            return None
+    except InvalidTokenError:
+        return None
+
+    if not user or not is_login_allowed_status(user.status):
+        return None
+
+    set_timing_user_id(user.id)
+
+    return user

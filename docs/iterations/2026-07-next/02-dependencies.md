@@ -38,7 +38,7 @@ clear.
 | Task | Title | Status | Prerequisites | Blocks / Enables | Parallel Opportunity | Wave |
 |------|-------|--------|---------------|------------------|----------------------|------|
 | I1-001 | Astra AI User Data Awareness – Phase 1 | Completed | I1-009 | I1-002, I1-003, app pilots | No | Wave 1 |
-| I1-002 | Astra AI Tool Framework | Ready | I1-001 | I1-012, I1-003, tool-enabled app pilots | No | Wave 1 |
+| I1-002 | Astra AI Tool Framework | Completed | I1-001 | I1-012, I1-003, tool-enabled app pilots | No | Wave 1 |
 | I1-003 | Platform User Context Provider | Ready | I1-001, I1-002, I1-012 | I1-004, I1-010, context-aware platform work | No | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Ready | I1-001, I1-002, I1-003, I1-012 | I1-005, I1-006, first authenticated tool pilot | No | Wave 2 |
 | I1-005 | Course Tracker Astra AI Integration | Ready | I1-004 | I1-006, I1-008 | Can run after Wave 2 validation | Wave 4 |

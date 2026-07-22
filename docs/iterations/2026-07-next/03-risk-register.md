@@ -34,13 +34,14 @@ The objective is to identify risks before implementation begins and reduce their
 
 | ID | Risk | Impact | Likelihood | Level | Mitigation | Status |
 |----|------|---------|------------|--------|------------|--------|
-| R-001 | Astra accesses another user's data | High | Low | Critical | Strict user ownership validation | Open |
+| R-001 | Astra accesses another user's data | High | Low | Critical | Backend-owned tool context, authenticated user injection, caller-controlled identity rejection, and app-owned owner-scoped services | Mitigated |
 | R-002 | AI generates non-deterministic answers for platform identity | Medium | Medium | High | Deterministic identity responses | Mitigated |
 | R-003 | User context queries become slow | Medium | Medium | Medium | Query optimization and indexing | Open |
-| R-004 | Prompt injection attempts | High | Medium | High | Intent validation and safety filters | Open |
+| R-004 | Prompt injection attempts | High | Medium | High | Intent validation, safety filters, restricted-request priority, allowlisted tools, and argument validation | Mitigated |
 | R-005 | Excessive OpenAI usage | Medium | Medium | Medium | Prefer deterministic backend responses | Open |
 | R-006 | Regression in existing Assistant behavior | High | Low | High | Full regression suite before release | Open |
-| R-007 | Unauthorized SQL execution | High | Low | Critical | Backend-owned query framework only | Open |
+| R-007 | Unauthorized SQL execution | High | Low | Critical | No model-generated SQL, no database schemas, no raw SQL tool arguments, and app-owned service execution only | Mitigated |
+| R-008 | Personal-data tools go live before persistent audit/user-control gates | High | Low | High | I1-002 logs safe audit metadata only and keeps persisted audit sink, consent/user controls, deletion/export, and seeded verification setup as release gates | Open |
 
 ---
 

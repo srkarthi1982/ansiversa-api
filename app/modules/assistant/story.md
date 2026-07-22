@@ -6,7 +6,9 @@ Ansiversa AI Assistant is the platform help and navigation assistant. Phase 4
 keeps routing and source authority deterministic while using session-only
 frontend context to improve relevance. AI Knowledge Foundation Phase 2 migrates
 retrieval to the Canonical AI Knowledge Registry. OpenAI remains only an
-optional server-side explanation layer for approved grounded results.
+optional server-side explanation layer for approved grounded results. I1-002
+adds the governed Astra Tool Framework for approved read-only tools without
+changing the public response contract.
 
 ## Workflow
 
@@ -18,11 +20,15 @@ knowledge, categories, aliases, capabilities, user problems, related apps,
 future direction, visibility, and source traceability. The assistant first
 applies deterministic context handling for current page/app follow-ups,
 last-opened-app navigation, recent app references, and favorite/recent
-preference. It then produces a deterministic answer, validated navigation
-actions, safe source metadata, and confidence. Strong app-information queries
-may send only bounded public context plus concise session context to OpenAI for
-response wording. Platform navigation, unknown queries, weak matches, explicit
-future questions, and provider failures use the deterministic path.
+preference. It also checks approved tool intents after identity, safety, and
+restricted-request handling. The first tool-backed intent is an authenticated,
+read-only favorite-app summary using the existing Favorites service. The
+assistant then produces a deterministic answer, validated navigation actions,
+safe source metadata, and confidence. Strong app-information queries may send
+only bounded public context plus concise session context to OpenAI for response
+wording. Tool facts are not sent to OpenAI or rewritten by OpenAI in I1-002.
+Platform navigation, unknown queries, weak matches, explicit future questions,
+and provider failures use the deterministic path.
 
 ## API Design
 
@@ -133,6 +139,28 @@ The backend treats this as relevance input, not permanent memory. It does not
 persist the context, create embeddings, ingest repository documents, perform
 autonomous actions, or generate routes from user text.
 
+## Tool Framework
+
+The I1-002 Astra Tool Framework introduces:
+
+- `AssistantToolDefinition`
+- `AssistantToolContext`
+- `AssistantToolRegistry`
+- `AssistantToolExecutor`
+- `AssistantToolResult`
+
+The executor enforces authentication, Phase 1 read-only policy, argument
+validation, result bounds, route-safe actions, timeout boundaries, and safe
+audit metadata. Tool callers and models cannot provide user IDs, owner IDs, or
+tenant IDs. Structured failures are returned without exposing stack traces, SQL,
+secrets, tokens, or raw personal payloads.
+
+The first demonstration tool is `get_user_favorites_summary`. It is a
+platform-level Favorites summary tool that calls the existing Favorites service,
+returns only favorite app names, slugs, routes, count metadata, and route-safe
+actions, and remains owner-scoped to the authenticated user. It is not a
+solution-app integration and does not move app business logic into Astra.
+
 ## Route Safety
 
 Every returned action route is validated against the known public routes in the
@@ -154,16 +182,19 @@ details to the user.
 
 ## Current Status
 
-Phase 2 retrieval parity supports the frozen assistant architecture:
+Phase 2 retrieval parity and I1-002 tool framework support the frozen Assistant
+architecture:
 
 ```text
-User -> Knowledge Retriever -> Canonical AI Knowledge Registry -> OpenAI -> User
+User -> Assistant -> Knowledge Registry / Approved Tool -> Deterministic Response / OpenAI Grounded Public Answer -> User
 ```
 
 The Assistant now reads from the Canonical AI Knowledge Registry as the normal
-retrieval source. There are no embeddings, vector databases, repository search,
-new OpenAI calls, permanent memory, tool calls, backend workflow actions,
-migrations, or schema-breaking changes.
+retrieval source and may execute approved read-only tools for authenticated
+tool intents. There are no embeddings, vector databases, repository search,
+new OpenAI calls, permanent memory, write tools, backend workflow actions,
+migrations, schema-breaking changes, Quiz tools, Course Tracker tools, I1-012
+registry metadata, I1-003 context provider, or App #101 changes.
 
 ## Knowledge Foundation Phase 1 Boundary
 

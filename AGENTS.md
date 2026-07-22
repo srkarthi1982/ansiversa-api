@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Implemented I1-002 Astra AI Tool Framework as shared Assistant runtime infrastructure with explicit tool definitions, backend-owned execution context, allowlisted runtime registry, secure executor, argument/result validation, read-only Phase 1 enforcement, bounded route-safe actions, safe audit metadata logging, optional authenticated Assistant context, a platform Favorites summary demonstration tool, focused tests, and `docs/architecture/astra-tool-framework.md`. No solution-app tools, I1-012 registry metadata, I1-003 context provider, OpenAI tool orchestration, write operations, migrations, recommendations, AI memory, or App #101 changes were introduced.
+
 2026-07-22 - Completed the Phase 2 Foundation Checkpoint verification for I1-009 and I1-001 with `docs/iterations/2026-07-next/phase-2-foundation-checkpoint.md`, confirming cross-reference integrity, planning synchronization, governance consistency, I1-002 readiness, documentation-only validation, and no runtime Astra implementation, tool execution, app integration, personal-data queries, migrations, OpenAI calls, or App #101 changes.
 
 2026-07-22 - Implemented I1-001 Astra AI User Data Awareness Phase 1 as documentation-only governance with the canonical `docs/astra-user-data-awareness-contract.md`, covering authoritative backend identity, app-owned data boundaries, privacy policy, OpenAI personal-context allowlist, audit policy, retention/deletion governance, seeded verification environment rules, and explicit non-goals. No runtime Astra implementation, tool execution, application integration, personal-data queries, migrations, or App #101 changes were introduced.
@@ -298,6 +300,39 @@ User-data awareness must follow these boundaries:
 I1-001 does not authorize I1-002 tool execution, I1-003 context provider, app
 pilots, application queries, personal-data queries, runtime audit logging,
 migrations, OpenAI orchestration, AI memory, recommendations, or App #101.
+
+## Astra Tool Framework
+
+The shared runtime tool framework lives in:
+
+```text
+app/modules/assistant/tools.py
+app/modules/assistant/platform_tools.py
+docs/architecture/astra-tool-framework.md
+```
+
+I1-002 authorizes shared Assistant tool infrastructure only.
+
+Framework boundaries:
+
+* tool definitions are explicit and allowlisted
+* tool context is backend-owned and injects authenticated user context
+* callers and models cannot provide owner IDs or user IDs
+* Phase 1 tools must be read-only
+* arguments and results are validated and bounded
+* actions are filtered to approved internal routes
+* failures return structured safe results without stack traces, SQL, secrets,
+  tokens, or raw personal payloads
+* audit metadata is safe operational metadata only; persisted personal-data
+  audit logging remains a release gate before personal-data tools go live
+
+The I1-002 demonstration tool is `get_user_favorites_summary`, a platform
+Favorites summary tool. It does not create solution-app integrations.
+
+I1-002 does not authorize Quiz tools, Course Tracker tools, I1-012 Tool
+Registry metadata/versioning/discovery, I1-003 User Context Provider, OpenAI
+tool selection, OpenAI rewriting of tool facts, write operations, AI memory,
+recommendations, autonomous workflows, migrations, or App #101.
 
 ## Public API Data Discipline
 

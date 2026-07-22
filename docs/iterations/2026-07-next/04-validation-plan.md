@@ -115,6 +115,10 @@ Verify:
 - Restricted data protection
 - Prompt injection protection
 - SQL safety
+- Tool argument validation where Astra tools are involved
+- Tool result bounds where Astra tools are involved
+- Read-only enforcement for Phase 1 Astra tools
+- Safe audit metadata for Astra tool execution
 
 ---
 

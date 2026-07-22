@@ -157,6 +157,18 @@ privacy rules, the OpenAI personal-context allowlist, audit model, retention
 and deletion governance, and seeded verification environment rules. It does not
 implement runtime personal-data access.
 
+The shared Astra Tool Framework architecture is documented in:
+
+```text
+docs/architecture/astra-tool-framework.md
+```
+
+I1-002 implements the runtime definition, context, executor, validation,
+bounded result, safe audit-metadata, and deterministic demonstration-tool
+foundation. It does not implement app-specific tools, the I1-012 Tool Registry,
+I1-003 User Context Provider, write operations, AI memory, recommendations, or
+App #101.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

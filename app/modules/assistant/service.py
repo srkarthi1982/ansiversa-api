@@ -8,6 +8,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from time import perf_counter
 from typing import Literal, Protocol
+from uuid import uuid4
 
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
@@ -15,12 +16,19 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.modules.apps.models import AppCatalogItem, Category
 from app.modules.assistant.openai_provider import OpenAIResponseProvider
+from app.modules.assistant.platform_tools import FAVORITES_TOOL_NAME, build_assistant_tool_registry
 from app.modules.assistant.schemas import (
     AssistantAction,
     AssistantClientContext,
     AssistantQueryResponse,
     AssistantSource,
 )
+from app.modules.assistant.tools import (
+    AssistantToolContext,
+    AssistantToolExecutor,
+    AssistantToolResult,
+)
+from app.modules.auth.models import User
 from app.modules.faqs.models import Faq
 from app.modules.knowledge.registry import KnowledgeRegistry
 
@@ -436,6 +444,7 @@ FUTURE_TERMS = {
     "coming",
     "next",
 }
+FAVORITES_TOOL_TERMS = {"favorite", "favorites", "favourite", "favourites"}
 NUMBER_WORDS: dict[str, int] = {
     "one": 1,
     "two": 2,
@@ -1632,6 +1641,88 @@ def _platform_identity_result(
     )
 
 
+def _is_user_favorites_tool_query(message: str) -> bool:
+    normalized = normalize_text(message)
+    tokens = set(normalized.split())
+    if not (tokens & FAVORITES_TOOL_TERMS):
+        return False
+    if "app" not in tokens and "apps" not in tokens:
+        return False
+    return bool({"my", "i", "me"} & tokens) or "favorite apps" in normalized
+
+
+def _tool_response_from_result(result: AssistantToolResult) -> AssistantQueryResponse:
+    if result.status == "success":
+        answer = " ".join(result.summary_facts)
+        confidence: Literal["high", "medium", "low"] = "high"
+    elif result.status == "empty":
+        answer = "You do not have favorite apps yet. Open Apps and add favorites to make this summary useful."
+        confidence = "medium"
+    elif result.status == "denied":
+        answer = "Please sign in before asking Astra about your favorite apps."
+        confidence = "medium"
+    elif result.status == "invalid_request":
+        answer = "I could not run that favorite-app summary because the request was outside the approved tool contract."
+        confidence = "low"
+    else:
+        answer = "Favorite-app summary is temporarily unavailable."
+        confidence = "low"
+
+    sources = (
+        [
+            AssistantSource(
+                id=f"tool:{result.tool_name}",
+                title="Favorite Apps",
+                type="account",
+            )
+        ]
+        if result.status in {"success", "empty"}
+        else []
+    )
+    return AssistantQueryResponse(
+        answer=answer,
+        actions=list(result.actions),
+        sources=sources,
+        confidence=confidence,
+        response_mode="deterministic",
+    )
+
+
+def _query_tool_intent(
+    db: Session,
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+    current_user: User | None,
+) -> AssistantQueryResponse | None:
+    if _is_restricted_request(message):
+        return None
+    if _professional_boundary_area(message):
+        return None
+    if _platform_identity_result(message, index):
+        return None
+    if not _is_user_favorites_tool_query(message):
+        return None
+
+    registry = build_assistant_tool_registry(db)
+    executor = AssistantToolExecutor(registry)
+    current_app_slug = context.current_app.slug if context and context.current_app else None
+    tool_context = AssistantToolContext(
+        request_id=str(uuid4()),
+        user=current_user,
+        current_route=context.current_route if context else None,
+        current_app_slug=current_app_slug,
+        allowed_routes=index.allowed_routes,
+        max_tool_calls=1,
+    )
+    result = executor.execute(
+        FAVORITES_TOOL_NAME,
+        {"limit": 5},
+        tool_context,
+    )
+    return _tool_response_from_result(result)
+
+
 def _is_general_out_of_scope_query(message: str) -> bool:
     normalized = normalize_text(message)
     patterns = (
@@ -2124,6 +2215,8 @@ def query_assistant(
     db: Session,
     message: str,
     context: AssistantClientContext | None = None,
+    *,
+    current_user: User | None = None,
 ) -> AssistantQueryResponse:
     start = perf_counter()
     try:
@@ -2138,6 +2231,8 @@ def query_assistant(
             "Assistant registry retrieval failed; using legacy deterministic fallback."
         )
         index = build_legacy_knowledge_index(db)
+    if tool_response := _query_tool_intent(db, message, index, context, current_user):
+        return tool_response
     if not settings.AI_GATEWAY_ENABLED:
         return retrieve_deterministic(message, index, context).to_response(response_mode="deterministic")
 
