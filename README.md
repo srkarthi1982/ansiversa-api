@@ -200,6 +200,16 @@ through `app/modules/quiz/astra_tools.py` and documents the contract in
 `app/modules/quiz/astra-ai.md`. Production personal-data execution remains
 disabled by default through `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`.
 
+I1-005 implements the second solution-app Astra pilot for Course Tracker. Course
+Tracker registers app-owned read-only tools for course progress, active courses,
+completed courses, nearest completion, stalled courses, deadline summaries, and
+deterministic next-course action through
+`app/modules/course_tracker/astra_tools.py` and documents the contract in
+`app/modules/course_tracker/astra-ai.md`. Course Tracker remains authoritative
+for its database and business rules; Astra only orchestrates. Production
+personal-data execution remains disabled by default through
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

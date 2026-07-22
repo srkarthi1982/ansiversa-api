@@ -1652,11 +1652,14 @@ def _is_user_favorites_tool_query(message: str) -> bool:
     return bool({"my", "i", "me"} & tokens) or "favorite apps" in normalized
 
 
-def _tool_intent_for_message(message: str) -> str | None:
+def _tool_intent_for_message(message: str, context: AssistantClientContext | None = None) -> str | None:
     normalized = normalize_text(message)
     tokens = set(normalized.split())
     if _is_user_favorites_tool_query(message):
         return "user_favorites_summary"
+    course_intent = _course_tracker_intent_for_message(normalized, tokens, context)
+    if course_intent is not None:
+        return course_intent
     if any(phrase in normalized for phrase in ("completed", "complete")) and {"platform", "platforms"} & tokens:
         return "completed_quiz_platforms"
     if "soft skills" in normalized and any(phrase in normalized for phrase in ("completed", "complete", "after")):
@@ -1672,6 +1675,65 @@ def _tool_intent_for_message(message: str) -> str | None:
     if "quiz" not in tokens and "quizzes" not in tokens:
         return None
     return None
+
+
+def _course_tracker_intent_for_message(
+    normalized: str,
+    tokens: set[str],
+    context: AssistantClientContext | None = None,
+) -> str | None:
+    course_terms = {"course", "courses", "study", "studying", "syllabus", "module", "modules", "lesson", "lessons"}
+    current_course_tracker = _is_current_course_tracker_context(context)
+    if "course tracker" not in normalized and not (tokens & course_terms) and not current_course_tracker:
+        return None
+    if tokens & {"change", "update", "edit", "delete", "remove", "create", "add", "mark"}:
+        return None
+    if any(phrase in normalized for phrase in ("overdue", "due soon", "deadline", "target date", "this week")):
+        return "course_deadline_summary"
+    if any(phrase in normalized for phrase in ("ignored", "not continued", "stalled", "resume")):
+        return "stalled_courses"
+    if any(
+        phrase in normalized
+        for phrase in (
+            "closest to completing",
+            "closest to completion",
+            "finish first",
+            "least work",
+            "nearest completion",
+        )
+    ):
+        return "course_nearest_completion"
+    if any(phrase in normalized for phrase in ("completed", "complete", "finished", "finish")) and (
+        {"course", "courses"} & tokens or "course tracker" in normalized
+    ):
+        return "completed_courses"
+    if any(
+        phrase in normalized
+        for phrase in (
+            "continue today",
+            "continue where i stopped",
+            "study next",
+            "focus on first",
+            "what should i study",
+            "what should i continue",
+        )
+    ):
+        return "recommend_next_course_action"
+    if any(phrase in normalized for phrase in ("currently taking", "currently doing", "still active", "unfinished courses", "active courses")):
+        return "active_courses"
+    if any(phrase in normalized for phrase in ("course tracker progress", "learning progress", "how many courses", "average progress", "study progress")):
+        return "course_progress_summary"
+    return None
+
+
+def _is_current_course_tracker_context(context: AssistantClientContext | None) -> bool:
+    if context is None:
+        return False
+    if context.current_route and context.current_route.startswith("/course-tracker"):
+        return True
+    if context.current_app is None:
+        return False
+    return context.current_app.slug == "course-tracker" or context.current_app.key == "course-tracker"
 
 
 def _tool_response_from_result(result: AssistantToolResult) -> AssistantQueryResponse:
@@ -1698,6 +1760,9 @@ def _tool_response_from_result(result: AssistantToolResult) -> AssistantQueryRes
         source_type = "account"
     elif result.source_app == "quiz":
         title = "Quiz"
+        source_type = "app"
+    elif result.source_app == "course-tracker":
+        title = "Course Tracker"
         source_type = "app"
     sources = (
         [
@@ -1759,7 +1824,7 @@ def _query_tool_intent(
         return None
     if _platform_identity_result(message, index):
         return None
-    intent = _tool_intent_for_message(message)
+    intent = _tool_intent_for_message(message, context)
     if intent is None:
         return None
     if not settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED:

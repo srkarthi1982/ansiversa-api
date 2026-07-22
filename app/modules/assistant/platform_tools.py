@@ -11,6 +11,7 @@ from app.modules.assistant.tools import (
     AssistantToolRegistry,
     AssistantToolResult,
 )
+from app.modules.course_tracker.astra_tools import build_course_tracker_astra_tools
 from app.modules.favorites.service import list_user_favorites
 from app.modules.quiz.astra_tools import build_quiz_astra_tools
 
@@ -24,6 +25,8 @@ def build_assistant_tool_registry(db: Session) -> AssistantToolRegistry:
     registry.register(get_user_favorites_summary_tool(db), owning_app="platform:favorites")
     for tool in build_quiz_astra_tools():
         registry.register(tool, owning_app="quiz")
+    for tool in build_course_tracker_astra_tools():
+        registry.register(tool, owning_app="course-tracker")
     return registry
 
 

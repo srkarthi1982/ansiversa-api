@@ -214,6 +214,25 @@ These are authenticated, owner-scoped, read-only Quiz capabilities at version
 framework. Production personal-data execution remains controlled by
 `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` until release gates are approved.
 
+I1-005 adds the second solution-app pilot capabilities owned by Course Tracker:
+
+```text
+get_course_progress_summary
+get_active_courses
+get_completed_courses
+get_course_nearest_completion
+get_stalled_courses
+get_course_deadline_summary
+recommend_next_course_action
+```
+
+These are authenticated, owner-scoped, read-only Course Tracker capabilities at
+version `1.0.0`. They are registered by the Course Tracker module and executed
+through the shared framework. Course Tracker owns progress, completion,
+deadline, stalled-course, and recommendation rules. Production personal-data
+execution remains controlled by `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` until
+release gates are approved.
+
 ---
 
 # Non-Goals

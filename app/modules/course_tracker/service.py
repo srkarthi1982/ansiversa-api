@@ -21,6 +21,9 @@ from app.modules.course_tracker.schemas import (
     CourseUpdateRequest,
 )
 
+COURSE_TRACKER_DUE_SOON_DAYS = 7
+COURSE_TRACKER_STALLED_DAYS = 14
+
 
 def _count_modules(db: Session, course_id: int, *, status_value: str | None = None) -> int:
     statement = select(func.count()).select_from(CourseModule).where(
@@ -44,8 +47,12 @@ def _sum_minutes(db: Session, course_id: int | None = None, owner_id: str | None
     return int(db.execute(statement).scalar_one())
 
 
-def _completion_rate(total_count: int, completed_count: int) -> int:
+def calculate_completion_rate(total_count: int, completed_count: int) -> int:
     return round((completed_count / total_count) * 100) if total_count else 0
+
+
+def _completion_rate(total_count: int, completed_count: int) -> int:
+    return calculate_completion_rate(total_count, completed_count)
 
 
 def _course_response(db: Session, course: Course) -> CourseResponse:

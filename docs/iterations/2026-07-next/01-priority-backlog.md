@@ -44,7 +44,7 @@ No implementation task should be assigned to Codex until the feature has been re
 | I1-002 | Astra AI Tool Framework | Critical | Completed | Wave 1 |
 | I1-003 | Platform User Context Provider | Critical | Completed | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Critical | Completed | Wave 2 |
-| I1-005 | Course Tracker Astra AI Integration | Critical | Frozen | Wave 4 |
+| I1-005 | Course Tracker Astra AI Integration | Critical | Completed | Wave 4 |
 | I1-006 | Astra Learning Intelligence | High | Deferred | Later iteration |
 | I1-007 | Notifications Center UI Refinement | High | Frozen | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | High | Frozen | Wave 4 |

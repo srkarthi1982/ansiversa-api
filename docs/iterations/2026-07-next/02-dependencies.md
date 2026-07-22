@@ -41,7 +41,7 @@ clear.
 | I1-002 | Astra AI Tool Framework | Completed | I1-001 | I1-012, I1-003, tool-enabled app pilots | No | Wave 1 |
 | I1-003 | Platform User Context Provider | Completed | I1-001, I1-002, I1-012 | I1-004, I1-010, context-aware platform work | No | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Completed | I1-001, I1-002, I1-003, I1-012 | I1-005, I1-006, first authenticated tool pilot | No | Wave 2 |
-| I1-005 | Course Tracker Astra AI Integration | Ready | I1-004 | I1-006, I1-008 | Can run after Wave 2 validation | Wave 4 |
+| I1-005 | Course Tracker Astra AI Integration | Completed | I1-004 | I1-006, I1-008 | Complete; enables later learning and dashboard intelligence | Wave 4 |
 | I1-006 | Astra Learning Intelligence | Deferred | I1-004, I1-005, I1-013, I1-014 | Later cross-app learning intelligence | No | Later Iteration |
 | I1-007 | Notifications Center UI Refinement | Ready | Existing Notifications Center Phase 1 | Notification UX polish | Yes, after freeze | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | Ready | I1-005, I1-010, Activity, Notifications, Dashboard sources | I1-013, I1-014 input signals | Can run after I1-005 | Wave 4 |
