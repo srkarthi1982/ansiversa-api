@@ -1,9 +1,9 @@
 # I1-002 — Astra AI Tool Framework
 
-**Iteration:** 2026-07-next  
-**Priority:** Critical  
-**Status:** Discussing  
-**Depends On:** I1-001 — Astra AI User Data Awareness  
+**Iteration:** 2026-07-next
+**Priority:** Critical
+**Status:** Frozen
+**Depends On:** I1-001 — Astra AI User Data Awareness
 **Primary Repository:** `ansiversa-api`
 
 ---
@@ -17,6 +17,15 @@ The framework will become the standard integration layer between Astra AI and th
 This task establishes the shared architecture only.
 
 It does not integrate all 100 apps and does not introduce write actions.
+
+---
+
+# Existing System Touchpoints
+
+Extend the existing Assistant service, Auth dependencies, app service layers,
+Activity/audit boundary, and Knowledge validation behavior. Do not replace the
+current Assistant endpoint, existing response modes, or app-owned business
+logic.
 
 ---
 

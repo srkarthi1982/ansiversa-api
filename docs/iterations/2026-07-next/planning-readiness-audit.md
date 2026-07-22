@@ -1,8 +1,8 @@
 # Iteration 1 Planning Readiness Audit
 
-**Date:** 2026-07-22  
-**Repository:** `ansiversa-api`  
-**Path Reviewed:** `docs/iterations/2026-07-next/`  
+**Date:** 2026-07-22
+**Repository:** `ansiversa-api`
+**Path Reviewed:** `docs/iterations/2026-07-next/`
 **Audit Scope:** Documentation and architecture planning only. No production code implementation was started.
 
 ---
@@ -11,11 +11,14 @@
 
 The Iteration 1 planning package is directionally strong and preserves the major Ansiversa platform boundaries: fixed 100-app ecosystem, no App #101, app-owned business logic, backend-owned identity, read-only personal-data tools in Phase 1, deterministic safety/identity priority, and the existing Assistant response modes.
 
-The package is not ready to freeze as-is. The main blockers are backlog/status inconsistency, incomplete dependency documentation, overly broad sequential dependencies, duplicated boundaries across Astra orchestration tasks, missing validation files referenced by several tasks, and unrealistic capacity for completing all 22 tasks between 2026-07-26 and 2026-08-09.
+The package required freeze corrections for backlog/status consistency,
+dependency documentation, implementation sequencing, Astra orchestration
+boundaries, validation centralization, and capacity planning.
 
 **Overall readiness result:** PASS WITH CHANGES
 
-Freeze should proceed only after the required pre-freeze decisions in this report are resolved.
+Freeze should proceed only with the corrected planning package and the remaining
+architectural decisions explicitly tracked.
 
 ---
 
@@ -25,18 +28,11 @@ Freeze should proceed only after the required pre-freeze decisions in this repor
 - Programmatic read check passed for the original 29 Markdown files in the iteration package.
 - Task file IDs and top-level task headings are internally consistent.
 - No duplicate task files or missing numeric IDs were found.
-- I1-022 naming is inconsistent:
-  - Backlog: `Platform Analytics Dashboard`
-  - Task file: `Platform Insights Dashboard`
-  - Required correction: use `Platform Insights Dashboard` everywhere.
-- Status terminology does not agree with the backlog legend:
-  - Backlog rows use `Draft Complete`, which is not in the status legend.
-  - Individual tasks use `Planned`, `Discussing`, and `Proposed`.
-  - The progress table says `Proposed: 15`, `Discussing: 1`, but the task files show 1 Planned, 6 Discussing, and 15 Proposed.
-- Priority terminology is inconsistent for I1-001:
-  - Backlog: `Critical`
-  - Task file: `P0 (Highest)`
-  - Required correction: choose one canonical priority scale before freeze.
+- I1-022 uses the canonical name `Platform Insights Dashboard`.
+- Planning status terminology is normalized to the backlog legend.
+- Implementation-window tasks use `Frozen`.
+- Later-iteration tasks use `Deferred`.
+- I1-001 priority is normalized to `Critical`.
 
 ---
 
@@ -44,15 +40,12 @@ Freeze should proceed only after the required pre-freeze decisions in this repor
 
 No circular dependency was detected from explicit `Depends On` references.
 
-The dependency package is incomplete. `02-dependencies.md` only details I1-001 dependencies and does not represent the full I1-001 through I1-022 chain. It should become the authoritative dependency table before implementation starts.
+`02-dependencies.md` now defines dependencies, blockers, parallel
+opportunities, a simple graph, and implementation waves for I1-001 through
+I1-022.
 
-Several dependencies are broader than necessary:
-
-- I1-009 depends on `I1-001 through I1-008`, but as an integration contract it should likely precede or accompany I1-004 through I1-006, not depend on completed pilots.
-- I1-010 depends on `I1-001 through I1-009`, but it appears to need only the existing Assistant context baseline plus any approved tool/context boundary from I1-002/I1-003/I1-009.
-- I1-012 depends on `I1-001 through I1-011`, but a Tool Registry is part of the framework foundation and overlaps heavily with I1-002.
-- I1-013, I1-014, and I1-015 depend on increasingly broad ranges. Narrower dependencies would reduce sequencing risk.
-- I1-016 depends on the full Astra core I1-001 to I1-015, but Global Search can mostly run independently if Astra integration is a later adapter.
+Broad dependency ranges were replaced with explicit prerequisite relationships.
+I1-009 now leads Wave 1 as the contract/specification gate.
 
 Parallel candidates:
 
@@ -93,7 +86,7 @@ Architecture risks to resolve before freeze:
 Potential overlap requiring refinement:
 
 - I1-002 Astra AI Tool Framework: should own tool definition, execution context, read-only enforcement, executor contract, and integration with the Assistant endpoint.
-- I1-012 Astra Tool Registry: should either be folded into I1-002 or narrowed to documentation/discovery metadata for registered tools.
+- I1-012 Astra Tool Registry: owns registration, discovery, metadata, versioning, and enable/disable state.
 - I1-013 Astra Intent Engine: should own intent classification and routing priority only.
 - I1-014 Astra Response Builder: should own final response assembly only.
 - I1-015 Astra Recommendation Engine: should own ranking of already-approved recommendations only.
@@ -105,9 +98,11 @@ Second overlap group:
 - I1-011 Astra Memory Management: persistent or semi-persistent memory governance; this has higher privacy risk and should likely move later.
 - I1-018 Universal Recent Items: owner-scoped recent records; may be better derived from Activity Timeline than introduced as a second persistence model.
 
-Consolidation recommendation:
+Responsibility recommendation:
 
-- Keep I1-002 and I1-012 as one foundational implementation unless Astra explicitly wants I1-012 to be documentation-only.
+- Keep I1-002 and I1-012 separate under the Single Responsibility Principle.
+- I1-002 owns execution, authentication, authorization, lifecycle, read-only enforcement, and the execution pipeline.
+- I1-012 owns registration, discovery, metadata, versioning, and enable/disable state.
 - Keep I1-010 as bounded session context.
 - Defer I1-011 persistent memory until consent, deletion, retention, and audit requirements are approved.
 
@@ -191,7 +186,7 @@ The full 22-task backlog is not realistic for 2026-07-26 through 2026-08-09 if i
 | Task | Classification | Feasibility Notes |
 |---|---|---|
 | I1-001 | Must complete | Architecture foundation, but should be narrowed to Phase 1 contract and approved boundaries before coding. |
-| I1-002 | Must complete | Core framework; large but implementable if merged/narrowed with I1-012. |
+| I1-002 | Must complete | Core execution framework; separate from I1-012 registry metadata. |
 | I1-003 | Must complete | Needed for authenticated context; must extend existing backend/frontend Assistant context safely. |
 | I1-004 | Should complete | First app pilot; feasible after I1-002/I1-003 and test seed plan. |
 | I1-005 | Stretch | Second app pilot; depends on I1-004 learnings and may exceed window. |
@@ -201,7 +196,7 @@ The full 22-task backlog is not realistic for 2026-07-26 through 2026-08-09 if i
 | I1-009 | Must complete | Should move before pilots as the contract/specification gate. |
 | I1-010 | Should complete | Current context exists; implement as bounded follow-up enhancement. |
 | I1-011 | Defer | Persistent memory needs consent, retention, deletion, and audit decisions. |
-| I1-012 | Must complete if merged with I1-002; otherwise defer | Duplicate with I1-002 unless narrowed. |
+| I1-012 | Must complete | Registry metadata/discovery task; separate from I1-002 execution. |
 | I1-013 | Stretch | Useful extraction, but should wait until tool framework and first pilot expose real routing needs. |
 | I1-014 | Stretch | Useful extraction, but should follow I1-013 or remain inside service for now. |
 | I1-015 | Defer | Recommendation ranking over personal data and multiple apps is too broad for this window. |
@@ -220,15 +215,16 @@ The full 22-task backlog is not realistic for 2026-07-26 through 2026-08-09 if i
 Wave 0: Freeze corrections and contracts
 
 - Fix backlog naming/status terminology.
-- Fill `02-dependencies.md` with all I1-001 through I1-022 dependencies.
+- Maintain `02-dependencies.md` as the authoritative dependency and wave document.
 - Approve audit sink, retention/deletion policy, and personal-context OpenAI allowlist.
-- Decide whether I1-012 is merged into I1-002.
+- Keep I1-002 and I1-012 separate with documented responsibilities.
 
 Wave 1: Astra safety foundation
 
 - I1-009 Astra AI Integration Contract.
 - I1-001 Astra AI User Data Awareness Phase 1.
-- I1-002/I1-012 merged Astra Tool Framework and Registry.
+- I1-002 Astra AI Tool Framework.
+- I1-012 Astra Tool Registry.
 - I1-003 Platform User Context Provider.
 
 Wave 2: First proof and user-visible refinement
@@ -241,37 +237,37 @@ Wave 2: First proof and user-visible refinement
 Wave 3: Platform discovery and performance
 
 - I1-016 Global Search Enhancements.
+- I1-017 Command Palette Enhancements.
+- I1-018 Universal Recent Items.
 - I1-021 Performance Improvements.
-- I1-005 Course Tracker pilot only if Wave 2 validates cleanly.
+- I1-020 Mobile Experience Improvements.
 
-Wave 4: Stretch or later
+Wave 4: Astra refinement
 
+- I1-005 Course Tracker Astra AI Integration.
 - I1-008 Dashboard Intelligence.
 - I1-013 Intent Engine.
 - I1-014 Response Builder.
-- I1-017 Command Palette Enhancements.
-- I1-020 Mobile Experience Improvements.
 
 Later iteration
 
 - I1-006 Learning Intelligence.
 - I1-011 Memory Management.
 - I1-015 Recommendation Engine.
-- I1-018 Universal Recent Items.
 - I1-022 Platform Insights Dashboard.
 
 ---
 
 # Required Changes Before Planning Freeze
 
-1. Correct I1-022 to `Platform Insights Dashboard` in the backlog and any release/dependency references.
-2. Replace `Draft Complete` with statuses from the official legend or add `Draft Complete` to the legend deliberately.
-3. Reconcile the progress counts with actual task statuses.
-4. Normalize I1-001 priority to the shared scale.
-5. Expand `02-dependencies.md` to cover all 22 tasks.
-6. Narrow broad dependencies such as `I1-001 through I1-014`.
-7. Decide whether I1-012 is merged into I1-002.
-8. Move I1-009 before app pilots if it is the required Astra integration contract.
+1. Keep I1-022 named `Platform Insights Dashboard` across the package.
+2. Keep task statuses aligned to the official legend.
+3. Keep backlog progress counts aligned with actual task statuses.
+4. Keep I1-001 priority on the shared `Critical` scale.
+5. Maintain `02-dependencies.md` as the full dependency and wave source of truth.
+6. Keep dependency ranges explicit in `02-dependencies.md` and task headers.
+7. Keep I1-002 and I1-012 separate under the approved responsibility split.
+8. Keep I1-009 before app pilots as the Astra integration contract.
 9. Define audit sink, retention, deletion, consent, and OpenAI personal-context allowlist for authenticated tools.
 10. Replace missing validation file references with planned test names or create those tests as part of the relevant implementation task.
 11. Centralize repeated browser matrix requirements in `04-validation-plan.md`.
@@ -295,6 +291,6 @@ Proceed to planning freeze only after required changes are made.
 
 Recommended first implementation task after freeze:
 
-**I1-009 — Astra AI Integration Contract**, followed by **I1-001**, **I1-002/I1-012 merged**, and **I1-003**.
+**I1-009 — Astra AI Integration Contract**, followed by **I1-001**, **I1-002**, **I1-012**, and **I1-003**.
 
 Do not begin I1-004 or I1-005 until the tool framework, context provider, audit policy, and validation fixtures are approved.

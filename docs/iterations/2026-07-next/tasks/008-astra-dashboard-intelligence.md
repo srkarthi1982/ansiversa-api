@@ -1,6 +1,16 @@
 # I1-008 — Astra Dashboard Intelligence
 
-### Objective
+**Iteration:** 2026-07-next
+**Priority:** High
+**Status:** Frozen
+**Depends On:** I1-005 — Course Tracker Astra AI Integration
+**Depends On:** I1-010 — Astra Conversation Context
+**Primary Repository:** `ansiversa-api`
+**Supporting Repository:** `ansiversa`
+
+---
+
+# Objective
 
 Transform the Dashboard from a collection of summary widgets into a source of actionable intelligence.
 
@@ -8,7 +18,15 @@ Instead of only displaying statistics, Astra should interpret dashboard informat
 
 ---
 
-### Typical Questions
+# Existing System Touchpoints
+
+Extend the existing Dashboard, Assistant, Activity, Notifications, Favorites,
+Recent Apps, Quiz, and Course Tracker integration points. Do not move
+application business logic into the Dashboard or central Assistant.
+
+---
+
+# Typical Questions
 
 A user should be able to ask:
 
@@ -25,7 +43,7 @@ A user should be able to ask:
 
 ---
 
-### Data Sources
+# Data Sources
 
 Initially:
 
@@ -47,7 +65,7 @@ Future phases can extend this to:
 
 ---
 
-### Recommendation Categories
+# Recommendation Categories
 
 The dashboard intelligence should classify items such as:
 
@@ -71,7 +89,7 @@ NO_ACTION_REQUIRED
 
 ---
 
-### Priority Rules
+# Priority Rules
 
 Instead of listing everything, Astra should rank items.
 
@@ -96,7 +114,7 @@ Recent activity suggestion
 
 ---
 
-### Example
+# Example
 
 Instead of the dashboard saying:
 
@@ -120,7 +138,7 @@ That's much more valuable than three numbers.
 
 ---
 
-### Non-goals
+# Non-goals
 
 Not yet:
 
@@ -132,7 +150,7 @@ Not yet:
 
 ---
 
-### Future
+# Future
 
 This task becomes the bridge between:
 
@@ -150,25 +168,3 @@ Daily Briefing
 ↓
 
 Personal Intelligence
-```
-
----
-
-Update the backlog:
-
-```text
-I1-008 | Astra Dashboard Intelligence | High | Discussing
-```
-
----
-
-## I also want to propose one new engineering rule
-
-I think we've naturally discovered another governance principle for Ansiversa:
-
-> **Every new feature should answer two questions:**
->
-> 1. **How does the user use this feature directly?**
-> 2. **How will Astra help the user with this feature?**
-
-That doesn't mean every feature needs Astra integration immediately. It means every feature should be designed with an extension point for Astra from the beginning. Just like you've been doing with `market-study.md`, `destination.md`, and `story.md`, this mindset will prevent future rework and keep Astra evolving alongside the platform rather than chasing it afterward. I think that philosophy fits perfectly with the engineering discipline you've built around Ansiversa.

@@ -1,22 +1,14 @@
-Next, create:
-
-```text
-docs/iterations/2026-07-next/tasks/005-course-tracker-astra-ai-integration.md
-```
-
-Use this content:
-
-````markdown
 # I1-005 — Course Tracker Astra AI Integration
 
-**Iteration:** 2026-07-next  
-**Priority:** Critical  
-**Status:** Discussing  
-**Depends On:** I1-001 — Astra AI User Data Awareness  
-**Depends On:** I1-002 — Astra AI Tool Framework  
-**Depends On:** I1-003 — Platform User Context Provider  
-**Depends On:** I1-004 — Quiz Astra AI Integration  
-**Primary Repository:** `ansiversa-api`  
+**Iteration:** 2026-07-next
+**Priority:** Critical
+**Status:** Frozen
+**Depends On:** I1-001 — Astra AI User Data Awareness
+**Depends On:** I1-002 — Astra AI Tool Framework
+**Depends On:** I1-012 — Astra Tool Registry
+**Depends On:** I1-003 — Platform User Context Provider
+**Depends On:** I1-004 — Quiz Astra AI Integration
+**Primary Repository:** `ansiversa-api`
 **Supporting Repository:** `ansiversa` only if API or UI contracts change
 
 ---
@@ -28,6 +20,14 @@ Integrate Course Tracker with Astra AI through authenticated, owner-scoped, read
 Astra should be able to answer questions about the authenticated user’s courses, progress, completion status, stalled learning, deadlines, and recommended next actions using real Course Tracker data.
 
 This task validates that the Astra Tool Framework can support a second solution app with a different data model and business workflow.
+
+---
+
+# Existing System Touchpoints
+
+Extend the existing Assistant, Tool Framework, Tool Registry, Auth, and Course
+Tracker service/database boundaries. Do not add Course Tracker SQL or Course
+Tracker business rules inside the central Assistant service.
 
 ---
 
@@ -787,12 +787,8 @@ These belong to a later Cross-App Intelligence task.
 
 # Browser Verification
 
-Use authenticated test data across:
-
-- Chromium
-- Chrome
-- tablet
-- mobile
+Use authenticated test data and the shared platform browser matrix in
+`04-validation-plan.md`.
 
 Verify:
 
@@ -956,20 +952,3 @@ Confirm explicitly:
 - Exactly 100 apps remain.
 - No App #101 was introduced.
 - All changed repositories are clean and aligned with `origin/main`.
-````
-
-Update `01-priority-backlog.md`:
-
-```text
-I1-005 | Course Tracker Astra AI Integration | Critical | Discussing
-```
-
-After this, the next task should be the first true combined-intelligence task:
-
-```text
-I1-006 — Astra Learning Intelligence
-```
-
-That task will allow Astra to use Quiz and Course Tracker together when answering questions such as:
-
-> “What should I study today?”

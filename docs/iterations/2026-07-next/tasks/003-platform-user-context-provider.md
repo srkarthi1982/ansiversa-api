@@ -1,20 +1,12 @@
-Next, create:
-
-```text
-docs/iterations/2026-07-next/tasks/003-platform-user-context-provider.md
-```
-
-This task establishes the authenticated context Astra needs before app-specific tools can safely run.
-
-````markdown
 # I1-003 — Platform User Context Provider
 
-**Iteration:** 2026-07-next  
-**Priority:** Critical  
-**Status:** Discussing  
-**Depends On:** I1-001 — Astra AI User Data Awareness  
-**Depends On:** I1-002 — Astra AI Tool Framework  
-**Primary Repository:** `ansiversa-api`  
+**Iteration:** 2026-07-next
+**Priority:** Critical
+**Status:** Frozen
+**Depends On:** I1-001 — Astra AI User Data Awareness
+**Depends On:** I1-002 — Astra AI Tool Framework
+**Depends On:** I1-012 — Astra Tool Registry
+**Primary Repository:** `ansiversa-api`
 **Supporting Repository:** `ansiversa` only if the Assistant request contract must change
 
 ---
@@ -35,6 +27,14 @@ The provider must make it possible for Astra to understand:
 - safe user preferences relevant to assistance
 
 The provider must not expose unrestricted personal records or application database contents.
+
+---
+
+# Existing System Touchpoints
+
+Extend Auth, Assistant context handling, Favorites, Activity, Notifications,
+Dashboard, and the frontend Assistant context contract where needed. Do not add a
+public user-context export endpoint or move app business logic into the shell.
 
 ---
 
@@ -723,13 +723,3 @@ Confirm explicitly:
 * Exactly 100 apps remain.
 * No App #101 was introduced.
 * All changed repositories are clean and aligned with `origin/main`.
-
-````
-
-Update `01-priority-backlog.md`:
-
-```text
-I1-003 | Platform User Context Provider | Critical | Discussing
-````
-
-This task should sit between the Tool Framework and the first app-specific Astra integration.

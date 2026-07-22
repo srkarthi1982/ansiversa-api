@@ -1,23 +1,17 @@
-Next, create:
-
-```text
-docs/iterations/2026-07-next/tasks/006-astra-learning-intelligence.md
-```
-
-Use this content:
-
-````markdown
 # I1-006 — Astra Learning Intelligence
 
-**Iteration:** 2026-07-next  
-**Priority:** High  
-**Status:** Discussing  
-**Depends On:** I1-001 — Astra AI User Data Awareness  
-**Depends On:** I1-002 — Astra AI Tool Framework  
-**Depends On:** I1-003 — Platform User Context Provider  
-**Depends On:** I1-004 — Quiz Astra AI Integration  
-**Depends On:** I1-005 — Course Tracker Astra AI Integration  
-**Primary Repository:** `ansiversa-api`  
+**Iteration:** 2026-07-next
+**Priority:** High
+**Status:** Deferred
+**Depends On:** I1-001 — Astra AI User Data Awareness
+**Depends On:** I1-002 — Astra AI Tool Framework
+**Depends On:** I1-012 — Astra Tool Registry
+**Depends On:** I1-003 — Platform User Context Provider
+**Depends On:** I1-004 — Quiz Astra AI Integration
+**Depends On:** I1-005 — Course Tracker Astra AI Integration
+**Depends On:** I1-013 — Astra Intent Engine
+**Depends On:** I1-014 — Astra Response Builder
+**Primary Repository:** `ansiversa-api`
 **Supporting Repository:** `ansiversa` only if API or UI contracts change
 
 ---
@@ -36,6 +30,15 @@ Astra should move beyond reporting isolated app data and begin helping the authe
 - whether to continue a course or improve a weak Quiz topic
 - where recent learning activity has stalled
 - which learning action provides the most immediate value
+
+---
+
+# Existing System Touchpoints
+
+Future implementation should extend Assistant orchestration, registered Quiz and
+Course Tracker tools, the Intent Engine, and the Response Builder. Do not merge
+Quiz and Course Tracker data ownership or move app-specific learning rules into
+the central Assistant.
 
 ---
 
@@ -742,12 +745,7 @@ Mark my course as completed.
 
 Use real Astra AI UI with authenticated test data.
 
-Run across:
-
-- Chromium
-- Chrome
-- tablet
-- mobile
+Use the shared platform browser matrix in `04-validation-plan.md`.
 
 Verify:
 
@@ -963,12 +961,3 @@ Confirm explicitly:
 - Exactly 100 apps remain.
 - No App #101 was introduced.
 - All changed repositories are clean and aligned with `origin/main`.
-````
-
-Update `01-priority-backlog.md`:
-
-```text
-I1-006 | Astra Learning Intelligence | High | Discussing
-```
-
-This is the first task where Astra begins answering a user’s real problem by combining data from more than one Ansiversa app.

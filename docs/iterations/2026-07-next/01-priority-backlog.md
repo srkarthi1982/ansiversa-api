@@ -36,26 +36,37 @@ No implementation task should be assigned to Codex until the feature has been re
 
 ---
 
-# Approved Backlog
+# Astra Core Architecture
 
 | ID | Feature | Priority | Status | Notes |
 |----|----------|----------|--------|-------|
-| I1-001 | Astra AI User Data Awareness – Phase 1 | Critical | Discussing | |
-| I1-002 | Astra AI Tool Framework | Critical | Discussing | |
-| I1-003 | Platform User Context Provider | Critical | Discussing | |
-| I1-004 | Quiz Astra AI Integration | Critical | Discussing | |
-| I1-005 | Course Tracker Astra AI Integration | Medium | Proposed | |
-| I1-006 | Astra Learning Intelligence | High | Discussing | |
-| I1-007 | Notifications Center UI Refinement | High | Discussing | |
-| I1-008 | Astra Dashboard Intelligence | High | Discussing | |
-| I1-009 | Dashboard Personalization | High | Proposed | |
-| I1-010 | Global Search Enhancements | Medium | Proposed | |
-| I1-011 | Command Palette Enhancements | Medium | Proposed | |
-| I1-012 | Universal Recent Items | Medium | Proposed | |
-| I1-013 | Accessibility Improvements | Medium | Proposed | |
-| I1-014 | Mobile Experience Improvements | Medium | Proposed | |
-| I1-015 | Performance Improvements | Medium | Proposed | |
-| I1-016 | Platform Analytics Dashboard | Low | Proposed | |
+| I1-001 | Astra AI User Data Awareness – Phase 1 | Critical | Frozen | Wave 1 |
+| I1-002 | Astra AI Tool Framework | Critical | Frozen | Wave 1 |
+| I1-003 | Platform User Context Provider | Critical | Frozen | Wave 1 |
+| I1-004 | Quiz Astra AI Integration | Critical | Frozen | Wave 2 |
+| I1-005 | Course Tracker Astra AI Integration | Critical | Frozen | Wave 4 |
+| I1-006 | Astra Learning Intelligence | High | Deferred | Later iteration |
+| I1-007 | Notifications Center UI Refinement | High | Frozen | Wave 2 |
+| I1-008 | Astra Dashboard Intelligence | High | Frozen | Wave 4 |
+| I1-009 | Astra AI Integration Contract | High | Frozen | Wave 1 |
+| I1-010 | Astra Conversation Context | Medium | Frozen | Wave 2 |
+| I1-011 | Astra Memory Management | Medium | Deferred | Later iteration |
+| I1-012 | Astra Tool Registry | High | Frozen | Wave 1 |
+| I1-013 | Astra Intent Engine | High | Frozen | Wave 4 |
+| I1-014 | Astra Response Builder | High | Frozen | Wave 4 |
+| I1-015 | Astra Recommendation Engine | High | Deferred | Later iteration |
+
+# Platform Experience
+
+| ID | Feature | Priority | Status | Notes |
+|----|----------|----------|--------|-------|
+| I1-016 | Global Search Enhancements | Medium | Frozen | Wave 3 |
+| I1-017 | Command Palette Enhancements | Medium | Frozen | Wave 3 |
+| I1-018 | Universal Recent Items | Medium | Frozen | Wave 3 |
+| I1-019 | Accessibility Improvements | Medium | Frozen | Wave 2 |
+| I1-020 | Mobile Experience Improvements | Medium | Frozen | Wave 3 |
+| I1-021 | Performance Improvements | Medium | Frozen | Wave 3 |
+| I1-022 | Platform Insights Dashboard | Low | Deferred | Later iteration |
 
 ---
 
@@ -89,13 +100,13 @@ Any new idea discovered during implementation should return to this backlog inst
 
 | Status | Count |
 |----------|------:|
-| Proposed | 15 |
-| Discussing | 1 |
+| Proposed | 0 |
+| Discussing | 0 |
 | Approved | 0 |
-| Frozen | 0 |
+| Frozen | 18 |
 | In Progress | 0 |
 | Completed | 0 |
-| Deferred | 0 |
+| Deferred | 4 |
 | Cancelled | 0 |
 
 ---

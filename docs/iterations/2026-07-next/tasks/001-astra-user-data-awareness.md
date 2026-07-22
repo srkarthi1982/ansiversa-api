@@ -1,9 +1,10 @@
 # I1-001 — Astra AI User Data Awareness (Phase 1)
 
-**Iteration:** 2026-07-next  
-**Priority:** P0 (Highest)  
-**Status:** Planned  
-**Owner:** Karthikeyan Ramalingam  
+**Iteration:** 2026-07-next
+**Priority:** Critical
+**Status:** Frozen
+**Depends On:** I1-009 — Astra AI Integration Contract
+**Owner:** Karthikeyan Ramalingam
 **Architecture:** Astra AI
 
 ---
@@ -23,6 +24,14 @@ Today Astra understands:
 Phase 1 extends Astra so it can also understand authenticated user data through approved backend APIs.
 
 The objective is to make Astra feel like an intelligent personal assistant for every Ansiversa user.
+
+---
+
+# Existing System Touchpoints
+
+Extend the existing Assistant, Auth, Knowledge, Activity, Notifications, and
+Dashboard boundaries. Do not replace the current Assistant retrieval,
+identity/safety routing, response modes, or app-owned service architecture.
 
 ---
 

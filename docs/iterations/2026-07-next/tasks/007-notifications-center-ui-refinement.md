@@ -1,19 +1,10 @@
-Next, create:
-
-```text
-docs/iterations/2026-07-next/tasks/007-notifications-center-ui-refinement.md
-```
-
-Use this content:
-
-````markdown
 # I1-007 — Notifications Center UI Refinement
 
-**Iteration:** 2026-07-next  
-**Priority:** High  
-**Status:** Discussing  
-**Primary Repository:** `ansiversa`  
-**Supporting Repository:** `ansiversa-api` only if a verified API defect or missing presentation field is discovered  
+**Iteration:** 2026-07-next
+**Priority:** High
+**Status:** Frozen
+**Primary Repository:** `ansiversa`
+**Supporting Repository:** `ansiversa-api` only if a verified API defect or missing presentation field is discovered
 **Depends On:** Existing Notifications Center Phase 1
 
 ---
@@ -35,6 +26,15 @@ The refined experience should use:
 - consistent desktop and mobile behavior
 
 This is a presentation and interaction refinement—not a notification-system redesign.
+
+---
+
+# Existing System Touchpoints
+
+Extend the existing Notifications Center, Notifications API contract,
+notification store, shared drawer behavior, Activity integration, and shell
+header notification entry point. Do not redesign notification persistence or
+owner-scoped backend behavior.
 
 ---
 
@@ -653,12 +653,3 @@ Confirm explicitly:
 - Owner-scoped behavior remains unchanged.
 - No App #101 was introduced.
 - All changed repositories are clean and aligned with `origin/main`.
-````
-
-Update `01-priority-backlog.md`:
-
-```text
-I1-007 | Notifications Center UI Refinement | High | Discussing
-```
-
-This task directly captures the visual issue you observed earlier: the functionality is correct, but the cards should become thinner, smoother, and easier to scan.

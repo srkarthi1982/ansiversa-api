@@ -60,6 +60,10 @@ Required where applicable:
 
 Required where applicable:
 
+Task documents should reference this shared browser matrix instead of repeating
+the full desktop and responsive list. Feature-specific browser checks remain in
+the individual task documents.
+
 Desktop
 
 - [ ] Chromium

@@ -1,21 +1,13 @@
-Next, create:
-
-```text
-docs/iterations/2026-07-next/tasks/004-quiz-astra-ai-integration.md
-```
-
-Use this content:
-
-````markdown
 # I1-004 — Quiz Astra AI Integration
 
-**Iteration:** 2026-07-next  
-**Priority:** Critical  
-**Status:** Discussing  
-**Depends On:** I1-001 — Astra AI User Data Awareness  
-**Depends On:** I1-002 — Astra AI Tool Framework  
-**Depends On:** I1-003 — Platform User Context Provider  
-**Primary Repository:** `ansiversa-api`  
+**Iteration:** 2026-07-next
+**Priority:** Critical
+**Status:** Frozen
+**Depends On:** I1-001 — Astra AI User Data Awareness
+**Depends On:** I1-002 — Astra AI Tool Framework
+**Depends On:** I1-012 — Astra Tool Registry
+**Depends On:** I1-003 — Platform User Context Provider
+**Primary Repository:** `ansiversa-api`
 **Supporting Repository:** `ansiversa` only if UI/API contracts change
 
 ---
@@ -27,6 +19,14 @@ Integrate the Quiz application with Astra AI through approved, authenticated, ow
 This is the first solution-app pilot for Astra user-data intelligence.
 
 Astra should be able to answer questions about the authenticated user’s Quiz activity, progress, completed learning platforms, recent attempts, performance, and suitable next steps using real Quiz data.
+
+---
+
+# Existing System Touchpoints
+
+Extend the existing Assistant, Tool Framework, Tool Registry, Auth, and Quiz
+module service/database boundaries. Do not add Quiz SQL or Quiz business rules
+inside the central Assistant service.
 
 ---
 
@@ -672,12 +672,7 @@ Verify:
 
 Use the real Astra AI UI with authenticated Quiz test data.
 
-Test across:
-
-- Chromium
-- Chrome
-- tablet
-- mobile
+Use the shared platform browser matrix in `04-validation-plan.md`.
 
 Verify:
 
@@ -840,12 +835,3 @@ Confirm explicitly:
 - Exactly 100 apps remain.
 - No App #101 was introduced.
 - All changed repositories are clean and aligned with `origin/main`.
-````
-
-Update `01-priority-backlog.md`:
-
-```text
-I1-004 | Quiz Astra AI Integration | Critical | Discussing
-```
-
-This is the first app-level reference implementation. Once it is proven, we can create `I1-005 — Course Tracker Astra AI Integration` using the same framework.
