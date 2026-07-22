@@ -28,6 +28,7 @@ from app.modules.assistant.tools import (
     AssistantToolExecutor,
     AssistantToolResult,
 )
+from app.modules.assistant.user_context import PlatformUserContext, build_platform_user_context
 from app.modules.auth.models import User
 from app.modules.faqs.models import Faq
 from app.modules.knowledge.registry import KnowledgeRegistry
@@ -1701,6 +1702,20 @@ def _personal_data_tools_disabled_response() -> AssistantQueryResponse:
     )
 
 
+def _context_source() -> AssistantSource:
+    return AssistantSource(id="platform:user-context", title="Platform User Context", type="platform")
+
+
+def _requires_authenticated_context_response() -> AssistantQueryResponse:
+    return AssistantQueryResponse(
+        answer="Please sign in before asking Astra about your Ansiversa activity or notifications.",
+        actions=[],
+        sources=[],
+        confidence="medium",
+        response_mode="deterministic",
+    )
+
+
 def _query_tool_intent(
     db: Session,
     message: str,
@@ -1724,12 +1739,18 @@ def _query_tool_intent(
     if definition is None:
         return _personal_data_tools_disabled_response()
     executor = AssistantToolExecutor(registry)
-    current_app_slug = context.current_app.slug if context and context.current_app else None
+    platform_context = build_platform_user_context(
+        db,
+        user=current_user,
+        client_context=context,
+        allowed_routes=index.allowed_routes,
+        profile="tool_execution",
+    )
     tool_context = AssistantToolContext(
         request_id=str(uuid4()),
         user=current_user,
-        current_route=context.current_route if context else None,
-        current_app_slug=current_app_slug,
+        current_route=platform_context.current_route,
+        current_app_slug=platform_context.current_app_slug,
         allowed_routes=index.allowed_routes,
         max_tool_calls=1,
     )
@@ -1739,6 +1760,158 @@ def _query_tool_intent(
         tool_context,
     )
     return _tool_response_from_result(result)
+
+
+def _query_platform_user_context_intent(
+    db: Session,
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+    current_user: User | None,
+) -> AssistantQueryResponse | None:
+    if _is_restricted_request(message):
+        return None
+    if _professional_boundary_area(message):
+        return None
+    if _platform_identity_result(message, index):
+        return None
+
+    normalized = normalize_text(message)
+    if _is_notification_context_query(normalized):
+        if current_user is None:
+            return _requires_authenticated_context_response()
+        user_context = build_platform_user_context(
+            db,
+            user=current_user,
+            client_context=context,
+            allowed_routes=index.allowed_routes,
+            profile="attention",
+        )
+        return _notification_context_response(user_context)
+
+    if _is_recent_activity_context_query(normalized):
+        if current_user is None:
+            return _requires_authenticated_context_response()
+        user_context = build_platform_user_context(
+            db,
+            user=current_user,
+            client_context=context,
+            allowed_routes=index.allowed_routes,
+            profile="personalization",
+        )
+        return _recent_activity_context_response(user_context)
+
+    if _is_continue_context_query(normalized):
+        if current_user is None:
+            return _requires_authenticated_context_response()
+        user_context = build_platform_user_context(
+            db,
+            user=current_user,
+            client_context=context,
+            allowed_routes=index.allowed_routes,
+            profile="attention",
+        )
+        return _continue_context_response(user_context)
+
+    return None
+
+
+def _is_notification_context_query(normalized: str) -> bool:
+    return any(
+        phrase in normalized
+        for phrase in (
+            "unread notification",
+            "unread notifications",
+            "do i have notifications",
+            "do i have unread",
+            "needs my attention",
+            "need my attention",
+        )
+    )
+
+
+def _is_recent_activity_context_query(normalized: str) -> bool:
+    return any(
+        phrase in normalized
+        for phrase in (
+            "recent apps",
+            "opened recently",
+            "recently opened",
+            "what have i been doing",
+            "my activity",
+            "recent activity",
+        )
+    )
+
+
+def _is_continue_context_query(normalized: str) -> bool:
+    return any(
+        phrase in normalized
+        for phrase in (
+            "continue using",
+            "use next",
+            "check first",
+            "what should i do today",
+            "what should i use next",
+        )
+    )
+
+
+def _notification_context_response(context: PlatformUserContext) -> AssistantQueryResponse:
+    summary = context.notification_summary
+    if summary is None or summary.unread_count == 0:
+        answer = "You do not have unread notifications right now."
+    else:
+        type_text = ""
+        if summary.types:
+            parts = [f"{count} {name}" for name, count in summary.types.items()]
+            type_text = f" Types: {', '.join(parts)}."
+        answer = f"You have {summary.unread_count} unread notification{'s' if summary.unread_count != 1 else ''}.{type_text}"
+    return AssistantQueryResponse(
+        answer=answer,
+        actions=[],
+        sources=[_context_source()],
+        confidence="high",
+        response_mode="deterministic",
+    )
+
+
+def _recent_activity_context_response(context: PlatformUserContext) -> AssistantQueryResponse:
+    if context.recent_apps:
+        names = ", ".join(app.name for app in context.recent_apps)
+        answer = f"Your recently opened apps are: {names}."
+    elif context.activity_summary and context.activity_summary.recent_activity_count:
+        types = ", ".join(context.activity_summary.recent_activity_types) or "platform activity"
+        count = context.activity_summary.recent_activity_count
+        answer = f"You have {count} recent platform activity item{'s' if count != 1 else ''}. Recent activity types: {types}."
+    else:
+        answer = "I do not see recent Ansiversa activity to summarize yet."
+    return AssistantQueryResponse(
+        answer=answer,
+        actions=[],
+        sources=[_context_source()],
+        confidence="medium",
+        response_mode="deterministic",
+    )
+
+
+def _continue_context_response(context: PlatformUserContext) -> AssistantQueryResponse:
+    candidate = context.recent_apps[0] if context.recent_apps else None
+    if candidate is None and context.favorite_apps:
+        candidate = context.favorite_apps[0]
+    if candidate is None:
+        answer = "I do not have enough recent Ansiversa context to recommend a next app yet."
+        actions: list[AssistantAction] = []
+    else:
+        answer = f"You can continue with {candidate.name}."
+        actions = [AssistantAction(type="app", label=f"Open {candidate.name}", route=candidate.route)]
+    return AssistantQueryResponse(
+        answer=answer,
+        actions=actions,
+        sources=[_context_source()],
+        confidence="medium",
+        response_mode="deterministic",
+    )
 
 
 def _is_general_out_of_scope_query(message: str) -> bool:
@@ -2251,6 +2424,8 @@ def query_assistant(
         index = build_legacy_knowledge_index(db)
     if tool_response := _query_tool_intent(db, message, index, context, current_user):
         return tool_response
+    if user_context_response := _query_platform_user_context_intent(db, message, index, context, current_user):
+        return user_context_response
     if not settings.AI_GATEWAY_ENABLED:
         return retrieve_deterministic(message, index, context).to_response(response_mode="deterministic")
 

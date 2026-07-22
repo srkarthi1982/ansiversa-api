@@ -25,6 +25,7 @@ tools without moving application business logic into the central Assistant.
 Applications own capabilities.
 Astra owns orchestration.
 Backend identity is authoritative.
+Platform user context is provided through the governed I1-003 provider.
 ```
 
 The framework executes tools. It does not own app data or app business rules.
@@ -64,8 +65,8 @@ Tool definitions are explicit. Untrusted input cannot register tools.
 
 - request ID
 - authenticated user object, when present
-- current route
-- current app slug
+- current route validated by the Platform User Context Provider
+- current app slug resolved by the Platform User Context Provider
 - allowed route set
 - maximum tool calls
 

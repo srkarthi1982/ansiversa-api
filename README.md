@@ -162,6 +162,7 @@ The shared Astra Tool Framework architecture is documented in:
 ```text
 docs/architecture/astra-tool-framework.md
 docs/architecture/astra-tool-registry.md
+docs/architecture/astra-user-context-provider.md
 ```
 
 I1-002 implements the runtime definition, context, executor, validation,
@@ -183,6 +184,14 @@ state, version, enabled/disabled state, deprecated state, schemas, timeouts, and
 documentation paths. It does not implement app-specific tools, persistent
 registry storage, admin registry UI, I1-003 User Context Provider, OpenAI tool
 orchestration, migrations, or App #101.
+
+I1-003 implements the governed Platform User Context Provider in the Assistant
+backend. The provider builds intent-driven profiles for minimal,
+personalization, attention, and tool-execution context using backend auth,
+canonical route validation, Favorites, Activity, Notifications, and safe
+preference reads. It does not add a public context export endpoint, query
+solution-app databases, change the frontend request contract, implement app
+tools, add migrations, or expose backend user IDs to OpenAI.
 
 ## Migrations
 

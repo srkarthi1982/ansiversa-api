@@ -389,6 +389,12 @@ Runtime implementation tasks must preserve existing Assistant identity answers,
 platform knowledge answers, deterministic app recommendations, route-safe
 actions, and public-knowledge behavior.
 
+I1-003 implements the first governed Platform User Context Provider for bounded
+platform-level context. It may summarize Favorites, recent apps, Activity,
+Notifications, and safe preferences through existing owner-scoped platform
+services, but it must not export unrestricted personal records or query
+solution-app databases directly.
+
 ---
 
 # Explicit Non-Goals

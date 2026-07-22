@@ -42,6 +42,7 @@ The objective is to identify risks before implementation begins and reduce their
 | R-006 | Regression in existing Assistant behavior | High | Low | High | Full regression suite before release | Open |
 | R-007 | Unauthorized SQL execution | High | Low | Critical | No model-generated SQL, no database schemas, no raw SQL tool arguments, and app-owned service execution only | Mitigated |
 | R-008 | Personal-data tools go live before persistent audit/user-control gates | High | Low | High | I1-002 keeps personal-data tools disabled by default with `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`; persisted audit sink, consent/user controls, deletion/export, and seeded verification setup remain release gates | Open |
+| R-009 | Platform user context leaks excessive personal data | High | Low | Critical | I1-003 uses profile-based lazy loading, backend-owned identity, canonical route validation, owner-scoped existing services, bounded summaries, and OpenAI-safe serialization without backend user IDs, emails, raw activity metadata, or notification bodies | Mitigated |
 
 ---
 

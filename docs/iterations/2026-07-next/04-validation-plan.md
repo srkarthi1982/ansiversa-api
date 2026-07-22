@@ -123,6 +123,10 @@ Verify:
 - Tool Registry enabled/disabled execution boundary where Astra tools are involved
 - Read-only enforcement for Phase 1 Astra tools
 - Safe audit metadata for Astra tool execution
+- Platform User Context Provider route validation where Astra context is involved
+- Platform User Context Provider owner scoping where Astra context is involved
+- Platform User Context Provider OpenAI sanitization where Astra context is involved
+- Platform User Context Provider lazy profile loading where Astra context is involved
 
 ---
 

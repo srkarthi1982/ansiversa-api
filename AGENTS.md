@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Implemented I1-003 Platform User Context Provider with bounded minimal/personalization/attention/tool-execution profiles, backend-owned identity, canonical route/current-app validation, owner-scoped Favorites via existing service, frontend-local recent-app validation, Activity and Notification summaries through existing owner-scoped services, safe read-only preference lookup, OpenAI-safe context serialization, deterministic platform-context answers, and lazy loading that bypasses personal context for identity/safety/public questions. No public context-export endpoint, frontend request contract change, app-specific database query, app tools, OpenAI tool orchestration, write operations, migrations, persistent memory, recommendation engine, or App #101 changes were introduced.
+
 2026-07-22 - Implemented I1-012 Astra Tool Registry by extending the approved Assistant tool framework with permanent capability metadata, handler-free discovery entries, ownership/authentication/owner-scope/read-only/permission/version/enabled/deprecated documentation, optional registration-owner validation, registry-driven deterministic intent lookup, disabled/deprecated safe execution blocking, focused registry tests, and `docs/architecture/astra-tool-registry.md`. No app-specific tools, I1-003 User Context Provider, OpenAI tool orchestration, persistent registry database, admin UI, write operations, migrations, or App #101 changes were introduced.
 
 2026-07-22 - Applied the I1-002 personal-data release-gate correction by keeping the Astra Tool Framework intact while disabling personal-data tool execution by default with server-owned `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`, preserving test-only enabled coverage for the Favorites demonstration tool, documenting that production remains blocked until persistent audit logging, user controls, deletion/export handling, and seeded verification gates are approved and implemented, and introducing no I1-012 registry, I1-003 context provider, app tools, OpenAI tool orchestration, write operations, migrations, or App #101 changes.
@@ -360,10 +362,51 @@ Favorites are authenticated personal data, production execution remains disabled
 until persistent audit logging, user controls, deletion/export handling, and
 seeded verification gates are approved and implemented.
 
-I1-002 and I1-012 do not authorize Quiz tools, Course Tracker tools, I1-003
-User Context Provider, OpenAI tool selection, OpenAI rewriting of tool facts,
-write operations, AI memory, recommendations, autonomous workflows, migrations,
-or App #101.
+I1-002 and I1-012 do not authorize Quiz tools, Course Tracker tools, OpenAI
+tool selection, OpenAI rewriting of tool facts, write operations, AI memory,
+recommendations, autonomous workflows, migrations, or App #101.
+
+## Astra User Context Provider
+
+The governed user context provider lives in:
+
+```text
+app/modules/assistant/user_context.py
+docs/architecture/astra-user-context-provider.md
+```
+
+I1-003 authorizes bounded platform-level user context only.
+
+Context profiles:
+
+* `minimal`
+* `personalization`
+* `attention`
+* `tool_execution`
+
+Provider boundaries:
+
+* backend authentication remains the only authoritative identity
+* the frontend cannot provide or override the authenticated user
+* current routes are validated before use
+* current app is resolved through the canonical app catalog
+* Favorites use the existing owner-scoped Favorites service
+* recent apps are frontend-local hints validated against the catalog
+* Activity uses the existing owner-scoped Activity Timeline service and returns
+  summaries only
+* Notifications use the existing owner-scoped Notifications service and return
+  unread summaries only
+* preference lookup is read-only and must not create or update rows
+* model-facing context must omit backend user IDs, emails, tokens, raw activity
+  metadata, full notification bodies, private app records, SQL, source paths,
+  and infrastructure details
+* identity, safety, and public-knowledge answers must not load unnecessary
+  personal context
+
+I1-003 does not authorize app-specific record queries, Quiz tools, Course
+Tracker tools, OpenAI tool orchestration, public context export endpoints,
+frontend request contract changes, write operations, migrations, persistent
+memory, recommendation engine, or App #101.
 
 ## Public API Data Discipline
 

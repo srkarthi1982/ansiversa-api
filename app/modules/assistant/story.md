@@ -200,8 +200,8 @@ details to the user.
 
 ## Current Status
 
-Phase 2 retrieval parity and I1-002 tool framework support the frozen Assistant
-architecture:
+Phase 2 retrieval parity, I1-002 tool framework, I1-012 registry, and I1-003
+user context provider support the frozen Assistant architecture:
 
 ```text
 User -> Assistant -> Knowledge Registry / Approved Tool -> Deterministic Response / OpenAI Grounded Public Answer -> User
@@ -209,10 +209,36 @@ User -> Assistant -> Knowledge Registry / Approved Tool -> Deterministic Respons
 
 The Assistant now reads from the Canonical AI Knowledge Registry as the normal
 retrieval source and may execute registry-discovered approved read-only tools
-for authenticated tool intents. There are no embeddings, vector databases,
-repository search, new OpenAI calls, permanent memory, write tools, backend
-workflow actions, migrations, schema-breaking changes, Quiz tools, Course
-Tracker tools, I1-003 context provider, or App #101 changes.
+for authenticated tool intents. It can also answer approved platform-level
+personal-context questions through bounded deterministic context summaries.
+There are no embeddings, vector databases, repository search, new OpenAI calls,
+permanent memory, write tools, backend workflow actions, migrations,
+schema-breaking changes, Quiz tools, Course Tracker tools, or App #101 changes.
+
+## User Context Provider
+
+I1-003 adds the governed Platform User Context Provider in
+`app/modules/assistant/user_context.py`.
+
+The provider builds bounded context profiles:
+
+- `minimal`
+- `personalization`
+- `attention`
+- `tool_execution`
+
+It validates current routes, resolves current app from the canonical catalog,
+loads owner-scoped Favorites through the existing Favorites service, validates
+frontend-local recent app hints against the catalog, summarizes Activity through
+the existing Activity Timeline service, summarizes unread Notifications through
+the existing Notifications service, and reads safe preference flags without
+creating or updating preference rows.
+
+Identity, safety, and public-knowledge questions do not load personal context.
+Platform-level personal-context questions use deterministic responses. The
+provider does not expose emails, tokens, backend user IDs, raw activity
+metadata, full notification bodies, private app records, SQL, or source paths to
+OpenAI context.
 
 ## Knowledge Foundation Phase 1 Boundary
 
