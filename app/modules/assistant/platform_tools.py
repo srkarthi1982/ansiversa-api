@@ -20,7 +20,7 @@ FAVORITES_RESULT_LIMIT = 5
 
 def build_assistant_tool_registry(db: Session) -> AssistantToolRegistry:
     registry = AssistantToolRegistry()
-    registry.register(get_user_favorites_summary_tool(db))
+    registry.register(get_user_favorites_summary_tool(db), owning_app="platform:favorites")
     return registry
 
 
@@ -63,6 +63,12 @@ def get_user_favorites_summary_tool(db: Session) -> AssistantToolDefinition:
         visibility="authenticated",
         deterministic_intents=("user_favorites_summary",),
         max_result_items=FAVORITES_RESULT_LIMIT,
+        owner_scoped=True,
+        permission_scope="owner",
+        version="1.0.0",
+        enabled=True,
+        deprecated=False,
+        documentation_path="docs/architecture/astra-tool-framework.md#demonstration-tool",
     )
 
 

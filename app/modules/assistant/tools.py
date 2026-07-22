@@ -16,6 +16,7 @@ LOGGER = logging.getLogger(__name__)
 ToolVisibility = Literal["public", "authenticated", "internal"]
 ToolStatus = Literal["success", "empty", "denied", "invalid_request", "timeout", "unavailable", "error"]
 AuditOutcome = Literal["allowed", "denied", "failed", "unavailable"]
+ToolPermissionScope = Literal["anonymous", "authenticated", "owner", "admin"]
 MAX_TOOL_ARGUMENT_CHARS = 2000
 MAX_TOOL_DATA_CHARS = 5000
 MAX_TOOL_SUMMARY_FACTS = 8
@@ -42,6 +43,11 @@ class AssistantToolValidationError(AssistantToolError):
 
 
 class AssistantToolNotFoundError(AssistantToolError):
+    status: ToolStatus = "unavailable"
+    user_message = "Tool is unavailable."
+
+
+class AssistantToolDisabledError(AssistantToolError):
     status: ToolStatus = "unavailable"
     user_message = "Tool is unavailable."
 
@@ -119,6 +125,50 @@ ToolHandler = Callable[[AssistantToolContext, dict[str, Any]], AssistantToolResu
 
 
 @dataclass(frozen=True)
+class AssistantToolCatalogEntry:
+    name: str
+    owning_app: str
+    description: str
+    intents: tuple[str, ...]
+    requires_authentication: bool
+    owner_scoped: bool
+    read_only: bool
+    permission_scope: ToolPermissionScope
+    input_schema: dict[str, Any]
+    output_schema: dict[str, Any]
+    timeout_seconds: float
+    version: str
+    enabled: bool
+    deprecated: bool
+    visibility: ToolVisibility
+    max_result_items: int
+    documentation_path: str | None = None
+
+    def as_dict(self) -> dict[str, Any]:
+        metadata: dict[str, Any] = {
+            "name": self.name,
+            "owningApp": self.owning_app,
+            "description": self.description,
+            "intents": list(self.intents),
+            "requiresAuthentication": self.requires_authentication,
+            "ownerScoped": self.owner_scoped,
+            "readOnly": self.read_only,
+            "permissionScope": self.permission_scope,
+            "inputSchema": self.input_schema,
+            "outputSchema": self.output_schema,
+            "timeoutSeconds": self.timeout_seconds,
+            "version": self.version,
+            "enabled": self.enabled,
+            "deprecated": self.deprecated,
+            "visibility": self.visibility,
+            "maxResultItems": self.max_result_items,
+        }
+        if self.documentation_path:
+            metadata["documentationPath"] = self.documentation_path
+        return metadata
+
+
+@dataclass(frozen=True)
 class AssistantToolDefinition:
     name: str
     description: str
@@ -132,14 +182,38 @@ class AssistantToolDefinition:
     visibility: ToolVisibility = "authenticated"
     deterministic_intents: tuple[str, ...] = ()
     max_result_items: int = 10
+    owner_scoped: bool = True
+    permission_scope: ToolPermissionScope = "owner"
+    version: str = "1.0.0"
+    enabled: bool = True
+    deprecated: bool = False
+    documentation_path: str | None = None
 
     def __post_init__(self) -> None:
         if not self.name or not re.fullmatch(r"[a-z][a-z0-9_]{2,120}", self.name):
             raise AssistantToolValidationError("Tool name must be stable snake_case.")
+        if not self.source_app or not re.fullmatch(r"[a-z][a-z0-9_:-]{2,120}", self.source_app):
+            raise AssistantToolValidationError("Tool owning app must be stable.")
+        if not self.description.strip():
+            raise AssistantToolValidationError("Tool description is required.")
         if self.timeout_seconds <= 0 or self.timeout_seconds > 30:
             raise AssistantToolValidationError("Tool timeout must be between 0 and 30 seconds.")
         if self.max_result_items < 0 or self.max_result_items > 100:
             raise AssistantToolValidationError("Tool result limit must be between 0 and 100.")
+        if not re.fullmatch(r"\d+\.\d+\.\d+", self.version):
+            raise AssistantToolValidationError("Tool version must use major.minor.patch.")
+        if self.owner_scoped and not self.requires_authentication:
+            raise AssistantToolValidationError("Owner-scoped tools must require authentication.")
+        if self.owner_scoped and self.permission_scope not in {"owner", "admin"}:
+            raise AssistantToolValidationError("Owner-scoped tools must use owner or admin permission scope.")
+        if self.permission_scope in {"authenticated", "owner", "admin"} and not self.requires_authentication:
+            raise AssistantToolValidationError("Authenticated permission scopes must require authentication.")
+        if self.visibility == "public" and self.requires_authentication:
+            raise AssistantToolValidationError("Public tools cannot require authentication.")
+        if not isinstance(self.input_schema, dict) or self.input_schema.get("type") not in (None, "object"):
+            raise AssistantToolValidationError("Tool input schema must be an object.")
+        if not isinstance(self.output_schema, dict) or self.output_schema.get("type") not in (None, "object"):
+            raise AssistantToolValidationError("Tool output schema must be an object.")
 
     def model_schema(self) -> dict[str, Any]:
         return {
@@ -148,13 +222,40 @@ class AssistantToolDefinition:
             "input_schema": self.input_schema,
         }
 
+    @property
+    def owning_app(self) -> str:
+        return self.source_app
+
+    def catalog_entry(self) -> AssistantToolCatalogEntry:
+        return AssistantToolCatalogEntry(
+            name=self.name,
+            owning_app=self.owning_app,
+            description=self.description,
+            intents=self.deterministic_intents,
+            requires_authentication=self.requires_authentication,
+            owner_scoped=self.owner_scoped,
+            read_only=self.read_only,
+            permission_scope=self.permission_scope,
+            input_schema=self.input_schema,
+            output_schema=self.output_schema,
+            timeout_seconds=self.timeout_seconds,
+            version=self.version,
+            enabled=self.enabled,
+            deprecated=self.deprecated,
+            visibility=self.visibility,
+            max_result_items=self.max_result_items,
+            documentation_path=self.documentation_path,
+        )
+
 
 class AssistantToolRegistry:
     def __init__(self) -> None:
         self._tools: dict[str, AssistantToolDefinition] = {}
         self._intent_map: dict[str, str] = {}
 
-    def register(self, definition: AssistantToolDefinition) -> None:
+    def register(self, definition: AssistantToolDefinition, *, owning_app: str | None = None) -> None:
+        if owning_app is not None and definition.owning_app != owning_app:
+            raise AssistantToolValidationError("Tool ownership does not match registration owner.")
         if definition.name in self._tools:
             raise AssistantToolValidationError(f"Duplicate tool name: {definition.name}")
         self._tools[definition.name] = definition
@@ -177,9 +278,15 @@ class AssistantToolRegistry:
         authenticated: bool,
         visibility: ToolVisibility | None = None,
         read_only_only: bool = True,
+        include_disabled: bool = False,
+        include_deprecated: bool = False,
     ) -> tuple[AssistantToolDefinition, ...]:
         tools: list[AssistantToolDefinition] = []
         for definition in self._tools.values():
+            if not include_disabled and not definition.enabled:
+                continue
+            if not include_deprecated and definition.deprecated:
+                continue
             if read_only_only and not definition.read_only:
                 continue
             if definition.requires_authentication and not authenticated:
@@ -193,13 +300,42 @@ class AssistantToolRegistry:
 
     def lookup_intent(self, intent: str) -> AssistantToolDefinition | None:
         tool_name = self._intent_map.get(_normalize_intent(intent))
-        return self._tools.get(tool_name) if tool_name else None
+        definition = self._tools.get(tool_name) if tool_name else None
+        if definition is None or not definition.enabled or definition.deprecated:
+            return None
+        return definition
 
     def model_schemas(self, *, authenticated: bool) -> tuple[dict[str, Any], ...]:
         return tuple(
             tool.model_schema()
             for tool in self.list_tools(authenticated=authenticated, read_only_only=True)
         )
+
+    def list_capabilities(
+        self,
+        *,
+        authenticated: bool | None = None,
+        visibility: ToolVisibility | None = None,
+        read_only_only: bool = False,
+        include_disabled: bool = False,
+        include_deprecated: bool = False,
+    ) -> tuple[AssistantToolCatalogEntry, ...]:
+        entries: list[AssistantToolCatalogEntry] = []
+        for definition in self._tools.values():
+            if not include_disabled and not definition.enabled:
+                continue
+            if not include_deprecated and definition.deprecated:
+                continue
+            if read_only_only and not definition.read_only:
+                continue
+            if authenticated is not None and definition.requires_authentication and not authenticated:
+                continue
+            if visibility is not None and definition.visibility != visibility:
+                continue
+            if definition.visibility == "internal" and visibility != "internal":
+                continue
+            entries.append(definition.catalog_entry())
+        return tuple(sorted(entries, key=lambda entry: entry.name))
 
 
 class AssistantToolExecutor:
@@ -225,6 +361,8 @@ class AssistantToolExecutor:
         audit_status: ToolStatus = "success"
         fallback_reason: str | None = None
         try:
+            if not definition.enabled or definition.deprecated:
+                raise AssistantToolDisabledError()
             if context.max_tool_calls > self.max_tool_calls:
                 raise AssistantToolValidationError("Tool call count exceeds Phase 1 limit.")
             if self.phase_read_only_only and not definition.read_only:

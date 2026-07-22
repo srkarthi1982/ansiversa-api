@@ -117,6 +117,10 @@ Verify:
 - SQL safety
 - Tool argument validation where Astra tools are involved
 - Tool result bounds where Astra tools are involved
+- Tool Registry duplicate-name and duplicate-intent rejection where Astra tools are involved
+- Tool Registry registration-owner validation where Astra tools are involved
+- Tool Registry discovery filtering for authentication, visibility, disabled tools, and deprecated tools
+- Tool Registry enabled/disabled execution boundary where Astra tools are involved
 - Read-only enforcement for Phase 1 Astra tools
 - Safe audit metadata for Astra tool execution
 

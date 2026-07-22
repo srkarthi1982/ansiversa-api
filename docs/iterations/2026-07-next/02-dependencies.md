@@ -48,7 +48,7 @@ clear.
 | I1-009 | Astra AI Integration Contract | Completed | Planning Freeze approval | I1-001 and all Astra-enabled app contracts | First task | Wave 1 |
 | I1-010 | Astra Conversation Context | Ready | I1-003, I1-004 | Follow-up behavior for later Astra tasks | Can run after I1-004 | Wave 2 |
 | I1-011 | Astra Memory Management | Deferred | I1-010 plus consent, retention, deletion, and audit decisions | Later persistent memory governance | No | Later Iteration |
-| I1-012 | Astra Tool Registry | Ready | I1-002 | I1-003, registered tool discovery | No | Wave 1 |
+| I1-012 | Astra Tool Registry | Completed | I1-002 | I1-003, registered tool discovery | No | Wave 1 |
 | I1-013 | Astra Intent Engine | Ready | I1-008, I1-012 | I1-014 and future orchestration extraction | Can start design review after I1-012 | Wave 4 |
 | I1-014 | Astra Response Builder | Ready | I1-013 | Future response assembly consistency | No | Wave 4 |
 | I1-015 | Astra Recommendation Engine | Deferred | I1-008, I1-013, I1-014 plus recommendation governance | Later deterministic recommendation ranking | No | Later Iteration |

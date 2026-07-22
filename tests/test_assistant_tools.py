@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from time import sleep
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -77,6 +77,65 @@ class AssistantToolFrameworkTests(unittest.TestCase):
         with self.assertRaises(AssistantToolValidationError):
             registry.register(tool_definition())
 
+    def test_registry_exposes_capability_metadata(self):
+        registry = build_assistant_tool_registry_for_tests()
+        registry.register(
+            tool_definition(
+                version="1.2.3",
+                documentation_path="app/modules/test/astra-ai.md",
+            )
+        )
+
+        self.assertEqual(registry.list_capabilities(authenticated=False), ())
+        capabilities = registry.list_capabilities(authenticated=True)
+
+        self.assertEqual(len(capabilities), 1)
+        capability = capabilities[0]
+        self.assertEqual(capability.name, "test_tool")
+        self.assertEqual(capability.owning_app, "platform:test")
+        self.assertEqual(capability.intents, ("test_intent",))
+        self.assertTrue(capability.requires_authentication)
+        self.assertTrue(capability.owner_scoped)
+        self.assertTrue(capability.read_only)
+        self.assertEqual(capability.permission_scope, "owner")
+        self.assertEqual(capability.version, "1.2.3")
+        self.assertTrue(capability.enabled)
+        self.assertFalse(capability.deprecated)
+        self.assertEqual(capability.documentation_path, "app/modules/test/astra-ai.md")
+        self.assertEqual(capability.as_dict()["owningApp"], "platform:test")
+
+    def test_registry_filters_disabled_and_deprecated_tools_from_discovery(self):
+        registry = build_assistant_tool_registry_for_tests()
+        registry.register(tool_definition(enabled=False))
+        registry.register(
+            tool_definition(
+                name="deprecated_tool",
+                deterministic_intents=("deprecated_intent",),
+                deprecated=True,
+            )
+        )
+
+        self.assertEqual(registry.list_tools(authenticated=True), ())
+        self.assertEqual(registry.list_capabilities(authenticated=True), ())
+        self.assertIsNone(registry.lookup_intent("test_intent"))
+        self.assertEqual(registry.model_schemas(authenticated=True), ())
+        self.assertEqual(len(registry.list_capabilities(authenticated=True, include_disabled=True)), 1)
+        self.assertEqual(len(registry.list_capabilities(authenticated=True, include_deprecated=True)), 1)
+
+    def test_registry_rejects_invalid_metadata(self):
+        with self.assertRaises(AssistantToolValidationError):
+            tool_definition(version="1")
+        with self.assertRaises(AssistantToolValidationError):
+            tool_definition(source_app="Bad App")
+        with self.assertRaises(AssistantToolValidationError):
+            tool_definition(requires_authentication=False, owner_scoped=True)
+
+    def test_registry_rejects_conflicting_registration_owner(self):
+        registry = build_assistant_tool_registry_for_tests()
+
+        with self.assertRaises(AssistantToolValidationError):
+            registry.register(tool_definition(), owning_app="platform:other")
+
     def test_executor_validates_arguments_sanitizes_metadata_and_actions(self):
         registry = build_assistant_tool_registry_for_tests()
         registry.register(tool_definition())
@@ -89,6 +148,22 @@ class AssistantToolFrameworkTests(unittest.TestCase):
         self.assertEqual(result.status, "success")
         self.assertEqual(result.actions[0].route, "/apps")
         self.assertNotIn("sql", result.metadata)
+
+    def test_executor_rejects_disabled_tools_without_calling_handler(self):
+        handler = Mock(
+            return_value=AssistantToolResult(
+                tool_name="test_tool",
+                source_app="platform:test",
+                status="success",
+            )
+        )
+        registry = build_assistant_tool_registry_for_tests()
+        registry.register(tool_definition(enabled=False, handler=handler))
+
+        result = AssistantToolExecutor(registry).execute("test_tool", {}, self.context)
+
+        self.assertEqual(result.status, "unavailable")
+        handler.assert_not_called()
 
     def test_executor_rejects_caller_controlled_identity_and_unsafe_arguments(self):
         registry = build_assistant_tool_registry_for_tests()

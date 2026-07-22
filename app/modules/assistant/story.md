@@ -148,12 +148,21 @@ The I1-002 Astra Tool Framework introduces:
 - `AssistantToolRegistry`
 - `AssistantToolExecutor`
 - `AssistantToolResult`
+- `AssistantToolCatalogEntry`
 
 The executor enforces authentication, Phase 1 read-only policy, argument
 validation, result bounds, route-safe actions, timeout boundaries, and safe
 audit metadata. Tool callers and models cannot provide user IDs, owner IDs, or
 tenant IDs. Structured failures are returned without exposing stack traces, SQL,
 secrets, tokens, or raw personal payloads.
+
+I1-012 extends the registry into the permanent Astra Tool Registry. Registered
+capabilities now declare handler-free discovery metadata for owning app,
+supported intents, authentication, owner scope, read-only mode, permission
+scope, input/output schemas, timeout, version, enabled/disabled state,
+deprecated state, visibility, result limit, and documentation path. The
+Assistant resolves supported deterministic tool intents through registry lookup
+before execution.
 
 The first demonstration tool is `get_user_favorites_summary`. It is a
 platform-level Favorites summary tool that calls the existing Favorites service,
@@ -199,11 +208,11 @@ User -> Assistant -> Knowledge Registry / Approved Tool -> Deterministic Respons
 ```
 
 The Assistant now reads from the Canonical AI Knowledge Registry as the normal
-retrieval source and may execute approved read-only tools for authenticated
-tool intents. There are no embeddings, vector databases, repository search,
-new OpenAI calls, permanent memory, write tools, backend workflow actions,
-migrations, schema-breaking changes, Quiz tools, Course Tracker tools, I1-012
-registry metadata, I1-003 context provider, or App #101 changes.
+retrieval source and may execute registry-discovered approved read-only tools
+for authenticated tool intents. There are no embeddings, vector databases,
+repository search, new OpenAI calls, permanent memory, write tools, backend
+workflow actions, migrations, schema-breaking changes, Quiz tools, Course
+Tracker tools, I1-003 context provider, or App #101 changes.
 
 ## Knowledge Foundation Phase 1 Boundary
 

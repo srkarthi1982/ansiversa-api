@@ -51,7 +51,7 @@ No implementation task should be assigned to Codex until the feature has been re
 | I1-009 | Astra AI Integration Contract | High | Completed | Wave 1 |
 | I1-010 | Astra Conversation Context | Medium | Frozen | Wave 2 |
 | I1-011 | Astra Memory Management | Medium | Deferred | Later iteration |
-| I1-012 | Astra Tool Registry | High | Frozen | Wave 1 |
+| I1-012 | Astra Tool Registry | High | Completed | Wave 1 |
 | I1-013 | Astra Intent Engine | High | Frozen | Wave 4 |
 | I1-014 | Astra Response Builder | High | Frozen | Wave 4 |
 | I1-015 | Astra Recommendation Engine | High | Deferred | Later iteration |

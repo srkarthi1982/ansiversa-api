@@ -1,8 +1,8 @@
 # Astra Tool Framework
 
-**Status:** Implemented v1.0
+**Status:** Implemented v1.1
 **Created:** 2026-07-22
-**Iteration Task:** I1-002 — Astra AI Tool Framework
+**Iteration Tasks:** I1-002 — Astra AI Tool Framework; I1-012 — Astra Tool Registry
 
 This document describes the shared backend runtime framework that executes
 approved Astra tools.
@@ -38,17 +38,23 @@ The framework executes tools. It does not own app data or app business rules.
 `AssistantToolDefinition` describes an approved tool:
 
 - stable tool name
+- owning app or platform source
 - description
-- source app or platform source
+- deterministic intents
+- authentication requirement
+- owner-scoped status
+- read-only declaration
+- permission scope
 - input schema
 - output schema
 - handler
-- authentication requirement
-- read-only declaration
 - timeout
+- version
+- enabled/disabled state
+- deprecated state
 - visibility
-- deterministic intents
 - result limit
+- documentation path
 
 Tool definitions are explicit. Untrusted input cannot register tools.
 
@@ -67,18 +73,48 @@ Callers and models cannot provide or override user identity.
 
 ## Tool Registry
 
-`AssistantToolRegistry` provides the I1-002 runtime registry:
+`AssistantToolRegistry` provides the governed Astra Tool Registry:
 
 - explicit registration
+- optional owner assertion during registration
 - duplicate-name rejection
 - exact-name lookup
 - deterministic intent lookup
 - authentication filtering
 - visibility filtering
+- enabled/disabled filtering
+- deprecated-tool filtering
+- capability metadata discovery
+- versioned catalog entries
 - model-compatible schema exposure
 
-This is not the full I1-012 Tool Registry. I1-012 remains responsible for
-longer-term metadata, discovery, versioning, and enabled/disabled state.
+I1-002 introduced execution infrastructure. I1-012 extends the same registry as
+the authoritative metadata and discovery catalog for Astra capabilities.
+
+## Tool Catalog Entry
+
+`AssistantToolCatalogEntry` exposes handler-free registry metadata:
+
+- tool name
+- owning app
+- description
+- supported intents
+- authentication requirement
+- owner-scoped status
+- read-only/write mode
+- permission scope
+- input schema
+- output schema
+- timeout
+- version
+- enabled/disabled state
+- deprecated state
+- visibility
+- result limit
+- documentation path
+
+Discovery returns metadata only. It does not expose handlers, database objects,
+authenticated user context, SQL, secrets, or raw personal payloads.
 
 ## Tool Executor
 
@@ -109,7 +145,9 @@ Safety / identity / restricted-request checks
         ↓
 Deterministic tool intent
         ↓
-Allowlisted tool lookup
+Registry capability lookup
+        ↓
+Allowlisted tool execution
         ↓
 Backend-owned Tool Context
         ↓
@@ -145,6 +183,9 @@ The tool:
 - returns a bounded favorites summary
 - validates app routes against Assistant allowed routes
 - excludes user IDs, favorite IDs, internal IDs, tokens, SQL, and raw records
+- declares version `1.0.0`
+- declares owner-scoped, authenticated, read-only metadata
+- is discoverable only when enabled and authenticated discovery is requested
 
 This is a platform user-feature tool, not a solution-app integration.
 
@@ -164,6 +205,8 @@ Phase 1 enforcement:
 - authenticated tools require backend-authenticated user context
 - caller-supplied identity fields are rejected
 - write tools are rejected
+- disabled and deprecated tools are omitted from normal discovery
+- disabled and deprecated tools fail safely if execution is attempted directly
 - arguments are schema-validated
 - SQL-like and path traversal argument payloads are rejected
 - result data size is bounded
@@ -228,7 +271,7 @@ Future app tools should add:
 1. app-owned service method
 2. app-owned `astra_tools.py`
 3. app-level `astra-ai.md`
-4. explicit registration through the approved registry path
+4. explicit registration through the approved registry path with metadata
 5. focused tests for ownership, privacy, bounds, and route safety
 
 The central Assistant should not gain app-specific database queries or broad
@@ -246,6 +289,9 @@ fallback behavior, and optional grounded OpenAI behavior remain compatible.
 Guest users continue to receive public Assistant behavior. Authenticated
 personal tools run only when the user is authenticated, the deterministic tool
 intent is approved, and the server-owned personal-data tool gate is enabled.
+
+The Assistant resolves supported tool intents through the registry instead of
+executing hard-coded function names directly.
 
 ---
 

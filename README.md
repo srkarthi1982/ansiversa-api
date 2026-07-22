@@ -161,6 +161,7 @@ The shared Astra Tool Framework architecture is documented in:
 
 ```text
 docs/architecture/astra-tool-framework.md
+docs/architecture/astra-tool-registry.md
 ```
 
 I1-002 implements the runtime definition, context, executor, validation,
@@ -174,6 +175,14 @@ Personal-data tools are disabled by default through the server-owned
 disabled until persistent audit logging, user controls, deletion/export
 handling, and seeded verification gates are approved and implemented. Tests and
 governed non-production verification may enable the setting deliberately.
+
+I1-012 implements the permanent Astra Tool Registry metadata and discovery layer
+on top of the I1-002 framework. The registry exposes handler-free capability
+metadata, including ownership, intents, authentication, owner-scope, read-only
+state, version, enabled/disabled state, deprecated state, schemas, timeouts, and
+documentation paths. It does not implement app-specific tools, persistent
+registry storage, admin registry UI, I1-003 User Context Provider, OpenAI tool
+orchestration, migrations, or App #101.
 
 ## Migrations
 

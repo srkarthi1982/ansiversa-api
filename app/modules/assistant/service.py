@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.modules.apps.models import AppCatalogItem, Category
 from app.modules.assistant.openai_provider import OpenAIResponseProvider
-from app.modules.assistant.platform_tools import FAVORITES_TOOL_NAME, build_assistant_tool_registry
+from app.modules.assistant.platform_tools import build_assistant_tool_registry
 from app.modules.assistant.schemas import (
     AssistantAction,
     AssistantClientContext,
@@ -1720,6 +1720,9 @@ def _query_tool_intent(
         return _personal_data_tools_disabled_response()
 
     registry = build_assistant_tool_registry(db)
+    definition = registry.lookup_intent("user_favorites_summary")
+    if definition is None:
+        return _personal_data_tools_disabled_response()
     executor = AssistantToolExecutor(registry)
     current_app_slug = context.current_app.slug if context and context.current_app else None
     tool_context = AssistantToolContext(
@@ -1731,7 +1734,7 @@ def _query_tool_intent(
         max_tool_calls=1,
     )
     result = executor.execute(
-        FAVORITES_TOOL_NAME,
+        definition.name,
         {"limit": 5},
         tool_context,
     )

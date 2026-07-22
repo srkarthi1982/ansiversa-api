@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Implemented I1-012 Astra Tool Registry by extending the approved Assistant tool framework with permanent capability metadata, handler-free discovery entries, ownership/authentication/owner-scope/read-only/permission/version/enabled/deprecated documentation, optional registration-owner validation, registry-driven deterministic intent lookup, disabled/deprecated safe execution blocking, focused registry tests, and `docs/architecture/astra-tool-registry.md`. No app-specific tools, I1-003 User Context Provider, OpenAI tool orchestration, persistent registry database, admin UI, write operations, migrations, or App #101 changes were introduced.
+
 2026-07-22 - Applied the I1-002 personal-data release-gate correction by keeping the Astra Tool Framework intact while disabling personal-data tool execution by default with server-owned `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`, preserving test-only enabled coverage for the Favorites demonstration tool, documenting that production remains blocked until persistent audit logging, user controls, deletion/export handling, and seeded verification gates are approved and implemented, and introducing no I1-012 registry, I1-003 context provider, app tools, OpenAI tool orchestration, write operations, migrations, or App #101 changes.
 
 2026-07-22 - Implemented I1-002 Astra AI Tool Framework as shared Assistant runtime infrastructure with explicit tool definitions, backend-owned execution context, allowlisted runtime registry, secure executor, argument/result validation, read-only Phase 1 enforcement, bounded route-safe actions, safe audit metadata logging, optional authenticated Assistant context, a platform Favorites summary demonstration tool, focused tests, and `docs/architecture/astra-tool-framework.md`. No solution-app tools, I1-012 registry metadata, I1-003 context provider, OpenAI tool orchestration, write operations, migrations, recommendations, AI memory, or App #101 changes were introduced.
@@ -311,6 +313,7 @@ The shared runtime tool framework lives in:
 app/modules/assistant/tools.py
 app/modules/assistant/platform_tools.py
 docs/architecture/astra-tool-framework.md
+docs/architecture/astra-tool-registry.md
 ```
 
 I1-002 authorizes shared Assistant tool infrastructure only.
@@ -330,16 +333,37 @@ Framework boundaries:
 * audit metadata is safe operational metadata only; persisted personal-data
   audit logging remains a release gate before personal-data tools go live
 
+I1-012 extends the registry with permanent capability metadata and discovery:
+
+* owning app
+* supported intents
+* authentication requirement
+* owner-scoped status
+* read-only/write mode
+* permission scope
+* input/output schemas
+* timeout
+* version
+* enabled/disabled state
+* deprecated state
+* visibility
+* result limit
+* documentation path
+
+Normal discovery omits disabled and deprecated tools. Disabled and deprecated
+tools fail safely before handler execution if direct execution is attempted.
+The Assistant resolves deterministic tool intents through registry lookup.
+
 The I1-002 demonstration tool is `get_user_favorites_summary`, a platform
 Favorites summary tool. It does not create solution-app integrations. Because
 Favorites are authenticated personal data, production execution remains disabled
 until persistent audit logging, user controls, deletion/export handling, and
 seeded verification gates are approved and implemented.
 
-I1-002 does not authorize Quiz tools, Course Tracker tools, I1-012 Tool
-Registry metadata/versioning/discovery, I1-003 User Context Provider, OpenAI
-tool selection, OpenAI rewriting of tool facts, write operations, AI memory,
-recommendations, autonomous workflows, migrations, or App #101.
+I1-002 and I1-012 do not authorize Quiz tools, Course Tracker tools, I1-003
+User Context Provider, OpenAI tool selection, OpenAI rewriting of tool facts,
+write operations, AI memory, recommendations, autonomous workflows, migrations,
+or App #101.
 
 ## Public API Data Discipline
 
