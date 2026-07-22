@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-22 - Implemented I1-009 Astra AI Integration Contract as a documentation-only governance standard with the canonical `docs/astra-ai-integration-contract.md`, app-level `astra-ai.md` template, ownership boundaries, backend/frontend responsibilities, OpenAI/privacy/security limits, tool documentation lifecycle, and explicit non-goals. No runtime Astra orchestration, personal-data tooling, migrations, OpenAI calls, or App #101 changes were introduced.
+
 2026-07-20 - Repaired the production Notifications schema mismatch by adding parent migration `20260720_0003` for missing `message`, `isRead`, and `metadataJson` columns, preserving legacy `body` data through backfill, restoring unread indexes, and keeping the Notifications drawer UI unchanged.
 
 2026-07-20 - Implemented AI SEO Public Deployment and Crawl Readiness fixes by making backend public knowledge routes serve cached deterministic registry-derived responses independent of runtime filesystem artifact visibility, adding the read-only production smoke verifier, documenting canonical web/API topology, cache policy, robots/sitemap behavior, Search Console checklist, baseline evidence template, and monitoring cadence, with no Assistant behavior, embeddings, vector database, OpenAI calls, or App #101 changes.
@@ -207,6 +209,54 @@ Examples:
 * Quiz frontend should generate from Quiz schema.
 * Resume Builder frontend should generate from Resume Builder schema.
 * Parent web can generate from Parent/global schema.
+
+## Astra AI Integration Contract
+
+The permanent Astra integration standard lives at:
+
+```text
+docs/astra-ai-integration-contract.md
+```
+
+Every Astra-enabled app must follow that contract.
+
+Core rule:
+
+```text
+Applications own capabilities.
+Astra owns orchestration.
+```
+
+Applications own business rules, services, database access, validation,
+calculations, app-specific Astra tools, app-specific Astra documentation, and
+supported questions.
+
+Astra owns the shared Assistant entry point, intent routing, tool orchestration,
+tool execution lifecycle, response assembly, action validation, safety and
+identity priority, and OpenAI boundary enforcement.
+
+Astra must not duplicate application business logic. Applications must not
+create separate Assistant UIs.
+
+Every Astra-enabled backend module must include:
+
+```text
+app/modules/<app_module>/astra-ai.md
+```
+
+Frontend modules create `src/modules/<app-slug>/astra-ai.md` only when
+frontend-specific Astra behavior exists beyond shared routes/actions and the
+shared Assistant UI.
+
+I1-009 is contract-only. It does not authorize I1-001 user-data awareness,
+I1-002 tool execution, I1-003 context provider, app pilots, personal-data
+tooling, migrations, OpenAI calls, or runtime Astra orchestration.
+
+Before personal-data tools go live, the platform must resolve:
+
+* audit sink for Astra personal-data tool execution
+* consent, retention, deletion, and OpenAI personal-context allowlist
+* seeded authenticated test-data ownership and environment
 
 ## Public API Data Discipline
 

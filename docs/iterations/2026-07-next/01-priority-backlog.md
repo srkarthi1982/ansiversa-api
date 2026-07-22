@@ -48,7 +48,7 @@ No implementation task should be assigned to Codex until the feature has been re
 | I1-006 | Astra Learning Intelligence | High | Deferred | Later iteration |
 | I1-007 | Notifications Center UI Refinement | High | Frozen | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | High | Frozen | Wave 4 |
-| I1-009 | Astra AI Integration Contract | High | Frozen | Wave 1 |
+| I1-009 | Astra AI Integration Contract | High | Completed | Wave 1 |
 | I1-010 | Astra Conversation Context | Medium | Frozen | Wave 2 |
 | I1-011 | Astra Memory Management | Medium | Deferred | Later iteration |
 | I1-012 | Astra Tool Registry | High | Frozen | Wave 1 |
@@ -103,9 +103,9 @@ Any new idea discovered during implementation should return to this backlog inst
 | Proposed | 0 |
 | Discussing | 0 |
 | Approved | 0 |
-| Frozen | 18 |
+| Frozen | 17 |
 | In Progress | 0 |
-| Completed | 0 |
+| Completed | 1 |
 | Deferred | 4 |
 | Cancelled | 0 |
 

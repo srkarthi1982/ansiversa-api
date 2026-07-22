@@ -128,6 +128,24 @@ values override these defaults. Browser clients also receive a readable
 `ansiversa_has_session=1` hint cookie by default so guest shell loads can avoid
 calling `/api/v1/auth/me`; this hint contains no token or user data.
 
+## Astra AI Integration
+
+The permanent app-level Astra integration standard is documented in:
+
+```text
+docs/astra-ai-integration-contract.md
+```
+
+Every Astra-enabled app must keep business logic inside the app module while
+Astra orchestrates through the shared Assistant architecture. The contract
+defines required `astra-ai.md` sections, backend and frontend responsibilities,
+tool documentation requirements, OpenAI boundaries, privacy rules, and
+validation expectations.
+
+I1-009 establishes the contract only. User-data awareness, tool execution,
+context provider work, app pilots, personal-data tools, migrations, and runtime
+Astra orchestration require separate frozen tasks.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

@@ -15,6 +15,7 @@ clear.
 | Status | Meaning |
 |----------|---------|
 | Ready | Ready for implementation after Planning Freeze |
+| Completed | Implemented and available as a prerequisite |
 | Deferred | Documented but not planned for this implementation window |
 | Blocked | Waiting on an unresolved dependency or governance decision |
 
@@ -44,7 +45,7 @@ clear.
 | I1-006 | Astra Learning Intelligence | Deferred | I1-004, I1-005, I1-013, I1-014 | Later cross-app learning intelligence | No | Later Iteration |
 | I1-007 | Notifications Center UI Refinement | Ready | Existing Notifications Center Phase 1 | Notification UX polish | Yes, after freeze | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | Ready | I1-005, I1-010, Activity, Notifications, Dashboard sources | I1-013, I1-014 input signals | Can run after I1-005 | Wave 4 |
-| I1-009 | Astra AI Integration Contract | Ready | Planning Freeze approval | I1-001 and all Astra-enabled app contracts | First task | Wave 1 |
+| I1-009 | Astra AI Integration Contract | Completed | Planning Freeze approval | I1-001 and all Astra-enabled app contracts | First task | Wave 1 |
 | I1-010 | Astra Conversation Context | Ready | I1-003, I1-004 | Follow-up behavior for later Astra tasks | Can run after I1-004 | Wave 2 |
 | I1-011 | Astra Memory Management | Deferred | I1-010 plus consent, retention, deletion, and audit decisions | Later persistent memory governance | No | Later Iteration |
 | I1-012 | Astra Tool Registry | Ready | I1-002 | I1-003, registered tool discovery | No | Wave 1 |
