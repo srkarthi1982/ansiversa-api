@@ -177,9 +177,9 @@ The executor also rejects disabled or deprecated tools before invoking handlers.
 
 ---
 
-# Current Registered Capability
+# Current Registered Capabilities
 
-I1-012 keeps the existing I1-002 demonstration capability:
+The registry includes the existing I1-002 demonstration capability:
 
 ```text
 get_user_favorites_summary
@@ -198,6 +198,21 @@ Metadata:
 
 This remains a platform demonstration tool only. No Quiz, Course Tracker, or
 solution-app tools are implemented by I1-012.
+
+I1-004 adds the first solution-app pilot capabilities owned by Quiz:
+
+```text
+get_quiz_progress_summary
+get_completed_quiz_platforms
+get_recent_quiz_attempts
+get_quiz_topic_performance
+recommend_next_quiz_platform
+```
+
+These are authenticated, owner-scoped, read-only Quiz capabilities at version
+`1.0.0`. They are registered by the Quiz module and executed through the shared
+framework. Production personal-data execution remains controlled by
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` until release gates are approved.
 
 ---
 

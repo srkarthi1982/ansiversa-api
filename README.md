@@ -193,6 +193,13 @@ preference reads. It does not add a public context export endpoint, query
 solution-app databases, change the frontend request contract, implement app
 tools, add migrations, or expose backend user IDs to OpenAI.
 
+I1-004 implements the first solution-app Astra pilot for Quiz. Quiz registers
+app-owned read-only tools for progress, submitted-result platforms, recent
+submitted attempts, topic performance, and deterministic next-platform guidance
+through `app/modules/quiz/astra_tools.py` and documents the contract in
+`app/modules/quiz/astra-ai.md`. Production personal-data execution remains
+disabled by default through `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

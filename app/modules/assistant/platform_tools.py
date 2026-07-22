@@ -12,6 +12,7 @@ from app.modules.assistant.tools import (
     AssistantToolResult,
 )
 from app.modules.favorites.service import list_user_favorites
+from app.modules.quiz.astra_tools import build_quiz_astra_tools
 
 
 FAVORITES_TOOL_NAME = "get_user_favorites_summary"
@@ -21,6 +22,8 @@ FAVORITES_RESULT_LIMIT = 5
 def build_assistant_tool_registry(db: Session) -> AssistantToolRegistry:
     registry = AssistantToolRegistry()
     registry.register(get_user_favorites_summary_tool(db), owning_app="platform:favorites")
+    for tool in build_quiz_astra_tools():
+        registry.register(tool, owning_app="quiz")
     return registry
 
 

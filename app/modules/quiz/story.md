@@ -73,6 +73,16 @@ only when the user asks to inspect a result.
 The backend implementation is approved live at version `1.0.0`. The parent
 Apps catalog stores Quiz as `active` with `launchStatus = live`.
 
+I1-004 adds the first Quiz-owned Astra integration through read-only,
+authenticated, owner-scoped tools in `app/modules/quiz/astra_tools.py`.
+Registered tools summarize progress, completed-result platforms, recent
+submitted attempts, repeated-evidence topic performance, and deterministic next
+platform guidance. The tools do not expose question text, answer options, answer
+keys, explanations, raw response payloads, internal attempt/result IDs, or
+another user's records. Production execution remains disabled by default through
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` until the remaining personal-data
+release gates are approved and implemented.
+
 ## Known Limitations
 
 V1 focuses on server-graded practice and answer review. It does not include
@@ -97,3 +107,4 @@ Implemented:
 * Result detail review with explanations
 * Query-pattern index for the quiz play filter
 * Current-state story documentation
+* Quiz-owned Astra tool contract and read-only pilot tools

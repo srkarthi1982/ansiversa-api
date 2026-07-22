@@ -127,6 +127,8 @@ Verify:
 - Platform User Context Provider owner scoping where Astra context is involved
 - Platform User Context Provider OpenAI sanitization where Astra context is involved
 - Platform User Context Provider lazy profile loading where Astra context is involved
+- App-owned Astra tool registration and owner-scoped service execution for approved pilots
+- App-owned Astra tool privacy validation to prevent question-bank, raw payload, or internal ID leakage
 
 ---
 

@@ -1652,29 +1652,59 @@ def _is_user_favorites_tool_query(message: str) -> bool:
     return bool({"my", "i", "me"} & tokens) or "favorite apps" in normalized
 
 
+def _tool_intent_for_message(message: str) -> str | None:
+    normalized = normalize_text(message)
+    tokens = set(normalized.split())
+    if _is_user_favorites_tool_query(message):
+        return "user_favorites_summary"
+    if any(phrase in normalized for phrase in ("completed", "complete")) and {"platform", "platforms"} & tokens:
+        return "completed_quiz_platforms"
+    if "soft skills" in normalized and any(phrase in normalized for phrase in ("completed", "complete", "after")):
+        return "completed_quiz_platforms" if "after" not in tokens else "recommend_next_quiz_platform"
+    if any(phrase in normalized for phrase in ("latest", "recent", "last")) and "attempt" in tokens:
+        return "recent_quiz_attempts"
+    if any(term in tokens for term in ("weakest", "strongest", "topic", "revise", "revision")):
+        return "quiz_topic_performance"
+    if any(phrase in normalized for phrase in ("what should i try", "what should i revise", "recommend", "continue")):
+        return "recommend_next_quiz_platform"
+    if any(phrase in normalized for phrase in ("average score", "how many", "progress", "show my quiz progress", "attempted")):
+        return "quiz_progress_summary"
+    if "quiz" not in tokens and "quizzes" not in tokens:
+        return None
+    return None
+
+
 def _tool_response_from_result(result: AssistantToolResult) -> AssistantQueryResponse:
     if result.status == "success":
         answer = " ".join(result.summary_facts)
         confidence: Literal["high", "medium", "low"] = "high"
     elif result.status == "empty":
-        answer = "You do not have favorite apps yet. Open Apps and add favorites to make this summary useful."
+        answer = " ".join(result.summary_facts) if result.summary_facts else "No approved personal context is available yet."
         confidence = "medium"
     elif result.status == "denied":
-        answer = "Please sign in before asking Astra about your favorite apps."
+        answer = "Please sign in before asking Astra about your Ansiversa data."
         confidence = "medium"
     elif result.status == "invalid_request":
-        answer = "I could not run that favorite-app summary because the request was outside the approved tool contract."
+        answer = "I could not run that request because it was outside the approved tool contract."
         confidence = "low"
     else:
-        answer = "Favorite-app summary is temporarily unavailable."
+        answer = "That Astra tool is temporarily unavailable."
         confidence = "low"
 
+    title = "Astra Tool"
+    source_type: SourceType = "platform"
+    if result.source_app == "platform:favorites":
+        title = "Favorite Apps"
+        source_type = "account"
+    elif result.source_app == "quiz":
+        title = "Quiz"
+        source_type = "app"
     sources = (
         [
             AssistantSource(
                 id=f"tool:{result.tool_name}",
-                title="Favorite Apps",
-                type="account",
+                title=title,
+                type=source_type,
             )
         ]
         if result.status in {"success", "empty"}
@@ -1729,13 +1759,14 @@ def _query_tool_intent(
         return None
     if _platform_identity_result(message, index):
         return None
-    if not _is_user_favorites_tool_query(message):
+    intent = _tool_intent_for_message(message)
+    if intent is None:
         return None
     if not settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED:
         return _personal_data_tools_disabled_response()
 
     registry = build_assistant_tool_registry(db)
-    definition = registry.lookup_intent("user_favorites_summary")
+    definition = registry.lookup_intent(intent)
     if definition is None:
         return _personal_data_tools_disabled_response()
     executor = AssistantToolExecutor(registry)
@@ -1756,7 +1787,7 @@ def _query_tool_intent(
     )
     result = executor.execute(
         definition.name,
-        {"limit": 5},
+        {"limit": 5} if "limit" in (definition.input_schema.get("properties") or {}) else {},
         tool_context,
     )
     return _tool_response_from_result(result)
