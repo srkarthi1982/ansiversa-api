@@ -210,6 +210,13 @@ for its database and business rules; Astra only orchestrates. Production
 personal-data execution remains disabled by default through
 `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`.
 
+I1-006 implements Astra Learning Intelligence as deterministic cross-app
+orchestration over already registered Quiz and Course Tracker capabilities. It
+executes at most one Quiz tool and one Course Tracker tool per request through
+the Tool Registry, combines structured results into explainable learning
+guidance, and introduces no direct app database access, framework redesign,
+OpenAI tool orchestration, frontend contract change, migration, or App #101.
+
 ## Migrations
 
 The default Alembic environment is configured for the parent/global database

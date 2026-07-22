@@ -139,6 +139,24 @@ OpenAI does not choose, reorder, or invent recommendations.
 
 ---
 
+# Learning Intelligence Use
+
+I1-006 may consume approved Course Tracker tool results through the Tool
+Registry for cross-app learning guidance with Quiz.
+
+Course Tracker remains authoritative for Course Tracker facts. Learning
+Intelligence may use:
+
+- `get_course_progress_summary`
+- `get_course_nearest_completion`
+- `get_stalled_courses`
+- `recommend_next_course_action`
+
+It must not query the Course Tracker database directly, expose private course
+content, or merge Course Tracker data ownership with Quiz.
+
+---
+
 # Approved Arguments
 
 Most tools accept only:

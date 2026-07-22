@@ -98,6 +98,22 @@ Rules:
 
 ---
 
+# Learning Intelligence Use
+
+I1-006 may consume approved Quiz tool results through the Tool Registry for
+cross-app learning guidance with Course Tracker.
+
+Quiz remains authoritative for Quiz facts. Learning Intelligence may use:
+
+- `get_quiz_progress_summary`
+- `get_quiz_topic_performance`
+- `recommend_next_quiz_platform`
+
+It must not query the Quiz database directly, expose question-bank content, or
+merge Quiz data ownership with Course Tracker.
+
+---
+
 # Privacy Boundary
 
 Quiz Astra tools never expose:

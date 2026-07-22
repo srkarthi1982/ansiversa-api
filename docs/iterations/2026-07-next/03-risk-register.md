@@ -44,6 +44,7 @@ The objective is to identify risks before implementation begins and reduce their
 | R-008 | Personal-data tools go live before persistent audit/user-control gates | High | Low | High | I1-002 keeps personal-data tools disabled by default with `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`; persisted audit sink, consent/user controls, deletion/export, and seeded verification setup remain release gates | Open |
 | R-009 | Platform user context leaks excessive personal data | High | Low | Critical | I1-003 uses profile-based lazy loading, backend-owned identity, canonical route validation, owner-scoped existing services, bounded summaries, and OpenAI-safe serialization without backend user IDs, emails, raw activity metadata, or notification bodies | Mitigated |
 | R-010 | Quiz Astra tools expose question-bank or cross-user data | High | Low | Critical | I1-004 keeps Quiz tools inside the Quiz module, owner-scopes every query to backend-authenticated user context, returns summaries only, excludes question text/options/answer keys/explanations/raw responses/internal IDs, and keeps production execution behind the personal-data tool gate | Mitigated |
+| R-011 | Cross-app Learning Intelligence bypasses app ownership | High | Low | Critical | I1-006 composes only registered Quiz and Course Tracker tool results, imports no app models/services/database sessions/SQLAlchemy queries, enforces maximum two tools and one tool per source app, preserves app-owned facts, and keeps production execution behind the personal-data tool gate | Mitigated |
 
 ---
 

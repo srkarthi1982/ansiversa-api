@@ -323,11 +323,11 @@ class CourseTrackerAstraToolTests(unittest.TestCase):
                 "Continue where I stopped.",
                 context=AssistantClientContext(currentRoute="/course-tracker/courses"),
                 current_user=SimpleNamespace(id="user-a"),
-            )
+        )
 
         self.assertEqual(response.response_mode, "deterministic")
-        self.assertEqual(response.sources[0].id, "tool:recommend_next_course_action")
-        self.assertIn("Continue", response.answer)
+        self.assertEqual(response.sources[0].id, "tool:course-tracker-learning")
+        self.assertIn("Data Structures", response.answer)
 
     def test_assistant_course_query_is_gated_by_default(self):
         index = AssistantKnowledgeIndex(entries=(), allowed_routes=frozenset({"/course-tracker/courses"}))

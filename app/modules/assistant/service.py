@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.modules.apps.models import AppCatalogItem, Category
+from app.modules.assistant.learning_intelligence import learning_intent_for_message, query_learning_intelligence
 from app.modules.assistant.openai_provider import OpenAIResponseProvider
 from app.modules.assistant.platform_tools import build_assistant_tool_registry
 from app.modules.assistant.schemas import (
@@ -1858,6 +1859,42 @@ def _query_tool_intent(
     return _tool_response_from_result(result)
 
 
+def _query_learning_intelligence_intent(
+    db: Session,
+    message: str,
+    index: AssistantKnowledgeIndex,
+    context: AssistantClientContext | None,
+    current_user: User | None,
+) -> AssistantQueryResponse | None:
+    if _is_restricted_request(message):
+        return None
+    if _professional_boundary_area(message):
+        return None
+    if _platform_identity_result(message, index):
+        return None
+    if learning_intent_for_message(message, context) is None:
+        return None
+    if not settings.ASTRA_PERSONAL_DATA_TOOLS_ENABLED:
+        return _personal_data_tools_disabled_response()
+
+    registry = build_assistant_tool_registry(db)
+    platform_context = build_platform_user_context(
+        db,
+        user=current_user,
+        client_context=context,
+        allowed_routes=index.allowed_routes,
+        profile="tool_execution",
+    )
+    return query_learning_intelligence(
+        message=message,
+        registry=registry,
+        current_user=current_user,
+        platform_context=platform_context,
+        allowed_routes=index.allowed_routes,
+        client_context=context,
+    )
+
+
 def _query_platform_user_context_intent(
     db: Session,
     message: str,
@@ -2518,6 +2555,8 @@ def query_assistant(
             "Assistant registry retrieval failed; using legacy deterministic fallback."
         )
         index = build_legacy_knowledge_index(db)
+    if learning_response := _query_learning_intelligence_intent(db, message, index, context, current_user):
+        return learning_response
     if tool_response := _query_tool_intent(db, message, index, context, current_user):
         return tool_response
     if user_context_response := _query_platform_user_context_intent(db, message, index, context, current_user):

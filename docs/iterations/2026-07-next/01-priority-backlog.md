@@ -45,7 +45,7 @@ No implementation task should be assigned to Codex until the feature has been re
 | I1-003 | Platform User Context Provider | Critical | Completed | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Critical | Completed | Wave 2 |
 | I1-005 | Course Tracker Astra AI Integration | Critical | Completed | Wave 4 |
-| I1-006 | Astra Learning Intelligence | High | Deferred | Later iteration |
+| I1-006 | Astra Learning Intelligence | High | Completed | Wave 4 |
 | I1-007 | Notifications Center UI Refinement | High | Frozen | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | High | Frozen | Wave 4 |
 | I1-009 | Astra AI Integration Contract | High | Completed | Wave 1 |
@@ -103,10 +103,10 @@ Any new idea discovered during implementation should return to this backlog inst
 | Proposed | 0 |
 | Discussing | 0 |
 | Approved | 0 |
-| Frozen | 15 |
+| Frozen | 11 |
 | In Progress | 0 |
-| Completed | 3 |
-| Deferred | 4 |
+| Completed | 8 |
+| Deferred | 3 |
 | Cancelled | 0 |
 
 ---

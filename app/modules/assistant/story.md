@@ -8,7 +8,9 @@ frontend context to improve relevance. AI Knowledge Foundation Phase 2 migrates
 retrieval to the Canonical AI Knowledge Registry. OpenAI remains only an
 optional server-side explanation layer for approved grounded results. I1-002
 adds the governed Astra Tool Framework for approved read-only tools without
-changing the public response contract.
+changing the public response contract. I1-006 adds deterministic Learning
+Intelligence that composes approved Quiz and Course Tracker tool results
+without querying app databases directly.
 
 ## Workflow
 
@@ -20,15 +22,17 @@ knowledge, categories, aliases, capabilities, user problems, related apps,
 future direction, visibility, and source traceability. The assistant first
 applies deterministic context handling for current page/app follow-ups,
 last-opened-app navigation, recent app references, and favorite/recent
-preference. It also checks approved tool intents after identity, safety, and
-restricted-request handling. The first tool-backed intent is an authenticated,
-read-only favorite-app summary using the existing Favorites service. The
-assistant then produces a deterministic answer, validated navigation actions,
-safe source metadata, and confidence. Strong app-information queries may send
-only bounded public context plus concise session context to OpenAI for response
-wording. Tool facts are not sent to OpenAI or rewritten by OpenAI in I1-002.
-Platform navigation, unknown queries, weak matches, explicit future questions,
-and provider failures use the deterministic path.
+preference. It checks approved Learning Intelligence intents before single-tool
+intents, after identity, safety, and restricted-request handling. Learning
+Intelligence executes at most one Quiz tool and one Course Tracker tool through
+the Tool Registry and combines structured results into deterministic learning
+guidance. Single-tool intents still use the approved registry execution path.
+The assistant then produces a deterministic answer, validated navigation
+actions, safe source metadata, and confidence. Strong app-information queries
+may send only bounded public context plus concise session context to OpenAI for
+response wording. Tool facts are not sent to OpenAI or rewritten by OpenAI in
+I1-002 or I1-006. Platform navigation, unknown queries, weak matches, explicit
+future questions, and provider failures use the deterministic path.
 
 ## API Design
 
@@ -179,6 +183,33 @@ gate deliberately; production remains disabled until persisted audit logging,
 user controls, deletion/export handling, and seeded verification gates are
 approved and implemented.
 
+## Learning Intelligence
+
+I1-006 adds `app/modules/assistant/learning_intelligence.py`.
+
+Learning Intelligence supports cross-app learning prompts such as:
+
+- What should I study today?
+- Should I continue my course or revise Quiz?
+- Which Quiz topic should I revise?
+- What am I closest to completing?
+- What have I ignored recently?
+- I have one hour to study.
+- Give me my learning summary.
+
+It builds a bounded tool plan using only registered Quiz and Course Tracker
+capabilities. The plan may execute at most two tools total and at most one tool
+per source app. It then applies deterministic ranking rules for urgent Course
+Tracker deadlines, nearest course completion, repeated weak Quiz topics,
+stalled courses, recent learning continuity, next Quiz platforms, and
+insufficient data.
+
+Learning Intelligence does not import Quiz or Course Tracker models, services,
+database sessions, or SQL queries. Quiz and Course Tracker remain authoritative
+for app facts and app-owned recommendations; Astra owns only cross-app
+orchestration and explanation. It does not add write actions, memory, OpenAI
+tool orchestration, frontend contract changes, migrations, or App #101.
+
 ## Route Safety
 
 Every returned action route is validated against the known public routes in the
@@ -201,19 +232,22 @@ details to the user.
 ## Current Status
 
 Phase 2 retrieval parity, I1-002 tool framework, I1-012 registry, and I1-003
-user context provider support the frozen Assistant architecture:
+user context provider support the frozen Assistant architecture. I1-004 and
+I1-005 add the Quiz and Course Tracker app pilots, and I1-006 composes those
+approved capabilities for deterministic learning guidance:
 
 ```text
-User -> Assistant -> Knowledge Registry / Approved Tool -> Deterministic Response / OpenAI Grounded Public Answer -> User
+User -> Assistant -> Knowledge Registry / Approved Tools / Learning Intelligence -> Deterministic Response / OpenAI Grounded Public Answer -> User
 ```
 
 The Assistant now reads from the Canonical AI Knowledge Registry as the normal
 retrieval source and may execute registry-discovered approved read-only tools
 for authenticated tool intents. It can also answer approved platform-level
-personal-context questions through bounded deterministic context summaries.
-There are no embeddings, vector databases, repository search, new OpenAI calls,
-permanent memory, write tools, backend workflow actions, migrations,
-schema-breaking changes, Quiz tools, Course Tracker tools, or App #101 changes.
+personal-context questions through bounded deterministic context summaries and
+combine Quiz plus Course Tracker structured tool outputs for learning
+guidance. There are no embeddings, vector databases, repository search, new
+OpenAI calls, permanent memory, write tools, backend workflow actions,
+migrations, schema-breaking changes, or App #101 changes.
 
 ## User Context Provider
 

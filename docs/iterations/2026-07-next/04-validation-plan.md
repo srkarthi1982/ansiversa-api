@@ -129,6 +129,10 @@ Verify:
 - Platform User Context Provider lazy profile loading where Astra context is involved
 - App-owned Astra tool registration and owner-scoped service execution for approved pilots
 - App-owned Astra tool privacy validation to prevent question-bank, raw payload, or internal ID leakage
+- Learning Intelligence composes only registered Quiz and Course Tracker tool results
+- Learning Intelligence does not import app models, app services, database sessions, or SQLAlchemy queries
+- Learning Intelligence enforces maximum two tools and maximum one tool per source app
+- Learning Intelligence preserves deterministic recommendation ordering and canonical actions
 
 ---
 

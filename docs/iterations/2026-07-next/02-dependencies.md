@@ -42,7 +42,7 @@ clear.
 | I1-003 | Platform User Context Provider | Completed | I1-001, I1-002, I1-012 | I1-004, I1-010, context-aware platform work | No | Wave 1 |
 | I1-004 | Quiz Astra AI Integration | Completed | I1-001, I1-002, I1-003, I1-012 | I1-005, I1-006, first authenticated tool pilot | No | Wave 2 |
 | I1-005 | Course Tracker Astra AI Integration | Completed | I1-004 | I1-006, I1-008 | Complete; enables later learning and dashboard intelligence | Wave 4 |
-| I1-006 | Astra Learning Intelligence | Deferred | I1-004, I1-005, I1-013, I1-014 | Later cross-app learning intelligence | No | Later Iteration |
+| I1-006 | Astra Learning Intelligence | Completed | I1-004, I1-005 | I1-008, later learning expansion | Complete; deterministic composition implemented without I1-013/I1-014 redesign | Wave 4 |
 | I1-007 | Notifications Center UI Refinement | Ready | Existing Notifications Center Phase 1 | Notification UX polish | Yes, after freeze | Wave 2 |
 | I1-008 | Astra Dashboard Intelligence | Ready | I1-005, I1-010, Activity, Notifications, Dashboard sources | I1-013, I1-014 input signals | Can run after I1-005 | Wave 4 |
 | I1-009 | Astra AI Integration Contract | Completed | Planning Freeze approval | I1-001 and all Astra-enabled app contracts | First task | Wave 1 |
@@ -100,6 +100,8 @@ I1-020 Mobile Experience Improvements
 Wave 4 Astra refinement:
 I1-005 Course Tracker Astra AI Integration
     ↓
+I1-006 Astra Learning Intelligence
+    ↓
 I1-008 Astra Dashboard Intelligence
     ↓
 I1-013 Astra Intent Engine
@@ -107,7 +109,6 @@ I1-013 Astra Intent Engine
 I1-014 Astra Response Builder
 
 Later Iteration:
-I1-006 Astra Learning Intelligence
 I1-011 Astra Memory Management
 I1-015 Astra Recommendation Engine
 I1-022 Platform Insights Dashboard
@@ -172,6 +173,8 @@ I1-020  Mobile Experience Improvements
 ```text
 I1-005  Course Tracker Astra AI Integration
     ↓
+I1-006  Astra Learning Intelligence
+    ↓
 I1-008  Astra Dashboard Intelligence
     ↓
 I1-013  Astra Intent Engine
@@ -185,7 +188,6 @@ These tasks remain documented but are not planned for the 2026-07-26 through
 2026-08-09 implementation window:
 
 ```text
-I1-006  Astra Learning Intelligence
 I1-011  Astra Memory Management
 I1-015  Astra Recommendation Engine
 I1-022  Platform Insights Dashboard
