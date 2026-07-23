@@ -60,6 +60,17 @@ If compiler execution fails:
 - parity status is failed;
 - no public artifact is replaced.
 
+Failure evidence does not include raw exception messages. Compiler exceptions
+are represented with stable metadata:
+
+- `failureCode: compiler_execution_failed`
+- `failureStage: candidate_compilation`
+
+Detailed exception text is intentionally excluded from the evidence package
+because exception messages may contain paths, environment details, URLs,
+source excerpts, or other private operational data. Phase 4 does not introduce
+a private diagnostic logger.
+
 ---
 
 # Boundaries Preserved
@@ -88,12 +99,15 @@ Focused tests cover:
 - publisher artifacts unaffected by compiler failure;
 - internal evidence generation;
 - deterministic evidence serialization;
-- no public artifact replacement.
+- no public artifact replacement;
+- sanitized failure metadata;
+- absence of raw and sensitive-looking exception text from evidence;
+- deterministic evidence for equivalent failure classes.
 
 Validation performed:
 
 - `python -m pytest tests/test_ai_seo_compiler_foundation.py tests/test_ai_seo_compiler_pipeline.py tests/test_ai_seo_compiler_shadow.py tests/test_ai_seo_compiler_integration.py`
-  - passed: 57 tests.
+  - passed: 59 tests.
 - `python -m compileall app/modules/ai_seo_compiler app/modules/knowledge/build_public.py tests/test_ai_seo_compiler_foundation.py tests/test_ai_seo_compiler_pipeline.py tests/test_ai_seo_compiler_shadow.py tests/test_ai_seo_compiler_integration.py`
   - passed.
 - `python -m app.modules.knowledge.check_registry`

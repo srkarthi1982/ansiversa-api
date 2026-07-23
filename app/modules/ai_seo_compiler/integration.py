@@ -39,6 +39,14 @@ class ControlledParityStatus(StrEnum):
     FAILED = "failed"
 
 
+class ControlledFailureCode(StrEnum):
+    COMPILER_EXECUTION_FAILED = "compiler_execution_failed"
+
+
+class ControlledFailureStage(StrEnum):
+    CANDIDATE_COMPILATION = "candidate_compilation"
+
+
 @dataclass(frozen=True)
 class ControlledIntegrationControl:
     enabled: bool = False
@@ -50,14 +58,16 @@ class ControlledCompilerExecutionSummary:
     status: ControlledIntegrationStatus
     attempted: bool
     succeeded: bool
-    failure_message: str | None = None
+    failure_code: ControlledFailureCode | None = None
+    failure_stage: ControlledFailureStage | None = None
 
     def as_dict(self) -> dict[str, object]:
         return {
             "status": self.status.value,
             "attempted": self.attempted,
             "succeeded": self.succeeded,
-            "failureMessage": self.failure_message,
+            "failureCode": self.failure_code.value if self.failure_code else None,
+            "failureStage": self.failure_stage.value if self.failure_stage else None,
         }
 
 
@@ -122,7 +132,7 @@ def _disabled_evidence() -> ControlledIntegrationEvidence:
     )
 
 
-def _failure_evidence(message: str, *, execution_duration_ms: int) -> ControlledIntegrationEvidence:
+def _failure_evidence(*, execution_duration_ms: int) -> ControlledIntegrationEvidence:
     summary = _empty_validation_summary()
     summary[Severity.BLOCKER.value] = 1
     return ControlledIntegrationEvidence(
@@ -131,7 +141,8 @@ def _failure_evidence(message: str, *, execution_duration_ms: int) -> Controlled
             status=ControlledIntegrationStatus.FAILED,
             attempted=True,
             succeeded=False,
-            failure_message=message,
+            failure_code=ControlledFailureCode.COMPILER_EXECUTION_FAILED,
+            failure_stage=ControlledFailureStage.CANDIDATE_COMPILATION,
         ),
         comparison_summary={
             "matchingItems": 0,
@@ -215,10 +226,10 @@ def run_controlled_integration(
         current = snapshot_from_knowledge_artifacts(artifacts)
         candidate = snapshot_from_compiler_output(compiler_output)
         report = compare_shadow_snapshots(current, candidate)
-    except Exception as exc:
+    except Exception:
         return ControlledIntegrationResult(
             artifacts=artifacts,
-            evidence=_failure_evidence(str(exc), execution_duration_ms=control.execution_duration_ms),
+            evidence=_failure_evidence(execution_duration_ms=control.execution_duration_ms),
         )
 
     return ControlledIntegrationResult(

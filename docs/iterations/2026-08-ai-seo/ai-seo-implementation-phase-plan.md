@@ -211,6 +211,7 @@ Validation:
 
 - disabled control attempts no compiler execution;
 - enabled internal execution produces deterministic evidence;
+- compiler failures expose stable failure metadata without raw exception text;
 - compiler failure does not replace or block current Knowledge artifacts;
 - no API, frontend, migration, dependency, deployment, runtime startup, or
   production configuration changes occur;
