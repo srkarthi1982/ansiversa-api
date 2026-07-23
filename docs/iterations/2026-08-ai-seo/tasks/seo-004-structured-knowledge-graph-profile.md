@@ -1,13 +1,13 @@
 # SEO-004 - Structured Knowledge Graph Profile
 
-**Status:** Proposed
+**Status:** Frozen
 **Priority:** High
 **Authorized Scope:** Discovery, specification, and architecture review only
 **Implementation:** Not authorized
 **Product Owner Discovery Authorization:** Recorded 2026-07-23
-**Architecture Review:** Pending Astra Review
-**Product Owner Architecture Approval:** Pending
-**ADR:** Proposed
+**Architecture Review:** Approved 2026-07-23
+**Product Owner Architecture Approval:** Approved 2026-07-23
+**ADR:** Accepted
 
 ---
 
@@ -34,7 +34,7 @@ Architecture review:
 docs/iterations/2026-08-ai-seo/seo-004-architecture-review.md
 ```
 
-Proposed ADR:
+Accepted ADR:
 
 ```text
 docs/architecture/decisions/ai-seo-structured-knowledge-graph-profile.md
@@ -62,15 +62,15 @@ docs/architecture/decisions/ai-seo-structured-knowledge-graph-profile.md
 
 # Freeze Criteria
 
-- [ ] Astra architecture review approved.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted or explicitly marked not required.
-- [ ] Graph entity type allowlist accepted.
-- [ ] Stable ID rules accepted.
-- [ ] Relationship vocabulary accepted.
-- [ ] Prohibited property list accepted.
-- [ ] Validation and partial-failure matrix accepted.
-- [ ] SEO-004 status updated to Frozen only after approval.
+- [x] Astra architecture review approved.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted or explicitly marked not required.
+- [x] Graph entity type allowlist accepted.
+- [x] Stable ID rules accepted.
+- [x] Relationship vocabulary accepted.
+- [x] Prohibited property list accepted.
+- [x] Validation and partial-failure matrix accepted.
+- [x] SEO-004 status updated to Frozen only after approval.
 
 ---
 
@@ -90,12 +90,12 @@ docs/architecture/decisions/ai-seo-structured-knowledge-graph-profile.md
 # Current Boundary
 
 ```text
-SEO-004                 Proposed
+SEO-004                 Frozen
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
-Product Owner Approval  Pending
-ADR                     Proposed
+Architecture Review     Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
 ```

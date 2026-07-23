@@ -11,6 +11,6 @@ docs/iterations/2026-08-ai-seo/
 
 Implementation remains unauthorized.
 
-SEO-004 Structured Knowledge Graph Profile is Proposed with discovery and
-specification complete, architecture review pending, Product Owner approval
-pending, ADR proposed, and no implementation authorization.
+SEO-004 Structured Knowledge Graph Profile is Frozen with Architecture Review
+approved, Product Owner approval recorded, ADR accepted, and no implementation
+authorization.

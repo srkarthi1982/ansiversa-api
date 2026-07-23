@@ -413,7 +413,7 @@ Before implementation:
    separately approved public projection.
 4. Define standard sitemap versus diagnostic AI-sitemap ownership.
 5. Approve crawler search/training/user-fetch policies.
-6. Review the proposed SEO-004 structured-data profile and validation rules.
+6. Preserve the accepted SEO-004 structured-data profile and validation rules.
 7. Define content freshness ownership and stale-content blocking.
 8. Define IndexNow scope, secrets, retries, and evidence.
 9. Define webmaster-tool roles and evidence retention.

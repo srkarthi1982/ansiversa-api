@@ -1,11 +1,12 @@
 # Architecture Decision: AI SEO Structured Knowledge Graph Profile
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-23
+**Accepted:** 2026-07-23
 **Task:** SEO-004
 **Decision Owner:** Karthikeyan Ramalingam
-**Architecture Reviewer:** Astra - Pending Review
-**Product Owner:** Karthikeyan Ramalingam - Pending Approval
+**Architecture Reviewer:** Astra - Approved 2026-07-23
+**Product Owner:** Karthikeyan Ramalingam - Approved 2026-07-23
 **Evidence Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -16,8 +17,6 @@
 
 Should Ansiversa adopt a governed V1 structured knowledge graph profile for
 public AI SEO projections?
-
-Recommended decision:
 
 Adopt a narrow, backend-validated graph profile that projects SEO-002 public
 truth into a bounded schema.org JSON-LD graph and SEO-003 page-local graph
@@ -72,7 +71,7 @@ This emits only approved platform, page, collection, app, relationship,
 audience, and FAQ graph entities. It uses stable IDs, strict property
 allowlists, prohibited properties, and fail-closed validation.
 
-**Recommendation:** Preferred candidate.
+**Decision:** Accepted.
 
 ## D - Defer graph decisions to implementation
 
@@ -83,7 +82,7 @@ rendering implementation.
 
 ---
 
-# Proposed Architecture
+# Accepted Architecture
 
 ```text
 SEO-002 approved public entity truth
@@ -128,14 +127,14 @@ If accepted:
 
 # Acceptance Record
 
-- [ ] Architecture Reviewer approved the recommendation and boundaries.
-- [ ] Product Owner accepted the decision.
-- [ ] Supported entity types accepted.
-- [ ] Stable `@id` policy accepted.
-- [ ] Relationship vocabulary accepted.
-- [ ] Prohibited property list accepted.
-- [ ] Failure, cache, validation, and rollback boundaries accepted.
-- [ ] SEO-004 frozen.
+- [x] Architecture Reviewer approved the recommendation and boundaries.
+- [x] Product Owner accepted the decision.
+- [x] Supported entity types accepted.
+- [x] Stable `@id` policy accepted.
+- [x] Relationship vocabulary accepted.
+- [x] Prohibited property list accepted.
+- [x] Failure, cache, validation, and rollback boundaries accepted.
+- [x] SEO-004 frozen.
 
 ---
 
@@ -144,9 +143,9 @@ If accepted:
 ```text
 Repository evidence           Collected
 Architecture                 Narrow governed structured graph profile
-Architecture acceptance       Pending
-ADR                           Proposed
-SEO-004                       Proposed
+Architecture acceptance       Approved
+ADR                           Accepted
+SEO-004                       Frozen
 Implementation                Not authorized
 Runtime                       Unchanged
 Production                    Unchanged

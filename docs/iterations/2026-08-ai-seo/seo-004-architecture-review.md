@@ -1,23 +1,23 @@
 # SEO-004 Architecture Review - Structured Knowledge Graph Profile
 
 **Task:** SEO-004
-**Status:** Proposed
+**Status:** Frozen
 **Discovery:** Complete
 **Specification:** Complete
-**Architecture Review:** Pending Astra Review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Architecture Review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation:** Not authorized
 **Production:** Unchanged
 **Prepared:** 2026-07-23
 
 ---
 
-# Review Objective
+# Review Decision
 
-Review whether the proposed Structured Knowledge Graph Profile is the right
-bounded architecture for Ansiversa public graph projections after SEO-002 and
-SEO-003.
+Architecture Review approved the Structured Knowledge Graph Profile as the
+right bounded architecture for Ansiversa public graph projections after SEO-002
+and SEO-003.
 
 Canonical specification:
 
@@ -25,7 +25,7 @@ Canonical specification:
 docs/ai-seo-structured-knowledge-graph-profile.md
 ```
 
-Proposed ADR:
+Accepted ADR:
 
 ```text
 docs/architecture/decisions/ai-seo-structured-knowledge-graph-profile.md
@@ -41,7 +41,7 @@ docs/iterations/2026-08-ai-seo/seo-004-discovery.md
 
 # Architecture Summary
 
-SEO-004 recommends a narrow, governed V1 graph profile:
+SEO-004 accepts a narrow, governed V1 graph profile:
 
 - `Organization`;
 - `WebSite`;
@@ -81,7 +81,7 @@ This freezes only the public entities and properties needed for platform,
 catalog, category, app, relationship, and FAQ understanding. Optional
 properties are omitted until visible parity and source authority are proven.
 
-**Recommendation:** Accept as Proposed V1.
+**Decision:** Accepted as V1.
 
 ## Option D - Defer all graph decisions until rendering implementation
 
@@ -110,50 +110,40 @@ Adopt Option C:
 
 ---
 
-# Review Questions
+# Review Resolution
 
-1. Does the proposed node allowlist cover the initial public graph without
-   over-modeling?
-2. Should category collection nodes be published before category pages are
-   canonical public pages?
-3. Is `featureList` acceptable for app capabilities once visible parity exists,
-   or should capability lists remain unstructured in V1?
-4. Should app FAQ JSON-LD wait until every app page visibly renders approved
-   FAQ content?
-5. Are the prohibited properties complete enough for V1 risk control?
-6. Does the relationship vocabulary preserve SEO-002 authority without becoming
-   a recommendation engine?
-7. Does the failure matrix correctly distinguish release blockers from safe
-   optional omissions?
-8. Is a Proposed ADR required and acceptable for this profile?
+Architecture Review approved the separation between SEO-003 delivery and
+SEO-004 structured knowledge representation. Product Owner approval accepted
+the ADR and froze SEO-004. Remaining implementation details must be handled in
+future authorized implementation tasks without weakening this profile.
 
 ---
 
 # Acceptance Criteria For Freezing SEO-004
 
-- [ ] Astra approves or revises the graph profile.
-- [ ] Product Owner approves the profile.
-- [ ] ADR is accepted or explicitly marked not required.
-- [ ] Supported entity types are frozen for V1.
-- [ ] Stable `@id` rules are frozen for V1.
-- [ ] Relationship vocabulary is frozen for V1.
-- [ ] Prohibited properties are frozen for V1.
-- [ ] SEO-002 field-to-schema mapping is accepted.
-- [ ] SEO-003 manifest relationship is accepted.
-- [ ] Validation and rollback expectations are accepted.
-- [ ] Status metadata is updated from Proposed to Frozen only after approval.
+- [x] Astra approves or revises the graph profile.
+- [x] Product Owner approves the profile.
+- [x] ADR is accepted or explicitly marked not required.
+- [x] Supported entity types are frozen for V1.
+- [x] Stable `@id` rules are frozen for V1.
+- [x] Relationship vocabulary is frozen for V1.
+- [x] Prohibited properties are frozen for V1.
+- [x] SEO-002 field-to-schema mapping is accepted.
+- [x] SEO-003 manifest relationship is accepted.
+- [x] Validation and rollback expectations are accepted.
+- [x] Status metadata is updated from Proposed to Frozen only after approval.
 
 ---
 
 # Explicit Boundary
 
 ```text
-SEO-004                 Proposed
+SEO-004                 Frozen
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
-Product Owner Approval  Pending
-ADR                     Proposed
+Architecture Review     Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
 ```

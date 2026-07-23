@@ -11,7 +11,7 @@ implementation. Iteration approval does not freeze these tasks.
 | SEO-001 | AI SEO Platform Architecture | Critical | Completed | Approved architecture artifact and validation evidence recorded |
 | SEO-002 | Per-App Public Knowledge Contract | Critical | Frozen | Contract V1 approved; implementation awaits separate Product Owner authorization |
 | SEO-003 | Canonical Public Rendering ADR | Critical | Frozen | Hybrid governed pre-rendering accepted; implementation awaits separate authorization |
-| SEO-004 | Structured Knowledge Graph Profile | High | Proposed | Discovery/spec complete; architecture review pending for supported entity types, relations, stable IDs, and schema.org projections |
+| SEO-004 | Structured Knowledge Graph Profile | High | Frozen | Profile V1 approved; implementation awaits separate authorization |
 | SEO-005 | Discovery And Crawler Governance | High | Proposed | Separate search, training, user-fetch, robots, WAF, and provider policies |
 | SEO-006 | Sitemap, Canonical, And Freshness Architecture | High | Proposed | Define standard sitemap ownership, `lastmod`, redirects, duplicates, and optional IndexNow |
 | SEO-007 | AI Search Validation And Observability | High | Proposed | Define crawl, indexing, citation, referral, accuracy, and correction evidence |
@@ -47,9 +47,9 @@ SEO-009 Implementation planning
 SEO-003 is the first expensive-to-reverse implementation decision. It must be
 resolved before metadata implementation begins.
 
-SEO-001 is complete. SEO-002 Contract V1 and SEO-003 Hybrid Governed
-Pre-rendering are approved and Frozen. SEO-004 is Proposed with documentation
-complete and review pending. No runtime AI SEO work is authorized.
+SEO-001 is complete. SEO-002 Contract V1, SEO-003 Hybrid Governed
+Pre-rendering, and SEO-004 Structured Knowledge Graph Profile are approved and
+Frozen. No runtime AI SEO work is authorized.
 
 ---
 

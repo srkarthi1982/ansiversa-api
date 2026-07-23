@@ -1,14 +1,14 @@
 # Ansiversa Structured Knowledge Graph Profile
 
 **Profile:** AI SEO Structured Knowledge Graph
-**Profile Version:** Proposed V1
+**Profile Version:** 1
 **Task:** SEO-004
-**Status:** Proposed
+**Status:** Approved
 **Discovery:** Complete
 **Specification:** Complete
-**Architecture Review:** Pending Astra Review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Architecture Review:** Astra - Approved 2026-07-23
+**Product Owner Approval:** Karthikeyan Ramalingam - Approved 2026-07-23
+**ADR:** Accepted
 **Implementation:** Not authorized
 **Production:** Unchanged
 **Created:** 2026-07-23
@@ -453,15 +453,8 @@ Reviewed sources:
 
 ---
 
-# Open Questions For Astra And Product Owner
+# Accepted Review Notes
 
-1. Should category collection nodes be emitted before category pages are
-   canonical public pages, or should they remain aggregate-only until SEO-006?
-2. Should `featureList` be used for current capabilities once page-visible
-   parity exists, or should capabilities remain visible text only in V1?
-3. Should app-level FAQs be included in page-local JSON-LD only, aggregate
-   graph only, or both after visible FAQ sections exist?
-4. Should `SoftwareApplication.applicationCategory` use Ansiversa category
-   labels only, or map to a smaller public taxonomy later?
-5. Should public graph output include non-sensitive reviewed dates after a
-   later governance/public freshness decision?
+Architecture Review approved the narrow governed V1 profile, backend compiler
+ownership, SEO-003 separation, and future compatibility. Product Owner approved
+freezing SEO-004. Implementation remains unauthorized.
