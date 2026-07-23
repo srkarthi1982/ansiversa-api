@@ -196,7 +196,8 @@ Phase 2 is completed and Frozen after Astra review.
 
 - Phase 3 is authorized and implemented;
 - Astra source review requested adapter corrections;
-- adapter corrections are implemented for re-review;
+- adapter corrections are implemented and approved;
+- Phase 3 is completed and Frozen;
 - current Knowledge publisher remains the active production publisher;
 - shadow comparison operates on supplied in-memory snapshots only;
 - Knowledge artifact snapshot conversion does not write or publish artifacts;
@@ -215,8 +216,7 @@ Phase 2 is completed and Frozen after Astra review.
   runtime startup change, artifact replacement, or production behavior change
   occurs.
 
-Phase 4 remains blocked until Phase 3 review, freeze, and separate Product
-Owner authorization complete.
+Phase 4 remains blocked until separate Product Owner authorization completes.
 
 ## Viewports And Clients
 

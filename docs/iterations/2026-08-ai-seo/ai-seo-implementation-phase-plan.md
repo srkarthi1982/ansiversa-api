@@ -139,7 +139,7 @@ Production unchanged.
 Status:
 
 ```text
-Implemented; adapter corrections implemented; Astra re-review pending; freeze pending
+Completed and Frozen
 ```
 
 Repository:
@@ -170,6 +170,7 @@ Validation:
 - repeated comparisons against identical snapshots produce identical reports.
 - actual Knowledge-versus-compiler adapters compare equivalent public truth
   without false positives.
+- Astra review approved commit 0723165 and correction commit bae87a7.
 
 Boundary:
 
