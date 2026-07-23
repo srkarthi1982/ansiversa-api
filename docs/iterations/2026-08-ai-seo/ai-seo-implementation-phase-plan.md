@@ -74,7 +74,7 @@ Validation:
 Status:
 
 ```text
-Implemented pending Astra review and Product Owner approval
+Implementation complete; governance review approved; source review pending
 ```
 
 Repository:
@@ -118,6 +118,16 @@ Boundary:
 ```text
 No runtime serving, no Knowledge publisher integration, no generated artifact
 changes, no frontend changes, no shadow comparison, no production changes.
+```
+
+Review status:
+
+```text
+Commit 3136c41 reported scope accepted by Astra.
+Source-level Astra review pending.
+Phase 2 freeze pending.
+Phase 3 not authorized.
+Production unchanged.
 ```
 
 ---

@@ -95,7 +95,8 @@ compiler foundation after Astra review approved commit `5f0f852`. Phase 2
 remains pending separate Product Owner authorization.
 
 AI SEO Implementation Phase 2 is implemented as an isolated backend compiler
-pipeline and is pending Astra review and Product Owner approval. It does not
+pipeline. Astra approved the reported governance scope for commit `3136c41`,
+while source-level Astra review and Phase 2 freeze remain pending. It does not
 integrate with runtime routes, the Knowledge publisher, frontend rendering,
 deployment, or production behavior.
 

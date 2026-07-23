@@ -163,6 +163,8 @@ Phase 2 remains pending separate authorization.
 
 ## AI SEO Implementation Phase 2
 
+- governance/scope review approved for commit `3136c41`;
+- source-level Astra review remains pending before freeze;
 - parser accepts only allowlisted source inventory entries;
 - JSON parsing is strict and structured;
 - Markdown parsing extracts only bounded allowlisted sections;
@@ -184,6 +186,9 @@ Phase 2 remains pending separate authorization.
 - repeated pipeline runs produce equivalent serialized output;
 - Knowledge registry and public artifact drift checks remain current; and
 - production remains unchanged.
+
+Phase 3 remains blocked until Phase 2 source review, freeze, and separate
+authorization complete.
 
 ## Viewports And Clients
 
