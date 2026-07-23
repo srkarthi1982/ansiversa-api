@@ -8,6 +8,23 @@ Production: https://api.ansiversa.com
 
 Docs: https://api.ansiversa.com/docs
 
+## Iteration 2 — AI SEO Architecture
+
+Iteration 2 architecture is approved. SEO-001 is frozen and authorized only for
+completion of its documentation and architecture artifact. The permanent
+architecture and planning package are:
+
+```text
+docs/ai-seo-architecture.md
+docs/iterations/2026-08-ai-seo/
+```
+
+The iteration extends the existing Canonical AI Knowledge Registry and public
+publisher. SEO-002 through SEO-008 remain Proposed, SEO-003 remains unresolved,
+and AI SEO runtime implementation, frontend/backend changes, metadata changes,
+crawler submissions, marketing automation, video generation, and production
+changes remain unauthorized.
+
 ## Local Setup
 
 Use Python 3.13. The current `libsql-experimental` driver can terminate during
