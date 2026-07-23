@@ -4,7 +4,9 @@
 **Priority:** Critical
 **Authorized Scope:** Discovery, specification, and architecture review only
 **Implementation:** Not authorized
-**Product Owner Authorization:** Recorded 2026-07-23
+**Product Owner Discovery Authorization:** Recorded 2026-07-23
+**Architecture Review:** Approved with refinements incorporated
+**Product Owner Contract Approval:** Pending
 
 ---
 
@@ -51,9 +53,9 @@ docs/ai-seo-per-app-public-knowledge-contract.md
 - [x] Freshness windows proposed.
 - [x] Conflict taxonomy and failure behavior proposed.
 - [x] Validation strategy proposed.
-- [ ] Architecture Reviewer approval recorded.
+- [x] Architecture Reviewer approval recorded.
 - [ ] Product Owner contract approval recorded.
-- [ ] Open review questions resolved.
+- [x] Open review questions resolved.
 - [ ] SEO-002 frozen.
 
 ---
@@ -76,7 +78,8 @@ docs/ai-seo-per-app-public-knowledge-contract.md
 
 ```text
 Specification             Drafted
-Architecture review       Pending
+Architecture review       Approved
+Product Owner approval    Pending
 SEO-002                    Discussing
 Implementation            Not authorized
 SEO-003                    Unresolved

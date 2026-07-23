@@ -2,10 +2,11 @@
 
 **Contract:** AI SEO Per-App Public Knowledge
 **Contract Version:** 1
-**Status:** Proposed for architecture review
+**Status:** Architecture Reviewer approved; Product Owner approval pending
 **Created:** 2026-07-23
 **Task:** SEO-002
 **Scope:** Specification only
+**Architecture Reviewer:** Astra — Approved with incorporated refinements
 
 This contract defines what Ansiversa may say publicly about each application
 and how every claim remains attributable, reviewable, current, and safe.
@@ -110,8 +111,18 @@ record appear complete.
 | `exploreRoute` | canonical absolute path, 180 | Conditional when a current workflow route exists | Route registry |
 
 `appId` is permanent across wording changes. A replacement within the fixed
-catalog requires a separately governed identity decision; it must not reuse an
-old identity in a misleading way.
+catalog requires a separately governed identity decision.
+
+Replacement and retirement rules:
+
+- a retired `appId` is never silently reassigned;
+- a replacement receives its own permanent `appId`;
+- reuse or reassignment of a catalog slot/number requires a separate governance
+  decision;
+- a replacement must not inherit claims, provenance, reviews, or lifecycle
+  history from the retired entity; and
+- historical redirects and archival representations belong to a later
+  contract.
 
 ## Classification
 
@@ -240,8 +251,14 @@ features, guarantees, or repetitive keyword variants.
 | `fieldProvenance` | map keyed by public field/item path | Required |
 | `validationState` | enum | Required |
 
-Personal approver names are not required in public projections. The governed
-repository may retain decision records identifying approvers.
+Public projections may expose only an approved role and a non-sensitive review
+date. They must not expose internal actor/approver names, repository paths,
+content hashes, source revisions, approval notes, conflict records, or internal
+review assignments.
+
+The governed repository may retain decision records identifying accountable
+people. That internal accountability does not make their identity a public app
+claim.
 
 ---
 
@@ -270,8 +287,9 @@ derivationRule
 Rules:
 
 - `fieldPath` uses a stable JSON-pointer-style path.
-- List items receive item-level provenance; one source reference for an entire
-  mixed list is insufficient.
+- Capabilities, limitations, safety notes, FAQs, related apps, and every other
+  publishable claim list receive item-level provenance. One source reference
+  for an entire mixed list is insufficient.
 - `sourceRevision` is content-addressed or an immutable repository revision.
 - `derivationRule` is required only for derived/generated values.
 - source paths and internal review metadata are governance-only by default.
@@ -344,8 +362,9 @@ enhancements are excluded.
 
 `marketing.md` remains outside automatic parsing in Contract V1. SEO-008 must
 define a typed promotion mechanism before any field becomes a compiler input.
-Marketing wording can never override identity, lifecycle, routes, capability,
-limitation, or safety truth.
+Marketing may propose wording, but no `marketing.md` field enters the compiler
+in V1. Marketing wording can never override identity, lifecycle, routes,
+capability, limitation, or safety truth.
 
 ### `market-study.md`
 
@@ -467,8 +486,8 @@ Process:
 
 1. detect and report bounded field paths, sources, and revisions;
 2. emit no updated public artifact for the invalid entity;
-3. preserve the last approved artifact only under a separately approved safe
-   deployment policy;
+3. preserve the last-known-approved artifact only when it is still current,
+   safe, and permitted by an explicitly approved deployment policy;
 4. assign resolution to the accountable source owners;
 5. update the authoritative source, not a generated output;
 6. record approval; and
@@ -485,6 +504,52 @@ The compiler must not:
 
 Equivalent formatting differences may normalize only through an approved
 deterministic rule.
+
+---
+
+# Entity Validity And Release Validity
+
+## Entity Validation
+
+Entity validation determines whether one app record is safe and complete.
+
+An invalid entity:
+
+- cannot publish a new artifact;
+- may retain its last-known-approved artifact only when that artifact remains
+  current and safe under an approved deployment policy; and
+- cannot be silently repaired from a lower-authority source.
+
+## Release Validation
+
+Release validation determines whether the platform-wide package remains
+coherent:
+
+- exactly 100 current catalog members;
+- unique permanent identities, numbers, slugs, and canonical routes;
+- valid lifecycle combinations;
+- category and relationship integrity;
+- no critical public-truth conflict;
+- no privacy, safety, or visibility failure; and
+- deterministic package consistency.
+
+The overall release fails when invalidity affects:
+
+- identity;
+- canonical routes;
+- lifecycle;
+- safety;
+- privacy or visibility;
+- category integrity;
+- fixed-catalog integrity; or
+- another cross-entity invariant.
+
+Isolated non-critical optional-field failures may be omitted only under an
+explicitly approved deployment policy. They must not become silent warnings or
+permit a stale optional claim to be republished as new output.
+
+Whole-build versus entity-isolation mechanics remain an implementation design,
+but they must implement this validity boundary without weakening it.
 
 ---
 
@@ -558,7 +623,7 @@ Fixtures are synthetic or public metadata only. No user records are used.
 
 # Pass / Fail Criteria
 
-Pass requires:
+Entity pass requires:
 
 - all required fields valid;
 - exactly one authoritative provenance record per public claim;
@@ -569,9 +634,16 @@ Pass requires:
 - relationships resolving to approved entities; and
 - deterministic rebuild equality.
 
-Any failure blocks the affected entity from a new release. Whole-build versus
-entity-isolation deployment behavior remains an implementation planning
-decision; it may not weaken the last-known-approved truth boundary.
+Release pass additionally requires:
+
+- exactly 100 coherent current entities;
+- unique platform-wide identities and routes;
+- valid categories and cross-entity references;
+- no critical identity/lifecycle/safety/privacy/fixed-catalog failure; and
+- every invalid optional field handled only by an approved isolation policy.
+
+Any entity failure blocks that entity from a new artifact. Any critical
+cross-entity or public-trust failure blocks the release.
 
 ---
 
@@ -592,20 +664,23 @@ SEO-002 does not:
 
 ---
 
-# Architecture Review Questions
+# Architecture Review Decisions
 
-Before this contract can be accepted and SEO-002 frozen:
+The Architecture Reviewer resolved the Contract V1 questions:
 
-1. Are all required fields genuinely necessary for every app?
-2. Is `story.md` the correct authority for capabilities, limitations, and
-   safety?
-3. Should missing limitations always block publication?
-4. Are the freshness windows operationally sustainable?
-5. Is item-level provenance required for every list?
-6. Are semantic related-app approvals sufficiently bounded?
-7. Does the lifecycle model cover replacement and retirement safely?
-8. Should Contract V1 exclude all automatic `marketing.md` participation?
-9. Should one invalid app block the entire release or only that entity's update?
-10. Are governance-only fields sufficiently separated from public projection?
+1. Core content fields, including limitations, remain mandatory.
+2. `story.md` owns current capabilities, limitations, and safety.
+3. Missing limitations block publication.
+4. Initial freshness windows are 90/180/365 days by field family, with
+   immediate event-triggered review.
+5. Publishable claim lists require item-level provenance.
+6. Related-app types remain bounded; popularity, profiling, and model-generated
+   similarity are prohibited authorities.
+7. Retired identities are permanent and replacements receive new identities.
+8. `marketing.md` has no automatic Contract V1 compiler participation.
+9. Entity and release validity follow the criticality policy above.
+10. Governance details remain absent from public output except separately
+    approved roles, review dates, or other non-sensitive freshness indicators.
 
-No architecture acceptance is recorded by this draft.
+Architecture Reviewer approval does not record Product Owner approval, freeze
+SEO-002, authorize implementation, or approve production.

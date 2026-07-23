@@ -55,6 +55,7 @@ Tier 4 is observation, not deterministic acceptance evidence.
 
 ## SEO-002 Contract
 
+- separate entity validity from release validity;
 - required/conditional/optional field behavior;
 - enum, length, list, and strict-schema validation;
 - unique ID, number, slug, canonical URL, and route;
@@ -66,6 +67,11 @@ Tier 4 is observation, not deterministic acceptance evidence.
 - relationship target and reason validation;
 - deterministic derived values; and
 - synthetic representative fixtures without user data.
+
+Entity validation proves one app record is safe and complete. Release
+validation separately proves the package retains exactly 100 coherent apps,
+unique identities/routes, valid lifecycle/category relationships, and no
+critical truth, safety, privacy, or fixed-catalog conflict.
 
 ## Entity Coverage
 

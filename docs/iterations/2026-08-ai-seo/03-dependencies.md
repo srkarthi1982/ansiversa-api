@@ -15,7 +15,7 @@ Canonical frontend route registry
 SEO-001 Platform Architecture
     ↓
 SEO-002 Per-App Public Knowledge Contract
-    Discussing: contract review only
+    Discussing: architecture approved; Product Owner contract approval pending
     ├──→ SEO-004 Structured Knowledge Graph Profile
     └──→ SEO-008 marketing.md Participation
     ↓

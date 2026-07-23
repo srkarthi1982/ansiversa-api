@@ -9,7 +9,7 @@ implementation. Iteration approval does not freeze these tasks.
 | ID | Task | Priority | Status | Outcome |
 |---|---|---:|---|---|
 | SEO-001 | AI SEO Platform Architecture | Critical | Completed | Approved architecture artifact and validation evidence recorded |
-| SEO-002 | Per-App Public Knowledge Contract | Critical | Discussing | Specification and architecture review only; implementation unauthorized |
+| SEO-002 | Per-App Public Knowledge Contract | Critical | Discussing | Architecture review approved; final Product Owner contract approval pending |
 | SEO-003 | Canonical Public Rendering ADR | Critical | Proposed | Choose SSR, pre-rendering, static generation, or another bounded strategy |
 | SEO-004 | Structured Knowledge Graph Profile | High | Proposed | Freeze supported entity types, relations, stable IDs, and schema.org projections |
 | SEO-005 | Discovery And Crawler Governance | High | Proposed | Separate search, training, user-fetch, robots, WAF, and provider policies |

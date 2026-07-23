@@ -26,7 +26,8 @@ frontend/backend changes, metadata changes, crawler submissions, marketing
 automation, video generation, and production changes remain unauthorized.
 
 SEO-002 is currently authorized for discovery, specification, and architecture
-review only:
+review only. Its Architecture Review is approved; Product Owner contract
+approval and freeze remain pending:
 
 ```text
 docs/ai-seo-per-app-public-knowledge-contract.md

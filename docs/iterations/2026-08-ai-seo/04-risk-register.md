@@ -18,10 +18,10 @@
 | SEO-R14 | AI answer monitoring violates provider terms or becomes brittle | High | Official tools, referral analytics, and governed manual sampling only | Open |
 | SEO-R15 | AI SEO work changes Astra or App #101 boundaries | High | Separate iteration scope and regression assertions | Mitigated by architecture |
 | SEO-R16 | Global source order silently overrides field authority | Critical | Field-specific authority matrix and compilation failure | Mitigated by SEO-002 proposal |
-| SEO-R17 | One source reference masks mixed-origin list claims | High | Item-level provenance for publishable list values | Open |
-| SEO-R18 | Freshness timestamps imply review that never occurred | High | Review dates come from governed approval, never file modification time | Open |
-| SEO-R19 | Governance source paths leak into public projections | High | Provenance is governance-only by default and public outputs are allowlisted | Open |
-| SEO-R20 | Invalid app handling either republishes bad truth or blocks unrelated safe updates | High | Freeze last-known-approved/entity-isolation behavior before implementation | Open |
+| SEO-R17 | One source reference masks mixed-origin list claims | High | Item-level provenance for every publishable claim list | Mitigated in Contract V1 candidate |
+| SEO-R18 | Freshness timestamps imply review that never occurred | High | Review dates come from governed approval, never file modification time | Mitigated in Contract V1 candidate |
+| SEO-R19 | Governance source paths leak into public projections | High | Only approved role/review date may be public; internal actors, paths, hashes, and notes remain governance-only | Mitigated in Contract V1 candidate |
+| SEO-R20 | Invalid app handling either republishes bad truth or blocks unrelated safe updates | High | Separate entity/release validity with critical release blockers and approved optional-field isolation only | Mitigated in Contract V1 candidate |
 
 ---
 
