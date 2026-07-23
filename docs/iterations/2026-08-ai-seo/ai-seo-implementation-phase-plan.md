@@ -188,7 +188,7 @@ change.
 Status:
 
 ```text
-Implemented, pending Astra review
+Completed and Frozen
 ```
 
 Repository:
@@ -223,6 +223,17 @@ Boundary:
 No Knowledge publisher replacement, no compiler artifact publication, no public
 serving, no API exposure, no frontend integration, no deployment change, no
 runtime startup change, no production change, and no Phase 5 work.
+```
+
+Review status:
+
+```text
+Commit e869666 implemented the controlled integration framework.
+Correction commit 0aef627 sanitized compiler failure evidence.
+Astra source re-review approved both commits.
+Phase 4 Frozen.
+Phase 5 remains pending separate authorization.
+Production unchanged.
 ```
 
 ---
