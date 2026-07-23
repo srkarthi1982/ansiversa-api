@@ -238,29 +238,48 @@ Production unchanged.
 
 ---
 
-# Phase 5: Deployment Dry Run
+# Phase 5: Production Readiness Validation
 
-Repositories:
+Status:
+
+```text
+Implemented, pending Astra review
+```
+
+Repository:
 
 ```text
 ansiversa-api
-ansiversa
 ```
 
 Scope:
 
-- production-shaped build;
-- artifact digest verification;
-- rollback rehearsal;
-- smoke checks in approved environment;
-- no live production behavior change until approval.
+- execute complete internal compiler runs through controlled integration;
+- validate full-catalog, graph, manifest, metadata, canonical URL, parity,
+  deterministic release, deterministic evidence, controlled failure, and
+  rollback readiness behavior;
+- produce internal readiness reports only;
+- keep the existing Knowledge publisher as the sole authoritative production
+  publisher.
 
 Validation:
 
-- current production remains unchanged;
-- candidate release package is complete;
-- rollback restores the last known good release;
-- HTML, graph, manifest, and public artifacts share one release identity.
+- full catalog readiness passes for 100 apps and 14 categories;
+- repeated readiness validation is deterministic;
+- readiness fails closed when compiler execution or required artifacts fail;
+- rollback evidence proves compiler failure preserves current Knowledge
+  artifacts;
+- no API, frontend, migration, dependency, deployment, runtime startup, or
+  production configuration changes occur;
+- generated production artifacts remain unchanged.
+
+Boundary:
+
+```text
+No deployment dry run, no frontend repository change, no Knowledge publisher
+replacement, no compiler artifact publication, no public serving, no API
+exposure, no runtime startup change, no production change, and no Phase 6 work.
+```
 
 ---
 

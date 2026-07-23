@@ -81,6 +81,9 @@ Deliverables:
 - disabled-by-default controlled compiler execution;
 - internal comparison evidence;
 - fail-open publishing behavior when compiler evidence fails;
+- backend production-readiness validation;
+- deterministic readiness evidence;
+- rollback readiness evidence;
 - frontend manifest consumer;
 - pre-render route allowlist;
 - manifest compatibility tests;
