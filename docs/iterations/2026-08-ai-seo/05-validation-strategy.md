@@ -146,6 +146,18 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - rollback behavior is defined before production enablement; and
 - production remains unchanged.
 
+## AI SEO Implementation Phase 1
+
+- compiler package remains disabled by default;
+- package is not imported by runtime routes or application startup;
+- Knowledge builder and publisher remain the only active public-truth path;
+- source inventory output is deterministically ordered;
+- stable serialization and digest helpers are deterministic;
+- allowlisted source classification accepts only approved source shapes;
+- validation fixtures reject unsupported visibility and unsafe data;
+- focused tests pass; and
+- generated public artifacts remain unchanged.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;
