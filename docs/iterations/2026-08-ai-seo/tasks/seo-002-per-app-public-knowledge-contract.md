@@ -1,12 +1,12 @@
 # SEO-002 — Per-App Public Knowledge Contract
 
-**Status:** Discussing
+**Status:** Frozen
 **Priority:** Critical
 **Authorized Scope:** Discovery, specification, and architecture review only
 **Implementation:** Not authorized
 **Product Owner Discovery Authorization:** Recorded 2026-07-23
 **Architecture Review:** Approved with refinements incorporated
-**Product Owner Contract Approval:** Pending
+**Product Owner Contract Approval:** Approved 2026-07-23
 
 ---
 
@@ -54,9 +54,9 @@ docs/ai-seo-per-app-public-knowledge-contract.md
 - [x] Conflict taxonomy and failure behavior proposed.
 - [x] Validation strategy proposed.
 - [x] Architecture Reviewer approval recorded.
-- [ ] Product Owner contract approval recorded.
+- [x] Product Owner contract approval recorded.
 - [x] Open review questions resolved.
-- [ ] SEO-002 frozen.
+- [x] SEO-002 frozen.
 
 ---
 
@@ -79,8 +79,8 @@ docs/ai-seo-per-app-public-knowledge-contract.md
 ```text
 Specification             Drafted
 Architecture review       Approved
-Product Owner approval    Pending
-SEO-002                    Discussing
+Product Owner approval    Approved
+SEO-002                    Frozen
 Implementation            Not authorized
 SEO-003                    Unresolved
 Production                Unchanged

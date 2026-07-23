@@ -20,14 +20,12 @@ docs/iterations/2026-08-ai-seo/
 ```
 
 The iteration extends the existing Canonical AI Knowledge Registry and public
-publisher. SEO-002 is Discussing; SEO-003 through SEO-008 remain Proposed;
-SEO-003 remains unresolved; and AI SEO runtime implementation,
+publisher. SEO-002 Contract V1 is approved and Frozen; SEO-003 through SEO-008
+remain Proposed; SEO-003 remains unresolved; and AI SEO runtime implementation,
 frontend/backend changes, metadata changes, crawler submissions, marketing
 automation, video generation, and production changes remain unauthorized.
 
-SEO-002 is currently authorized for discovery, specification, and architecture
-review only. Its Architecture Review is approved; Product Owner contract
-approval and freeze remain pending:
+SEO-002's approved contract is:
 
 ```text
 docs/ai-seo-per-app-public-knowledge-contract.md

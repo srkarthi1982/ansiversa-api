@@ -68,10 +68,9 @@ Separate implementation authorization
 Architecture approval, task freeze, implementation authorization, deployment,
 and production release remain separate decisions.
 
-SEO-001 is completed. SEO-002 is authorized for discovery, specification, and
-architecture review only and remains Discussing; its Architecture Review is
-approved and Product Owner contract approval is pending. SEO-003 through
-SEO-008 remain Proposed and unauthorized. SEO-003 remains unresolved.
+SEO-001 is completed. SEO-002 Contract V1 is approved and Frozen; implementation
+remains unauthorized. SEO-003 through SEO-008 remain Proposed and unauthorized.
+SEO-003 remains unresolved.
 
 ---
 

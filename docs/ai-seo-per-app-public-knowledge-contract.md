@@ -2,11 +2,13 @@
 
 **Contract:** AI SEO Per-App Public Knowledge
 **Contract Version:** 1
-**Status:** Architecture Reviewer approved; Product Owner approval pending
+**Status:** Approved
 **Created:** 2026-07-23
+**Approved:** 2026-07-23
 **Task:** SEO-002
 **Scope:** Specification only
 **Architecture Reviewer:** Astra — Approved with incorporated refinements
+**Product Owner:** Karthikeyan Ramalingam — Approved
 
 This contract defines what Ansiversa may say publicly about each application
 and how every claim remains attributable, reviewable, current, and safe.
@@ -682,5 +684,5 @@ The Architecture Reviewer resolved the Contract V1 questions:
 10. Governance details remain absent from public output except separately
     approved roles, review dates, or other non-sensitive freshness indicators.
 
-Architecture Reviewer approval does not record Product Owner approval, freeze
-SEO-002, authorize implementation, or approve production.
+Architecture Reviewer and Product Owner approval freeze Contract V1 and
+SEO-002. Approval does not authorize implementation or production.
