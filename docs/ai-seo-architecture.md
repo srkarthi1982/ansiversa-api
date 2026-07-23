@@ -7,9 +7,10 @@
 **Architecture Reviewer:** Astra — Approved 2026-07-23
 **Product Owner:** Karthikeyan Ramalingam — Approved 2026-07-23
 
-This approval freezes SEO-001 only. It does not resolve SEO-003 or authorize
-runtime implementation, crawler submission, metadata changes, or production
-changes.
+SEO-001 is complete, SEO-002 Contract V1 is Frozen, and SEO-003's Hybrid
+Governed Pre-rendering architecture is Accepted and Frozen. These architecture
+approvals do not authorize runtime implementation, crawler submission, metadata
+changes, or production changes.
 
 ---
 
@@ -94,6 +95,15 @@ The next major architectural requirement is therefore:
 Every compiled claim must retain field-level provenance to its approved source.
 When sources conflict, compilation must fail for review rather than select a
 claim silently.
+
+## AI SEO Engineering Law #2
+
+> Every published artifact must be reproducible from one immutable approved
+> revision.
+
+Every public release must preserve enough immutable revision identity to
+reproduce and explain its visible and machine-readable output. A mutable
+“latest” source is not an approved release input.
 
 ## Truth Before Reach
 

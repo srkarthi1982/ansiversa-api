@@ -1,15 +1,17 @@
 # Architecture Decision: AI SEO Canonical Public Rendering
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-23
+**Accepted:** 2026-07-23
 **Task:** SEO-003
 **Decision Owner:** Karthikeyan Ramalingam
-**Architecture Reviewer:** Astra
+**Architecture Reviewer:** Astra — Approved 2026-07-23
+**Product Owner:** Karthikeyan Ramalingam — Approved 2026-07-23
 **Evidence Agent:** Codex
 
-No architecture is selected by this draft. The preferred candidate requires
-Architecture Reviewer and Product Owner approval before SEO-003 may be frozen.
-Implementation requires a later, separate authorization.
+Option E, Hybrid Governed Pre-rendering, is the accepted architecture. SEO-003
+is Frozen. Implementation requires a later, separate Product Owner
+authorization.
 
 ---
 
@@ -30,6 +32,8 @@ docs/iterations/2026-08-ai-seo/seo-003-rendering-evidence.md
 
 - AI SEO Engineering Law #1: every public claim has exactly one approved source
   of truth.
+- AI SEO Engineering Law #2: every published artifact is reproducible from one
+  immutable approved revision.
 - SEO-002 Contract V1 is the stable public entity shape.
 - Initial HTML must contain unique, approved visible truth.
 - The 100-app catalog is fixed and changes through governance.
@@ -95,7 +99,7 @@ and retains client rendering for private and interactive routes.
 
 ---
 
-# Proposed Architecture
+# Accepted Architecture
 
 ```text
 Approved lifecycle sources
@@ -136,7 +140,7 @@ personalized, internal, preview, and workflow routes retain client rendering.
 
 # Consequences
 
-If accepted:
+The accepted decision means:
 
 - a governed frontend pre-render entry/build path is required;
 - public presentation accepts manifest-supplied initial data;
@@ -148,15 +152,16 @@ If accepted:
 
 ---
 
-# Acceptance Conditions
+# Acceptance Record
 
-- Architecture Reviewer approves the recommendation and boundaries.
-- Product Owner accepts the decision.
-- Manifest identity, handoff, and fail-closed rules are accepted.
-- Public/private route ownership is accepted.
-- Hydration and public-truth parity controls are accepted.
-- Validation and rollback matrices are accepted.
-- SEO-003 is explicitly frozen.
+- [x] Architecture Reviewer approved the recommendation and boundaries.
+- [x] Product Owner accepted the decision.
+- [x] Manifest identity, handoff, and fail-closed rules accepted.
+- [x] Public/private route ownership accepted.
+- [x] Hydration and public-truth parity controls accepted.
+- [x] Validation and rollback matrices accepted.
+- [x] AI SEO Engineering Law #2 adopted.
+- [x] SEO-003 frozen.
 
 ---
 
@@ -164,9 +169,10 @@ If accepted:
 
 ```text
 Repository evidence           Collected
-Architecture recommendation   Hybrid governed pre-rendering
-Architecture acceptance       Pending
-SEO-003                       Discussing
+Architecture                 Hybrid governed pre-rendering
+Architecture acceptance       Approved
+ADR                           Accepted
+SEO-003                       Frozen
 Implementation                Not authorized
 Runtime                       Unchanged
 Production                    Unchanged

@@ -2,7 +2,7 @@
 
 **Status:** Evidence collected
 **Review date:** 2026-07-23
-**Decision:** Not yet accepted
+**Decision:** Accepted 2026-07-23
 **Implementation:** Not authorized
 
 ---
@@ -161,13 +161,15 @@ to implementation and verification.
 
 # Conclusion
 
-Hybrid governed pre-rendering is the preferred candidate. It is not accepted.
+Hybrid governed pre-rendering was accepted after Architecture Reviewer and
+Product Owner approval. Acceptance freezes the design; it does not authorize
+implementation.
 
 ```text
 Evidence                       Collected
-Preferred candidate            Hybrid governed pre-rendering
-Architecture decision          Proposed
-SEO-003                        Discussing
+Architecture                   Hybrid governed pre-rendering
+Architecture decision          Accepted
+SEO-003                        Frozen
 Implementation                 Not authorized
 Production                     Unchanged
 ```

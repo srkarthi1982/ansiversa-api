@@ -75,6 +75,10 @@ authorizing them:
 
 SEO-003 must not make SEO-004 schema.org, SEO-005 crawler, or SEO-006 sitemap,
 canonical-governance, freshness, redirect, and archival decisions.
+
+SEO-003 is Frozen with Hybrid Governed Pre-rendering accepted. Its identified
+implementation dependencies remain designs only until separate Product Owner
+implementation authorization.
 ---
 
 # Boundary With Astra

@@ -1,12 +1,12 @@
 # SEO-003 — Canonical Public Rendering ADR
 
-**Status:** Discussing
+**Status:** Frozen
 **Priority:** Critical
 **Authorized Scope:** Discovery, evidence collection, and ADR drafting only
 **Implementation:** Not authorized
 **Product Owner Discovery Authorization:** Recorded 2026-07-23
-**Architecture Review:** Pending
-**Product Owner Architecture Approval:** Pending
+**Architecture Review:** Approved 2026-07-23
+**Product Owner Architecture Approval:** Approved 2026-07-23
 
 ---
 
@@ -53,10 +53,11 @@ docs/architecture/decisions/ai-seo-canonical-public-rendering.md
 - [x] Immutable compiler-artifact handoff defined.
 - [x] Failure, cache, freshness, and rollback strategy defined.
 - [x] Implementation validation matrix proposed.
-- [ ] Architecture Reviewer approval recorded.
-- [ ] Product Owner architecture approval recorded.
-- [ ] Rejected-option rationale accepted.
-- [ ] SEO-003 frozen.
+- [x] Architecture Reviewer approval recorded.
+- [x] Product Owner architecture approval recorded.
+- [x] Rejected-option rationale accepted.
+- [x] AI SEO Engineering Law #2 adopted.
+- [x] SEO-003 frozen.
 
 ---
 
@@ -77,10 +78,10 @@ docs/architecture/decisions/ai-seo-canonical-public-rendering.md
 ```text
 Discovery authorization       Approved
 Evidence                      Collected
-ADR                           Proposed
-Preferred candidate           Hybrid governed pre-rendering
-Architecture approval         Pending
-SEO-003                       Discussing
+ADR                           Accepted
+Architecture                  Hybrid governed pre-rendering
+Architecture approval         Approved
+SEO-003                       Frozen
 Implementation                Not authorized
 Production                    Unchanged
 ```
