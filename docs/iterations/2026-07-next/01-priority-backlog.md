@@ -68,6 +68,13 @@ No implementation task should be assigned to Codex until the feature has been re
 | I1-021 | Performance Improvements | Medium | Frozen | Wave 3 |
 | I1-022 | Platform Insights Dashboard | Low | Deferred | Later iteration |
 
+# Operational Readiness Governance
+
+| ID | Feature | Priority | Status | Notes |
+|----|----------|----------|--------|-------|
+| I1-023 | Astra Operational Readiness Specification | Critical | Completed | Specification only; production remains unauthorized |
+| I1-024 | Astra Persistent Audit Implementation | Critical | Frozen | Option B architecture approved; implementation awaits separate Product Owner authorization |
+
 ---
 
 # Planning Rules
@@ -103,9 +110,9 @@ Any new idea discovered during implementation should return to this backlog inst
 | Proposed | 0 |
 | Discussing | 0 |
 | Approved | 0 |
-| Frozen | 11 |
+| Frozen | 12 |
 | In Progress | 0 |
-| Completed | 8 |
+| Completed | 9 |
 | Deferred | 3 |
 | Cancelled | 0 |
 

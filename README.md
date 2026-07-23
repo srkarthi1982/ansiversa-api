@@ -177,6 +177,25 @@ disabled until persistent audit logging, user controls, deletion/export
 handling, and seeded verification gates are approved and implemented. Tests and
 governed non-production verification may enable the setting deliberately.
 
+The permanent production-trust evidence standard is documented in:
+
+```text
+docs/astra-operational-readiness-specification.md
+```
+
+I1-023 defines readiness gates, control owners, evidence, pass/fail criteria,
+audit, consent, retention, deletion, export, governed verification,
+dependency/deployment compatibility, owner isolation, privacy, controlled
+enablement, rollback, flag restoration, review, risk acceptance, and launch
+authority. It is specification-only. It does not implement any control, enable
+personal-data tools, approve operational readiness, or authorize production.
+
+Permanent governance rule:
+
+> Verification does not imply release. Release is a business decision informed
+> by engineering evidence, not an engineering decision made because tests
+> passed.
+
 I1-012 implements the permanent Astra Tool Registry metadata and discovery layer
 on top of the I1-002 framework. The registry exposes handler-free capability
 metadata, including ownership, intents, authentication, owner-scope, read-only

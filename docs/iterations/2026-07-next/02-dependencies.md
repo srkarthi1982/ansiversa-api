@@ -15,6 +15,7 @@ clear.
 | Status | Meaning |
 |----------|---------|
 | Ready | Ready for implementation after Planning Freeze |
+| Discussing | Evidence and architecture review in progress; implementation is not authorized |
 | Completed | Implemented and available as a prerequisite |
 | Deferred | Documented but not planned for this implementation window |
 | Blocked | Waiting on an unresolved dependency or governance decision |
@@ -59,6 +60,8 @@ clear.
 | I1-020 | Mobile Experience Improvements | Ready | I1-019, I1-021 | Mobile platform polish | Can run after performance baseline | Wave 3 |
 | I1-021 | Performance Improvements | Ready | Existing build/test baseline, I1-018 if recent-item queries change | Mobile and release readiness | Yes, measurement-first | Wave 3 |
 | I1-022 | Platform Insights Dashboard | Deferred | Approved metrics sources, admin access model, privacy review | Later platform observation dashboard | No | Later Iteration |
+| I1-023 | Astra Operational Readiness Specification | Completed | I1-001 through I1-006, I1-009, I1-012, deterministic runtime UX verification | Future readiness-control implementation, Production Readiness Review, and production launch decision | No; specification precedes operational implementation | Operational Readiness |
+| I1-024 | Astra Persistent Audit Implementation | Frozen | I1-023 plus accepted persistent-audit ADR | G03 persistent audit evidence and later readiness controls | No; implementation requires separate Product Owner authorization | Operational Readiness |
 
 ---
 
@@ -112,6 +115,22 @@ Later Iteration:
 I1-011 Astra Memory Management
 I1-015 Astra Recommendation Engine
 I1-022 Platform Insights Dashboard
+
+Operational Readiness:
+I1-006 Astra Learning Intelligence
+    ↓
+Deterministic Runtime UX Verification
+    ↓
+I1-023 Astra Operational Readiness Specification
+    ↓
+I1-024 Astra Persistent Audit Implementation
+    Frozen: Option B approved; implementation authorization pending
+    ↓
+Future separately approved readiness-control tasks
+    ↓
+Production Readiness Review
+    ↓
+Product Owner launch decision
 ```
 
 ---
@@ -192,6 +211,36 @@ I1-011  Astra Memory Management
 I1-015  Astra Recommendation Engine
 I1-022  Platform Insights Dashboard
 ```
+
+## Operational Readiness
+
+```text
+I1-006  Astra Learning Intelligence
+    ↓
+Deterministic Runtime UX Verification
+    ↓
+I1-023  Astra Operational Readiness Specification
+    ↓
+I1-024  Astra Persistent Audit Implementation
+    Frozen: Option B approved; implementation authorization pending
+    ↓
+Future separately approved control implementation
+    ↓
+Production Readiness Review
+    ↓
+Product Owner launch decision
+```
+
+I1-023 is documentation-only. It does not enable personal-data tools or approve
+any future control implementation. `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`
+remains the required state unless a separately approved controlled-verification
+runbook authorizes a time-bound, environment-specific change.
+
+I1-024 is `Frozen`. Option B is recorded in the accepted architecture decision
+at `docs/architecture/decisions/astra-persistent-audit-storage.md`.
+Architecture approval does not authorize a migration, implementation, or
+production enablement. Implementation requires a separate Product Owner
+decision.
 
 ---
 

@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-23 - Completed I1-023 Astra Operational Readiness Specification as documentation-only governance with `docs/astra-operational-readiness-specification.md`, defining mandatory readiness gates, named control-owner roles, evidence provenance, pass/fail criteria, persistent audit, consent, retention, deletion, export, classification, governed environments/accounts, dependency and deployment compatibility, owner isolation, privacy, controlled enablement, rollback, flag restoration, Production Readiness Review, Product Owner launch authority, failure handling, risk acceptance, and deferred scope. Production personal-data execution remains disabled with `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`; no runtime, configuration, framework, registry, context-provider, app, database, migration, deployment, test-account, architecture, or production authorization change was introduced.
+
 2026-07-22 - Implemented I1-006 Astra Learning Intelligence as deterministic cross-app orchestration over approved Quiz and Course Tracker registry capabilities, with `app/modules/assistant/learning_intelligence.py`, maximum two tools per request, maximum one tool per source app, safe partial/no-data behavior, explainable recommendation priorities, time-budget guidance, Assistant routing, focused tests, and `docs/architecture/astra-learning-intelligence.md`. Learning Intelligence imports no Quiz or Course Tracker models, services, database sessions, or SQLAlchemy queries; Quiz and Course Tracker remain authoritative for app facts, production execution remains gated by `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`, and no Tool Framework, Tool Registry, Context Provider, Integration Contract, OpenAI tool orchestration, frontend contract, migration, write action, memory, all-app intelligence, or App #101 changes were introduced.
 
 2026-07-22 - Implemented I1-005 Course Tracker Astra AI Integration as the second solution-app pilot with Course Tracker-owned `app/modules/course_tracker/astra_tools.py`, `app/modules/course_tracker/astra-ai.md`, seven authenticated owner-scoped read-only registry tools for course progress, active courses, completed courses, nearest completion, stalled courses, deadline summaries, and deterministic next-course action, plus Assistant registry-intent routing and focused tests. Course Tracker data stays inside the Course Tracker module and isolated Course Tracker database boundary; outputs exclude goals, notes, progress-log summaries/reflections, internal IDs, owner IDs, and cross-user records, production execution remains gated by `ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false`, and no framework redesign, write tools, OpenAI tool orchestration, frontend contract changes, migrations, cross-app Quiz/Course reasoning, recommendation engine, persistent memory, or App #101 changes were introduced.
@@ -371,6 +373,51 @@ seeded verification gates are approved and implemented.
 I1-002 and I1-012 do not authorize Quiz tools, Course Tracker tools, OpenAI
 tool selection, OpenAI rewriting of tool facts, write operations, AI memory,
 recommendations, autonomous workflows, migrations, or App #101.
+
+## Astra Operational Readiness
+
+The permanent operational-readiness evidence standard lives at:
+
+```text
+docs/astra-operational-readiness-specification.md
+```
+
+I1-023 is specification-only. It establishes the evidence required before
+production authorization may be considered; it does not implement controls or
+authorize production.
+
+Permanent rule:
+
+```text
+Verification does not imply release.
+```
+
+Operational-readiness gates cover:
+
+* governance and personal-data classification
+* persistent audit
+* consent and user controls
+* retention, deletion, and export
+* governed environments and synthetic accounts
+* dependency and deployment compatibility
+* owner isolation and privacy
+* safe failure behavior
+* controlled enablement, rollback, and flag restoration
+* evidence review, launch authority, and risk acceptance
+
+Missing, stale, contradictory, or unowned mandatory evidence is a failed gate.
+Controlled verification must restore
+`ASTRA_PERSONAL_DATA_TOOLS_ENABLED=false` unless a separate Product Owner launch
+decision explicitly authorizes continued production operation.
+
+Only Karthikeyan Ramalingam, as Product Owner, may authorize production launch.
+Codex produces implementation and evidence within separately approved tasks.
+Astra reviews architecture and governance. Passing tests, completed
+implementation, or approved runtime verification do not authorize release.
+
+I1-023 does not authorize an audit sink, consent UI, deletion/export runtime,
+test accounts, migrations, dependency changes, deployment changes, personal-data
+enablement, additional app onboarding, or App #101.
 
 ## Astra User Context Provider
 
