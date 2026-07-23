@@ -41,7 +41,10 @@ data. Iteration 2 must resolve this before expanding machine artifacts.
 
 - [AI SEO architecture](../../ai-seo-architecture.md)
 - [Per-app public knowledge contract](../../ai-seo-per-app-public-knowledge-contract.md)
+- [Structured knowledge graph profile](../../ai-seo-structured-knowledge-graph-profile.md)
 - [Discovery evidence](01-discovery-evidence.md)
+- [SEO-004 discovery](seo-004-discovery.md)
+- [SEO-004 architecture review](seo-004-architecture-review.md)
 - [Proposed backlog](02-priority-backlog.md)
 - [Dependencies](03-dependencies.md)
 - [Risk register](04-risk-register.md)
@@ -70,7 +73,10 @@ and production release remain separate decisions.
 
 SEO-001 is completed. SEO-002 Contract V1 and SEO-003 Hybrid Governed
 Pre-rendering are approved and Frozen; implementation remains unauthorized.
-SEO-004 through SEO-008 remain Proposed and unauthorized.
+SEO-004 Structured Knowledge Graph Profile is Proposed with discovery and
+specification complete, architecture review pending, Product Owner approval
+pending, and implementation unauthorized. SEO-005 through SEO-008 remain
+Proposed and unauthorized.
 
 ---
 

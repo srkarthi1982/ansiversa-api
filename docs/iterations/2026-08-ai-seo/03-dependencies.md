@@ -79,6 +79,12 @@ canonical-governance, freshness, redirect, and archival decisions.
 SEO-003 is Frozen with Hybrid Governed Pre-rendering accepted. Its identified
 implementation dependencies remain designs only until separate Product Owner
 implementation authorization.
+
+SEO-004 is Proposed with discovery and specification complete. It depends on
+SEO-002 Contract V1 for public app truth and on SEO-003 for the future
+immutable manifest/page-local rendering boundary. SEO-004 does not authorize
+schema.org, JSON-LD, manifest, frontend, backend, sitemap, robots, cache,
+deployment, or production implementation.
 ---
 
 # Boundary With Astra

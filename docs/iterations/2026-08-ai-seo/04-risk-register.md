@@ -28,6 +28,10 @@
 | SEO-R24 | Static HTML becomes stale while machine artifacts advance | High | Atomic revision pair, governed rebuild, deployment parity, and paired rollback | Mitigated in SEO-003 proposal |
 | SEO-R25 | Rendering migration destabilizes the existing application shell | High | Bounded public components, browser-global audit, representative route tests, and phased implementation | Open |
 | SEO-R26 | Build time or artifact size becomes excessive | Medium | Production-shaped 100-app measurement and approved threshold before release | Open |
+| SEO-R27 | Structured graph uses properties without approved source authority | High | SEO-004 field-to-property mapping and prohibited V1 properties | Mitigated in SEO-004 proposal |
+| SEO-R28 | Graph node IDs drift after wording or route changes | High | SEO-004 stable `@id` rules tied to canonical URLs and permanent app identities | Mitigated in SEO-004 proposal |
+| SEO-R29 | Relationship graph becomes an implicit recommender system | Medium | SEO-004 bounded relationship vocabulary and no AI similarity authority | Mitigated in SEO-004 proposal |
+| SEO-R30 | Aggregate JSON-LD and page-local JSON-LD describe different revisions | Critical | SEO-004 requires the same immutable release revision for aggregate and page-local graph bundles | Mitigated in SEO-004 proposal |
 
 ---
 
@@ -39,6 +43,7 @@
 - canonical URL conflicts;
 - crawler policy without Product Owner approval;
 - unvalidated schema or sitemap output;
+- graph output outside the SEO-004 approved profile;
 - missing rollback;
 - production changes without separate authorization; and
 - claims that validation guarantees search or AI inclusion.

@@ -96,6 +96,22 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - production-shaped build time and artifact size stay bounded; and
 - rollback restores the prior immutable HTML and manifest pair.
 
+## SEO-004 Structured Knowledge Graph Profile
+
+- graph profile version is explicit;
+- emitted node types match the approved allowlist;
+- every `@id` follows the stable ID policy;
+- exactly 100 `SoftwareApplication` nodes exist;
+- category and relationship edges resolve within the same graph release;
+- every public graph property maps to SEO-002 authority and provenance;
+- prohibited V1 properties are absent;
+- aggregate graph and page-local graph bundles use the same immutable revision;
+- page-local JSON-LD represents visible page content;
+- invalid optional properties are omitted only under approved policy;
+- critical graph failures block release;
+- JSON-LD parses and uses the Schema.org context; and
+- provider validation evidence is collected only after deployment approval.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;
