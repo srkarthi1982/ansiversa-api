@@ -4,7 +4,7 @@
 **Created:** 2026-07-23
 **Phase:** 3
 **Implementation:** Authorized
-**Astra review:** Pending
+**Astra review:** Changes requested; corrections implemented for re-review
 **Product Owner approval:** Pending
 **Production:** Unchanged
 **Phase 4:** Not authorized
@@ -28,6 +28,8 @@ The existing Knowledge publisher remains the only active production publisher.
   and metadata.
 - Snapshot adapter for compiler candidate output.
 - Snapshot adapter for current Knowledge public artifacts.
+- Canonical semantic comparison projection shared by both adapters.
+- Canonical comparison manifest key `manifest:public-seo-projection`.
 - Deterministic shadow comparison report.
 - Detection for:
   - entity differences;
@@ -44,6 +46,7 @@ The existing Knowledge publisher remains the only active production publisher.
   - fail-closed candidate validation state.
 - Focused Phase 3 tests using synthetic snapshots and in-memory current
   Knowledge artifacts.
+- End-to-end Knowledge-adapter versus compiler-adapter parity tests.
 
 ---
 
@@ -81,6 +84,31 @@ Focused tests cover:
 - deterministic repeated reports;
 - fail-closed comparison behavior;
 - in-memory Knowledge artifact snapshot conversion.
+- equivalent Knowledge-versus-compiler adapter comparison without structural
+  false positives;
+- intentional adapter-level metadata difference with the exact expected
+  finding.
+
+---
+
+# Source Review Corrections
+
+Astra source-level review found that the generic comparator was deterministic,
+but the real Knowledge and compiler adapters could not compare equivalent
+public truth without false positives. The correction package addresses that by:
+
+1. projecting both adapters into the same canonical semantic comparison shape;
+2. using one canonical manifest identity, `manifest:public-seo-projection`;
+3. comparing semantic values such as app count, route set digest, canonical URL
+   set digest, entity projection digest, graph projection digest, and metadata
+   projection digest;
+4. sorting both adapter snapshots by comparable item identity;
+5. keeping system-specific release IDs and envelope metadata outside parity
+   payloads; and
+6. adding end-to-end adapter parity and intentional-difference tests.
+
+Phase 3 still awaits Astra source re-review and Product Owner approval before
+freeze.
 
 ---
 
@@ -94,11 +122,11 @@ AI SEO Implementation   Authorized
 Phase 1                 Frozen
 Phase 2                 Frozen
 Phase 3                 Implemented
-Phase 3 Review          Pending
+Phase 3 Source Review   Changes requested; corrections implemented
 Phase 3 Freeze          Pending
 Phase 4                 Not authorized
 Production              Unchanged
 ```
 
-Phase 3 is not frozen. Phase 4 remains blocked until separate Product Owner
-authorization after Phase 3 review.
+Phase 3 is not frozen. Phase 4 remains blocked until Astra source re-review,
+Product Owner approval, Phase 3 freeze, and separate Phase 4 authorization.

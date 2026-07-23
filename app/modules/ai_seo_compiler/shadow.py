@@ -38,6 +38,9 @@ class ShadowFindingCode(StrEnum):
     RELEASE_BLOCKED = "release_blocked"
 
 
+CANONICAL_MANIFEST_KEY = "public-seo-projection"
+
+
 @dataclass(frozen=True)
 class ShadowComparableItem:
     kind: ShadowItemKind
@@ -295,45 +298,134 @@ def _severity_summary(snapshot: ShadowSnapshot) -> dict[str, int]:
     return {severity.value: snapshot.validation_summary.get(severity.value, 0) for severity in Severity}
 
 
+def _ordered_items(items: list[ShadowComparableItem]) -> tuple[ShadowComparableItem, ...]:
+    return tuple(sorted(items, key=lambda item: item.identity))
+
+
+def _route_from_url(url: str) -> str:
+    prefix = "https://ansiversa.com"
+    if url == prefix:
+        return "/"
+    if url.startswith(prefix):
+        return url[len(prefix):]
+    return url
+
+
+def _canonical_entity_payload(*, route: object, canonical_url: object, name: object, summary: object, capabilities: object) -> dict[str, Any]:
+    capability_values = list(capabilities) if isinstance(capabilities, list | tuple) else []
+    return {
+        "route": str(route),
+        "canonicalUrl": str(canonical_url),
+        "visibleContent": {
+            "name": str(name),
+            "summary": str(summary),
+            "capabilities": sorted(dict.fromkeys(str(value) for value in capability_values)),
+        },
+    }
+
+
+def _canonical_metadata_payload(*, route: object, canonical: object, description: object) -> dict[str, Any]:
+    return {
+        "route": str(route),
+        "canonical": str(canonical),
+        "description": str(description),
+    }
+
+
+def _canonical_graph_payload(node: dict[str, Any]) -> dict[str, Any] | None:
+    if node.get("@type") != "SoftwareApplication":
+        return None
+    canonical_url = str(node.get("url") or "")
+    return {
+        "@type": "SoftwareApplication",
+        "route": _route_from_url(canonical_url),
+        "canonicalUrl": canonical_url,
+        "name": str(node.get("name") or ""),
+        "description": str(node.get("description") or ""),
+        "applicationCategory": str(node.get("applicationCategory") or ""),
+    }
+
+
+def _semantic_items_for_manifest(items: list[ShadowComparableItem]) -> list[ShadowComparableItem]:
+    return [item for item in items if item.kind is not ShadowItemKind.MANIFEST]
+
+
+def _manifest_payload(items: list[ShadowComparableItem]) -> dict[str, object]:
+    semantic_items = _semantic_items_for_manifest(items)
+    entity_payloads = [item.payload for item in _ordered_items(semantic_items) if item.kind is ShadowItemKind.ENTITY]
+    graph_payloads = [item.payload for item in _ordered_items(semantic_items) if item.kind is ShadowItemKind.GRAPH]
+    metadata_payloads = [item.payload for item in _ordered_items(semantic_items) if item.kind is ShadowItemKind.METADATA]
+    routes = sorted({str(item.payload.get("route")) for item in semantic_items if item.payload.get("route")})
+    canonical_urls = sorted(
+        {
+            str(item.payload.get("canonicalUrl", item.payload.get("canonical")))
+            for item in semantic_items
+            if item.payload.get("canonicalUrl", item.payload.get("canonical"))
+        }
+    )
+    return {
+        "appCount": len(entity_payloads),
+        "routeSetDigest": stable_digest(routes),
+        "canonicalUrlSetDigest": stable_digest(canonical_urls),
+        "entityProjectionDigest": stable_digest(entity_payloads),
+        "graphProjectionDigest": stable_digest(graph_payloads),
+        "metadataProjectionDigest": stable_digest(metadata_payloads),
+    }
+
+
+def _append_canonical_manifest(items: list[ShadowComparableItem]) -> None:
+    items.append(
+        ShadowComparableItem.from_payload(
+            kind=ShadowItemKind.MANIFEST,
+            key=CANONICAL_MANIFEST_KEY,
+            payload=_manifest_payload(items),
+        )
+    )
+
+
 def snapshot_from_compiler_output(output: CompilerOutput, *, source_name: str = "AI SEO Compiler Candidate") -> ShadowSnapshot:
     items: list[ShadowComparableItem] = []
     validation_report = output.validation_report.as_dict()
     if output.public_render_manifest is not None:
         manifest = output.public_render_manifest.as_dict()
-        items.append(ShadowComparableItem.from_payload(kind=ShadowItemKind.MANIFEST, key="public-render-manifest", payload=manifest))
         for bundle in manifest["pageBundles"]:
             bundle_payload = dict(bundle)
+            visible_content = bundle_payload["visibleContent"]
             items.append(
                 ShadowComparableItem.from_payload(
                     kind=ShadowItemKind.ENTITY,
                     key=str(bundle_payload["route"]),
-                    payload={
-                        "route": bundle_payload["route"],
-                        "canonicalUrl": bundle_payload["canonicalUrl"],
-                        "visibleContent": bundle_payload["visibleContent"],
-                    },
+                    payload=_canonical_entity_payload(
+                        route=bundle_payload["route"],
+                        canonical_url=bundle_payload["canonicalUrl"],
+                        name=visible_content["name"],
+                        summary=visible_content["summary"],
+                        capabilities=visible_content["capabilities"],
+                    ),
                 )
             )
             items.append(
                 ShadowComparableItem.from_payload(
                     kind=ShadowItemKind.METADATA,
                     key=str(bundle_payload["route"]),
-                    payload={
-                        "route": bundle_payload["route"],
-                        "canonical": bundle_payload["metadata"]["canonical"],
-                        "title": bundle_payload["metadata"]["title"],
-                        "description": bundle_payload["metadata"]["description"],
-                    },
+                    payload=_canonical_metadata_payload(
+                        route=bundle_payload["route"],
+                        canonical=bundle_payload["metadata"]["canonical"],
+                        description=bundle_payload["metadata"]["description"],
+                    ),
                 )
             )
     if output.graph is not None:
         for node in output.graph.nodes:
-            items.append(ShadowComparableItem.from_payload(kind=ShadowItemKind.GRAPH, key=str(node["@id"]), payload=dict(node)))
+            graph_payload = _canonical_graph_payload(dict(node))
+            if graph_payload is not None:
+                items.append(ShadowComparableItem.from_payload(kind=ShadowItemKind.GRAPH, key=str(graph_payload["route"]), payload=graph_payload))
+    _append_canonical_manifest(items)
 
     return ShadowSnapshot(
         source_name=source_name,
         release_id=str(validation_report["releaseId"]),
-        items=tuple(items),
+        items=_ordered_items(items),
         validation_summary=dict(validation_report["severitySummary"]),
         validation_passed=bool(validation_report["passed"]),
     )
@@ -348,15 +440,13 @@ def snapshot_from_knowledge_artifacts(artifacts: Any, *, release_id: str = "know
             ShadowComparableItem.from_payload(
                 kind=ShadowItemKind.ENTITY,
                 key=str(app["route"]),
-                payload={
-                    "route": app["route"],
-                    "canonicalUrl": app["canonicalUrl"],
-                    "visibleContent": {
-                        "name": app["name"],
-                        "summary": app["description"],
-                        "capabilities": list(app["capabilities"]),
-                    },
-                },
+                payload=_canonical_entity_payload(
+                    route=app["route"],
+                    canonical_url=app["canonicalUrl"],
+                    name=app["name"],
+                    summary=app["description"],
+                    capabilities=app["capabilities"],
+                ),
             )
         )
         metadata = metadata_by_route.get(app["route"], {})
@@ -364,32 +454,22 @@ def snapshot_from_knowledge_artifacts(artifacts: Any, *, release_id: str = "know
             ShadowComparableItem.from_payload(
                 kind=ShadowItemKind.METADATA,
                 key=str(app["route"]),
-                payload={
-                    "route": app["route"],
-                    "canonical": metadata.get("canonical", app["canonicalUrl"]),
-                    "title": metadata.get("title", app["name"]),
-                    "description": metadata.get("description", app["description"]),
-                },
+                payload=_canonical_metadata_payload(
+                    route=app["route"],
+                    canonical=metadata.get("canonical", app["canonicalUrl"]),
+                    description=metadata.get("description", app["description"]),
+                ),
             )
         )
     for node in artifacts.jsonld["@graph"]:
-        items.append(ShadowComparableItem.from_payload(kind=ShadowItemKind.GRAPH, key=str(node["@id"]), payload=dict(node)))
-    items.append(
-        ShadowComparableItem.from_payload(
-            kind=ShadowItemKind.MANIFEST,
-            key="public-artifact-set",
-            payload={
-                "knowledgeDigest": stable_digest(artifacts.knowledge),
-                "jsonldDigest": stable_digest(artifacts.jsonld),
-                "metadataDigest": stable_digest(artifacts.metadata),
-                "sitemapDigest": stable_digest(artifacts.sitemap),
-            },
-        )
-    )
+        graph_payload = _canonical_graph_payload(dict(node))
+        if graph_payload is not None:
+            items.append(ShadowComparableItem.from_payload(kind=ShadowItemKind.GRAPH, key=str(graph_payload["route"]), payload=graph_payload))
+    _append_canonical_manifest(items)
     return ShadowSnapshot(
         source_name="Current Knowledge Publisher",
         release_id=release_id,
-        items=tuple(sorted(items, key=lambda item: item.identity)),
+        items=_ordered_items(items),
         validation_summary={severity.value: 0 for severity in Severity},
         validation_passed=True,
     )

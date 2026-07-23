@@ -195,16 +195,22 @@ Phase 2 is completed and Frozen after Astra review.
 ## AI SEO Implementation Phase 3
 
 - Phase 3 is authorized and implemented;
-- Astra review and freeze remain pending;
+- Astra source review requested adapter corrections;
+- adapter corrections are implemented for re-review;
 - current Knowledge publisher remains the active production publisher;
 - shadow comparison operates on supplied in-memory snapshots only;
 - Knowledge artifact snapshot conversion does not write or publish artifacts;
 - comparison reports are internal only;
+- Knowledge and compiler adapters emit the same canonical semantic comparison
+  projection;
+- system-specific release IDs remain outside parity payloads;
 - entity, graph, manifest, metadata, canonical URL, digest, missing,
   unexpected, duplicate, ordering, and validation-severity differences are
   detected;
 - duplicate comparable items and failed candidate validation fail closed;
 - repeated comparisons against identical snapshots produce identical reports;
+- real Knowledge-versus-compiler adapter parity has no structural false
+  positives when public truth is equivalent;
 - no public serving, API exposure, frontend integration, deployment change,
   runtime startup change, artifact replacement, or production behavior change
   occurs.

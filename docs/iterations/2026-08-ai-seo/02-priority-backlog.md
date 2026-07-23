@@ -16,7 +16,7 @@ implementation. Iteration approval does not freeze these tasks.
 | AI-SEO-IRR | Implementation Readiness Review | Critical | Approved | Architecture is complete and implementation is authorized for separately scoped engineering phases; no SEO-006 created |
 | AI-SEO-P1 | Backend Compiler Foundation | Critical | Frozen | Astra review approved commit `5f0f852`; disabled backend foundation accepted |
 | AI-SEO-P2 | Compiler Pipeline | Critical | Frozen | Astra approved commit `3136c41` and correction commit `7ede8ae`; Phase 3 separately authorized |
-| AI-SEO-P3 | Shadow Comparison | Critical | Implemented | Backend-only comparator implemented; Astra review and freeze pending; Phase 4 not authorized |
+| AI-SEO-P3 | Shadow Comparison | Critical | Source re-review pending | Backend-only comparator implemented; adapter corrections implemented; Astra re-review and freeze pending; Phase 4 not authorized |
 
 ---
 
@@ -66,9 +66,12 @@ Phase 2 freeze.
 AI SEO Implementation Phase 3 is implemented as an internal backend-only shadow
 comparison framework. It compares current Knowledge publisher output and
 candidate compiler output through deterministic in-memory snapshots and reports.
-It does not replace the Knowledge publisher, publish artifacts, expose APIs,
-integrate frontend rendering, alter deployment, or change production behavior.
-Phase 3 review and freeze remain pending; Phase 4 is not authorized.
+Source-level review requested adapter corrections so equivalent public truth
+does not create structural false positives; those corrections are implemented
+for re-review. It does not replace the Knowledge publisher, publish artifacts,
+expose APIs, integrate frontend rendering, alter deployment, or change
+production behavior. Phase 3 re-review and freeze remain pending; Phase 4 is
+not authorized.
 
 ---
 

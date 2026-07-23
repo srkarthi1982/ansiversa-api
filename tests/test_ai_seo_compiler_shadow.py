@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import copy
 
+from app.modules.ai_seo_compiler.entities import AppEntity, CategoryEntity
+from app.modules.ai_seo_compiler.inventory import SourceInventory
+from app.modules.ai_seo_compiler.pipeline import CompilerInput, compile_candidate
 from app.modules.ai_seo_compiler.shadow import (
+    CANONICAL_MANIFEST_KEY,
     ShadowComparableItem,
     ShadowItemKind,
     ShadowSnapshot,
     compare_shadow_snapshots,
+    snapshot_from_compiler_output,
     snapshot_from_knowledge_artifacts,
     stable_report_json,
 )
@@ -65,13 +70,37 @@ def _graph(node_id: str = "https://ansiversa.com/app-001#software", *, name: str
 def _manifest(*, digest: str = "entity-digest") -> ShadowComparableItem:
     return _item(
         ShadowItemKind.MANIFEST,
-        "public-render-manifest",
+        CANONICAL_MANIFEST_KEY,
         {
             "releaseId": "release-001",
             "entityDigest": digest,
             "schemaVersion": 1,
         },
     )
+
+
+def _compiler_output_from_knowledge_artifacts(artifacts):
+    categories = tuple(
+        CategoryEntity(category_id=category["id"], name=category["name"], slug=str(category["id"]).replace("_", "-"))
+        for category in artifacts.knowledge["categories"]
+    )
+    apps = tuple(
+        AppEntity(
+            app_id=app["id"],
+            number=app["number"],
+            name=app["name"],
+            slug=app["slug"],
+            category_id=app["categoryId"],
+            category_name=app["category"],
+            purpose=app["purpose"],
+            short_description=app["description"],
+            route=app["route"],
+            aliases=tuple(app["aliases"]),
+            capabilities=tuple(app["capabilities"]),
+        )
+        for app in artifacts.knowledge["apps"]
+    )
+    return compile_candidate(CompilerInput(source_inventory=SourceInventory.from_items(()), parsed_claims=(), apps=apps, categories=categories))
 
 
 def _snapshot(*items: ShadowComparableItem, name: str = "current", passed: bool = True, major: int = 0) -> ShadowSnapshot:
@@ -203,3 +232,46 @@ def test_shadow_snapshot_from_knowledge_artifacts_is_internal_and_deterministic(
     assert report.passed
     assert len([item for item in first.items if item.kind is ShadowItemKind.ENTITY]) == 100
     assert any(item.kind is ShadowItemKind.MANIFEST for item in first.items)
+
+
+def test_shadow_adapters_compare_equivalent_knowledge_and_compiler_outputs_without_false_positives():
+    registry_data = builder.build_registry()[0]
+    artifacts = build_public_artifacts(KnowledgeRegistry(copy.deepcopy(registry_data)))
+    compiler_output = _compiler_output_from_knowledge_artifacts(artifacts)
+    current = snapshot_from_knowledge_artifacts(artifacts)
+    candidate = snapshot_from_compiler_output(compiler_output)
+    report = compare_shadow_snapshots(current, candidate)
+    assert compiler_output.public_render_manifest is not None
+    assert current.ordered_identities() == candidate.ordered_identities()
+    assert report.passed
+    assert report.as_dict()["summary"]["findings"] == 0
+
+
+def test_shadow_adapters_detect_intentional_metadata_difference_without_structural_false_positive():
+    registry_data = builder.build_registry()[0]
+    artifacts = build_public_artifacts(KnowledgeRegistry(copy.deepcopy(registry_data)))
+    compiler_output = _compiler_output_from_knowledge_artifacts(artifacts)
+    current = snapshot_from_knowledge_artifacts(artifacts)
+    candidate = snapshot_from_compiler_output(compiler_output)
+    changed_items: list[ShadowComparableItem] = []
+    changed = False
+    for item in candidate.items:
+        if not changed and item.identity == "metadata:/bill-splitter":
+            payload = dict(item.payload)
+            payload["description"] = "Intentional metadata difference."
+            changed_items.append(ShadowComparableItem.from_payload(kind=item.kind, key=item.key, payload=payload))
+            changed = True
+        else:
+            changed_items.append(item)
+    changed_candidate = ShadowSnapshot(
+        source_name=candidate.source_name,
+        release_id=candidate.release_id,
+        items=tuple(changed_items),
+        validation_summary=candidate.validation_summary,
+        validation_passed=candidate.validation_passed,
+    )
+    report = compare_shadow_snapshots(current, changed_candidate)
+    assert changed
+    assert not report.passed
+    assert [finding.code.value for finding in report.findings] == ["metadata_difference"]
+    assert report.findings[0].subject == "metadata:/bill-splitter"

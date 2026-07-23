@@ -139,7 +139,7 @@ Production unchanged.
 Status:
 
 ```text
-Implemented; Astra review pending; freeze pending
+Implemented; adapter corrections implemented; Astra re-review pending; freeze pending
 ```
 
 Repository:
@@ -155,6 +155,8 @@ Scope:
 - keep the current publisher as production behavior;
 - record candidate evidence without serving it publicly.
 - generate deterministic internal comparison reports;
+- project Knowledge and compiler outputs into one canonical semantic comparison
+  shape;
 - keep Phase 4 blocked until separate authorization.
 
 Validation:
@@ -166,6 +168,8 @@ Validation:
 - comparison detects entity, graph, manifest, metadata, canonical URL, digest,
   missing, unexpected, duplicate, ordering, and severity differences;
 - repeated comparisons against identical snapshots produce identical reports.
+- actual Knowledge-versus-compiler adapters compare equivalent public truth
+  without false positives.
 
 Boundary:
 
