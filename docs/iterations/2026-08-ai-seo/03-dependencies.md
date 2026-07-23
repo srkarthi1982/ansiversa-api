@@ -61,6 +61,20 @@ record a review date.
 
 SEO-003 depends on an accepted and frozen SEO-002 contract. Rendering
 architecture must not infer or invent its own public entity shape.
+
+SEO-003 evidence identifies these future implementation dependencies without
+authorizing them:
+
+- an immutable Public Rendering Manifest emitted by the backend compiler;
+- a revision-pinned backend-to-frontend build artifact handoff;
+- a Contract V1 public-route allowlist;
+- a pre-render-capable frontend build/router boundary;
+- server-safe public presentation components;
+- hydration from the same manifest revision; and
+- atomic validation, deployment, and rollback of HTML and machine projections.
+
+SEO-003 must not make SEO-004 schema.org, SEO-005 crawler, or SEO-006 sitemap,
+canonical-governance, freshness, redirect, and archival decisions.
 ---
 
 # Boundary With Astra

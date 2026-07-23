@@ -82,6 +82,20 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - representative browser-local, backend-backed, AI-assisted, regulated, and
   professional-boundary apps.
 
+## SEO-003 Rendering Architecture
+
+- raw route HTML contains unique approved truth without JavaScript;
+- public routes are generated exactly once from an allowlisted manifest;
+- private, authenticated, preview, and workflow routes are absent;
+- manifest schema, revision, freshness, and digest fail closed;
+- visible content, head metadata, canonical URL, structured projection, and
+  hydration use the same entity revision;
+- missing entities and critical Contract V1 conflicts block release;
+- browser hydration produces no material mismatch;
+- cache and deployment topology preserve the revision pair;
+- production-shaped build time and artifact size stay bounded; and
+- rollback restores the prior immutable HTML and manifest pair.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;

@@ -22,6 +22,12 @@
 | SEO-R18 | Freshness timestamps imply review that never occurred | High | Review dates come from governed approval, never file modification time | Mitigated in Contract V1 candidate |
 | SEO-R19 | Governance source paths leak into public projections | High | Only approved role/review date may be public; internal actors, paths, hashes, and notes remain governance-only | Mitigated in Contract V1 candidate |
 | SEO-R20 | Invalid app handling either republishes bad truth or blocks unrelated safe updates | High | Separate entity/release validity with critical release blockers and approved optional-field isolation only | Mitigated in Contract V1 candidate |
+| SEO-R21 | Frontend build consumes mutable or mismatched public truth | Critical | Immutable manifest, revision/digest pinning, and fail-closed artifact handoff | Mitigated in SEO-003 proposal |
+| SEO-R22 | Pre-rendered HTML and hydrated UI expose different claims | Critical | One entity revision for HTML, head projections, and hydration; parity tests | Mitigated in SEO-003 proposal |
+| SEO-R23 | Private or authenticated routes enter public generation | Critical | Contract V1 public-route allowlist and default-deny generation | Mitigated in SEO-003 proposal |
+| SEO-R24 | Static HTML becomes stale while machine artifacts advance | High | Atomic revision pair, governed rebuild, deployment parity, and paired rollback | Mitigated in SEO-003 proposal |
+| SEO-R25 | Rendering migration destabilizes the existing application shell | High | Bounded public components, browser-global audit, representative route tests, and phased implementation | Open |
+| SEO-R26 | Build time or artifact size becomes excessive | Medium | Production-shaped 100-app measurement and approved threshold before release | Open |
 
 ---
 
