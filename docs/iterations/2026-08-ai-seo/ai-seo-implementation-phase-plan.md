@@ -74,7 +74,7 @@ Validation:
 Status:
 
 ```text
-Pending authorization
+Implemented pending Astra review and Product Owner approval
 ```
 
 Repository:
@@ -100,9 +100,35 @@ Validation:
 - release IDs and digests are stable;
 - internal evidence is absent from public render output.
 
+Phase 2 output:
+
+- parser layer;
+- normalization layer;
+- validation and conflict detection;
+- entity resolution;
+- SEO-004 graph compiler;
+- Internal Release Manifest;
+- Public Render Manifest;
+- internal validation reports;
+- isolated in-memory pipeline harness;
+- focused Phase 2 tests.
+
+Boundary:
+
+```text
+No runtime serving, no Knowledge publisher integration, no generated artifact
+changes, no frontend changes, no shadow comparison, no production changes.
+```
+
 ---
 
 # Phase 3: Shadow Comparison
+
+Status:
+
+```text
+Not authorized
+```
 
 Repository:
 

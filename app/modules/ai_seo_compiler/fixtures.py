@@ -25,6 +25,7 @@ class ValidationFixture:
     source: SourceInventoryItem
     claims: tuple[str, ...]
     expected_visibility: SourceVisibility = SourceVisibility.PUBLIC
+    review_state: str = "current"
 
     def __post_init__(self) -> None:
         if not self.fixture_id or len(self.fixture_id) > MAX_FIXTURE_ID:
@@ -32,6 +33,8 @@ class ValidationFixture:
         if len(self.claims) > MAX_CLAIMS:
             raise ValueError("Validation fixture claim count exceeds bound")
         object.__setattr__(self, "expected_visibility", SourceVisibility(self.expected_visibility))
+        if self.review_state not in {"current", "stale", "unreviewed"}:
+            raise ValueError("Validation fixture review_state is unsupported")
 
     def as_dict(self) -> dict[str, object]:
         return {
@@ -39,6 +42,7 @@ class ValidationFixture:
             "source": self.source.as_dict(),
             "claims": list(self.claims),
             "expectedVisibility": self.expected_visibility.value,
+            "reviewState": self.review_state,
         }
 
 

@@ -6,6 +6,7 @@ the public publisher.
 """
 
 from app.modules.ai_seo_compiler.fixtures import ValidationFixture, validate_fixture
+from app.modules.ai_seo_compiler.pipeline import CompilerInput, CompilerOutput, compile_candidate
 from app.modules.ai_seo_compiler.inventory import SourceInventory, SourceInventoryItem, classify_source
 from app.modules.ai_seo_compiler.serialization import stable_digest, stable_json
 
@@ -16,7 +17,10 @@ __all__ = [
     "SourceInventory",
     "SourceInventoryItem",
     "ValidationFixture",
+    "CompilerInput",
+    "CompilerOutput",
     "classify_source",
+    "compile_candidate",
     "stable_digest",
     "stable_json",
     "validate_fixture",

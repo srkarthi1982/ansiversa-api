@@ -15,6 +15,7 @@ implementation. Iteration approval does not freeze these tasks.
 | SEO-005 | Compiler And Validation Pipeline | Critical | Frozen | Pipeline approved; implementation awaits separate authorization |
 | AI-SEO-IRR | Implementation Readiness Review | Critical | Approved | Architecture is complete and implementation is authorized for separately scoped engineering phases; no SEO-006 created |
 | AI-SEO-P1 | Backend Compiler Foundation | Critical | Frozen | Astra review approved commit `5f0f852`; disabled backend foundation accepted; Phase 2 pending authorization |
+| AI-SEO-P2 | Compiler Pipeline | Critical | Implemented | Backend-only isolated compiler pipeline implemented; review and freeze pending; Phase 3 not authorized |
 
 ---
 
@@ -53,6 +54,12 @@ AI SEO Implementation Phase 1 is complete and Frozen after Astra review. It
 does not activate the compiler, does not alter the Knowledge registry or
 publisher, and does not change production behavior. Phase 2 remains pending
 authorization.
+
+AI SEO Implementation Phase 2 is implemented but not approved or Frozen. It
+adds an isolated in-memory parser, normalizer, validator, entity resolver,
+graph compiler, internal/public manifest model, validation report model, and
+pipeline harness. It does not alter runtime, Knowledge publishing, frontend,
+deployment, or production behavior.
 
 ---
 

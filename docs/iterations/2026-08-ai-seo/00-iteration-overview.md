@@ -55,6 +55,7 @@ data. Iteration 2 must resolve this before expanding machine artifacts.
 - [AI SEO implementation risk assessment](ai-seo-implementation-risk-assessment.md)
 - [AI SEO certification plan](ai-seo-certification-plan.md)
 - [AI SEO implementation Phase 1 task](tasks/ai-seo-implementation-phase-1-backend-compiler-foundation.md)
+- [AI SEO implementation Phase 2 task](tasks/ai-seo-implementation-phase-2-compiler-pipeline.md)
 - [Proposed backlog](02-priority-backlog.md)
 - [Dependencies](03-dependencies.md)
 - [Risk register](04-risk-register.md)
@@ -92,6 +93,11 @@ It is not SEO-006 and does not authorize production change.
 AI SEO Implementation Phase 1 is complete and Frozen as a disabled backend
 compiler foundation after Astra review approved commit `5f0f852`. Phase 2
 remains pending separate Product Owner authorization.
+
+AI SEO Implementation Phase 2 is implemented as an isolated backend compiler
+pipeline and is pending Astra review and Product Owner approval. It does not
+integrate with runtime routes, the Knowledge publisher, frontend rendering,
+deployment, or production behavior.
 
 ---
 

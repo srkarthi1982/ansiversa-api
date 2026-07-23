@@ -161,6 +161,30 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 
 Phase 2 remains pending separate authorization.
 
+## AI SEO Implementation Phase 2
+
+- parser accepts only allowlisted source inventory entries;
+- JSON parsing is strict and structured;
+- Markdown parsing extracts only bounded allowlisted sections;
+- normalization covers text, slugs, routes, canonical URLs, enums, stable lists,
+  and digest inputs;
+- conflicts between authoritative values fail closed;
+- validation findings use the approved severity model;
+- entity resolution enforces exactly 100 apps and 14 categories;
+- duplicate identities, App #101, and unresolved relationships block release;
+- graph compilation enforces approved node types, allowed properties, stable
+  IDs, deterministic ordering, and relationship resolution;
+- graph compilation emits no public output after blocker or critical validation
+  failures;
+- Internal Release Manifest keeps governance evidence internal;
+- Public Render Manifest excludes source inventory, diagnostics, approver
+  identities, rollback evidence, validation reports, internal paths, and
+  secrets;
+- validation reports are internal test outputs only;
+- repeated pipeline runs produce equivalent serialized output;
+- Knowledge registry and public artifact drift checks remain current; and
+- production remains unchanged.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;
