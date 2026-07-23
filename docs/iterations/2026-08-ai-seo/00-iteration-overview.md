@@ -91,13 +91,13 @@ authorized for separately scoped, reviewable, certifiable engineering phases.
 It is not SEO-006 and does not authorize production change.
 
 AI SEO Implementation Phase 1 is complete and Frozen as a disabled backend
-compiler foundation after Astra review approved commit `5f0f852`. Phase 2
-remains pending separate Product Owner authorization.
+compiler foundation after Astra review approved commit `5f0f852`.
 
 AI SEO Implementation Phase 2 is implemented as an isolated backend compiler
 pipeline. Astra approved the reported governance scope for commit `3136c41`,
-while source-level Astra review and Phase 2 freeze remain pending. It does not
-integrate with runtime routes, the Knowledge publisher, frontend rendering,
+and source-level review requested fail-closed corrections. Those corrections
+are implemented for Astra re-review; Phase 2 freeze remains pending. It does
+not integrate with runtime routes, the Knowledge publisher, frontend rendering,
 deployment, or production behavior.
 
 ---

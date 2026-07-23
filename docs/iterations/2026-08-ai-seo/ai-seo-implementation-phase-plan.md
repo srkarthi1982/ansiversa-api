@@ -74,7 +74,7 @@ Validation:
 Status:
 
 ```text
-Implementation complete; governance review approved; source review pending
+Implementation complete; governance review approved; source review corrections implemented
 ```
 
 Repository:
@@ -98,7 +98,9 @@ Validation:
 - full compilation is deterministic;
 - invalid sources fail closed;
 - release IDs and digests are stable;
-- internal evidence is absent from public render output.
+- internal evidence is absent from public render output;
+- blocking graph validation stops manifest generation;
+- public manifest boundary failures suppress public render output.
 
 Phase 2 output:
 
@@ -124,7 +126,8 @@ Review status:
 
 ```text
 Commit 3136c41 reported scope accepted by Astra.
-Source-level Astra review pending.
+Source-level Astra review requested corrections.
+Correction package implemented for source-level re-review.
 Phase 2 freeze pending.
 Phase 3 not authorized.
 Production unchanged.

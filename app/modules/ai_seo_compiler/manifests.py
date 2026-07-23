@@ -149,7 +149,13 @@ def build_internal_manifest(
     )
 
 
-def build_public_render_manifest(*, release: EntityRelease, graph: GraphBundle, release_id: str) -> PublicRenderManifest:
+def build_public_render_manifest(
+    *,
+    release: EntityRelease,
+    graph: GraphBundle,
+    release_id: str,
+    visible_content_overrides: dict[str, dict[str, object]] | None = None,
+) -> PublicRenderManifest:
     by_id = {str(node["@id"]): node for node in graph.nodes}
     bundles: list[PublicPageBundle] = []
     for app in release.apps:
@@ -158,15 +164,19 @@ def build_public_render_manifest(*, release: EntityRelease, graph: GraphBundle, 
             "@graph": [by_id[app_webpage_id(app)], by_id[f"{app.canonical_url}#software"]],
         }
         entity_revision = stable_digest(app.as_dict())
+        visible_content = {
+            "name": app.name,
+            "summary": app.short_description,
+            "capabilities": list(app.capabilities),
+        }
+        if visible_content_overrides:
+            visible_content.update(visible_content_overrides.get(app.app_id, {}))
+            visible_content.update(visible_content_overrides.get(app.route, {}))
         bundles.append(
             PublicPageBundle(
                 route=app.route,
                 canonical_url=app.canonical_url,
-                visible_content={
-                    "name": app.name,
-                    "summary": app.short_description,
-                    "capabilities": list(app.capabilities),
-                },
+                visible_content=visible_content,
                 metadata={
                     "title": app.name,
                     "description": app.short_description,

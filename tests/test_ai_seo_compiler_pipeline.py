@@ -160,7 +160,7 @@ def test_fixture_validation_reports_stale_required_truth_where_represented():
         review_state="stale",
     )
     result = validate_fixtures((fixture,))
-    assert not result.blocks_release
+    assert result.blocks_release
     assert result.findings[0].code.value == "stale_required_truth"
     assert result.findings[0].severity is Severity.MAJOR
 
@@ -240,6 +240,22 @@ def test_graph_validation_rejects_unsupported_properties():
     assert result.findings[0].code.value == "unsupported_graph_property"
 
 
+def test_graph_validation_applies_allowlists_to_every_node_type():
+    result = validate_graph_nodes(
+        (
+            {
+                "@id": "https://ansiversa.com/#organization",
+                "@type": "Organization",
+                "name": "Ansiversa",
+                "url": "https://ansiversa.com",
+                "offers": {},
+            },
+        )
+    )
+    assert result.blocks_release
+    assert result.findings[0].code.value == "unsupported_graph_property"
+
+
 def test_internal_and_public_manifests_are_separated():
     release, validation = resolve_entities(apps=_apps(), categories=_categories())
     graph, graph_validation = compile_graph(release, validation)
@@ -310,3 +326,47 @@ def test_pipeline_fails_closed_before_public_output_after_blocker():
     assert output.public_render_manifest is None
     assert output.graph is None
     assert output.validation_report.as_dict()["passed"] is False
+
+
+def test_pipeline_stops_before_manifests_after_graph_blocker():
+    compiler_input = CompilerInput(
+        source_inventory=_inventory(),
+        parsed_claims=(),
+        apps=_apps(),
+        categories=_categories(),
+        fixture_extra_graph_nodes=(
+            {
+                "@id": "https://ansiversa.com/app-001#software",
+                "@type": "SoftwareApplication",
+                "name": "Leaking app",
+                "offers": {},
+            },
+        ),
+    )
+    output = compile_candidate(compiler_input)
+    report = output.validation_report.as_dict()
+    assert output.internal_manifest is None
+    assert output.public_render_manifest is None
+    assert output.graph is None
+    assert report["passed"] is False
+    assert report["graphValidation"]["passed"] is False
+    assert any(finding["code"] == "unsupported_graph_property" for finding in report["findings"])
+
+
+def test_pipeline_suppresses_public_manifest_after_manifest_boundary_blocker():
+    compiler_input = CompilerInput(
+        source_inventory=_inventory(),
+        parsed_claims=(),
+        apps=_apps(),
+        categories=_categories(),
+        fixture_public_visible_content_overrides={"app_001": {"sourceInventory": "app/modules/app_001/story.md"}},
+    )
+    output = compile_candidate(compiler_input)
+    report = output.validation_report.as_dict()
+    assert output.internal_manifest is not None
+    assert output.public_render_manifest is None
+    assert output.graph is not None
+    assert report["passed"] is False
+    assert report["manifestValidation"]["passed"] is False
+    assert output.internal_manifest.release_blocked is True
+    assert any(finding["code"] == "manifest_leakage" for finding in report["findings"])

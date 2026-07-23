@@ -29,6 +29,16 @@ ALLOWED_SOFTWARE_PROPERTIES = {
     "featureList",
     APP_RELATIONSHIP_PROPERTY,
 }
+ALLOWED_NODE_PROPERTIES = {
+    "Organization": {"@id", "@type", "name", "url"},
+    "WebSite": {"@id", "@type", "name", "url", "publisher"},
+    "CollectionPage": {"@id", "@type", "name", "url", "isPartOf", "hasPart"},
+    "WebPage": {"@id", "@type", "name", "url", "description", "isPartOf", "mainEntity"},
+    "SoftwareApplication": ALLOWED_SOFTWARE_PROPERTIES,
+    "FAQPage": {"@id", "@type", "name", "url", "isPartOf", "mainEntity"},
+    "Question": {"@id", "@type", "name", "acceptedAnswer"},
+    "Answer": {"@id", "@type", "text"},
+}
 
 
 @dataclass(frozen=True)
@@ -96,23 +106,28 @@ def validate_graph_nodes(nodes: tuple[dict[str, Any], ...]) -> ValidationResult:
         node_type = node.get("@type")
         if node_type not in ALLOWED_NODE_TYPES:
             findings.append(ValidationFinding(Severity.BLOCKER, ValidationCode.UNSUPPORTED_GRAPH_PROPERTY, "Unsupported graph node type", node_id))
-        if node_type == "SoftwareApplication":
-            extra = set(node) - ALLOWED_SOFTWARE_PROPERTIES
-            if extra:
-                findings.append(
-                    ValidationFinding(
-                        Severity.BLOCKER,
-                        ValidationCode.UNSUPPORTED_GRAPH_PROPERTY,
-                        f"Unsupported SoftwareApplication properties: {', '.join(sorted(extra))}",
-                        node_id,
-                    )
+            continue
+        allowed_properties = ALLOWED_NODE_PROPERTIES[str(node_type)]
+        extra = set(node) - allowed_properties
+        if extra:
+            findings.append(
+                ValidationFinding(
+                    Severity.BLOCKER,
+                    ValidationCode.UNSUPPORTED_GRAPH_PROPERTY,
+                    f"Unsupported {node_type} properties: {', '.join(sorted(extra))}",
+                    node_id,
                 )
+            )
     for node_id in sorted({node_id for node_id in ids if ids.count(node_id) > 1}):
         findings.append(ValidationFinding(Severity.BLOCKER, ValidationCode.DUPLICATE_IDENTITY, "Duplicate graph @id", str(node_id)))
     return ValidationResult(tuple(findings))
 
 
-def compile_graph(release: EntityRelease, validation: ValidationResult | None = None) -> tuple[GraphBundle | None, ValidationResult]:
+def compile_graph(
+    release: EntityRelease,
+    validation: ValidationResult | None = None,
+    extra_nodes: tuple[dict[str, Any], ...] = (),
+) -> tuple[GraphBundle | None, ValidationResult]:
     if validation and validation.blocks_release:
         return None, ValidationResult(
             (
@@ -169,6 +184,7 @@ def compile_graph(release: EntityRelease, validation: ValidationResult | None = 
     for app in release.apps:
         nodes.append(_webpage_node(app))
         nodes.append(_software_node(app, app_urls_by_id))
+    nodes.extend(extra_nodes)
     ordered_nodes = tuple(sorted(nodes, key=lambda node: str(node["@id"])))
     graph_result = validate_graph_nodes(ordered_nodes)
     return GraphBundle(ordered_nodes), ValidationResult(tuple([*findings, *graph_result.findings]))

@@ -21,6 +21,9 @@ class Severity(StrEnum):
     INFO = "info"
 
 
+BLOCKING_SEVERITIES = {Severity.BLOCKER, Severity.CRITICAL, Severity.MAJOR}
+
+
 class ValidationCode(StrEnum):
     UNSUPPORTED_SOURCE_TYPE = "unsupported_source_type"
     MISSING_REQUIRED_FIELD = "missing_required_field"
@@ -74,7 +77,7 @@ class ValidationResult:
 
     @property
     def passed(self) -> bool:
-        return not any(finding.severity in {Severity.BLOCKER, Severity.CRITICAL} for finding in self.findings)
+        return not any(finding.severity in BLOCKING_SEVERITIES for finding in self.findings)
 
     @property
     def blocks_release(self) -> bool:

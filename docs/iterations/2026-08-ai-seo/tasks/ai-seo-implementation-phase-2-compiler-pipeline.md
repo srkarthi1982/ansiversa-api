@@ -5,7 +5,7 @@
 **Phase:** 2
 **Implementation:** Authorized
 **Astra governance review:** Approved
-**Source-level Astra review:** Pending
+**Source-level Astra review:** Changes requested; corrections implemented for re-review
 **Product Owner approval:** Pending
 **Production:** Unchanged
 **Phase 3:** Not authorized
@@ -38,6 +38,7 @@ Knowledge publishing, frontend rendering, deployment, and production behavior.
 - Internal validation report model.
 - Isolated in-memory compiler pipeline harness.
 - Focused Phase 2 tests using synthetic fixtures only.
+- Source-review corrections for fail-closed graph and manifest release gates.
 
 ---
 
@@ -74,9 +75,12 @@ Focused tests cover:
 - unresolved relationship rejection;
 - stable graph ordering;
 - unsupported graph-property rejection;
+- every emitted graph node type property allowlist enforcement;
 - internal/public manifest separation;
+- public manifest suppression after manifest-boundary failure;
+- no manifest generation after graph validation failure;
 - governance-only field exclusion from public render output;
-- blocker and critical release behavior;
+- blocker, critical, and major release behavior;
 - fail-closed output behavior;
 - repeated compilation equivalence.
 
@@ -92,14 +96,31 @@ governance scope and completion state for commit
 Phase 2 Implementation       Complete
 Governance Review            Approved
 Automated Validation         Passed
-Source-Level Astra Review    Pending
+Source-Level Astra Review    Changes requested; corrections implemented
 Phase 2 Freeze               Pending
 Phase 3                      Blocked
 Production                   Unchanged
 ```
 
-Phase 2 is not frozen. Source-level Astra review and Product Owner approval are
-required before Phase 2 can freeze or Phase 3 can begin.
+Phase 2 is not frozen. Source-level Astra re-review and Product Owner approval
+are required before Phase 2 can freeze or Phase 3 can begin.
+
+---
+
+# Source Review Corrections
+
+The source-level review identified three required corrections. The Phase 2
+correction package addresses them without runtime integration:
+
+1. `compile_candidate` suppresses `public_render_manifest` when public manifest
+   boundary validation blocks release.
+2. `compile_candidate` stops before manifest generation when graph validation
+   blocks release.
+3. `major` validation findings block V1 release by default until an approved
+   omission policy exists.
+
+The correction also hardens graph validation by applying property allowlists to
+every supported graph node type, not only `SoftwareApplication`.
 
 ---
 
@@ -117,6 +138,6 @@ Source-level review must verify:
 7. Internal manifest fields cannot leak through nested public-manifest objects.
 8. Release IDs and digests are deterministic, with no timestamp or random
    value dependency.
-9. `compile_candidate` emits no release output after blocker or critical
-   findings.
+9. `compile_candidate` emits no releasable public output after blocker,
+   critical, or major findings.
 10. Package exports do not create runtime imports or side effects.

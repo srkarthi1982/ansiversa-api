@@ -108,7 +108,7 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - aggregate graph and page-local graph bundles use the same immutable revision;
 - page-local JSON-LD represents visible page content;
 - invalid optional properties are omitted only under approved policy;
-- critical graph failures block release;
+- blocker, critical, and major graph failures block V1 release;
 - JSON-LD parses and uses the Schema.org context; and
 - provider validation evidence is collected only after deployment approval.
 
@@ -120,7 +120,8 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - SEO-002 authority and provenance validation pass;
 - entity resolution preserves permanent identity and blocks App #101;
 - entity and release validation are separate;
-- severity levels map consistently to release behavior;
+- blocker, critical, and major severities block V1 release unless a separately
+  approved omission policy permits a narrower behavior;
 - SEO-004 graph compilation passes before manifest generation;
 - manifest schema, profile, contract, compiler, source, route, and digest
   metadata are present;
@@ -164,20 +165,24 @@ Phase 2 remains pending separate authorization.
 ## AI SEO Implementation Phase 2
 
 - governance/scope review approved for commit `3136c41`;
-- source-level Astra review remains pending before freeze;
+- source-level Astra review requested corrections before freeze;
+- correction package implemented for source-level re-review;
 - parser accepts only allowlisted source inventory entries;
 - JSON parsing is strict and structured;
 - Markdown parsing extracts only bounded allowlisted sections;
 - normalization covers text, slugs, routes, canonical URLs, enums, stable lists,
   and digest inputs;
 - conflicts between authoritative values fail closed;
-- validation findings use the approved severity model;
+- validation findings use the approved severity model, with blocker, critical,
+  and major findings blocking V1 release by default;
 - entity resolution enforces exactly 100 apps and 14 categories;
 - duplicate identities, App #101, and unresolved relationships block release;
 - graph compilation enforces approved node types, allowed properties, stable
   IDs, deterministic ordering, and relationship resolution;
-- graph compilation emits no public output after blocker or critical validation
-  failures;
+- graph compilation emits no manifest or public output after blocking
+  validation failures;
+- public manifest boundary failures suppress public render output;
+- graph property allowlists apply to every supported node type;
 - Internal Release Manifest keeps governance evidence internal;
 - Public Render Manifest excludes source inventory, diagnostics, approver
   identities, rollback evidence, validation reports, internal paths, and
