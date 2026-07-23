@@ -25,6 +25,8 @@ Shared AI SEO Engine
         ↓
 Platform Integration
         ↓
+Operational Validation
+        ↓
 One-app-at-a-time rollout
         ↓
 Production certification
@@ -84,6 +86,8 @@ Deliverables:
 - backend production-readiness validation;
 - deterministic readiness evidence;
 - rollback readiness evidence;
+- repeated operational validation evidence;
+- repeated parity and failure recovery evidence;
 - frontend manifest consumer;
 - pre-render route allowlist;
 - manifest compatibility tests;
@@ -96,11 +100,38 @@ Exit criteria:
   environment;
 - unsupported routes fail closed;
 - rollback path is documented and tested;
+- repeated controlled execution is stable;
 - production remains on current behavior until approved.
 
 ---
 
-# Stage 3: App Rollout
+# Stage 3: Operational Validation
+
+Validate integrated compiler operation before rollout or production enablement.
+
+Deliverables:
+
+- repeated controlled compiler execution evidence;
+- repeated shadow parity evidence;
+- repeated readiness determinism evidence;
+- repeated rollback/failure recovery evidence;
+- internal operational report and recommendation;
+- proof that current Knowledge artifacts remain unchanged.
+
+Exit criteria:
+
+- operational status is stable;
+- no compiler artifacts are published;
+- no runtime, API, frontend, deployment, or production configuration changes are
+  introduced;
+- Astra source review completes;
+- Partner approval completes.
+
+---
+
+# Stage 4: App Rollout
+
+This stage is not authorized by Phase 6.
 
 Roll out one app at a time using the canonical 100-app catalog order unless
 Astra and Karthik approve a different sequence.
@@ -119,7 +150,7 @@ Per-app exit criteria:
 
 ---
 
-# Stage 4: Stabilization
+# Stage 5: Stabilization
 
 After all approved rollout phases are complete:
 

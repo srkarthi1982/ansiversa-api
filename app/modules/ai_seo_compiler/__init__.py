@@ -1,8 +1,8 @@
 """Disabled AI SEO compiler foundation.
 
-Phase 5 exposes controlled integration and readiness helpers for internal
-evidence. The compiler remains disabled by default and is not imported by
-runtime routes or application startup.
+Phase 6 adds operational evidence helpers in an isolated submodule. The compiler
+remains disabled by default and is not imported by runtime routes or application
+startup.
 """
 
 from app.modules.ai_seo_compiler.fixtures import ValidationFixture, validate_fixture

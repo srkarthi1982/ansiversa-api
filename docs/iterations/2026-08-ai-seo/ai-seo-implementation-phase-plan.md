@@ -288,49 +288,88 @@ Commit c629ef1 implemented production readiness validation.
 Correction commit 5346a12 strengthened readiness gates.
 Astra source re-review approved both commits.
 Phase 5 Frozen.
-Phase 6 remains pending separate authorization.
+Phase 6 Operational Validation was separately authorized and implemented.
 Production unchanged.
 ```
 
 ---
 
-# Phase 6: One-App Rollout
+# Phase 6: Operational Validation
 
-Default sequence:
+Status:
 
 ```text
-Canonical 100-app catalog order
+Implemented, pending Astra source review
 ```
 
-Scope per app:
-
-- approve source package;
-- compile entity;
-- compile graph bundle;
-- compile page bundle;
-- validate canonical route;
-- certify production-shaped artifact;
-- record Astra review and Partner approval.
-
-Exit rule:
+Repository:
 
 ```text
-One app approved does not approve the next app.
+ansiversa-api
+```
+
+Scope:
+
+- run repeated controlled compiler/readiness cycles;
+- validate repeated semantic parity;
+- validate repeated evidence determinism;
+- validate repeated rollback and failure recovery behavior;
+- produce internal operational evidence only;
+- preserve the current Knowledge publisher as the sole authoritative production
+  publisher.
+
+Validation:
+
+- repeated executions produce stable operational reports;
+- repeated readiness evidence digests remain stable;
+- parity remains stable across cycles;
+- rollback probes repeatedly preserve current Knowledge artifacts;
+- compiler failure evidence remains sanitized and deterministic;
+- no API, frontend, migration, dependency, deployment, runtime startup, or
+  production configuration changes occur;
+- generated production artifacts remain unchanged.
+
+Boundary:
+
+```text
+No production cut-over, no one-app rollout, no Knowledge publisher replacement,
+no compiler artifact publication, no public serving, no API exposure, no
+frontend integration, no deployment change, no runtime startup change, no
+production change, and no Phase 7 work.
+```
+
+Review status:
+
+```text
+Phase 6 implementation is complete.
+Astra source review remains pending.
+Phase 6 is not Frozen.
+Phase 7 is not authorized.
+Production unchanged.
 ```
 
 ---
 
-# Phase 7: Legacy Path Retirement
+# Future Phase: Production Enablement or Rollout
 
-This phase is optional and must be separately approved after stable rollout.
+Status:
 
-Scope:
+```text
+Not authorized and not defined in this phase.
+```
 
-- identify inactive duplicate Knowledge publisher paths;
-- preserve audit history;
-- remove only redundant implementation;
-- update current-state `story.md` documentation.
+Future production enablement, app rollout, or legacy-path retirement must be
+defined and authorized separately after Phase 6 review.
 
-Non-goal:
+Any rollout must preserve the established rule:
 
-- no retirement before the SEO-005 path is certified and stable.
+```text
+One approved app does not approve the next app.
+```
+
+Non-goals for Phase 6:
+
+- no rollout;
+- no production enablement;
+- no legacy path retirement;
+- no production artifact replacement.
