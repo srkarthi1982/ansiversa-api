@@ -181,7 +181,7 @@ validators and projections without redesigning the graph.
 - adding user data, authenticated workflows, analytics, ratings, reviews,
   prices, offers, or paywall claims;
 - adding AI-generated content;
-- deciding crawler/search/training policy from SEO-005;
-- deciding sitemap/freshness/IndexNow policy from SEO-006;
-- deciding validation dashboards from SEO-007; and
+- deciding crawler/search/training policy;
+- deciding sitemap/freshness/IndexNow policy;
+- deciding validation dashboards; and
 - adding automatic `marketing.md` compiler participation from SEO-008.

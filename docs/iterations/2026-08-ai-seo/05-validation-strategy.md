@@ -112,6 +112,28 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 - JSON-LD parses and uses the Schema.org context; and
 - provider validation evidence is collected only after deployment approval.
 
+## SEO-005 Compiler And Validation Pipeline
+
+- source package inventory is allowlisted and revisioned;
+- parsers are deterministic, bounded, and source-type specific;
+- normalization does not invent claims or resolve conflicts by source order;
+- SEO-002 authority and provenance validation pass;
+- entity resolution preserves permanent identity and blocks App #101;
+- entity and release validation are separate;
+- severity levels map consistently to release behavior;
+- SEO-004 graph compilation passes before manifest generation;
+- manifest schema, profile, contract, compiler, source, route, and digest
+  metadata are present;
+- aggregate graph, page bundles, metadata, and artifacts share one immutable
+  revision;
+- full compilation is deterministic;
+- incremental compilation, if later implemented, still produces a complete
+  immutable release package;
+- stale-output, last-known-good, fallback, and rollback rules are validated;
+- validation reports are generated without leaking governance-only or private
+  content; and
+- no request-time parsing, AI calls, user-data reads, or SEO regeneration occur.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;

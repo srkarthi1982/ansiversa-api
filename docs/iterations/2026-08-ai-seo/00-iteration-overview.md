@@ -42,9 +42,13 @@ data. Iteration 2 must resolve this before expanding machine artifacts.
 - [AI SEO architecture](../../ai-seo-architecture.md)
 - [Per-app public knowledge contract](../../ai-seo-per-app-public-knowledge-contract.md)
 - [Structured knowledge graph profile](../../ai-seo-structured-knowledge-graph-profile.md)
+- [Compiler and validation pipeline](../../ai-seo-compiler-validation-pipeline.md)
 - [Discovery evidence](01-discovery-evidence.md)
 - [SEO-004 discovery](seo-004-discovery.md)
 - [SEO-004 architecture review](seo-004-architecture-review.md)
+- [SEO-005 discovery](seo-005-discovery.md)
+- [SEO-005 architecture review](seo-005-architecture-review.md)
+- [SEO-005 architecture completeness assessment](seo-005-architecture-completeness-assessment.md)
 - [Proposed backlog](02-priority-backlog.md)
 - [Dependencies](03-dependencies.md)
 - [Risk register](04-risk-register.md)
@@ -73,8 +77,13 @@ and production release remain separate decisions.
 
 SEO-001 is completed. SEO-002 Contract V1, SEO-003 Hybrid Governed
 Pre-rendering, and SEO-004 Structured Knowledge Graph Profile are approved and
-Frozen; implementation remains unauthorized. SEO-005 through SEO-008 remain
-Proposed and unauthorized.
+Frozen; implementation remains unauthorized. SEO-005 Compiler and Validation
+Pipeline is Proposed with discovery and specification complete, architecture
+review pending, Product Owner approval pending, ADR proposed, and
+implementation unauthorized. After SEO-005 approval, the AI SEO architecture
+phase should be treated as complete; subsequent work should move to
+implementation planning and explicit authorization rather than automatic
+SEO-006 expansion.
 
 ---
 

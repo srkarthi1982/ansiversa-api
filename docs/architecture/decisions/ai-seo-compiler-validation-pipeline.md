@@ -1,0 +1,141 @@
+# Architecture Decision: AI SEO Compiler and Validation Pipeline
+
+**Status:** Proposed
+**Created:** 2026-07-23
+**Task:** SEO-005
+**Decision Owner:** Karthikeyan Ramalingam
+**Architecture Reviewer:** Astra - Pending Review
+**Product Owner:** Karthikeyan Ramalingam - Pending Approval
+**Evidence Agent:** Codex
+**Implementation:** Not authorized
+**Production:** Unchanged
+
+---
+
+# Decision
+
+Should Ansiversa adopt a governed compiler and validation pipeline as the final
+planned AI SEO architecture phase?
+
+Recommended decision:
+
+Adopt a backend-owned, build-time compiler and validation pipeline that turns
+governed SEO source documents into validated SEO-002 entities, SEO-004 graph
+bundles, and an immutable SEO manifest for SEO-003 hybrid governed
+pre-rendering.
+
+Canonical specification:
+
+```text
+docs/ai-seo-compiler-validation-pipeline.md
+```
+
+---
+
+# Proposed Architecture Law
+
+## AI SEO Engineering Law #3
+
+> No public SEO artifact may be emitted unless source validation, entity
+> validation, graph validation, manifest validation, and page/artifact parity
+> pass for the same immutable revision.
+
+---
+
+# Options
+
+## A - Extend current builder scripts directly
+
+**Recommendation:** Reject as architecture. Existing scripts are useful
+evidence but not enough as the permanent release contract.
+
+## B - Build a new independent SEO compiler
+
+**Recommendation:** Reject. This creates a second knowledge pipeline.
+
+## C - Governed compiler pipeline over the Knowledge foundation
+
+**Recommendation:** Preferred candidate.
+
+## D - Runtime validation and regeneration
+
+**Recommendation:** Reject. Public SEO output must be build-time,
+deterministic, immutable, and auditable.
+
+---
+
+# Proposed Architecture
+
+```text
+Governed SEO source documents
+        |
+        v
+Parser and normalizer
+        |
+        v
+Validation and conflict detection
+        |
+        v
+Entity resolution
+        |
+        v
+SEO-004 knowledge graph compiler
+        |
+        v
+Immutable SEO manifest
+        |
+        v
+SEO-003 hybrid governed pre-rendering
+        |
+        v
+Validated deployment artifacts
+```
+
+The backend owns source parsing, precedence, validation, entity resolution,
+graph compilation, manifest generation, public machine projections, and
+validation reports. The frontend consumes only a compatible immutable manifest
+for public pre-rendering and page-local parity.
+
+---
+
+# Consequences
+
+If accepted:
+
+- SEO-005 becomes the final planned AI SEO architecture phase.
+- Implementation remains blocked until a separate implementation plan and
+  authorization.
+- Crawler, sitemap, observability, marketing participation, and provider
+  automation move into implementation planning or separately approved tasks,
+  not automatic SEO-006 expansion.
+- Future compiler work must be phased, evidence-backed, and fail closed.
+- Public SEO artifacts must be released as complete immutable revision pairs.
+
+---
+
+# Acceptance Record
+
+- [ ] Architecture Reviewer approved the recommendation and boundaries.
+- [ ] Product Owner accepted the decision.
+- [ ] AI SEO Engineering Law #3 accepted or revised.
+- [ ] Pipeline stages accepted.
+- [ ] Severity and release-gate model accepted.
+- [ ] Manifest generation boundary accepted.
+- [ ] Repository ownership accepted.
+- [ ] SEO-001 through SEO-005 architecture completeness accepted.
+- [ ] SEO-005 frozen.
+
+---
+
+# Status Boundary
+
+```text
+Repository evidence           Collected
+Architecture                 Governed compiler and validation pipeline
+Architecture acceptance       Pending
+ADR                           Proposed
+SEO-005                       Proposed
+Implementation                Not authorized
+Runtime                       Unchanged
+Production                    Unchanged
+```

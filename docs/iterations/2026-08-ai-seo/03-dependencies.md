@@ -21,13 +21,11 @@ SEO-002 Per-App Public Knowledge Contract
     ↓
 SEO-003 Canonical Public Rendering ADR
     ↓
-SEO-005 Discovery And Crawler Governance
+SEO-004 Structured Knowledge Graph Profile
     ↓
-SEO-006 Sitemap, Canonical, And Freshness Architecture
+SEO-005 Compiler And Validation Pipeline
     ↓
-SEO-007 Validation And Observability
-    ↓
-SEO-009 Implementation Plan
+Implementation planning only after explicit authorization
     ↓
 Separate Product Owner implementation authorization
 ```
@@ -45,8 +43,9 @@ Separate Product Owner implementation authorization
 | Existing registry schema v2 | Backend/platform | Implemented | Evidence baseline only; no SEO-002 runtime change |
 | Frontend route registry | Frontend/platform | Implemented | Canonical app identity and routes |
 | SPA deployment | Frontend/platform | Implemented | Rendering gap to resolve |
-| Search Console | Product/operations | Operational evidence required later | Google crawl/index evidence |
-| Bing Webmaster Tools | Product/operations | Operational evidence required later | Bing/Copilot and optional IndexNow evidence |
+| SEO-005 compiler pipeline | Backend/platform | Proposed | Final architecture layer connecting sources, validation, graph, manifest, and rendering |
+| Search Console | Product/operations | Operational evidence required later | Deferred implementation/operations evidence |
+| Bing Webmaster Tools | Product/operations | Operational evidence required later | Deferred implementation/operations evidence |
 
 ---
 
@@ -73,8 +72,8 @@ authorizing them:
 - hydration from the same manifest revision; and
 - atomic validation, deployment, and rollback of HTML and machine projections.
 
-SEO-003 must not make SEO-004 schema.org, SEO-005 crawler, or SEO-006 sitemap,
-canonical-governance, freshness, redirect, and archival decisions.
+SEO-003 must not make SEO-004 schema.org decisions or deferred crawler,
+sitemap, canonical-governance, freshness, redirect, and archival decisions.
 
 SEO-003 is Frozen with Hybrid Governed Pre-rendering accepted. Its identified
 implementation dependencies remain designs only until separate Product Owner
@@ -85,6 +84,13 @@ depends on SEO-002 Contract V1 for public app truth and on SEO-003 for the
 future immutable manifest/page-local rendering boundary. SEO-004 does not
 authorize schema.org, JSON-LD, manifest, frontend, backend, sitemap, robots,
 cache, deployment, or production implementation.
+
+SEO-005 is Proposed as the final planned AI SEO architecture phase. It depends
+on SEO-001 through SEO-004 and defines the compiler/validation pipeline that
+connects governed SEO source documents to SEO-004 graph bundles, SEO-003
+immutable manifests, hybrid pre-rendering, and validated artifacts. SEO-005
+does not authorize compiler, manifest, frontend, backend, artifact, deployment,
+or production implementation.
 ---
 
 # Boundary With Astra

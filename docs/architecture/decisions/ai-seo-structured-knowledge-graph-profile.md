@@ -119,8 +119,8 @@ If accepted:
 - category, FAQ, and relationship graph output must follow explicit authority;
 - prohibited properties stay absent until a later profile revision;
 - SEO-003 rendering implementation receives bounded graph bundles;
-- SEO-005 through SEO-007 still own crawler policy, sitemap/freshness, and
-  observability decisions; and
+- crawler policy, sitemap/freshness, and observability decisions remain
+  deferred until implementation planning or separate authorization; and
 - implementation remains separately unauthorized.
 
 ---

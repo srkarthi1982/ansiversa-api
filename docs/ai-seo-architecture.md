@@ -414,9 +414,8 @@ Before implementation:
 4. Define standard sitemap versus diagnostic AI-sitemap ownership.
 5. Approve crawler search/training/user-fetch policies.
 6. Preserve the accepted SEO-004 structured-data profile and validation rules.
-7. Define content freshness ownership and stale-content blocking.
-8. Define IndexNow scope, secrets, retries, and evidence.
-9. Define webmaster-tool roles and evidence retention.
-10. Define measurable success criteria without ranking guarantees.
+7. Review the proposed SEO-005 compiler and validation pipeline.
+8. Define implementation planning, sequencing, and authorization after
+   SEO-005 approval.
 
 No implementation should begin from this proposal alone.

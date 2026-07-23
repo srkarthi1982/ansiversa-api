@@ -146,8 +146,10 @@ The accepted decision means:
 - public presentation accepts manifest-supplied initial data;
 - CI hands off and verifies one immutable manifest;
 - HTML and machine artifacts form an atomic revision pair;
-- SEO-004 through SEO-006 retain schema.org, crawler, sitemap, redirect, and
-  archival decisions; and
+- SEO-004 retains schema.org profile decisions, SEO-005 retains compiler and
+  validation pipeline decisions, and crawler, sitemap, redirect, and archival
+  decisions remain deferred until implementation planning or separate
+  authorization; and
 - acceptance does not authorize implementation.
 
 ---

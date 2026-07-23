@@ -32,6 +32,10 @@
 | SEO-R28 | Graph node IDs drift after wording or route changes | High | SEO-004 stable `@id` rules tied to canonical URLs and permanent app identities | Mitigated by SEO-004 |
 | SEO-R29 | Relationship graph becomes an implicit recommender system | Medium | SEO-004 bounded relationship vocabulary and no AI similarity authority | Mitigated by SEO-004 |
 | SEO-R30 | Aggregate JSON-LD and page-local JSON-LD describe different revisions | Critical | SEO-004 requires the same immutable release revision for aggregate and page-local graph bundles | Mitigated by SEO-004 |
+| SEO-R31 | Compiler stages become scattered across scripts without one release gate | Critical | SEO-005 defines a single governed compiler and validation pipeline | Mitigated in SEO-005 proposal |
+| SEO-R32 | Partial validation allows graph, manifest, page, and artifact drift | Critical | Proposed SEO Law #3 requires all validations to pass for one immutable revision | Mitigated in SEO-005 proposal |
+| SEO-R33 | Incremental compilation patches production output in place | High | SEO-005 requires every incremental run to produce a complete immutable release package | Mitigated in SEO-005 proposal |
+| SEO-R34 | Frontend accepts an incompatible manifest version | High | SEO-005 requires explicit manifest schema and frontend consumer compatibility checks | Mitigated in SEO-005 proposal |
 
 ---
 
@@ -44,6 +48,7 @@
 - crawler policy without Product Owner approval;
 - unvalidated schema or sitemap output;
 - graph output outside the SEO-004 approved profile;
+- public artifacts emitted outside the SEO-005 compiler and validation gate;
 - missing rollback;
 - production changes without separate authorization; and
 - claims that validation guarantees search or AI inclusion.
