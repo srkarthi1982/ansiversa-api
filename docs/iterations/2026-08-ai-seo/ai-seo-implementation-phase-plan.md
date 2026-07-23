@@ -183,28 +183,46 @@ change.
 
 ---
 
-# Phase 4: Frontend Consumer
+# Phase 4: Controlled Integration Framework
+
+Status:
+
+```text
+Implemented, pending Astra review
+```
 
 Repository:
 
 ```text
-ansiversa
+ansiversa-api
 ```
 
 Scope:
 
-- consume immutable public render manifest;
-- pre-render allowed public routes;
-- preserve shell behavior;
-- hydrate from the same manifest revision;
-- fail closed on missing or incompatible manifests.
+- integrate the AI SEO compiler into backend build orchestration behind an
+  internal disabled-by-default control;
+- preserve the current Knowledge publisher as the only authoritative
+  production publisher;
+- optionally run compiler execution from current in-memory Knowledge artifacts;
+- collect internal comparison evidence;
+- fail open for current publishing and fail closed for compiler evidence.
 
 Validation:
 
-- raw route HTML contains approved metadata and visible truth;
-- hydration produces no material mismatch;
-- private and workflow routes are excluded;
-- desktop, tablet, and mobile checks pass.
+- disabled control attempts no compiler execution;
+- enabled internal execution produces deterministic evidence;
+- compiler failure does not replace or block current Knowledge artifacts;
+- no API, frontend, migration, dependency, deployment, runtime startup, or
+  production configuration changes occur;
+- generated production artifacts remain unchanged.
+
+Boundary:
+
+```text
+No Knowledge publisher replacement, no compiler artifact publication, no public
+serving, no API exposure, no frontend integration, no deployment change, no
+runtime startup change, no production change, and no Phase 5 work.
+```
 
 ---
 

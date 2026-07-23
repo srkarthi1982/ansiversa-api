@@ -78,6 +78,9 @@ Integrate only after Stage 1 certification.
 Deliverables:
 
 - backend build command integration;
+- disabled-by-default controlled compiler execution;
+- internal comparison evidence;
+- fail-open publishing behavior when compiler evidence fails;
 - frontend manifest consumer;
 - pre-render route allowlist;
 - manifest compatibility tests;
