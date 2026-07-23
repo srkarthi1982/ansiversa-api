@@ -36,6 +36,8 @@
 | SEO-R32 | Partial validation allows graph, manifest, page, and artifact drift | Critical | Proposed SEO Law #3 requires all validations to pass for one immutable revision | Mitigated in SEO-005 proposal |
 | SEO-R33 | Incremental compilation patches production output in place | High | SEO-005 requires every incremental run to produce a complete immutable release package | Mitigated in SEO-005 proposal |
 | SEO-R34 | Frontend accepts an incompatible manifest version | High | SEO-005 requires explicit manifest schema and frontend consumer compatibility checks | Mitigated in SEO-005 proposal |
+| SEO-R35 | Implementation begins without a governed bridge from architecture to engineering | High | AI SEO Implementation Readiness Review defines phase order, feature flags, rollback, certification, and authorization boundary | Mitigated by readiness review |
+| SEO-R36 | Current Knowledge publisher and future SEO-005 compiler diverge during migration | Critical | Shadow compilation, current-publisher preservation, candidate comparison, and explicit cutover approval | Mitigated by readiness review |
 
 ---
 
@@ -50,5 +52,6 @@
 - graph output outside the SEO-004 approved profile;
 - public artifacts emitted outside the SEO-005 compiler and validation gate;
 - missing rollback;
+- implementation without readiness review and explicit authorization;
 - production changes without separate authorization; and
 - claims that validation guarantees search or AI inclusion.

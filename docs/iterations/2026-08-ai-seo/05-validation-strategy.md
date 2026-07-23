@@ -134,6 +134,18 @@ critical truth, safety, privacy, or fixed-catalog conflict.
   content; and
 - no request-time parsing, AI calls, user-data reads, or SEO regeneration occur.
 
+## AI SEO Implementation Readiness Review
+
+- SEO-001 through SEO-005 are frozen or completed;
+- implementation is not authorized by the review itself;
+- no SEO-006 is created;
+- first implementation repository and commit boundary are defined;
+- feature flags are disabled by default;
+- current Knowledge publisher migration is staged through shadow generation;
+- certification gates are explicit;
+- rollback behavior is defined before production enablement; and
+- production remains unchanged.
+
 ## Viewports And Clients
 
 - raw HTTP without JavaScript;
