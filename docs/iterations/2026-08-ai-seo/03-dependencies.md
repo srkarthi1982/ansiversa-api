@@ -15,6 +15,7 @@ Canonical frontend route registry
 SEO-001 Platform Architecture
     ↓
 SEO-002 Per-App Public Knowledge Contract
+    Discussing: contract review only
     ├──→ SEO-004 Structured Knowledge Graph Profile
     └──→ SEO-008 marketing.md Participation
     ↓
@@ -41,6 +42,7 @@ Separate Product Owner implementation authorization
 | Public publisher | Backend/platform | Implemented | Existing projection pipeline |
 | App overview metadata | App/platform | Implemented | Current public presentation truth |
 | Four lifecycle documents | App and platform owners | Complete for 100 apps | Governed authored source candidates |
+| Existing registry schema v2 | Backend/platform | Implemented | Evidence baseline only; no SEO-002 runtime change |
 | Frontend route registry | Frontend/platform | Implemented | Canonical app identity and routes |
 | SPA deployment | Frontend/platform | Implemented | Rendering gap to resolve |
 | Search Console | Product/operations | Operational evidence required later | Google crawl/index evidence |
@@ -56,6 +58,9 @@ implementation task freezes, it must cite current first-party documentation and
 record a review date.
 
 `llms.txt` is additive. No task may depend on it as the only route to discovery.
+
+SEO-003 depends on an accepted and frozen SEO-002 contract. Rendering
+architecture must not infer or invent its own public entity shape.
 ---
 
 # Boundary With Astra

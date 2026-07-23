@@ -1,7 +1,7 @@
 # Iteration 2 AI SEO Proposed Backlog
 
 **Status:** Architecture approved
-**Implementation:** SEO-001 only
+**Implementation:** No runtime implementation authorized
 
 Only individually reviewed and frozen tasks may later be considered for
 implementation. Iteration approval does not freeze these tasks.
@@ -9,7 +9,7 @@ implementation. Iteration approval does not freeze these tasks.
 | ID | Task | Priority | Status | Outcome |
 |---|---|---:|---|---|
 | SEO-001 | AI SEO Platform Architecture | Critical | Completed | Approved architecture artifact and validation evidence recorded |
-| SEO-002 | Per-App Public Knowledge Contract | Critical | Proposed | Freeze app-owned fields, provenance, visibility, freshness, and conflict rules |
+| SEO-002 | Per-App Public Knowledge Contract | Critical | Discussing | Specification and architecture review only; implementation unauthorized |
 | SEO-003 | Canonical Public Rendering ADR | Critical | Proposed | Choose SSR, pre-rendering, static generation, or another bounded strategy |
 | SEO-004 | Structured Knowledge Graph Profile | High | Proposed | Freeze supported entity types, relations, stable IDs, and schema.org projections |
 | SEO-005 | Discovery And Crawler Governance | High | Proposed | Separate search, training, user-fetch, robots, WAF, and provider policies |
@@ -47,8 +47,9 @@ SEO-009 Implementation planning
 SEO-003 is the first expensive-to-reverse implementation decision. It must be
 resolved before metadata implementation begins.
 
-SEO-001's documentation and architecture work is complete. No runtime AI SEO
-work or downstream task is authorized.
+SEO-001's documentation and architecture work is complete. SEO-002 is
+authorized only for discovery, specification, and architecture review. No
+runtime AI SEO work is authorized.
 
 ---
 

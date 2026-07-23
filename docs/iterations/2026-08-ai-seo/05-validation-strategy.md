@@ -53,6 +53,20 @@ Tier 4 is observation, not deterministic acceptance evidence.
 
 # Required Test Matrices
 
+## SEO-002 Contract
+
+- required/conditional/optional field behavior;
+- enum, length, list, and strict-schema validation;
+- unique ID, number, slug, canonical URL, and route;
+- exactly one authoritative provenance record per public scalar/list item;
+- authority-role and source-field compatibility;
+- missing, duplicate, stale, and conflicting claims;
+- current/future/retired lifecycle consistency;
+- public/governance-only/prohibited visibility;
+- relationship target and reason validation;
+- deterministic derived values; and
+- synthetic representative fixtures without user data.
+
 ## Entity Coverage
 
 - platform;
@@ -99,7 +113,7 @@ Any unsupported material mismatch fails validation.
 - Markdown readability;
 - relative links resolve;
 - external claims cite first-party sources;
-- statuses remain Discovery/Proposed;
+- statuses match the authorized lifecycle;
 - no runtime, frontend, backend, migration, configuration, generated artifact,
   crawler rule, or production file changes;
 - I1-024 remains Frozen but unauthorized; and
