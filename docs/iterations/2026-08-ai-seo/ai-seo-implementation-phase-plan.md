@@ -20,7 +20,7 @@ requires its own task, validation, Astra review, and Partner approval.
 Status:
 
 ```text
-Complete
+Completed and frozen
 ```
 
 Repository:
@@ -53,6 +53,13 @@ Phase 1 output:
 - focused foundation tests;
 - current-state task documentation.
 
+Review status:
+
+```text
+Astra review approved commit 5f0f852.
+Production unchanged.
+```
+
 Validation:
 
 - backend compile;
@@ -67,7 +74,7 @@ Validation:
 Status:
 
 ```text
-Blocked pending Astra review and Product Owner approval
+Pending authorization
 ```
 
 Repository:
