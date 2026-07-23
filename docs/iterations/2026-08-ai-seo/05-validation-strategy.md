@@ -192,7 +192,25 @@ Phase 2 is completed and Frozen after Astra review.
 - Knowledge registry and public artifact drift checks remain current; and
 - production remains unchanged.
 
-Phase 3 remains blocked until separate Product Owner authorization completes.
+## AI SEO Implementation Phase 3
+
+- Phase 3 is authorized and implemented;
+- Astra review and freeze remain pending;
+- current Knowledge publisher remains the active production publisher;
+- shadow comparison operates on supplied in-memory snapshots only;
+- Knowledge artifact snapshot conversion does not write or publish artifacts;
+- comparison reports are internal only;
+- entity, graph, manifest, metadata, canonical URL, digest, missing,
+  unexpected, duplicate, ordering, and validation-severity differences are
+  detected;
+- duplicate comparable items and failed candidate validation fail closed;
+- repeated comparisons against identical snapshots produce identical reports;
+- no public serving, API exposure, frontend integration, deployment change,
+  runtime startup change, artifact replacement, or production behavior change
+  occurs.
+
+Phase 4 remains blocked until Phase 3 review, freeze, and separate Product
+Owner authorization complete.
 
 ## Viewports And Clients
 

@@ -59,13 +59,15 @@ Deliverables:
 - public render manifest;
 - deterministic reports;
 - compatibility evidence against current Knowledge output.
+- backend-only shadow comparison reports.
 
 Exit criteria:
 
 - compiler runs locally without runtime serving;
 - tests prove deterministic output;
 - candidate artifacts are not public;
-- current Knowledge publisher remains unchanged.
+- current Knowledge publisher remains unchanged;
+- Phase 3 shadow comparison review passes before platform integration begins.
 
 ---
 

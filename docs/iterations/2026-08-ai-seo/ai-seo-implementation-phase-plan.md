@@ -128,7 +128,7 @@ Review status:
 Commit 3136c41 reported scope accepted by Astra.
 Correction commit 7ede8ae approved by Astra source-level re-review.
 Phase 2 Frozen.
-Phase 3 pending separate authorization.
+Phase 3 separately authorized and implemented.
 Production unchanged.
 ```
 
@@ -139,7 +139,7 @@ Production unchanged.
 Status:
 
 ```text
-Not authorized
+Implemented; Astra review pending; freeze pending
 ```
 
 Repository:
@@ -154,6 +154,8 @@ Scope:
 - identify intentional differences;
 - keep the current publisher as production behavior;
 - record candidate evidence without serving it publicly.
+- generate deterministic internal comparison reports;
+- keep Phase 4 blocked until separate authorization.
 
 Validation:
 
@@ -161,6 +163,18 @@ Validation:
 - candidate output has exactly 100 apps and 14 categories;
 - graph and manifest revisions match;
 - validation report contains no secrets or private data.
+- comparison detects entity, graph, manifest, metadata, canonical URL, digest,
+  missing, unexpected, duplicate, ordering, and severity differences;
+- repeated comparisons against identical snapshots produce identical reports.
+
+Boundary:
+
+```text
+No Knowledge publisher replacement, no registry generation replacement, no
+artifact publishing, no public serving, no API exposure, no frontend
+integration, no deployment change, no runtime startup change, no production
+change.
+```
 
 ---
 

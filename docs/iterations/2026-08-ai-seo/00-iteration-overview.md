@@ -56,6 +56,7 @@ data. Iteration 2 must resolve this before expanding machine artifacts.
 - [AI SEO certification plan](ai-seo-certification-plan.md)
 - [AI SEO implementation Phase 1 task](tasks/ai-seo-implementation-phase-1-backend-compiler-foundation.md)
 - [AI SEO implementation Phase 2 task](tasks/ai-seo-implementation-phase-2-compiler-pipeline.md)
+- [AI SEO implementation Phase 3 task](tasks/ai-seo-implementation-phase-3-shadow-comparison.md)
 - [Proposed backlog](02-priority-backlog.md)
 - [Dependencies](03-dependencies.md)
 - [Risk register](04-risk-register.md)
@@ -97,7 +98,13 @@ AI SEO Implementation Phase 2 is complete and Frozen as an isolated backend
 compiler pipeline. Astra approved commit `3136c41` and source-level correction
 commit `7ede8ae`. It does not integrate with runtime routes, the Knowledge
 publisher, frontend rendering, deployment, or production behavior. Phase 3
-remains pending separate authorization.
+is separately authorized and implemented as backend-only shadow comparison.
+
+AI SEO Implementation Phase 3 adds internal comparison reports between current
+Knowledge publisher output and candidate compiler output. It does not replace
+the Knowledge publisher, publish artifacts, expose APIs, integrate frontend
+rendering, change deployment, or change production behavior. Phase 3 review and
+freeze remain pending.
 
 ---
 

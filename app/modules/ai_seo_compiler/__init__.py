@@ -9,6 +9,7 @@ from app.modules.ai_seo_compiler.fixtures import ValidationFixture, validate_fix
 from app.modules.ai_seo_compiler.pipeline import CompilerInput, CompilerOutput, compile_candidate
 from app.modules.ai_seo_compiler.inventory import SourceInventory, SourceInventoryItem, classify_source
 from app.modules.ai_seo_compiler.serialization import stable_digest, stable_json
+from app.modules.ai_seo_compiler.shadow import compare_shadow_snapshots
 
 COMPILER_RUNTIME_ENABLED = False
 
@@ -21,6 +22,7 @@ __all__ = [
     "CompilerOutput",
     "classify_source",
     "compile_candidate",
+    "compare_shadow_snapshots",
     "stable_digest",
     "stable_json",
     "validate_fixture",

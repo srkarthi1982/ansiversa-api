@@ -89,6 +89,7 @@ Each app rollout requires:
 - entity validation passed;
 - graph bundle validated;
 - page bundle validated;
+- shadow comparison report reviewed where applicable;
 - canonical route verified;
 - visible copy matches approved current truth;
 - page-local JSON-LD matches visible content;
