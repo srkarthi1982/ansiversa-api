@@ -243,7 +243,7 @@ Production unchanged.
 Status:
 
 ```text
-Implemented, pending Astra review
+Completed and Frozen
 ```
 
 Repository:
@@ -279,6 +279,17 @@ Boundary:
 No deployment dry run, no frontend repository change, no Knowledge publisher
 replacement, no compiler artifact publication, no public serving, no API
 exposure, no runtime startup change, no production change, and no Phase 6 work.
+```
+
+Review status:
+
+```text
+Commit c629ef1 implemented production readiness validation.
+Correction commit 5346a12 strengthened readiness gates.
+Astra source re-review approved both commits.
+Phase 5 Frozen.
+Phase 6 remains pending separate authorization.
+Production unchanged.
 ```
 
 ---
