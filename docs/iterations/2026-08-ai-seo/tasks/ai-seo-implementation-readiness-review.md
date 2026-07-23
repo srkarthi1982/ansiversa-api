@@ -4,7 +4,7 @@
 **Created:** 2026-07-23
 **Task type:** Governance bridge
 **SEO phase:** None
-**Implementation:** Not authorized
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
@@ -32,19 +32,18 @@ platform with 100 governed apps.
 ```text
 AI SEO Architecture     Complete
 Implementation Review   Complete
-Implementation          Ready for Authorization
+Implementation          Authorized
 Production              Unchanged
 ```
 
-Implementation still requires explicit authorization from Karthik after Astra
-review.
+Implementation must now proceed only through separately scoped, reviewable, and
+certifiable engineering phases. Production changes remain separately blocked.
 
 ---
 
 # Non-Goals
 
 - SEO-006;
-- implementation;
 - prototypes;
 - dependency changes;
 - runtime behavior changes;

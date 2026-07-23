@@ -3,14 +3,14 @@
 **Status:** Complete
 **Created:** 2026-07-23
 **Scope:** Engineering sequencing only
-**Implementation:** Not authorized
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
 
 # Phase Plan
 
-The implementation should be split into small, reviewable phases. Each phase
+The implementation must be split into small, reviewable phases. Each phase
 requires its own task, validation, Astra review, and Partner approval.
 
 ---
@@ -23,7 +23,7 @@ Repository:
 ansiversa-api
 ```
 
-First commit after authorization:
+First implementation commit:
 
 ```text
 Add a disabled AI SEO compiler foundation with source inventory models,

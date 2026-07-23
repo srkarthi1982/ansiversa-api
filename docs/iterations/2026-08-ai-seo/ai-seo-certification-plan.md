@@ -3,7 +3,7 @@
 **Status:** Complete
 **Created:** 2026-07-23
 **Scope:** Certification planning only
-**Implementation:** Not authorized
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
@@ -101,14 +101,15 @@ No app is approved by implication.
 
 # Certification Decision
 
-Certification can approve implementation only after the readiness review is
-accepted and Karthik separately authorizes engineering.
+Certification can approve production behavior only after an implementation
+phase is complete, Astra review passes, and Karthik separately authorizes
+promotion.
 
 Current status:
 
 ```text
 AI SEO Architecture     Complete
 Implementation Review   Complete
-Implementation          Ready for Authorization
+Implementation          Authorized
 Production              Unchanged
 ```

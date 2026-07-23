@@ -5,27 +5,29 @@
 **Scope:** Engineering planning only
 **AI SEO Architecture:** Complete
 **Implementation Review:** Complete
-**Implementation:** Ready for authorization
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
 
 # Decision
 
-SEO-001 through SEO-005 form a complete AI SEO architecture layer. The
-architecture is ready to move from design into implementation authorization,
-provided implementation is still approved separately by Astra and Karthik.
+SEO-001 through SEO-005 form a complete AI SEO architecture layer. Astra has
+approved the Implementation Readiness Review, and Karthik has authorized
+implementation to begin through separately scoped, reviewable engineering
+phases.
 
 ```text
 AI SEO Architecture     Complete
 Implementation Review   Complete
-Implementation          Ready for Authorization
+Implementation          Authorized
 Production              Unchanged
 ```
 
-This review does not authorize implementation, runtime behavior changes,
-deployments, migrations, dependency additions, or production configuration
-changes.
+This approval authorizes implementation planning to move into engineering
+tasks. It does not authorize production deployment, production runtime behavior
+changes, migrations, dependency additions, or production configuration changes
+without separate phase approval.
 
 ---
 
@@ -87,8 +89,8 @@ the SEO-005 compiler without creating a second active public-truth pipeline.
 
 # Engineering Readiness
 
-Implementation can be planned safely because the repository boundaries are
-clear:
+Implementation can begin safely in separately reviewed phases because the
+repository boundaries are clear:
 
 - the backend owns compilation, validation, evidence, and generated release
   artifacts;
@@ -253,7 +255,7 @@ approved cutover.
 
 # Certification Gates
 
-Implementation may not be authorized for production until these gates pass.
+Production enablement may not be authorized until these gates pass.
 
 | Gate | Required evidence |
 |---|---|
@@ -304,10 +306,9 @@ implementation sequencing and certification.
 
 # Non-Goals
 
-This readiness review does not:
+This readiness approval does not:
 
 - define SEO-006;
-- authorize implementation;
 - authorize production deployment;
 - change runtime behavior;
 - change app routes;
@@ -324,13 +325,12 @@ This readiness review does not:
 
 # Final Assessment
 
-The AI SEO architecture is complete and ready for implementation authorization.
-The next decision should be a Product Owner implementation authorization
-decision, not another architecture phase.
+The AI SEO architecture and implementation review are complete. Implementation
+is authorized to begin through separately scoped, certifiable engineering
+phases.
 
-Until that authorization is recorded:
+Until each implementation phase is separately approved:
 
 ```text
-Implementation          Not authorized
 Production              Unchanged
 ```

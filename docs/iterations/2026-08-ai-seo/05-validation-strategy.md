@@ -137,7 +137,7 @@ critical truth, safety, privacy, or fixed-catalog conflict.
 ## AI SEO Implementation Readiness Review
 
 - SEO-001 through SEO-005 are frozen or completed;
-- implementation is not authorized by the review itself;
+- implementation is authorized after Astra approval and Product Owner decision;
 - no SEO-006 is created;
 - first implementation repository and commit boundary are defined;
 - feature flags are disabled by default;

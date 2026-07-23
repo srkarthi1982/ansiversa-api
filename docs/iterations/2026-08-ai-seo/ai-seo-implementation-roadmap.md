@@ -3,7 +3,7 @@
 **Status:** Complete
 **Created:** 2026-07-23
 **Scope:** Roadmap only
-**Implementation:** Not authorized
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
@@ -11,7 +11,8 @@
 # Roadmap
 
 This roadmap bridges the frozen AI SEO architecture to future engineering work.
-It is not SEO-006 and does not authorize implementation.
+It is not SEO-006. Implementation is authorized through separately scoped,
+reviewable, certifiable engineering phases.
 
 ```text
 SEO-001 through SEO-005 frozen
@@ -124,12 +125,13 @@ After all approved rollout phases are complete:
 
 # Roadmap Decision
 
-Implementation is ready for authorization, but authorization has not yet been
-granted.
+Implementation is authorized to begin through separately scoped, reviewable,
+certifiable engineering phases. Production remains unchanged until a later
+phase passes certification and receives explicit promotion approval.
 
 ```text
 AI SEO Architecture     Complete
 Implementation Review   Complete
-Implementation          Ready for Authorization
+Implementation          Authorized
 Production              Unchanged
 ```

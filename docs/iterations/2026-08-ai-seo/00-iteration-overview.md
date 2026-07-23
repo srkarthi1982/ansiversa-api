@@ -4,7 +4,7 @@
 **Approved:** 2026-07-23
 **Architecture review:** Approved
 **Product Owner architecture approval:** Recorded
-**Implementation:** Runtime implementation not authorized
+**Implementation:** Authorized for separately scoped engineering phases
 **Production changes:** Not authorized
 
 ---
@@ -84,9 +84,9 @@ SEO-001 is completed. SEO-002 Contract V1, SEO-003 Hybrid Governed
 Pre-rendering, SEO-004 Structured Knowledge Graph Profile, and SEO-005
 Compiler and Validation Pipeline are approved and Frozen; implementation
 remains unauthorized. The AI SEO architecture phase is complete. The
-implementation readiness review is complete and concludes that implementation
-is ready for separate Product Owner authorization. It is not SEO-006 and does
-not authorize implementation or production change.
+implementation readiness review is complete and accepted. Implementation is
+authorized for separately scoped, reviewable, certifiable engineering phases.
+It is not SEO-006 and does not authorize production change.
 
 ---
 

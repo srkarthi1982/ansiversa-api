@@ -3,7 +3,7 @@
 **Status:** Complete
 **Created:** 2026-07-23
 **Scope:** Implementation planning only
-**Implementation:** Not authorized
+**Implementation:** Authorized
 **Production:** Unchanged
 
 ---
@@ -54,11 +54,11 @@ architecture risks.
 # Risk Decision
 
 No risk requires reopening SEO-001 through SEO-005. The project can proceed to
-implementation authorization if Karthik approves the first engineering task.
+the first separately scoped engineering task.
 
-Until then:
+Until a production phase passes certification and receives explicit promotion
+approval:
 
 ```text
-Implementation          Not authorized
 Production              Unchanged
 ```

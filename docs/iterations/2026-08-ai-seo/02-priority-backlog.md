@@ -13,7 +13,7 @@ implementation. Iteration approval does not freeze these tasks.
 | SEO-003 | Canonical Public Rendering ADR | Critical | Frozen | Hybrid governed pre-rendering accepted; implementation awaits separate authorization |
 | SEO-004 | Structured Knowledge Graph Profile | High | Frozen | Profile V1 approved; implementation awaits separate authorization |
 | SEO-005 | Compiler And Validation Pipeline | Critical | Frozen | Pipeline approved; implementation awaits separate authorization |
-| AI-SEO-IRR | Implementation Readiness Review | Critical | Complete | Architecture is complete and implementation is ready for separate authorization; no SEO-006 created |
+| AI-SEO-IRR | Implementation Readiness Review | Critical | Approved | Architecture is complete and implementation is authorized for separately scoped engineering phases; no SEO-006 created |
 
 ---
 
@@ -43,9 +43,10 @@ Pre-rendering, SEO-004 Structured Knowledge Graph Profile, and SEO-005
 Compiler and Validation Pipeline are approved and Frozen. The AI SEO
 architecture phase is complete. No runtime AI SEO work is authorized.
 
-The AI SEO Implementation Readiness Review is complete. It is a governance
-bridge between architecture and engineering, not another numbered SEO
-architecture phase.
+The AI SEO Implementation Readiness Review is complete and approved. It is a
+governance bridge between architecture and engineering, not another numbered
+SEO architecture phase. Implementation is authorized for separately scoped
+engineering phases; production change remains unauthorized.
 
 ---
 
