@@ -31,4 +31,3 @@
 - missing rollback;
 - production changes without separate authorization; and
 - claims that validation guarantees search or AI inclusion.
-

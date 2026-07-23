@@ -105,4 +105,3 @@ freeze, and authorization.
 No runtime code, migration, schema, route, registry, publisher, metadata,
 JSON-LD, sitemap, robots, frontend, backend, configuration, feature flag,
 crawler submission, deployment, or production state changed during SEO-001.
-

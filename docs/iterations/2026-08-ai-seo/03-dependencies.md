@@ -56,7 +56,6 @@ implementation task freezes, it must cite current first-party documentation and
 record a review date.
 
 `llms.txt` is additive. No task may depend on it as the only route to discovery.
-
 ---
 
 # Boundary With Astra
@@ -68,4 +67,3 @@ I1-024 remains Frozen and implementation remains unauthorized. Iteration 2:
 - does not consume authenticated/user knowledge;
 - does not merge public SEO knowledge with personal context; and
 - does not change the accepted persistent-audit architecture.
-
