@@ -414,8 +414,8 @@ Before implementation:
 4. Define standard sitemap versus diagnostic AI-sitemap ownership.
 5. Approve crawler search/training/user-fetch policies.
 6. Preserve the accepted SEO-004 structured-data profile and validation rules.
-7. Review the proposed SEO-005 compiler and validation pipeline.
-8. Define implementation planning, sequencing, and authorization after
-   SEO-005 approval.
+7. Preserve the accepted SEO-005 compiler and validation pipeline.
+8. Define implementation readiness review, implementation planning,
+   sequencing, and authorization after architecture completion.
 
 No implementation should begin from this proposal alone.

@@ -1,12 +1,14 @@
 # Architecture Decision: AI SEO Compiler and Validation Pipeline
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-23
+**Accepted:** 2026-07-23
 **Task:** SEO-005
 **Decision Owner:** Karthikeyan Ramalingam
-**Architecture Direction:** Astra - Approved pending minor revision verification
-**Freeze:** Pending minor revisions verification
-**Product Owner:** Karthikeyan Ramalingam - Pending Approval
+**Architecture Direction:** Astra - Approved 2026-07-23
+**Architecture Review:** Astra - Approved 2026-07-23
+**Freeze:** Frozen 2026-07-23
+**Product Owner:** Karthikeyan Ramalingam - Approved 2026-07-23
 **Evidence Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -17,8 +19,6 @@
 
 Should Ansiversa adopt a governed compiler and validation pipeline as the final
 planned AI SEO architecture phase?
-
-Recommended decision:
 
 Adopt a backend-owned, build-time compiler and validation pipeline that turns
 governed SEO source documents into validated SEO-002 entities, SEO-004 graph
@@ -33,7 +33,7 @@ docs/ai-seo-compiler-validation-pipeline.md
 
 ---
 
-# Proposed Architecture Law
+# Accepted Architecture Law
 
 ## AI SEO Engineering Law #3
 
@@ -41,7 +41,7 @@ docs/ai-seo-compiler-validation-pipeline.md
 > graph, manifest, and revision-parity validations pass for the same immutable
 > approved release.
 
-Law #3 is directionally approved by Astra with this parity-scope clarification:
+Law #3 is approved with this parity-scope clarification:
 page-bound artifacts require visible-page parity, while release-bound non-page
 artifacts require release-revision parity. All deployed artifacts must belong
 to the same approved immutable release.
@@ -61,7 +61,7 @@ evidence but not enough as the permanent release contract.
 
 ## C - Governed compiler pipeline over the Knowledge foundation
 
-**Recommendation:** Preferred candidate.
+**Decision:** Accepted.
 
 ## D - Runtime validation and regeneration
 
@@ -70,7 +70,7 @@ deterministic, immutable, and auditable.
 
 ---
 
-# Proposed Architecture
+# Accepted Architecture
 
 ```text
 Governed SEO source documents
@@ -108,7 +108,7 @@ for public pre-rendering and page-local parity.
 
 If accepted:
 
-- SEO-005 becomes the final planned AI SEO architecture phase.
+- SEO-005 is the final planned AI SEO architecture phase.
 - Implementation remains blocked until a separate implementation plan and
   authorization.
 - Crawler, new sitemap architecture, observability, marketing participation,
@@ -125,15 +125,15 @@ If accepted:
 
 # Acceptance Record
 
-- [x] Architecture direction approved pending minor revision verification.
-- [ ] Product Owner accepted the decision.
-- [x] AI SEO Engineering Law #3 direction accepted with parity-scope clarification.
-- [ ] Pipeline stages accepted.
-- [ ] Severity and release-gate model accepted.
-- [x] Manifest internal/public boundary added for verification.
-- [ ] Repository ownership accepted.
-- [ ] SEO-001 through SEO-005 architecture completeness accepted.
-- [ ] SEO-005 frozen.
+- [x] Architecture Reviewer approved the recommendation and boundaries.
+- [x] Product Owner accepted the decision.
+- [x] AI SEO Engineering Law #3 accepted with parity-scope clarification.
+- [x] Pipeline stages accepted.
+- [x] Severity and release-gate model accepted.
+- [x] Manifest internal/public boundary accepted.
+- [x] Repository ownership accepted.
+- [x] SEO-001 through SEO-005 architecture completeness accepted.
+- [x] SEO-005 frozen.
 
 ---
 
@@ -142,9 +142,10 @@ If accepted:
 ```text
 Repository evidence           Collected
 Architecture                 Governed compiler and validation pipeline
-Architecture direction        Approved pending minor revision verification
-ADR                           Proposed
-SEO-005                       Proposed
+Architecture direction        Approved
+Architecture review           Approved
+ADR                           Accepted
+SEO-005                       Frozen
 Implementation                Not authorized
 Runtime                       Unchanged
 Production                    Unchanged

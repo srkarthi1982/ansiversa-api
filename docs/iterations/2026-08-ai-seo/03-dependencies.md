@@ -42,7 +42,7 @@ Separate Product Owner implementation authorization
 | Existing registry schema v2 | Backend/platform | Implemented | Evidence baseline only; no SEO-002 runtime change |
 | Frontend route registry | Frontend/platform | Implemented | Canonical app identity and routes |
 | SPA deployment | Frontend/platform | Implemented | Rendering gap to resolve |
-| SEO-005 compiler pipeline | Backend/platform | Proposed | Final architecture layer connecting sources, validation, graph, manifest, and rendering |
+| SEO-005 compiler pipeline | Backend/platform | Frozen | Final architecture layer connecting sources, validation, graph, manifest, and rendering |
 | Search Console | Product/operations | Operational evidence required later | Deferred implementation/operations evidence |
 | Bing Webmaster Tools | Product/operations | Operational evidence required later | Deferred implementation/operations evidence |
 
@@ -84,13 +84,12 @@ future immutable manifest/page-local rendering boundary. SEO-004 does not
 authorize schema.org, JSON-LD, manifest, frontend, backend, sitemap, robots,
 cache, deployment, or production implementation.
 
-SEO-005 is Proposed as the final planned AI SEO architecture phase, with
-architecture direction approved and freeze pending minor revision verification.
-It depends on SEO-001 through SEO-004 and defines the compiler/validation
-pipeline that connects governed SEO source documents to SEO-004 graph bundles,
-SEO-003 immutable manifests, hybrid pre-rendering, and validated artifacts.
-SEO-005 does not authorize compiler, manifest, frontend, backend, artifact,
-deployment, or production implementation.
+SEO-005 is Frozen as the final planned AI SEO architecture phase. It depends on
+SEO-001 through SEO-004 and defines the compiler/validation pipeline that
+connects governed SEO source documents to SEO-004 graph bundles, SEO-003
+immutable manifests, hybrid pre-rendering, and validated artifacts. SEO-005
+does not authorize compiler, manifest, frontend, backend, artifact, deployment,
+or production implementation.
 ---
 
 # Boundary With Astra

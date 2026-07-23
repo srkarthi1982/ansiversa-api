@@ -15,9 +15,8 @@ SEO-004 Structured Knowledge Graph Profile is Frozen with Architecture Review
 approved, Product Owner approval recorded, ADR accepted, and no implementation
 authorization.
 
-SEO-005 Compiler and Validation Pipeline is Proposed with discovery and
-specification complete, architecture direction approved, freeze pending minor
-revision verification, Product Owner approval pending, ADR proposed, and no
-implementation authorization. After SEO-005 approval, the AI SEO architecture
-phase should be treated as complete and move to implementation planning only
-when explicitly authorized.
+SEO-005 Compiler and Validation Pipeline is Frozen with Architecture Direction
+approved, Architecture Review approved, Product Owner approval recorded, ADR
+accepted, and no implementation authorization. The AI SEO architecture phase is
+complete. Next work should move to implementation readiness review and
+implementation planning only when explicitly authorized.
