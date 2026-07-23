@@ -8,7 +8,7 @@ implementation. Iteration approval does not freeze these tasks.
 
 | ID | Task | Priority | Status | Outcome |
 |---|---|---:|---|---|
-| SEO-001 | AI SEO Platform Architecture | Critical | Frozen | Complete and validate the approved platform architecture artifact |
+| SEO-001 | AI SEO Platform Architecture | Critical | Completed | Approved architecture artifact and validation evidence recorded |
 | SEO-002 | Per-App Public Knowledge Contract | Critical | Proposed | Freeze app-owned fields, provenance, visibility, freshness, and conflict rules |
 | SEO-003 | Canonical Public Rendering ADR | Critical | Proposed | Choose SSR, pre-rendering, static generation, or another bounded strategy |
 | SEO-004 | Structured Knowledge Graph Profile | High | Proposed | Freeze supported entity types, relations, stable IDs, and schema.org projections |
@@ -47,8 +47,8 @@ SEO-009 Implementation planning
 SEO-003 is the first expensive-to-reverse implementation decision. It must be
 resolved before metadata implementation begins.
 
-Implementation authorization applies only to SEO-001's documentation and
-architecture boundary. It does not authorize runtime AI SEO work.
+SEO-001's documentation and architecture work is complete. No runtime AI SEO
+work or downstream task is authorized.
 
 ---
 
