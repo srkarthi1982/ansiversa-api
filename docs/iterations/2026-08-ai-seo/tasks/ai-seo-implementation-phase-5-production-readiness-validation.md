@@ -53,6 +53,15 @@ Repository scope is `ansiversa-api` only.
   - recommendations;
   - release candidate identifier;
   - deterministic evidence digest.
+- Source-review correction gates for:
+  - required Internal Release Manifest;
+  - internal/public release ID agreement;
+  - internal graph digest consistency;
+  - internal release-blocked state consistency;
+  - complete 14-category compiler graph projection;
+  - unique category identities;
+  - app category resolution against canonical Knowledge categories;
+  - evaluated rollback conditions instead of asserted constants.
 
 ---
 
@@ -98,12 +107,17 @@ Focused tests cover:
 - readiness failure when compiler execution fails;
 - manifest inconsistency failure;
 - rollback readiness evidence;
-- fail-open preservation of current Knowledge artifacts.
+- fail-open preservation of current Knowledge artifacts;
+- missing Internal Release Manifest false-ready prevention;
+- missing category node false-ready prevention;
+- duplicate category identity false-ready prevention;
+- unresolved app category false-ready prevention;
+- rollback probe false-ready prevention.
 
 Validation performed:
 
 - `python -m pytest tests/test_ai_seo_compiler_foundation.py tests/test_ai_seo_compiler_pipeline.py tests/test_ai_seo_compiler_shadow.py tests/test_ai_seo_compiler_integration.py tests/test_ai_seo_compiler_readiness.py`
-  - passed: 64 tests.
+  - passed: 69 tests.
 - `python -m compileall app/modules/ai_seo_compiler app/modules/knowledge/build_public.py tests/test_ai_seo_compiler_foundation.py tests/test_ai_seo_compiler_pipeline.py tests/test_ai_seo_compiler_shadow.py tests/test_ai_seo_compiler_integration.py tests/test_ai_seo_compiler_readiness.py`
   - passed.
 - `python -m app.modules.knowledge.check_registry`
