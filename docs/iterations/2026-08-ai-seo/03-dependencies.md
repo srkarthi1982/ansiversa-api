@@ -16,8 +16,7 @@ SEO-001 Platform Architecture
     ↓
 SEO-002 Per-App Public Knowledge Contract
     Frozen: Contract V1 approved; implementation authorization pending
-    ├──→ SEO-004 Structured Knowledge Graph Profile
-    └──→ SEO-008 marketing.md Participation
+    └──→ SEO-004 Structured Knowledge Graph Profile
     ↓
 SEO-003 Canonical Public Rendering ADR
     ↓
@@ -85,12 +84,13 @@ future immutable manifest/page-local rendering boundary. SEO-004 does not
 authorize schema.org, JSON-LD, manifest, frontend, backend, sitemap, robots,
 cache, deployment, or production implementation.
 
-SEO-005 is Proposed as the final planned AI SEO architecture phase. It depends
-on SEO-001 through SEO-004 and defines the compiler/validation pipeline that
-connects governed SEO source documents to SEO-004 graph bundles, SEO-003
-immutable manifests, hybrid pre-rendering, and validated artifacts. SEO-005
-does not authorize compiler, manifest, frontend, backend, artifact, deployment,
-or production implementation.
+SEO-005 is Proposed as the final planned AI SEO architecture phase, with
+architecture direction approved and freeze pending minor revision verification.
+It depends on SEO-001 through SEO-004 and defines the compiler/validation
+pipeline that connects governed SEO source documents to SEO-004 graph bundles,
+SEO-003 immutable manifests, hybrid pre-rendering, and validated artifacts.
+SEO-005 does not authorize compiler, manifest, frontend, backend, artifact,
+deployment, or production implementation.
 ---
 
 # Boundary With Astra

@@ -6,7 +6,8 @@
 **Status:** Proposed
 **Discovery:** Complete
 **Specification:** Complete
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Astra - Approved pending minor revision verification
+**Freeze:** Pending minor revisions verification
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation:** Not authorized
@@ -58,12 +59,24 @@ flowchart TD
 
 ## AI SEO Engineering Law #3
 
-> No public SEO artifact may be emitted unless source validation, entity
-> validation, graph validation, manifest validation, and page/artifact parity
-> pass for the same immutable revision.
+> No public SEO artifact may be emitted unless its required source, entity,
+> graph, manifest, and revision-parity validations pass for the same immutable
+> approved release.
 
 This law is proposed because SEO-005 establishes the release gate that ties
 SEO-002, SEO-003, and SEO-004 together.
+
+Interpretation:
+
+- page-bound artifacts must pass source, entity, graph, manifest, visible-page,
+  metadata, hydration, and page-local structured-data parity;
+- release-bound non-page artifacts such as `robots.txt`, `llms.txt`,
+  aggregate JSON, and sitemap inputs must pass source, entity, graph, manifest,
+  artifact, and release-revision parity;
+- every deployed artifact must belong to the same approved immutable release;
+  and
+- parity never means inventing hidden visible-page equivalents for artifacts
+  that are not page-bound.
 
 ---
 
@@ -76,7 +89,7 @@ SEO-002, SEO-003, and SEO-004 together.
 | Backend `story.md` | `ansiversa-api/app/modules/<app_module>/story.md` | Current capability, limitation, and safety truth |
 | Backend `destination.md` | `ansiversa-api/app/modules/<app_module>/destination.md` | Future direction and destination governance, not current claims |
 | Backend `market-study.md` | `ansiversa-api/app/modules/<app_module>/market-study.md` | Research only; no direct current-claim authority |
-| Backend `marketing.md` | `ansiversa-api/app/modules/<app_module>/marketing.md` | Candidate communication only until SEO-009 or equivalent approval |
+| Backend `marketing.md` | `ansiversa-api/app/modules/<app_module>/marketing.md` | Candidate communication only; non-authoritative unless a separately approved source-authority policy explicitly permits selected fields |
 | Frontend route registry | `ansiversa` | Canonical route and public route allowlist validation |
 | SEO-002 contract | `ansiversa-api/docs/ai-seo-per-app-public-knowledge-contract.md` | Public entity shape and source authority |
 | SEO-003 ADR | `ansiversa-api/docs/architecture/decisions/ai-seo-canonical-public-rendering.md` | Manifest and rendering boundary |
@@ -217,13 +230,24 @@ The compiler projects validated entities into the SEO-004 graph profile:
 
 Graph compilation emits no public output when validation fails.
 
-## Stage 9 - Immutable SEO Manifest Generation
+## Stage 9 - Manifest Generation
 
-The manifest is the SEO-003 handoff artifact. It contains public release inputs
-for pre-rendering and machine projections.
+The pipeline separates internal governance evidence from public rendering
+payloads.
 
-Required manifest metadata:
+### Internal Release Manifest
 
+The Internal Release Manifest is the complete release control artifact. It is
+never public by default.
+
+Required metadata:
+
+- immutable `releaseId`;
+- previous compatible release or `rollbackBaseReleaseId`;
+- backend source commit/revision;
+- frontend route-registry commit/revision;
+- manifest creation mode: `full` or future `incremental`;
+- release status: `candidate`, `approved`, or `rejected`;
 - manifest schema version;
 - SEO-002 contract version;
 - SEO-004 profile version;
@@ -239,11 +263,34 @@ Required manifest metadata:
 - validation summary;
 - release-blocking status.
 
-The manifest is immutable. Mutable `latest` fetches are not valid build inputs.
+The Internal Release Manifest may contain validation summaries, source
+inventory, digest evidence, rollback evidence, compatibility metadata, and
+audit diagnostics. It must not be deployed publicly by default.
+
+### Public Render Manifest And Page Bundles
+
+The Public Render Manifest is the limited SEO-003 handoff payload. It contains
+only fields required for pre-rendering and hydration:
+
+- public route;
+- canonical URL;
+- public visible-page content;
+- public metadata;
+- page-local graph bundle;
+- public entity revision;
+- public release ID;
+- compatible schema versions.
+
+It must not contain internal paths, diagnostics, approver details, source
+inventory, full validation reports, rollback evidence, or sensitive governance
+metadata.
+
+Both manifest forms are immutable and tied to the same release ID. Mutable
+`latest` fetches are not valid build inputs.
 
 ## Stage 10 - Artifact Projection
 
-The manifest may produce:
+The manifest release may produce:
 
 - pre-render page bundles;
 - page metadata;
@@ -252,7 +299,12 @@ The manifest may produce:
 - public knowledge JSON;
 - diagnostic metadata;
 - existing public AI text artifacts;
-- sitemap inputs only when sitemap architecture is separately approved.
+- current governed sitemap and robots artifacts where they already exist; new
+  sitemap architecture, provider submission, IndexNow, crawler-policy
+  expansion, or provider integration requires separate authorization.
+
+Existing `ai-sitemap.xml` and `robots.txt` artifacts remain current evidence
+and current behavior. SEO-005 does not remove, replace, or change them.
 
 Artifacts are projections. They are not source truth.
 
@@ -288,12 +340,13 @@ Material mismatch blocks release.
 |---|---|---|
 | `blocker` | Privacy, identity, fixed-catalog, route, critical graph, or manifest failure | No release |
 | `critical` | Required public truth missing, stale, unsupported, or conflicting | No release |
-| `major` | Optional public field unsafe or invalid | Omit only if approved policy allows; otherwise no release |
+| `major` | Optional public field unsafe or invalid | Omit only if an exact approved omission policy exists; otherwise no release |
 | `minor` | Non-public diagnostic issue | Release allowed with report |
 | `info` | Audit evidence, counts, or unchanged status | Release allowed |
 
 Severity may only be downgraded by an approved policy, never by compiler
-convenience.
+convenience. Implementation readiness must identify the exact omission policy;
+compiler developers must not invent one during implementation.
 
 ---
 
@@ -315,8 +368,13 @@ manifest, and artifacts. It is required for:
 
 ## Incremental Compilation
 
-Incremental compilation may be considered only after full compilation is
-stable. It must:
+Incremental compilation is architecturally defined but deferred from V1
+implementation.
+
+V1 implementation must use full compilation only. Incremental compilation
+requires separate authorization after full-build stability evidence exists.
+
+When separately authorized later, incremental compilation must:
 
 - compute the changed source set;
 - identify affected entities and relationships;
@@ -339,6 +397,12 @@ Each release records:
 - SEO-002 contract version;
 - SEO-004 graph profile version;
 - manifest schema version;
+- immutable release ID;
+- rollback base release ID;
+- backend source revision;
+- frontend route-registry revision;
+- creation mode: `full` or future `incremental`;
+- release status;
 - frontend consumer compatibility range;
 - generated artifact schema versions.
 

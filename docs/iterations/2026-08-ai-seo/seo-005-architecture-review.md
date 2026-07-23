@@ -4,7 +4,8 @@
 **Status:** Proposed
 **Discovery:** Complete
 **Specification:** Complete
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved pending minor revision verification
+**Freeze:** Pending minor revisions verification
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation:** Not authorized
@@ -100,31 +101,31 @@ Adopt Option C:
 
 # Review Questions
 
-1. Should SEO-005 adopt AI SEO Engineering Law #3 as proposed?
-2. Are the severity levels sufficient for source, entity, graph, manifest, and
-   deployment validation?
-3. Should incremental compilation remain deferred until full compilation is
-   proven in implementation?
-4. Does the manifest metadata list contain enough compatibility and rollback
-   evidence?
-5. Does the repository ownership split preserve backend truth and frontend
-   consumer responsibilities?
-6. Should SEO-005 formally close the AI SEO architecture phase after approval?
-7. Which crawler/sitemap/observability topics should move into implementation
-   planning rather than new architecture phases?
+1. Law #3 direction is approved with page-bound versus release-bound parity
+   clarification.
+2. Severity model direction is approved; implementation readiness must identify
+   exact omission policy before compiler work.
+3. V1 implementation is full compilation only; incremental compilation is
+   architecturally defined but implementation-deferred.
+4. Manifest metadata is approved after adding release ID, rollback base,
+   backend/frontend revisions, creation mode, and release status.
+5. Repository ownership split is approved.
+6. Architecture phase closure is approved after these revisions and freeze.
+7. Crawler/provider topics move to later implementation/operations planning.
 
 ---
 
 # Acceptance Criteria For Freezing SEO-005
 
-- [ ] Astra approves or revises the compiler pipeline architecture.
+- [x] Astra approves the compiler pipeline architecture direction.
+- [ ] Astra verifies the requested minor documentation revisions.
 - [ ] Product Owner approves the architecture.
 - [ ] ADR is accepted or explicitly marked not required.
-- [ ] AI SEO Engineering Law #3 is accepted, revised, or rejected.
+- [x] AI SEO Engineering Law #3 is approved with parity-scope clarification.
 - [ ] Authoritative inputs are accepted.
 - [ ] Pipeline stages are accepted.
 - [ ] Severity levels and release gates are accepted.
-- [ ] Manifest generation boundary is accepted.
+- [x] Manifest internal/public boundary is documented for verification.
 - [ ] Failure, stale-output, fallback, and rollback policy is accepted.
 - [ ] Repository ownership is accepted.
 - [ ] Architecture-completeness assessment is accepted.
@@ -138,7 +139,8 @@ Adopt Option C:
 SEO-005                 Proposed
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Freeze                  Pending minor revisions verification
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

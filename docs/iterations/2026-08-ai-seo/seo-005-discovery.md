@@ -4,7 +4,8 @@
 **Status:** Proposed
 **Discovery:** Complete
 **Specification:** Complete
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved pending minor revision verification
+**Freeze:** Pending minor revisions verification
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation:** Not authorized
@@ -75,6 +76,11 @@ Current evidence shows a partial foundation already exists:
 The future SEO-005 pipeline must build on this foundation without silently
 turning current scripts into an approved implementation. Existing code remains
 evidence, not authorization.
+
+Existing governed artifacts such as `ai-sitemap.xml` and `robots.txt` remain
+current behavior and evidence. SEO-005 does not authorize new sitemap
+architecture, provider submission automation, IndexNow, crawler-policy
+expansion, provider integration, or removal/change of current artifacts.
 
 ---
 

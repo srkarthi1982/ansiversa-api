@@ -184,4 +184,5 @@ validators and projections without redesigning the graph.
 - deciding crawler/search/training policy;
 - deciding sitemap/freshness/IndexNow policy;
 - deciding validation dashboards; and
-- adding automatic `marketing.md` compiler participation from SEO-008.
+- adding automatic `marketing.md` compiler participation without separate
+  source-authority approval.
