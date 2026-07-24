@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** Proposed; architecture direction approved with minor revisions applied
+**Status:** ASTRA-001 approved and Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -48,12 +48,11 @@ Task freeze
 Separate implementation authorization
 ```
 
-ASTRA-001 remains Proposed. Astra approved the architecture direction for
-commit `ceb92e9` and requested minor documentation revisions before freeze.
-Those revisions have been applied and await Astra re-review and Product Owner
-approval. ASTRA-001 does not authorize Phase 2 implementation, runtime
-changes, app integration, providers, APIs, migrations, frontend changes,
-deployment changes, or production behavior.
+ASTRA-001 is approved and Frozen after Astra re-review and Product Owner
+approval. The ADR is accepted. ASTRA-001 does not authorize Phase 2
+implementation, runtime changes, app integration, providers, APIs, migrations,
+frontend changes, deployment changes, or production behavior. Phase 2 is
+documentation-only next and requires separate authorization before work begins.
 
 ---
 
@@ -102,4 +101,4 @@ ASTRA-001 succeeds when:
 - deployment changes;
 - AI SEO implementation changes;
 - production authorization; and
-- approval or freeze before Astra review and Product Owner approval.
+- implementation before separate authorization.

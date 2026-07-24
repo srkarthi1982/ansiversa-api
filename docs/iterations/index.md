@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | Proposed | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -41,10 +41,10 @@ Iteration 3 planning package:
 docs/iterations/2026-08-astra-ai/
 ```
 
-ASTRA-001 Vision and Core Architecture is Proposed. It defines Astra AI as a
-governed intelligence layer over existing Assistant, Knowledge, tool,
-authentication, AI SEO, and platform foundations. Astra approved the
-architecture direction for commit `ceb92e9` and requested minor documentation
-revisions before freeze; those revisions are applied pending Astra re-review.
-Product Owner approval remains pending. Implementation, Phase 2, and
-production changes are not authorized.
+ASTRA-001 Vision and Core Architecture is approved and Frozen. It defines
+Astra AI as a governed intelligence layer over existing Assistant, Knowledge,
+tool, authentication, AI SEO, and platform foundations. Astra approved commit
+`ceb92e9`, re-reviewed the refinements in commit `3c5bb84`, and Product Owner
+approval is recorded. The ADR is accepted. Implementation and production
+changes are not authorized. Phase 2 is documentation-only next and requires
+separate authorization.

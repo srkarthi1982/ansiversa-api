@@ -1,6 +1,6 @@
 # Astra AI Architecture Backlog
 
-**Status:** Proposed
+**Status:** ASTRA-001 frozen; later tasks pending authorization
 **Implementation:** Not authorized
 
 Only individually reviewed and authorized tasks may later move into
@@ -8,8 +8,8 @@ implementation. ASTRA-001 does not authorize any runtime work.
 
 | ID | Task | Priority | Status | Outcome |
 |---|---|---:|---|---|
-| ASTRA-001 | Vision And Core Architecture | Critical | Proposed | Constitutional architecture, options, ownership, risks, and ADR proposed |
-| ASTRA-002 | Conversation And Interface Contract | Critical | Deferred | Define chat/search/voice/contextual interface contracts after ASTRA-001 approval |
+| ASTRA-001 | Vision And Core Architecture | Critical | Frozen | Constitutional architecture, options, ownership, risks, and ADR accepted |
+| ASTRA-002 | Conversation And Interface Contract | Critical | Pending separate authorization | Documentation-only next phase; define chat/search/voice/contextual interface contracts |
 | ASTRA-003 | Context And Memory Architecture | Critical | Deferred | Define retention, consent, deletion, export, and model-context boundaries |
 | ASTRA-004 | Planning And Action Proposal Contract | High | Deferred | Define planning model, impact classification, confirmation, and refusal rules |
 | ASTRA-005 | Controlled Execution Readiness | Critical | Deferred | Define execution gates, audit, rollback, and production-readiness evidence |
@@ -34,5 +34,5 @@ Controlled execution readiness
 Cross-app orchestration
 ```
 
-No item after ASTRA-001 should start until ASTRA-001 is reviewed, approved, and
-frozen.
+ASTRA-001 is reviewed, approved, and Frozen. No later task should start without
+separate Product Owner authorization and Astra review scope.

@@ -1,11 +1,13 @@
 # Architecture Decision: Astra AI Vision And Core Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-24
+**Accepted:** 2026-07-24
+**Frozen:** 2026-07-24
 **Task:** ASTRA-001
 **Decision Owner:** Karthikeyan Ramalingam
-**Architecture Review:** Pending Astra Review
-**Product Owner Approval:** Pending
+**Architecture Review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -16,12 +18,12 @@
 Should Ansiversa define Astra AI as a governed intelligence layer over the
 existing Assistant, Knowledge, tool, authentication, and platform foundations?
 
-Recommendation:
+Decision:
 
 Adopt a governed Astra AI intelligence layer that reuses existing platform
 foundations and evolves through explicitly reviewed stages.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-vision-core-architecture.md
@@ -49,7 +51,7 @@ parallel runtime behavior and user experience fragmentation.
 
 ## Option 3 - Governed Intelligence Layer Over Existing Foundations
 
-Recommendation: Accept if approved.
+Recommendation: Accept.
 
 This approach creates a constitutional Astra AI layer while preserving the
 existing Assistant, Knowledge, auth, tool registry, AI SEO, and app-service
@@ -72,7 +74,7 @@ would increase the risk of opportunistic app integration or hidden execution.
 
 ---
 
-# Proposed Architecture
+# Accepted Architecture
 
 ```text
 User Interfaces
@@ -106,7 +108,7 @@ data-processing decision, not an automatic assumption.
 
 ---
 
-# Proposed Architecture Law
+# Accepted Architecture Law
 
 ## Astra AI Engineering Law #1
 
@@ -157,21 +159,22 @@ Ansiversa data, decide truth, determine permission, or execute actions.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-001 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Astra architecture review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-001 frozen.
+- [x] Future implementation phase separately scoped before implementation.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-001               Proposed
-Architecture Review     Pending Astra Review
-Product Owner Approval  Pending
+ADR                     Accepted
+ASTRA-001               Approved and Frozen
+Architecture Review     Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+Phase 2                 Documentation only next; requires separate authorization
 ```

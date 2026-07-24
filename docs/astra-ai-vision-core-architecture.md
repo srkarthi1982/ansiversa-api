@@ -1,9 +1,14 @@
 # Astra AI Vision And Core Architecture
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-001
 **Created:** 2026-07-24
+**Approved:** 2026-07-24
+**Frozen:** 2026-07-24
 **Scope:** Documentation, discovery, specification, and architecture review only
+**Architecture Review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -714,8 +719,9 @@ Adopt Option 3: a governed Astra AI intelligence layer over existing Assistant,
 Knowledge, tool, authentication, and platform foundations, evolving in
 controlled stages.
 
-This recommendation should remain Proposed until Astra architecture review and
-Product Owner approval.
+This recommendation is accepted as the ASTRA-001 constitutional architecture
+for Astra AI. Later architecture documents must inherit these boundaries rather
+than redefine them.
 
 ---
 
@@ -759,12 +765,14 @@ Product Owner approval.
 # Status Boundary
 
 ```text
-ASTRA-001               Proposed
+ASTRA-001               Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
-Product Owner Approval  Pending
-ADR                     Proposed
+Architecture Review     Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-001 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+Phase 2                 Documentation only next; requires separate authorization
 ```

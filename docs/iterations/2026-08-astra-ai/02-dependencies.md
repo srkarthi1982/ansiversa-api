@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** Proposed
+**Status:** ASTRA-001 frozen; implementation dependencies remain blocking
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -20,7 +20,6 @@
 
 # Blocking Dependencies Before Implementation
 
-- ASTRA-001 approval and freeze;
 - Product Owner authorization for a named implementation phase;
 - source-level Astra review of the proposed implementation task;
 - explicit non-goals and rollback boundaries;

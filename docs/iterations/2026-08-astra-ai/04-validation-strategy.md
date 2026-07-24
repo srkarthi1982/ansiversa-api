@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Proposed
+**Status:** Accepted for ASTRA-001; future implementation validation pending
 
 This strategy validates ASTRA-001 as an architecture task only. It does not
 claim runtime behavior.
@@ -12,8 +12,8 @@ claim runtime behavior.
 ## Tier 1 - Documentation Integrity
 
 - required ASTRA-001 documents exist;
-- status remains Proposed;
-- ADR remains Proposed;
+- ASTRA-001 status is approved and Frozen;
+- ADR is accepted;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -32,8 +32,8 @@ claim runtime behavior.
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
-- Product Owner approval remains pending;
-- Astra review remains pending;
+- Product Owner approval is recorded;
+- Astra review is approved;
 - Phase 2 implementation remains unauthorized;
 - production remains unchanged; and
 - human-control and execution boundaries are explicit.

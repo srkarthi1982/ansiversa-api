@@ -1,9 +1,11 @@
 # ASTRA-001 - Vision And Core Architecture
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-24
 **Owner:** Karthikeyan Ramalingam
-**Architecture Review:** Direction approved; minor revisions applied
+**Architecture Review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -65,13 +67,15 @@ Not allowed:
 # Final ASTRA-001 Status
 
 ```text
-ASTRA-001               Proposed
+ASTRA-001               Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Architecture Review     Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-001 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+Phase 2                 Documentation only next; requires separate authorization
 ```
