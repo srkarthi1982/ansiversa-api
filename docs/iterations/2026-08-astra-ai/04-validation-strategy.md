@@ -81,8 +81,10 @@ ASTRA-004 coverage:
 - fabricated capabilities are prohibited;
 - capability ownership is explicit;
 - capability availability states are documented;
+- permission metadata is separated from live authorization;
 - tool side-effect, read/write, approval, and dependency metadata are
   documented;
+- deterministic candidate precedence and ambiguity handling are documented;
 - capability evidence is bounded and reviewable;
 - discovery remains provider-independent; and
 - failure behavior fails closed when capability authority cannot be
@@ -117,6 +119,8 @@ Future implementation tasks must add executable validation for:
 - provider input-envelope minimization and sensitivity classification;
 - no fabricated capability selection;
 - no tool execution during discovery;
+- permission metadata does not satisfy live authorization checks;
+- equal candidate resolution is stable or returns clarification/ambiguity;
 - rollback and restoration;
 - disabled-by-default production gates.
 

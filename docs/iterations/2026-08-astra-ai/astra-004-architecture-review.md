@@ -4,6 +4,8 @@
 **Created:** 2026-07-24
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -28,7 +30,9 @@ ASTRA-001, ASTRA-002, and ASTRA-003 and defines how Astra discovers registered
 capabilities, classifies tools, evaluates ownership and side-effect metadata,
 selects or rejects tool candidates, prevents capability fabrication, records
 bounded discovery evidence, and preserves the separation between discovery and
-execution authority.
+execution authority. The current revision also separates registry permission
+metadata from live authorization and defines deterministic candidate precedence
+with clarification or ambiguous-capability fallback.
 
 ---
 
@@ -53,6 +57,10 @@ execution authority.
 11. Does failure behavior fail closed when capability authority cannot be
     established?
 12. Is the documentation-only boundary complete?
+13. Does ASTRA-004 separate permission requirements metadata from live
+    authorization truth?
+14. Does ASTRA-004 define deterministic tie resolution without relying on
+    registry iteration order, provider suggestions, or accidental ordering?
 
 ---
 
@@ -67,7 +75,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -85,3 +94,26 @@ This package is for architecture review only. It does not approve runtime
 capability lookup, registry schemas, tool execution, app integration, external
 provider integration, prompts, APIs, migrations, frontend changes, deployment,
 or production behavior.
+
+---
+
+# Astra Review Outcome
+
+Astra reviewed commit `862816d` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-004 can be frozen.
+This package now records those refinements:
+
+- Permission metadata is separated from live authorization. The Tool Registry
+  may declare required permissions, scopes, roles, entitlements, confirmations,
+  and approval classes, but it never declares the current user authorized. Live
+  authorization remains owned by the authorization provider or owning service
+  and must be rechecked by any future executor.
+- Deterministic candidate precedence is defined. Equal candidates resolve by
+  governed registry precedence such as exact intent match, lower side-effect
+  class, narrower context need, fewer dependencies, stable approved priority,
+  and stable capability/tool identifier. If no approved precedence resolves a
+  user-significant difference, Astra asks for clarification or returns an
+  ambiguous-capability result.
+
+ASTRA-004 remains Proposed. Product Owner approval, ADR acceptance, and freeze
+remain pending until Astra re-review is completed.

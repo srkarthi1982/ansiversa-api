@@ -72,10 +72,14 @@ clarification cycles, privacy, failure behavior, and future interface support.
 Implementation and production changes remain unauthorized.
 
 ASTRA-004 Capability Discovery and Tool Architecture is proposed as the
-authorized documentation-only next phase. It inherits ASTRA-001, ASTRA-002, and
+authorized documentation-only next phase. Astra approved the architecture
+direction for commit `862816d` and requested two targeted refinements. The
+current revision separates registry permission metadata from live authorization
+and defines deterministic candidate precedence with clarification or
+ambiguous-capability fallback. ASTRA-004 inherits ASTRA-001, ASTRA-002, and
 ASTRA-003 and defines how Astra discovers registered capabilities, classifies
 tools, verifies capability existence, evaluates ownership and risk metadata,
 prevents capability fabrication, records bounded discovery evidence, and keeps
 discovery separate from execution authority. ASTRA-004 remains pending Astra
-architecture review, Product Owner approval, ADR acceptance, and freeze.
-Implementation and production changes remain unauthorized.
+re-review, Product Owner approval, ADR acceptance, and freeze. Implementation
+and production changes remain unauthorized.

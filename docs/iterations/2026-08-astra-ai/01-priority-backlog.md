@@ -38,7 +38,8 @@ Memory and learning architecture
 
 ASTRA-002 is approved and Frozen. ASTRA-003 is approved and Frozen as the
 conversation and context architecture layer. ASTRA-004 is authorized for
-documentation and architecture only and remains Proposed pending Astra
-architecture review, Product Owner approval, ADR acceptance, and freeze. No
-implementation task should start from ASTRA-004 unless a separate
-implementation scope is authorized.
+documentation and architecture only. Astra approved the architecture direction
+for commit `862816d`, and the requested documentation refinements have been
+applied pending Astra re-review. Product Owner approval, ADR acceptance, and
+freeze remain pending. No implementation task should start from ASTRA-004
+unless a separate implementation scope is authorized.

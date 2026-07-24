@@ -8,7 +8,8 @@
 **Created:** 2026-07-24
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Scope:** Documentation, specification, and architecture review only
@@ -125,6 +126,9 @@ Not allowed:
 - Discovery is deterministic and explainable.
 - Discovery remains provider-independent.
 - Discovery must fail closed when capability authority cannot be established.
+- Permission metadata does not equal live authorization.
+- Equal candidates must resolve through governed deterministic precedence or
+  clarification.
 
 ---
 
@@ -165,6 +169,7 @@ A capability record should describe:
 - supported context classes;
 - read/write/side-effect classification;
 - permission requirements;
+- live authorization source reference;
 - confirmation requirements;
 - dependency requirements;
 - availability state;
@@ -203,6 +208,7 @@ Tool records should describe:
 - input contract reference;
 - output contract reference;
 - authentication and authorization requirements;
+- live authorization owner reference;
 - side-effect class;
 - approval class;
 - data-sensitivity class;
@@ -260,6 +266,22 @@ must prove that the capability exists, is available, belongs to an
 authoritative owner, and is suitable for the current context and permission
 state.
 
+Permission state in this pipeline has two separate meanings:
+
+```text
+Permission Metadata
+    Defines what authorization a capability requires.
+
+Live Authorization Decision
+    Determines whether this user may use it now.
+```
+
+Registry metadata may declare required permissions, scopes, roles,
+entitlements, confirmations, and approval classes. It never declares that the
+current user is authorized. Current authorization must come from the
+authoritative authorization provider or owning service and must be rechecked
+again by the executor before any future action.
+
 ---
 
 # Tool Registry Architecture
@@ -292,6 +314,11 @@ The registry does not own:
 - conversation state;
 - Knowledge publishing; or
 - production activation.
+
+The registry may describe what permission is required. It does not own live
+authorization truth for the current user, current organization, current app
+record, or current request. A capability can be operationally available and
+still unauthorized for the current user.
 
 If registry metadata conflicts with an owning service's authoritative contract,
 the owner contract wins and discovery must fail closed or surface the mismatch
@@ -361,13 +388,15 @@ behavior, permissions, records, external provider behavior, or execution.
 
 # Capability Availability States
 
-Capability discovery must represent availability explicitly.
+Capability discovery must represent availability explicitly. Availability
+describes whether a capability is generally discoverable and operational. It
+does not mean the current user is authorized to use it.
 
 | State | Meaning | Required behavior |
 |---|---|---|
-| Available | Registry and owner metadata confirm current use | May become a candidate |
+| Available | Registry and owner metadata confirm the capability is generally discoverable and operational | May become a candidate, subject to live authorization |
 | Unavailable | Capability is absent, disabled, unsupported, or blocked | Must not be selected |
-| Permission required | Capability exists but user permission is missing or unknown | Ask, refuse, or route through permission evaluation |
+| Authorization required | Capability is operationally available but live user authorization is missing, denied, or unknown | Ask, refuse, or route through authoritative authorization evaluation |
 | Needs clarification | Capability choice depends on missing user intent or scope | Ask a clarification question |
 | Deprecated | Capability exists but should not be selected for new planning | Use replacement if authoritative metadata provides one |
 | Experimental | Capability exists but requires explicit authorization | Block unless authorized |
@@ -376,6 +405,18 @@ Capability discovery must represent availability explicitly.
 
 Unavailable capabilities should be represented honestly. Astra may explain that
 the capability is not available, but it must not imply hidden support.
+
+Operational availability and user authorization must remain separate:
+
+```text
+Operationally available
+        |
+        v
+Live authorization required
+        |
+        v
+Authorized / unauthorized / unknown for this user
+```
 
 ---
 
@@ -390,7 +431,8 @@ Selection rules:
 2. Use only context allowed by ASTRA-003.
 3. Query only authoritative registry metadata.
 4. Verify capability existence before considering tools.
-5. Verify owner, availability, side-effect, permission, and dependency metadata.
+5. Verify owner, availability, side-effect, permission metadata, dependency
+   metadata, and live authorization source separately.
 6. Prefer the smallest sufficient capability.
 7. Prefer read-only or proposal capabilities before write/action capabilities
    when they satisfy the request.
@@ -402,6 +444,26 @@ Selection rules:
 Tool selection may identify a candidate tool for a future plan. It does not
 authorize execution. Execution planning belongs to ASTRA-005 and remains
 separate.
+
+When multiple candidates remain equally suitable, Astra must use explicit
+registry-governed precedence.
+
+Precedence may include:
+
+1. exact intent match;
+2. lower side-effect class;
+3. narrower context requirement;
+4. fewer dependencies;
+5. stable approved priority; and
+6. stable capability or tool identifier as the final tie-breaker.
+
+Registry priority must be governed metadata. It must not be caller-controlled,
+provider-generated, inferred from database ordering, inferred from registry
+iteration order, or inferred from historical conversation order.
+
+If no approved precedence resolves the choice and the difference is
+user-significant, Astra must ask for clarification or return an
+ambiguous-capability result rather than choose arbitrarily.
 
 ---
 
@@ -419,8 +481,11 @@ Evidence may include:
 - owner identifier;
 - availability state;
 - side-effect class;
-- permission and approval markers;
+- permission metadata markers;
+- live authorization source and decision markers;
+- approval markers;
 - dependency markers;
+- precedence and tie-break markers;
 - rejection reason codes;
 - clarification reason codes;
 - unavailable capability reason codes; and
@@ -440,6 +505,8 @@ Discovery fails closed when:
 - ownership cannot be established;
 - side-effect class is unknown;
 - permission requirements are unknown;
+- live authorization source is unknown when user-specific authorization is
+  required;
 - dependencies are unavailable;
 - the capability is deprecated without an approved replacement;
 - an experimental capability lacks explicit authorization;
@@ -464,7 +531,11 @@ Valid outcomes include:
 - Frontend hints are not authority for capability existence or permission.
 - Registry metadata must be treated as authoritative only within its governed
   scope.
+- Registry permission metadata must not be treated as live authorization for
+  the current user.
 - App services remain authoritative for app behavior and app data.
+- Authorization providers and owning services remain authoritative for live
+  authorization decisions.
 - Unknown write risk must be handled as write risk.
 - Discovery must not leak private context into evidence.
 - Discovery must not expose unavailable internal tools as promised features.
@@ -481,8 +552,12 @@ Future implementation should:
 
 - use stable capability and tool identifiers;
 - keep registry lookups deterministic;
+- keep registry precedence explicit and stable;
 - test negative cases for fabricated, deprecated, experimental, and ownerless
   capabilities;
+- test equal-candidate tie resolution and ambiguous-capability outcomes;
+- test that registry permission requirements never become live authorization;
+- test that a future executor rechecks authorization before action;
 - test that discovery never invokes tools;
 - test that write/action tools cannot be selected as execution without
   separate execution planning;
@@ -517,7 +592,9 @@ approval, ADR acceptance, and freeze are explicitly recorded.
 | Unknown side effects are treated as safe | Critical | Unknown side effects are handled as write/action risk |
 | Deprecated or experimental tools are selected silently | High | Availability states must be explicit and enforced |
 | Provider output invents tool options | High | Discovery remains registry-backed and provider-independent |
-| Permission metadata is absent or stale | High | Unknown permission state fails closed |
+| Permission metadata is confused with live authorization | Critical | Registry declares requirements only; authorization providers or owning services decide whether this user may use the capability now |
+| Permission metadata is absent or stale | High | Unknown permission requirements fail closed |
+| Equal capability candidates are selected arbitrarily | High | Registry-governed precedence and stable identifiers resolve ties, otherwise Astra asks for clarification |
 | Capability evidence leaks private context | High | Evidence uses bounded metadata and omission markers |
 | Capability dependencies are ignored | Medium | Dependency metadata is required before selection |
 
@@ -538,7 +615,9 @@ Required evidence:
 - capability existence must be verified;
 - fabricated capabilities are prohibited;
 - capability ownership and availability states are documented;
+- permission metadata is separated from live authorization;
 - read/write/side-effect classifications are documented;
+- deterministic candidate precedence and ambiguity handling are documented;
 - approval and dependency metadata are represented;
 - capability evidence is bounded and reviewable;
 - failure behavior is fail-closed;
@@ -569,7 +648,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

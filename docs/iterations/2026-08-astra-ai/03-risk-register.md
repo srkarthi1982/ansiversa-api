@@ -34,6 +34,8 @@
 | ASTRA-R28 | Tool ownership is centralized inside Astra | Critical | ASTRA-004 keeps tool behavior owned by the owning service | Open |
 | ASTRA-R29 | Unknown side effects are treated as safe | Critical | ASTRA-004 treats unknown side effects as write/action risk and fails closed | Open |
 | ASTRA-R30 | Deprecated or experimental capabilities are selected silently | High | ASTRA-004 requires explicit availability states and authorization handling | Open |
+| ASTRA-R31 | Registry permission metadata is mistaken for live user authorization | Critical | ASTRA-004 separates permission requirements metadata from authorization-provider or owning-service live decisions | Open |
+| ASTRA-R32 | Equal candidates are selected by accidental ordering | High | ASTRA-004 requires governed deterministic precedence or clarification for user-significant ambiguity | Open |
 
 ---
 
@@ -53,5 +55,7 @@
 - context loading without established need;
 - provider fact reconciliation without authoritative ownership;
 - capability selection without authoritative registry proof;
+- live authorization inferred from registry permission metadata;
+- candidate tie resolution based on accidental ordering;
 - tool selection that implies execution authority;
 - implementation before approved scope.

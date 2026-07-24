@@ -9,7 +9,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -28,7 +29,10 @@ Adopt ASTRA-004 as the documentation-only architecture for how Astra AI
 discovers registered capabilities, distinguishes capabilities from tools,
 evaluates ownership and risk metadata, selects or rejects tool candidates,
 prevents capability fabrication, records discovery evidence, and preserves the
-separation between discovery and execution authority.
+separation between discovery and execution authority. The architecture also
+separates registry permission metadata from live user authorization and
+requires deterministic precedence or clarification when multiple candidates are
+equally suitable.
 
 Canonical proposed specification:
 
@@ -115,9 +119,12 @@ remains separate.
 - Tool behavior remains owned by the owning service.
 - Availability, deprecation, experimental state, side effects, permissions,
   approvals, and dependencies become discovery metadata.
+- Registry permission requirements remain separate from live authorization
+  decisions.
 - Read/proposal capabilities are distinguishable from write/action
   capabilities.
 - Tool selection remains separate from execution planning.
+- Equal candidates are resolved through governed precedence or clarification.
 - Discovery evidence is bounded and reviewable.
 - Implementation remains separately unauthorized.
 - Production remains unchanged.
@@ -144,7 +151,8 @@ Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

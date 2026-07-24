@@ -7,7 +7,8 @@
 **Parent:** ASTRA-002 Platform Intelligence Architecture
 **Parent:** ASTRA-003 Conversation And Context Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -127,6 +128,12 @@ Law 4
 Capability selection must remain deterministic, explainable, and reviewable.
 ```
 
+Required Astra review refinements:
+
+- Separate registry permission requirements metadata from live user
+  authorization truth.
+- Define deterministic candidate precedence and ambiguity handling.
+
 ---
 
 # Final ASTRA-004 Draft Status
@@ -140,7 +147,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

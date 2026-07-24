@@ -102,12 +102,15 @@ behavior. ASTRA-004 is documentation-only next and requires separate
 authorization before work begins.
 
 ASTRA-004 Capability Discovery and Tool Architecture is Proposed after Product
-Owner documentation authorization. It inherits ASTRA-001, ASTRA-002, and
-ASTRA-003 and defines how Astra discovers registered capabilities, classifies
-tools, verifies capability existence, preserves tool ownership, records bounded
-evidence, and prevents capability fabrication without granting execution
-authority. ASTRA-004 remains pending Astra architecture review, Product Owner
-approval, ADR acceptance, and freeze.
+Owner documentation authorization. Astra approved the architecture direction
+for commit `862816d` and requested two targeted refinements. The current
+revision separates registry permission metadata from live authorization and
+defines deterministic candidate precedence with ambiguity handling. ASTRA-004
+inherits ASTRA-001, ASTRA-002, and ASTRA-003 and defines how Astra discovers
+registered capabilities, classifies tools, verifies capability existence,
+preserves tool ownership, records bounded evidence, and prevents capability
+fabrication without granting execution authority. ASTRA-004 remains pending
+Astra re-review, Product Owner approval, ADR acceptance, and freeze.
 
 ---
 
@@ -170,6 +173,8 @@ ASTRA-004 succeeds when:
 - availability, deprecation, experimental, permission-required, and
   owner-mismatch states are documented;
 - side-effect, read/write, approval, and dependency metadata are documented;
+- permission metadata is separated from live authorization;
+- deterministic candidate precedence and ambiguity handling are documented;
 - discovery evidence is bounded and reviewable;
 - discovery remains provider-independent;
 - failure behavior fails closed when capability authority cannot be
