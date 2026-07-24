@@ -1,6 +1,6 @@
 # ASTRA-001 Architecture Review Package
 
-**Status:** Pending Astra Review
+**Status:** Minor revisions applied, pending Astra re-review
 **Created:** 2026-07-24
 **ADR:** Proposed
 **Product Owner Approval:** Pending
@@ -49,7 +49,8 @@ Knowledge, tool, authentication, AI SEO, and platform foundations.
 ASTRA-001               Proposed
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -62,6 +63,14 @@ the frozen Phase 1 code.
 ---
 
 # Requested Astra Review Outcome
+
+Astra reviewed commit `ceb92e9` and approved the architecture direction with
+minor documentation revisions required. This package now records those
+revisions:
+
+- external-model data minimization and provider-input boundary;
+- separation of Astra coordination from tool/app execution authority; and
+- explicit non-authorization statement for existing app pilots.
 
 Astra should either:
 

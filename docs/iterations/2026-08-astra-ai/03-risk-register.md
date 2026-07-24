@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | ASTRA-R01 | Overlap with existing Assistant creates confusing ownership | High | Define Assistant as current runtime surface and Astra AI as governed intelligence layer | Open |
 | ASTRA-R02 | Duplicate orchestration layers drift | High | Reuse existing foundations and migrate in authorized stages | Open |
-| ASTRA-R03 | External provider coupling bypasses governance | Critical | Providers never own identity, permission, facts, actions, or authority | Open |
+| ASTRA-R03 | External provider coupling bypasses governance | Critical | Providers receive only policy-approved, minimized, purpose-bound model input envelopes and never own identity, permission, facts, actions, or authority | Open |
 | ASTRA-R04 | Permission bypass through prompt, frontend hints, or tool args | Critical | Backend-owned auth, fail-closed policy, no caller-controlled identity | Open |
 | ASTRA-R05 | App database overreach | Critical | App modules own queries; central Astra never queries app DBs directly | Open |
 | ASTRA-R06 | Hidden execution | Critical | Action proposal, confirmation, audit, and readiness gates before execution | Open |
@@ -30,6 +30,7 @@
 - any direct app database access by central Astra code;
 - hidden execution path;
 - provider-selected identity or capability;
+- unrestricted backend context sent to an external model provider;
 - cross-user data access;
 - production enablement without readiness review; and
 - implementation before approved scope.

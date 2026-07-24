@@ -37,6 +37,8 @@ claim runtime behavior.
 - Phase 2 implementation remains unauthorized;
 - production remains unchanged; and
 - human-control and execution boundaries are explicit.
+- external model provider inputs are constrained to policy-approved,
+  minimized, purpose-bound envelopes.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -50,6 +52,7 @@ Future implementation tasks must add executable validation for:
 - owner isolation;
 - audit evidence minimization;
 - provider failure behavior;
+- provider input-envelope minimization and sensitivity classification;
 - rollback and restoration;
 - disabled-by-default production gates.
 

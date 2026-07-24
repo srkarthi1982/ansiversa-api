@@ -94,6 +94,16 @@ Astra AI does not own app records, app databases, authentication truth,
 authorization truth, payment truth, app business rules, Knowledge publishing,
 AI SEO publishing, production deployment, or arbitrary long-term user data.
 
+Astra AI coordination is not execution authority. Tool Executors and app-owned
+services still validate arguments, recheck authorization, enforce business
+rules, execute operations, commit data, and return bounded results.
+
+External model providers receive only policy-approved model input envelopes.
+They must not receive unrestricted backend context, raw tool outputs,
+credentials, authorization objects, unrelated conversation history, or app
+database records. Sending original user text is a deliberate governed
+data-processing decision, not an automatic assumption.
+
 ---
 
 # Proposed Architecture Law
@@ -119,6 +129,14 @@ Ownership boundaries are architecture, not implementation preference.
 Side-effecting behavior requires explainable proposal, authorization,
 confirmation, auditability, and readiness evidence before production use.
 
+## Astra AI Engineering Law #4
+
+> External model input must be purpose-bound, minimized, policy-approved, and
+> auditable.
+
+Providers may phrase or reason over approved inputs. They may not retrieve
+Ansiversa data, decide truth, determine permission, or execute actions.
+
 ---
 
 # Consequences If Accepted
@@ -129,6 +147,8 @@ confirmation, auditability, and readiness evidence before production use.
 - AI SEO remains the public publishing and machine-discovery architecture.
 - Tool Registry remains the capability metadata boundary.
 - App modules remain owners of app data and business rules.
+- External model providers remain bounded explanation/reasoning components,
+  not data owners or authority sources.
 - Future phases must proceed stage by stage.
 - Phase 2 implementation remains blocked until separately authorized.
 - Production remains unchanged.

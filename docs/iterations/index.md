@@ -43,6 +43,8 @@ docs/iterations/2026-08-astra-ai/
 
 ASTRA-001 Vision and Core Architecture is Proposed. It defines Astra AI as a
 governed intelligence layer over existing Assistant, Knowledge, tool,
-authentication, AI SEO, and platform foundations. Architecture review and
-Product Owner approval remain pending. Implementation, Phase 2, and production
-changes are not authorized.
+authentication, AI SEO, and platform foundations. Astra approved the
+architecture direction for commit `ceb92e9` and requested minor documentation
+revisions before freeze; those revisions are applied pending Astra re-review.
+Product Owner approval remains pending. Implementation, Phase 2, and
+production changes are not authorized.

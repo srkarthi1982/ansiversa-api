@@ -77,6 +77,11 @@ Architectural gaps remain:
 The fixed 100-solution-app catalog boundary remains permanent. ASTRA-001 does
 not authorize App #101, app replacement, or app-level Astra rollout.
 
+Existing Quiz and Course Tracker pilots are pre-existing evidence and remain
+under their existing disabled/gated governance. Their existence does not
+authorize new app integration, Stage 3 tool selection, Stage 5 execution, or
+broader rollout.
+
 ---
 
 # Identity
@@ -157,6 +162,13 @@ implementation phases.
 | Tool coordination | Select and coordinate approved tools through the registry/executor boundary. |
 | Audit evidence | Record deterministic, bounded decision evidence without raw secrets or records. |
 | Governed responses | Assemble answers, clarifications, refusals, and escalation messages. |
+
+Coordination ownership is not execution authority. Astra AI may select,
+propose, sequence, and observe approved tools. The Tool Executor and app-owned
+service remain responsible for validating tool arguments, rechecking
+authorization, enforcing app business rules, executing the operation,
+committing data, and returning bounded results. An Astra plan is never
+execution authority.
 
 ## Astra AI Does Not Own
 
@@ -292,6 +304,28 @@ outcomes require bounded decision evidence appropriate to their risk level.
 Any execution path must define cancellation, rollback, or compensating behavior
 before production use, unless the Product Owner explicitly accepts the
 irreversibility risk.
+
+## Law 15 - External Model Input Is A Governed Envelope
+
+Astra AI must never send unrestricted platform context, database records,
+credentials, authorization objects, internal prompts, raw tool outputs, or
+unrelated conversation history to an external model provider.
+
+External provider input must be:
+
+- purpose-bound;
+- minimized;
+- owner-authorized;
+- policy-approved;
+- classified for sensitivity;
+- auditable; and
+- removable from the request when not required.
+
+The provider may interpret or phrase approved information. It may not
+independently retrieve Ansiversa data or determine factual truth. Sending the
+user's original text to a provider is a deliberate data-processing decision
+governed by privacy, retention, provider configuration, and disclosure. It is
+not an automatic assumption.
 
 ---
 
@@ -466,7 +500,7 @@ Success means:
 | App databases | Out of scope for direct Astra access. App modules own queries, models, and records. |
 | Frontend | Interface layer only. Frontend may provide validated hints but never identity, permission, or private data authority. |
 | Audit and logging | Astra produces bounded evidence. Persistent personal-data audit remains a readiness gate. |
-| Future external model providers | Explanation or reasoning providers only inside approved boundaries. Providers never determine identity, permission, ownership, or final authority. |
+| Future external model providers | Explanation or reasoning providers only inside a policy-approved model input envelope. Providers never receive unrestricted backend context and never determine identity, permission, ownership, factual truth, or final authority. |
 
 ---
 
@@ -691,7 +725,7 @@ Product Owner approval.
 |---|---|---|
 | Overlap with existing Assistant | High | Define Assistant as current runtime surface and Astra AI as governed intelligence layer. |
 | Duplicate orchestration layers | High | Migrate by staged adoption; avoid parallel runtime paths without approval. |
-| Uncontrolled AI-provider coupling | Critical | Providers never own identity, permission, facts, actions, or final authority. |
+| Uncontrolled AI-provider coupling | Critical | Providers receive only policy-approved, minimized, purpose-bound model input envelopes and never own identity, permission, facts, actions, or final authority. |
 | Permission bypass | Critical | Backend-owned auth context, fail-closed policy, and tool executor gates. |
 | App-database overreach | Critical | App modules own all app records and queries. |
 | Hidden execution | Critical | Action proposal and confirmation laws before any execution. |

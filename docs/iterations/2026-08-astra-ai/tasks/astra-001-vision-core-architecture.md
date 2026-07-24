@@ -3,7 +3,7 @@
 **Status:** Proposed
 **Created:** 2026-07-24
 **Owner:** Karthikeyan Ramalingam
-**Architecture Review:** Pending Astra Review
+**Architecture Review:** Direction approved; minor revisions applied
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -68,7 +68,8 @@ Not allowed:
 ASTRA-001               Proposed
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
