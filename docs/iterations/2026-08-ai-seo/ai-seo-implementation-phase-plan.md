@@ -299,7 +299,7 @@ Production unchanged.
 Status:
 
 ```text
-Implemented, pending Astra source review
+Completed and Frozen
 ```
 
 Repository:
@@ -341,10 +341,10 @@ production change, and no Phase 7 work.
 Review status:
 
 ```text
-Phase 6 implementation is complete.
-Astra source review remains pending.
-Phase 6 is not Frozen.
-Phase 7 is not authorized.
+Commit 23ff867 implemented operational validation.
+Astra source review approved commit 23ff867.
+Phase 6 Frozen.
+Phase 7 remains pending separate authorization.
 Production unchanged.
 ```
 
