@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 proposed
+**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 minor revision applied
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -61,6 +61,8 @@ ASTRA-003 coverage:
 - private context is forbidden for public questions;
 - app-owned context remains app-owned;
 - context provider coordination preserves provider authority;
+- context authority resolution prevents Astra from manufacturing consensus
+  between contradictory providers;
 - isolation, expiration, stale-context, and clarification rules are documented;
 - privacy and security boundaries are documented; and
 - future chat, voice, search, contextual, and multimodal interfaces inherit the

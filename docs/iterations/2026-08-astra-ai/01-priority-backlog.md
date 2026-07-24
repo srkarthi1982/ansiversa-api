@@ -1,6 +1,6 @@
 # Astra AI Architecture Backlog
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 minor revision applied
 **Implementation:** Not authorized
 
 Only individually reviewed and authorized tasks may later move into
@@ -10,7 +10,7 @@ implementation. ASTRA-001 does not authorize any runtime work.
 |---|---|---:|---|---|
 | ASTRA-001 | Vision And Core Architecture | Critical | Frozen | Constitutional architecture, options, ownership, risks, and ADR accepted |
 | ASTRA-002 | Platform Intelligence Architecture | Critical | Frozen | Define how Astra thinks: request understanding, intent, context, permission, capability, planning, local-sufficiency check, external-intelligence decision, decision evidence, and response |
-| ASTRA-003 | Conversation And Context Architecture | Critical | Proposed | Define conversation lifecycle, context classes, state, assembly, providers, isolation, expiration, clarification, privacy, and future interface support |
+| ASTRA-003 | Conversation And Context Architecture | Critical | Minor revision applied | Define conversation lifecycle, context classes, state, assembly, providers, authority resolution, isolation, expiration, clarification, privacy, and future interface support |
 | ASTRA-004 | Capability Discovery And Tool Architecture | High | Deferred | Define approved capability discovery, tool metadata, tool ownership, and no-fabrication controls |
 | ASTRA-005 | Execution Planning Architecture | Critical | Deferred | Define planning model, impact classification, confirmation, rollback, and proposal behavior before execution |
 | ASTRA-006 | External AI Provider Architecture | High | Deferred | Define provider selection, envelopes, routing, retention, failures, and provider-independent governance |
@@ -37,7 +37,8 @@ Memory and learning architecture
 ```
 
 ASTRA-002 is approved and Frozen. ASTRA-003 is authorized for documentation
-and architecture only and remains pending Astra review. No implementation task
-should start from ASTRA-003 until the architecture is reviewed, Product Owner
-approval is recorded, the ADR is accepted, ASTRA-003 is frozen, and a separate
-implementation scope is authorized.
+and architecture only. Astra approved the architecture direction and the
+requested minor refinement is applied pending Astra re-review. No
+implementation task should start from ASTRA-003 until the architecture is
+approved, Product Owner approval is recorded, the ADR is accepted, ASTRA-003
+is frozen, and a separate implementation scope is authorized.

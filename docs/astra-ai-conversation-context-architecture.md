@@ -298,6 +298,27 @@ or partial context without forcing execution or provider use.
 
 ---
 
+# Context Authority Resolution
+
+When multiple context providers return contradictory information, Astra must
+not merge, average, reinterpret, or manufacture consensus between those facts.
+
+Resolution rules:
+
+1. Prefer the constitutionally authoritative owner for the fact.
+2. If ownership is clear, use only the owning provider's current approved
+   context and record that other context was omitted or treated as
+   non-authoritative.
+3. If no authoritative precedence exists, ask for clarification, fail closed,
+   or expose the limitation to the user.
+4. If provider disagreement affects permission, ownership, execution,
+   provider-envelope scope, or private context use, fail closed.
+5. Never use an external model to reconcile authoritative provider conflicts.
+
+Astra coordinates truth sources. It does not invent truth.
+
+---
+
 # Context Isolation Rules
 
 Context isolation is mandatory.
@@ -504,6 +525,7 @@ Product Owner approval is explicitly recorded.
 | Private context leaks into public answers | Critical | Public questions must not trigger private context loading |
 | Prior turns override current user intent | High | Current explicit request wins unless clarification or policy blocks it |
 | Context providers lose ownership | High | Providers remain authoritative and Astra only coordinates context |
+| Contradictory provider facts are merged by Astra | Critical | Astra uses constitutionally authoritative ownership, clarification, fail-closed behavior, or visible limitation rather than manufacturing consensus |
 | App-owned facts bypass app services | Critical | App context enters only through app-owned contracts |
 | Stale context causes wrong decisions | High | Expiration markers and stale-context handling are required |
 | Concurrent conversations mix context | Critical | Conversation state and evidence are isolated by conversation and user/session |
@@ -527,6 +549,7 @@ Required evidence:
 - context loading is need-driven and minimized;
 - app-owned context remains app-owned;
 - provider context remains optional and envelope-bound;
+- contradictory provider context cannot be merged into manufactured consensus;
 - context expiration rules are documented;
 - clarification cycle is documented;
 - concurrent conversation isolation is documented;
@@ -557,9 +580,10 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Minor revision applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
+Corrections             Minor revision applied; pending Astra re-review
 Implementation          Not authorized
 Production              Unchanged
 ```

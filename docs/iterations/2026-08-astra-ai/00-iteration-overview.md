@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 minor revision applied
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -88,10 +88,12 @@ evaluation, capability discovery, planning, action proposal, decision evidence
 assembly, and governed response construction.
 
 ASTRA-003 Conversation and Context Architecture is authorized for documentation
-and architecture only and proposed for Astra review. ASTRA-003 inherits
-ASTRA-001 and ASTRA-002 and defines how Astra manages conversation state and
-context throughout the intelligence pipeline without creating ungoverned
-memory, provider context, app data access, or production behavior.
+and architecture only. Astra approved the architecture direction and requested
+one minor Context Authority Resolution refinement, which has been applied
+pending Astra re-review. ASTRA-003 inherits ASTRA-001 and ASTRA-002 and defines
+how Astra manages conversation state and context throughout the intelligence
+pipeline without creating ungoverned memory, provider context, app data access,
+or production behavior.
 
 ---
 
@@ -133,6 +135,7 @@ ASTRA-003 succeeds when:
 - conversation state is transient by default;
 - context loading is need-driven, minimized, purpose-bound, and isolated;
 - context provider authority is preserved;
+- contradictory provider context cannot be merged into manufactured consensus;
 - context expiration and stale-context behavior are documented;
 - clarification cycles are governed;
 - privacy and concurrent conversation isolation are documented;

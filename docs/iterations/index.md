@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 proposed | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 minor revision applied | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -62,8 +62,11 @@ unauthorized. ASTRA-003 is documentation only next and requires separate
 authorization.
 
 ASTRA-003 Conversation and Context Architecture is proposed as the authorized
-documentation-only next phase. It inherits ASTRA-001 and ASTRA-002 and defines
-how Astra manages conversation state and context through lifecycle,
-classification, assembly, provider coordination, isolation, expiration,
-clarification cycles, privacy, failure behavior, and future interface support.
-Implementation and production changes remain unauthorized.
+documentation-only next phase. Astra approved the architecture direction for
+commit `ae3f12b` and requested one Context Authority Resolution refinement,
+which is now applied pending Astra re-review. ASTRA-003 inherits ASTRA-001 and
+ASTRA-002 and defines how Astra manages conversation state and context through
+lifecycle, classification, assembly, provider coordination, authority
+resolution, isolation, expiration, clarification cycles, privacy, failure
+behavior, and future interface support. Implementation and production changes
+remain unauthorized.

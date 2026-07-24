@@ -6,7 +6,7 @@
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Review:** Direction approved; minor revision applied
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -88,16 +88,17 @@ Not allowed:
 6. Conversation State Model
 7. Context Assembly Model
 8. Context Provider Coordination
-9. Context Isolation Rules
-10. Context Expiration Rules
-11. Clarification Cycle
-12. Privacy Model
-13. Failure Behaviour
-14. Security Considerations
-15. Future Implementation Notes
-16. ADR
-17. Risks
-18. Validation Strategy
+9. Context Authority Resolution
+10. Context Isolation Rules
+11. Context Expiration Rules
+12. Clarification Cycle
+13. Privacy Model
+14. Failure Behaviour
+15. Security Considerations
+16. Future Implementation Notes
+17. ADR
+18. Risks
+19. Validation Strategy
 
 ---
 
@@ -127,9 +128,10 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Minor revision applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
+Corrections             Minor revision applied; pending Astra re-review
 Implementation          Not authorized
 Production              Unchanged
 ```

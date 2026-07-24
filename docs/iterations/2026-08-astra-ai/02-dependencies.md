@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 minor revision applied
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|

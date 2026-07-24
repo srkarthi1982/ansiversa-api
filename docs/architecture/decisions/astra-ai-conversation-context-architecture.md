@@ -8,7 +8,7 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Review:** Direction approved; minor revision applied
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -26,7 +26,8 @@ Recommendation:
 Adopt ASTRA-003 as the documentation-only architecture for how Astra AI
 represents conversation state, classifies context, coordinates context
 providers, minimizes and expires context, handles clarification cycles,
-preserves privacy, and supports future interfaces.
+preserves privacy, resolves contradictory provider context by authoritative
+ownership rather than manufactured consensus, and supports future interfaces.
 
 Canonical proposed specification:
 
@@ -107,6 +108,7 @@ context governance.
 - Public platform questions do not trigger private context.
 - App-owned context remains behind app-owned service contracts.
 - Context providers remain authoritative.
+- Astra does not manufacture consensus between contradictory provider facts.
 - Clarification cycles become governed state.
 - Concurrent conversations require isolation.
 - Future chat, voice, search, contextual, and multimodal interfaces share one
@@ -135,8 +137,9 @@ Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
-Architecture Review     Pending Astra Review
+Architecture Review     Direction approved; minor revision applied
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged
+Corrections             Minor revision applied; pending Astra re-review
 ```

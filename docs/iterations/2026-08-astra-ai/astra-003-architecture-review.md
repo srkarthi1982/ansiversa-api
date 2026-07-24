@@ -1,6 +1,6 @@
 # ASTRA-003 Architecture Review Package
 
-**Status:** Pending Astra Review
+**Status:** Minor revision applied, pending Astra re-review
 **Created:** 2026-07-24
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
@@ -27,7 +27,8 @@ Adopt a governed conversation and context architecture that inherits ASTRA-001
 and ASTRA-002 and defines how Astra represents conversation state, classifies
 context, coordinates providers, minimizes context, isolates concurrent
 conversations, handles clarification cycles, preserves privacy, and supports
-future interfaces.
+future interfaces without manufacturing consensus between contradictory
+provider facts.
 
 ---
 
@@ -60,7 +61,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revision applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -72,7 +74,20 @@ ASTRA-001, ASTRA-002, or the frozen Astra AI Platform Phase 1 code.
 
 ---
 
-# Requested Astra Review Outcome
+# Astra Review Outcome
+
+Astra reviewed commit `ae3f12b` and approved the architecture direction with
+one minor documentation refinement recommended before ASTRA-003 can be frozen.
+This package now records that refinement:
+
+- Context Authority Resolution defines that contradictory provider facts are
+  resolved by constitutionally authoritative ownership, clarification,
+  fail-closed behavior, or visible limitation. Astra must not merge provider
+  conflicts or manufacture consensus.
+
+---
+
+# Requested Astra Re-review Outcome
 
 Astra should either:
 

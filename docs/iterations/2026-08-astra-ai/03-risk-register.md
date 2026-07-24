@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 proposed
+**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 minor revision applied
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -28,6 +28,7 @@
 | ASTRA-R22 | Private context loads for public questions | Critical | ASTRA-003 forbids private context for public questions | Open |
 | ASTRA-R23 | Concurrent conversations mix context | Critical | ASTRA-003 requires user/session and conversation isolation | Open |
 | ASTRA-R24 | Stale context influences current decisions | High | ASTRA-003 requires expiration markers and stale-context behavior | Open |
+| ASTRA-R25 | Contradictory provider facts are reconciled by Astra | Critical | ASTRA-003 requires authoritative-owner precedence, clarification, fail-closed behavior, or visible limitation rather than manufactured consensus | Open |
 
 ---
 
@@ -45,4 +46,5 @@
 - production enablement without readiness review; and
 - conversation persistence without approved memory architecture;
 - context loading without established need;
+- provider fact reconciliation without authoritative ownership;
 - implementation before approved scope.
