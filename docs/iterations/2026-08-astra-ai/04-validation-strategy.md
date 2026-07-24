@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, and ASTRA-003; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, and ASTRA-003; ASTRA-004 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -20,6 +20,9 @@ runtime behavior.
 - required ASTRA-003 documents exist;
 - ASTRA-003 status is approved and Frozen;
 - ASTRA-003 ADR is accepted;
+- required ASTRA-004 documents exist;
+- ASTRA-004 status is Proposed until Astra review and Product Owner approval;
+- ASTRA-004 ADR remains Proposed until Product Owner approval;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -67,6 +70,24 @@ ASTRA-003 coverage:
 - future chat, voice, search, contextual, and multimodal interfaces inherit the
   same conversation and context model.
 
+ASTRA-004 coverage:
+
+- ASTRA-001, ASTRA-002, and ASTRA-003 inheritance is explicit;
+- capability and tool concepts are separated;
+- Tool Registry authority is documented;
+- capability discovery precedes tool selection;
+- tool selection precedes execution planning;
+- capability existence must be verified;
+- fabricated capabilities are prohibited;
+- capability ownership is explicit;
+- capability availability states are documented;
+- tool side-effect, read/write, approval, and dependency metadata are
+  documented;
+- capability evidence is bounded and reviewable;
+- discovery remains provider-independent; and
+- failure behavior fails closed when capability authority cannot be
+  established.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -78,6 +99,8 @@ ASTRA-003 coverage:
 - external model provider inputs are constrained to policy-approved,
   minimized, purpose-bound envelopes.
 - external model invocation requires a governed necessity decision.
+- capability discovery remains registry-backed and does not authorize
+  execution.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -92,6 +115,8 @@ Future implementation tasks must add executable validation for:
 - audit evidence minimization;
 - provider failure behavior;
 - provider input-envelope minimization and sensitivity classification;
+- no fabricated capability selection;
+- no tool execution during discovery;
 - rollback and restoration;
 - disabled-by-default production gates.
 

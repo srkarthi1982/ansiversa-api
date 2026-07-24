@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, and ASTRA-003; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, and ASTRA-003; ASTRA-004 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -29,6 +29,11 @@
 | ASTRA-R23 | Concurrent conversations mix context | Critical | ASTRA-003 requires user/session and conversation isolation | Open |
 | ASTRA-R24 | Stale context influences current decisions | High | ASTRA-003 requires expiration markers and stale-context behavior | Open |
 | ASTRA-R25 | Contradictory provider facts are reconciled by Astra | Critical | ASTRA-003 requires authoritative-owner precedence, clarification, fail-closed behavior, or visible limitation rather than manufactured consensus | Open |
+| ASTRA-R26 | Astra fabricates capabilities from user text or provider output | Critical | ASTRA-004 requires authoritative registry proof before a capability is available | Open |
+| ASTRA-R27 | Capability discovery is mistaken for execution authority | Critical | ASTRA-004 states discovery never grants execution authority | Open |
+| ASTRA-R28 | Tool ownership is centralized inside Astra | Critical | ASTRA-004 keeps tool behavior owned by the owning service | Open |
+| ASTRA-R29 | Unknown side effects are treated as safe | Critical | ASTRA-004 treats unknown side effects as write/action risk and fails closed | Open |
+| ASTRA-R30 | Deprecated or experimental capabilities are selected silently | High | ASTRA-004 requires explicit availability states and authorization handling | Open |
 
 ---
 
@@ -47,4 +52,6 @@
 - conversation persistence without approved memory architecture;
 - context loading without established need;
 - provider fact reconciliation without authoritative ownership;
+- capability selection without authoritative registry proof;
+- tool selection that implies execution authority;
 - implementation before approved scope.

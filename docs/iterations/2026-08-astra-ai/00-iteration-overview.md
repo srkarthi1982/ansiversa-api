@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -33,6 +33,10 @@ be reviewed before implementation.
 - [Astra AI Conversation And Context Architecture ADR](../../architecture/decisions/astra-ai-conversation-context-architecture.md)
 - [ASTRA-003 architecture review package](astra-003-architecture-review.md)
 - [ASTRA-003 task record](tasks/astra-003-conversation-context-architecture.md)
+- [Astra AI Capability Discovery And Tool Architecture](../../astra-ai-capability-tool-architecture.md)
+- [Astra AI Capability Discovery And Tool Architecture ADR](../../architecture/decisions/astra-ai-capability-tool-architecture.md)
+- [ASTRA-004 architecture review package](astra-004-architecture-review.md)
+- [ASTRA-004 task record](tasks/astra-004-capability-tool-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -97,6 +101,14 @@ creating ungoverned memory, provider context, app data access, or production
 behavior. ASTRA-004 is documentation-only next and requires separate
 authorization before work begins.
 
+ASTRA-004 Capability Discovery and Tool Architecture is Proposed after Product
+Owner documentation authorization. It inherits ASTRA-001, ASTRA-002, and
+ASTRA-003 and defines how Astra discovers registered capabilities, classifies
+tools, verifies capability existence, preserves tool ownership, records bounded
+evidence, and prevents capability fabrication without granting execution
+authority. ASTRA-004 remains pending Astra architecture review, Product Owner
+approval, ADR acceptance, and freeze.
+
 ---
 
 # Success Criteria
@@ -142,6 +154,26 @@ ASTRA-003 succeeds when:
 - clarification cycles are governed;
 - privacy and concurrent conversation isolation are documented;
 - future interface support remains governed by the same context model;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-004 succeeds when:
+
+- ASTRA-001, ASTRA-002, and ASTRA-003 inheritance is explicit;
+- capability and tool concepts are separated;
+- Tool Registry authority is documented;
+- discovery precedes tool selection;
+- tool selection precedes execution planning;
+- capability existence must be verified before use;
+- fabricated capabilities are prohibited;
+- capability and tool ownership boundaries are explicit;
+- availability, deprecation, experimental, permission-required, and
+  owner-mismatch states are documented;
+- side-effect, read/write, approval, and dependency metadata are documented;
+- discovery evidence is bounded and reviewable;
+- discovery remains provider-independent;
+- failure behavior fails closed when capability authority cannot be
+  established;
 - no implementation occurs; and
 - production remains unchanged.
 

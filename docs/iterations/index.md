@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 proposed | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -69,5 +69,13 @@ accepted. ASTRA-003 inherits ASTRA-001 and ASTRA-002 and defines how Astra
 manages conversation state and context through lifecycle, classification,
 assembly, provider coordination, authority resolution, isolation, expiration,
 clarification cycles, privacy, failure behavior, and future interface support.
-Implementation and production changes remain unauthorized. ASTRA-004 is
-documentation only next and requires separate authorization.
+Implementation and production changes remain unauthorized.
+
+ASTRA-004 Capability Discovery and Tool Architecture is proposed as the
+authorized documentation-only next phase. It inherits ASTRA-001, ASTRA-002, and
+ASTRA-003 and defines how Astra discovers registered capabilities, classifies
+tools, verifies capability existence, evaluates ownership and risk metadata,
+prevents capability fabrication, records bounded discovery evidence, and keeps
+discovery separate from execution authority. ASTRA-004 remains pending Astra
+architecture review, Product Owner approval, ADR acceptance, and freeze.
+Implementation and production changes remain unauthorized.
