@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001; ASTRA-002 proposed
+**Status:** Accepted for ASTRA-001; ASTRA-002 minor revisions applied
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -40,8 +40,11 @@ ASTRA-002 coverage:
 - each pipeline stage defines purpose, inputs, outputs, ownership, failure
   behavior, security considerations, and future implementation notes;
 - Intelligence Decision Matrix is documented;
+- local-answer sufficiency is checked before external-intelligence necessity;
 - external intelligence is optional and provider-independent;
 - local response preference is documented; and
+- decision evidence is assembled before response construction, without
+  depending on response-construction metadata;
 - refusal and clarification are documented as valid outcomes.
 
 ## Tier 3 - Governance Coverage

@@ -6,7 +6,7 @@
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Review:** Direction approved; minor revisions applied
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -109,7 +109,7 @@ Planning
 Action Proposal
         |
         v
-Evidence Collection
+Decision Evidence Assembly
         |
         v
 Response Construction
@@ -159,7 +159,7 @@ ADR                     Proposed
 ASTRA-002               Proposed
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
-Architecture Review     Pending Astra Review
+Architecture Review     Direction approved; minor revisions applied
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

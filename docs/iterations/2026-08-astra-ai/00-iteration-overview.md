@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 minor revisions applied
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -59,9 +59,10 @@ frontend changes, deployment changes, or production behavior. Phase 2 is
 documentation-only next and requires separate authorization before work begins.
 
 ASTRA-002 Platform Intelligence Architecture is authorized for documentation
-only and proposed for Astra review. ASTRA-002 inherits ASTRA-001 and defines
-how Astra AI reasons over user requests before any new intelligence
-implementation is written.
+only. Astra approved the architecture direction and requested two minor
+ordering corrections, which have been applied pending Astra re-review.
+ASTRA-002 inherits ASTRA-001 and defines how Astra AI reasons over user
+requests before any new intelligence implementation is written.
 
 ---
 
@@ -78,8 +79,8 @@ duplicate.
 
 ASTRA-002 documents the logical pipeline from user request through
 conversation understanding, intent recognition, context assembly, permission
-evaluation, capability discovery, planning, action proposal, evidence
-collection, and governed response construction.
+evaluation, capability discovery, planning, action proposal, decision evidence
+assembly, and governed response construction.
 
 ---
 

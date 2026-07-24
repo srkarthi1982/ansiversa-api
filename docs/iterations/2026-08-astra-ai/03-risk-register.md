@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001; ASTRA-002 proposed
+**Status:** Accepted for ASTRA-001; ASTRA-002 minor revisions applied
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|

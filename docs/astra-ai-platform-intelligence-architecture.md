@@ -118,7 +118,7 @@ Planning
 Action Proposal
         |
         v
-Evidence Collection
+Decision Evidence Assembly
         |
         v
 Response Construction
@@ -527,11 +527,11 @@ production readiness before any side-effecting behavior is enabled.
 
 ---
 
-# Stage 9 - Evidence Collection
+# Stage 9 - Decision Evidence Assembly
 
 ## Purpose
 
-Collect bounded proof of how Astra reached its outcome.
+Collect bounded pre-response proof of how Astra reached its decision outcome.
 
 ## Inputs
 
@@ -542,8 +542,7 @@ Collect bounded proof of how Astra reached its outcome.
 - capability discovery result;
 - provider-use decision;
 - plan;
-- proposal/refusal/clarification result; and
-- response construction metadata.
+- proposal, refusal, or clarification result.
 
 ## Outputs
 
@@ -553,7 +552,7 @@ Collect bounded proof of how Astra reached its outcome.
 - omitted-data markers;
 - provider-use marker;
 - non-execution marker; and
-- reviewable audit summary.
+- reviewable decision-evidence summary.
 
 ## Ownership
 
@@ -572,8 +571,9 @@ stack traces, raw tool outputs, or unrelated conversation history.
 
 ## Future Implementation Notes
 
-Evidence should support replay and review for deterministic decisions without
-becoming a hidden memory system.
+Decision evidence should support replay and review for deterministic decisions
+without becoming a hidden memory system. Final response or delivery metadata is
+attached after response construction, not used as an input to this stage.
 
 ---
 
@@ -591,7 +591,7 @@ Create the final governed response for the user.
 - provider output when explicitly approved and used;
 - action proposal or refusal plan;
 - clarification requirements; and
-- evidence summary.
+- decision-evidence summary.
 
 ## Outputs
 
@@ -601,7 +601,7 @@ Create the final governed response for the user.
 - action proposal;
 - escalation message;
 - visible limitations when relevant; and
-- bounded evidence metadata.
+- bounded final response metadata.
 
 ## Ownership
 
@@ -624,7 +624,9 @@ outputs.
 
 Responses should identify whether the answer is knowledge-only,
 context-assisted, proposal-only, provider-assisted, clarification, refusal, or
-escalation.
+escalation. Final response metadata may include response classification,
+visible limitation markers, a response digest, a provider-assisted or local
+marker, and a reference to the decision-evidence summary.
 
 ---
 
@@ -638,8 +640,8 @@ For every incoming request, Astra should answer these questions in order:
 3. Do I need app-owned information?
 4. Is permission required?
 5. Is execution required?
-6. Do I need an external language model?
-7. Can I answer locally?
+6. Can I answer locally, safely, and accurately?
+7. If not, is external intelligence necessary and authorized?
 8. Must I refuse?
 9. Must I ask a clarification question?
 10. Can I produce a final governed response?
@@ -651,12 +653,13 @@ For every incoming request, Astra should answer these questions in order:
 2. User context is considered before app-owned information.
 3. Permission is evaluated before capability use.
 4. Execution need is identified before action proposal.
-5. External intelligence is considered after context, permission, and purpose
-   are understood.
-6. Local response is preferred when it can satisfy the request safely and
+5. Local answer sufficiency is checked before external intelligence need.
+6. External intelligence is considered only after local response is
+   insufficient and context, permission, and purpose are understood.
+7. Local response is preferred when it can satisfy the request safely and
    accurately.
-7. Refusal and clarification remain valid outcomes, not failures.
-8. Final governed response is produced only after context, permission,
+8. Refusal and clarification remain valid outcomes, not failures.
+9. Final governed response is produced only after context, permission,
    capability, provider, and evidence checks are resolved.
 
 ---
@@ -796,9 +799,10 @@ Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
+Corrections             Minor revisions applied; pending Astra re-review
 Implementation          Not authorized
 Production              Unchanged
 ```

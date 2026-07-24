@@ -1,6 +1,6 @@
 # ASTRA-002 Architecture Review Package
 
-**Status:** Pending Astra Review
+**Status:** Minor revisions applied, pending Astra re-review
 **Created:** 2026-07-24
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation only
@@ -54,7 +54,8 @@ Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -66,7 +67,20 @@ ASTRA-001 or the frozen Astra AI Platform Phase 1 code.
 
 ---
 
-# Requested Astra Review Outcome
+# Astra Review Outcome
+
+Astra reviewed commit `a95ae2e` and approved the architecture direction with
+two minor documentation revisions required before ASTRA-002 can be frozen.
+This package now records those revisions:
+
+- local-answer sufficiency is checked before external-intelligence necessity
+  in the Intelligence Decision Matrix; and
+- decision evidence is assembled before response construction, while final
+  response or delivery metadata may be attached after response construction.
+
+---
+
+# Requested Astra Re-review Outcome
 
 Astra should either:
 

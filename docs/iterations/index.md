@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 proposed | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 minor revisions applied | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -50,9 +50,11 @@ changes are not authorized. Phase 2 is documentation-only next and requires
 separate authorization.
 
 ASTRA-002 Platform Intelligence Architecture is proposed as the authorized
-documentation-only next phase. It inherits ASTRA-001 and defines how Astra AI
-thinks through conversation understanding, intent recognition, context
+documentation-only next phase. Astra approved the architecture direction for
+commit `a95ae2e` and requested two minor ordering corrections, which are now
+applied pending Astra re-review. ASTRA-002 inherits ASTRA-001 and defines how
+Astra AI thinks through conversation understanding, intent recognition, context
 assembly, permission evaluation, capability discovery, planning, action
-proposal, evidence collection, response construction, and an optional external
-intelligence decision. Implementation and production changes remain
-unauthorized.
+proposal, decision evidence assembly, response construction, local-sufficiency
+checking, and an optional external-intelligence decision. Implementation and
+production changes remain unauthorized.

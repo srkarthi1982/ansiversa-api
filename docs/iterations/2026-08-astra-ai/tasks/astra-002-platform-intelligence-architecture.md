@@ -5,7 +5,7 @@
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Authorization:** Approved for documentation only
-**Architecture Review:** Pending Astra Review
+**Architecture Review:** Direction approved; minor revisions applied
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -97,7 +97,7 @@ Planning
 Action Proposal
         |
         v
-Evidence Collection
+Decision Evidence Assembly
         |
         v
 Response Construction
@@ -116,8 +116,8 @@ User
 3. Do I need app-owned information?
 4. Is permission required?
 5. Is execution required?
-6. Do I need an external language model?
-7. Can I answer locally?
+6. Can I answer locally, safely, and accurately?
+7. If not, is external intelligence necessary and authorized?
 8. Must I refuse?
 9. Must I ask a clarification question?
 10. Can I produce a final governed response?
@@ -133,9 +133,10 @@ Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
+Corrections             Minor revisions applied; pending Astra re-review
 Implementation          Not authorized
 Production              Unchanged
 ```
