@@ -1,5 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
+| Iteration 3 | Astra AI Architecture                    | Proposed | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -33,3 +34,15 @@ AI SEO Implementation Phase 2 is implemented as an isolated backend compiler
 pipeline. Astra approved the reported governance scope for commit `3136c41`,
 while source-level Astra review and Phase 2 freeze remain pending. Phase 3 is
 not authorized.
+
+Iteration 3 planning package:
+
+```text
+docs/iterations/2026-08-astra-ai/
+```
+
+ASTRA-001 Vision and Core Architecture is Proposed. It defines Astra AI as a
+governed intelligence layer over existing Assistant, Knowledge, tool,
+authentication, AI SEO, and platform foundations. Architecture review and
+Product Owner approval remain pending. Implementation, Phase 2, and production
+changes are not authorized.
