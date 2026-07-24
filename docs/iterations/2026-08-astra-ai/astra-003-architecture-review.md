@@ -1,8 +1,8 @@
 # ASTRA-003 Architecture Review Package
 
-**Status:** Minor revision applied, pending Astra re-review
+**Status:** Approved
 **Created:** 2026-07-24
-**ADR:** Proposed
+**ADR:** Ready for acceptance
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
@@ -54,7 +54,7 @@ provider facts.
 # Current Codex Self-Review
 
 ```text
-ASTRA-003               Proposed
+ASTRA-003               Completed
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
@@ -62,9 +62,9 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revision applied; pending Astra re-review
+Astra Re-review         Approved
 Product Owner Approval  Pending
-ADR                     Proposed
+ADR                     Ready for acceptance
 Implementation          Not authorized
 Production              Unchanged
 ```
@@ -87,13 +87,10 @@ This package now records that refinement:
 
 ---
 
-# Requested Astra Re-review Outcome
+# Astra Re-review Outcome
 
-Astra should either:
-
-- approve the conversation and context architecture and identify any required
-  revisions before Product Owner approval; or
-- return specific blocking corrections.
+Astra re-reviewed commit `2e7fed4` and approved ASTRA-003. The architecture is
+ready for Product Owner approval, ADR acceptance, and freeze.
 
 Do not mark the ADR accepted or ASTRA-003 frozen until Product Owner approval
 is explicitly recorded.

@@ -1,6 +1,6 @@
 # Architecture Decision: Astra AI Conversation And Context Architecture
 
-**Status:** Proposed
+**Status:** Ready for acceptance
 **Created:** 2026-07-24
 **Task:** ASTRA-003
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -8,7 +8,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Direction approved; minor revision applied
+**Architecture Direction:** Approved
+**Astra Re-review:** Approved
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -120,7 +121,7 @@ context governance.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
+- [x] Astra architecture review completed.
 - [ ] Product Owner approval recorded.
 - [ ] ADR accepted.
 - [ ] ASTRA-003 frozen.
@@ -131,15 +132,14 @@ context governance.
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-003               Proposed
+ADR                     Ready for acceptance
+ASTRA-003               Completed
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
-Architecture Review     Direction approved; minor revision applied
+Astra Re-review         Approved
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged
-Corrections             Minor revision applied; pending Astra re-review
 ```
