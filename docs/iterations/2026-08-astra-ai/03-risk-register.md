@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001 and ASTRA-002; future implementation risks remain open
+**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 proposed
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -23,6 +23,11 @@
 | ASTRA-R17 | User context loads before need is established | High | ASTRA-002 orders platform context before user context and requires minimized context assembly | Open |
 | ASTRA-R18 | Pipeline treats refusal or clarification as implementation failure | Medium | ASTRA-002 defines refusal and clarification as first-class governed outcomes | Open |
 | ASTRA-R19 | Planning is mistaken for execution authority | Critical | ASTRA-002 keeps action proposal separate from Tool Executor and app-owned execution | Open |
+| ASTRA-R20 | Conversation state becomes silent memory | Critical | ASTRA-003 makes conversation state transient unless separate memory architecture authorizes persistence | Open |
+| ASTRA-R21 | Context is loaded because it is available | Critical | ASTRA-003 requires need-driven loading and smallest sufficient context | Open |
+| ASTRA-R22 | Private context loads for public questions | Critical | ASTRA-003 forbids private context for public questions | Open |
+| ASTRA-R23 | Concurrent conversations mix context | Critical | ASTRA-003 requires user/session and conversation isolation | Open |
+| ASTRA-R24 | Stale context influences current decisions | High | ASTRA-003 requires expiration markers and stale-context behavior | Open |
 
 ---
 
@@ -38,4 +43,6 @@
 - external model invocation by default rather than governed necessity decision;
 - cross-user data access;
 - production enablement without readiness review; and
+- conversation persistence without approved memory architecture;
+- context loading without established need;
 - implementation before approved scope.

@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001 and ASTRA-002; future implementation validation pending
+**Status:** Accepted for ASTRA-001 and ASTRA-002; ASTRA-003 proposed
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -17,6 +17,10 @@ runtime behavior.
 - required ASTRA-002 documents exist;
 - ASTRA-002 status is approved and Frozen;
 - ASTRA-002 ADR is accepted;
+- required ASTRA-003 documents exist;
+- ASTRA-003 status remains Proposed until Astra review and Product Owner
+  approval;
+- ASTRA-003 ADR remains Proposed until approval;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -45,6 +49,22 @@ ASTRA-002 coverage:
 - decision evidence is assembled before response construction, without
   depending on response-construction metadata;
 - refusal and clarification are documented as valid outcomes.
+
+ASTRA-003 coverage:
+
+- ASTRA-001 and ASTRA-002 inheritance is explicit;
+- conversation is separated from memory;
+- memory is separated from Knowledge;
+- context classes have owners;
+- conversation state model is documented;
+- context assembly is need-driven, minimized, and purpose-bound;
+- private context is forbidden for public questions;
+- app-owned context remains app-owned;
+- context provider coordination preserves provider authority;
+- isolation, expiration, stale-context, and clarification rules are documented;
+- privacy and security boundaries are documented; and
+- future chat, voice, search, contextual, and multimodal interfaces inherit the
+  same conversation and context model.
 
 ## Tier 3 - Governance Coverage
 

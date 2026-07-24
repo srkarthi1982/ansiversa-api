@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -29,6 +29,10 @@ be reviewed before implementation.
 - [Astra AI Platform Intelligence Architecture ADR](../../architecture/decisions/astra-ai-platform-intelligence-architecture.md)
 - [ASTRA-002 architecture review package](astra-002-architecture-review.md)
 - [ASTRA-002 task record](tasks/astra-002-platform-intelligence-architecture.md)
+- [Astra AI Conversation And Context Architecture](../../astra-ai-conversation-context-architecture.md)
+- [Astra AI Conversation And Context Architecture ADR](../../architecture/decisions/astra-ai-conversation-context-architecture.md)
+- [ASTRA-003 architecture review package](astra-003-architecture-review.md)
+- [ASTRA-003 task record](tasks/astra-003-conversation-context-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -83,6 +87,12 @@ conversation understanding, intent recognition, context assembly, permission
 evaluation, capability discovery, planning, action proposal, decision evidence
 assembly, and governed response construction.
 
+ASTRA-003 Conversation and Context Architecture is authorized for documentation
+and architecture only and proposed for Astra review. ASTRA-003 inherits
+ASTRA-001 and ASTRA-002 and defines how Astra manages conversation state and
+context throughout the intelligence pipeline without creating ungoverned
+memory, provider context, app data access, or production behavior.
+
 ---
 
 # Success Criteria
@@ -111,6 +121,22 @@ ASTRA-002 succeeds when:
 - external intelligence is optional rather than default;
 - local response preference is defined;
 - refusal and clarification are first-class outcomes;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-003 succeeds when:
+
+- ASTRA-001 and ASTRA-002 inheritance is explicit;
+- conversation is separated from memory;
+- memory is separated from Knowledge;
+- context classes and owners are documented;
+- conversation state is transient by default;
+- context loading is need-driven, minimized, purpose-bound, and isolated;
+- context provider authority is preserved;
+- context expiration and stale-context behavior are documented;
+- clarification cycles are governed;
+- privacy and concurrent conversation isolation are documented;
+- future interface support remains governed by the same context model;
 - no implementation occurs; and
 - production remains unchanged.
 

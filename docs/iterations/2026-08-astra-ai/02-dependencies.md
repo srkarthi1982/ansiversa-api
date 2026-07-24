@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 proposed
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -16,14 +16,15 @@
 | App `astra-ai.md` contracts | Existing for pilot apps only | Required before future app-level integration |
 | Frontend shell/search/navigation | Existing in frontend repo | Future interface surfaces; not changed by ASTRA-001 |
 | ASTRA-001 | Accepted and Frozen | Constitutional parent inherited by ASTRA-002 |
+| ASTRA-002 | Accepted and Frozen | Intelligence-pipeline parent inherited by ASTRA-003 |
 | External model providers | Not integrated by ASTRA-002 | Optional future capability, never the default path |
 
 ---
 
 # Blocking Dependencies Before Implementation
 
-- ASTRA-002 review, Product Owner approval, and freeze before using its
-  pipeline for implementation;
+- ASTRA-003 review, Product Owner approval, and freeze before implementing
+  conversation or context behavior;
 - Product Owner authorization for a named implementation phase;
 - source-level Astra review of the proposed implementation task;
 - explicit non-goals and rollback boundaries;
