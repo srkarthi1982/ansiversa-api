@@ -1,16 +1,18 @@
 # Astra AI Conversation And Context Architecture
 
-**Status:** Completed; pending Product Owner approval
+**Status:** Approved and Frozen
 **Task:** ASTRA-003
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
 **Created:** 2026-07-24
+**Approved:** 2026-07-24
+**Frozen:** 2026-07-24
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
-**ADR:** Ready for acceptance
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -509,14 +511,14 @@ No implementation is authorized by ASTRA-003.
 
 # ADR
 
-The proposed ADR for ASTRA-003 is:
+The accepted ADR for ASTRA-003 is:
 
 ```text
 docs/architecture/decisions/astra-ai-conversation-context-architecture.md
 ```
 
-The ADR remains ready for acceptance but not accepted until Product Owner
-approval is explicitly recorded.
+The ADR is accepted. ASTRA-003 is Frozen as the conversation and context
+architecture foundation for Astra AI.
 
 ---
 
@@ -577,16 +579,19 @@ runtime verification are required because ASTRA-003 is documentation-only.
 # Status Boundary
 
 ```text
-ASTRA-003               Completed
+ASTRA-003               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
+Architecture Direction  Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-003 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-004               Documentation only next; requires separate authorization
 ```

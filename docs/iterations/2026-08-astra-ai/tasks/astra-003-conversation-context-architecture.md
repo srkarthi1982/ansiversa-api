@@ -1,6 +1,6 @@
 # ASTRA-003 - Conversation And Context Architecture
 
-**Status:** Completed; pending Product Owner approval
+**Status:** Frozen
 **Created:** 2026-07-24
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -8,8 +8,8 @@
 **Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
-**ADR:** Ready for acceptance
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -124,16 +124,19 @@ The smallest sufficient context is the preferred context.
 # Final ASTRA-003 Status
 
 ```text
-ASTRA-003               Completed
+ASTRA-003               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
+Architecture Direction  Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-003 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-004               Documentation only next; requires separate authorization
 ```

@@ -2,9 +2,9 @@
 
 **Status:** Approved
 **Created:** 2026-07-24
-**ADR:** Ready for acceptance
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Product Owner Approval:** Pending
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -21,7 +21,7 @@ docs/architecture/decisions/astra-ai-conversation-context-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed conversation and context architecture that inherits ASTRA-001
 and ASTRA-002 and defines how Astra represents conversation state, classifies
@@ -54,7 +54,7 @@ provider facts.
 # Current Codex Self-Review
 
 ```text
-ASTRA-003               Completed
+ASTRA-003               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
@@ -63,10 +63,12 @@ Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-003 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-004               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-003 makes no implementation changes and does not reopen
@@ -89,8 +91,8 @@ This package now records that refinement:
 
 # Astra Re-review Outcome
 
-Astra re-reviewed commit `2e7fed4` and approved ASTRA-003. The architecture is
-ready for Product Owner approval, ADR acceptance, and freeze.
+Astra re-reviewed commit `2e7fed4` and approved ASTRA-003. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-003 is Frozen.
 
-Do not mark the ADR accepted or ASTRA-003 frozen until Product Owner approval
-is explicitly recorded.
+Implementation remains unauthorized. Production remains unchanged. ASTRA-004 is
+the next documentation-only phase and requires separate authorization.

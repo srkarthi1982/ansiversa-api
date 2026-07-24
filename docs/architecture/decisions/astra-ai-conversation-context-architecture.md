@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Conversation And Context Architecture
 
-**Status:** Ready for acceptance
+**Status:** Accepted
 **Created:** 2026-07-24
+**Accepted:** 2026-07-24
+**Frozen:** 2026-07-24
 **Task:** ASTRA-003
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -10,7 +12,7 @@
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -22,7 +24,7 @@ Should Ansiversa define a governed conversation and context architecture for
 Astra AI before implementing chat history, contextual assistance, voice,
 search, multimodal input, personalization, or memory behavior?
 
-Recommendation:
+Decision:
 
 Adopt ASTRA-003 as the documentation-only architecture for how Astra AI
 represents conversation state, classifies context, coordinates context
@@ -30,7 +32,7 @@ providers, minimizes and expires context, handles clarification cycles,
 preserves privacy, resolves contradictory provider context by authoritative
 ownership rather than manufactured consensus, and supports future interfaces.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-conversation-context-architecture.md
@@ -75,7 +77,7 @@ fragment privacy and governance.
 
 ## Option 4 - Governed Conversation And Context Architecture
 
-Recommendation: Accept if approved.
+Recommendation: Accept.
 
 This creates a shared model where conversation state is transient by default,
 context is classified by owner and sensitivity, context loading is need-driven,
@@ -84,7 +86,7 @@ context governance.
 
 ---
 
-# Proposed Engineering Laws
+# Accepted Engineering Laws
 
 ## Law 1
 
@@ -122,24 +124,26 @@ context governance.
 # Acceptance Checklist
 
 - [x] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-003 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-003 frozen.
+- [x] Future implementation phase separately scoped.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Ready for acceptance
-ASTRA-003               Completed
+ADR                     Accepted
+ASTRA-003               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
+Product Owner Approval  Approved
+ASTRA-003 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-004               Documentation only next; requires separate authorization
 ```

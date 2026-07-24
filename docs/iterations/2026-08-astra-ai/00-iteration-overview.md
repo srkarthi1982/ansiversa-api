@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 ready for Product Owner approval
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -87,14 +87,15 @@ conversation understanding, intent recognition, context assembly, permission
 evaluation, capability discovery, planning, action proposal, decision evidence
 assembly, and governed response construction.
 
-ASTRA-003 Conversation and Context Architecture is authorized for documentation
-and architecture only. Astra approved the architecture direction, requested one
-minor Context Authority Resolution refinement, and approved the corrected
-source-level re-review for commit `2e7fed4`. ASTRA-003 is ready for Product
-Owner approval, ADR acceptance, and freeze. ASTRA-003 inherits ASTRA-001 and
-ASTRA-002 and defines how Astra manages conversation state and context
-throughout the intelligence pipeline without creating ungoverned memory,
-provider context, app data access, or production behavior.
+ASTRA-003 Conversation and Context Architecture is approved and Frozen. Astra
+approved the architecture direction, requested one minor Context Authority
+Resolution refinement, approved the corrected source-level re-review for commit
+`2e7fed4`, and Product Owner approval is recorded. The ADR is accepted.
+ASTRA-003 inherits ASTRA-001 and ASTRA-002 and defines how Astra manages
+conversation state and context throughout the intelligence pipeline without
+creating ungoverned memory, provider context, app data access, or production
+behavior. ASTRA-004 is documentation-only next and requires separate
+authorization before work begins.
 
 ---
 

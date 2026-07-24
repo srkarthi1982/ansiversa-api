@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 ready for Product Owner approval | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -61,13 +61,13 @@ external-intelligence decision. Implementation and production changes remain
 unauthorized. ASTRA-003 is documentation only next and requires separate
 authorization.
 
-ASTRA-003 Conversation and Context Architecture is completed and ready for
-Product Owner approval as the authorized documentation-only next phase. Astra
+ASTRA-003 Conversation and Context Architecture is approved and Frozen. Astra
 approved the architecture direction for commit `ae3f12b`, requested one Context
-Authority Resolution refinement, and approved the corrected source-level
-re-review for commit `2e7fed4`. ASTRA-003 inherits ASTRA-001 and ASTRA-002 and
-defines how Astra manages conversation state and context through lifecycle,
-classification, assembly, provider coordination, authority resolution,
-isolation, expiration, clarification cycles, privacy, failure behavior, and
-future interface support. Implementation and production changes remain
-unauthorized.
+Authority Resolution refinement, approved the corrected source-level re-review
+for commit `2e7fed4`, and Product Owner approval is recorded. The ADR is
+accepted. ASTRA-003 inherits ASTRA-001 and ASTRA-002 and defines how Astra
+manages conversation state and context through lifecycle, classification,
+assembly, provider coordination, authority resolution, isolation, expiration,
+clarification cycles, privacy, failure behavior, and future interface support.
+Implementation and production changes remain unauthorized. ASTRA-004 is
+documentation only next and requires separate authorization.
