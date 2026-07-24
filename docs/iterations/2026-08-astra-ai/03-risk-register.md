@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001; future implementation risks remain open
+**Status:** Accepted for ASTRA-001; ASTRA-002 proposed
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -19,6 +19,10 @@
 | ASTRA-R13 | Astra AI confused with AI SEO | Medium | AI SEO publishes public truth; Astra consumes/orchestrates | Open |
 | ASTRA-R14 | Frontend coupling too early | Medium | Interface contracts after architecture; frontend hints are not authority | Open |
 | ASTRA-R15 | App #101 or uncontrolled app expansion appears through AI roadmap | High | Preserve fixed 100-app catalog boundary | Open |
+| ASTRA-R16 | External model becomes default reasoning path | Critical | ASTRA-002 requires an explicit external-intelligence necessity decision before provider invocation | Open |
+| ASTRA-R17 | User context loads before need is established | High | ASTRA-002 orders platform context before user context and requires minimized context assembly | Open |
+| ASTRA-R18 | Pipeline treats refusal or clarification as implementation failure | Medium | ASTRA-002 defines refusal and clarification as first-class governed outcomes | Open |
+| ASTRA-R19 | Planning is mistaken for execution authority | Critical | ASTRA-002 keeps action proposal separate from Tool Executor and app-owned execution | Open |
 
 ---
 
@@ -31,6 +35,7 @@
 - hidden execution path;
 - provider-selected identity or capability;
 - unrestricted backend context sent to an external model provider;
+- external model invocation by default rather than governed necessity decision;
 - cross-user data access;
 - production enablement without readiness review; and
 - implementation before approved scope.
