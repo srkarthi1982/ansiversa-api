@@ -1,17 +1,19 @@
 # Astra AI Capability Discovery And Tool Architecture
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-004
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
 **Parent:** ASTRA-003 Conversation And Context Architecture
 **Created:** 2026-07-24
+**Approved:** 2026-07-24
+**Frozen:** 2026-07-24
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -571,14 +573,14 @@ Future implementation should:
 
 # ADR
 
-The proposed ADR for ASTRA-004 is:
+The accepted ADR for ASTRA-004 is:
 
 ```text
 docs/architecture/decisions/astra-ai-capability-tool-architecture.md
 ```
 
-The ADR remains Proposed until Astra architecture review, Product Owner
-approval, ADR acceptance, and freeze are explicitly recorded.
+The ADR is accepted. ASTRA-004 is Frozen as the capability discovery and tool
+architecture foundation for Astra AI.
 
 ---
 
@@ -640,7 +642,7 @@ runtime verification are required because ASTRA-004 is documentation-only.
 # Status Boundary
 
 ```text
-ASTRA-004               Proposed
+ASTRA-004               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -649,9 +651,11 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-004 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-005               Documentation only next; requires separate authorization
 ```

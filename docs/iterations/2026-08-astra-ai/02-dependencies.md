@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -18,7 +18,7 @@
 | ASTRA-001 | Accepted and Frozen | Constitutional parent inherited by ASTRA-002 |
 | ASTRA-002 | Accepted and Frozen | Intelligence-pipeline parent inherited by ASTRA-003 |
 | ASTRA-003 | Accepted and Frozen | Conversation/context parent inherited by ASTRA-004 |
-| ASTRA-004 | Proposed | Capability/tool parent for future execution-planning architecture |
+| ASTRA-004 | Accepted and Frozen | Capability/tool parent for future execution-planning architecture |
 | External model providers | Not integrated by ASTRA-002 | Optional future capability, never the default path |
 
 ---

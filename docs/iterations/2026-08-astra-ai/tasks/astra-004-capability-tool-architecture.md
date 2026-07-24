@@ -1,6 +1,6 @@
 # ASTRA-004 - Capability Discovery And Tool Architecture
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-24
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -8,9 +8,9 @@
 **Parent:** ASTRA-003 Conversation And Context Architecture
 **Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -136,10 +136,10 @@ Required Astra review refinements:
 
 ---
 
-# Final ASTRA-004 Draft Status
+# Final ASTRA-004 Status
 
 ```text
-ASTRA-004               Proposed
+ASTRA-004               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -148,9 +148,11 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-004 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-005               Documentation only next; requires separate authorization
 ```

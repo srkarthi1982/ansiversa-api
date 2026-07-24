@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -101,16 +101,18 @@ creating ungoverned memory, provider context, app data access, or production
 behavior. ASTRA-004 is documentation-only next and requires separate
 authorization before work begins.
 
-ASTRA-004 Capability Discovery and Tool Architecture is Proposed after Product
-Owner documentation authorization. Astra approved the architecture direction
-for commit `862816d` and requested two targeted refinements. The current
-revision separates registry permission metadata from live authorization and
-defines deterministic candidate precedence with ambiguity handling. ASTRA-004
-inherits ASTRA-001, ASTRA-002, and ASTRA-003 and defines how Astra discovers
-registered capabilities, classifies tools, verifies capability existence,
-preserves tool ownership, records bounded evidence, and prevents capability
-fabrication without granting execution authority. ASTRA-004 remains pending
-Astra re-review, Product Owner approval, ADR acceptance, and freeze.
+ASTRA-004 Capability Discovery and Tool Architecture is approved and Frozen.
+Astra approved the architecture direction for commit `862816d`, requested two
+targeted refinements, and approved the corrected source-level re-review for
+commit `5e60cc4`. Product Owner approval is recorded. The ADR is accepted. The
+accepted architecture separates registry permission metadata from live
+authorization and defines deterministic candidate precedence with ambiguity
+handling. ASTRA-004 inherits ASTRA-001, ASTRA-002, and ASTRA-003 and defines
+how Astra discovers registered capabilities, classifies tools, verifies
+capability existence, preserves tool ownership, records bounded evidence, and
+prevents capability fabrication without granting execution authority. ASTRA-005
+is documentation-only next and requires separate authorization before work
+begins.
 
 ---
 

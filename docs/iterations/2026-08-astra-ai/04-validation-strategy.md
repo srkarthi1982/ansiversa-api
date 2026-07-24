@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, and ASTRA-003; ASTRA-004 proposed; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -21,8 +21,8 @@ runtime behavior.
 - ASTRA-003 status is approved and Frozen;
 - ASTRA-003 ADR is accepted;
 - required ASTRA-004 documents exist;
-- ASTRA-004 status is Proposed until Astra review and Product Owner approval;
-- ASTRA-004 ADR remains Proposed until Product Owner approval;
+- ASTRA-004 status is approved and Frozen;
+- ASTRA-004 ADR is accepted;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.

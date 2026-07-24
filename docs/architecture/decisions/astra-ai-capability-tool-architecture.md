@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Capability Discovery And Tool Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-24
+**Accepted:** 2026-07-24
+**Frozen:** 2026-07-24
 **Task:** ASTRA-004
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -10,8 +12,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -23,7 +25,7 @@ Should Ansiversa define a governed capability discovery and tool architecture
 for Astra AI before implementing capability lookup, tool selection, execution
 planning, provider-backed tool suggestions, or app-service coordination?
 
-Recommendation:
+Decision:
 
 Adopt ASTRA-004 as the documentation-only architecture for how Astra AI
 discovers registered capabilities, distinguishes capabilities from tools,
@@ -34,7 +36,7 @@ separates registry permission metadata from live user authorization and
 requires deterministic precedence or clarification when multiple candidates are
 equally suitable.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-capability-tool-architecture.md
@@ -80,7 +82,7 @@ side-effect classification.
 
 ## Option 4 - Registry-Governed Discovery
 
-Recommendation: Accept if approved.
+Recommendation: Accept.
 
 This creates a shared architecture where capabilities are unavailable until an
 authoritative registry proves otherwise, tool owners remain authoritative,
@@ -89,7 +91,7 @@ remains separate.
 
 ---
 
-# Proposed Engineering Laws
+# Accepted Engineering Laws
 
 ## Law 1
 
@@ -133,27 +135,29 @@ remains separate.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-004 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Astra architecture review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-004 frozen.
+- [x] Future implementation phase separately scoped.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-004               Proposed
+ADR                     Accepted
+ASTRA-004               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ASTRA-004 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-005               Documentation only next; requires separate authorization
 ```

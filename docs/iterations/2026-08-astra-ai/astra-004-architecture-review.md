@@ -1,12 +1,12 @@
 # ASTRA-004 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-24
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -23,7 +23,7 @@ docs/architecture/decisions/astra-ai-capability-tool-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed capability discovery and tool architecture that inherits
 ASTRA-001, ASTRA-002, and ASTRA-003 and defines how Astra discovers registered
@@ -67,7 +67,7 @@ with clarification or ambiguous-capability fallback.
 # Current Codex Self-Review
 
 ```text
-ASTRA-004               Proposed
+ASTRA-004               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -76,11 +76,13 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-004 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-005               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-004 makes no implementation changes and does not reopen
@@ -115,5 +117,8 @@ This package now records those refinements:
   user-significant difference, Astra asks for clarification or returns an
   ambiguous-capability result.
 
-ASTRA-004 remains Proposed. Product Owner approval, ADR acceptance, and freeze
-remain pending until Astra re-review is completed.
+Astra re-reviewed commit `5e60cc4` and approved ASTRA-004. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-004 is Frozen.
+
+Implementation remains unauthorized. Production remains unchanged. ASTRA-005 is
+the next documentation-only phase and requires separate authorization.
