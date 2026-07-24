@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 minor revisions applied | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 ready for Product Owner approval | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -49,12 +49,13 @@ approval is recorded. The ADR is accepted. Implementation and production
 changes are not authorized. Phase 2 is documentation-only next and requires
 separate authorization.
 
-ASTRA-002 Platform Intelligence Architecture is proposed as the authorized
-documentation-only next phase. Astra approved the architecture direction for
-commit `a95ae2e` and requested two minor ordering corrections, which are now
-applied pending Astra re-review. ASTRA-002 inherits ASTRA-001 and defines how
-Astra AI thinks through conversation understanding, intent recognition, context
-assembly, permission evaluation, capability discovery, planning, action
-proposal, decision evidence assembly, response construction, local-sufficiency
-checking, and an optional external-intelligence decision. Implementation and
-production changes remain unauthorized.
+ASTRA-002 Platform Intelligence Architecture is completed and ready for Product
+Owner approval as the authorized documentation-only next phase. Astra approved
+the architecture direction for commit `a95ae2e`, requested two minor ordering
+corrections, and approved the corrected source-level re-review for commit
+`01d2c55`. ASTRA-002 inherits ASTRA-001 and defines how Astra AI thinks through
+conversation understanding, intent recognition, context assembly, permission
+evaluation, capability discovery, planning, action proposal, decision evidence
+assembly, response construction, local-sufficiency checking, and an optional
+external-intelligence decision. Implementation and production changes remain
+unauthorized.

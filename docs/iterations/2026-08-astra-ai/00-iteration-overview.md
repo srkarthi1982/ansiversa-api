@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 minor revisions applied
+**Status:** ASTRA-001 Frozen; ASTRA-002 ready for Product Owner approval
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -59,9 +59,10 @@ frontend changes, deployment changes, or production behavior. Phase 2 is
 documentation-only next and requires separate authorization before work begins.
 
 ASTRA-002 Platform Intelligence Architecture is authorized for documentation
-only. Astra approved the architecture direction and requested two minor
-ordering corrections, which have been applied pending Astra re-review.
-ASTRA-002 inherits ASTRA-001 and defines how Astra AI reasons over user
+only. Astra approved the architecture direction, requested two minor ordering
+corrections, and approved the corrected source-level re-review for commit
+`01d2c55`. ASTRA-002 is ready for Product Owner approval, ADR acceptance, and
+freeze. ASTRA-002 inherits ASTRA-001 and defines how Astra AI reasons over user
 requests before any new intelligence implementation is written.
 
 ---

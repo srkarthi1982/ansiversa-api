@@ -1,12 +1,13 @@
 # Architecture Decision: Astra AI Platform Intelligence Architecture
 
-**Status:** Proposed
+**Status:** Ready for acceptance
 **Created:** 2026-07-24
 **Task:** ASTRA-002
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
-**Architecture Review:** Direction approved; minor revisions applied
+**Architecture Review:** Approved
+**Astra Re-review:** Approved
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -144,7 +145,7 @@ User
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
+- [x] Astra architecture review completed.
 - [ ] Product Owner approval recorded.
 - [ ] ADR accepted.
 - [ ] ASTRA-002 frozen.
@@ -155,11 +156,11 @@ User
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-002               Proposed
+ADR                     Ready for acceptance
+ASTRA-002               Completed
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
-Architecture Review     Direction approved; minor revisions applied
+Astra Re-review         Approved
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

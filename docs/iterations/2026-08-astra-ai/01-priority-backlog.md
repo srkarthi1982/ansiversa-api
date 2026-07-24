@@ -1,6 +1,6 @@
 # Astra AI Architecture Backlog
 
-**Status:** ASTRA-001 frozen; ASTRA-002 minor revisions applied
+**Status:** ASTRA-001 frozen; ASTRA-002 ready for Product Owner approval
 **Implementation:** Not authorized
 
 Only individually reviewed and authorized tasks may later move into
@@ -9,7 +9,7 @@ implementation. ASTRA-001 does not authorize any runtime work.
 | ID | Task | Priority | Status | Outcome |
 |---|---|---:|---|---|
 | ASTRA-001 | Vision And Core Architecture | Critical | Frozen | Constitutional architecture, options, ownership, risks, and ADR accepted |
-| ASTRA-002 | Platform Intelligence Architecture | Critical | Minor revisions applied | Define how Astra thinks: request understanding, intent, context, permission, capability, planning, local-sufficiency check, external-intelligence decision, decision evidence, and response |
+| ASTRA-002 | Platform Intelligence Architecture | Critical | Completed | Define how Astra thinks: request understanding, intent, context, permission, capability, planning, local-sufficiency check, external-intelligence decision, decision evidence, and response |
 | ASTRA-003 | Conversation And Context Architecture | Critical | Deferred | Define chat/search/voice/contextual interface contracts plus context lifecycle after ASTRA-002 review |
 | ASTRA-004 | Capability Discovery And Tool Architecture | High | Deferred | Define approved capability discovery, tool metadata, tool ownership, and no-fabrication controls |
 | ASTRA-005 | Execution Planning Architecture | Critical | Deferred | Define planning model, impact classification, confirmation, rollback, and proposal behavior before execution |
@@ -36,8 +36,7 @@ External AI provider architecture
 Memory and learning architecture
 ```
 
-ASTRA-002 is authorized for documentation only. Astra approved the architecture
-direction and the requested minor revisions are applied pending Astra
-re-review. No implementation task should start from ASTRA-002 until the
-architecture is approved, Product Owner approval is recorded, and a separate
+ASTRA-002 is authorized for documentation only and Astra re-review is approved.
+No implementation task should start from ASTRA-002 until Product Owner
+approval is recorded, the ADR is accepted, ASTRA-002 is frozen, and a separate
 implementation scope is authorized.
