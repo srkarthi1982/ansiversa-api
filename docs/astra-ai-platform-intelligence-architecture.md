@@ -1,14 +1,16 @@
 # Astra AI Platform Intelligence Architecture
 
-**Status:** Completed; pending Product Owner approval
+**Status:** Approved and Frozen
 **Task:** ASTRA-002
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Created:** 2026-07-24
+**Approved:** 2026-07-24
+**Frozen:** 2026-07-24
 **Authorization:** Approved for documentation only
 **Architecture Review:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
-**ADR:** Ready for acceptance
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -798,7 +800,7 @@ No implementation is authorized by ASTRA-002.
 # Status Boundary
 
 ```text
-ASTRA-002               Completed
+ASTRA-002               Approved
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
@@ -806,8 +808,10 @@ Specification           Complete
 Architecture Direction  Approved
 Architecture Review     Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-002 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-003               Documentation only next; requires separate authorization
 ```

@@ -1,14 +1,14 @@
 # ASTRA-002 - Platform Intelligence Architecture
 
-**Status:** Completed; pending Product Owner approval
+**Status:** Frozen
 **Created:** 2026-07-24
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Authorization:** Approved for documentation only
 **Architecture Review:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
-**ADR:** Ready for acceptance
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -131,14 +131,18 @@ User
 # Final ASTRA-002 Status
 
 ```text
-ASTRA-002               Completed
+ASTRA-002               Approved
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
 Specification           Complete
+Architecture Direction  Approved
+Architecture Review     Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-002 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-003               Documentation only next; requires separate authorization
 ```

@@ -2,9 +2,9 @@
 
 **Status:** Approved
 **Created:** 2026-07-24
-**ADR:** Ready for acceptance
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation only
-**Product Owner Approval:** Pending
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -21,7 +21,7 @@ docs/architecture/decisions/astra-ai-platform-intelligence-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed platform intelligence pipeline for Astra AI that inherits
 ASTRA-001 and defines how requests move through understanding, intent,
@@ -49,17 +49,19 @@ response construction.
 # Current Codex Self-Review
 
 ```text
-ASTRA-002               Completed
+ASTRA-002               Approved
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
-ADR                     Ready for acceptance
+Product Owner Approval  Approved
+ADR                     Accepted
+ASTRA-002 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-003               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-002 makes no implementation changes and does not reopen
@@ -85,5 +87,8 @@ This package now records those revisions:
 Astra re-reviewed commit `01d2c55` and approved ASTRA-002. The architecture is
 ready for Product Owner approval, ADR acceptance, and freeze.
 
-Do not mark the ADR accepted or ASTRA-002 frozen until Product Owner approval
-is explicitly recorded.
+# Final Acceptance
+
+Product Owner approval is recorded. The ADR is accepted, ASTRA-002 is Frozen,
+implementation remains unauthorized, production is unchanged, and ASTRA-003 is
+documentation only next pending separate authorization.

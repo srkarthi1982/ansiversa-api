@@ -1,14 +1,16 @@
 # Architecture Decision: Astra AI Platform Intelligence Architecture
 
-**Status:** Ready for acceptance
+**Status:** Accepted
 **Created:** 2026-07-24
+**Accepted:** 2026-07-24
+**Frozen:** 2026-07-24
 **Task:** ASTRA-002
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Review:** Approved
 **Astra Re-review:** Approved
-**Product Owner Approval:** Pending
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -20,14 +22,14 @@ Should Ansiversa define a governed platform intelligence pipeline for Astra AI
 before implementing additional reasoning, provider, context, planning, or tool
 behavior?
 
-Recommendation:
+Decision:
 
 Adopt ASTRA-002 as the documentation-only architecture for how Astra AI
 interprets requests, assembles context, evaluates permission, discovers
 capabilities, plans, determines whether external intelligence is necessary,
 collects evidence, and constructs governed responses.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-platform-intelligence-architecture.md
@@ -71,7 +73,7 @@ intelligence when local logic cannot safely or usefully satisfy the request.
 
 ## Option 4 - Governed Platform Intelligence Pipeline
 
-Recommendation: Accept if approved.
+Recommendation: Accept.
 
 This defines the operating model before implementation. It keeps external
 intelligence optional, places permission before capability, preserves app
@@ -80,7 +82,7 @@ bounded evidence for governed decisions.
 
 ---
 
-# Proposed Decision Pipeline
+# Accepted Decision Pipeline
 
 ```text
 User Request
@@ -121,7 +123,7 @@ User
 
 ---
 
-# Proposed Engineering Law
+# Accepted Engineering Law
 
 > Astra must decide whether external intelligence is necessary before invoking
 > any external model.
@@ -146,22 +148,24 @@ User
 # Acceptance Checklist
 
 - [x] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-002 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-002 frozen.
+- [x] Future implementation phase separately scoped before implementation.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Ready for acceptance
-ASTRA-002               Completed
+ADR                     Accepted
+ASTRA-002               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Documentation Auth      Approved
 Astra Re-review         Approved
-Product Owner Approval  Pending
+Product Owner Approval  Approved
+ASTRA-002 Freeze        Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-003               Documentation only next; requires separate authorization
 ```
