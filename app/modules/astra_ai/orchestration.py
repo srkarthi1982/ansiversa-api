@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from uuid import uuid4
-
 from app.modules.astra_ai.audit import (
     assert_no_secret_material,
     build_audit_metadata,
+    deterministic_request_id,
     refusal_reason_from_decision,
 )
 from app.modules.astra_ai.context import resolve_platform_context
@@ -15,7 +14,7 @@ from app.modules.astra_ai.contracts import (
     PolicyDecisionType,
     ResponseClassification,
 )
-from app.modules.astra_ai.fixtures import PLATFORM_SOURCE_BUNDLE, PlatformSourceBundle
+from app.modules.astra_ai.fixtures import PlatformSourceBundle
 from app.modules.astra_ai.intents import classify_intent
 from app.modules.astra_ai.policy import evaluate_policy
 from app.modules.astra_ai.responses import (
@@ -29,7 +28,7 @@ from app.modules.astra_ai.responses import (
 def orchestrate_platform_request(
     request: AssistantRequest,
     *,
-    sources: PlatformSourceBundle = PLATFORM_SOURCE_BUNDLE,
+    sources: PlatformSourceBundle | None = None,
     request_id: str | None = None,
 ) -> AssistantResponse:
     platform_context = resolve_platform_context(request, sources=sources)
@@ -61,7 +60,11 @@ def orchestrate_platform_request(
         answer = build_answer(intent, platform_context)
 
     audit = build_audit_metadata(
-        request_id=request_id or f"astra-ai-phase1-{uuid4()}",
+        request_id=request_id
+        or deterministic_request_id(
+            request=request,
+            context_sources=platform_context.knowledge_sources + platform_context.documentation_sources,
+        ),
         intent=intent,
         decision=decision,
         context_sources=platform_context.knowledge_sources + platform_context.documentation_sources,

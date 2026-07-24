@@ -11,8 +11,8 @@ from app.modules.astra_ai.contracts import (
     PolicyDecisionType,
     ResponseClassification,
 )
-from app.modules.astra_ai.context import resolve_platform_context
-from app.modules.astra_ai.fixtures import PLATFORM_SOURCE_BUNDLE
+from app.modules.astra_ai.context import GOVERNED_KNOWLEDGE_SOURCE, resolve_platform_context
+from app.modules.astra_ai.fixtures import SAMPLE_PLATFORM_SOURCE_BUNDLE
 from app.modules.astra_ai.orchestration import orchestrate_platform_request
 
 
@@ -35,8 +35,19 @@ class AstraAIPlatformPhase1Tests(unittest.TestCase):
         )
 
         self.assertEqual(response.intent.intent, AssistantIntentType.APP_DISCOVERY)
-        self.assertTrue(response.platform_context.apps)
-        self.assertIn("Quiz", response.answer)
+        self.assertEqual(len(response.platform_context.apps), 100)
+        self.assertIn("governed platform catalog", response.answer)
+
+    def test_default_context_uses_governed_catalog_completeness(self):
+        context = resolve_platform_context(AssistantRequest(message="Find apps"))
+        app_slugs = [app.slug for app in context.apps]
+        routes = [route.route for route in context.routes]
+
+        self.assertEqual(len(context.apps), 100)
+        self.assertEqual(len(context.categories), 14)
+        self.assertEqual(len(app_slugs), len(set(app_slugs)))
+        self.assertEqual(len(routes), len(set(routes)))
+        self.assertEqual(context.knowledge_sources[0], GOVERNED_KNOWLEDGE_SOURCE)
 
     def test_category_discovery_request(self):
         response = orchestrate_platform_request(
@@ -146,15 +157,29 @@ class AstraAIPlatformPhase1Tests(unittest.TestCase):
         self.assertEqual(first.refusal, second.refusal)
 
     def test_deterministic_audit_evidence(self):
-        response = orchestrate_platform_request(
+        first = orchestrate_platform_request(
             AssistantRequest(message="What is Ansiversa platform?"),
-            request_id="stable-request",
+        )
+        second = orchestrate_platform_request(
+            AssistantRequest(message="What is Ansiversa platform?"),
         )
 
-        self.assertEqual(response.audit.request_id, "stable-request")
-        self.assertEqual(response.audit.resolved_intent, AssistantIntentType.PLATFORM_INFORMATION)
-        self.assertEqual(response.audit.policy_decision, PolicyDecisionType.ALLOW_READ_ONLY)
-        self.assertIn("platform_catalog", response.audit.context_sources_used)
+        self.assertEqual(first.audit, second.audit)
+        self.assertTrue(first.audit.request_id.startswith("astra-ai-phase1-"))
+        self.assertEqual(first.audit.resolved_intent, AssistantIntentType.PLATFORM_INFORMATION)
+        self.assertEqual(first.audit.policy_decision, PolicyDecisionType.ALLOW_READ_ONLY)
+        self.assertIn("platform_catalog", first.audit.context_sources_used)
+
+    def test_full_repeated_response_equivalence_without_injected_request_id(self):
+        request = AssistantRequest(
+            message="Which categories are available?",
+            user_context=AuthenticatedUserContext(is_authenticated=True, user_reference="user-ref-1"),
+        )
+
+        first = orchestrate_platform_request(request)
+        second = orchestrate_platform_request(request)
+
+        self.assertEqual(first, second)
 
     def test_absence_of_secrets_and_raw_exception_messages(self):
         response = orchestrate_platform_request(
@@ -169,7 +194,7 @@ class AstraAIPlatformPhase1Tests(unittest.TestCase):
 
     def test_no_app_database_access(self):
         request = AssistantRequest(message="Find apps for health")
-        context = resolve_platform_context(request, sources=PLATFORM_SOURCE_BUNDLE)
+        context = resolve_platform_context(request, sources=SAMPLE_PLATFORM_SOURCE_BUNDLE)
 
         self.assertEqual(context.knowledge_sources[0], "platform_catalog")
         self.assertFalse(hasattr(context, "db"))
@@ -191,3 +216,20 @@ class AstraAIPlatformPhase1Tests(unittest.TestCase):
 
         self.assertFalse(ASTRA_AI_PLATFORM_ENABLED)
         self.assertFalse(response.audit.runtime_enabled)
+
+    def test_token_aware_matching_avoids_substring_refusals(self):
+        safe_messages = (
+            "The secretariat publishes catalog notes",
+            "Show tokenized search apps",
+            "Open the crossword user guide",
+            "I paid attention to pricing",
+        )
+
+        for message in safe_messages:
+            with self.subTest(message=message):
+                response = orchestrate_platform_request(
+                    AssistantRequest(message=message),
+                    sources=SAMPLE_PLATFORM_SOURCE_BUNDLE,
+                )
+                self.assertNotEqual(response.policy_decision, PolicyDecisionType.REFUSE)
+                self.assertNotEqual(response.policy_decision, PolicyDecisionType.PROPOSE_ACTION_ONLY)

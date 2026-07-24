@@ -28,7 +28,7 @@ class PlatformSourceBundle:
     knowledge_sources: tuple[str, ...]
 
 
-PLATFORM_SOURCE_BUNDLE = PlatformSourceBundle(
+SAMPLE_PLATFORM_SOURCE_BUNDLE = PlatformSourceBundle(
     apps=(
         PlatformAppFixture(
             slug="quiz",

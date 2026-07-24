@@ -1,10 +1,5 @@
-from __future__ import annotations
-
-import re
-
 from app.modules.astra_ai.contracts import AssistantIntent, AssistantIntentType
-
-TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
+from app.modules.astra_ai.matching import has_any_term, matched_terms, tokenize
 
 PROMPT_CONFLICT_TERMS = (
     "ignore instructions",
@@ -26,11 +21,19 @@ PRIVATE_DATA_TERMS = (
     "cross-user",
 )
 ACTION_TERMS = ("create", "update", "delete", "edit", "send", "schedule", "save", "pay")
+COMPARE_TERMS = ("compare", "versus", "vs", "difference", "better")
+CATEGORY_TERMS = ("category", "categories")
+ACCOUNT_TERMS = ("login", "account", "profile", "settings", "password")
+NAVIGATION_TERMS = ("route", "navigate", "navigation", "open", "where", "go")
+PRICING_TERMS = ("pricing", "price", "subscription", "billing", "plan")
+LEGAL_POLICY_TERMS = ("terms", "privacy", "legal", "policy")
+HELP_TERMS = ("help", "faq", "support", "question")
+APP_DISCOVERY_TERMS = ("app", "apps", "find", "discover", "recommend", "catalog")
+PLATFORM_TERMS = ("ansiversa", "platform", "astra")
 
 
 def classify_intent(message: str) -> AssistantIntent:
-    normalized = _normalize(message)
-    tokens = tuple(TOKEN_PATTERN.findall(normalized))
+    tokens = tokenize(message)
     if not tokens or len(tokens) < 2:
         return AssistantIntent(
             intent=AssistantIntentType.CAPABILITY_CLARIFICATION,
@@ -38,77 +41,87 @@ def classify_intent(message: str) -> AssistantIntent:
             matched_terms=tokens,
             clarification_reason="The request is too short to resolve safely.",
         )
-    if _contains(normalized, PROMPT_CONFLICT_TERMS):
+    if has_any_term(message, PROMPT_CONFLICT_TERMS):
         return AssistantIntent(
             intent=AssistantIntentType.UNSUPPORTED_REQUEST,
             confidence="high",
             matched_terms=("prompt_conflict",),
         )
-    if _contains(normalized, PRIVATE_DATA_TERMS):
+    if has_any_term(message, PRIVATE_DATA_TERMS):
         return AssistantIntent(
             intent=AssistantIntentType.UNSUPPORTED_REQUEST,
             confidence="high",
             matched_terms=("private_data",),
         )
-    if any(term in tokens for term in ACTION_TERMS):
+    action_matches = matched_terms(message, ACTION_TERMS)
+    if action_matches:
         return AssistantIntent(
             intent=AssistantIntentType.FUTURE_APP_ACTION_REQUEST,
             confidence="high",
-            matched_terms=tuple(term for term in ACTION_TERMS if term in tokens),
+            matched_terms=action_matches,
         )
-    if {"compare", "versus", "vs", "difference", "better"} & set(tokens):
+    compare_matches = matched_terms(message, COMPARE_TERMS)
+    if compare_matches:
         return AssistantIntent(
             intent=AssistantIntentType.APP_COMPARISON,
             confidence="medium",
-            matched_terms=tuple(sorted({"compare", "versus", "vs", "difference", "better"} & set(tokens))),
+            matched_terms=compare_matches,
         )
-    if {"category", "categories"} & set(tokens):
+    category_matches = matched_terms(message, CATEGORY_TERMS)
+    if category_matches:
         return AssistantIntent(
             intent=AssistantIntentType.CATEGORY_DISCOVERY,
             confidence="high",
-            matched_terms=tuple(sorted({"category", "categories"} & set(tokens))),
+            matched_terms=category_matches,
         )
-    if {"login", "account", "profile", "settings", "password"} & set(tokens):
+    account_matches = matched_terms(message, ACCOUNT_TERMS)
+    if account_matches:
         return AssistantIntent(
             intent=AssistantIntentType.ACCOUNT_GUIDANCE,
             confidence="high",
-            matched_terms=tuple(sorted({"login", "account", "profile", "settings", "password"} & set(tokens))),
+            matched_terms=account_matches,
         )
-    if {"route", "navigate", "navigation", "open", "where", "go"} & set(tokens):
+    navigation_matches = matched_terms(message, NAVIGATION_TERMS)
+    if navigation_matches:
         return AssistantIntent(
             intent=AssistantIntentType.NAVIGATION_GUIDANCE,
             confidence="high",
-            matched_terms=tuple(sorted({"route", "navigate", "navigation", "open", "where", "go"} & set(tokens))),
+            matched_terms=navigation_matches,
         )
-    if {"pricing", "price", "subscription", "billing", "plan"} & set(tokens):
+    pricing_matches = matched_terms(message, PRICING_TERMS)
+    if pricing_matches:
         return AssistantIntent(
             intent=AssistantIntentType.PRICING_SUBSCRIPTION_GUIDANCE,
             confidence="high",
-            matched_terms=tuple(sorted({"pricing", "price", "subscription", "billing", "plan"} & set(tokens))),
+            matched_terms=pricing_matches,
         )
-    if {"terms", "privacy", "legal", "policy"} & set(tokens):
+    legal_matches = matched_terms(message, LEGAL_POLICY_TERMS)
+    if legal_matches:
         return AssistantIntent(
             intent=AssistantIntentType.LEGAL_POLICY_GUIDANCE,
             confidence="high",
-            matched_terms=tuple(sorted({"terms", "privacy", "legal", "policy"} & set(tokens))),
+            matched_terms=legal_matches,
         )
-    if {"help", "faq", "support", "question"} & set(tokens):
+    help_matches = matched_terms(message, HELP_TERMS)
+    if help_matches:
         return AssistantIntent(
             intent=AssistantIntentType.HELP_FAQ,
             confidence="medium",
-            matched_terms=tuple(sorted({"help", "faq", "support", "question"} & set(tokens))),
+            matched_terms=help_matches,
         )
-    if {"app", "apps", "find", "discover", "recommend", "catalog"} & set(tokens):
+    app_matches = matched_terms(message, APP_DISCOVERY_TERMS)
+    if app_matches:
         return AssistantIntent(
             intent=AssistantIntentType.APP_DISCOVERY,
             confidence="high",
-            matched_terms=tuple(sorted({"app", "apps", "find", "discover", "recommend", "catalog"} & set(tokens))),
+            matched_terms=app_matches,
         )
-    if {"ansiversa", "platform", "astra"} & set(tokens):
+    platform_matches = matched_terms(message, PLATFORM_TERMS)
+    if platform_matches:
         return AssistantIntent(
             intent=AssistantIntentType.PLATFORM_INFORMATION,
             confidence="high",
-            matched_terms=tuple(sorted({"ansiversa", "platform", "astra"} & set(tokens))),
+            matched_terms=platform_matches,
         )
     return AssistantIntent(
         intent=AssistantIntentType.CAPABILITY_CLARIFICATION,
@@ -116,11 +129,3 @@ def classify_intent(message: str) -> AssistantIntent:
         matched_terms=tokens[:5],
         clarification_reason="The request does not match a bounded platform intent.",
     )
-
-
-def _normalize(message: str) -> str:
-    return " ".join(message.lower().strip().split())
-
-
-def _contains(message: str, terms: tuple[str, ...]) -> bool:
-    return any(term in message for term in terms)

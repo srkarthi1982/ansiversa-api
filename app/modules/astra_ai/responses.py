@@ -22,7 +22,7 @@ def build_answer(intent: AssistantIntent, context: PlatformContext) -> str:
             )
         case AssistantIntentType.APP_DISCOVERY:
             apps = ", ".join(app.name for app in context.apps[:4])
-            return f"Astra AI Phase 1 can discover platform catalog apps. Available fixture examples: {apps}."
+            return f"Astra AI Phase 1 can discover governed platform catalog apps. Examples: {apps}."
         case AssistantIntentType.APP_COMPARISON:
             return "Astra AI Phase 1 can compare apps using public catalog metadata only, not private app records."
         case AssistantIntentType.CATEGORY_DISCOVERY:

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 
 from app.modules.astra_ai.contracts import (
@@ -51,6 +53,23 @@ def build_audit_metadata(
         runtime_enabled=ASTRA_AI_PLATFORM_ENABLED,
         evidence=evidence,
     )
+
+
+def deterministic_request_id(
+    *,
+    request,
+    context_sources: tuple[str, ...],
+) -> str:
+    payload = {
+        "message": request.message,
+        "userContext": request.user_context.model_dump(mode="json"),
+        "conversationContext": request.conversation_context.model_dump(mode="json"),
+        "contextSources": context_sources,
+    }
+    digest = hashlib.sha256(
+        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()[:24]
+    return f"astra-ai-phase1-{digest}"
 
 
 def assert_no_secret_material(metadata: AuditMetadata) -> None:

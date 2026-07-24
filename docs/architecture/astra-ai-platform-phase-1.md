@@ -26,10 +26,11 @@ The isolated package lives at:
 app/modules/astra_ai
 ```
 
-It contains contracts, deterministic platform fixtures, context resolution,
-intent classification, policy evaluation, response planning, audit evidence,
-and orchestration. It is not imported by FastAPI startup, not registered as a
-route, and not connected to existing Assistant runtime behavior.
+It contains contracts, deterministic test fixtures, governed platform context
+resolution, intent classification, policy evaluation, response planning, audit
+evidence, and orchestration. It is not imported by FastAPI startup, not
+registered as a route, and not connected to existing Assistant runtime
+behavior.
 
 ## Contracts
 
@@ -47,11 +48,15 @@ capability clarification, unsupported request, and future app-action request.
 
 ## Context Ownership
 
-The context resolver accepts only an approved platform source bundle. It has no
-database session argument, reads no arbitrary files, inspects no app records,
-and does not access environment values or secrets. The default fixture
-represents catalog, route registry, documentation registry, and approved
-platform knowledge sources.
+The default context resolver builds its platform source bundle from the
+existing governed Knowledge registry. The default shape is the production
+catalog truth: 100 public solution apps, 14 categories, unique app slugs, and
+unique platform/app routes derived from approved Knowledge/catalog metadata.
+
+The resolver has no database session argument, does not inspect app records,
+and does not access environment values or secrets. A small sample source bundle
+exists only for explicit tests and must not be treated as the default platform
+truth.
 
 Permanent rule:
 
@@ -63,9 +68,10 @@ Refuse to store or access what Astra AI does not own.
 
 Policy evaluation is fail-closed for private app records, cross-user access,
 secret/internal-data requests, prompt conflicts, anonymous private-account
-requests, unsupported scope, and ambiguous prompts. Public platform guidance is
-read-only. Authenticated context is treated as authorization context only, not
-permission to inspect app databases.
+requests, unsupported scope, and ambiguous prompts. Security-sensitive matching
+uses token-aware bounded phrase checks to avoid unsafe substring behavior.
+Public platform guidance is read-only. Authenticated context is treated as
+authorization context only, not permission to inspect app databases.
 
 ## Orchestration
 
@@ -98,9 +104,10 @@ workflow behavior. Action execution status is `proposed_not_executed`.
 Audit metadata records request ID, resolved intent, policy decision,
 authorization result, context sources used, refusal or clarification reason,
 proposed action type, execution status, response classification, and disabled
-runtime state. Evidence is deterministic and secret-scanned. It must not store
-tokens, passwords, database URLs, private records, raw secrets, or uncontrolled
-exception text.
+runtime state. If no external request ID is supplied, the internal request ID
+is derived deterministically from bounded request/context inputs. Evidence is
+deterministic and secret-scanned. It must not store tokens, passwords,
+database URLs, private records, raw secrets, or uncontrolled exception text.
 
 ## Deferred Scope
 
