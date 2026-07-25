@@ -155,14 +155,18 @@ and production changes remain unauthorized. ASTRA-007 External Intelligence And
 Provider Architecture was authorized for documentation and architecture only on
 2026-07-25.
 
-ASTRA-007 External Intelligence and Provider Architecture is Proposed and
-pending Astra architecture review. The ADR is Proposed. ASTRA-007 inherits
-ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006 and
-defines how Astra determines whether external intelligence is necessary,
-constructs governed provider input envelopes, selects eligible providers,
-validates provider responses, controls cost and privacy risk, records bounded
-evidence, and remains provider-independent. Implementation and production
-changes remain unauthorized.
+ASTRA-007 External Intelligence and Provider Architecture is Proposed. Astra
+approved the architecture direction for commit `ad3340e` and requested two
+targeted documentation refinements before freeze. The ADR is Proposed.
+ASTRA-007 inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and
+ASTRA-006 and defines how Astra determines whether external intelligence is
+necessary, constructs governed provider input envelopes, selects eligible
+providers, validates provider responses, controls cost and privacy risk,
+records bounded evidence, and remains provider-independent. The current
+revision separates provider eligibility from provider selection and defines
+provider response authority so provider output remains advisory until validated
+by Astra and authoritative owners. Implementation and production changes remain
+unauthorized.
 
 ---
 
@@ -293,9 +297,13 @@ ASTRA-007 succeeds when:
 - deterministic tasks are excluded from provider use;
 - provider capability classes are documented;
 - provider eligibility and routing are provider-independent;
+- provider eligibility is separated from provider selection;
+- provider selection occurs only within the eligible provider set;
 - provider input envelopes are minimized, purpose-bound, and policy-approved;
 - prompt governance cannot override parent architecture;
 - provider responses are untrusted until validated;
+- provider output is advisory intelligence until validated by Astra and
+  authoritative owners;
 - hallucination boundaries are documented;
 - cost and token governance are documented;
 - privacy and data minimization are documented;

@@ -109,9 +109,13 @@ executor admission from owning-service acceptance and defines per-step
 authority with non-atomic behavior for multi-owner execution. Implementation
 and production changes remain unauthorized. ASTRA-007 External Intelligence And
 Provider Architecture is Proposed after documentation and architecture
-authorization. The ADR is Proposed. ASTRA-007 inherits ASTRA-001 through
-ASTRA-006 and defines how Astra determines whether external intelligence is
-necessary, constructs governed provider input envelopes, selects eligible
-providers, validates provider responses, controls cost and privacy risk,
-records bounded evidence, and remains provider-independent. Implementation and
-production changes remain unauthorized.
+authorization. Astra approved the architecture direction for commit `ad3340e`
+and requested two targeted documentation refinements before freeze. The ADR is
+Proposed. ASTRA-007 inherits ASTRA-001 through ASTRA-006 and defines how Astra
+determines whether external intelligence is necessary, constructs governed
+provider input envelopes, selects eligible providers, validates provider
+responses, controls cost and privacy risk, records bounded evidence, and
+remains provider-independent. The current revision separates provider
+eligibility from provider selection and defines provider response authority so
+provider output remains advisory until validated by Astra and authoritative
+owners. Implementation and production changes remain unauthorized.

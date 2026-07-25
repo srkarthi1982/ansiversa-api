@@ -58,6 +58,8 @@
 | ASTRA-R52 | One provider becomes a constitutional dependency | High | ASTRA-007 requires provider-neutral capability, envelope, validation, failure, and routing concepts | Open |
 | ASTRA-R53 | Prompt bypasses parent architecture | Critical | ASTRA-007 defines prompt governance as subordinate to parent architecture | Open |
 | ASTRA-R54 | Provider costs grow silently | High | ASTRA-007 requires token and cost governance before provider use | Open |
+| ASTRA-R55 | Provider selection occurs before eligibility is governed | Critical | ASTRA-007 separates provider eligibility from provider selection and restricts selection to eligible providers | Open |
+| ASTRA-R56 | Unvalidated provider output becomes authoritative truth | Critical | ASTRA-007 classifies provider output as advisory until validated by Astra and authoritative owners | Open |
 
 ---
 
@@ -94,7 +96,10 @@
 - executor reporting that hides partial success or compensation needs;
 - provider-first reasoning;
 - provider selection before external-intelligence necessity;
+- provider selection before provider eligibility;
 - provider output treated as authoritative platform truth;
+- unvalidated provider output mutating state, granting authorization, or
+  overriding ownership;
 - raw internal context sent to providers by default;
 - prompt architecture that overrides parent architecture;
 - provider calls without token and cost governance;

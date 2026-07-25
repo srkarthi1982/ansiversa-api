@@ -12,7 +12,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -32,7 +33,9 @@ Propose ASTRA-007 as the documentation-only architecture for how Astra
 determines whether external intelligence is necessary, constructs governed
 provider input envelopes, selects eligible providers, validates provider
 responses, controls cost and privacy risk, records bounded evidence, and
-remains provider-independent.
+remains provider-independent. The revised proposal separates provider
+eligibility from provider selection and classifies provider output as advisory
+intelligence until validated by Astra and authoritative owners.
 
 Canonical proposed specification:
 
@@ -111,12 +114,16 @@ risk, and preserves provider independence.
 # Consequences If Accepted
 
 - External intelligence becomes a governed capability, not the default path.
+- Provider eligibility is evaluated before provider selection.
 - Provider selection occurs only after external-intelligence necessity is
   established.
+- Provider selection occurs only within the eligible provider set.
 - Local sufficiency prevents unnecessary provider calls.
 - Provider input envelopes are minimized and policy-approved.
 - Prompt governance is defined without implementing prompts.
 - Provider responses are untrusted until validated.
+- Provider output remains advisory intelligence until validated against Astra's
+  constitutional governance and authoritative owners.
 - Hallucination boundaries are explicit.
 - Cost and token governance become architecture requirements.
 - Privacy and data minimization govern all provider requests.
@@ -134,6 +141,10 @@ risk, and preserves provider independence.
 - [ ] ADR accepted.
 - [ ] ASTRA-007 frozen.
 - [ ] Future implementation phase separately scoped.
+- [x] Astra architecture direction approved with targeted documentation
+  refinements recorded.
+- [x] Provider eligibility and provider selection refinement applied.
+- [x] Provider response authority refinement applied.
 
 ---
 
@@ -150,11 +161,11 @@ Parent                  ASTRA-005 Accepted
 Parent                  ASTRA-006 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged
 ```
-

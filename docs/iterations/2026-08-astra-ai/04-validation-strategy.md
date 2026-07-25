@@ -158,9 +158,15 @@ ASTRA-007 coverage:
 - local sufficiency prevents unnecessary provider calls;
 - provider model and capability classification are documented;
 - provider eligibility and routing are provider-independent;
+- provider eligibility is separated from provider selection;
+- provider selection occurs only within the eligible provider set;
 - provider input envelopes are minimized and purpose-bound;
 - prompt governance is documented and subordinate to parent architecture;
 - provider responses are untrusted until validated;
+- provider output is advisory until validated by Astra and authoritative
+  owners;
+- unvalidated provider output cannot mutate state, grant authorization,
+  override ownership, or establish platform truth;
 - hallucination boundaries are documented;
 - cost and token governance are documented;
 - privacy and data minimization are documented;
@@ -217,9 +223,11 @@ Future implementation tasks must add executable validation for:
 - duplicate request detection;
 - executor health and owner-service health separation;
 - external-intelligence necessity checks;
+- provider eligibility checks before provider selection;
 - provider input-envelope minimization;
 - prompt governance;
 - provider response validation;
+- provider response authority boundaries;
 - token and cost governance;
 - provider failure fallback;
 - stale plans cannot execute;

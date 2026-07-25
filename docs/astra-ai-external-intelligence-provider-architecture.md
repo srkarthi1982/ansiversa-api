@@ -356,17 +356,24 @@ architecture.
 
 ---
 
-# Provider Eligibility And Routing
+# Provider Eligibility
 
-Provider selection occurs only after external intelligence necessity is proven.
+Before provider selection, Astra determines the governed set of providers
+eligible for the specific request.
 
 Provider eligibility should evaluate:
 
+- governance policy;
+- privacy policy;
 - approved provider status;
+- allowed provider list;
+- prohibited provider list;
 - supported capability class;
 - data sensitivity compatibility;
 - retention and privacy compatibility;
 - region or residency requirements;
+- jurisdiction;
+- tenant restrictions;
 - cost and token budget;
 - expected reliability;
 - output validation needs;
@@ -374,6 +381,27 @@ Provider eligibility should evaluate:
 - latency tolerance;
 - failure behavior; and
 - Product Owner or governance restrictions.
+
+Provider eligibility is a constitutional governance decision. Provider
+selection is an operational routing decision inside the eligible provider set.
+If no provider is eligible, external intelligence is unavailable for the
+request.
+
+Provider eligibility must not be inferred from provider marketing claims,
+provider output, prompt text, accidental ordering, or user preference alone.
+
+---
+
+# Provider Selection And Routing
+
+Provider selection occurs only after:
+
+- local sufficiency fails;
+- external intelligence necessity is established;
+- provider eligibility is evaluated; and
+- at least one provider is eligible for the request.
+
+Provider selection occurs only within the eligible provider set.
 
 Routing must not be based on provider marketing claims, provider suggestions,
 prompt text alone, accidental ordering, or cheapest-provider selection without
@@ -464,6 +492,29 @@ Prompts must not:
 Provider responses are untrusted until validated by Astra or the owning
 service.
 
+## Provider Response Authority
+
+Provider responses are advisory intelligence.
+
+They never become authoritative platform truth until validated against Astra's
+constitutional governance and authoritative owners.
+
+Unvalidated provider output must not:
+
+- mutate platform state;
+- grant authorization;
+- override ownership;
+- establish factual authority over governed platform resources;
+- create capabilities;
+- approve execution;
+- replace Knowledge;
+- replace app-owned records;
+- replace owner-service validation; or
+- become business truth, authorization truth, record truth, workflow truth, or
+  production truth.
+
+Provider output may inform a governed Astra decision only after validation.
+
 Validation should check:
 
 - response shape;
@@ -480,6 +531,7 @@ Validation should check:
 
 Provider output may be used as:
 
+- advisory intelligence;
 - user-facing explanation;
 - draft text;
 - summary;
@@ -767,4 +819,3 @@ Required validation outcomes:
 - AGENTS/docs-only boundary verified; and
 - ASTRA-007 recorded as Proposed with Astra review and Product Owner approval
   pending.
-

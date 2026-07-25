@@ -10,7 +10,8 @@
 **Parent:** ASTRA-005 Execution Planning And Action Governance
 **Parent:** ASTRA-006 Tool Execution Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -26,6 +27,13 @@ external intelligence is necessary, constructs governed provider input
 envelopes, selects eligible providers, validates provider responses, controls
 cost and privacy risk, records bounded evidence, and remains
 provider-independent.
+
+Astra source-level review of commit `ad3340e` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- separate provider eligibility from provider selection; and
+- define provider response authority, making provider output advisory until
+  validated by Astra and authoritative owners.
 
 ---
 
@@ -98,21 +106,22 @@ Not allowed:
 5. Provider Model
 6. External Intelligence Necessity Model
 7. Provider Capability Classification
-8. Provider Eligibility And Routing
-9. Provider Input Envelope
-10. Prompt Governance
-11. Response Validation
-12. Hallucination Boundaries
-13. Cost And Token Governance
-14. Privacy And Data Minimization
-15. Provider Failure Behaviour
-16. Provider Evidence Model
-17. Multi-Provider Independence
-18. Security Considerations
-19. Future Implementation Notes
-20. ADR
-21. Risks
-22. Validation Strategy
+8. Provider Eligibility
+9. Provider Selection And Routing
+10. Provider Input Envelope
+11. Prompt Governance
+12. Response Validation
+13. Hallucination Boundaries
+14. Cost And Token Governance
+15. Privacy And Data Minimization
+16. Provider Failure Behaviour
+17. Provider Evidence Model
+18. Multi-Provider Independence
+19. Security Considerations
+20. Future Implementation Notes
+21. ADR
+22. Risks
+23. Validation Strategy
 
 ---
 
@@ -141,6 +150,12 @@ External providers receive only policy-approved, minimized, purpose-bound input
 envelopes. Raw internal context must not be sent by default.
 ```
 
+Required Astra review refinements:
+
+- Separate provider eligibility from provider selection.
+- Define provider response authority so provider output remains advisory until
+  validated by Astra and authoritative owners.
+
 ---
 
 # Final ASTRA-007 Draft Status
@@ -155,12 +170,12 @@ Parent                  ASTRA-005 Accepted
 Parent                  ASTRA-006 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
 Production              Unchanged
 ```
-

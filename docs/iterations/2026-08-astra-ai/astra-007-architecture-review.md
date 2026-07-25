@@ -4,7 +4,8 @@
 **Created:** 2026-07-25
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -31,6 +32,14 @@ intelligence, how provider input envelopes are minimized, how providers are
 selected, how responses are validated, how cost and privacy are governed, and
 how Astra remains provider-independent.
 
+This revision applies Astra's required refinements after source-level review of
+commit `ad3340e`:
+
+- provider eligibility is separated from provider selection, with eligibility
+  treated as the governed provider set for the request; and
+- provider responses are classified as advisory intelligence until validated by
+  Astra and authoritative owners.
+
 ---
 
 # Review Questions
@@ -51,6 +60,11 @@ how Astra remains provider-independent.
 14. Is bounded provider evidence defined?
 15. Does multi-provider support avoid constitutional vendor dependency?
 16. Is the documentation-only boundary complete?
+17. Is provider eligibility clearly evaluated before provider selection?
+18. Does provider selection occur only within the eligible provider set?
+19. Are provider responses explicitly advisory until validated?
+20. Is unvalidated provider output prohibited from mutating state, granting
+    authorization, overriding ownership, or establishing platform truth?
 
 ---
 
@@ -66,9 +80,10 @@ Parent                  ASTRA-005 Accepted
 Parent                  ASTRA-006 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -90,11 +105,16 @@ deployment, or production behavior.
 
 ---
 
-# Requested Astra Review Outcome
+# Astra Review Outcome
 
-Astra should review whether ASTRA-007 is ready for acceptance, requires
-targeted documentation refinements, or should remain Proposed with unresolved
-architecture concerns.
+Astra reviewed commit `ad3340e` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-007 can be frozen:
+
+- separate provider eligibility from provider selection; and
+- define provider response authority, making provider output advisory until
+  validated by Astra and authoritative owners.
+
+Those refinements are now applied. ASTRA-007 remains Proposed and is ready for
+Astra re-review.
 
 Implementation remains unauthorized. Production remains unchanged.
-
