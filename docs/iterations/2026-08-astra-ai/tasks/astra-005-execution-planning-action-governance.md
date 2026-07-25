@@ -1,6 +1,6 @@
 # ASTRA-005 - Execution Planning And Action Governance
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-25
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -9,9 +9,9 @@
 **Parent:** ASTRA-004 Capability Discovery And Tool Architecture
 **Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -147,10 +147,10 @@ Required Astra review refinements:
 
 ---
 
-# Final ASTRA-005 Draft Status
+# Final ASTRA-005 Status
 
 ```text
-ASTRA-005               Proposed
+ASTRA-005               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -160,9 +160,10 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-006               Documentation only next; requires separate authorization
 ```

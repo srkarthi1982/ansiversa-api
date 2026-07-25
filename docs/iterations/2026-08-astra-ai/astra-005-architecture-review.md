@@ -1,12 +1,12 @@
 # ASTRA-005 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-25
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -24,7 +24,7 @@ docs/architecture/decisions/astra-ai-execution-planning-action-governance.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed execution planning and action governance architecture that
 inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra
@@ -81,7 +81,7 @@ commit `680f7218`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-005               Proposed
+ASTRA-005               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -91,11 +91,12 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-006               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-005 makes no implementation changes and does not reopen
@@ -123,7 +124,10 @@ two targeted documentation refinements required before ASTRA-005 can be frozen:
 - define stable execution-step identity, idempotency, duplicate detection, and
   uncertain-outcome handling.
 
-Those refinements are now applied. ASTRA-005 remains Proposed and is ready for
-Astra re-review.
+Astra re-reviewed commit `ffe6710` and approved ASTRA-005. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-005 is Frozen.
+
+ASTRA-006 Tool Execution Architecture is documentation-only next and requires
+separate Product Owner authorization before work begins.
 
 Implementation remains unauthorized. Production remains unchanged.

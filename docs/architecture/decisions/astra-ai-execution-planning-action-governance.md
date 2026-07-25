@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Execution Planning And Action Governance
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-25
+**Accepted:** 2026-07-25
+**Frozen:** 2026-07-25
 **Task:** ASTRA-005
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -11,8 +13,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -27,15 +29,15 @@ compensation, or app-service execution?
 
 Decision:
 
-Propose ASTRA-005 as the documentation-only architecture for how Astra AI
+Adopt ASTRA-005 as the documentation-only architecture for how Astra AI
 constructs deterministic, declarative, explainable, and reviewable execution
 plans from approved capabilities while preserving the boundary that planning
 never executes and execution authority remains with the owning service. The
-revised proposal binds approvals and confirmations to exact plan and step scope
-and requires stable execution-step identity, idempotency classification,
+accepted architecture binds approvals and confirmations to exact plan and step
+scope and requires stable execution-step identity, idempotency classification,
 duplicate detection, and uncertain-outcome handling for state-changing steps.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-execution-planning-action-governance.md
@@ -81,7 +83,7 @@ delegation, and future executor handoff.
 
 ## Option 4 - Declarative Governed Execution Plans
 
-Recommendation: Accept if approved after Astra review.
+Recommendation: Accept.
 
 This preserves Astra as planner, keeps execution authority with owning
 services, makes high-impact actions reviewable, requires approval gates before
@@ -158,14 +160,18 @@ change is non-material and preserves the exact approved scope.
   refinements recorded.
 - [x] Approval and confirmation binding refinement applied.
 - [x] Execution-step identity and duplicate-execution refinement applied.
+- [x] Astra re-review approved.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-005 frozen.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-005               Proposed
+ADR                     Accepted
+ASTRA-005               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -175,8 +181,9 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-006               Documentation only next; requires separate authorization
 ```

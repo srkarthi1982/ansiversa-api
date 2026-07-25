@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -19,7 +19,7 @@
 | ASTRA-002 | Accepted and Frozen | Intelligence-pipeline parent inherited by ASTRA-003 |
 | ASTRA-003 | Accepted and Frozen | Conversation/context parent inherited by ASTRA-004 |
 | ASTRA-004 | Accepted and Frozen | Capability/tool parent for future execution-planning architecture |
-| ASTRA-005 | Proposed | Execution-planning parent for future Tool Execution Architecture |
+| ASTRA-005 | Accepted and Frozen | Execution-planning parent for future Tool Execution Architecture |
 | External model providers | Not integrated by ASTRA-002 | Optional future capability, never the default path |
 
 ---
@@ -28,8 +28,8 @@
 
 - ASTRA-004 review, Product Owner approval, and freeze before implementing
   capability discovery or tool behavior;
-- ASTRA-005 review, Product Owner approval, and freeze before implementing
-  execution-planning behavior;
+- ASTRA-005 is frozen, but separate Product Owner authorization is still
+  required before implementing execution-planning behavior;
 - ASTRA-006 review, Product Owner approval, and freeze before implementing Tool
   Executor handoff or execution monitoring behavior;
 - separate Product Owner authorization before implementing conversation or

@@ -1,17 +1,20 @@
 # Astra AI Execution Planning And Action Governance
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-005
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
 **Parent:** ASTRA-003 Conversation And Context Architecture
 **Parent:** ASTRA-004 Capability Discovery And Tool Architecture
 **Created:** 2026-07-25
+**Approved:** 2026-07-25
+**Frozen:** 2026-07-25
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Architecture Direction:** Approved
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -687,13 +690,13 @@ integration, migrations, frontend changes, or production behavior.
 
 # ADR
 
-The proposed ADR is:
+The accepted ADR is:
 
 ```text
 docs/architecture/decisions/astra-ai-execution-planning-action-governance.md
 ```
 
-Decision proposed:
+Decision accepted:
 
 Adopt ASTRA-005 as the documentation-only architecture for how Astra AI
 constructs deterministic, declarative, reviewable execution plans from approved
@@ -736,5 +739,17 @@ Required validation outcomes:
 - no runtime changes;
 - no production changes;
 - AGENTS/docs-only boundary verified; and
-- ASTRA-005 recorded as Proposed with Astra review and Product Owner approval
-  pending.
+- ASTRA-005 recorded as Approved and Frozen with Astra re-review approved,
+  Product Owner approval recorded, and ADR accepted.
+
+---
+
+# Next Architecture Phase
+
+ASTRA-006 Tool Execution Architecture is documentation-only next and requires
+separate Product Owner authorization before work begins.
+
+ASTRA-005 does not authorize ASTRA-006 drafting, implementation, runtime
+execution planning, Tool Executor handoff, APIs, routes, providers, prompts,
+database changes, migrations, frontend changes, tests, deployment, or
+production behavior.

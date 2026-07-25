@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 proposed | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -85,14 +85,16 @@ discovery separate from execution authority. Implementation and production
 changes remain unauthorized. ASTRA-005 Execution Planning and Action Governance
 was authorized for documentation and architecture only on 2026-07-25.
 
-ASTRA-005 Execution Planning and Action Governance is Proposed. Astra approved
-the architecture direction for commit `680f7218` and requested two targeted
-documentation refinements before freeze. The ADR is Proposed. ASTRA-005
-inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra
-creates deterministic, declarative, explainable, and reviewable execution plans
-from approved capabilities while remaining planner rather than executor. The
-current revision binds approval and confirmation to exact plan version, step
-scope, material inputs, impact, and validity window, and defines stable
-execution-step identity, idempotency, duplicate detection, and
-uncertain-outcome handling. Implementation and production changes remain
-unauthorized.
+ASTRA-005 Execution Planning and Action Governance is approved and Frozen.
+Astra approved the architecture direction for commit `680f7218`, requested two
+targeted documentation refinements, and approved the corrected source-level
+re-review for commit `ffe6710`. Product Owner approval is recorded. The ADR is
+accepted. ASTRA-005 inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and
+defines how Astra creates deterministic, declarative, explainable, and
+reviewable execution plans from approved capabilities while remaining planner
+rather than executor. The accepted architecture binds approval and confirmation
+to exact plan version, step scope, material inputs, impact, and validity
+window, and defines stable execution-step identity, idempotency, duplicate
+detection, and uncertain-outcome handling. Implementation and production
+changes remain unauthorized. ASTRA-006 Tool Execution Architecture is
+documentation-only next and requires separate Product Owner authorization.
