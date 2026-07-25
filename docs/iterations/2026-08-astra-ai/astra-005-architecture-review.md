@@ -4,7 +4,8 @@
 **Created:** 2026-07-25
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -32,6 +33,19 @@ plans from approved capabilities while preserving the permanent boundary that
 planning never executes and execution authority remains with the owning
 service.
 
+This revision applies Astra's required refinements after source-level review of
+commit `680f7218`:
+
+- approvals and confirmations are bound to exact plan identifier, plan version
+  or digest, affected step identifiers, action class, owning service, affected
+  scope, material inputs, user-visible impact, and validity window;
+- approval requirements survive replanning, but approval grants do not survive
+  material plan or step changes unless approved governance proves the change is
+  non-material and scope-preserving; and
+- state-changing execution steps require stable step identity, idempotency
+  classification, duplicate-detection expectations, retry scope,
+  terminal-result reference, and uncertain-outcome handling.
+
 ---
 
 # Review Questions
@@ -55,6 +69,12 @@ service.
 14. Does failure behavior fail closed for unknown execution risk?
 15. Does replanning preserve approval requirements?
 16. Is the documentation-only boundary complete?
+17. Are approvals and confirmations bound to exact plan version, affected
+    steps, scope, material inputs, impact, and validity window?
+18. Does the architecture clearly distinguish approval requirements surviving
+    replanning from approval grants surviving material change?
+19. Do state-changing steps carry stable execution identity, idempotency scope,
+    duplicate-detection expectations, and uncertain-outcome behavior?
 
 ---
 
@@ -68,9 +88,10 @@ Parent                  ASTRA-003 Accepted
 Parent                  ASTRA-004 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -92,11 +113,17 @@ changes, deployment, or production behavior.
 
 ---
 
-# Requested Astra Review Outcome
+# Astra Review Outcome
 
-Astra should review whether ASTRA-005 is ready for acceptance, requires
-targeted documentation refinements, or should remain Proposed with unresolved
-architecture concerns.
+Astra reviewed commit `680f7218` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-005 can be frozen:
+
+- bind approval and confirmation to exact plan version, affected steps, scope,
+  material inputs, impact, and validity window; and
+- define stable execution-step identity, idempotency, duplicate detection, and
+  uncertain-outcome handling.
+
+Those refinements are now applied. ASTRA-005 remains Proposed and is ready for
+Astra re-review.
 
 Implementation remains unauthorized. Production remains unchanged.
-

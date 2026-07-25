@@ -104,6 +104,13 @@ ASTRA-005 coverage:
 - approval and confirmation gates are documented;
 - every state-changing action requires a governed execution step;
 - approval requirements survive replanning;
+- approval and confirmation grants are bound to exact plan version, affected
+  steps, scope, material inputs, impact, and validity window;
+- materially changed plans or steps invalidate prior grants unless approved
+  governance proves the change is non-material and scope-preserving;
+- stable execution-step identity, idempotency classification, duplicate
+  detection, retry scope, terminal-result reference, and uncertain-outcome
+  behavior are documented;
 - retry, rollback, compensation, cancellation, delegation, long-running
   operation, failure, and partial-success behavior is documented;
 - evidence is bounded and reviewable; and
@@ -144,6 +151,8 @@ Future implementation tasks must add executable validation for:
 - execution planning is side-effect free;
 - every write action is represented as a governed execution step;
 - approval gates survive replanning;
+- approval grants are invalidated by material plan or step changes;
+- uncertain state-changing execution outcome is reconciled before retry;
 - stale plans cannot execute;
 - partial-success and compensation evidence is bounded;
 - rollback and restoration;

@@ -117,12 +117,17 @@ capability existence, preserves tool ownership, records bounded evidence, and
 prevents capability fabrication without granting execution authority. ASTRA-005
 was authorized for documentation and architecture only on 2026-07-25.
 
-ASTRA-005 Execution Planning and Action Governance is Proposed and pending
-Astra architecture review. The ADR is Proposed. ASTRA-005 inherits ASTRA-001,
-ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra transforms an
-approved discovered capability into a deterministic, declarative, explainable,
-and reviewable execution plan while remaining planner rather than executor.
-Implementation and production changes remain unauthorized.
+ASTRA-005 Execution Planning and Action Governance is Proposed. Astra approved
+the architecture direction for commit `680f7218` and requested two targeted
+documentation refinements before freeze. The ADR is Proposed. ASTRA-005
+inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra
+transforms an approved discovered capability into a deterministic, declarative,
+explainable, and reviewable execution plan while remaining planner rather than
+executor. The current revision binds approval and confirmation to exact plan
+version, step scope, material inputs, impact, and validity window, and defines
+stable execution-step identity, idempotency, duplicate detection, and
+uncertain-outcome handling. Implementation and production changes remain
+unauthorized.
 
 ---
 
@@ -205,6 +210,10 @@ ASTRA-005 succeeds when:
 - every state-changing action requires a governed execution step;
 - approval and confirmation gates are represented before execution;
 - approval requirements survive replanning;
+- approval grants do not survive material plan or step change unless approved
+  governance proves the change is non-material and scope-preserving;
+- state-changing execution steps include stable identity and idempotency
+  protection;
 - retry, rollback, compensation, cancellation, long-running operation, failure,
   and partial-success states are documented;
 - delegation preserves owning-service execution authority;

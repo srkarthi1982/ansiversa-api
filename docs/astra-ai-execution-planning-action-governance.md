@@ -187,6 +187,9 @@ Astra should construct the same plan or the same governed refusal.
 
 If Astra replans after a failure, cancellation, dependency change, or
 clarification, required approvals cannot be silently downgraded or removed.
+Approval requirements survive replanning. Approval grants do not survive
+material plan or step changes unless an approved governance policy proves the
+change is non-material and preserves the exact approved scope.
 
 ---
 
@@ -210,6 +213,7 @@ An execution plan should include:
 - action classes;
 - approval gates;
 - confirmation requirements;
+- approval and confirmation binding requirements;
 - authorization requirements;
 - expected inputs;
 - expected outputs;
@@ -225,6 +229,7 @@ An execution plan should include:
 - partial-success representation;
 - expiration or staleness marker;
 - plan version; and
+- plan digest or equivalent stable version proof when supported; and
 - deterministic planning evidence.
 
 Execution plans are declarative because they describe work that may be
@@ -340,6 +345,38 @@ Approval gates determine whether a plan or step may proceed to a future
 executor. Confirmation gates determine whether the user explicitly agrees to a
 specific action before it is performed.
 
+## Approval And Confirmation Binding
+
+Every approval and confirmation must be bound to:
+
+- plan identifier;
+- plan version or digest;
+- affected step identifiers;
+- action class;
+- owning service;
+- affected scope;
+- material inputs;
+- user-visible impact; and
+- expiration or validity window.
+
+A materially changed plan or step invalidates prior confirmation unless an
+approved governance policy proves the change is non-material and preserves the
+exact approved scope.
+
+Replanning may preserve required approval classes, but it must not
+automatically preserve previously granted approval. The architecture separates
+the two rules:
+
+```text
+Approval requirements survive replanning.
+Approval grants do not survive material change.
+```
+
+Any future implementation must be able to determine which plan version, step
+set, action class, owner, scope, inputs, impact, and validity window were
+approved. If that binding cannot be proven, the plan or step must return to
+the appropriate approval or confirmation gate before delegation.
+
 Mandatory confirmation is required when a plan or step:
 
 - creates, updates, deletes, archives, restores, sends, schedules, imports, or
@@ -374,6 +411,38 @@ Execution is prohibited when:
 
 ---
 
+# Execution Step Identity
+
+Every execution step must be identifiable. Every state-changing execution step
+must define:
+
+- stable step identifier;
+- plan identifier and version;
+- owning service;
+- action identity;
+- idempotency classification;
+- idempotency key or owner-controlled equivalent when supported;
+- duplicate-detection expectation;
+- retry scope;
+- terminal-result reference; and
+- behavior when execution status is unknown.
+
+Step identity is part of safe delegation. It allows a future executor or owning
+service to determine whether a requested step is new, already running, already
+completed, failed, cancelled, or in an unknown terminal state.
+
+A retry must never assume that a timed-out step did not execute. If completion
+status is uncertain, the executor or owning service must reconcile the original
+step identity before any retry. Unknown idempotency fails closed for
+state-changing actions.
+
+ASTRA-005 does not define how the future executor performs reconciliation.
+That belongs to ASTRA-006 and the owning service. ASTRA-005 requires only that
+the plan contain enough stable identity and idempotency information for safe
+delegation later.
+
+---
+
 # Retry, Rollback And Compensation
 
 Retries, rollback, and compensation must be represented before execution, not
@@ -386,9 +455,16 @@ Retry policy should describe:
 - retryable failure classes;
 - non-retryable failure classes;
 - idempotency requirement;
+- step identity requirement;
+- duplicate-detection expectation;
 - backoff or delay expectation;
 - owner responsible for retry decision; and
 - whether retry requires renewed confirmation.
+
+A retry may be planned only inside the retry scope defined for the original
+step identity. Retrying with a new state-changing identity is a new step and
+must pass approval, confirmation, authorization, and compensation gates as a new
+action.
 
 Rollback means reversing a change by restoring previous state when the owning
 service supports that operation.
@@ -472,6 +548,11 @@ validation, ownership, dependency, policy, or state checks fail. Rejection must
 not be treated as executor error by default; it may mean the plan was no longer
 valid.
 
+Delegation of a state-changing step must include stable step identity and
+idempotency scope. If the future executor cannot determine whether the step has
+already executed, it must reconcile with the owning service before attempting a
+retry or replacement action.
+
 ---
 
 # Execution Evidence Model
@@ -488,6 +569,7 @@ Planning evidence should include:
 - action classification;
 - owner boundary;
 - approval requirements;
+- approval and confirmation binding markers;
 - confirmation requirements;
 - dependency map;
 - risk classification;
@@ -495,6 +577,7 @@ Planning evidence should include:
 - retry and compensation policy summary;
 - cancellation policy summary;
 - plan version; and
+- step identity and idempotency markers for state-changing steps; and
 - deterministic planning decision markers.
 
 Future execution evidence may include:
@@ -504,6 +587,7 @@ Future execution evidence may include:
 - terminal state;
 - step outcome;
 - retry count;
+- duplicate-detection or idempotency outcome when applicable;
 - compensation state;
 - cancellation state;
 - bounded error category;
@@ -654,4 +738,3 @@ Required validation outcomes:
 - AGENTS/docs-only boundary verified; and
 - ASTRA-005 recorded as Proposed with Astra review and Product Owner approval
   pending.
-

@@ -85,9 +85,14 @@ discovery separate from execution authority. Implementation and production
 changes remain unauthorized. ASTRA-005 Execution Planning and Action Governance
 was authorized for documentation and architecture only on 2026-07-25.
 
-ASTRA-005 Execution Planning and Action Governance is Proposed and pending
-Astra architecture review. The ADR is Proposed. ASTRA-005 inherits ASTRA-001,
-ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra creates
-deterministic, declarative, explainable, and reviewable execution plans from
-approved capabilities while remaining planner rather than executor.
-Implementation and production changes remain unauthorized.
+ASTRA-005 Execution Planning and Action Governance is Proposed. Astra approved
+the architecture direction for commit `680f7218` and requested two targeted
+documentation refinements before freeze. The ADR is Proposed. ASTRA-005
+inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra
+creates deterministic, declarative, explainable, and reviewable execution plans
+from approved capabilities while remaining planner rather than executor. The
+current revision binds approval and confirmation to exact plan version, step
+scope, material inputs, impact, and validity window, and defines stable
+execution-step identity, idempotency, duplicate detection, and
+uncertain-outcome handling. Implementation and production changes remain
+unauthorized.

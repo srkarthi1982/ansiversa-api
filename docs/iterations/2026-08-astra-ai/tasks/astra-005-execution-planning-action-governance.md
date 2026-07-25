@@ -8,7 +8,8 @@
 **Parent:** ASTRA-003 Conversation And Context Architecture
 **Parent:** ASTRA-004 Capability Discovery And Tool Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -27,6 +28,14 @@ ASTRA-005 defines execution plan and action models, planning pipeline,
 execution state representation, approval and confirmation gates, retry,
 rollback, compensation, cancellation, delegation, execution evidence, failure
 behavior, security considerations, and future implementation notes.
+
+Astra source-level review of commit `680f7218` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- bind approval and confirmation to exact plan version, affected steps, scope,
+  material inputs, impact, and validity window; and
+- define stable execution-step identity, idempotency, duplicate detection, and
+  uncertain-outcome handling for state-changing execution steps.
 
 ---
 
@@ -96,16 +105,17 @@ Not allowed:
 6. Planning Pipeline
 7. Execution State Model
 8. Approval And Confirmation Model
-9. Retry, Rollback And Compensation
-10. Cancellation Model
-11. Delegation Model
-12. Execution Evidence Model
-13. Failure Behaviour
-14. Security Considerations
-15. Future Implementation Notes
-16. ADR
-17. Risks
-18. Validation Strategy
+9. Execution Step Identity
+10. Retry, Rollback And Compensation
+11. Cancellation Model
+12. Delegation Model
+13. Execution Evidence Model
+14. Failure Behaviour
+15. Security Considerations
+16. Future Implementation Notes
+17. ADR
+18. Risks
+19. Validation Strategy
 
 ---
 
@@ -128,6 +138,13 @@ Law 5
 Approval requirements must survive replanning.
 ```
 
+Required Astra review refinements:
+
+- Bind approvals and confirmations to the exact plan version, step scope,
+  material inputs, impact, and validity window.
+- Define stable execution-step identity, idempotency, duplicate detection, and
+  uncertain-outcome handling.
+
 ---
 
 # Final ASTRA-005 Draft Status
@@ -140,12 +157,12 @@ Parent                  ASTRA-003 Accepted
 Parent                  ASTRA-004 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
 Production              Unchanged
 ```
-

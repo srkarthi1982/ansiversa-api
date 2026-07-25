@@ -42,6 +42,8 @@
 | ASTRA-R36 | Partial success is represented as full success | High | ASTRA-005 adds partial-success, failure, compensation, and cancellation states | Open |
 | ASTRA-R37 | Compensation is invented silently after failure | High | ASTRA-005 requires retry, rollback, and compensation policy before execution | Open |
 | ASTRA-R38 | Execution evidence leaks sensitive data | High | ASTRA-005 limits evidence to bounded metadata and prohibits raw private payloads, secrets, prompts, SQL, and stack traces | Open |
+| ASTRA-R39 | Prior approval is reused after a material plan or step change | Critical | ASTRA-005 binds approval and confirmation grants to exact plan version, affected steps, scope, material inputs, impact, and validity window | Open |
+| ASTRA-R40 | A timed-out state-changing step executes twice after retry | Critical | ASTRA-005 requires stable step identity, idempotency classification, duplicate detection, retry scope, and uncertain-outcome reconciliation | Open |
 
 ---
 
@@ -67,5 +69,7 @@
 - execution plan creation that mutates application state;
 - state-changing actions without explicit governed execution steps;
 - replanning that removes approval requirements;
+- material plan or step changes that reuse stale approval grants;
+- retries that assume an uncertain state-changing step did not execute;
 - unknown execution risk treated as safe;
 - implementation before approved scope.
