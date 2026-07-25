@@ -1,6 +1,6 @@
 # Astra AI Tool Execution Architecture
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-006
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -8,11 +8,14 @@
 **Parent:** ASTRA-004 Capability Discovery And Tool Architecture
 **Parent:** ASTRA-005 Execution Planning And Action Governance
 **Created:** 2026-07-25
+**Approved:** 2026-07-25
+**Frozen:** 2026-07-25
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Architecture Direction:** Approved
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -857,13 +860,13 @@ frontend changes, deployment, or production behavior.
 
 # ADR
 
-The proposed ADR is:
+The accepted ADR is:
 
 ```text
 docs/architecture/decisions/astra-ai-tool-execution-architecture.md
 ```
 
-Decision proposed:
+Decision accepted:
 
 Adopt ASTRA-006 as the documentation-only architecture for how approved
 ASTRA-005 execution plans are handed to a future executor, validated, accepted
@@ -913,5 +916,17 @@ Required validation outcomes:
 - no provider, prompt, model, app, database, migration, frontend, deployment,
   generated artifact, or production changes;
 - AGENTS/docs-only boundary verified; and
-- ASTRA-006 recorded as Proposed with Astra review and Product Owner approval
-  pending.
+- ASTRA-006 recorded as Approved and Frozen with Astra re-review approved,
+  Product Owner approval recorded, and ADR accepted.
+
+---
+
+# Next Architecture Phase
+
+ASTRA-007 External Intelligence And Provider Architecture is documentation-only
+next and requires separate Product Owner authorization before work begins.
+
+ASTRA-006 does not authorize ASTRA-007 drafting, implementation, runtime
+integration, Tool Executor code, APIs, routes, providers, prompts, model
+invocation, app integration, database changes, migrations, frontend changes,
+tests, deployment, generated artifacts, or production behavior.

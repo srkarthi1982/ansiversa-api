@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -136,17 +136,20 @@ Implementation and production changes remain unauthorized. ASTRA-006 Tool
 Execution Architecture was authorized for documentation and architecture only
 on 2026-07-25.
 
-ASTRA-006 Tool Execution Architecture is Proposed. Astra approved the
-architecture direction for commit `4cb6bef3` and requested two targeted
-documentation refinements before freeze. The ADR is Proposed. ASTRA-006
-inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 and defines
-how an approved ASTRA-005 execution plan is handed to a future executor,
-validated, accepted or rejected, executed by the owning service, monitored,
-reconciled, and reported without transferring business-rule or authorization
-ownership to Astra. The current revision separates executor admission from
-owning-service acceptance and defines per-step authority with non-atomic
-behavior for multi-owner execution. Implementation and production changes
-remain unauthorized.
+ASTRA-006 Tool Execution Architecture is approved and Frozen. Astra approved
+the architecture direction for commit `4cb6bef3`, requested two targeted
+documentation refinements, and approved the corrected source-level re-review
+for commit `0d01e3f8`. Product Owner approval is recorded. The ADR is
+accepted. ASTRA-006 inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and
+ASTRA-005 and defines how an approved ASTRA-005 execution plan is handed to a
+future executor, validated, accepted or rejected, executed by the owning
+service, monitored, reconciled, and reported without transferring business-rule
+or authorization ownership to Astra. The accepted architecture separates
+executor admission from owning-service acceptance and defines per-step
+authority with non-atomic behavior for multi-owner execution. Implementation
+and production changes remain unauthorized. ASTRA-007 External Intelligence And
+Provider Architecture is documentation-only next and requires separate Product
+Owner authorization before work begins.
 
 ---
 

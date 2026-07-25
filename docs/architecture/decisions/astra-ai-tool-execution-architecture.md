@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Tool Execution Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-25
+**Accepted:** 2026-07-25
+**Frozen:** 2026-07-25
 **Task:** ASTRA-006
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -12,8 +14,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -29,15 +31,15 @@ monitoring, compensation reporting, or bounded execution evidence?
 
 Decision:
 
-Propose ASTRA-006 as the documentation-only architecture for how approved
+Adopt ASTRA-006 as the documentation-only architecture for how approved
 ASTRA-005 execution plans are handed to a future executor, validated, accepted
 or rejected, monitored, reconciled, and reported while preserving the permanent
 boundary that Astra plans, the executor executes, and the owning service
-remains authoritative. The revised proposal separates executor admission from
-owning-service acceptance and defines per-step authority with non-atomic
+remains authoritative. The accepted architecture separates executor admission
+from owning-service acceptance and defines per-step authority with non-atomic
 behavior for multi-owner execution.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-tool-execution-architecture.md
@@ -81,7 +83,7 @@ unless the original step identity is reconciled first.
 
 ## Option 4 - Governed Executor Handoff
 
-Recommendation: Accept if approved after Astra review.
+Recommendation: Accept.
 
 This creates an execution architecture where requests preserve ASTRA-005 plan
 scope, executors validate before work, owning services remain authoritative,
@@ -90,7 +92,7 @@ evidence reports outcomes without leaking private data.
 
 ---
 
-# Proposed Engineering Laws
+# Accepted Engineering Laws
 
 ## Law 1
 
@@ -117,7 +119,7 @@ evidence reports outcomes without leaking private data.
 
 ---
 
-# Consequences If Accepted
+# Consequences
 
 - Execution request and response concepts become governed architecture objects.
 - Executor acceptance and rejection become first-class results.
@@ -148,23 +150,24 @@ evidence reports outcomes without leaking private data.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-006 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Astra architecture review completed.
+- [x] Future implementation phase separately scoped.
 - [x] Astra architecture direction approved with targeted documentation
   refinements recorded.
 - [x] Executor admission and owning-service acceptance refinement applied.
 - [x] Cross-owner execution boundary refinement applied.
+- [x] Astra re-review approved.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-006 frozen.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-006               Proposed
+ADR                     Accepted
+ASTRA-006               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -175,8 +178,9 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-007               Documentation only next; requires separate authorization
 ```

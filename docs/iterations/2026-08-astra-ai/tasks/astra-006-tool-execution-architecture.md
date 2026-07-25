@@ -1,6 +1,6 @@
 # ASTRA-006 - Tool Execution Architecture
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-25
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -10,9 +10,9 @@
 **Parent:** ASTRA-005 Execution Planning And Action Governance
 **Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -159,10 +159,10 @@ Required Astra review refinements:
 
 ---
 
-# Final ASTRA-006 Draft Status
+# Final ASTRA-006 Status
 
 ```text
-ASTRA-006               Proposed
+ASTRA-006               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -173,9 +173,10 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-007               Documentation only next; requires separate authorization
 ```

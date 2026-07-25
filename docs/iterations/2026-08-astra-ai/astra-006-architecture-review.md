@@ -1,12 +1,12 @@
 # ASTRA-006 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-25
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -23,7 +23,7 @@ docs/architecture/decisions/astra-ai-tool-execution-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed Tool Execution Architecture that inherits ASTRA-001 through
 ASTRA-005 and defines how approved ASTRA-005 execution plans are handed to a
@@ -78,7 +78,7 @@ commit `4cb6bef3`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-006               Proposed
+ASTRA-006               Approved
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -89,11 +89,12 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-007               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-006 makes no implementation changes and does not reopen
@@ -120,7 +121,10 @@ two targeted documentation refinements required before ASTRA-006 can be frozen:
 - separate executor admission from explicit owning-service acceptance; and
 - define per-step authority and non-atomic behavior for multi-owner execution.
 
-Those refinements are now applied. ASTRA-006 remains Proposed and is ready for
-Astra re-review.
+Astra re-reviewed commit `0d01e3f8` and approved ASTRA-006. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-006 is Frozen.
+
+ASTRA-007 External Intelligence And Provider Architecture is documentation-only
+next and requires separate Product Owner authorization before work begins.
 
 Implementation remains unauthorized. Production remains unchanged.
