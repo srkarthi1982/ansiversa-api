@@ -1,6 +1,6 @@
 # Astra AI Architecture Backlog
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 proposed
 **Implementation:** Not authorized
 
 Only individually reviewed and authorized tasks may later move into
@@ -13,7 +13,7 @@ implementation. ASTRA-001 does not authorize any runtime work.
 | ASTRA-003 | Conversation And Context Architecture | Critical | Frozen | Define conversation lifecycle, context classes, state, assembly, providers, authority resolution, isolation, expiration, clarification, privacy, and future interface support |
 | ASTRA-004 | Capability Discovery And Tool Architecture | High | Frozen | Define approved capability discovery, tool metadata, tool ownership, and no-fabrication controls |
 | ASTRA-005 | Execution Planning And Action Governance | Critical | Frozen | Define declarative execution plans, actions, execution steps, approval gates, approval binding, idempotency, retry, rollback, compensation, cancellation, delegation, evidence, and planner/executor boundaries |
-| ASTRA-006 | Tool Execution Architecture | Critical | Deferred | Define execution contracts, requests, responses, monitoring, timeout handling, retries, and Planner versus Executor ownership boundaries |
+| ASTRA-006 | Tool Execution Architecture | Critical | Proposed | Define execution requests, responses, acceptance, rejection, authorization recheck, owner validation, idempotency enforcement, monitoring, timeout reconciliation, retries, cancellation, evidence, and Planner versus Executor ownership boundaries |
 | ASTRA-007 | External Intelligence And Provider Architecture | High | Deferred | Define provider selection, envelopes, routing, retention, failures, token governance, evidence, and provider-independent governance |
 | ASTRA-008 | Memory Architecture | High | Deferred | Define conversation, working memory, long-term memory, Knowledge, user context, expiration, ownership, privacy, and forgetting rules |
 | ASTRA-009 | Learning And Adaptation Architecture | High | Deferred | Define explainable personalization, repeated corrections, preferred workflows, adaptive planning, and no-opaque-training boundaries |
@@ -50,6 +50,6 @@ conversation and context architecture layer. ASTRA-004 is approved and Frozen
 as the capability discovery and tool architecture layer. ASTRA-005 Execution
 Planning and Action Governance is approved and Frozen after Astra re-review of
 commit `ffe6710` and Product Owner approval. ASTRA-006 Tool Execution
-Architecture is documentation-only next and requires separate Product Owner
-authorization. No implementation task should start from ASTRA-004, ASTRA-005,
-or ASTRA-006 unless a separate implementation scope is authorized.
+Architecture is Proposed after documentation and architecture authorization and
+is pending Astra review. No implementation task should start from ASTRA-004,
+ASTRA-005, or ASTRA-006 unless a separate implementation scope is authorized.

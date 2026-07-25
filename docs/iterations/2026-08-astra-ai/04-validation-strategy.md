@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005; ASTRA-006 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -26,6 +26,9 @@ runtime behavior.
 - required ASTRA-005 documents exist;
 - ASTRA-005 status is approved and Frozen;
 - ASTRA-005 ADR is accepted;
+- required ASTRA-006 documents exist;
+- ASTRA-006 status is Proposed;
+- ASTRA-006 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -116,6 +119,29 @@ ASTRA-005 coverage:
 - evidence is bounded and reviewable; and
 - unknown execution risk fails closed.
 
+ASTRA-006 coverage:
+
+- ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 inheritance is
+  explicit;
+- executor and planner concepts are separated;
+- execution request model is documented;
+- executor acceptance and rejection model is documented;
+- pre-execution validation is documented;
+- live authorization recheck is mandatory;
+- owning-service validation remains authoritative;
+- plan version, approval binding, and confirmation binding are verified before
+  execution;
+- stable step identity, idempotency, duplicate detection, retry scope,
+  terminal-result reference, and uncertain-outcome behavior are documented;
+- timeout is treated as uncertain outcome rather than proof of non-execution;
+- retries require reconciliation;
+- cancellation handling is documented;
+- progress and long-running operation states are documented;
+- partial success and compensation reporting are documented;
+- executor health and availability are documented;
+- execution evidence is bounded and reviewable; and
+- unknown execution state fails closed.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -130,8 +156,8 @@ ASTRA-005 coverage:
 - capability discovery remains registry-backed and does not authorize
   execution.
 - execution planning remains declarative and does not authorize execution.
-- ASTRA-006 remains documentation-only next and requires separate Product Owner
-  authorization.
+- tool execution architecture remains documentation-only and does not authorize
+  runtime integration or execution.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -155,6 +181,11 @@ Future implementation tasks must add executable validation for:
 - approval gates survive replanning;
 - approval grants are invalidated by material plan or step changes;
 - uncertain state-changing execution outcome is reconciled before retry;
+- execution request acceptance and rejection behavior;
+- live authorization recheck before execution;
+- owner-service validation before execution;
+- duplicate request detection;
+- executor health and owner-service health separation;
 - stale plans cannot execute;
 - partial-success and compensation evidence is bounded;
 - rollback and restoration;

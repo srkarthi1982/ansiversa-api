@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -41,6 +41,10 @@ be reviewed before implementation.
 - [Astra AI Execution Planning And Action Governance ADR](../../architecture/decisions/astra-ai-execution-planning-action-governance.md)
 - [ASTRA-005 architecture review package](astra-005-architecture-review.md)
 - [ASTRA-005 task record](tasks/astra-005-execution-planning-action-governance.md)
+- [Astra AI Tool Execution Architecture](../../astra-ai-tool-execution-architecture.md)
+- [Astra AI Tool Execution Architecture ADR](../../architecture/decisions/astra-ai-tool-execution-architecture.md)
+- [ASTRA-006 architecture review package](astra-006-architecture-review.md)
+- [ASTRA-006 task record](tasks/astra-006-tool-execution-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -129,8 +133,16 @@ approval and confirmation to exact plan version, step scope, material inputs,
 impact, and validity window, and defines stable execution-step identity,
 idempotency, duplicate detection, and uncertain-outcome handling.
 Implementation and production changes remain unauthorized. ASTRA-006 Tool
-Execution Architecture is documentation-only next and requires separate Product
-Owner authorization before work begins.
+Execution Architecture was authorized for documentation and architecture only
+on 2026-07-25.
+
+ASTRA-006 Tool Execution Architecture is Proposed and pending Astra
+architecture review. The ADR is Proposed. ASTRA-006 inherits ASTRA-001,
+ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 and defines how an approved
+ASTRA-005 execution plan is handed to a future executor, validated, accepted or
+rejected, executed by the owning service, monitored, reconciled, and reported
+without transferring business-rule or authorization ownership to Astra.
+Implementation and production changes remain unauthorized.
 
 ---
 
@@ -222,6 +234,30 @@ ASTRA-005 succeeds when:
 - delegation preserves owning-service execution authority;
 - execution evidence is bounded and reviewable;
 - unknown execution risk fails closed;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-006 succeeds when:
+
+- ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 inheritance is
+  explicit;
+- executor and planner boundaries are preserved;
+- execution requests are not treated as execution authority;
+- executor acceptance and rejection are governed outcomes;
+- live authorization is rechecked before execution;
+- owning-service validation remains authoritative;
+- plan version, approval binding, and confirmation binding are verified before
+  execution;
+- stable step identity and idempotency are enforced for state-changing steps;
+- timeout is treated as uncertain outcome rather than non-execution;
+- retries require outcome reconciliation;
+- cancellation handling is governed;
+- long-running progress states are represented;
+- partial success and compensation reporting are explicit;
+- stale plans are rejected;
+- executor health and owner-service availability are represented separately;
+- execution evidence is bounded and reviewable;
+- unknown execution state fails closed;
 - no implementation occurs; and
 - production remains unchanged.
 

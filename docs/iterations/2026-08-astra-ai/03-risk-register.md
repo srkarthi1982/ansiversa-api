@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005; ASTRA-006 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -44,6 +44,12 @@
 | ASTRA-R38 | Execution evidence leaks sensitive data | High | ASTRA-005 limits evidence to bounded metadata and prohibits raw private payloads, secrets, prompts, SQL, and stack traces | Open |
 | ASTRA-R39 | Prior approval is reused after a material plan or step change | Critical | ASTRA-005 binds approval and confirmation grants to exact plan version, affected steps, scope, material inputs, impact, and validity window | Open |
 | ASTRA-R40 | A timed-out state-changing step executes twice after retry | Critical | ASTRA-005 requires stable step identity, idempotency classification, duplicate detection, retry scope, and uncertain-outcome reconciliation | Open |
+| ASTRA-R41 | Execution request is mistaken for execution authority | Critical | ASTRA-006 requires executor and owning-service acceptance before execution | Open |
+| ASTRA-R42 | Executor bypasses owning-service validation | Critical | ASTRA-006 requires owner-service validation before execution | Open |
+| ASTRA-R43 | Live authorization is assumed from planning evidence | Critical | ASTRA-006 requires live authorization recheck before execution | Open |
+| ASTRA-R44 | Timeout causes duplicate state-changing execution | Critical | ASTRA-006 treats timeout as uncertain outcome and requires reconciliation before retry | Open |
+| ASTRA-R45 | Stale plan executes after scope, approval, or validity changes | Critical | ASTRA-006 requires plan version, digest, approval binding, confirmation binding, and validity window checks | Open |
+| ASTRA-R46 | Partial success is hidden by executor reporting | High | ASTRA-006 makes partial success and compensation reporting explicit | Open |
 
 ---
 
@@ -71,5 +77,10 @@
 - replanning that removes approval requirements;
 - material plan or step changes that reuse stale approval grants;
 - retries that assume an uncertain state-changing step did not execute;
+- execution requests treated as execution authority;
+- executor path that bypasses owning-service validation;
+- execution without live authorization recheck;
+- stale plan execution after approval, scope, or validity changes;
+- executor reporting that hides partial success or compensation needs;
 - unknown execution risk treated as safe;
 - implementation before approved scope.

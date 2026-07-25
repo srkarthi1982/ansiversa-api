@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 proposed | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -97,4 +97,10 @@ to exact plan version, step scope, material inputs, impact, and validity
 window, and defines stable execution-step identity, idempotency, duplicate
 detection, and uncertain-outcome handling. Implementation and production
 changes remain unauthorized. ASTRA-006 Tool Execution Architecture is
-documentation-only next and requires separate Product Owner authorization.
+Proposed after documentation and architecture authorization. The ADR is
+Proposed. ASTRA-006 inherits ASTRA-001 through ASTRA-005 and defines how
+approved ASTRA-005 execution plans are handed to a future executor, validated,
+accepted or rejected, monitored, reconciled, and reported while preserving the
+boundary that Astra plans, the executor executes, and the owning service
+remains authoritative. Implementation and production changes remain
+unauthorized.
