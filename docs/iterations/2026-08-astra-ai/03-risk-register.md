@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006; ASTRA-007 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -52,6 +52,12 @@
 | ASTRA-R46 | Partial success is hidden by executor reporting | High | ASTRA-006 makes partial success and compensation reporting explicit | Open |
 | ASTRA-R47 | Executor admission is mistaken for owning-service acceptance | Critical | ASTRA-006 separates executor admission from owner acceptance and prohibits execution until owner acceptance succeeds | Open |
 | ASTRA-R48 | Multi-owner execution is treated as one atomic transaction | Critical | ASTRA-006 requires independent per-step owner authority and partial-success or residual-effect disclosure | Open |
+| ASTRA-R49 | Provider becomes Astra's default brain | Critical | ASTRA-007 requires local sufficiency and external-intelligence necessity before provider selection | Open |
+| ASTRA-R50 | Provider output becomes platform truth | Critical | ASTRA-007 treats provider responses as untrusted until validated | Open |
+| ASTRA-R51 | Sensitive data leaves Ansiversa unnecessarily | Critical | ASTRA-007 requires minimized, purpose-bound, sensitivity-classified input envelopes | Open |
+| ASTRA-R52 | One provider becomes a constitutional dependency | High | ASTRA-007 requires provider-neutral capability, envelope, validation, failure, and routing concepts | Open |
+| ASTRA-R53 | Prompt bypasses parent architecture | Critical | ASTRA-007 defines prompt governance as subordinate to parent architecture | Open |
+| ASTRA-R54 | Provider costs grow silently | High | ASTRA-007 requires token and cost governance before provider use | Open |
 
 ---
 
@@ -86,5 +92,11 @@
 - execution without live authorization recheck;
 - stale plan execution after approval, scope, or validity changes;
 - executor reporting that hides partial success or compensation needs;
+- provider-first reasoning;
+- provider selection before external-intelligence necessity;
+- provider output treated as authoritative platform truth;
+- raw internal context sent to providers by default;
+- prompt architecture that overrides parent architecture;
+- provider calls without token and cost governance;
 - unknown execution risk treated as safe;
 - implementation before approved scope.

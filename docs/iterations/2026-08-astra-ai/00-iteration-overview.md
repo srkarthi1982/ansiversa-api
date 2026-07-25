@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -45,6 +45,10 @@ be reviewed before implementation.
 - [Astra AI Tool Execution Architecture ADR](../../architecture/decisions/astra-ai-tool-execution-architecture.md)
 - [ASTRA-006 architecture review package](astra-006-architecture-review.md)
 - [ASTRA-006 task record](tasks/astra-006-tool-execution-architecture.md)
+- [Astra AI External Intelligence And Provider Architecture](../../astra-ai-external-intelligence-provider-architecture.md)
+- [Astra AI External Intelligence And Provider Architecture ADR](../../architecture/decisions/astra-ai-external-intelligence-provider-architecture.md)
+- [ASTRA-007 architecture review package](astra-007-architecture-review.md)
+- [ASTRA-007 task record](tasks/astra-007-external-intelligence-provider-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -148,8 +152,17 @@ or authorization ownership to Astra. The accepted architecture separates
 executor admission from owning-service acceptance and defines per-step
 authority with non-atomic behavior for multi-owner execution. Implementation
 and production changes remain unauthorized. ASTRA-007 External Intelligence And
-Provider Architecture is documentation-only next and requires separate Product
-Owner authorization before work begins.
+Provider Architecture was authorized for documentation and architecture only on
+2026-07-25.
+
+ASTRA-007 External Intelligence and Provider Architecture is Proposed and
+pending Astra architecture review. The ADR is Proposed. ASTRA-007 inherits
+ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006 and
+defines how Astra determines whether external intelligence is necessary,
+constructs governed provider input envelopes, selects eligible providers,
+validates provider responses, controls cost and privacy risk, records bounded
+evidence, and remains provider-independent. Implementation and production
+changes remain unauthorized.
 
 ---
 
@@ -269,6 +282,26 @@ ASTRA-006 succeeds when:
 - executor health and owner-service availability are represented separately;
 - execution evidence is bounded and reviewable;
 - unknown execution state fails closed;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-007 succeeds when:
+
+- ASTRA-001 through ASTRA-006 inheritance is explicit;
+- external intelligence extends Astra and never replaces Astra;
+- local sufficiency is checked before provider selection;
+- deterministic tasks are excluded from provider use;
+- provider capability classes are documented;
+- provider eligibility and routing are provider-independent;
+- provider input envelopes are minimized, purpose-bound, and policy-approved;
+- prompt governance cannot override parent architecture;
+- provider responses are untrusted until validated;
+- hallucination boundaries are documented;
+- cost and token governance are documented;
+- privacy and data minimization are documented;
+- provider failure behavior preserves local deterministic behavior;
+- provider evidence is bounded and reviewable;
+- multi-provider support avoids constitutional vendor dependency;
 - no implementation occurs; and
 - production remains unchanged.
 

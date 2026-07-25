@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006; ASTRA-007 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -29,6 +29,9 @@ runtime behavior.
 - required ASTRA-006 documents exist;
 - ASTRA-006 status is approved and Frozen;
 - ASTRA-006 ADR is accepted;
+- required ASTRA-007 documents exist;
+- ASTRA-007 status is Proposed;
+- ASTRA-007 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -147,6 +150,24 @@ ASTRA-006 coverage:
 - execution evidence is bounded and reviewable; and
 - unknown execution state fails closed.
 
+ASTRA-007 coverage:
+
+- ASTRA-001 through ASTRA-006 inheritance is explicit;
+- external intelligence extends Astra and never replaces Astra;
+- external-intelligence necessity is checked before provider selection;
+- local sufficiency prevents unnecessary provider calls;
+- provider model and capability classification are documented;
+- provider eligibility and routing are provider-independent;
+- provider input envelopes are minimized and purpose-bound;
+- prompt governance is documented and subordinate to parent architecture;
+- provider responses are untrusted until validated;
+- hallucination boundaries are documented;
+- cost and token governance are documented;
+- privacy and data minimization are documented;
+- provider failure behavior is documented;
+- provider evidence is bounded and reviewable; and
+- multi-provider independence is preserved.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -163,8 +184,8 @@ ASTRA-006 coverage:
 - execution planning remains declarative and does not authorize execution.
 - tool execution architecture remains documentation-only and does not authorize
   runtime integration or execution.
-- ASTRA-007 remains documentation-only next and requires separate Product Owner
-  authorization.
+- external intelligence architecture remains documentation-only and does not
+  authorize provider integration, prompts, model invocation, or production AI.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -195,6 +216,12 @@ Future implementation tasks must add executable validation for:
 - multi-owner partial-success and residual-effect reporting;
 - duplicate request detection;
 - executor health and owner-service health separation;
+- external-intelligence necessity checks;
+- provider input-envelope minimization;
+- prompt governance;
+- provider response validation;
+- token and cost governance;
+- provider failure fallback;
 - stale plans cannot execute;
 - partial-success and compensation evidence is bounded;
 - rollback and restoration;
