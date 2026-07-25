@@ -50,6 +50,8 @@
 | ASTRA-R44 | Timeout causes duplicate state-changing execution | Critical | ASTRA-006 treats timeout as uncertain outcome and requires reconciliation before retry | Open |
 | ASTRA-R45 | Stale plan executes after scope, approval, or validity changes | Critical | ASTRA-006 requires plan version, digest, approval binding, confirmation binding, and validity window checks | Open |
 | ASTRA-R46 | Partial success is hidden by executor reporting | High | ASTRA-006 makes partial success and compensation reporting explicit | Open |
+| ASTRA-R47 | Executor admission is mistaken for owning-service acceptance | Critical | ASTRA-006 separates executor admission from owner acceptance and prohibits execution until owner acceptance succeeds | Open |
+| ASTRA-R48 | Multi-owner execution is treated as one atomic transaction | Critical | ASTRA-006 requires independent per-step owner authority and partial-success or residual-effect disclosure | Open |
 
 ---
 
@@ -79,6 +81,8 @@
 - retries that assume an uncertain state-changing step did not execute;
 - execution requests treated as execution authority;
 - executor path that bypasses owning-service validation;
+- executor admission treated as business authorization;
+- multi-owner execution treated as atomic commit or distributed rollback;
 - execution without live authorization recheck;
 - stale plan execution after approval, scope, or validity changes;
 - executor reporting that hides partial success or compensation needs;

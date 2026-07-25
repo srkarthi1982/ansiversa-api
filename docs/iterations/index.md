@@ -96,11 +96,15 @@ rather than executor. The accepted architecture binds approval and confirmation
 to exact plan version, step scope, material inputs, impact, and validity
 window, and defines stable execution-step identity, idempotency, duplicate
 detection, and uncertain-outcome handling. Implementation and production
-changes remain unauthorized. ASTRA-006 Tool Execution Architecture is
-Proposed after documentation and architecture authorization. The ADR is
-Proposed. ASTRA-006 inherits ASTRA-001 through ASTRA-005 and defines how
-approved ASTRA-005 execution plans are handed to a future executor, validated,
-accepted or rejected, monitored, reconciled, and reported while preserving the
-boundary that Astra plans, the executor executes, and the owning service
-remains authoritative. Implementation and production changes remain
-unauthorized.
+changes remain unauthorized. ASTRA-006 Tool Execution Architecture is Proposed
+after documentation and architecture authorization. Astra approved the
+architecture direction for commit `4cb6bef3` and requested two targeted
+documentation refinements before freeze. The ADR is Proposed. ASTRA-006
+inherits ASTRA-001 through ASTRA-005 and defines how approved ASTRA-005
+execution plans are handed to a future executor, validated, accepted or
+rejected, monitored, reconciled, and reported while preserving the boundary
+that Astra plans, the executor executes, and the owning service remains
+authoritative. The current revision separates executor admission from
+owning-service acceptance and defines per-step authority with non-atomic
+behavior for multi-owner execution. Implementation and production changes
+remain unauthorized.

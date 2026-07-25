@@ -136,13 +136,17 @@ Implementation and production changes remain unauthorized. ASTRA-006 Tool
 Execution Architecture was authorized for documentation and architecture only
 on 2026-07-25.
 
-ASTRA-006 Tool Execution Architecture is Proposed and pending Astra
-architecture review. The ADR is Proposed. ASTRA-006 inherits ASTRA-001,
-ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 and defines how an approved
-ASTRA-005 execution plan is handed to a future executor, validated, accepted or
-rejected, executed by the owning service, monitored, reconciled, and reported
-without transferring business-rule or authorization ownership to Astra.
-Implementation and production changes remain unauthorized.
+ASTRA-006 Tool Execution Architecture is Proposed. Astra approved the
+architecture direction for commit `4cb6bef3` and requested two targeted
+documentation refinements before freeze. The ADR is Proposed. ASTRA-006
+inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, and ASTRA-005 and defines
+how an approved ASTRA-005 execution plan is handed to a future executor,
+validated, accepted or rejected, executed by the owning service, monitored,
+reconciled, and reported without transferring business-rule or authorization
+ownership to Astra. The current revision separates executor admission from
+owning-service acceptance and defines per-step authority with non-atomic
+behavior for multi-owner execution. Implementation and production changes
+remain unauthorized.
 
 ---
 
@@ -244,6 +248,8 @@ ASTRA-006 succeeds when:
 - executor and planner boundaries are preserved;
 - execution requests are not treated as execution authority;
 - executor acceptance and rejection are governed outcomes;
+- executor admission is separated from owning-service acceptance;
+- execution remains prohibited until owning-service acceptance succeeds;
 - live authorization is rechecked before execution;
 - owning-service validation remains authoritative;
 - plan version, approval binding, and confirmation binding are verified before
@@ -254,6 +260,8 @@ ASTRA-006 succeeds when:
 - cancellation handling is governed;
 - long-running progress states are represented;
 - partial success and compensation reporting are explicit;
+- multi-owner execution is non-atomic unless an owning architecture proves
+  otherwise;
 - stale plans are rejected;
 - executor health and owner-service availability are represented separately;
 - execution evidence is bounded and reviewable;

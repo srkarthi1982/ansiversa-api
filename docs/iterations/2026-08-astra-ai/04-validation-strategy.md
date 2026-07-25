@@ -126,6 +126,9 @@ ASTRA-006 coverage:
 - executor and planner concepts are separated;
 - execution request model is documented;
 - executor acceptance and rejection model is documented;
+- executor admission is separated from owning-service acceptance;
+- execution remains prohibited until owning-service acceptance succeeds;
+- cross-owner execution boundaries are documented;
 - pre-execution validation is documented;
 - live authorization recheck is mandatory;
 - owning-service validation remains authoritative;
@@ -138,6 +141,8 @@ ASTRA-006 coverage:
 - cancellation handling is documented;
 - progress and long-running operation states are documented;
 - partial success and compensation reporting are documented;
+- multi-owner execution is not treated as atomic unless an owning architecture
+  proves otherwise;
 - executor health and availability are documented;
 - execution evidence is bounded and reviewable; and
 - unknown execution state fails closed.
@@ -182,8 +187,10 @@ Future implementation tasks must add executable validation for:
 - approval grants are invalidated by material plan or step changes;
 - uncertain state-changing execution outcome is reconciled before retry;
 - execution request acceptance and rejection behavior;
+- executor admission versus owning-service acceptance behavior;
 - live authorization recheck before execution;
 - owner-service validation before execution;
+- multi-owner partial-success and residual-effect reporting;
 - duplicate request detection;
 - executor health and owner-service health separation;
 - stale plans cannot execute;

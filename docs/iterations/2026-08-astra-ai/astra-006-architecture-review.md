@@ -4,7 +4,8 @@
 **Created:** 2026-07-25
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -30,6 +31,16 @@ future executor, validated, accepted or rejected, monitored, reconciled, and
 reported while preserving the permanent boundary that Astra plans, the executor
 executes, and the owning service remains authoritative.
 
+This revision applies Astra's required refinements after source-level review of
+commit `4cb6bef3`:
+
+- executor admission is separated from owning-service acceptance, and executor
+  admission is explicitly not execution authorization;
+- execution remains prohibited until owning-service acceptance succeeds; and
+- multi-owner execution is not treated as atomic, with each step requiring
+  independent owner authority, validation, reconciliation, reporting, and
+  partial-success or residual-effect disclosure.
+
 ---
 
 # Review Questions
@@ -54,6 +65,13 @@ executes, and the owning service remains authoritative.
 17. Is execution evidence bounded and safe?
 18. Does unknown execution state fail closed?
 19. Is the documentation-only boundary complete?
+20. Is executor admission clearly separated from owning-service acceptance?
+21. Does the architecture state that only owning-service acceptance may
+    authorize execution inside the owner boundary?
+22. Are multi-owner requests explicitly non-atomic unless an owning architecture
+    proves otherwise?
+23. Does cross-owner execution require per-step authority and prohibit global
+    success from partial owner success?
 
 ---
 
@@ -68,9 +86,10 @@ Parent                  ASTRA-004 Accepted
 Parent                  ASTRA-005 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -93,11 +112,15 @@ production behavior.
 
 ---
 
-# Requested Astra Review Outcome
+# Astra Review Outcome
 
-Astra should review whether ASTRA-006 is ready for acceptance, requires
-targeted documentation refinements, or should remain Proposed with unresolved
-architecture concerns.
+Astra reviewed commit `4cb6bef3` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-006 can be frozen:
+
+- separate executor admission from explicit owning-service acceptance; and
+- define per-step authority and non-atomic behavior for multi-owner execution.
+
+Those refinements are now applied. ASTRA-006 remains Proposed and is ready for
+Astra re-review.
 
 Implementation remains unauthorized. Production remains unchanged.
-

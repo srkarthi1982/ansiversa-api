@@ -282,9 +282,45 @@ material inputs, or reinterpret user confirmation.
 
 # Acceptance And Rejection Model
 
-Execution acceptance is the executor's decision that a request is structurally
-valid, within executor capability, still bound to an approved plan, and ready
-for owning-service validation or execution.
+Execution acceptance has two distinct stages. Executor admission confirms that
+the request is eligible to be presented to the owning service. Owning-service
+acceptance confirms that execution may proceed inside the owner boundary.
+
+Executor admission is not execution authorization.
+
+## Stage 1 - Executor Admission
+
+The executor confirms that the request:
+
+- is structurally valid;
+- uses a supported contract;
+- is within executor capability;
+- is still bound to an approved plan;
+- preserves approved plan scope;
+- contains required approval and confirmation binding evidence;
+- contains required step identity and idempotency metadata; and
+- is eligible for owning-service validation.
+
+Executor admission must not begin state-changing execution. After admission,
+the request is ready for owning-service validation; execution remains
+prohibited until owning-service acceptance succeeds.
+
+## Stage 2 - Owning-Service Acceptance
+
+The owning service confirms:
+
+- current authorization;
+- resource ownership;
+- business-rule validity;
+- current state;
+- input validity;
+- side-effect eligibility;
+- idempotency and duplicate state;
+- policy permission to execute now; and
+- owner-specific execution constraints.
+
+Only owning-service acceptance may authorize execution inside the owner
+boundary.
 
 Acceptance must not bypass:
 
@@ -328,6 +364,40 @@ renewed approval, clarification, cancellation, reconciliation, or no action.
 
 ---
 
+# Cross-Owner Execution Boundary
+
+A request may contain multiple steps, and each step may belong to a different
+owning service. A multi-step or multi-owner request is not one atomic
+transaction unless an owning architecture explicitly proves otherwise.
+
+Each execution step must be independently:
+
+- admitted by the executor;
+- accepted by its authoritative owning service;
+- live-authorized;
+- validated;
+- identified;
+- reconciled; and
+- reported.
+
+Acceptance by one owner never authorizes another owner's step.
+
+A multi-step or multi-owner plan must not imply:
+
+- shared authorization;
+- shared transaction ownership;
+- atomic commit;
+- automatic rollback across owners; or
+- global success from partial owner success.
+
+When atomicity cannot be guaranteed, the plan and execution evidence must
+disclose partial-success and residual-effect risk.
+
+Cross-owner recovery uses separately approved compensation. Astra and the
+executor must not manufacture distributed rollback.
+
+---
+
 # Pre-execution Validation
 
 Before execution, the executor and owning service must validate:
@@ -346,6 +416,7 @@ Before execution, the executor and owning service must validate:
 - approval and confirmation binding;
 - live authorization requirement;
 - owner-service validation result;
+- owning-service acceptance result;
 - step identity;
 - idempotency metadata;
 - duplicate-detection state;
@@ -360,6 +431,10 @@ reconciliation need, cancellation acknowledgement, or unavailable status.
 Pre-execution validation must not rewrite the plan silently. If requested work
 needs a materially different plan, the executor must reject or return a
 replanning-required result.
+
+For multi-owner work, pre-execution validation is evaluated per step and per
+owning service. A validation pass for one owner does not validate or authorize
+another owner's step.
 
 ---
 
@@ -588,6 +663,7 @@ Partial success reporting should include:
 - failed steps;
 - cancelled steps;
 - uncertain steps;
+- owning service for each reported step;
 - side effects already committed;
 - side effects not started;
 - compensation required;
@@ -596,6 +672,10 @@ Partial success reporting should include:
 - user-visible consequence;
 - owner-service evidence reference; and
 - recommended next governed action.
+
+For multi-owner execution, partial success must make clear which owners
+accepted, rejected, completed, failed, cancelled, or require compensation.
+Global success must not be reported from partial owner success.
 
 Compensation reporting should include:
 
@@ -799,6 +879,8 @@ remains authoritative.
 |---|---|---|
 | Execution request is mistaken for execution authority | Critical | Law 1 requires executor and owner acceptance before execution |
 | Executor bypasses owning-service validation | Critical | Pre-execution validation requires owner-service validation |
+| Executor admission is mistaken for owner acceptance | Critical | Acceptance is split into executor admission and owning-service acceptance |
+| Multi-owner execution is treated as atomic | Critical | Cross-owner execution boundary requires per-step authority and partial-success disclosure |
 | Live authorization is assumed from planning evidence | Critical | Live authorization is rechecked before execution |
 | Timeout causes duplicate state-changing execution | Critical | Timeout is uncertain outcome and retry requires reconciliation |
 | Stale plan executes after approval expires or scope changes | Critical | Plan version, digest, approval binding, and validity window are rechecked |
@@ -833,4 +915,3 @@ Required validation outcomes:
 - AGENTS/docs-only boundary verified; and
 - ASTRA-006 recorded as Proposed with Astra review and Product Owner approval
   pending.
-

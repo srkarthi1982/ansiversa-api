@@ -9,7 +9,8 @@
 **Parent:** ASTRA-004 Capability Discovery And Tool Architecture
 **Parent:** ASTRA-005 Execution Planning And Action Governance
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -32,6 +33,12 @@ uncertain-outcome reconciliation, retry and cancellation governance, partial
 success and compensation reporting, executor health and availability, bounded
 execution evidence, failure behavior, security considerations, and future
 implementation notes.
+
+Astra source-level review of commit `4cb6bef3` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- separate executor admission from explicit owning-service acceptance; and
+- define per-step authority and non-atomic behavior for multi-owner execution.
 
 ---
 
@@ -103,22 +110,23 @@ Not allowed:
 4. Executor Model
 5. Execution Request Model
 6. Acceptance And Rejection Model
-7. Pre-execution Validation
-8. Live Authorization Recheck
-9. Step Identity And Idempotency
-10. Execution State And Progress Model
-11. Timeout And Uncertain Outcome Reconciliation
-12. Retry Model
-13. Cancellation Model
-14. Partial Success And Compensation Reporting
-15. Executor Health And Availability
-16. Execution Evidence Model
-17. Failure Behaviour
-18. Security Considerations
-19. Future Implementation Notes
-20. ADR
-21. Risks
-22. Validation Strategy
+7. Cross-Owner Execution Boundary
+8. Pre-execution Validation
+9. Live Authorization Recheck
+10. Step Identity And Idempotency
+11. Execution State And Progress Model
+12. Timeout And Uncertain Outcome Reconciliation
+13. Retry Model
+14. Cancellation Model
+15. Partial Success And Compensation Reporting
+16. Executor Health And Availability
+17. Execution Evidence Model
+18. Failure Behaviour
+19. Security Considerations
+20. Future Implementation Notes
+21. ADR
+22. Risks
+23. Validation Strategy
 
 ---
 
@@ -144,6 +152,11 @@ The executor may reject stale, invalid, unauthorized, duplicate,
 owner-mismatched, or policy-violating work.
 ```
 
+Required Astra review refinements:
+
+- Separate executor admission from explicit owning-service acceptance.
+- Define per-step authority and non-atomic behavior for multi-owner execution.
+
 ---
 
 # Final ASTRA-006 Draft Status
@@ -157,12 +170,12 @@ Parent                  ASTRA-004 Accepted
 Parent                  ASTRA-005 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
 Production              Unchanged
 ```
-

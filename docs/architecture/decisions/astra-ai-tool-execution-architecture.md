@@ -11,7 +11,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -32,7 +33,9 @@ Propose ASTRA-006 as the documentation-only architecture for how approved
 ASTRA-005 execution plans are handed to a future executor, validated, accepted
 or rejected, monitored, reconciled, and reported while preserving the permanent
 boundary that Astra plans, the executor executes, and the owning service
-remains authoritative.
+remains authoritative. The revised proposal separates executor admission from
+owning-service acceptance and defines per-step authority with non-atomic
+behavior for multi-owner execution.
 
 Canonical proposed specification:
 
@@ -118,9 +121,17 @@ evidence reports outcomes without leaking private data.
 
 - Execution request and response concepts become governed architecture objects.
 - Executor acceptance and rejection become first-class results.
+- Executor admission is separated from owning-service acceptance.
 - An execution request does not itself grant execution authority.
 - Live authorization is rechecked before execution.
 - Owning-service validation remains authoritative.
+- Only owning-service acceptance may authorize execution inside the owner
+  boundary.
+- Multi-owner execution requires independent per-step admission, acceptance,
+  authorization, validation, identity, reconciliation, and reporting.
+- Cross-owner execution does not imply shared authorization, shared transaction
+  ownership, atomic commit, automatic rollback, or global success from partial
+  owner success.
 - Plan version, digest, approval binding, and confirmation binding are verified
   before execution.
 - Stable step identity and idempotency are enforced for state-changing work.
@@ -142,6 +153,10 @@ evidence reports outcomes without leaking private data.
 - [ ] ADR accepted.
 - [ ] ASTRA-006 frozen.
 - [ ] Future implementation phase separately scoped.
+- [x] Astra architecture direction approved with targeted documentation
+  refinements recorded.
+- [x] Executor admission and owning-service acceptance refinement applied.
+- [x] Cross-owner execution boundary refinement applied.
 
 ---
 
@@ -157,11 +172,11 @@ Parent                  ASTRA-004 Accepted
 Parent                  ASTRA-005 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged
 ```
-
