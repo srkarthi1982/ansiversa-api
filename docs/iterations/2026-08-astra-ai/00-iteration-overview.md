@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -37,6 +37,10 @@ be reviewed before implementation.
 - [Astra AI Capability Discovery And Tool Architecture ADR](../../architecture/decisions/astra-ai-capability-tool-architecture.md)
 - [ASTRA-004 architecture review package](astra-004-architecture-review.md)
 - [ASTRA-004 task record](tasks/astra-004-capability-tool-architecture.md)
+- [Astra AI Execution Planning And Action Governance](../../astra-ai-execution-planning-action-governance.md)
+- [Astra AI Execution Planning And Action Governance ADR](../../architecture/decisions/astra-ai-execution-planning-action-governance.md)
+- [ASTRA-005 architecture review package](astra-005-architecture-review.md)
+- [ASTRA-005 task record](tasks/astra-005-execution-planning-action-governance.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -111,8 +115,14 @@ handling. ASTRA-004 inherits ASTRA-001, ASTRA-002, and ASTRA-003 and defines
 how Astra discovers registered capabilities, classifies tools, verifies
 capability existence, preserves tool ownership, records bounded evidence, and
 prevents capability fabrication without granting execution authority. ASTRA-005
-is documentation-only next and requires separate authorization before work
-begins.
+was authorized for documentation and architecture only on 2026-07-25.
+
+ASTRA-005 Execution Planning and Action Governance is Proposed and pending
+Astra architecture review. The ADR is Proposed. ASTRA-005 inherits ASTRA-001,
+ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra transforms an
+approved discovered capability into a deterministic, declarative, explainable,
+and reviewable execution plan while remaining planner rather than executor.
+Implementation and production changes remain unauthorized.
 
 ---
 
@@ -181,6 +191,25 @@ ASTRA-004 succeeds when:
 - discovery remains provider-independent;
 - failure behavior fails closed when capability authority cannot be
   established;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-005 succeeds when:
+
+- ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 inheritance is explicit;
+- execution plans are declarative and do not execute;
+- planner and executor boundaries are preserved;
+- action and execution-step concepts are separated;
+- read-only, proposal, write, external, administrative, and prohibited actions
+  are classified conservatively;
+- every state-changing action requires a governed execution step;
+- approval and confirmation gates are represented before execution;
+- approval requirements survive replanning;
+- retry, rollback, compensation, cancellation, long-running operation, failure,
+  and partial-success states are documented;
+- delegation preserves owning-service execution authority;
+- execution evidence is bounded and reviewable;
+- unknown execution risk fails closed;
 - no implementation occurs; and
 - production remains unchanged.
 

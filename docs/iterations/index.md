@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 proposed | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -83,4 +83,11 @@ tools, verifies capability existence, evaluates ownership and risk metadata,
 prevents capability fabrication, records bounded discovery evidence, and keeps
 discovery separate from execution authority. Implementation and production
 changes remain unauthorized. ASTRA-005 Execution Planning and Action Governance
-is documentation only next and requires separate authorization.
+was authorized for documentation and architecture only on 2026-07-25.
+
+ASTRA-005 Execution Planning and Action Governance is Proposed and pending
+Astra architecture review. The ADR is Proposed. ASTRA-005 inherits ASTRA-001,
+ASTRA-002, ASTRA-003, and ASTRA-004 and defines how Astra creates
+deterministic, declarative, explainable, and reviewable execution plans from
+approved capabilities while remaining planner rather than executor.
+Implementation and production changes remain unauthorized.

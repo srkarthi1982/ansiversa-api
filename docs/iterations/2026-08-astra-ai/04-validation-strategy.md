@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004; ASTRA-005 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -23,6 +23,9 @@ runtime behavior.
 - required ASTRA-004 documents exist;
 - ASTRA-004 status is approved and Frozen;
 - ASTRA-004 ADR is accepted;
+- required ASTRA-005 documents exist;
+- ASTRA-005 status is Proposed;
+- ASTRA-005 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -90,6 +93,22 @@ ASTRA-004 coverage:
 - failure behavior fails closed when capability authority cannot be
   established.
 
+ASTRA-005 coverage:
+
+- ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 inheritance is explicit;
+- execution plans are declarative;
+- planning never performs execution;
+- execution authority remains with the owning service;
+- action and execution-step models are documented;
+- multi-step dependencies are documented;
+- approval and confirmation gates are documented;
+- every state-changing action requires a governed execution step;
+- approval requirements survive replanning;
+- retry, rollback, compensation, cancellation, delegation, long-running
+  operation, failure, and partial-success behavior is documented;
+- evidence is bounded and reviewable; and
+- unknown execution risk fails closed.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -103,6 +122,7 @@ ASTRA-004 coverage:
 - external model invocation requires a governed necessity decision.
 - capability discovery remains registry-backed and does not authorize
   execution.
+- execution planning remains declarative and does not authorize execution.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -121,6 +141,11 @@ Future implementation tasks must add executable validation for:
 - no tool execution during discovery;
 - permission metadata does not satisfy live authorization checks;
 - equal candidate resolution is stable or returns clarification/ambiguity;
+- execution planning is side-effect free;
+- every write action is represented as a governed execution step;
+- approval gates survive replanning;
+- stale plans cannot execute;
+- partial-success and compensation evidence is bounded;
 - rollback and restoration;
 - disabled-by-default production gates.
 

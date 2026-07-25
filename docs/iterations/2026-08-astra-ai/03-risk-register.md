@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004; ASTRA-005 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -36,6 +36,12 @@
 | ASTRA-R30 | Deprecated or experimental capabilities are selected silently | High | ASTRA-004 requires explicit availability states and authorization handling | Open |
 | ASTRA-R31 | Registry permission metadata is mistaken for live user authorization | Critical | ASTRA-004 separates permission requirements metadata from authorization-provider or owning-service live decisions | Open |
 | ASTRA-R32 | Equal candidates are selected by accidental ordering | High | ASTRA-004 requires governed deterministic precedence or clarification for user-significant ambiguity | Open |
+| ASTRA-R33 | Execution planning is mistaken for execution authority | Critical | ASTRA-005 makes planning declarative and prohibits execution during planning | Open |
+| ASTRA-R34 | Approval gates are lost during replanning | Critical | ASTRA-005 requires approval requirements to survive replanning | Open |
+| ASTRA-R35 | State-changing work is hidden inside a broad action | Critical | ASTRA-005 requires every state-changing action to have an explicit governed execution step | Open |
+| ASTRA-R36 | Partial success is represented as full success | High | ASTRA-005 adds partial-success, failure, compensation, and cancellation states | Open |
+| ASTRA-R37 | Compensation is invented silently after failure | High | ASTRA-005 requires retry, rollback, and compensation policy before execution | Open |
+| ASTRA-R38 | Execution evidence leaks sensitive data | High | ASTRA-005 limits evidence to bounded metadata and prohibits raw private payloads, secrets, prompts, SQL, and stack traces | Open |
 
 ---
 
@@ -58,4 +64,8 @@
 - live authorization inferred from registry permission metadata;
 - candidate tie resolution based on accidental ordering;
 - tool selection that implies execution authority;
+- execution plan creation that mutates application state;
+- state-changing actions without explicit governed execution steps;
+- replanning that removes approval requirements;
+- unknown execution risk treated as safe;
 - implementation before approved scope.
