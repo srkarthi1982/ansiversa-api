@@ -31,10 +31,11 @@ The runtime:
 - manages explicit lifecycle states;
 - starts from certified configuration;
 - registers only configuration, governance, and evidence sink components;
-- exposes read-only component access while ready;
+- exposes runtime-bound component operations while ready;
 - emits structural health snapshots;
 - records bounded fault metadata;
-- fails closed on invalid transitions or startup failures.
+- fails closed on invalid transitions or startup failures;
+- loads authoritative configuration only inside `startup()`.
 
 ---
 

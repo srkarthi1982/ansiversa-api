@@ -16,6 +16,8 @@ Structural health reports only bounded runtime metadata:
 - governance available;
 - evidence sink available;
 - registered component identifiers;
+- startup metadata when startup succeeded;
+- environment scope from validated startup configuration;
 - production authorization state;
 - health outcome;
 - bounded fault information when present;
@@ -40,3 +42,5 @@ Structural health reports only bounded runtime metadata:
 Health does not include provider state, model state, conversation data, memory
 contents, execution data, database state, network status, user data, prompts,
 credentials, raw environment variables, hidden reasoning, or private payloads.
+Before successful startup, environment scope and production authorization are
+not reported from constructor-time state.

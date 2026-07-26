@@ -17,9 +17,9 @@
 ASTRA-IMP-005 implements the minimal internal runtime owner for the certified
 Astra foundations.
 
-The runtime supplies identity, lifecycle, bounded component registration,
-read-only component access, and structural health. It owns components; it does
-not become those components.
+The runtime supplies static identity, startup-bound configuration metadata,
+lifecycle, bounded component registration, runtime-bound component operations,
+and structural health. It owns components; it does not become those components.
 
 ---
 
@@ -39,13 +39,14 @@ The runtime owns only:
 - runtime identity metadata;
 - runtime state;
 - startup and shutdown;
-- structural health snapshots.
+- structural health snapshots;
+- startup metadata from the exact validated startup configuration.
 
 ---
 
-# Runtime Identity
+# Runtime Identity And Startup Metadata
 
-Runtime identity is immutable and bounded:
+Runtime identity is static, immutable, and bounded:
 
 - runtime id;
 - runtime name;
@@ -53,12 +54,37 @@ Runtime identity is immutable and bounded:
 - constitutional baseline;
 - implementation phase and revision;
 - startup instance id;
-- creation timestamp;
+- creation timestamp.
+
+Startup metadata is immutable and created only after successful configuration
+loading and validation during `startup()`:
+
+- configuration id;
+- configuration version;
+- startup timestamp;
 - environment scope;
 - production authorization state.
 
-It does not include secrets, prompts, provider keys, user data, database
-records, private payloads, or mutable authorization state.
+Neither identity nor startup metadata includes secrets, prompts, provider keys,
+user data, database records, private payloads, raw environment variables, or
+mutable authorization state.
+
+---
+
+# Runtime-Bound Operations
+
+The runtime does not expose raw operational component handles. Governance and
+evidence access use runtime-bound methods or lifecycle-aware interfaces:
+
+```text
+evaluate_governance(input)
+append_evidence(evidence)
+retrieve_evidence()
+evidence_count()
+```
+
+Handles obtained while ready re-check runtime state at operation time. After
+shutdown, stopped runtimes reject later governance and evidence operations.
 
 ---
 

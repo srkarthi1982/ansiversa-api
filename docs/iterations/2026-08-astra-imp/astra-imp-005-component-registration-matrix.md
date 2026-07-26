@@ -10,8 +10,8 @@
 | Component id | Owner | Source phase | Runtime role | Replacement allowed |
 |---|---|---|---|---|
 | `configuration` | ASTRA-IMP-002 | `get_astra_configuration()` | authoritative disabled configuration reference | No |
-| `governance` | ASTRA-IMP-003 | `evaluate_governance` | deterministic governance evaluation reference | No |
-| `evidence_sink` | ASTRA-IMP-004 | `InMemoryEvidenceSink` | bounded in-memory evidence receiver | No |
+| `governance` | ASTRA-IMP-003 | runtime-bound `evaluate_governance` operation | deterministic governance evaluation while runtime is ready | No |
+| `evidence_sink` | ASTRA-IMP-004 | runtime-bound evidence operations over `InMemoryEvidenceSink` | bounded in-memory evidence receive/retrieve/count while runtime is ready | No |
 
 ---
 

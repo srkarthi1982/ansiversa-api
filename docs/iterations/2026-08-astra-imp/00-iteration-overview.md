@@ -159,8 +159,9 @@ ASTRA-IMP-005 implements the minimal internal Astra Runtime Core. It adds a
 runtime owner for certified configuration, the Minimal Governance Kernel, and
 one Minimal Evidence Sink instance, with immutable identity metadata, explicit
 runtime states, deterministic startup and shutdown, bounded component
-registration, read-only component access, structural health snapshots, bounded
-fault metadata, and multi-runtime isolation.
+registration, runtime-bound component operations, structural health snapshots,
+bounded fault metadata, startup metadata from the exact validated startup
+configuration, and multi-runtime isolation.
 
 The runtime owns lifecycle only. It does not add conversation handling, context
 retrieval, capability discovery, planning, providers, prompts, model

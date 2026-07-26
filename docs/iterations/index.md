@@ -201,10 +201,11 @@ review. It inherits the accepted/frozen ASTRA-001 through ASTRA-010
 Constitution, accepted/frozen ASTRA-IR-001 readiness plan, and
 certified/approved ASTRA-IMP-001 through ASTRA-IMP-004 foundations. The
 implementation adds a minimal internal runtime owner under
-`app/modules/astra_ai/runtime.py` with immutable identity metadata, explicit
-lifecycle states, deterministic startup and shutdown, a sealed component
-registry for configuration, governance, and evidence sink only, read-only
-component access, structural health snapshots, bounded fault metadata, and
+`app/modules/astra_ai/runtime.py` with immutable static identity metadata,
+startup metadata from the exact validated configuration, explicit lifecycle
+states, deterministic startup and shutdown, a sealed component registry for
+configuration, governance, and evidence sink only, runtime-bound component
+operations, structural health snapshots, bounded fault metadata, and
 multi-runtime isolation. It does not introduce conversation handling, context
 retrieval, capability discovery, planning, providers, prompts, model
 invocation, memory, learning, execution, Tool Executor behavior, APIs, routes,

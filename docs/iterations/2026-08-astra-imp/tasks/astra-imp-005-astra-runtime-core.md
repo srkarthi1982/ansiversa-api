@@ -26,7 +26,7 @@ activation.
 - explicit lifecycle states and transition enforcement;
 - startup and shutdown lifecycle;
 - bounded internal component registry;
-- read-only component access;
+- runtime-bound component operations;
 - structural health snapshot;
 - bounded fault information;
 - deterministic and isolated runtime behavior;

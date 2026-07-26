@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from pydantic import ValidationError
 
-from app.modules.astra_ai.configuration import get_astra_configuration
+from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
 from app.modules.astra_ai.constitutional_contracts import (
     AuditEvidenceBehavior,
     BoundedEvidence,
@@ -28,10 +28,15 @@ class InMemoryEvidenceSink:
     emit events, call audit storage, or expose a runtime integration surface.
     """
 
-    def __init__(self, *, capacity: int = DEFAULT_EVIDENCE_SINK_CAPACITY) -> None:
+    def __init__(
+        self,
+        *,
+        capacity: int = DEFAULT_EVIDENCE_SINK_CAPACITY,
+        loaded_configuration: LoadedAstraConfiguration | None = None,
+    ) -> None:
         if capacity < 1:
             raise AstraEvidenceSinkError("Evidence sink capacity must be at least one.")
-        self._configuration = get_astra_configuration()
+        self._configuration = deepcopy(loaded_configuration) if loaded_configuration is not None else get_astra_configuration()
         self._validate_configuration_boundary()
         self._capacity = capacity
         self._records: list[BoundedEvidence] = []

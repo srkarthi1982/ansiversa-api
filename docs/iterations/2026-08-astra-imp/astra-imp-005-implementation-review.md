@@ -33,6 +33,7 @@ ASTRA-IMP-005 adds:
 - `AstraRuntimeHealthSnapshot`;
 - `AstraRuntimeFault`;
 - `AstraRuntimeComponentRegistration`;
+- `AstraRuntimeStartupMetadata`;
 - bounded internal component registry.
 
 The runtime registers only:
@@ -60,6 +61,26 @@ Invalid transitions fail deterministically.
 
 ---
 
+# Review Corrections Applied
+
+ASTRA-IMP-005 source review approved the implementation direction for commit
+`4be8e03d` and requested two lifecycle corrections.
+
+The corrected implementation:
+
+- does not expose raw governance or evidence sink operational handles;
+- provides runtime-bound governance and evidence operations that re-check
+  `ready` state at operation time;
+- rejects operations through handles captured before shutdown;
+- keeps constructor identity static and free of authoritative configuration
+  loading;
+- loads authoritative configuration inside `startup()`;
+- binds health environment and production authorization metadata to the exact
+  validated startup configuration;
+- leaves startup metadata unset after startup failure.
+
+---
+
 # Tests
 
 Focused coverage is in:
@@ -68,10 +89,13 @@ Focused coverage is in:
 tests/test_astra_runtime_core.py
 ```
 
-The tests cover identity, startup, shutdown, invalid transitions, registry
-rules, component access, configuration copy safety, disabled runtime authority,
-bounded faults, structural health, multi-runtime isolation, and absence of API,
-database, provider, Tool Executor, migration, and external SDK imports.
+The tests cover identity, no constructor-time configuration loading,
+startup-time configuration loading, startup metadata binding, shutdown handle
+invalidation, runtime-bound operation guards, startup, shutdown, invalid
+transitions, registry rules, component access, configuration copy safety,
+disabled runtime authority, bounded faults, structural health, multi-runtime
+isolation, and absence of API, database, provider, Tool Executor, migration,
+and external SDK imports.
 
 ---
 
