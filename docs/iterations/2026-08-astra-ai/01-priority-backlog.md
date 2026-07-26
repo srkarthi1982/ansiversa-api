@@ -1,6 +1,6 @@
 # Astra AI Architecture Backlog
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen; ASTRA-008 frozen; ASTRA-009 frozen
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen; ASTRA-008 frozen; ASTRA-009 frozen; ASTRA-010 proposed
 **Implementation:** Not authorized
 
 Only individually reviewed and authorized tasks may later move into
@@ -17,7 +17,7 @@ implementation. ASTRA-001 does not authorize any runtime work.
 | ASTRA-007 | External Intelligence And Provider Architecture | High | Frozen | Define local-first necessity, provider independence, eligibility, selection, envelopes, routing, prompt governance, response validation, failures, token and cost governance, privacy, evidence, and provider-independent governance |
 | ASTRA-008 | Memory Architecture | High | Frozen | Define what Astra may remember, what it must forget, conversation state, working memory, long-term memory, preferences, memory ownership and references, retrieval authorization, app-owned data boundaries, retrieval, retention, deletion, export, audit, privacy, and forgetting rules |
 | ASTRA-009 | Learning And Adaptation Architecture | High | Frozen | Define learning, adaptation, learning versus memory, explainable personalization, correction handling, feedback classification, preference evolution, eligibility, activation, conflict resolution, confidence, drift prevention, provider/model boundaries, and no-opaque-training boundaries |
-| ASTRA-010 | Safety, Audit And Governance Architecture | Critical | Deferred | Define auditing, traceability, AI evidence, governance logs, explainability, security, compliance, and constitutional enforcement |
+| ASTRA-010 | Safety, Audit And Constitutional Governance Architecture | Critical | Proposed | Define the Astra Constitution model, constitutional precedence, safety boundaries, governance validation, audit evidence, explainability, violation handling, approval authority, implementation/production gates, compliance, emergency restrictions, amendments, and cross-architecture conflict resolution |
 
 ---
 
@@ -62,5 +62,10 @@ implementation scope is authorized. ASTRA-009 Learning And Adaptation
 Architecture is approved and Frozen after Astra re-review of commit `3db6222`
 and Product Owner approval. No implementation task should start from ASTRA-009
 unless a separate implementation scope is authorized. ASTRA-010 Safety, Audit
-And Governance Architecture is documentation-only next and requires separate
-authorization before work begins.
+And Constitutional Governance Architecture is Proposed after documentation and
+architecture authorization. The ADR is Proposed. ASTRA-010 inherits ASTRA-001
+through ASTRA-009 and defines the umbrella constitutional governance,
+precedence, safety, audit, evidence, explainability, violation, approval,
+implementation-gate, production-gate, conformance, emergency-restriction, and
+amendment model. No implementation task should start from ASTRA-010 unless a
+separate implementation scope is authorized.

@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, ASTRA-008, and ASTRA-009; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, ASTRA-008, and ASTRA-009; ASTRA-010 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -38,6 +38,9 @@ runtime behavior.
 - required ASTRA-009 documents exist;
 - ASTRA-009 status is approved and Frozen;
 - ASTRA-009 ADR is accepted;
+- required ASTRA-010 documents exist;
+- ASTRA-010 status is Proposed;
+- ASTRA-010 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -233,6 +236,37 @@ ASTRA-009 coverage:
 - unknown adaptation risk fails closed; and
 - documentation-only boundaries are preserved.
 
+ASTRA-010 coverage:
+
+- ASTRA-001 through ASTRA-009 inheritance is explicit;
+- the Astra Constitution model is documented;
+- constitutional authority and precedence are documented;
+- lower-precedence inputs cannot override higher-precedence authority;
+- constitutional enforcement is documented;
+- safety boundaries are classified conservatively;
+- unknown safety class and unknown constitutional compliance fail closed;
+- governance validation is required before high-impact behavior;
+- parent-architecture gates are linked for context, capability, planning,
+  execution, providers, memory, and adaptation;
+- audit evidence is bounded, reviewable, and privacy-minimized;
+- secrets, raw private payloads, hidden reasoning, unrelated user data, tokens,
+  and unsafe provider payloads are excluded from evidence;
+- explainability requirements are documented without unsafe disclosure;
+- constitutional violations are explicit governed outcomes;
+- violation detection and classification are documented;
+- containment, refusal, recovery, and fail-closed behavior are documented;
+- approval authority is separated by decision type;
+- implementation authorization is separated from production authorization;
+- compliance and conformance checks are documented;
+- audit access, retention, export, and deletion are governed;
+- emergency restrictions may reduce capability but cannot silently expand
+  authority;
+- constitutional amendment, deprecation, and supersession rules are
+  documented;
+- cross-architecture conflicts resolve deterministically or fail closed;
+- runtime governance principles remain implementation-independent; and
+- documentation-only boundaries are preserved.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -258,6 +292,12 @@ ASTRA-009 coverage:
   authorize runtime learning, model training, fine-tuning, embeddings, vector
   databases, providers, prompts, model invocation, APIs, routes, migrations,
   frontend behavior, or production personalization.
+- safety, audit, and constitutional governance architecture remains
+  documentation-only and does not authorize runtime governance engines, policy
+  engines, audit storage, logging changes, providers, prompts, model
+  invocation, APIs, routes, Tool Executor changes, app integration, databases,
+  migrations, frontend behavior, tests, deployment, generated artifacts,
+  production configuration, or production behavior.
 
 ## Tier 4 - Future Implementation Readiness
 

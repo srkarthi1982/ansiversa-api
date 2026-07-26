@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Frozen; ASTRA-010 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -57,6 +57,12 @@ be reviewed before implementation.
 - [Astra AI Learning And Adaptation Architecture ADR](../../architecture/decisions/astra-ai-learning-adaptation-architecture.md)
 - [ASTRA-009 architecture review package](astra-009-architecture-review.md)
 - [ASTRA-009 task record](tasks/astra-009-learning-adaptation-architecture.md)
+- [Astra AI Safety, Audit And Constitutional Governance Architecture](../../astra-ai-safety-audit-constitutional-governance-architecture.md)
+- [Astra AI Safety, Audit And Constitutional Governance Architecture ADR](../../architecture/decisions/astra-ai-safety-audit-constitutional-governance-architecture.md)
+- [ASTRA-010 architecture review package](astra-010-architecture-review.md)
+- [ASTRA-010 task record](tasks/astra-010-safety-audit-constitutional-governance-architecture.md)
+- [ASTRA-010 constitutional completion checklist](astra-010-constitutional-completion-checklist.md)
+- [Post-ASTRA-010 implementation readiness outline](astra-010-implementation-readiness-outline.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -211,8 +217,20 @@ drift prevention, reset/revocation, cross-app boundaries, provider/model
 boundaries, and preserves the permanent rule that Astra may adapt behavior but
 may never silently rewrite its constitution. Implementation and production
 changes remain unauthorized. ASTRA-010 Safety, Audit And Governance
-Architecture is documentation-only next and requires separate authorization
-before work begins.
+Architecture was authorized for documentation and architecture only on
+2026-07-26.
+
+ASTRA-010 Safety, Audit And Constitutional Governance Architecture is
+Proposed. ASTRA-010 inherits accepted/frozen ASTRA-001 through ASTRA-009 and
+defines the Astra Constitution model, constitutional authority and precedence,
+enforcement, safety boundaries, governance validation, audit evidence,
+explainability, violation handling, approval authority, architecture review
+lifecycle, implementation and production authorization gates, compliance and
+conformance, audit access/retention/export/deletion, emergency restrictions,
+amendment/deprecation/supersession rules, cross-architecture conflict
+resolution, runtime governance principles, and future implementation notes.
+Implementation and production changes remain unauthorized. Architecture review
+and Product Owner approval remain pending.
 
 ---
 
@@ -414,6 +432,39 @@ ASTRA-009 succeeds when:
 - private-data training is prohibited without separate governance;
 - the constitution cannot be learned or silently rewritten;
 - unknown adaptation risk fails closed;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-010 succeeds when:
+
+- ASTRA-001 through ASTRA-009 inheritance is explicit;
+- the Astra Constitution model is documented;
+- constitutional authority and precedence are documented;
+- lower-precedence inputs cannot override higher-precedence authority;
+- constitutional enforcement is documented;
+- safety boundaries are classified conservatively;
+- unknown constitutional compliance fails closed;
+- governance validation is required before high-impact behavior;
+- parent-architecture gates are linked for context, capability, planning,
+  execution, providers, memory, and adaptation;
+- audit evidence is bounded, reviewable, and privacy-minimized;
+- secrets, raw private payloads, hidden reasoning, unrelated user data, tokens,
+  and unsafe provider payloads are excluded from evidence;
+- explainability is defined without unsafe disclosure;
+- constitutional violations are explicit governed outcomes;
+- violation detection and classification are documented;
+- containment, refusal, recovery, and fail-closed behavior are documented;
+- approval authority is separated by architecture, ADR, implementation,
+  deployment, production, amendment, and emergency restriction decisions;
+- implementation authorization is separated from production authorization;
+- compliance and conformance validation is documented;
+- audit access, retention, export, and deletion are governed;
+- emergency restrictions may reduce capability but cannot silently expand
+  authority;
+- constitutional amendment, deprecation, and supersession rules are
+  documented;
+- cross-architecture conflicts resolve deterministically or fail closed;
+- future runtime governance principles remain implementation-independent;
 - no implementation occurs; and
 - production remains unchanged.
 

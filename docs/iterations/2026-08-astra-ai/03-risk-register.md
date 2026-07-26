@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, ASTRA-008, and ASTRA-009; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, ASTRA-008, and ASTRA-009; ASTRA-010 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -79,6 +79,12 @@
 | ASTRA-R73 | Users cannot inspect or reset adaptations | High | ASTRA-009 requires inspection, correction, disablement, reset, export, and deletion controls | Open |
 | ASTRA-R74 | Eligible adaptation activates automatically | Critical | ASTRA-009 separates adaptation eligibility from adaptation activation and requires a separate governed activation decision | Open |
 | ASTRA-R75 | Conflicting adaptations resolve by hidden ordering | High | ASTRA-009 requires constitutional precedence or clarification/disabled state for unresolved conflicts | Open |
+| ASTRA-R76 | Constitution becomes advisory rather than authoritative | Critical | ASTRA-010 makes accepted Constitution first-precedence authority and requires fail-closed behavior when compliance is unknown | Open |
+| ASTRA-R77 | Implementation freeze is mistaken for production approval | Critical | ASTRA-010 separates implementation authorization from production authorization | Open |
+| ASTRA-R78 | Audit evidence leaks secrets or raw private payloads | Critical | ASTRA-010 requires bounded, minimized evidence and prohibits secrets, hidden reasoning, raw private payloads, tokens, and unrelated user data | Open |
+| ASTRA-R79 | Safety restriction silently grants new authority | Critical | ASTRA-010 states safety controls may restrict capability but must never silently expand authority | Open |
+| ASTRA-R80 | Frozen constitutional rules are silently rewritten | Critical | ASTRA-010 requires amendment proposal, review, Product Owner approval, ADR acceptance, versioning, and freeze | Open |
+| ASTRA-R81 | Cross-architecture conflicts resolve implicitly | High | ASTRA-010 requires constitutional precedence, specific-rule precedence, stricter safety outcome, clarification, or fail-closed behavior | Open |
 
 ---
 
@@ -138,6 +144,13 @@
   production truth;
 - adaptation activated solely because it is eligible;
 - conflicting adaptations resolved by accidental ordering;
+- constitutional compliance treated as optional advice;
+- production activation inferred from implementation authorization;
+- audit evidence that stores secrets, raw private payloads, hidden reasoning,
+  tokens, or unrelated user data;
+- safety controls that silently expand authority;
+- frozen constitutional rules rewritten without amendment governance;
+- cross-architecture conflicts resolved by hidden merge behavior;
 - opaque or low-confidence adaptation used for high-impact decisions;
 - provider output treated as learned behavior by default;
 - cross-app adaptation that centralizes app data;
