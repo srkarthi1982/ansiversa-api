@@ -1,6 +1,6 @@
 # ASTRA-IMP-005 Component Registration Matrix
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Certified / Approved
 **Production Authorization:** Not approved
 
 ---

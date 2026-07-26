@@ -1,6 +1,6 @@
 # ASTRA-IMP-005 Structural Health Contract
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Certified / Approved
 **Production Authorization:** Not approved
 
 ---

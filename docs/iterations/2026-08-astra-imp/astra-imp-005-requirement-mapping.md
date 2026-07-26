@@ -1,6 +1,6 @@
 # ASTRA-IMP-005 Constitution-To-Code Mapping
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-005
 **Production Authorization:** Not approved
 **Production:** Unchanged

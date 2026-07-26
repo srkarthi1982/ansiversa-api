@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-005 Astra Runtime Core
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-07-26
 **Task:** ASTRA-IMP-005
 **Production Authorization:** Not approved
@@ -51,14 +51,15 @@ configuration, or production behavior.
 
 ---
 
-# Review State
+# Final State
 
 ```text
-ASTRA-IMP-005               Implemented
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+ASTRA-IMP-005               Certified / Approved
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
 ASTRA-IMP-006               Not authorized

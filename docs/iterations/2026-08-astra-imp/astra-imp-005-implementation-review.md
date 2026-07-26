@@ -1,6 +1,6 @@
 # ASTRA-IMP-005 Implementation Review Package
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-005
 **Implementation Scope:** Astra Runtime Core
 **Production Authorization:** Not approved
@@ -99,14 +99,25 @@ and external SDK imports.
 
 ---
 
-# Review State
+# Certification Closure
+
+Astra source-level re-review approved commit `50c02aad`, confirming
+constitutional conformance for the authorized ASTRA-IMP-005 Runtime Core scope.
+Product Owner approval is recorded, certification passed, production
+authorization is not approved, production remains unchanged, and ASTRA-IMP-006
+requires separate authorization.
+
+---
+
+# Final State
 
 ```text
-ASTRA-IMP-005               Implemented
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+ASTRA-IMP-005               Certified / Approved
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
 ASTRA-IMP-006               Not authorized

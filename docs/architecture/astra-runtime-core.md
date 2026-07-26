@@ -1,6 +1,6 @@
 # Astra Runtime Core
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-005
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
@@ -113,15 +113,16 @@ production.
 
 ---
 
-# Final Draft State
+# Final State
 
 ```text
-ASTRA-IMP-005               Implemented
+ASTRA-IMP-005               Certified / Approved
 Implementation Scope        Astra Runtime Core
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged

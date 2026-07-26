@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-005 Implemented / Pending Astra Source Review
+**Status:** ASTRA-IMP-005 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -141,12 +141,13 @@ authorized for implementation.
 # ASTRA-IMP-005
 
 ```text
-ASTRA-IMP-005               Implemented
+ASTRA-IMP-005               Certified / Approved
 Implementation Scope        Astra Runtime Core
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
@@ -167,4 +168,6 @@ The runtime owns lifecycle only. It does not add conversation handling, context
 retrieval, capability discovery, planning, providers, prompts, model
 invocation, memory, learning, execution, Tool Executor behavior, APIs, routes,
 databases, migrations, frontend work, deployment, production configuration, or
-production authorization. ASTRA-IMP-006 requires separate authorization.
+production authorization. Astra source-level re-review approved commit
+`50c02aad`, Product Owner approval is recorded, certification passed, and
+ASTRA-IMP-005 is closed. ASTRA-IMP-006 requires separate authorization.
