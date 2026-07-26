@@ -12,7 +12,8 @@
 **Parent:** ASTRA-007 External Intelligence And Provider Architecture
 **Parent:** ASTRA-008 Memory Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -38,6 +39,12 @@ opaque, unpredictable, provider-defined, or constitutionally mutable.
 - updates to the Astra AI iteration overview, backlog, dependencies, risks,
   validation strategy, iteration index, and task log.
 
+Astra source-level review of commit `b7163d5` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- separate adaptation eligibility from adaptation activation; and
+- define adaptation conflict resolution using constitutional precedence.
+
 ---
 
 # Scope
@@ -54,6 +61,8 @@ Allowed:
 - correction handling;
 - preference evolution;
 - adaptation eligibility;
+- adaptation activation;
+- adaptation conflict resolution;
 - adaptation confidence and evidence;
 - explainability and user control;
 - drift detection and prevention;
@@ -106,18 +115,20 @@ Not allowed:
 9. Correction Handling
 10. Preference Evolution
 11. Adaptation Eligibility
-12. Adaptation Confidence And Evidence
-13. Explainability And User Control
-14. Drift Detection And Prevention
-15. Reset, Revocation, Export And Expiration
-16. Cross-App Adaptation Boundaries
-17. Provider And Model Boundaries
-18. Failure Behaviour
-19. Security And Privacy Considerations
-20. Future Implementation Notes
-21. ADR
-22. Risks
-23. Validation Strategy
+12. Adaptation Activation
+13. Adaptation Conflict Resolution
+14. Adaptation Confidence And Evidence
+15. Explainability And User Control
+16. Drift Detection And Prevention
+17. Reset, Revocation, Export And Expiration
+18. Cross-App Adaptation Boundaries
+19. Provider And Model Boundaries
+20. Failure Behaviour
+21. Security And Privacy Considerations
+22. Future Implementation Notes
+23. ADR
+24. Risks
+25. Validation Strategy
 
 ---
 
@@ -142,6 +153,14 @@ approved.
 
 Law 6
 High-impact decisions must not depend on opaque or low-confidence adaptation.
+
+Law 7
+Adaptation eligibility never activates adaptation. Activation requires a
+separate governed decision.
+
+Law 8
+Conflicting adaptations must resolve by constitutional precedence or remain
+inactive pending clarification.
 ```
 
 ---
@@ -160,9 +179,10 @@ Parent                  ASTRA-007 Accepted
 Parent                  ASTRA-008 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

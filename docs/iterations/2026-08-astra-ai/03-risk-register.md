@@ -77,6 +77,8 @@
 | ASTRA-R71 | Private data trains models silently | Critical | ASTRA-009 does not authorize model training or fine-tuning and requires separate governance | Open |
 | ASTRA-R72 | Cross-app adaptation centralizes app data | Critical | ASTRA-009 keeps app facts authoritative and prohibits unapproved cross-app adaptation | Open |
 | ASTRA-R73 | Users cannot inspect or reset adaptations | High | ASTRA-009 requires inspection, correction, disablement, reset, export, and deletion controls | Open |
+| ASTRA-R74 | Eligible adaptation activates automatically | Critical | ASTRA-009 separates adaptation eligibility from adaptation activation and requires a separate governed activation decision | Open |
+| ASTRA-R75 | Conflicting adaptations resolve by hidden ordering | High | ASTRA-009 requires constitutional precedence or clarification/disabled state for unresolved conflicts | Open |
 
 ---
 
@@ -134,6 +136,8 @@
 - learning that rewrites constitutional rules;
 - adaptation used as identity, authorization, capability, execution, app, or
   production truth;
+- adaptation activated solely because it is eligible;
+- conflicting adaptations resolved by accidental ordering;
 - opaque or low-confidence adaptation used for high-impact decisions;
 - provider output treated as learned behavior by default;
 - cross-app adaptation that centralizes app data;

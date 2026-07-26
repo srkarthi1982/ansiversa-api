@@ -16,7 +16,7 @@ implementation. ASTRA-001 does not authorize any runtime work.
 | ASTRA-006 | Tool Execution Architecture | Critical | Frozen | Define execution requests, responses, admission, owner acceptance, rejection, authorization recheck, owner validation, cross-owner boundaries, idempotency enforcement, monitoring, timeout reconciliation, retries, cancellation, evidence, and Planner versus Executor ownership boundaries |
 | ASTRA-007 | External Intelligence And Provider Architecture | High | Frozen | Define local-first necessity, provider independence, eligibility, selection, envelopes, routing, prompt governance, response validation, failures, token and cost governance, privacy, evidence, and provider-independent governance |
 | ASTRA-008 | Memory Architecture | High | Frozen | Define what Astra may remember, what it must forget, conversation state, working memory, long-term memory, preferences, memory ownership and references, retrieval authorization, app-owned data boundaries, retrieval, retention, deletion, export, audit, privacy, and forgetting rules |
-| ASTRA-009 | Learning And Adaptation Architecture | High | Proposed; pending Astra review | Define learning, adaptation, learning versus memory, explainable personalization, correction handling, feedback classification, preference evolution, confidence, drift prevention, provider/model boundaries, and no-opaque-training boundaries |
+| ASTRA-009 | Learning And Adaptation Architecture | High | Proposed; pending Astra re-review | Define learning, adaptation, learning versus memory, explainable personalization, correction handling, feedback classification, preference evolution, eligibility, activation, conflict resolution, confidence, drift prevention, provider/model boundaries, and no-opaque-training boundaries |
 | ASTRA-010 | Safety, Audit And Governance Architecture | Critical | Deferred | Define auditing, traceability, AI evidence, governance logs, explainability, security, compliance, and constitutional enforcement |
 
 ---
@@ -60,5 +60,7 @@ after Astra re-review of commit `ce14300` and Product Owner approval. No
 implementation task should start from ASTRA-008 unless a separate
 implementation scope is authorized. ASTRA-009 Learning And Adaptation
 Architecture is Proposed after documentation and architecture authorization.
-No implementation task should start from ASTRA-009 unless a separate
-implementation scope is authorized.
+Astra approved the architecture direction for commit `b7163d5` and requested
+targeted documentation refinements before freeze. No implementation task
+should start from ASTRA-009 unless a separate implementation scope is
+authorized.

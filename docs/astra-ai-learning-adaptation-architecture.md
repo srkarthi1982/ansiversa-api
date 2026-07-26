@@ -13,7 +13,8 @@
 **Created:** 2026-07-26
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Scope:** Documentation, specification, and architecture review only
@@ -128,6 +129,8 @@ Allowed:
 - define correction handling;
 - define preference evolution;
 - define adaptation eligibility;
+- define adaptation activation;
+- define adaptation conflict resolution;
 - define adaptation confidence and evidence;
 - define explainability and user control;
 - define drift detection and prevention;
@@ -171,6 +174,7 @@ Not allowed:
 
 - Learning and memory are separate governed concepts.
 - Adaptation must be explicit, explainable, and reversible.
+- Adaptation eligibility and activation must remain separate decisions.
 - User correction outranks inferred preference.
 - Explicit feedback outranks implicit behavior.
 - Low-confidence adaptation must not silently influence high-impact decisions.
@@ -182,6 +186,8 @@ Not allowed:
 - Users must be able to inspect, correct, disable, reset, and remove
   adaptations.
 - Unknown adaptation risk fails closed.
+- Adaptation conflict must resolve by constitutional precedence or remain
+  inactive pending clarification.
 
 ---
 
@@ -212,6 +218,16 @@ approved.
 ## Law 6 - Opaque Adaptation Cannot Drive High-Impact Decisions
 
 High-impact decisions must not depend on opaque or low-confidence adaptation.
+
+## Law 7 - Eligibility Is Not Activation
+
+Adaptation eligibility never activates adaptation. Activation requires a
+separate governed decision.
+
+## Law 8 - Conflicts Resolve By Constitutional Precedence
+
+Conflicting adaptations must resolve by constitutional precedence or remain
+inactive pending clarification.
 
 ---
 
@@ -436,6 +452,82 @@ If eligibility cannot be established, Astra must not apply the adaptation.
 
 ---
 
+# Adaptation Activation
+
+Adaptation eligibility and adaptation activation are separate decisions.
+
+Eligibility means an adaptation candidate may be considered. Activation means
+the adaptation is allowed to influence future Astra behavior within a defined
+scope.
+
+Eligible adaptations become active only after:
+
+- required confidence thresholds are satisfied;
+- applicable governance rules are satisfied;
+- user consent is present where required;
+- adaptation scope is validated;
+- memory and retention rules are satisfied where retained evidence is used;
+- conflict resolution is complete;
+- safety evaluation passes;
+- reset, revocation, export, and expiration behavior is defined;
+- user visibility requirements are satisfied; and
+- no parent architecture requires fail-closed behavior.
+
+Eligibility alone never activates adaptation. Availability, repeated signals,
+prior successful use, provider output, memory existence, or user behavior also
+do not activate adaptation by themselves.
+
+If activation cannot be established, Astra must keep the adaptation inactive,
+ask for clarification when appropriate, use non-adapted behavior, or fail
+closed depending on the request and parent architecture.
+
+Activation evidence should record the decision without exposing raw private
+signals by default.
+
+---
+
+# Adaptation Conflict Resolution
+
+Adaptation conflicts must resolve by constitutional precedence.
+
+Conflicts may occur between:
+
+- old preferences and new corrections;
+- explicit preferences and inferred preferences;
+- two inferred behavior patterns;
+- current user intent and long-term preference;
+- app-owned facts and adaptation candidates;
+- provider output and local evidence;
+- memory state and adaptation evidence;
+- platform policy and user preference; or
+- adaptation scope and execution or authorization boundaries.
+
+Conflict precedence:
+
+1. Constitution and accepted Astra architecture.
+2. Product Owner policy and platform governance.
+3. Authoritative app or parent service truth.
+4. Explicit user correction.
+5. Current user intent.
+6. Approved long-term preference.
+7. Recent successful adaptation within the same approved scope.
+8. Inferred behavior.
+
+If no deterministic resolution exists, Astra must clarify, keep the adaptation
+inactive, or disable the conflicting adaptation until the conflict is resolved.
+
+Conflict resolution must not:
+
+- invent consensus;
+- choose by accidental ordering;
+- let inferred behavior override explicit correction;
+- let provider output override local authority;
+- let adaptation override app facts;
+- let adaptation bypass authorization or execution governance; or
+- let adaptation rewrite the constitution.
+
+---
+
 # Adaptation Confidence And Evidence
 
 Adaptation confidence must be represented explicitly.
@@ -461,10 +553,13 @@ Adaptation evidence should include:
 - user or owner scope;
 - memory reference when applicable;
 - confidence level;
+- activation status;
+- activation basis;
 - scope;
 - expiry;
 - review requirement;
 - conflict status;
+- conflict resolution result;
 - provider involvement marker;
 - final authority source; and
 - fallback behavior.
@@ -510,6 +605,7 @@ Drift prevention requires:
 - expiry by default;
 - confidence thresholds;
 - conflict detection;
+- constitutional-precedence conflict resolution;
 - review requirements for high-impact adaptation;
 - reset capability;
 - bounded evidence;
@@ -609,12 +705,15 @@ Failure classes:
 - revoked adaptation;
 - reset state;
 - unsupported adaptation class; and
+- activation not authorized;
+- unresolved adaptation conflict;
 - unknown adaptation risk.
 
 Failure behavior:
 
 - prefer local non-adapted behavior;
 - ask clarification when safe;
+- keep eligible-but-not-activated adaptations inactive;
 - disclose limitation when user-visible;
 - fail closed for high-impact, sensitive, or authority-affecting cases;
 - do not silently substitute provider output;
@@ -654,6 +753,8 @@ Future implementation should:
 - keep adaptation disabled until readiness gates are satisfied;
 - classify feedback before use;
 - separate learning from memory;
+- separate adaptation eligibility from activation;
+- resolve adaptation conflicts by constitutional precedence;
 - bind adaptations to scope and purpose;
 - require confidence thresholds;
 - support inspection, correction, disablement, reset, export, and deletion;

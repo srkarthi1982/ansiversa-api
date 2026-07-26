@@ -14,7 +14,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -34,7 +35,9 @@ Decision:
 Propose ASTRA-009 as the documentation-only architecture for how Astra may
 adapt behavior, preferences, explanations, and workflow assistance over time
 without becoming opaque, unpredictable, provider-defined, or constitutionally
-mutable.
+mutable. The revised proposal separates adaptation eligibility from adaptation
+activation and defines adaptation conflict resolution by constitutional
+precedence.
 
 Canonical proposed specification:
 
@@ -121,6 +124,11 @@ memory governance authoritative.
 
 - Learning and memory remain separate governed concepts.
 - Adaptation becomes explicit, explainable, reversible, and scope-bound.
+- Adaptation eligibility is separated from adaptation activation.
+- Eligible adaptations do not become active without a separate governed
+  activation decision.
+- Adaptation conflicts resolve by constitutional precedence or remain inactive
+  pending clarification.
 - User correction outranks inferred preference.
 - Explicit feedback outranks implicit behavior.
 - Low-confidence adaptation cannot silently influence high-impact decisions.
@@ -141,6 +149,10 @@ memory governance authoritative.
 - [ ] ADR accepted.
 - [ ] ASTRA-009 frozen.
 - [ ] Future implementation phase separately scoped.
+- [x] Astra architecture direction approved with targeted documentation
+  refinements recorded.
+- [x] Adaptation eligibility and activation refinement applied.
+- [x] Adaptation conflict resolution refinement applied.
 - [x] Documentation authorization approved.
 - [x] Architecture authorization approved.
 - [x] Parent ASTRA-001 through ASTRA-008 inheritance recorded.
@@ -162,9 +174,10 @@ Parent                  ASTRA-007 Accepted
 Parent                  ASTRA-008 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

@@ -4,7 +4,8 @@
 **Created:** 2026-07-26
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -29,6 +30,13 @@ through ASTRA-008 and defines how Astra may adapt behavior, preferences,
 explanations, and workflow assistance over time without becoming opaque,
 unpredictable, provider-defined, or constitutionally mutable.
 
+This revision applies Astra's required refinements after source-level review of
+commit `b7163d5`:
+
+- adaptation eligibility is separated from adaptation activation; and
+- adaptation conflict resolution uses constitutional precedence, with
+  unresolved conflicts disabled or held for clarification.
+
 ---
 
 # Review Questions
@@ -43,18 +51,23 @@ unpredictable, provider-defined, or constitutionally mutable.
 8. Are correction-handling boundaries explicit?
 9. Are preference evolution rules governed?
 10. Is adaptation eligibility checked before adaptation affects behavior?
-11. Are confidence and evidence represented?
-12. Can users inspect, correct, disable, reset, export, and remove
+11. Is adaptation activation separated from adaptation eligibility?
+12. Does eligibility alone never activate adaptation?
+13. Are adaptation conflicts resolved by constitutional precedence?
+14. Are unresolved adaptation conflicts clarified or disabled rather than
+    selected by hidden ordering?
+15. Are confidence and evidence represented?
+16. Can users inspect, correct, disable, reset, export, and remove
     adaptations?
-13. Is behavioral drift detected and prevented?
-14. Are reset, revocation, export, and expiration first-class governance?
-15. Are cross-app adaptation boundaries explicit?
-16. Are provider and model boundaries explicit?
-17. Is private-data training prohibited without separate governance?
-18. Is the constitution protected from learned rewrite?
-19. Does unknown adaptation risk fail closed?
-20. Is the documentation-only boundary complete?
-21. Does ASTRA-009 avoid authorizing runtime learning, training, fine-tuning,
+17. Is behavioral drift detected and prevented?
+18. Are reset, revocation, export, and expiration first-class governance?
+19. Are cross-app adaptation boundaries explicit?
+20. Are provider and model boundaries explicit?
+21. Is private-data training prohibited without separate governance?
+22. Is the constitution protected from learned rewrite?
+23. Does unknown adaptation risk fail closed?
+24. Is the documentation-only boundary complete?
+25. Does ASTRA-009 avoid authorizing runtime learning, training, fine-tuning,
     embeddings, vector databases, prompts, APIs, routes, database changes,
     frontend changes, tests, deployment, generated artifacts, or production?
 
@@ -74,9 +87,10 @@ Parent                  ASTRA-007 Accepted
 Parent                  ASTRA-008 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -100,6 +114,14 @@ generated artifacts, or production behavior.
 
 # Astra Review Outcome
 
-Pending Astra architecture review.
+Astra reviewed commit `b7163d5` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-009 can be
+frozen:
+
+- separate adaptation eligibility from adaptation activation; and
+- define adaptation conflict resolution using constitutional precedence.
+
+Those refinements are now applied. ASTRA-009 remains Proposed and is ready for
+Astra re-review.
 
 Implementation remains unauthorized. Production remains unchanged.

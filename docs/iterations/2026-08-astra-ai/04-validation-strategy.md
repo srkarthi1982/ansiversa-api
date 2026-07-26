@@ -218,6 +218,10 @@ ASTRA-009 coverage:
 - correction handling preserves authoritative ownership;
 - preference evolution is governed;
 - adaptation eligibility is checked before behavior changes;
+- adaptation eligibility is separated from activation;
+- eligibility alone never activates adaptation;
+- conflict resolution follows constitutional precedence;
+- unresolved conflicts are clarified or disabled;
 - confidence and evidence are represented;
 - users can inspect, correct, disable, reset, export, and remove adaptations;
 - behavioral drift is detected and prevented;
@@ -305,6 +309,8 @@ Future implementation tasks must add executable validation for:
 - no runtime learning before authorization;
 - no model training or fine-tuning without explicit governance;
 - adaptation eligibility and confidence thresholds;
+- adaptation activation separate from eligibility;
+- adaptation conflict resolution by constitutional precedence;
 - explicit correction outranks inferred preference;
 - adaptation cannot rewrite the constitution;
 - adaptation cannot authorize identity, permissions, capabilities, execution,

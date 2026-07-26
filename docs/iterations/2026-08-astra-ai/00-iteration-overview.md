@@ -202,11 +202,17 @@ and ASTRA-008 and defines how Astra may adapt behavior, preferences,
 explanations, and workflow assistance over time without becoming opaque,
 unpredictable, provider-defined, or constitutionally mutable. The proposed
 architecture separates learning from memory, makes correction and feedback
-classification explicit, requires adaptation eligibility, confidence,
-evidence, explainability, user controls, drift prevention, reset/revocation,
-cross-app boundaries, provider/model boundaries, and preserves the permanent
-rule that Astra may adapt behavior but may never silently rewrite its
-constitution. Implementation and production changes remain unauthorized.
+classification explicit, requires adaptation eligibility, activation,
+conflict resolution, confidence, evidence, explainability, user controls,
+drift prevention, reset/revocation, cross-app boundaries, provider/model
+boundaries, and preserves the permanent rule that Astra may adapt behavior but
+may never silently rewrite its constitution. Astra approved the architecture
+direction for commit `b7163d5` and requested two targeted documentation
+refinements before freeze. The current revision separates adaptation
+eligibility from adaptation activation and defines adaptation conflict
+resolution by constitutional precedence, with unresolved conflicts disabled or
+held for clarification. Implementation and production changes remain
+unauthorized.
 
 ---
 
@@ -394,6 +400,11 @@ ASTRA-009 succeeds when:
 - correction handling preserves authoritative ownership;
 - preference evolution is governed;
 - adaptation eligibility is checked before behavior changes;
+- adaptation eligibility is separated from adaptation activation;
+- eligibility alone never activates adaptation;
+- adaptation conflict resolution follows constitutional precedence;
+- unresolved conflicts are clarified or disabled rather than selected by
+  hidden ordering;
 - confidence and evidence are represented;
 - users can inspect, correct, disable, reset, export, and remove adaptations;
 - behavioral drift is detected and prevented;
