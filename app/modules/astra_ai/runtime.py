@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryEngine,
+    AstraCapabilityDiscoveryRequestContext,
     AstraCapabilityDiscoveryResult,
     AstraCapabilityHealthSnapshot,
     AstraCapabilityMetadata,
@@ -258,29 +259,45 @@ class AstraRuntimeCapabilityDiscoveryInterface:
     def discover(
         self,
         *,
-        visibility: AstraCapabilityVisibility | None = None,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        requested_visibility: AstraCapabilityVisibility | None = None,
         include_disabled: bool = False,
         include_deprecated: bool = False,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
         return self._runtime.discover_capabilities(
-            visibility=visibility,
+            request_context=request_context,
+            requested_visibility=requested_visibility,
             include_disabled=include_disabled,
             include_deprecated=include_deprecated,
             discovered_at=discovered_at,
         )
 
-    def get(self, capability_id: str, *, discovered_at: datetime | None = None) -> AstraCapabilityMetadata:
-        return self._runtime.get_capability(capability_id, discovered_at=discovered_at)
+    def get(
+        self,
+        capability_id: str,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityMetadata:
+        return self._runtime.get_capability(
+            capability_id,
+            request_context=request_context,
+            discovered_at=discovered_at,
+        )
 
     def discover_for_conversation(
         self,
         *,
+        conversation_engine: Any,
         conversation_snapshot: Any,
+        request_context: AstraCapabilityDiscoveryRequestContext,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
         return self._runtime.discover_capabilities_for_conversation(
+            conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
+            request_context=request_context,
             discovered_at=discovered_at,
         )
 
@@ -380,32 +397,48 @@ class AstraRuntime:
     def discover_capabilities(
         self,
         *,
-        visibility: AstraCapabilityVisibility | None = None,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        requested_visibility: AstraCapabilityVisibility | None = None,
         include_disabled: bool = False,
         include_deprecated: bool = False,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
         self._require_ready_component(self._capability_discovery, "capability discovery")
         return self._capability_discovery.discover_capabilities(
-            visibility=visibility,
+            request_context=request_context,
+            requested_visibility=requested_visibility,
             include_disabled=include_disabled,
             include_deprecated=include_deprecated,
             discovered_at=discovered_at,
         )
 
-    def get_capability(self, capability_id: str, *, discovered_at: datetime | None = None) -> AstraCapabilityMetadata:
+    def get_capability(
+        self,
+        capability_id: str,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityMetadata:
         self._require_ready_component(self._capability_discovery, "capability discovery")
-        return self._capability_discovery.get_capability(capability_id, discovered_at=discovered_at)
+        return self._capability_discovery.get_capability(
+            capability_id,
+            request_context=request_context,
+            discovered_at=discovered_at,
+        )
 
     def discover_capabilities_for_conversation(
         self,
         *,
+        conversation_engine: Any,
         conversation_snapshot: Any,
+        request_context: AstraCapabilityDiscoveryRequestContext,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
         self._require_ready_component(self._capability_discovery, "capability discovery")
         return self._capability_discovery.discover_for_conversation(
+            conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
+            request_context=request_context,
             discovered_at=discovered_at,
         )
 

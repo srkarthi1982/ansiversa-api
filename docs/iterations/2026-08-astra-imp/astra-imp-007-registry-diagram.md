@@ -1,6 +1,6 @@
 # ASTRA-IMP-007 Registry Diagram
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Production Authorization:** Not approved
 
 ---
@@ -34,10 +34,20 @@ Runtime-owned discovery interface
 Ready-state check
   |
   v
-Registry metadata lookup
+Governed request context validation
   |
   v
 Governance evidence emission
+  |
+  v
+Allow?
+  |
+  +-- no --> Empty discovery result / denied lookup
+  |
+  +-- yes
+        |
+        v
+Registry metadata lookup within visibility ceiling
   |
   v
 Immutable discovery result
@@ -51,10 +61,13 @@ learn, persist data, expose APIs, or activate production behavior.
 # Conversation-Scoped Discovery
 
 ```text
-Conversation Snapshot
+Conversation Engine + Snapshot
   |
   v
-Runtime ownership check
+Certified type and ownership check
+  |
+  v
+Snapshot freshness and lifecycle check
   |
   v
 Capability Discovery Engine

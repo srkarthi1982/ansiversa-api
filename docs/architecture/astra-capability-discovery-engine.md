@@ -1,6 +1,6 @@
 # Astra Capability Discovery Engine
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Task:** ASTRA-IMP-007
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
@@ -101,14 +101,52 @@ Governance evidence does not turn discovery into execution authority. The
 engine records the governance outcome in discovery results, while returned
 capability records remain metadata-only.
 
+Capability metadata is released only after the Runtime-owned Governance Kernel
+returns `allow` and the resulting bounded evidence is appended successfully.
+Non-allow outcomes such as `fail_closed`, `refuse`, `contain`, `defer`, or
+`clarify` produce no discovered capability records. Capability lookup is also
+governance-gated; a non-allow outcome fails without returning metadata.
+
+Operation sequence advancement happens only after evidence append succeeds, so
+capacity or evidence failures do not create partial discovery progress.
+
+---
+
+# Request Context And Visibility
+
+Discovery uses a governed requester context rather than caller-selected
+visibility.
+
+Supported requester classes:
+
+- `public`;
+- `authenticated`;
+- `internal_runtime`.
+
+Visibility is capped by the trusted context:
+
+- public requesters can see only public metadata;
+- authenticated requesters can see public and authenticated metadata;
+- internal runtime requesters can see internal metadata only when their runtime
+  instance identifier matches the owning `AstraRuntime`.
+
+Callers cannot broaden visibility by passing a requested visibility above the
+context ceiling.
+
 ---
 
 # Conversation Integration
 
 Conversation-scoped discovery is informational only. A conversation snapshot
-may be used to verify runtime ownership before discovery, but the operation
-does not mutate conversation state and does not create planning or execution
-paths.
+must be paired with the certified `AstraConversationContextEngine` that owns it.
+The Capability Discovery Engine verifies the conversation type, runtime
+ownership, engine ownership, snapshot freshness, and eligible lifecycle state
+before discovery.
+
+Fabricated, stale, foreign-runtime, unregistered, closed, or faulted
+conversation snapshots are rejected before capability metadata is released. The
+operation does not mutate conversation state and does not create planning or
+execution paths.
 
 ---
 
@@ -132,8 +170,9 @@ activity, memory state, or production readiness.
 ```text
 ASTRA-IMP-007               Implemented
 Implementation Scope        Capability Discovery Engine
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
+Implementation Direction    Approved
+Astra Re-review             Pending
+Constitutional Conformance  Pending Astra Re-review
 Product Owner Approval      Pending
 Certification               Pending
 

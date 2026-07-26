@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-007 Implemented / Pending Astra Source Review
+**Status:** ASTRA-IMP-007 Implemented / Corrections Applied / Pending Astra Re-review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -214,8 +214,9 @@ ASTRA-IMP-007 requires separate authorization.
 ```text
 ASTRA-IMP-007               Implemented
 Implementation Scope        Capability Discovery Engine
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
+Implementation Direction    Approved
+Astra Re-review             Pending
+Constitutional Conformance  Pending Astra Re-review
 Product Owner Approval      Pending
 Certification               Pending
 
@@ -231,6 +232,14 @@ It adds immutable capability metadata, a sealed internal registry, deterministic
 discovery, duplicate and unknown capability rejection, Runtime-owned component
 registration, governance evidence emission through Runtime Core, structural
 capability health, and conversation-scoped informational discovery.
+
+Astra source review approved implementation direction for commit `7946f9df`
+and requested three targeted corrections. The correction update now enforces
+governance outcome before releasing capability metadata, uses governed
+requester-context visibility ceilings instead of caller-selected visibility,
+and verifies certified Conversation Context Engine ownership and snapshot
+freshness for conversation-scoped discovery. Astra re-review, Product Owner
+approval, and certification remain pending.
 
 Discovery remains separate from planning, execution, provider interaction,
 memory, and learning. The implementation does not add providers, prompts,

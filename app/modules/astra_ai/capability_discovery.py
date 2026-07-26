@@ -3,7 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 from datetime import datetime, timezone
 from enum import StrEnum
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -18,6 +18,10 @@ from app.modules.astra_ai.constitutional_contracts import (
     assert_no_prohibited_contract_material,
 )
 from app.modules.astra_ai.governance import GovernanceEvaluationInput
+
+
+if TYPE_CHECKING:
+    from app.modules.astra_ai.conversation_context import AstraConversationContextEngine, AstraConversationSnapshot
 
 
 CAPABILITY_DISCOVERY_ENGINE_VERSION = "1.0.0"
@@ -59,6 +63,12 @@ class AstraCapabilityHealthOutcome(StrEnum):
     STOPPED = "stopped"
 
 
+class AstraCapabilityRequesterClass(StrEnum):
+    PUBLIC = "public"
+    AUTHENTICATED = "authenticated"
+    INTERNAL_RUNTIME = "internal_runtime"
+
+
 class AstraCapabilityMetadata(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -75,6 +85,37 @@ class AstraCapabilityMetadata(BaseModel):
 
     @model_validator(mode="after")
     def validate_capability_metadata(self):
+        assert_no_prohibited_contract_material(self.model_dump(mode="json"))
+        return self
+
+
+class AstraCapabilityDiscoveryRequestContext(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    requester_class: AstraCapabilityRequesterClass
+    authenticated: bool
+    runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
+    conversation_id: str | None = Field(default=None, pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
+    maximum_visibility: AstraCapabilityVisibility
+    governance_reference: ConstitutionalRequirementReference
+
+    @model_validator(mode="after")
+    def validate_request_context(self):
+        if self.requester_class is AstraCapabilityRequesterClass.PUBLIC:
+            if self.authenticated:
+                raise AstraCapabilityDiscoveryError("Public discovery context cannot assert authentication.")
+            if self.maximum_visibility is not AstraCapabilityVisibility.PUBLIC:
+                raise AstraCapabilityDiscoveryError("Public discovery context is limited to public visibility.")
+            if self.runtime_instance_id is not None:
+                raise AstraCapabilityDiscoveryError("Public discovery context cannot assert runtime ownership.")
+        if self.requester_class is AstraCapabilityRequesterClass.AUTHENTICATED:
+            if not self.authenticated:
+                raise AstraCapabilityDiscoveryError("Authenticated discovery context requires authentication.")
+            if self.maximum_visibility is AstraCapabilityVisibility.INTERNAL:
+                raise AstraCapabilityDiscoveryError("Authenticated discovery context cannot request internal visibility.")
+        if self.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
+            if not self.authenticated or self.runtime_instance_id is None:
+                raise AstraCapabilityDiscoveryError("Internal runtime discovery context requires trusted runtime ownership.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 
@@ -130,13 +171,16 @@ class AstraCapabilityRegistry:
     def discover(
         self,
         *,
-        visibility: AstraCapabilityVisibility | None = None,
+        allowed_visibilities: tuple[AstraCapabilityVisibility, ...],
+        requested_visibility: AstraCapabilityVisibility | None = None,
         include_disabled: bool = False,
         include_deprecated: bool = False,
     ) -> tuple[AstraCapabilityMetadata, ...]:
         capabilities = []
         for capability in self._capabilities.values():
-            if visibility is not None and capability.visibility is not visibility:
+            if capability.visibility not in allowed_visibilities:
+                continue
+            if requested_visibility is not None and capability.visibility is not requested_visibility:
                 continue
             if not include_disabled and capability.status is AstraCapabilityStatus.DISABLED:
                 continue
@@ -182,7 +226,8 @@ class AstraCapabilityDiscoveryEngine:
     def discover_capabilities(
         self,
         *,
-        visibility: AstraCapabilityVisibility | None = None,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        requested_visibility: AstraCapabilityVisibility | None = None,
         include_disabled: bool = False,
         include_deprecated: bool = False,
         discovered_at: datetime | None = None,
@@ -190,12 +235,16 @@ class AstraCapabilityDiscoveryEngine:
         timestamp = discovered_at or _utc_now()
         _ensure_timezone_aware(timestamp, "Capability discovery timestamp")
         self._require_runtime_ready()
-        capabilities = self._registry.discover(
-            visibility=visibility,
-            include_disabled=include_disabled,
-            include_deprecated=include_deprecated,
-        )
+        self._validate_request_context(request_context, requested_visibility)
         governance = self._emit_governance_evidence("CAP-DISC", timestamp)
+        capabilities = ()
+        if governance.decision.outcome is GovernanceOutcome.ALLOW:
+            capabilities = self._registry.discover(
+                allowed_visibilities=_allowed_visibilities(request_context.maximum_visibility),
+                requested_visibility=requested_visibility,
+                include_disabled=include_disabled,
+                include_deprecated=include_deprecated,
+            )
         return AstraCapabilityDiscoveryResult(
             runtime_instance_id=self._runtime_instance_id,
             discovered_at=timestamp,
@@ -205,24 +254,39 @@ class AstraCapabilityDiscoveryEngine:
             discovery_version=CAPABILITY_DISCOVERY_ENGINE_VERSION,
         )
 
-    def get_capability(self, capability_id: str, *, discovered_at: datetime | None = None) -> AstraCapabilityMetadata:
+    def get_capability(
+        self,
+        capability_id: str,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityMetadata:
         timestamp = discovered_at or _utc_now()
         _ensure_timezone_aware(timestamp, "Capability lookup timestamp")
         self._require_runtime_ready()
+        self._validate_request_context(request_context)
+        governance = self._emit_governance_evidence("CAP-LOOKUP", timestamp)
+        if governance.decision.outcome is not GovernanceOutcome.ALLOW:
+            raise AstraCapabilityDiscoveryError("Capability lookup denied by governance outcome.")
         capability = self._registry.get(capability_id)
-        self._emit_governance_evidence("CAP-LOOKUP", timestamp)
+        if capability.visibility not in _allowed_visibilities(request_context.maximum_visibility):
+            raise AstraCapabilityDiscoveryError("Capability visibility exceeds requester context.")
         return capability
 
     def discover_for_conversation(
         self,
         *,
-        conversation_snapshot: Any,
+        conversation_engine: "AstraConversationContextEngine",
+        conversation_snapshot: "AstraConversationSnapshot",
+        request_context: AstraCapabilityDiscoveryRequestContext,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
-        runtime_instance_id = conversation_snapshot.metadata.runtime_instance_id
-        if runtime_instance_id != self._runtime_instance_id:
-            raise AstraCapabilityDiscoveryError("Conversation is not owned by the capability discovery runtime.")
-        return self.discover_capabilities(discovered_at=discovered_at)
+        self._validate_conversation_ownership(conversation_engine, conversation_snapshot)
+        context = request_context.model_copy(
+            update={"conversation_id": conversation_snapshot.metadata.conversation_id}
+        )
+        self._validate_request_context(context)
+        return self.discover_capabilities(request_context=context, discovered_at=discovered_at)
 
     def health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
         timestamp = observed_at or _utc_now()
@@ -269,6 +333,46 @@ class AstraCapabilityDiscoveryEngine:
         self._runtime.append_evidence(result.evidence)
         self._operation_sequence = operation_sequence
         return result
+
+    def _validate_request_context(
+        self,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        requested_visibility: AstraCapabilityVisibility | None = None,
+    ) -> None:
+        if request_context.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
+            if request_context.runtime_instance_id != self._runtime_instance_id:
+                raise AstraCapabilityDiscoveryError("Internal discovery context is not owned by this runtime.")
+        if requested_visibility is not None and requested_visibility not in _allowed_visibilities(request_context.maximum_visibility):
+            raise AstraCapabilityDiscoveryError("Requested visibility exceeds requester context.")
+
+    def _validate_conversation_ownership(
+        self,
+        conversation_engine: "AstraConversationContextEngine",
+        conversation_snapshot: "AstraConversationSnapshot",
+    ) -> None:
+        from app.modules.astra_ai.conversation_context import (
+            AstraConversationContextEngine,
+            AstraConversationLifecycleState,
+            AstraConversationSnapshot,
+        )
+
+        if not isinstance(conversation_engine, AstraConversationContextEngine):
+            raise AstraCapabilityDiscoveryError("Conversation discovery requires a certified Conversation Context Engine.")
+        if not isinstance(conversation_snapshot, AstraConversationSnapshot):
+            raise AstraCapabilityDiscoveryError("Conversation discovery requires a certified conversation snapshot.")
+        if conversation_snapshot.metadata.runtime_instance_id != self._runtime_instance_id:
+            raise AstraCapabilityDiscoveryError("Conversation is not owned by the capability discovery runtime.")
+        try:
+            owned_snapshot = conversation_engine.get_conversation(conversation_snapshot.metadata.conversation_id)
+        except Exception as exc:
+            raise AstraCapabilityDiscoveryError("Conversation snapshot is not owned by the provided engine.") from exc
+        if owned_snapshot != conversation_snapshot:
+            raise AstraCapabilityDiscoveryError("Conversation snapshot is stale or not owned by the provided engine.")
+        if owned_snapshot.metadata.lifecycle_state in {
+            AstraConversationLifecycleState.CLOSED,
+            AstraConversationLifecycleState.FAULTED,
+        }:
+            raise AstraCapabilityDiscoveryError("Conversation state is not eligible for capability discovery.")
 
     def _require_runtime_ready(self) -> None:
         if not self._is_runtime_ready():
@@ -321,6 +425,54 @@ def default_capabilities() -> tuple[AstraCapabilityMetadata, ...]:
             execution_authority=AstraCapabilityExecutionAuthority.METADATA_ONLY,
             description="Deterministic governance decision metadata awareness.",
         ),
+    )
+
+
+def internal_runtime_discovery_context(runtime_instance_id: str) -> AstraCapabilityDiscoveryRequestContext:
+    return AstraCapabilityDiscoveryRequestContext(
+        requester_class=AstraCapabilityRequesterClass.INTERNAL_RUNTIME,
+        authenticated=True,
+        runtime_instance_id=runtime_instance_id,
+        maximum_visibility=AstraCapabilityVisibility.INTERNAL,
+        governance_reference=_capability_requirement_reference(),
+    )
+
+
+def authenticated_discovery_context() -> AstraCapabilityDiscoveryRequestContext:
+    return AstraCapabilityDiscoveryRequestContext(
+        requester_class=AstraCapabilityRequesterClass.AUTHENTICATED,
+        authenticated=True,
+        maximum_visibility=AstraCapabilityVisibility.AUTHENTICATED,
+        governance_reference=_capability_requirement_reference(),
+    )
+
+
+def public_discovery_context() -> AstraCapabilityDiscoveryRequestContext:
+    return AstraCapabilityDiscoveryRequestContext(
+        requester_class=AstraCapabilityRequesterClass.PUBLIC,
+        authenticated=False,
+        maximum_visibility=AstraCapabilityVisibility.PUBLIC,
+        governance_reference=_capability_requirement_reference(),
+    )
+
+
+def _capability_requirement_reference() -> ConstitutionalRequirementReference:
+    return ConstitutionalRequirementReference(
+        constitutional_source="ASTRA-004",
+        requirement_id="AIR-CAP-001",
+        requirement_version="1.0.0",
+    )
+
+
+def _allowed_visibilities(maximum_visibility: AstraCapabilityVisibility) -> tuple[AstraCapabilityVisibility, ...]:
+    if maximum_visibility is AstraCapabilityVisibility.PUBLIC:
+        return (AstraCapabilityVisibility.PUBLIC,)
+    if maximum_visibility is AstraCapabilityVisibility.AUTHENTICATED:
+        return (AstraCapabilityVisibility.PUBLIC, AstraCapabilityVisibility.AUTHENTICATED)
+    return (
+        AstraCapabilityVisibility.PUBLIC,
+        AstraCapabilityVisibility.AUTHENTICATED,
+        AstraCapabilityVisibility.INTERNAL,
     )
 
 

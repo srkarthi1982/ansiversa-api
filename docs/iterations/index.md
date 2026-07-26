@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-007 implemented; pending Astra source review | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-007 implemented; corrections applied; pending Astra re-review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -234,17 +234,20 @@ APIs, routes, frontend work, databases, migrations, deployment, production
 configuration, production authorization, or production behavior. ASTRA-IMP-007
 is not authorized and requires separate authorization.
 
-ASTRA-IMP-007 Capability Discovery Engine is implemented and pending Astra
-source review. It inherits the accepted/frozen ASTRA-001 through ASTRA-010
+ASTRA-IMP-007 Capability Discovery Engine is implemented with Astra review
+corrections applied and pending Astra re-review. It inherits the
+accepted/frozen ASTRA-001 through ASTRA-010
 Constitution, accepted/frozen ASTRA-IR-001 readiness plan, and
 certified/approved ASTRA-IMP-001 through ASTRA-IMP-006 foundations. The
 implementation adds a provider-independent metadata-only capability discovery
 engine under `app/modules/astra_ai/capability_discovery.py`, with immutable
 capability metadata, sealed registry construction, deterministic discovery,
 duplicate and unknown capability rejection, Runtime-owned component
-registration, governance evidence emission, structural capability health, and
-conversation-scoped informational discovery. It does not introduce tool
-execution, planning, providers, prompts, model invocation, Tool Executor
+registration, governance evidence emission, governance outcome enforcement
+before metadata release, governed requester-context visibility ceilings,
+structural capability health, and certified conversation-scoped informational
+discovery. It does not introduce tool execution, planning, providers, prompts,
+model invocation, Tool Executor
 behavior, long-term memory, learning, embeddings, vector databases, APIs,
 routes, frontend work, databases, migrations, deployment, production
 configuration, production authorization, or production behavior. ASTRA-IMP-008

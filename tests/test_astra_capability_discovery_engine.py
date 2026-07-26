@@ -10,16 +10,26 @@ from app.modules.astra_ai import capability_discovery as capability_module
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryEngine,
     AstraCapabilityDiscoveryError,
+    AstraCapabilityDiscoveryRequestContext,
     AstraCapabilityExecutionAuthority,
     AstraCapabilityHealthOutcome,
     AstraCapabilityMetadata,
     AstraCapabilityRegistry,
+    AstraCapabilityRequesterClass,
     AstraCapabilityStatus,
     AstraCapabilityType,
     AstraCapabilityVisibility,
+    authenticated_discovery_context,
+    internal_runtime_discovery_context,
+    public_discovery_context,
 )
 from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference, GovernanceOutcome
-from app.modules.astra_ai.conversation_context import AstraConversationContextEngine
+from app.modules.astra_ai.conversation_context import (
+    AstraConversationContextEngine,
+    AstraConversationLifecycleState,
+    AstraConversationMetadata,
+    AstraConversationSnapshot,
+)
 from app.modules.astra_ai.runtime import AstraRuntime, AstraRuntimeComponentIdentifier, AstraRuntimeError
 
 
@@ -65,6 +75,20 @@ def capability(
     )
 
 
+def force_governance_outcome(runtime: AstraRuntime, outcome: GovernanceOutcome) -> None:
+    original = runtime.evaluate_governance
+
+    def evaluate(input_contract):
+        result = original(input_contract)
+        return result.model_copy(
+            update={
+                "decision": result.decision.model_copy(update={"outcome": outcome}),
+            }
+        )
+
+    runtime.evaluate_governance = evaluate
+
+
 class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
     def test_capability_model_is_immutable_metadata_only(self):
         metadata = capability("cap_registry_alpha_0001")
@@ -85,7 +109,16 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         )
 
         self.assertEqual(
-            tuple(item.capability_id for item in registry.discover()),
+            tuple(
+                item.capability_id
+                for item in registry.discover(
+                    allowed_visibilities=(
+                        AstraCapabilityVisibility.PUBLIC,
+                        AstraCapabilityVisibility.AUTHENTICATED,
+                        AstraCapabilityVisibility.INTERNAL,
+                    ),
+                )
+            ),
             ("cap_registry_alpha_0001", "cap_registry_beta_0001", "cap_registry_gamma_0001"),
         )
 
@@ -123,42 +156,192 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
     def test_runtime_owned_discovery_is_deterministic_and_structural(self):
         runtime = ready_runtime()
 
-        result = runtime.capability_discovery.discover(discovered_at=TIMESTAMP)
+        result = runtime.capability_discovery.discover(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
 
         self.assertEqual(result.runtime_instance_id, runtime.identity.startup_instance_id)
+        self.assertEqual(result.capabilities, ())
+        self.assertEqual(result.governance_outcome, GovernanceOutcome.FAIL_CLOSED)
+
+    def test_allow_discovery_is_deterministic_and_structural(self):
+        runtime = ready_runtime()
+        force_governance_outcome(runtime, GovernanceOutcome.ALLOW)
+
+        result = runtime.capability_discovery.discover(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
+
         self.assertEqual(
             tuple(item.capability_id for item in result.capabilities),
             tuple(sorted(item.capability_id for item in result.capabilities)),
         )
         self.assertTrue(all(item.execution_authority is AstraCapabilityExecutionAuthority.METADATA_ONLY for item in result.capabilities))
-        self.assertEqual(result.governance_outcome, GovernanceOutcome.FAIL_CLOSED)
 
-    def test_visibility_and_status_filters_are_metadata_only(self):
+    def test_fail_closed_discovery_returns_no_capabilities_but_records_evidence(self):
+        runtime = ready_runtime()
+        before = runtime.evidence_count()
+
+        result = runtime.discover_capabilities(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
+
+        self.assertEqual(result.governance_outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.capabilities, ())
+        self.assertEqual(runtime.evidence_count(), before + 1)
+
+    def test_non_allow_outcomes_cannot_expose_metadata(self):
+        outcomes = (
+            (GovernanceOutcome.REFUSE, "1"),
+            (GovernanceOutcome.CONTAIN, "2"),
+            (GovernanceOutcome.DEFER, "3"),
+            (GovernanceOutcome.CLARIFY, "4"),
+        )
+        for outcome, suffix in outcomes:
+            runtime = ready_runtime(suffix)
+            force_governance_outcome(runtime, outcome)
+
+            result = runtime.discover_capabilities(
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+            self.assertEqual(result.governance_outcome, outcome)
+            self.assertEqual(result.capabilities, ())
+
+    def test_visibility_and_status_filters_are_governed_by_request_context(self):
+        runtime = ready_runtime()
+        force_governance_outcome(runtime, GovernanceOutcome.ALLOW)
+        runtime._capability_discovery = AstraCapabilityDiscoveryEngine(
+            runtime=runtime,
+            capabilities=(
+                capability("cap_public_alpha_0001", visibility=AstraCapabilityVisibility.PUBLIC),
+                capability("cap_authenticated_alpha_0001", visibility=AstraCapabilityVisibility.AUTHENTICATED),
+                capability("cap_internal_alpha_0001", visibility=AstraCapabilityVisibility.INTERNAL),
+            ),
+        )
+
+        public = runtime.discover_capabilities(
+            request_context=public_discovery_context(),
+            discovered_at=TIMESTAMP,
+        )
+        authenticated = runtime.discover_capabilities(
+            request_context=authenticated_discovery_context(),
+            discovered_at=TIMESTAMP,
+        )
+        internal = runtime.discover_capabilities(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
+
+        self.assertEqual(tuple(item.visibility for item in public.capabilities), (AstraCapabilityVisibility.PUBLIC,))
+        self.assertEqual(
+            tuple(item.visibility for item in authenticated.capabilities),
+            (AstraCapabilityVisibility.AUTHENTICATED, AstraCapabilityVisibility.PUBLIC),
+        )
+        self.assertEqual(len(internal.capabilities), 3)
+
+    def test_public_and_authenticated_contexts_cannot_self_select_internal_visibility(self):
         runtime = ready_runtime()
 
-        internal = runtime.discover_capabilities(visibility=AstraCapabilityVisibility.INTERNAL, discovered_at=TIMESTAMP)
-        public = runtime.discover_capabilities(visibility=AstraCapabilityVisibility.PUBLIC, discovered_at=TIMESTAMP)
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.discover_capabilities(
+                request_context=public_discovery_context(),
+                requested_visibility=AstraCapabilityVisibility.AUTHENTICATED,
+                discovered_at=TIMESTAMP,
+            )
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.discover_capabilities(
+                request_context=authenticated_discovery_context(),
+                requested_visibility=AstraCapabilityVisibility.INTERNAL,
+                discovered_at=TIMESTAMP,
+            )
 
-        self.assertGreaterEqual(len(internal.capabilities), 1)
-        self.assertEqual(public.capabilities, ())
+    def test_internal_visibility_requires_trusted_runtime_ownership(self):
+        runtime = ready_runtime()
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.discover_capabilities(
+                request_context=internal_runtime_discovery_context("astra_rt_" + "f" * 32),
+                discovered_at=TIMESTAMP,
+            )
+        with self.assertRaises(ValidationError):
+            AstraCapabilityDiscoveryRequestContext(
+                requester_class=AstraCapabilityRequesterClass.INTERNAL_RUNTIME,
+                authenticated=False,
+                runtime_instance_id=runtime.identity.startup_instance_id,
+                maximum_visibility=AstraCapabilityVisibility.INTERNAL,
+                governance_reference=requirement(),
+            )
+
+    def test_caller_input_cannot_broaden_visibility(self):
+        with self.assertRaises(ValidationError):
+            AstraCapabilityDiscoveryRequestContext(
+                requester_class=AstraCapabilityRequesterClass.PUBLIC,
+                authenticated=False,
+                maximum_visibility=AstraCapabilityVisibility.INTERNAL,
+                governance_reference=requirement(),
+            )
 
     def test_discovery_emits_bounded_evidence_without_execution(self):
         runtime = ready_runtime()
         before = runtime.evidence_count()
 
-        result = runtime.discover_capabilities(discovered_at=TIMESTAMP)
+        result = runtime.discover_capabilities(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
 
         self.assertEqual(runtime.evidence_count(), before + 1)
         self.assertEqual(runtime.retrieve_evidence()[-1].evidence_id, result.evidence_reference)
 
-    def test_unknown_capability_lookup_fails_without_evidence(self):
+    def test_capability_lookup_cannot_return_metadata_on_non_allow_outcome(self):
         runtime = ready_runtime()
         before = runtime.evidence_count()
 
         with self.assertRaises(AstraCapabilityDiscoveryError):
-            runtime.get_capability("cap_missing_0001", discovered_at=TIMESTAMP)
+            runtime.get_capability(
+                "cap_conversation_context_0001",
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
 
-        self.assertEqual(runtime.evidence_count(), before)
+        self.assertEqual(runtime.evidence_count(), before + 1)
+
+    def test_allowed_unknown_capability_lookup_fails_after_governed_evidence(self):
+        runtime = ready_runtime()
+        force_governance_outcome(runtime, GovernanceOutcome.ALLOW)
+        before = runtime.evidence_count()
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.get_capability(
+                "cap_missing_0001",
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+        self.assertEqual(runtime.evidence_count(), before + 1)
+
+    def test_no_result_is_released_before_successful_evidence_append_and_sequence_commit(self):
+        runtime = ready_runtime(evidence_sink_capacity=1)
+        first = runtime.discover_capabilities(
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            discovered_at=TIMESTAMP,
+        )
+        self.assertEqual(first.capabilities, ())
+        self.assertEqual(runtime._capability_discovery._operation_sequence, 1)
+
+        with self.assertRaises(Exception):
+            runtime.discover_capabilities(
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+        self.assertEqual(runtime.evidence_count(), 1)
+        self.assertEqual(runtime._capability_discovery._operation_sequence, 1)
 
     def test_runtime_lifecycle_controls_capability_discovery_handles(self):
         runtime = ready_runtime()
@@ -166,19 +349,29 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         runtime.shutdown()
 
         with self.assertRaises(AstraRuntimeError):
-            interface.discover(discovered_at=TIMESTAMP)
+            interface.discover(
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
         with self.assertRaises(AstraRuntimeError):
-            interface.get("cap_conversation_context_0001", discovered_at=TIMESTAMP)
+            interface.get(
+                "cap_conversation_context_0001",
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
 
     def test_conversation_discovery_integration_is_informational_only(self):
         runtime = ready_runtime()
+        force_governance_outcome(runtime, GovernanceOutcome.ALLOW)
         conversation_engine = AstraConversationContextEngine(runtime=runtime)
         conversation = conversation_engine.create_conversation(
             conversation_id="conv_alpha_0001",
             created_at=TIMESTAMP,
         )
         discovery = runtime.capability_discovery.discover_for_conversation(
+            conversation_engine=conversation_engine,
             conversation_snapshot=conversation,
+            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
             discovered_at=TIMESTAMP,
         )
 
@@ -197,7 +390,74 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
 
         with self.assertRaises(AstraCapabilityDiscoveryError):
             second.capability_discovery.discover_for_conversation(
+                conversation_engine=conversation_engine,
                 conversation_snapshot=conversation,
+                request_context=internal_runtime_discovery_context(second.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+    def test_fabricated_conversation_snapshot_is_rejected(self):
+        runtime = ready_runtime()
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.capability_discovery.discover_for_conversation(
+                conversation_engine=object(),
+                conversation_snapshot=object(),
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+    def test_same_runtime_unregistered_conversation_snapshot_is_rejected(self):
+        runtime = ready_runtime()
+        conversation_engine = AstraConversationContextEngine(runtime=runtime)
+        forged = AstraConversationSnapshot(
+            metadata=AstraConversationMetadata(
+                conversation_id="conv_forged_0001",
+                runtime_instance_id=runtime.identity.startup_instance_id,
+                created_at=TIMESTAMP,
+                last_activity_at=TIMESTAMP,
+                conversation_version="1.0.0",
+                implementation_reference="ASTRA-IMP-006",
+                lifecycle_state=AstraConversationLifecycleState.ACTIVE,
+            )
+        )
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.capability_discovery.discover_for_conversation(
+                conversation_engine=conversation_engine,
+                conversation_snapshot=forged,
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
+
+    def test_closed_conversation_snapshot_is_rejected(self):
+        runtime = ready_runtime()
+        conversation_engine = AstraConversationContextEngine(runtime=runtime)
+        conversation = conversation_engine.create_conversation(
+            conversation_id="conv_alpha_0001",
+            created_at=TIMESTAMP,
+        )
+        conversation_engine.transition_conversation(
+            conversation.metadata.conversation_id,
+            AstraConversationLifecycleState.CLOSING,
+            transitioned_at=TIMESTAMP,
+            summary_reference="conversation:closing",
+            entry_id="ctx_transition_0001",
+        )
+        closed = conversation_engine.transition_conversation(
+            conversation.metadata.conversation_id,
+            AstraConversationLifecycleState.CLOSED,
+            transitioned_at=TIMESTAMP,
+            summary_reference="conversation:closed",
+            entry_id="ctx_transition_0002",
+        )
+        closed_snapshot = conversation_engine.get_conversation(closed.conversation_id)
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            runtime.capability_discovery.discover_for_conversation(
+                conversation_engine=conversation_engine,
+                conversation_snapshot=closed_snapshot,
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
                 discovered_at=TIMESTAMP,
             )
 
@@ -217,7 +477,10 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         engine = AstraCapabilityDiscoveryEngine(runtime=runtime)
 
         with self.assertRaises(AstraCapabilityDiscoveryError):
-            engine.discover_capabilities(discovered_at=TIMESTAMP)
+            engine.discover_capabilities(
+                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                discovered_at=TIMESTAMP,
+            )
 
     def test_module_does_not_import_unauthorized_surfaces(self):
         source = inspect.getsource(capability_module).lower()

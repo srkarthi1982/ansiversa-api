@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-007 Capability Discovery Engine
 
-**Status:** Proposed
+**Status:** Proposed / Corrections Applied / Pending Astra Re-review
 **Date:** 2026-07-26
 **Task:** ASTRA-IMP-007
 **Production Authorization:** Not approved
@@ -32,7 +32,14 @@ The engine:
 - returns deterministic discovery ordering;
 - integrates with Runtime Core as a registered component;
 - emits bounded governance evidence through Runtime Core;
-- supports conversation-scoped informational discovery;
+- releases discovery metadata only after an `allow` governance outcome and
+  successful evidence append;
+- keeps non-allow discovery outcomes metadata-empty and non-allow lookups
+  metadata-denied;
+- requires governed requester context with a trusted visibility ceiling instead
+  of caller-selected visibility;
+- supports conversation-scoped informational discovery through certified
+  Conversation Context Engine ownership verification;
 - exposes structural capability health;
 - remains provider-independent and non-executing.
 
@@ -52,8 +59,9 @@ ASTRA-IMP-008 remains unauthorized.
 
 ```text
 ASTRA-IMP-007               Implemented
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
+Implementation Direction    Approved
+Astra Re-review             Pending
+Constitutional Conformance  Pending Astra Re-review
 Product Owner Approval      Pending
 Certification               Pending
 Production Authorization    Not approved

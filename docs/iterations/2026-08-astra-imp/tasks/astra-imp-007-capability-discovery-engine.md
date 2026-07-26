@@ -1,6 +1,6 @@
 # ASTRA-IMP-007 — Capability Discovery Engine
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementations:** ASTRA-IMP-001 through ASTRA-IMP-006 Certified / Approved
@@ -31,7 +31,10 @@ capabilities or create plans.
 - unknown capability rejection;
 - Runtime-owned component registration;
 - governance evidence emission through Runtime Core;
+- governance outcome enforcement before metadata release;
+- governed requester-context visibility ceilings;
 - conversation-scoped informational discovery;
+- certified conversation ownership and freshness verification;
 - structural capability health;
 - focused tests;
 - implementation review package;
@@ -74,8 +77,9 @@ Explicitly not included:
 ```text
 ASTRA-IMP-007               Implemented
 Implementation Scope        Capability Discovery Engine
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
+Implementation Direction    Approved
+Astra Re-review             Pending
+Constitutional Conformance  Pending Astra Re-review
 Product Owner Approval      Pending
 Certification               Pending
 

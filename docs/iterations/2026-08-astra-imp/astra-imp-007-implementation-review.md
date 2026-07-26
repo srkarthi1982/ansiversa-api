@@ -1,6 +1,6 @@
 # ASTRA-IMP-007 Implementation Review Package
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Task:** ASTRA-IMP-007
 **Implementation Scope:** Capability Discovery Engine
 **Production Authorization:** Not approved
@@ -45,6 +45,21 @@ and registers exactly one Capability Discovery Engine.
 
 ---
 
+# Astra Review Corrections
+
+After source-level review of commit `7946f9df`, ASTRA-IMP-007 received three
+targeted corrections:
+
+- discovery and lookup now enforce the `GovernanceDecision` outcome before
+  releasing capability metadata;
+- requester visibility now comes from governed request context rather than
+  caller-selected visibility;
+- conversation-scoped discovery now verifies certified conversation engine
+  ownership, snapshot freshness, runtime ownership, and eligible lifecycle
+  state.
+
+---
+
 # Runtime Integration
 
 The Runtime registers the Capability Discovery Engine during startup and
@@ -56,6 +71,11 @@ exposes lifecycle-aware discovery methods:
 - `runtime.capability_discovery.health(...)`.
 
 All operations require ready Runtime state at the time of use.
+
+Discovery metadata is released only for `allow` governance outcomes after
+bounded evidence append succeeds. Non-allow discovery outcomes return no
+capabilities, and non-allow lookup outcomes fail without returning capability
+metadata.
 
 ---
 
@@ -70,9 +90,12 @@ tests/test_astra_capability_discovery_engine.py
 The tests cover immutable metadata, deterministic registry ordering, duplicate
 rejection, unknown capability rejection, no public registry mutation method,
 runtime registration, lifecycle-aware Runtime ownership, governance-aware
-discovery evidence, conversation-scoped informational discovery, structural
-health, and absence of provider, Tool Executor, API, route, database,
-migration, embedding, vector, audit persistence, and app-main imports.
+discovery evidence, non-allow metadata suppression, governed visibility
+ceilings, no result release before successful evidence append,
+conversation-scoped informational discovery, fabricated/stale/foreign/closed
+conversation rejection, structural health, and absence of provider, Tool
+Executor, API, route, database, migration, embedding, vector, audit
+persistence, and app-main imports.
 
 Updated Runtime regression tests verify the new registered component remains
 owned by Runtime and is cleared on shutdown/failure.
@@ -83,8 +106,9 @@ owned by Runtime and is cleared on shutdown/failure.
 
 ```text
 ASTRA-IMP-007               Implemented
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
+Implementation Direction    Approved
+Astra Re-review             Pending
+Constitutional Conformance  Pending Astra Re-review
 Product Owner Approval      Pending
 Certification               Pending
 Production Authorization    Not approved
