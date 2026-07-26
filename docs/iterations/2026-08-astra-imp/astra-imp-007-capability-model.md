@@ -1,6 +1,6 @@
 # ASTRA-IMP-007 Capability Model
 
-**Status:** Implemented / Corrections Applied / Pending Astra Re-review
+**Status:** Certified / Approved
 **Production Authorization:** Not approved
 
 ---

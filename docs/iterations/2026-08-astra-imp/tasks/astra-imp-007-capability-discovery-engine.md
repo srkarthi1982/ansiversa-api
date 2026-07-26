@@ -1,6 +1,6 @@
 # ASTRA-IMP-007 — Capability Discovery Engine
 
-**Status:** Implemented / Corrections Applied / Pending Astra Re-review
+**Status:** Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementations:** ASTRA-IMP-001 through ASTRA-IMP-006 Certified / Approved
@@ -76,13 +76,13 @@ Explicitly not included:
 # Final Draft State
 
 ```text
-ASTRA-IMP-007               Implemented
+ASTRA-IMP-007               Certified / Approved
 Implementation Scope        Capability Discovery Engine
 Implementation Direction    Approved
-Astra Re-review             Pending
-Constitutional Conformance  Pending Astra Re-review
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged

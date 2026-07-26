@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-007 Capability Discovery Engine
 
-**Status:** Proposed / Corrections Applied / Pending Astra Re-review
+**Status:** Accepted
 **Date:** 2026-07-26
 **Task:** ASTRA-IMP-007
 **Production Authorization:** Not approved
@@ -59,12 +59,12 @@ ASTRA-IMP-008 remains unauthorized.
 # Review State
 
 ```text
-ASTRA-IMP-007               Implemented
+ASTRA-IMP-007               Certified / Approved
 Implementation Direction    Approved
-Astra Re-review             Pending
-Constitutional Conformance  Pending Astra Re-review
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
 ASTRA-IMP-008               Not authorized
