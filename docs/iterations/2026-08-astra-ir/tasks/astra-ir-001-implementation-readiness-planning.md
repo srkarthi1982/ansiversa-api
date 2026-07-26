@@ -5,7 +5,8 @@
 **Owner:** Karthikeyan Ramalingam
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Authorization:** Approved for documentation and engineering planning only
-**Engineering Review:** Pending Astra Review
+**Engineering Direction:** Approved
+**Engineering Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -38,10 +39,18 @@ timeline, and future task breakdown without authorizing implementation.
 - `docs/iterations/2026-08-astra-ir/08-certification-readiness-plan.md`
 - `docs/iterations/2026-08-astra-ir/09-implementation-timeline.md`
 - `docs/iterations/2026-08-astra-ir/10-implementation-task-breakdown.md`
+- `docs/iterations/2026-08-astra-ir/11-constitution-conformance-matrix.md`
 - `docs/iterations/2026-08-astra-ir/astra-ir-001-implementation-review.md`
 - `docs/iterations/2026-08-astra-ir/tasks/astra-ir-001-implementation-readiness-planning.md`
 - iteration index update;
 - AGENTS task-log update.
+
+Astra engineering review of commit `2738bfec` approved the engineering
+direction and required two targeted documentation refinements before freeze:
+
+- resolve component bootstrap and circular-dependency semantics; and
+- add a Constitution-to-Engineering Conformance Matrix with ownership,
+  contracts, evidence, certification, coverage status, and failure posture.
 
 ---
 
@@ -93,7 +102,8 @@ ASTRA-IR-001            Proposed
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
-Engineering Review      Pending Astra Review
+Engineering Direction   Approved
+Engineering Review      Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

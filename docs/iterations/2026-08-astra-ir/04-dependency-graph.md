@@ -9,47 +9,66 @@
 
 # Dependency Graph
 
+This graph shows baseline build order. Mature runtime collaboration may be
+bidirectional, but bootstrap dependencies must remain acyclic.
+
 ```text
-Configuration Layer
+Stage 0: Constitutional Contracts
         |
         v
-Governance Engine
-        |
-        +--> Audit Engine
-        |       |
-        |       v
-        |   Observability
+Stage 1: Minimal Configuration Foundation
         |
         v
-Core Intelligence Engine
+Stage 2: Minimal Governance Kernel
+        |
+        v
+Stage 3: Minimal Evidence Sink
+        |
+        v
+Stage 4: Full Governance And Audit Integration
+        |
+        v
+Stage 5: Higher Components
         |
         +--> Conversation Engine
         +--> Context Engine
         +--> Capability Registry
-        |
-        v
-Planner
-        |
-        v
-Execution Gateway
-
-Provider Gateway
-        ^ depends on Governance, Audit, Configuration, Core Intelligence
-
-Memory Engine
-        ^ depends on Governance, Audit, Configuration, Context
-
-Learning Engine
-        ^ depends on Governance, Audit, Configuration, Memory
+        +--> Core Intelligence Engine
+        +--> Planner
+        +--> Execution Gateway
+        +--> Provider Gateway
+        +--> Memory Engine
+        +--> Learning Engine
+        +--> Observability
 
 Testing Framework
-        ^ validates all components and contracts
+        ^ certification dependency for all stages
 ```
+
+---
+
+# Dependency Classes
+
+| Dependency Class | Meaning |
+|---|---|
+| Prerequisite | Must exist before dependent work begins |
+| Runtime collaborator | Interacts after both components exist |
+| Optional extension | Adds later capability without blocking base component |
+| Certification dependency | Required before approval or release |
+| Production dependency | Required before production activation |
 
 ---
 
 # Dependency Rules
 
+- Circular runtime collaboration must not become an unresolved implementation
+  bootstrap cycle.
+- Configuration Layer starts with a minimal disabled-by-default foundation that
+  does not depend on Governance Engine or Observability.
+- Governance Engine starts with a minimal kernel that can emit bounded evidence
+  without requiring the full Audit Engine.
+- Audit Engine starts with a minimal evidence sink that has no governance
+  decision authority.
 - Governance Engine precedes high-impact behavior.
 - Audit Engine precedes state-changing, provider, memory, learning, and
   production-sensitive behavior.

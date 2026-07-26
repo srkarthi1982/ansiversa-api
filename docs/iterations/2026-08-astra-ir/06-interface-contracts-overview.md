@@ -33,6 +33,7 @@ interfaces.
 | Configuration contract | Represent flags, environment boundaries, and rollout state | ASTRA-010 |
 | Observability contract | Represent redacted events and deviations | ASTRA-010 |
 | Certification contract | Represent review and conformance evidence | ASTRA-010 |
+| Conformance matrix contract | Map constitutional requirement to owner, contract, evidence, certification, coverage, and failure posture | ASTRA-010 |
 
 ---
 
@@ -50,3 +51,7 @@ Every future contract must define:
 - audit evidence;
 - failure behavior;
 - certification expectations.
+
+No implementation workstream may be authorized until applicable conformance
+matrix rows identify the owning component, contract category, evidence,
+certification obligation, coverage status, and failure posture.

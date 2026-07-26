@@ -7,7 +7,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Engineering Authorization:** Approved
-**Engineering Review:** Pending Astra Review
+**Engineering Direction:** Approved
+**Engineering Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -25,7 +26,9 @@ Decision proposed:
 Adopt ASTRA-IR-001 as the engineering-readiness phase that maps the frozen
 Constitution into implementation components, workstreams, dependencies,
 interfaces, certification gates, risks, logical milestones, and review
-evidence without authorizing implementation or production.
+evidence without authorizing implementation or production. The revised
+proposal resolves bootstrap and circular-dependency semantics and adds a
+Constitution-to-Engineering Conformance Matrix.
 
 Canonical proposed specification:
 
@@ -67,6 +70,11 @@ interfaces, dependencies, risk, and certification.
 - ASTRA-001 through ASTRA-010 remain immutable.
 - Engineering planning becomes distinct from constitutional architecture.
 - Implementation components are named without defining implementation details.
+- Dependency classes and bootstrap stages prevent circular runtime
+  collaboration from becoming unresolved implementation bootstrap cycles.
+- Constitutional requirements begin mapping to accountable components,
+  contracts, evidence, certification gates, coverage status, and failure
+  posture.
 - Future implementation can be split into separately authorized phases.
 - Certification gates are identified before code is written.
 - Implementation remains unauthorized.
@@ -84,6 +92,8 @@ interfaces, dependencies, risk, and certification.
 - [x] Engineering authorization approved.
 - [x] Parent Constitution inheritance recorded.
 - [x] Implementation-readiness deliverables created.
+- [x] Bootstrap and dependency semantics documented.
+- [x] Constitution-to-Engineering Conformance Matrix documented.
 - [x] Implementation remains unauthorized.
 - [x] Production remains unchanged.
 
@@ -97,7 +107,8 @@ ASTRA-IR-001            Proposed
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
-Engineering Review      Pending Astra Review
+Engineering Direction   Approved
+Engineering Review      Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

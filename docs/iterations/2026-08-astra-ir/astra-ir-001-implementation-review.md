@@ -1,10 +1,11 @@
 # ASTRA-IR-001 Implementation Review Package
 
-**Status:** Pending Astra Review
+**Status:** Minor revisions applied; pending Astra re-review
 **Created:** 2026-07-26
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and engineering planning only
-**Engineering Review:** Pending Astra Review
+**Engineering Direction:** Approved
+**Engineering Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -29,6 +30,15 @@ Adopt ASTRA-IR-001 as the documentation-only engineering-readiness bridge from
 the frozen Astra AI Constitution to future separately authorized
 implementation phases.
 
+This revision applies Astra's required refinements after engineering review of
+commit `2738bfec`:
+
+- component bootstrap and circular-dependency semantics are resolved through
+  dependency classes and a foundation bootstrap model; and
+- a Constitution-to-Engineering Conformance Matrix maps requirements to
+  owning components, contracts, evidence, certification gates, coverage status,
+  and failure posture.
+
 ---
 
 # Review Questions
@@ -41,15 +51,21 @@ implementation phases.
 5. Are component responsibilities, ownership, dependencies, interfaces, and
    certification expectations documented?
 6. Is the implementation order risk-minimizing?
-7. Are independent build candidates identified conservatively?
-8. Are interface contract categories complete enough for later planning?
-9. Are certification gates defined before implementation?
-10. Are testing and production-readiness expectations represented?
-11. Are implementation risks and assumptions documented?
-12. Does the roadmap remain internally consistent?
-13. Are future tasks clearly marked as requiring separate authorization?
-14. Is the docs/AGENTS-only boundary preserved?
-15. Are runtime code, APIs, providers, prompts, model invocation, Tool
+7. Are build-time dependencies, runtime collaborators, optional extensions,
+   certification dependencies, and production dependencies separated?
+8. Does the bootstrap model avoid unresolved circular implementation
+   dependencies?
+9. Does the conformance matrix map constitutional requirements to owners,
+   contracts, evidence, certification, coverage status, and failure posture?
+10. Are independent build candidates identified conservatively?
+11. Are interface contract categories complete enough for later planning?
+12. Are certification gates defined before implementation?
+13. Are testing and production-readiness expectations represented?
+14. Are implementation risks and assumptions documented?
+15. Does the roadmap remain internally consistent?
+16. Are future tasks clearly marked as requiring separate authorization?
+17. Is the docs/AGENTS-only boundary preserved?
+18. Are runtime code, APIs, providers, prompts, model invocation, Tool
     Executor changes, databases, migrations, frontend, tests, deployment,
     generated artifacts, production configuration, and production behavior
     excluded?
@@ -63,7 +79,8 @@ ASTRA-IR-001            Proposed
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
-Engineering Review      Pending Astra Review
+Engineering Direction   Approved
+Engineering Review      Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -77,4 +94,11 @@ ASTRA-001 through ASTRA-010.
 
 # Review Outcome
 
-Pending.
+Astra reviewed commit `2738bfec` and approved the engineering direction with
+two targeted readiness refinements required before ASTRA-IR-001 can be frozen:
+
+- resolve bootstrap and circular-dependency semantics; and
+- add a Constitution-to-Engineering Conformance Matrix.
+
+The requested documentation refinements have been applied. Astra engineering
+re-review, Product Owner approval, ADR acceptance, and freeze remain pending.

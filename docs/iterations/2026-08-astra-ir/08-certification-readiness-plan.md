@@ -19,6 +19,7 @@ must satisfy. It does not create tests or implementation.
 | Gate | Required Evidence |
 |---|---|
 | Constitution inheritance | Implemented behavior maps to ASTRA-001 through ASTRA-010 |
+| Constitution-to-engineering traceability | Applicable requirements have stable IDs, owners, contracts, evidence, certification gates, coverage status, and failure posture |
 | Documentation conformance | Task scope matches approved docs |
 | Boundary integrity | No unauthorized APIs, providers, prompts, databases, migrations, frontend, deployment, or production behavior |
 | Ownership | App-owned facts remain with owner services |

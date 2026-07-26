@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 proposed | Begins Jul 26 |
+| Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 proposed; engineering direction approved; minor revisions applied | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
@@ -108,10 +108,12 @@ docs/iterations/2026-08-astra-ir/
 ```
 
 ASTRA-IR-001 Implementation Readiness Planning is Proposed after documentation
-and engineering authorization. It inherits the accepted/frozen ASTRA-001
-through ASTRA-010 Constitution without modifying it and defines the
-engineering-readiness bridge into future separately authorized implementation
-phases. ASTRA-IR-001 names required components, dependencies, workstreams,
-interface contract categories, implementation risks, certification readiness,
-logical timeline, and future task candidates. Implementation and production
-changes remain unauthorized.
+and engineering authorization. Astra approved the engineering direction for
+commit `2738bfec` and requested two targeted readiness refinements. It inherits
+the accepted/frozen ASTRA-001 through ASTRA-010 Constitution without modifying
+it and defines the engineering-readiness bridge into future separately
+authorized implementation phases. ASTRA-IR-001 names required components,
+bootstrap dependency semantics, workstreams, interface contract categories, a
+Constitution-to-Engineering Conformance Matrix, implementation risks,
+certification readiness, logical timeline, and future task candidates.
+Implementation and production changes remain unauthorized.

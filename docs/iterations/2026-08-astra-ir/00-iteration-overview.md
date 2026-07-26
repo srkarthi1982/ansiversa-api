@@ -1,6 +1,6 @@
 # Iteration 4 - Astra AI Implementation Readiness
 
-**Status:** ASTRA-IR-001 Proposed
+**Status:** ASTRA-IR-001 Proposed; engineering direction approved; minor revisions applied
 **Created:** 2026-07-26
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Implementation:** Not authorized
@@ -29,6 +29,7 @@ authorizing implementation.
 - [Certification Readiness Plan](08-certification-readiness-plan.md)
 - [Implementation Timeline](09-implementation-timeline.md)
 - [Implementation Task Breakdown](10-implementation-task-breakdown.md)
+- [Constitution-To-Engineering Conformance Matrix](11-constitution-conformance-matrix.md)
 - [Implementation Review Package](astra-ir-001-implementation-review.md)
 - [ADR](../../architecture/decisions/astra-ir-001-implementation-readiness-planning.md)
 - [Task document](tasks/astra-ir-001-implementation-readiness-planning.md)
@@ -71,7 +72,8 @@ ASTRA-IR-001               Proposed
 Parent Constitution        ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth         Approved
 Engineering Auth           Approved
-Engineering Review         Pending Astra Review
+Engineering Direction      Approved
+Engineering Review         Minor revisions applied; pending Astra re-review
 Product Owner Approval     Pending
 ADR                        Proposed
 Implementation             Not authorized
