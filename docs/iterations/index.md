@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-004 certified; ASTRA-IMP-005 not authorized | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-005 implemented; pending Astra source review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -194,4 +194,20 @@ public destructive reset surface and enforces append-only correction-chain
 integrity. Astra re-review is approved, Product Owner approval is recorded,
 constitutional conformance is approved, and certification passed. Production
 authorization is not approved. Production remains unchanged. ASTRA-IMP-005 is
-not authorized and requires separate authorization.
+later separately authorized for implementation.
+
+ASTRA-IMP-005 Astra Runtime Core is implemented and pending Astra source
+review. It inherits the accepted/frozen ASTRA-001 through ASTRA-010
+Constitution, accepted/frozen ASTRA-IR-001 readiness plan, and
+certified/approved ASTRA-IMP-001 through ASTRA-IMP-004 foundations. The
+implementation adds a minimal internal runtime owner under
+`app/modules/astra_ai/runtime.py` with immutable identity metadata, explicit
+lifecycle states, deterministic startup and shutdown, a sealed component
+registry for configuration, governance, and evidence sink only, read-only
+component access, structural health snapshots, bounded fault metadata, and
+multi-runtime isolation. It does not introduce conversation handling, context
+retrieval, capability discovery, planning, providers, prompts, model
+invocation, memory, learning, execution, Tool Executor behavior, APIs, routes,
+databases, migrations, frontend work, deployment, production configuration,
+production authorization, or production behavior. ASTRA-IMP-006 is not
+authorized and requires separate authorization.

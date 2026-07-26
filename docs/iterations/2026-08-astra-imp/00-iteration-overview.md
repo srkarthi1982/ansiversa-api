@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-004 Certified / Approved
+**Status:** ASTRA-IMP-005 Implemented / Pending Astra Source Review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -133,5 +133,37 @@ retrieval, no public clear/reset surface, and append-only correction-chain
 validation. It does not authorize runtime behavior, write audit storage, access
 databases, expose APIs or routes, or change production. Astra re-review
 approved commit `42827d6f`, Product Owner approval is recorded, certification
-passed, and ASTRA-IMP-004 is closed. ASTRA-IMP-005 requires separate
-authorization.
+passed, and ASTRA-IMP-004 is closed. ASTRA-IMP-005 was later separately
+authorized for implementation.
+
+---
+
+# ASTRA-IMP-005
+
+```text
+ASTRA-IMP-005               Implemented
+Implementation Scope        Astra Runtime Core
+Implementation Direction    Pending Astra Source Review
+Constitutional Conformance  Pending
+Product Owner Approval      Pending
+Certification               Pending
+
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-IMP-006               Not authorized
+Requires separate authorization
+```
+
+ASTRA-IMP-005 implements the minimal internal Astra Runtime Core. It adds a
+runtime owner for certified configuration, the Minimal Governance Kernel, and
+one Minimal Evidence Sink instance, with immutable identity metadata, explicit
+runtime states, deterministic startup and shutdown, bounded component
+registration, read-only component access, structural health snapshots, bounded
+fault metadata, and multi-runtime isolation.
+
+The runtime owns lifecycle only. It does not add conversation handling, context
+retrieval, capability discovery, planning, providers, prompts, model
+invocation, memory, learning, execution, Tool Executor behavior, APIs, routes,
+databases, migrations, frontend work, deployment, production configuration, or
+production authorization. ASTRA-IMP-006 requires separate authorization.

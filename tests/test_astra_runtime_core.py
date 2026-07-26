@@ -1,0 +1,333 @@
+from __future__ import annotations
+
+import inspect
+import unittest
+from datetime import datetime, timezone
+
+from pydantic import ValidationError
+
+from app.modules.astra_ai import runtime as runtime_module
+from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
+from app.modules.astra_ai.constitutional_contracts import (
+    ApprovalState,
+    AuthorityClass,
+    ConstitutionalRequirementReference,
+    GovernanceOutcome,
+    ProductionAuthorizationState,
+    RuntimeUseState,
+    SafetyClassification,
+)
+from app.modules.astra_ai.governance import GovernanceEvaluationInput
+from app.modules.astra_ai.runtime import (
+    ASTRA_CONSTITUTIONAL_BASELINE,
+    ASTRA_RUNTIME_IMPLEMENTATION_PHASE,
+    AstraRuntime,
+    AstraRuntimeComponentIdentifier,
+    AstraRuntimeError,
+    AstraRuntimeFaultClassification,
+    AstraRuntimeHealthOutcome,
+    AstraRuntimeState,
+    _ComponentRegistry,
+)
+
+
+TIMESTAMP = datetime(2026, 7, 26, 12, 0, tzinfo=timezone.utc)
+INSTANCE_ID = "astra_rt_" + "a" * 32
+
+
+def requirement():
+    return ConstitutionalRequirementReference(
+        constitutional_source="ASTRA-010",
+        requirement_id="AIR-CM-009",
+        requirement_version="1.0.0",
+    )
+
+
+def governance_input(evaluation_id="GOV-EVAL-001"):
+    return GovernanceEvaluationInput(
+        evaluation_id=evaluation_id,
+        requirement_references=(requirement(),),
+        requested_authority_class=AuthorityClass.READ_ONLY,
+        safety_classification=SafetyClassification.PUBLIC,
+        approval_state=ApprovalState.NOT_REQUIRED,
+        configuration_id=ASTRA_CONFIGURATION_ID,
+        configuration_version=ASTRA_CONFIGURATION_VERSION,
+        production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
+        evaluation_timestamp=TIMESTAMP,
+    )
+
+
+class FailingStartupRuntime(AstraRuntime):
+    def _load_configuration(self):
+        raise ValueError("api_key:secret raw_prompt hidden_reasoning")
+
+
+class FailingEvidenceRuntime(AstraRuntime):
+    def _create_evidence_sink(self):
+        raise ValueError("postgresql://secret")
+
+
+class AstraRuntimeCoreTests(unittest.TestCase):
+    def test_runtime_starts_uninitialized_with_immutable_safe_identity(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        self.assertEqual(runtime.state, AstraRuntimeState.UNINITIALIZED)
+        self.assertEqual(runtime.identity.runtime_id, "ASTRA-RUNTIME-005")
+        self.assertEqual(runtime.identity.constitutional_baseline, ASTRA_CONSTITUTIONAL_BASELINE)
+        self.assertEqual(runtime.identity.implementation_phase, ASTRA_RUNTIME_IMPLEMENTATION_PHASE)
+        self.assertEqual(runtime.identity.production_authorization_state, ProductionAuthorizationState.NOT_APPROVED)
+
+        with self.assertRaises(ValidationError):
+            runtime.identity.runtime_name = "Mutated"
+
+    def test_startup_registers_only_authorized_foundation_components(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        health = runtime.startup()
+
+        self.assertEqual(runtime.state, AstraRuntimeState.READY)
+        self.assertEqual(health.health_outcome, AstraRuntimeHealthOutcome.HEALTHY)
+        self.assertEqual(
+            runtime.registered_component_identifiers,
+            (
+                AstraRuntimeComponentIdentifier.CONFIGURATION,
+                AstraRuntimeComponentIdentifier.GOVERNANCE,
+                AstraRuntimeComponentIdentifier.EVIDENCE_SINK,
+            ),
+        )
+        self.assertEqual(
+            tuple(registration.implementation_reference for registration in runtime.component_registrations),
+            ("ASTRA-IMP-002", "ASTRA-IMP-003", "ASTRA-IMP-004"),
+        )
+
+    def test_governance_component_decides_but_disabled_configuration_does_not_allow(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+
+        result = runtime.governance(governance_input())
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.evidence_references, (result.evidence.evidence_id,))
+
+    def test_evidence_sink_is_runtime_owned_and_receives_bounded_evidence(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+        result = runtime.governance(governance_input())
+
+        returned = runtime.evidence_sink.append(result.evidence)
+
+        self.assertEqual(returned, result.evidence)
+        self.assertEqual(runtime.evidence_sink.count(), 1)
+
+    def test_component_access_requires_ready_state(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        with self.assertRaises(AstraRuntimeError):
+            _ = runtime.configuration
+        with self.assertRaises(AstraRuntimeError):
+            _ = runtime.governance
+        with self.assertRaises(AstraRuntimeError):
+            _ = runtime.evidence_sink
+
+    def test_configuration_access_is_copy_safe_and_cannot_mutate_authority(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+
+        returned = runtime.configuration
+        returned.configuration.feature_enabled = True
+
+        self.assertFalse(runtime.configuration.configuration.feature_enabled)
+        self.assertFalse(runtime.configuration.configuration.provider_use is not RuntimeUseState.DISABLED)
+
+    def test_configuration_remains_disabled_and_non_production_authorized(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+        configuration = runtime.configuration.configuration
+
+        self.assertFalse(configuration.feature_enabled)
+        self.assertEqual(configuration.production_authorization_state, ProductionAuthorizationState.NOT_APPROVED)
+        self.assertEqual(configuration.provider_use, RuntimeUseState.DISABLED)
+        self.assertEqual(configuration.memory_use, RuntimeUseState.DISABLED)
+        self.assertEqual(configuration.adaptation_use, RuntimeUseState.DISABLED)
+        self.assertEqual(configuration.execution_handoff, RuntimeUseState.DISABLED)
+        self.assertTrue(configuration.fail_closed_default)
+
+    def test_startup_failure_fails_closed_without_partial_ready_or_secret_fault(self):
+        runtime = FailingStartupRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime.startup()
+
+        health = runtime.health(observed_at=TIMESTAMP)
+        self.assertEqual(runtime.state, AstraRuntimeState.FAULTED)
+        self.assertEqual(health.health_outcome, AstraRuntimeHealthOutcome.FAULTED)
+        self.assertFalse(health.configuration_loaded)
+        self.assertFalse(health.governance_available)
+        self.assertFalse(health.evidence_sink_available)
+        self.assertEqual(health.fault.classification, AstraRuntimeFaultClassification.STARTUP_FAILURE)
+        self.assertNotIn("api_key", health.model_dump_json())
+        self.assertNotIn("raw_prompt", health.model_dump_json())
+
+    def test_evidence_sink_creation_failure_never_reaches_partial_ready(self):
+        runtime = FailingEvidenceRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime.startup()
+
+        health = runtime.health(observed_at=TIMESTAMP)
+        self.assertEqual(runtime.state, AstraRuntimeState.FAULTED)
+        self.assertFalse(health.configuration_loaded)
+        self.assertFalse(health.governance_available)
+        self.assertFalse(health.evidence_sink_available)
+
+    def test_repeated_startup_and_restart_are_rejected(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime.startup()
+
+        runtime.shutdown()
+        with self.assertRaises(AstraRuntimeError):
+            runtime.startup()
+
+    def test_shutdown_releases_components_and_enters_stopped(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+
+        health = runtime.shutdown()
+
+        self.assertEqual(runtime.state, AstraRuntimeState.STOPPED)
+        self.assertEqual(health.health_outcome, AstraRuntimeHealthOutcome.STOPPED)
+        self.assertFalse(health.configuration_loaded)
+        self.assertEqual(runtime.registered_component_identifiers, ())
+
+    def test_shutdown_from_faulted_is_available_for_safe_cleanup(self):
+        runtime = FailingStartupRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        with self.assertRaises(AstraRuntimeError):
+            runtime.startup()
+
+        health = runtime.shutdown()
+
+        self.assertEqual(runtime.state, AstraRuntimeState.STOPPED)
+        self.assertEqual(health.health_outcome, AstraRuntimeHealthOutcome.STOPPED)
+
+    def test_shutdown_from_invalid_states_fails_deterministically(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime.shutdown()
+
+        runtime.startup()
+        runtime.shutdown()
+        with self.assertRaises(AstraRuntimeError):
+            runtime.shutdown()
+
+    def test_invalid_lifecycle_transition_is_rejected(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime._transition_to(AstraRuntimeState.READY)
+
+        self.assertEqual(runtime.state, AstraRuntimeState.UNINITIALIZED)
+
+    def test_component_registry_rejects_unknown_duplicate_and_sealed_mutation(self):
+        registry = _ComponentRegistry()
+
+        with self.assertRaises(AstraRuntimeError):
+            registry.register(
+                component_identifier="provider",  # type: ignore[arg-type]
+                component_type="Provider",
+                implementation_reference="ASTRA-IMP-005",
+                certified_parent_reference="Unauthorized",
+                registered_at=TIMESTAMP,
+            )
+
+        registry.register(
+            component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
+            component_type="LoadedAstraConfiguration",
+            implementation_reference="ASTRA-IMP-002",
+            certified_parent_reference="ASTRA-IMP-002 Certified / Approved",
+            registered_at=TIMESTAMP,
+        )
+        with self.assertRaises(AstraRuntimeError):
+            registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
+                component_type="ReplacementConfiguration",
+                implementation_reference="ASTRA-IMP-002",
+                certified_parent_reference="ASTRA-IMP-002 Certified / Approved",
+                registered_at=TIMESTAMP,
+            )
+
+    def test_component_registry_must_be_complete_before_sealing(self):
+        registry = _ComponentRegistry()
+
+        with self.assertRaises(AstraRuntimeError):
+            registry.seal()
+
+    def test_component_registry_cannot_mutate_after_ready(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        runtime.startup()
+
+        with self.assertRaises(AstraRuntimeError):
+            runtime._registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
+                component_type="ReplacementConfiguration",
+                implementation_reference="ASTRA-IMP-002",
+                certified_parent_reference="ASTRA-IMP-002 Certified / Approved",
+                registered_at=TIMESTAMP,
+            )
+
+    def test_health_outcomes_are_structural(self):
+        runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
+        self.assertEqual(runtime.health(observed_at=TIMESTAMP).health_outcome, AstraRuntimeHealthOutcome.STOPPED)
+
+        runtime.startup()
+        self.assertEqual(runtime.health(observed_at=TIMESTAMP).health_outcome, AstraRuntimeHealthOutcome.HEALTHY)
+
+        runtime._evidence_sink = None
+        degraded = runtime.health(observed_at=TIMESTAMP)
+        self.assertEqual(degraded.health_outcome, AstraRuntimeHealthOutcome.DEGRADED)
+        self.assertFalse(degraded.evidence_sink_available)
+
+    def test_multiple_runtimes_have_isolated_evidence_sinks(self):
+        first = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "b" * 32)
+        second = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "c" * 32)
+        first.startup()
+        second.startup()
+
+        first.evidence_sink.append(first.governance(governance_input("GOV-EVAL-001")).evidence)
+
+        self.assertEqual(first.evidence_sink.count(), 1)
+        self.assertEqual(second.evidence_sink.count(), 0)
+        self.assertIsNot(first.evidence_sink, second.evidence_sink)
+
+    def test_one_runtime_cannot_mutate_another_runtime_state(self):
+        first = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "d" * 32)
+        second = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "e" * 32)
+        first.startup()
+        second.startup()
+
+        first.shutdown()
+
+        self.assertEqual(first.state, AstraRuntimeState.STOPPED)
+        self.assertEqual(second.state, AstraRuntimeState.READY)
+
+    def test_runtime_module_does_not_import_external_surfaces(self):
+        source = inspect.getsource(runtime_module).lower()
+
+        for forbidden in (
+            "from fastapi",
+            "import fastapi",
+            "sqlalchemy",
+            "app.modules.audit",
+            "openai",
+            "anthropic",
+            "tool_executor",
+            "alembic",
+        ):
+            self.assertNotIn(forbidden, source)
+
+
+if __name__ == "__main__":
+    unittest.main()
