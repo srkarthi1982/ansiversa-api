@@ -1,10 +1,13 @@
 # ASTRA-IMP-001 Implementation Review Package
 
-**Status:** Pending Astra Source Review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-001
 **Implementation Scope:** Constitutional Contracts Foundation
 **Implementation Direction:** Approved
-**Constitutional Review:** Minor corrections applied; pending Astra re-review
+**Astra Re-review:** Approved
+**Constitutional Conformance:** Approved
+**Product Owner Approval:** Approved
+**Certification:** Passed
 **Production Authorization:** Not approved
 **Production:** Unchanged
 
@@ -23,7 +26,7 @@ The implementation is limited to:
 - AGENTS/iteration tracking.
 
 After Astra source review of commit `5b5395da`, two targeted corrections were
-applied:
+applied and Astra re-review approved commit `21e99b84`:
 
 - `SafetyClassification` now uses the frozen ASTRA-010 safety classes and
   rejects `allow` for `unknown` and `prohibited` safety classifications.
@@ -95,12 +98,15 @@ AGENTS.md
 # Final Recorded State
 
 ```text
-ASTRA-IMP-001               Implemented
+ASTRA-IMP-001               Certified / Approved
 Implementation Scope        Constitutional Contracts Foundation
 Implementation Direction    Approved
-Constitutional Review       Minor corrections applied; pending Astra re-review
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
+ASTRA-IMP-002               Not authorized
+Requires separate authorization
 ```

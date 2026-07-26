@@ -1,13 +1,14 @@
 # ASTRA-IMP-001 — Constitutional Contracts Foundation
 
-**Status:** Implemented
+**Status:** Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation Authorization:** Approved
 **Implementation Direction:** Approved
-**Constitutional Review:** Minor corrections applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**Certification:** Pending
+**Astra Re-review:** Approved
+**Constitutional Conformance:** Approved
+**Product Owner Approval:** Approved
+**Certification:** Passed
 **Production Authorization:** Not approved
 **Production:** Unchanged
 
@@ -74,12 +75,15 @@ Explicitly not included:
 # Final Recorded State
 
 ```text
-ASTRA-IMP-001               Implemented
+ASTRA-IMP-001               Certified / Approved
 Implementation Scope        Constitutional Contracts Foundation
 Implementation Direction    Approved
-Constitutional Review       Minor corrections applied; pending Astra re-review
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
+ASTRA-IMP-002               Not authorized
+Requires separate authorization
 ```

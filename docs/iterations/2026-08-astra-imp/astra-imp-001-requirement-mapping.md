@@ -1,6 +1,6 @@
 # ASTRA-IMP-001 Constitution-To-Code Mapping
 
-**Status:** Minor corrections applied; Pending Astra Re-review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-001
 **Production Authorization:** Not approved
 **Production:** Unchanged

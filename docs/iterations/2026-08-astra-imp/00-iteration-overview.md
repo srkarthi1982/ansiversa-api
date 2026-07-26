@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** Active
+**Status:** ASTRA-IMP-001 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -23,14 +23,17 @@ ASTRA constitutional document.
 # Current Task
 
 ```text
-ASTRA-IMP-001               Implemented
+ASTRA-IMP-001               Certified / Approved
 Implementation Scope        Constitutional Contracts Foundation
 Implementation Direction    Approved
-Constitutional Review       Minor corrections applied; pending Astra re-review
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
+ASTRA-IMP-002               Not authorized
+Requires separate authorization
 ```
 
 ASTRA-IMP-001 implements Stage 0 constitutional contracts only. It does not
@@ -39,6 +42,6 @@ execution, APIs, routes, databases, migrations, frontend work, deployment, or
 production behavior.
 
 Astra source review approved the implementation direction for commit
-`5b5395da` and requested two targeted corrections. The correction updates align
-the safety classification enum with ASTRA-010 and complete non-destructive
-evidence-correction provenance. Astra re-review remains pending.
+`5b5395da` and requested two targeted corrections. Astra re-review approved
+commit `21e99b84`, Product Owner approval is recorded, certification passed,
+and ASTRA-IMP-001 is closed. ASTRA-IMP-002 requires separate authorization.
