@@ -120,18 +120,21 @@ visibility.
 Supported requester classes:
 
 - `public`;
-- `authenticated`;
+- `authenticated` is modeled but unavailable in ASTRA-IMP-007 until a future
+  authoritative authenticated-principal issuer exists;
 - `internal_runtime`.
 
 Visibility is capped by the trusted context:
 
 - public requesters can see only public metadata;
-- authenticated requesters can see public and authenticated metadata;
-- internal runtime requesters can see internal metadata only when their runtime
-  instance identifier matches the owning `AstraRuntime`.
+- callers cannot self-assert authenticated visibility;
+- internal runtime requesters can see internal metadata only when the context is
+  issued by the owning `AstraRuntime` and carries its opaque runtime-owned
+  authority token.
 
 Callers cannot broaden visibility by passing a requested visibility above the
-context ceiling.
+context ceiling. Knowing the runtime instance identifier is not sufficient to
+mint internal discovery authority.
 
 ---
 

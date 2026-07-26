@@ -20,7 +20,6 @@ from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityType,
     AstraCapabilityVisibility,
     authenticated_discovery_context,
-    internal_runtime_discovery_context,
     public_discovery_context,
 )
 from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference, GovernanceOutcome
@@ -157,7 +156,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         runtime = ready_runtime()
 
         result = runtime.capability_discovery.discover(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
@@ -170,7 +169,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         force_governance_outcome(runtime, GovernanceOutcome.ALLOW)
 
         result = runtime.capability_discovery.discover(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
@@ -185,7 +184,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         before = runtime.evidence_count()
 
         result = runtime.discover_capabilities(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
@@ -205,7 +204,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             force_governance_outcome(runtime, outcome)
 
             result = runtime.discover_capabilities(
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -228,20 +227,12 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             request_context=public_discovery_context(),
             discovered_at=TIMESTAMP,
         )
-        authenticated = runtime.discover_capabilities(
-            request_context=authenticated_discovery_context(),
-            discovered_at=TIMESTAMP,
-        )
         internal = runtime.discover_capabilities(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
         self.assertEqual(tuple(item.visibility for item in public.capabilities), (AstraCapabilityVisibility.PUBLIC,))
-        self.assertEqual(
-            tuple(item.visibility for item in authenticated.capabilities),
-            (AstraCapabilityVisibility.AUTHENTICATED, AstraCapabilityVisibility.PUBLIC),
-        )
         self.assertEqual(len(internal.capabilities), 3)
 
     def test_public_and_authenticated_contexts_cannot_self_select_internal_visibility(self):
@@ -254,18 +245,31 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
                 discovered_at=TIMESTAMP,
             )
         with self.assertRaises(AstraCapabilityDiscoveryError):
-            runtime.discover_capabilities(
-                request_context=authenticated_discovery_context(),
-                requested_visibility=AstraCapabilityVisibility.INTERNAL,
-                discovered_at=TIMESTAMP,
+            authenticated_discovery_context()
+
+    def test_caller_cannot_self_assert_authenticated_state(self):
+        with self.assertRaises(ValidationError):
+            AstraCapabilityDiscoveryRequestContext(
+                requester_class=AstraCapabilityRequesterClass.AUTHENTICATED,
+                authenticated=True,
+                maximum_visibility=AstraCapabilityVisibility.AUTHENTICATED,
+                governance_reference=requirement(),
             )
 
     def test_internal_visibility_requires_trusted_runtime_ownership(self):
         runtime = ready_runtime()
 
+        forged = AstraCapabilityDiscoveryRequestContext(
+            requester_class=AstraCapabilityRequesterClass.INTERNAL_RUNTIME,
+            authenticated=True,
+            runtime_instance_id=runtime.identity.startup_instance_id,
+            maximum_visibility=AstraCapabilityVisibility.INTERNAL,
+            governance_reference=requirement(),
+            authority_token=object(),
+        )
         with self.assertRaises(AstraCapabilityDiscoveryError):
             runtime.discover_capabilities(
-                request_context=internal_runtime_discovery_context("astra_rt_" + "f" * 32),
+                request_context=forged,
                 discovered_at=TIMESTAMP,
             )
         with self.assertRaises(ValidationError):
@@ -276,6 +280,29 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
                 maximum_visibility=AstraCapabilityVisibility.INTERNAL,
                 governance_reference=requirement(),
             )
+
+    def test_foreign_runtime_minted_internal_context_is_rejected(self):
+        first = ready_runtime("b")
+        second = ready_runtime("c")
+        foreign_context = first.capability_discovery.internal_request_context()
+
+        with self.assertRaises(AstraCapabilityDiscoveryError):
+            second.discover_capabilities(
+                request_context=foreign_context,
+                discovered_at=TIMESTAMP,
+            )
+
+    def test_owner_issued_internal_context_remains_governance_gated(self):
+        runtime = ready_runtime()
+        context = runtime.capability_discovery.internal_request_context()
+
+        result = runtime.discover_capabilities(
+            request_context=context,
+            discovered_at=TIMESTAMP,
+        )
+
+        self.assertEqual(result.governance_outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.capabilities, ())
 
     def test_caller_input_cannot_broaden_visibility(self):
         with self.assertRaises(ValidationError):
@@ -291,7 +318,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         before = runtime.evidence_count()
 
         result = runtime.discover_capabilities(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
@@ -305,7 +332,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         with self.assertRaises(AstraCapabilityDiscoveryError):
             runtime.get_capability(
                 "cap_conversation_context_0001",
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -319,7 +346,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         with self.assertRaises(AstraCapabilityDiscoveryError):
             runtime.get_capability(
                 "cap_missing_0001",
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -328,7 +355,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
     def test_no_result_is_released_before_successful_evidence_append_and_sequence_commit(self):
         runtime = ready_runtime(evidence_sink_capacity=1)
         first = runtime.discover_capabilities(
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
         self.assertEqual(first.capabilities, ())
@@ -336,7 +363,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
 
         with self.assertRaises(Exception):
             runtime.discover_capabilities(
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -346,17 +373,18 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
     def test_runtime_lifecycle_controls_capability_discovery_handles(self):
         runtime = ready_runtime()
         interface = runtime.capability_discovery
+        context = interface.internal_request_context()
         runtime.shutdown()
 
         with self.assertRaises(AstraRuntimeError):
             interface.discover(
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=context,
                 discovered_at=TIMESTAMP,
             )
         with self.assertRaises(AstraRuntimeError):
             interface.get(
                 "cap_conversation_context_0001",
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=context,
                 discovered_at=TIMESTAMP,
             )
 
@@ -371,7 +399,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
         discovery = runtime.capability_discovery.discover_for_conversation(
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation,
-            request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+            request_context=runtime.capability_discovery.internal_request_context(),
             discovered_at=TIMESTAMP,
         )
 
@@ -392,7 +420,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             second.capability_discovery.discover_for_conversation(
                 conversation_engine=conversation_engine,
                 conversation_snapshot=conversation,
-                request_context=internal_runtime_discovery_context(second.identity.startup_instance_id),
+                request_context=second.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -403,7 +431,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             runtime.capability_discovery.discover_for_conversation(
                 conversation_engine=object(),
                 conversation_snapshot=object(),
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -426,7 +454,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             runtime.capability_discovery.discover_for_conversation(
                 conversation_engine=conversation_engine,
                 conversation_snapshot=forged,
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -457,7 +485,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
             runtime.capability_discovery.discover_for_conversation(
                 conversation_engine=conversation_engine,
                 conversation_snapshot=closed_snapshot,
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=runtime.capability_discovery.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 
@@ -478,7 +506,7 @@ class AstraCapabilityDiscoveryEngineTests(unittest.TestCase):
 
         with self.assertRaises(AstraCapabilityDiscoveryError):
             engine.discover_capabilities(
-                request_context=internal_runtime_discovery_context(runtime.identity.startup_instance_id),
+                request_context=engine.internal_request_context(),
                 discovered_at=TIMESTAMP,
             )
 

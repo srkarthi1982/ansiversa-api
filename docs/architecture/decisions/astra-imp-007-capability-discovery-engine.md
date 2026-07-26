@@ -36,8 +36,9 @@ The engine:
   successful evidence append;
 - keeps non-allow discovery outcomes metadata-empty and non-allow lookups
   metadata-denied;
-- requires governed requester context with a trusted visibility ceiling instead
-  of caller-selected visibility;
+- keeps public discovery limited to public metadata, keeps authenticated
+  discovery unavailable until an authoritative issuer exists, and requires
+  internal discovery contexts to be issued by the owning Runtime Core;
 - supports conversation-scoped informational discovery through certified
   Conversation Context Engine ownership verification;
 - exposes structural capability health;

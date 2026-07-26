@@ -58,6 +58,13 @@ targeted corrections:
   ownership, snapshot freshness, runtime ownership, and eligible lifecycle
   state.
 
+After source-level re-review of commit `3fb109eb`, ASTRA-IMP-007 received one
+remaining authority-proof correction. Internal discovery contexts are now
+issued only by the owning Runtime Core using an opaque runtime-owned authority
+token, knowing the runtime instance identifier is insufficient to mint internal
+authority, and authenticated visibility remains unavailable until a future
+authoritative authenticated-principal issuer exists.
+
 ---
 
 # Runtime Integration
@@ -91,7 +98,9 @@ The tests cover immutable metadata, deterministic registry ordering, duplicate
 rejection, unknown capability rejection, no public registry mutation method,
 runtime registration, lifecycle-aware Runtime ownership, governance-aware
 discovery evidence, non-allow metadata suppression, governed visibility
-ceilings, no result release before successful evidence append,
+ceilings, runtime-issued internal authority contexts, rejection of forged and
+foreign internal contexts, authenticated self-assertion rejection, no result
+release before successful evidence append,
 conversation-scoped informational discovery, fabricated/stale/foreign/closed
 conversation rejection, structural health, and absence of provider, Tool
 Executor, API, route, database, migration, embedding, vector, audit

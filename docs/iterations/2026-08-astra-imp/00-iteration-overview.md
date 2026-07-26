@@ -237,9 +237,11 @@ Astra source review approved implementation direction for commit `7946f9df`
 and requested three targeted corrections. The correction update now enforces
 governance outcome before releasing capability metadata, uses governed
 requester-context visibility ceilings instead of caller-selected visibility,
-and verifies certified Conversation Context Engine ownership and snapshot
-freshness for conversation-scoped discovery. Astra re-review, Product Owner
-approval, and certification remain pending.
+adds Runtime-issued internal discovery authority instead of caller-minted
+internal context, keeps authenticated discovery unavailable until an
+authoritative issuer exists, and verifies certified Conversation Context
+Engine ownership and snapshot freshness for conversation-scoped discovery.
+Astra re-review, Product Owner approval, and certification remain pending.
 
 Discovery remains separate from planning, execution, provider interaction,
 memory, and learning. The implementation does not add providers, prompts,

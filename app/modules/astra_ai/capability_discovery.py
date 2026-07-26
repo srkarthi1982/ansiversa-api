@@ -90,7 +90,7 @@ class AstraCapabilityMetadata(BaseModel):
 
 
 class AstraCapabilityDiscoveryRequestContext(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
 
     requester_class: AstraCapabilityRequesterClass
     authenticated: bool
@@ -98,6 +98,7 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
     conversation_id: str | None = Field(default=None, pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
     maximum_visibility: AstraCapabilityVisibility
     governance_reference: ConstitutionalRequirementReference
+    authority_token: Any | None = Field(default=None, exclude=True)
 
     @model_validator(mode="after")
     def validate_request_context(self):
@@ -109,12 +110,11 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
             if self.runtime_instance_id is not None:
                 raise AstraCapabilityDiscoveryError("Public discovery context cannot assert runtime ownership.")
         if self.requester_class is AstraCapabilityRequesterClass.AUTHENTICATED:
-            if not self.authenticated:
-                raise AstraCapabilityDiscoveryError("Authenticated discovery context requires authentication.")
-            if self.maximum_visibility is AstraCapabilityVisibility.INTERNAL:
-                raise AstraCapabilityDiscoveryError("Authenticated discovery context cannot request internal visibility.")
+            raise AstraCapabilityDiscoveryError(
+                "Authenticated discovery context requires an authoritative issuer outside ASTRA-IMP-007 scope."
+            )
         if self.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
-            if not self.authenticated or self.runtime_instance_id is None:
+            if not self.authenticated or self.runtime_instance_id is None or self.authority_token is None:
                 raise AstraCapabilityDiscoveryError("Internal runtime discovery context requires trusted runtime ownership.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
@@ -217,6 +217,7 @@ class AstraCapabilityDiscoveryEngine:
         self._runtime = runtime
         self._runtime_instance_id = runtime.identity.startup_instance_id
         self._registry = AstraCapabilityRegistry(capabilities or default_capabilities())
+        self._internal_authority_token = object()
         self._operation_sequence = 0
 
     @property
@@ -309,6 +310,16 @@ class AstraCapabilityDiscoveryEngine:
             observed_at=timestamp,
         )
 
+    def internal_request_context(self) -> AstraCapabilityDiscoveryRequestContext:
+        return AstraCapabilityDiscoveryRequestContext(
+            requester_class=AstraCapabilityRequesterClass.INTERNAL_RUNTIME,
+            authenticated=True,
+            runtime_instance_id=self._runtime_instance_id,
+            maximum_visibility=AstraCapabilityVisibility.INTERNAL,
+            governance_reference=_capability_requirement_reference(),
+            authority_token=self._internal_authority_token,
+        )
+
     def _emit_governance_evidence(self, operation_prefix: str, timestamp: datetime):
         operation_sequence = self._operation_sequence + 1
         result = self._runtime.evaluate_governance(
@@ -342,6 +353,10 @@ class AstraCapabilityDiscoveryEngine:
         if request_context.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
             if request_context.runtime_instance_id != self._runtime_instance_id:
                 raise AstraCapabilityDiscoveryError("Internal discovery context is not owned by this runtime.")
+            if request_context.authority_token is not self._internal_authority_token:
+                raise AstraCapabilityDiscoveryError("Internal discovery context was not issued by this runtime.")
+        if request_context.requester_class is AstraCapabilityRequesterClass.AUTHENTICATED:
+            raise AstraCapabilityDiscoveryError("Authenticated discovery context has no authorized issuer in ASTRA-IMP-007.")
         if requested_visibility is not None and requested_visibility not in _allowed_visibilities(request_context.maximum_visibility):
             raise AstraCapabilityDiscoveryError("Requested visibility exceeds requester context.")
 
@@ -428,22 +443,9 @@ def default_capabilities() -> tuple[AstraCapabilityMetadata, ...]:
     )
 
 
-def internal_runtime_discovery_context(runtime_instance_id: str) -> AstraCapabilityDiscoveryRequestContext:
-    return AstraCapabilityDiscoveryRequestContext(
-        requester_class=AstraCapabilityRequesterClass.INTERNAL_RUNTIME,
-        authenticated=True,
-        runtime_instance_id=runtime_instance_id,
-        maximum_visibility=AstraCapabilityVisibility.INTERNAL,
-        governance_reference=_capability_requirement_reference(),
-    )
-
-
 def authenticated_discovery_context() -> AstraCapabilityDiscoveryRequestContext:
-    return AstraCapabilityDiscoveryRequestContext(
-        requester_class=AstraCapabilityRequesterClass.AUTHENTICATED,
-        authenticated=True,
-        maximum_visibility=AstraCapabilityVisibility.AUTHENTICATED,
-        governance_reference=_capability_requirement_reference(),
+    raise AstraCapabilityDiscoveryError(
+        "Authenticated discovery context requires an authoritative issuer outside ASTRA-IMP-007 scope."
     )
 
 

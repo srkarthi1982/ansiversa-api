@@ -36,6 +36,10 @@ Ready-state check
   v
 Governed request context validation
   |
+  +-- public context: public ceiling only
+  +-- authenticated context: unavailable until authorized issuer exists
+  +-- internal context: Runtime-issued token required
+  |
   v
 Governance evidence emission
   |

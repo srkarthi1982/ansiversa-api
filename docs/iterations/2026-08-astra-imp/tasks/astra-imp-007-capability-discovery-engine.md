@@ -33,6 +33,7 @@ capabilities or create plans.
 - governance evidence emission through Runtime Core;
 - governance outcome enforcement before metadata release;
 - governed requester-context visibility ceilings;
+- Runtime-issued internal discovery authority;
 - conversation-scoped informational discovery;
 - certified conversation ownership and freshness verification;
 - structural capability health;

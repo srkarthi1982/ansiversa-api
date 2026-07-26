@@ -245,9 +245,10 @@ capability metadata, sealed registry construction, deterministic discovery,
 duplicate and unknown capability rejection, Runtime-owned component
 registration, governance evidence emission, governance outcome enforcement
 before metadata release, governed requester-context visibility ceilings,
-structural capability health, and certified conversation-scoped informational
-discovery. It does not introduce tool execution, planning, providers, prompts,
-model invocation, Tool Executor
+Runtime-issued internal discovery authority, authenticated discovery deferral
+until an authoritative issuer exists, structural capability health, and
+certified conversation-scoped informational discovery. It does not introduce
+tool execution, planning, providers, prompts, model invocation, Tool Executor
 behavior, long-term memory, learning, embeddings, vector databases, APIs,
 routes, frontend work, databases, migrations, deployment, production
 configuration, production authorization, or production behavior. ASTRA-IMP-008

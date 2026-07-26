@@ -304,6 +304,9 @@ class AstraRuntimeCapabilityDiscoveryInterface:
     def health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
         return self._runtime.capability_discovery_health(observed_at=observed_at)
 
+    def internal_request_context(self) -> AstraCapabilityDiscoveryRequestContext:
+        return self._runtime.internal_capability_discovery_context()
+
 
 class AstraRuntime:
     """Minimal internal owner for certified Astra foundations.
@@ -445,6 +448,10 @@ class AstraRuntime:
     def capability_discovery_health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
         self._require_ready_component(self._capability_discovery, "capability discovery")
         return self._capability_discovery.health(observed_at=observed_at)
+
+    def internal_capability_discovery_context(self) -> AstraCapabilityDiscoveryRequestContext:
+        self._require_ready_component(self._capability_discovery, "capability discovery")
+        return self._capability_discovery.internal_request_context()
 
     def startup(self) -> AstraRuntimeHealthSnapshot:
         if self._state is not AstraRuntimeState.UNINITIALIZED:
