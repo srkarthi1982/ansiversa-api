@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-006 Implemented / Pending Astra Source Review
+**Status:** ASTRA-IMP-006 Implemented / Corrections Applied / Pending Astra Re-review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -179,7 +179,8 @@ ASTRA-IMP-005 is closed. ASTRA-IMP-006 requires separate authorization.
 ```text
 ASTRA-IMP-006               Implemented
 Implementation Scope        Conversation Context Engine
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Astra Re-review             Pending
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending
@@ -194,8 +195,9 @@ Requires separate authorization
 ASTRA-IMP-006 implements the provider-independent Conversation Context Engine.
 It adds bounded conversation metadata, explicit lifecycle states, current-turn
 metadata, rolling short-context history, runtime ownership enforcement,
-governance evidence emission through Runtime Core, and structural conversation
-health.
+governance evidence emission through Runtime Core, structural conversation
+health, immutable observation snapshots, and evidence-before-commit mutation
+atomicity.
 
 Conversation remains separate from memory, planning, execution, provider
 interaction, and learning. The implementation does not add providers, prompts,

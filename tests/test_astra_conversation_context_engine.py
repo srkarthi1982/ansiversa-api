@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import inspect
 import unittest
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from pydantic import ValidationError
 
@@ -13,7 +13,6 @@ from app.modules.astra_ai.conversation_context import (
     AstraConversationHealthOutcome,
     AstraConversationHistoryKind,
     AstraConversationLifecycleState,
-    AstraConversationSession,
     AstraConversationTurnKind,
     AstraCurrentTurnContext,
 )
@@ -23,11 +22,11 @@ from app.modules.astra_ai.runtime import AstraRuntime
 TIMESTAMP = datetime(2026, 7, 26, 12, 0, tzinfo=timezone.utc)
 
 
-def ready_runtime(instance_suffix: str = "a") -> AstraRuntime:
+def ready_runtime(instance_suffix: str = "a", *, evidence_sink_capacity: int = 50) -> AstraRuntime:
     runtime = AstraRuntime(
         created_at=TIMESTAMP,
         startup_instance_id="astra_rt_" + instance_suffix * 32,
-        evidence_sink_capacity=50,
+        evidence_sink_capacity=evidence_sink_capacity,
     )
     runtime.startup()
     return runtime
@@ -65,11 +64,8 @@ class AstraConversationContextEngineTests(unittest.TestCase):
         engine = AstraConversationContextEngine(runtime=runtime)
         conversation = engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
 
-        with self.assertRaises(TypeError):
-            AstraConversationSession(  # type: ignore[call-arg]
-                metadata=conversation.metadata,
-                short_context_limit=2,
-            )
+        self.assertFalse(hasattr(conversation, "transition"))
+        self.assertFalse(hasattr(conversation, "record_current_turn"))
 
     def test_engine_requires_ready_runtime_owner(self):
         runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "b" * 32)
@@ -185,6 +181,25 @@ class AstraConversationContextEngineTests(unittest.TestCase):
             "turn:summary:1",
         )
 
+    def test_snapshot_obtained_before_shutdown_cannot_mutate_conversation(self):
+        runtime = ready_runtime()
+        engine = AstraConversationContextEngine(runtime=runtime)
+        snapshot = engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
+        runtime.shutdown()
+
+        self.assertFalse(hasattr(snapshot, "transition"))
+        self.assertFalse(hasattr(snapshot, "record_current_turn"))
+        with self.assertRaises(ValidationError):
+            snapshot.metadata.lifecycle_state = AstraConversationLifecycleState.ACTIVE
+        with self.assertRaises(AstraConversationContextError):
+            engine.transition_conversation(
+                "conv_alpha_0001",
+                AstraConversationLifecycleState.ACTIVE,
+                transitioned_at=TIMESTAMP,
+                summary_reference="conversation:active",
+                entry_id="ctx_transition_0001",
+            )
+
     def test_conversation_isolation_by_runtime_engine(self):
         first_runtime = ready_runtime("c")
         second_runtime = ready_runtime("d")
@@ -220,6 +235,103 @@ class AstraConversationContextEngineTests(unittest.TestCase):
 
         self.assertEqual(runtime.evidence_count(), starting_count + 2)
         self.assertTrue(all(evidence.evidence_type == "governance_decision" for evidence in runtime.retrieve_evidence()))
+
+    def test_evidence_capacity_failure_does_not_create_conversation(self):
+        runtime = ready_runtime(evidence_sink_capacity=1)
+        filler = AstraConversationContextEngine(runtime=runtime)
+        filler.create_conversation(conversation_id="conv_filler_0001", created_at=TIMESTAMP)
+        engine = AstraConversationContextEngine(runtime=runtime)
+
+        with self.assertRaises(Exception):
+            engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
+
+        self.assertEqual(engine.health(observed_at=TIMESTAMP).conversation_count, 0)
+        self.assertEqual(engine._operation_sequence, 0)
+
+    def test_evidence_failure_does_not_change_lifecycle_current_turn_or_history(self):
+        runtime = ready_runtime(evidence_sink_capacity=1)
+        engine = AstraConversationContextEngine(runtime=runtime)
+        created = engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
+        before_count = runtime.evidence_count()
+
+        with self.assertRaises(Exception):
+            engine.transition_conversation(
+                "conv_alpha_0001",
+                AstraConversationLifecycleState.ACTIVE,
+                transitioned_at=TIMESTAMP,
+                summary_reference="conversation:active",
+                entry_id="ctx_transition_0001",
+            )
+
+        after_transition = engine.get_conversation("conv_alpha_0001")
+        self.assertEqual(after_transition.metadata, created.metadata)
+        self.assertIsNone(after_transition.current_turn)
+        self.assertEqual(after_transition.short_context, ())
+        self.assertEqual(runtime.evidence_count(), before_count)
+        self.assertEqual(engine._operation_sequence, 1)
+
+        with self.assertRaises(Exception):
+            engine.record_current_turn(
+                "conv_alpha_0001",
+                current_turn(),
+                history_entry_id="ctx_history_0001",
+                summary_reference="turn:summary:1",
+            )
+
+        after_turn = engine.get_conversation("conv_alpha_0001")
+        self.assertEqual(after_turn.metadata, created.metadata)
+        self.assertIsNone(after_turn.current_turn)
+        self.assertEqual(after_turn.short_context, ())
+        self.assertEqual(runtime.evidence_count(), before_count)
+        self.assertEqual(engine._operation_sequence, 1)
+
+    def test_successful_operations_commit_exactly_one_evidence_record_together(self):
+        runtime = ready_runtime()
+        engine = AstraConversationContextEngine(runtime=runtime)
+
+        before = runtime.evidence_count()
+        engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
+        after_create = runtime.evidence_count()
+        engine.record_current_turn(
+            "conv_alpha_0001",
+            current_turn(),
+            history_entry_id="ctx_history_0001",
+            summary_reference="turn:summary:1",
+        )
+        after_turn = runtime.evidence_count()
+
+        self.assertEqual(after_create, before + 1)
+        self.assertEqual(after_turn, after_create + 1)
+        self.assertEqual(engine._operation_sequence, 2)
+
+    def test_backdated_transitions_and_turns_fail(self):
+        runtime = ready_runtime()
+        engine = AstraConversationContextEngine(runtime=runtime)
+        engine.create_conversation(conversation_id="conv_alpha_0001", created_at=TIMESTAMP)
+        later = TIMESTAMP + timedelta(minutes=5)
+        earlier = TIMESTAMP + timedelta(minutes=1)
+        engine.record_current_turn(
+            "conv_alpha_0001",
+            current_turn("turn_request_0001").model_copy(update={"received_at": later}),
+            history_entry_id="ctx_history_0001",
+            summary_reference="turn:summary:1",
+        )
+
+        with self.assertRaises(AstraConversationContextError):
+            engine.transition_conversation(
+                "conv_alpha_0001",
+                AstraConversationLifecycleState.IDLE,
+                transitioned_at=earlier,
+                summary_reference="conversation:idle",
+                entry_id="ctx_transition_0001",
+            )
+        with self.assertRaises(AstraConversationContextError):
+            engine.record_current_turn(
+                "conv_alpha_0001",
+                current_turn("turn_request_0002").model_copy(update={"received_at": earlier}),
+                history_entry_id="ctx_history_0002",
+                summary_reference="turn:summary:2",
+            )
 
     def test_governance_integration_fails_if_runtime_stops(self):
         runtime = ready_runtime()

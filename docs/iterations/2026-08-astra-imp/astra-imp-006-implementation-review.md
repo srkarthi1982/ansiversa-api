@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 Implementation Review Package
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Task:** ASTRA-IMP-006
 **Implementation Scope:** Conversation Context Engine
 **Production Authorization:** Not approved
@@ -33,7 +33,8 @@ certified parent behavior required modification.
 ASTRA-IMP-006 adds:
 
 - `AstraConversationContextEngine`;
-- `AstraConversationSession`;
+- immutable `AstraConversationSnapshot`;
+- internal runtime-owned conversation session state;
 - `AstraConversationMetadata`;
 - `AstraCurrentTurnContext`;
 - `AstraShortContextEntry`;
@@ -51,6 +52,14 @@ Core evidence sink.
 The engine does not register itself as a Runtime foundation component and does
 not change Runtime authority.
 
+The engine exposes immutable conversation snapshots for observation and keeps
+all mutation paths behind runtime-owned engine methods. Creation, lifecycle
+transition, and current-turn recording prepare proposed state first, append
+bounded evidence successfully through Runtime Core, and only then commit the
+registry, metadata, current-turn, short-context, and operation-sequence changes.
+
+Evidence append failure leaves pre-operation state unchanged.
+
 ---
 
 # Tests
@@ -64,10 +73,28 @@ tests/test_astra_conversation_context_engine.py
 The tests cover deterministic conversation creation, valid and invalid
 lifecycle transitions, bounded current-turn metadata, rolling short-context
 history, oldest-entry eviction, runtime ownership, conversation isolation,
-evidence emission, governance integration, health integration, timestamp
-validation, and absence of provider, prompt, execution, planning, database,
-route, API, Tool Executor, migration, embedding, vector, audit persistence, and
-app-main imports.
+immutable snapshot exposure, absence of public session mutators, evidence
+emission, atomic evidence-before-commit behavior, unchanged state after evidence
+failure, monotonic lifecycle and current-turn timestamps, governance
+integration, health integration, timestamp validation, and absence of provider,
+prompt, execution, planning, database, route, API, Tool Executor, migration,
+embedding, vector, audit persistence, and app-main imports.
+
+---
+
+# Astra Review Corrections
+
+After Astra source-level review of commit `6b1467e6`, Codex applied two narrow
+corrections:
+
+- removed direct mutable conversation session exposure from the production
+  surface by returning immutable snapshots and requiring all mutations through
+  `AstraConversationContextEngine`;
+- made create, transition, and turn-record operations atomic with evidence
+  append, including no partial registry, state, current-turn, short-context, or
+  operation-sequence mutation on evidence failure.
+
+The correction also enforces monotonic lifecycle and current-turn timestamps.
 
 ---
 
@@ -75,7 +102,8 @@ app-main imports.
 
 ```text
 ASTRA-IMP-006               Implemented
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Astra Re-review             Pending
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

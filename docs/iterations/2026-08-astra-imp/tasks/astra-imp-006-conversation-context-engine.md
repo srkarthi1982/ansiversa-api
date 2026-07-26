@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 — Conversation Context Engine
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementations:** ASTRA-IMP-001 through ASTRA-IMP-005 Certified / Approved
@@ -71,7 +71,8 @@ Explicitly not included:
 ```text
 ASTRA-IMP-006               Implemented
 Implementation Scope        Conversation Context Engine
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Astra Re-review             Pending
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

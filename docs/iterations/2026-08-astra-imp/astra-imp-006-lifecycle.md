@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 Conversation Lifecycle
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Production Authorization:** Not approved
 
 ---
@@ -24,5 +24,10 @@
 - current turns cannot be recorded after `closing`, `closed`, or `faulted`;
 - lifecycle changes update immutable metadata through a new metadata instance;
 - lifecycle entries are recorded in bounded short-context history;
+- transition timestamps must be monotonic relative to the conversation's last
+  activity timestamp;
+- lifecycle changes are prepared first and committed only after bounded
+  governance evidence is appended through Runtime Core;
+- failed evidence append leaves lifecycle state and history unchanged;
 - lifecycle does not authorize planning, execution, providers, memory, or
   learning.

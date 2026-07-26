@@ -1,6 +1,6 @@
 # Astra Conversation Context Engine
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Task:** ASTRA-IMP-006
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
@@ -74,6 +74,12 @@ Conversation sessions are created with a runtime ownership token and include
 the runtime startup instance id. Conversation sessions are not valid as
 standalone runtime objects.
 
+The production-facing engine returns immutable `AstraConversationSnapshot`
+objects for observation. It does not expose mutable conversation sessions or
+direct mutator handles. Conversation creation, lifecycle transitions, and
+current-turn recording must pass through `AstraConversationContextEngine`,
+which checks the owning `AstraRuntime` state at operation time.
+
 The engine uses:
 
 - `runtime.evaluate_governance(...)`;
@@ -86,12 +92,31 @@ components.
 
 ---
 
+# Operation Atomicity
+
+Conversation mutations are prepared before state is changed. The engine emits
+governance evidence through the Runtime Core and commits the proposed
+conversation registry, lifecycle, current-turn, short-context, and operation
+sequence changes only after evidence append succeeds.
+
+If evidence emission or append fails, the operation fails without partially
+mutating conversation state. Conversation creation does not register a
+conversation until evidence append succeeds.
+
+Lifecycle transition timestamps and current-turn timestamps must be
+timezone-aware and monotonic relative to the conversation's last activity.
+Backdated transitions or turns fail before evidence emission and before state
+mutation.
+
+---
+
 # Final Draft State
 
 ```text
 ASTRA-IMP-006               Implemented
 Implementation Scope        Conversation Context Engine
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Astra Re-review             Pending
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

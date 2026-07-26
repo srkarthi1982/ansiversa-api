@@ -164,7 +164,33 @@ class AstraConversationHealthSnapshot(BaseModel):
         return self
 
 
-class AstraConversationSession:
+class AstraConversationSnapshot(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    metadata: AstraConversationMetadata
+    current_turn: AstraCurrentTurnContext | None = None
+    short_context: tuple[AstraShortContextEntry, ...] = Field(default_factory=tuple, max_length=50)
+
+    @model_validator(mode="after")
+    def validate_snapshot(self):
+        assert_no_prohibited_contract_material(self.model_dump(mode="json"))
+        return self
+
+
+class _PreparedConversationMutation(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    metadata: AstraConversationMetadata
+    current_turn: AstraCurrentTurnContext | None = None
+    history: tuple[AstraShortContextEntry, ...] = Field(default_factory=tuple, max_length=50)
+
+    @model_validator(mode="after")
+    def validate_prepared_mutation(self):
+        assert_no_prohibited_contract_material(self.model_dump(mode="json"))
+        return self
+
+
+class _AstraConversationSession:
     def __init__(
         self,
         *,
@@ -193,24 +219,33 @@ class AstraConversationSession:
     def short_context(self) -> tuple[AstraShortContextEntry, ...]:
         return tuple(deepcopy(self._history))
 
-    def transition(
+    def snapshot(self) -> AstraConversationSnapshot:
+        return AstraConversationSnapshot(
+            metadata=self._metadata,
+            current_turn=deepcopy(self._current_turn),
+            short_context=tuple(deepcopy(self._history)),
+        )
+
+    def prepare_transition(
         self,
         next_state: AstraConversationLifecycleState,
         *,
         transitioned_at: datetime,
         summary_reference: str,
         entry_id: str,
-    ) -> AstraConversationMetadata:
+    ) -> _PreparedConversationMutation:
         if next_state not in ALLOWED_CONVERSATION_TRANSITIONS[self._metadata.lifecycle_state]:
             raise AstraConversationContextError("Conversation lifecycle transition is not authorized.")
-        self._metadata = AstraConversationMetadata(
+        if transitioned_at < self._metadata.last_activity_at:
+            raise AstraConversationContextError("Conversation lifecycle timestamps must be monotonic.")
+        metadata = AstraConversationMetadata(
             **{
                 **self._metadata.model_dump(),
                 "lifecycle_state": next_state,
                 "last_activity_at": transitioned_at,
             }
         )
-        self._append_history(
+        history = self._bounded_history_with(
             AstraShortContextEntry(
                 entry_id=entry_id,
                 recorded_at=transitioned_at,
@@ -219,46 +254,62 @@ class AstraConversationSession:
                 lifecycle_state=next_state,
             )
         )
-        return self._metadata
+        return _PreparedConversationMutation(
+            metadata=metadata,
+            current_turn=self._current_turn,
+            history=history,
+        )
 
-    def record_current_turn(
+    def prepare_current_turn(
         self,
         turn: AstraCurrentTurnContext,
         *,
         history_entry_id: str,
         summary_reference: str,
-    ) -> AstraConversationMetadata:
+    ) -> _PreparedConversationMutation:
         if self._metadata.lifecycle_state in {
             AstraConversationLifecycleState.CLOSING,
             AstraConversationLifecycleState.CLOSED,
             AstraConversationLifecycleState.FAULTED,
         }:
             raise AstraConversationContextError("Conversation cannot record turns after closing, closed, or faulted state.")
-        self._current_turn = turn
-        self._metadata = AstraConversationMetadata(
+        if turn.received_at < self._metadata.last_activity_at:
+            raise AstraConversationContextError("Conversation turn timestamps must be monotonic.")
+        metadata = AstraConversationMetadata(
             **{
                 **self._metadata.model_dump(),
                 "lifecycle_state": AstraConversationLifecycleState.ACTIVE,
                 "last_activity_at": turn.received_at,
             }
         )
-        self._append_history(
+        history = self._bounded_history_with(
             AstraShortContextEntry(
                 entry_id=history_entry_id,
                 recorded_at=turn.received_at,
                 history_kind=AstraConversationHistoryKind.TURN_RECORDED,
                 summary_reference=summary_reference,
-                lifecycle_state=self._metadata.lifecycle_state,
+                lifecycle_state=metadata.lifecycle_state,
                 turn_id=turn.turn_id,
             )
         )
-        return self._metadata
+        return _PreparedConversationMutation(
+            metadata=metadata,
+            current_turn=turn,
+            history=history,
+        )
 
-    def _append_history(self, entry: AstraShortContextEntry) -> None:
-        self._history.append(entry)
-        overflow = len(self._history) - self._short_context_limit
+    def commit(self, mutation: _PreparedConversationMutation) -> AstraConversationSnapshot:
+        self._metadata = mutation.metadata
+        self._current_turn = deepcopy(mutation.current_turn)
+        self._history = list(deepcopy(mutation.history))
+        return self.snapshot()
+
+    def _bounded_history_with(self, entry: AstraShortContextEntry) -> tuple[AstraShortContextEntry, ...]:
+        history = [*self._history, entry]
+        overflow = len(history) - self._short_context_limit
         if overflow > 0:
-            del self._history[:overflow]
+            del history[:overflow]
+        return tuple(history)
 
 
 class AstraConversationContextEngine:
@@ -269,7 +320,7 @@ class AstraConversationContextEngine:
         self._runtime = runtime
         self._short_context_limit = short_context_limit
         self._ownership_token = _ConversationOwnershipToken(runtime.identity.startup_instance_id)
-        self._conversations: dict[str, AstraConversationSession] = {}
+        self._conversations: dict[str, _AstraConversationSession] = {}
         self._operation_sequence = 0
 
     def create_conversation(
@@ -277,7 +328,7 @@ class AstraConversationContextEngine:
         *,
         conversation_id: str,
         created_at: datetime,
-    ) -> AstraConversationSession:
+    ) -> AstraConversationSnapshot:
         self._require_runtime_ready()
         if conversation_id in self._conversations:
             raise AstraConversationContextError("Conversation identifier already exists for this runtime.")
@@ -290,18 +341,18 @@ class AstraConversationContextEngine:
             implementation_reference=CONVERSATION_CONTEXT_IMPLEMENTATION_REFERENCE,
             lifecycle_state=AstraConversationLifecycleState.CREATED,
         )
-        session = AstraConversationSession(
+        session = _AstraConversationSession(
             metadata=metadata,
             short_context_limit=self._short_context_limit,
             ownership_token=self._ownership_token,
         )
-        self._conversations[conversation_id] = session
         self._emit_governance_evidence("CONV-CREATE", created_at)
-        return session
+        self._conversations[conversation_id] = session
+        return session.snapshot()
 
-    def get_conversation(self, conversation_id: str) -> AstraConversationSession:
+    def get_conversation(self, conversation_id: str) -> AstraConversationSnapshot:
         self._require_runtime_ready()
-        return self._conversation(conversation_id)
+        return self._conversation(conversation_id).snapshot()
 
     def transition_conversation(
         self,
@@ -313,14 +364,15 @@ class AstraConversationContextEngine:
         entry_id: str,
     ) -> AstraConversationMetadata:
         self._require_runtime_ready()
-        metadata = self._conversation(conversation_id).transition(
+        session = self._conversation(conversation_id)
+        mutation = session.prepare_transition(
             next_state,
             transitioned_at=transitioned_at,
             summary_reference=summary_reference,
             entry_id=entry_id,
         )
         self._emit_governance_evidence("CONV-STATE", transitioned_at)
-        return metadata
+        return session.commit(mutation).metadata
 
     def record_current_turn(
         self,
@@ -331,13 +383,14 @@ class AstraConversationContextEngine:
         summary_reference: str,
     ) -> AstraConversationMetadata:
         self._require_runtime_ready()
-        metadata = self._conversation(conversation_id).record_current_turn(
+        session = self._conversation(conversation_id)
+        mutation = session.prepare_current_turn(
             turn,
             history_entry_id=history_entry_id,
             summary_reference=summary_reference,
         )
         self._emit_governance_evidence("CONV-TURN", turn.received_at)
-        return metadata
+        return session.commit(mutation).metadata
 
     def health(self, *, observed_at: datetime | None = None) -> AstraConversationHealthSnapshot:
         observed = observed_at or _utc_now()
@@ -358,17 +411,17 @@ class AstraConversationContextEngine:
             observed_at=observed,
         )
 
-    def _conversation(self, conversation_id: str) -> AstraConversationSession:
+    def _conversation(self, conversation_id: str) -> _AstraConversationSession:
         try:
             return self._conversations[conversation_id]
         except KeyError as exc:
             raise AstraConversationContextError("Conversation identifier is not owned by this runtime.") from exc
 
     def _emit_governance_evidence(self, operation_prefix: str, timestamp: datetime) -> None:
-        self._operation_sequence += 1
+        operation_sequence = self._operation_sequence + 1
         result = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
-                evaluation_id=f"{operation_prefix}-{self._operation_sequence:03d}",
+                evaluation_id=f"{operation_prefix}-{operation_sequence:03d}",
                 requirement_references=(
                     ConstitutionalRequirementReference(
                         constitutional_source="ASTRA-003",
@@ -386,6 +439,7 @@ class AstraConversationContextEngine:
             )
         )
         self._runtime.append_evidence(result.evidence)
+        self._operation_sequence = operation_sequence
 
     def _require_runtime_ready(self) -> None:
         self._require_ready_runtime(self._runtime)

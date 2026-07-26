@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 Context Model
 
-**Status:** Implemented / Pending Astra Source Review
+**Status:** Implemented / Corrections Applied / Pending Astra Re-review
 **Production Authorization:** Not approved
 
 ---
@@ -16,6 +16,9 @@ Conversation metadata contains only:
 - conversation version;
 - implementation reference;
 - lifecycle state.
+
+Conversation reads return immutable snapshots. The public conversation object
+does not expose direct lifecycle or current-turn mutators.
 
 ---
 
@@ -47,4 +50,7 @@ Rules:
 - new entries append deterministically;
 - overflow evicts oldest entries first;
 - retrieval returns copy-safe immutable entries;
+- current-turn timestamps must be monotonic relative to conversation activity;
+- current-turn and short-context updates commit only after Runtime Core accepts
+  the corresponding governance evidence;
 - short context is not long-term memory.
