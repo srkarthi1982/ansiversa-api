@@ -1,6 +1,6 @@
 # Astra AI Safety, Audit And Constitutional Governance Architecture
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-010
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -12,12 +12,14 @@
 **Parent:** ASTRA-008 Memory Architecture
 **Parent:** ASTRA-009 Learning And Adaptation Architecture
 **Created:** 2026-07-26
+**Approved:** 2026-07-26
+**Frozen:** 2026-07-26
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -272,7 +274,7 @@ authority.
 The Astra Constitution is the accepted and frozen constitutional architecture
 set governing Astra AI behavior.
 
-At ASTRA-010 proposal time, the Constitution contains:
+At ASTRA-010 acceptance time, the Constitution contains:
 
 ```text
 ASTRA-001  Vision And Core Architecture
@@ -1115,13 +1117,13 @@ production behavior.
 
 # ADR
 
-The proposed ADR is:
+The accepted ADR is:
 
 ```text
 docs/architecture/decisions/astra-ai-safety-audit-constitutional-governance-architecture.md
 ```
 
-Decision proposed:
+Decision accepted:
 
 Adopt ASTRA-010 as the documentation-only architecture for the Astra
 Constitution, safety boundaries, governance validation, audit evidence,
@@ -1187,10 +1189,10 @@ Required validation outcomes:
 
 ---
 
-# Current Draft Status
+# Final ASTRA-010 Status
 
 ```text
-ASTRA-010                  Proposed
+ASTRA-010                  Approved / Frozen
 
 Parent                     ASTRA-001 Accepted
 Parent                     ASTRA-002 Accepted
@@ -1209,10 +1211,14 @@ Discovery                  Complete
 Specification              Complete
 
 Architecture Direction     Approved
-Architecture Review        Minor revisions applied; pending Astra re-review
-Product Owner Approval     Pending
-ADR                        Proposed
+Astra Re-review            Approved
+Product Owner Approval     Approved
+ADR                        Accepted
 
+Constitutional Architecture Complete
 Implementation             Not authorized
 Production                 Unchanged
+
+Next Phase                 Implementation-readiness planning only
+                           Requires separate authorization
 ```

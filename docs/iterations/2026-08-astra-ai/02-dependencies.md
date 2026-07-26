@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen; ASTRA-008 frozen; ASTRA-009 frozen; ASTRA-010 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen; ASTRA-008 frozen; ASTRA-009 frozen; ASTRA-010 frozen; constitutional architecture complete
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -24,7 +24,7 @@
 | ASTRA-007 | Accepted and Frozen | Provider architecture parent for future memory, learning, and governance architecture |
 | ASTRA-008 | Accepted and Frozen | Memory architecture parent for future learning and governance architecture |
 | ASTRA-009 | Accepted and Frozen | Learning and adaptation architecture parent for future safety, audit, and governance architecture |
-| ASTRA-010 | Proposed | Safety, audit, and constitutional governance architecture parent for future implementation readiness |
+| ASTRA-010 | Accepted and Frozen | Safety, audit, and constitutional governance architecture parent for future implementation-readiness planning |
 | External model providers | Not integrated by ASTRA-002 | Optional future capability, never the default path |
 
 ---
@@ -49,11 +49,11 @@
   required before implementing runtime learning, model training, fine-tuning,
   embeddings, vector databases, adaptation storage, adaptation controls, or
   personalization behavior;
-- ASTRA-010 is proposed, but separate Product Owner authorization is still
-  required before implementing runtime governance engines, policy engines,
-  audit storage, logging changes, constitutional conformance checks, emergency
-  restriction controls, implementation gates, production gates, or amendment
-  tooling;
+- ASTRA-010 is frozen, but separate Product Owner authorization is still
+  required before implementation-readiness planning or before implementing
+  runtime governance engines, policy engines, audit storage, logging changes,
+  constitutional conformance checks, emergency restriction controls,
+  implementation gates, production gates, or amendment tooling;
 - separate Product Owner authorization before implementing conversation or
   context behavior from ASTRA-003;
 - Product Owner authorization for a named implementation phase;

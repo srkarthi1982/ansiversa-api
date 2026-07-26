@@ -1,12 +1,12 @@
 # ASTRA-010 Architecture Review Package
 
-**Status:** Minor revisions applied; pending Astra re-review
+**Status:** Approved
 **Created:** 2026-07-26
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -24,7 +24,7 @@ docs/architecture/decisions/astra-ai-safety-audit-constitutional-governance-arch
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a documentation-only umbrella constitutional governance architecture that
 inherits ASTRA-001 through ASTRA-009 and defines how Astra's Constitution,
@@ -99,7 +99,7 @@ of commit `2af0a3b`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-010               Proposed
+ASTRA-010               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -114,11 +114,13 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+Constitutional Arch     Complete
 Implementation          Not authorized
 Production              Unchanged
+Next Phase              Implementation-readiness planning only; requires separate authorization
 ```
 
 Codex confirms ASTRA-010 makes no implementation changes and does not reopen
@@ -148,5 +150,10 @@ frozen:
 - add audit-evidence integrity, provenance, tamper protection, and
   non-destructive correction governance.
 
-The requested documentation refinements have been applied. Astra re-review,
-Product Owner approval, ADR acceptance, and freeze remain pending.
+Astra re-reviewed commit `ae1d447b` and approved ASTRA-010. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-010 is Frozen.
+
+The Astra AI Constitutional Architecture is complete across ASTRA-001 through
+ASTRA-010. Implementation remains unauthorized. Production remains unchanged.
+Implementation-readiness planning is the next phase and requires separate
+authorization.

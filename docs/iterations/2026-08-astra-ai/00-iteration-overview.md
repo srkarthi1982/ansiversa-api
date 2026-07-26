@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Frozen; ASTRA-010 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Frozen; ASTRA-010 Frozen; Constitutional Architecture Complete
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -220,23 +220,26 @@ changes remain unauthorized. ASTRA-010 Safety, Audit And Governance
 Architecture was authorized for documentation and architecture only on
 2026-07-26.
 
-ASTRA-010 Safety, Audit And Constitutional Governance Architecture is
-Proposed. Astra approved the architecture direction for commit `2af0a3b` and
-requested two targeted documentation refinements. ASTRA-010 inherits
-accepted/frozen ASTRA-001 through ASTRA-009 and
-defines the Astra Constitution model, constitutional authority and precedence,
-enforcement, safety boundaries, governance validation, audit evidence,
-explainability, violation handling, approval authority, architecture review
-lifecycle, implementation and production authorization gates, compliance and
-conformance, audit access/retention/export/deletion, emergency restrictions,
+ASTRA-010 Safety, Audit And Constitutional Governance Architecture is approved
+and Frozen. Astra approved the architecture direction for commit `2af0a3b`,
+requested two targeted documentation refinements, and approved the corrected
+source-level re-review for commit `ae1d447`. Product Owner approval is
+recorded. The ADR is accepted. ASTRA-010 inherits accepted/frozen ASTRA-001
+through ASTRA-009 and defines the Astra Constitution model, constitutional
+authority and precedence, enforcement, safety boundaries, governance
+validation, audit evidence, explainability, violation handling, approval
+authority, architecture review lifecycle, implementation and production
+authorization gates, compliance and conformance, audit
+access/retention/export/deletion, emergency restrictions,
 amendment/deprecation/supersession rules, cross-architecture conflict
 resolution, runtime governance principles, and future implementation notes.
-The current revision makes Product Owner authorization subordinate to binding
-legal, regulatory, security, and privacy constraints and the accepted
+The accepted architecture makes Product Owner authorization subordinate to
+binding legal, regulatory, security, and privacy constraints and the accepted
 Constitution, and adds audit-evidence integrity and non-destructive correction
-governance.
-Implementation and production changes remain unauthorized. Architecture review
-re-review and Product Owner approval remain pending.
+governance. The Astra AI Constitutional Architecture is complete across
+ASTRA-001 through ASTRA-010. Implementation and production changes remain
+unauthorized. Implementation-readiness planning is the next phase and requires
+separate authorization.
 
 ---
 

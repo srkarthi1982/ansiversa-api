@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 3 | Astra AI Architecture                    | ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen; ASTRA-008 frozen; ASTRA-009 frozen; ASTRA-010 proposed | Begins Jul 24 |
+| Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
 
@@ -85,37 +85,17 @@ discovery separate from execution authority. Implementation and production
 changes remain unauthorized. ASTRA-005 Execution Planning and Action Governance
 was authorized for documentation and architecture only on 2026-07-25.
 
-ASTRA-005 Execution Planning and Action Governance is approved and Frozen.
-Astra approved the architecture direction for commit `680f7218`, requested two
-targeted documentation refinements, and approved the corrected source-level
-re-review for commit `ffe6710`. Product Owner approval is recorded. The ADR is
-accepted. ASTRA-005 inherits ASTRA-001, ASTRA-002, ASTRA-003, and ASTRA-004 and
-defines how Astra creates deterministic, declarative, explainable, and
-reviewable execution plans from approved capabilities while remaining planner
-rather than executor. The accepted architecture binds approval and confirmation
-to exact plan version, step scope, material inputs, impact, and validity
-window, and defines stable execution-step identity, idempotency, duplicate
-detection, and uncertain-outcome handling. Implementation and production
-changes remain unauthorized. ASTRA-006 Tool Execution Architecture is approved
-and Frozen. Astra approved the architecture direction for commit `4cb6bef3`,
-requested two targeted documentation refinements, and approved the corrected
-source-level re-review for commit `0d01e3f8`. Product Owner approval is
-recorded. The ADR is accepted. ASTRA-006 inherits ASTRA-001 through ASTRA-005
-and defines how approved ASTRA-005 execution plans are handed to a future
-executor, validated, accepted or rejected, monitored, reconciled, and reported
-while preserving the boundary that Astra plans, the executor executes, and the
-owning service remains authoritative. The accepted architecture separates
-executor admission from owning-service acceptance and defines per-step
-authority with non-atomic behavior for multi-owner execution. Implementation
-and production changes remain unauthorized. ASTRA-007 External Intelligence And
-Provider Architecture is Proposed after documentation and architecture
-authorization. Astra approved the architecture direction for commit `ad3340e`
-and requested two targeted documentation refinements before freeze. The ADR is
-Proposed. ASTRA-007 inherits ASTRA-001 through ASTRA-006 and defines how Astra
-determines whether external intelligence is necessary, constructs governed
-provider input envelopes, selects eligible providers, validates provider
-responses, controls cost and privacy risk, records bounded evidence, and
-remains provider-independent. The current revision separates provider
-eligibility from provider selection and defines provider response authority so
-provider output remains advisory until validated by Astra and authoritative
-owners. Implementation and production changes remain unauthorized.
+ASTRA-005 Execution Planning and Action Governance through ASTRA-010 Safety,
+Audit and Constitutional Governance Architecture are approved and Frozen.
+Together, ASTRA-005 through ASTRA-010 define declarative planning, tool
+execution handoff, external intelligence and provider governance, memory,
+learning and adaptation, and the umbrella constitutional governance model. The
+accepted architecture separates planning from execution, executor admission
+from owning-service acceptance, provider eligibility from selection, memory
+existence from retrieval authorization, adaptation eligibility from activation,
+and implementation authorization from production authorization.
+
+ASTRA-010 completes the Astra AI Constitutional Architecture across ASTRA-001
+through ASTRA-010. Implementation-readiness planning is the next phase and
+requires separate Product Owner authorization. Implementation and production
+changes remain unauthorized.

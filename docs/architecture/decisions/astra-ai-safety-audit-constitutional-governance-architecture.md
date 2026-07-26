@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Safety, Audit And Constitutional Governance Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-26
+**Accepted:** 2026-07-26
+**Frozen:** 2026-07-26
 **Task:** ASTRA-010
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -16,8 +18,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -31,7 +33,7 @@ policy evaluation, audit storage, provider integration, memory, adaptation,
 execution, APIs, routes, databases, frontend controls, deployment changes, or
 production behavior?
 
-Decision proposed:
+Decision:
 
 Adopt ASTRA-010 as the documentation-only architecture for the Astra
 Constitution, constitutional authority, safety boundaries, governance
@@ -44,7 +46,7 @@ Owner authorization subordinate to binding legal, regulatory, security, and
 privacy constraints and the accepted Constitution, and adds audit-evidence
 integrity and non-destructive correction governance.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-safety-audit-constitutional-governance-architecture.md
@@ -178,10 +180,10 @@ deployment, and production behavior must satisfy.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-010 frozen.
+- [x] Astra architecture review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-010 frozen.
 - [x] Documentation authorization approved.
 - [x] Architecture authorization approved.
 - [x] Parent ASTRA-001 through ASTRA-009 inheritance recorded.
@@ -203,8 +205,8 @@ deployment, and production behavior must satisfy.
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-010               Proposed
+ADR                     Accepted
+ASTRA-010               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -219,8 +221,10 @@ Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
 Architecture Direction  Approved
-Architecture Review     Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+Constitutional Arch     Complete
+Next Phase              Implementation-readiness planning only; requires separate authorization
 ```
