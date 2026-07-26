@@ -63,9 +63,13 @@ Architecture is approved and Frozen after Astra re-review of commit `3db6222`
 and Product Owner approval. No implementation task should start from ASTRA-009
 unless a separate implementation scope is authorized. ASTRA-010 Safety, Audit
 And Constitutional Governance Architecture is Proposed after documentation and
-architecture authorization. The ADR is Proposed. ASTRA-010 inherits ASTRA-001
-through ASTRA-009 and defines the umbrella constitutional governance,
+architecture authorization. Astra approved the architecture direction for
+commit `2af0a3b` and requested two targeted documentation refinements. The ADR
+is Proposed. ASTRA-010 inherits ASTRA-001 through ASTRA-009 and defines the
+umbrella constitutional governance,
 precedence, safety, audit, evidence, explainability, violation, approval,
 implementation-gate, production-gate, conformance, emergency-restriction, and
-amendment model. No implementation task should start from ASTRA-010 unless a
-separate implementation scope is authorized.
+amendment model. The current revision bounds Product Owner authorization by
+binding constraints and the accepted Constitution, and adds audit-evidence
+integrity and correction governance. No implementation task should start from
+ASTRA-010 unless a separate implementation scope is authorized.

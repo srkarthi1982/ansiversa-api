@@ -221,7 +221,9 @@ Architecture was authorized for documentation and architecture only on
 2026-07-26.
 
 ASTRA-010 Safety, Audit And Constitutional Governance Architecture is
-Proposed. ASTRA-010 inherits accepted/frozen ASTRA-001 through ASTRA-009 and
+Proposed. Astra approved the architecture direction for commit `2af0a3b` and
+requested two targeted documentation refinements. ASTRA-010 inherits
+accepted/frozen ASTRA-001 through ASTRA-009 and
 defines the Astra Constitution model, constitutional authority and precedence,
 enforcement, safety boundaries, governance validation, audit evidence,
 explainability, violation handling, approval authority, architecture review
@@ -229,8 +231,12 @@ lifecycle, implementation and production authorization gates, compliance and
 conformance, audit access/retention/export/deletion, emergency restrictions,
 amendment/deprecation/supersession rules, cross-architecture conflict
 resolution, runtime governance principles, and future implementation notes.
+The current revision makes Product Owner authorization subordinate to binding
+legal, regulatory, security, and privacy constraints and the accepted
+Constitution, and adds audit-evidence integrity and non-destructive correction
+governance.
 Implementation and production changes remain unauthorized. Architecture review
-and Product Owner approval remain pending.
+re-review and Product Owner approval remain pending.
 
 ---
 
@@ -440,6 +446,8 @@ ASTRA-010 succeeds when:
 - ASTRA-001 through ASTRA-009 inheritance is explicit;
 - the Astra Constitution model is documented;
 - constitutional authority and precedence are documented;
+- Product Owner authorization is bounded by binding constraints and the
+  accepted Constitution;
 - lower-precedence inputs cannot override higher-precedence authority;
 - constitutional enforcement is documented;
 - safety boundaries are classified conservatively;
@@ -448,6 +456,8 @@ ASTRA-010 succeeds when:
 - parent-architecture gates are linked for context, capability, planning,
   execution, providers, memory, and adaptation;
 - audit evidence is bounded, reviewable, and privacy-minimized;
+- audit evidence integrity, provenance, tamper protection, and
+  non-destructive correction governance are documented;
 - secrets, raw private payloads, hidden reasoning, unrelated user data, tokens,
   and unsafe provider payloads are excluded from evidence;
 - explainability is defined without unsafe disclosure;

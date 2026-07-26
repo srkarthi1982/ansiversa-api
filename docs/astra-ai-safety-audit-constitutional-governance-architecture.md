@@ -14,7 +14,8 @@
 **Created:** 2026-07-26
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Scope:** Documentation, specification, and architecture review only
@@ -299,9 +300,19 @@ The Constitution is represented through:
 - traceable commits; and
 - future amendment records.
 
-Astra behavior is constitutionally valid only when it can be traced to an
-accepted constitutional rule, approved platform policy, owning-service rule, or
-explicit Product Owner authorization.
+Astra behavior is constitutionally valid only when it can be traced to binding
+legal, regulatory, privacy, and security constraints, an accepted
+constitutional rule, approved platform policy within the Constitution, or an
+owning-service rule.
+
+Explicit Product Owner authorization may approve a governed stage, scope,
+amendment, implementation, deployment, or production action only within the
+Product Owner's defined approval authority and only when the authorization
+remains compliant with binding constraints and the accepted Constitution.
+
+Product Owner authorization must not operate as an alternative to
+constitutional compliance and must not override binding legal, regulatory,
+security, privacy, ownership, or authorization rules.
 
 ---
 
@@ -313,16 +324,35 @@ resolve the conflict by constitutional precedence.
 
 Required precedence:
 
-1. Accepted Astra Constitution
-2. Product Owner-approved platform governance
-3. Authoritative security and legal policy
-4. Owning-service business and authorization rules
-5. Accepted architecture and ADR contracts
+1. Binding legal, regulatory, privacy, and security constraints
+2. Accepted Astra Constitution
+3. Product Owner-approved platform governance within the Constitution
+4. Owning-service business and authorization truth
+5. Accepted subordinate architecture and ADR contracts
 6. Approved runtime policy
 7. User intent and preference
 8. Provider output or inferred behavior
 
 Lower-precedence inputs must never override higher-precedence authority.
+
+## Authority Cannot Bypass Constitutional Or Binding Constraints
+
+Explicit Product Owner authorization is a governed approval authority. It is
+not a bypass mechanism.
+
+Product Owner authorization is valid only within:
+
+- applicable legal and regulatory obligations;
+- authoritative security and privacy constraints;
+- the accepted Astra Constitution; and
+- the Product Owner's defined approval authority.
+
+Product Owner authorization may approve a governed stage, scope, amendment,
+implementation, deployment, or production action.
+
+It must not operate as an alternative to constitutional compliance and must not
+override binding legal, regulatory, security, privacy, ownership, or
+authorization rules.
 
 If no deterministic resolution exists, Astra must:
 
@@ -482,6 +512,44 @@ Evidence must be sufficient for review and minimized for privacy.
 
 ---
 
+# Audit Evidence Integrity
+
+Governed audit evidence must be trustworthy without becoming an over-retention
+mechanism.
+
+Audit evidence must be:
+
+- attributable to an actor or service class;
+- timestamped through an authoritative time source;
+- linked to the relevant decision, request, plan, step, policy version,
+  constitutional rule, or approval gate;
+- integrity-protected or tamper-evident where required by safety class,
+  policy, compliance, or production readiness;
+- versioned when corrected;
+- traceable to its creation and authorized access history;
+- protected from silent mutation or backdating; and
+- retained or deleted only under approved policy.
+
+Corrections must not silently overwrite prior evidence.
+
+An evidence correction must preserve:
+
+- the original evidence or permitted integrity reference;
+- the correction reason;
+- the correcting authority;
+- the correction timestamp;
+- the replacement or amended value;
+- the applicable retention treatment; and
+- the applicable privacy treatment.
+
+Audit integrity does not justify retaining prohibited private content. Privacy
+minimization and lawful deletion obligations still apply.
+
+Audit evidence must be trustworthy. Trustworthiness does not authorize
+over-retention.
+
+---
+
 # Explainability Requirements
 
 Explainability is the user-facing or reviewer-facing account of a governed
@@ -637,7 +705,9 @@ run validation, commit, and push. Codex is not an approver.
 Astra validates architecture and review direction. Astra is not the Product
 Owner.
 
-Product Owner approval remains the final approval authority.
+Product Owner approval remains the final approval authority within binding
+legal, regulatory, security, privacy, ownership, authorization, and accepted
+constitutional constraints.
 
 ---
 
@@ -746,6 +816,8 @@ Compliance and conformance checks must verify:
 - safety classification;
 - evidence sufficiency;
 - evidence minimization;
+- evidence integrity and provenance;
+- correction versioning;
 - implementation scope;
 - production authorization;
 - runtime deviation handling;
@@ -1021,6 +1093,8 @@ Future implementation must define:
 - evidence schemas;
 - audit storage;
 - audit redaction;
+- audit evidence integrity;
+- audit correction governance;
 - retention classes;
 - explainability formats;
 - violation classification;
@@ -1088,7 +1162,10 @@ Required validation outcomes:
 - parent inheritance verified;
 - required sections present;
 - constitutional precedence documented;
+- Product Owner authorization bounded by binding constraints and the
+  Constitution;
 - architecture conflict-resolution rules documented;
+- audit-evidence integrity and correction governance documented;
 - implementation and production authorization separated;
 - no implementation leakage;
 - no runtime governance engine;
@@ -1131,7 +1208,8 @@ Architecture Auth          Approved
 Discovery                  Complete
 Specification              Complete
 
-Architecture Review        Pending Astra Review
+Architecture Direction     Approved
+Architecture Review        Minor revisions applied; pending Astra re-review
 Product Owner Approval     Pending
 ADR                        Proposed
 

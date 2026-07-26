@@ -15,7 +15,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -38,7 +39,10 @@ validation, audit evidence, explainability, violation detection, containment,
 approval authority, implementation gates, production gates, compliance,
 emergency restrictions, amendment governance, deprecation, supersession,
 cross-architecture conflict resolution, runtime governance principles, and
-post-ASTRA-010 constitutional lifecycle.
+post-ASTRA-010 constitutional lifecycle. The revised proposal makes Product
+Owner authorization subordinate to binding legal, regulatory, security, and
+privacy constraints and the accepted Constitution, and adds audit-evidence
+integrity and non-destructive correction governance.
 
 Canonical proposed specification:
 
@@ -151,9 +155,13 @@ deployment, and production behavior must satisfy.
 
 - ASTRA-001 through ASTRA-009 become the inherited constitutional baseline.
 - Constitutional precedence becomes explicit.
+- Product Owner authorization is bounded by binding constraints and the
+  accepted Constitution.
 - Governance validation becomes a required precondition for high-impact
   behavior.
 - Audit evidence is required but bounded by privacy and minimization.
+- Audit evidence must be attributable, timestamped, provenance-preserving,
+  tamper-evident where required, and corrected without silent overwrite.
 - Explainability is separated from disclosure of secrets, private payloads,
   and hidden reasoning.
 - Constitutional violations become governed outcomes.
@@ -179,8 +187,11 @@ deployment, and production behavior must satisfy.
 - [x] Parent ASTRA-001 through ASTRA-009 inheritance recorded.
 - [x] Constitution model documented.
 - [x] Constitutional precedence documented.
+- [x] Product Owner authorization bounded by binding constraints and the
+  accepted Constitution.
 - [x] Governance validation pipeline documented.
 - [x] Audit and evidence model documented.
+- [x] Audit-evidence integrity and correction governance documented.
 - [x] Explainability requirements documented.
 - [x] Violation model documented.
 - [x] Implementation authorization separated from production authorization.
@@ -207,7 +218,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

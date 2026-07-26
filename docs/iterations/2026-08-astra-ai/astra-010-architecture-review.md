@@ -1,10 +1,11 @@
 # ASTRA-010 Architecture Review Package
 
-**Status:** Pending Astra Review
+**Status:** Minor revisions applied; pending Astra re-review
 **Created:** 2026-07-26
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -32,6 +33,15 @@ violation handling, approval authority, implementation gates, production
 gates, conformance, emergency restrictions, amendments, deprecation,
 supersession, and future governance lifecycle operate before implementation.
 
+This revision applies Astra's required refinements after source-level review
+of commit `2af0a3b`:
+
+- Product Owner authorization is explicitly subordinate to binding legal,
+  regulatory, security, and privacy constraints and the accepted
+  Constitution; and
+- audit evidence integrity, provenance, tamper protection, and
+  non-destructive correction governance are documented.
+
 ---
 
 # Review Questions
@@ -41,35 +51,44 @@ supersession, and future governance lifecycle operate before implementation.
 3. Is constitutional authority separated from runtime behavior, providers,
    prompts, tools, memory, adaptation, plans, executors, and app workflows?
 4. Is constitutional precedence documented?
-5. Do lower-precedence inputs fail to override higher-precedence authority?
-6. Is governance validation required before high-impact behavior?
-7. Are planning, provider use, memory, adaptation, delegation, and execution
+5. Are binding legal, regulatory, privacy, and security constraints first in
+   precedence?
+6. Is Product Owner authorization bounded by the accepted Constitution and
+   binding constraints rather than operating as a bypass?
+7. Do lower-precedence inputs fail to override higher-precedence authority?
+8. Is governance validation required before high-impact behavior?
+9. Are planning, provider use, memory, adaptation, delegation, and execution
    gates linked to their parent architectures?
-8. Are safety boundaries represented conservatively?
-9. Is unknown safety or constitutional compliance fail-closed?
-10. Is audit evidence sufficient for review but minimized for privacy?
-11. Are secrets, raw private payloads, hidden reasoning, unrelated user data,
+10. Are safety boundaries represented conservatively?
+11. Is unknown safety or constitutional compliance fail-closed?
+12. Is audit evidence sufficient for review but minimized for privacy?
+13. Is audit evidence attributable, timestamped, provenance-preserving,
+    tamper-evident where required, and protected from silent mutation or
+    backdating?
+14. Do corrections preserve original evidence or permitted integrity
+    references rather than silently overwriting prior evidence?
+15. Are secrets, raw private payloads, hidden reasoning, unrelated user data,
     tokens, and sensitive provider payloads excluded from evidence?
-12. Are explainability requirements defined without requiring unsafe
+16. Are explainability requirements defined without requiring unsafe
     disclosure?
-13. Is the constitutional violation model explicit?
-14. Are violation detection and classification documented?
-15. Are containment, refusal, recovery, and fail-closed outcomes governed?
-16. Is approval authority separated by architecture, ADR, implementation,
+17. Is the constitutional violation model explicit?
+18. Are violation detection and classification documented?
+19. Are containment, refusal, recovery, and fail-closed outcomes governed?
+20. Is approval authority separated by architecture, ADR, implementation,
     deployment, production, amendment, and emergency restriction decisions?
-17. Is implementation authorization separated from production authorization?
-18. Are production authorization gates explicit?
-19. Are compliance and conformance checks documented?
-20. Are audit access, retention, export, and deletion governed?
-21. Are emergency restrictions allowed to reduce capability without silently
+21. Is implementation authorization separated from production authorization?
+22. Are production authorization gates explicit?
+23. Are compliance and conformance checks documented?
+24. Are audit access, retention, export, and deletion governed?
+25. Are emergency restrictions allowed to reduce capability without silently
     expanding authority?
-22. Is the constitutional amendment process explicit, reviewed, approved,
+26. Is the constitutional amendment process explicit, reviewed, approved,
     versioned, and frozen?
-23. Are deprecation and supersession rules explicit?
-24. Are cross-architecture conflicts resolved deterministically or failed
+27. Are deprecation and supersession rules explicit?
+28. Are cross-architecture conflicts resolved deterministically or failed
     closed?
-25. Does ASTRA-010 remain provider-independent and implementation-independent?
-26. Does ASTRA-010 avoid authorizing runtime governance engines, policy
+29. Does ASTRA-010 remain provider-independent and implementation-independent?
+30. Does ASTRA-010 avoid authorizing runtime governance engines, policy
     engines, audit storage, logging changes, providers, prompts, model
     invocation, APIs, routes, Tool Executor changes, app integration,
     databases, migrations, frontend changes, tests, deployment, generated
@@ -94,7 +113,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -119,4 +139,14 @@ behavior.
 
 # Astra Review Outcome
 
-Pending.
+Astra reviewed commit `2af0a3b` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-010 can be
+frozen:
+
+- make Product Owner authorization explicitly subordinate to binding legal,
+  security, privacy, and constitutional constraints; and
+- add audit-evidence integrity, provenance, tamper protection, and
+  non-destructive correction governance.
+
+The requested documentation refinements have been applied. Astra re-review,
+Product Owner approval, ADR acceptance, and freeze remain pending.

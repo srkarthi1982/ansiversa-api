@@ -13,7 +13,8 @@
 **Parent:** ASTRA-008 Memory Architecture
 **Parent:** ASTRA-009 Learning And Adaptation Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -41,6 +42,14 @@ and production-governance model across ASTRA-001 through ASTRA-009.
 - updates to the Astra AI iteration overview, backlog, dependencies, risks,
   validation strategy, iteration index, and task log.
 
+Astra source-level review of commit `2af0a3b` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- make Product Owner authorization explicitly subordinate to binding legal,
+  security, privacy, and constitutional constraints; and
+- add audit-evidence integrity, provenance, tamper protection, and
+  non-destructive correction governance.
+
 ---
 
 # Scope
@@ -55,6 +64,7 @@ Allowed:
 - safety boundary model;
 - governance validation pipeline;
 - audit and evidence model;
+- audit evidence integrity;
 - explainability requirements;
 - constitutional violation model;
 - violation detection and classification;
@@ -114,27 +124,28 @@ Not allowed:
 7. Safety Boundary Model
 8. Governance Validation Pipeline
 9. Audit And Evidence Model
-10. Explainability Requirements
-11. Constitutional Violation Model
-12. Violation Detection And Classification
-13. Containment, Refusal And Recovery
-14. Approval Authority Model
-15. Architecture Review Lifecycle
-16. Implementation Authorization Gates
-17. Production Authorization Gates
-18. Compliance And Conformance Model
-19. Audit Access, Retention, Export And Deletion
-20. Emergency Restriction And Safety Shutdown
-21. Constitutional Amendment Process
-22. Deprecation And Supersession Rules
-23. Cross-Architecture Conflict Resolution
-24. Runtime Governance Principles
-25. Failure Behaviour
-26. Security And Privacy Considerations
-27. Future Implementation Notes
-28. ADR
-29. Risks
-30. Validation Strategy
+10. Audit Evidence Integrity
+11. Explainability Requirements
+12. Constitutional Violation Model
+13. Violation Detection And Classification
+14. Containment, Refusal And Recovery
+15. Approval Authority Model
+16. Architecture Review Lifecycle
+17. Implementation Authorization Gates
+18. Production Authorization Gates
+19. Compliance And Conformance Model
+20. Audit Access, Retention, Export And Deletion
+21. Emergency Restriction And Safety Shutdown
+22. Constitutional Amendment Process
+23. Deprecation And Supersession Rules
+24. Cross-Architecture Conflict Resolution
+25. Runtime Governance Principles
+26. Failure Behaviour
+27. Security And Privacy Considerations
+28. Future Implementation Notes
+29. ADR
+30. Risks
+31. Validation Strategy
 
 ---
 
@@ -198,7 +209,8 @@ Documentation Auth      Approved
 Architecture Auth       Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Direction  Approved
+Architecture Review     Minor revisions applied; pending Astra re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

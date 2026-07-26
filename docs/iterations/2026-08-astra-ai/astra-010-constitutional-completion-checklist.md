@@ -1,6 +1,6 @@
 # ASTRA-010 Constitutional Architecture Completion Checklist
 
-**Status:** Draft
+**Status:** Minor revisions applied; pending Astra re-review
 **Created:** 2026-07-26
 **Task:** ASTRA-010
 **Implementation:** Not authorized
@@ -39,6 +39,11 @@ deployment, production configuration, or production behavior.
 - [x] ASTRA-010 completion checklist created.
 - [x] ASTRA-010 implementation-readiness outline created and marked not
   authorized.
+- [x] ASTRA-010 architecture direction approved.
+- [x] Product Owner authorization bounded by binding constraints and the
+  accepted Constitution.
+- [x] Audit-evidence integrity and non-destructive correction governance
+  documented.
 - [ ] ASTRA-010 Astra architecture review approved.
 - [ ] ASTRA-010 Product Owner approval recorded.
 - [ ] ASTRA-010 ADR accepted.
@@ -50,7 +55,8 @@ deployment, production configuration, or production behavior.
 
 ```text
 ASTRA-010                  Proposed
-Architecture Review        Pending Astra Review
+Architecture Direction     Approved
+Architecture Review        Minor revisions applied; pending Astra re-review
 Product Owner Approval     Pending
 ADR                        Proposed
 

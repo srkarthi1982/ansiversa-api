@@ -241,6 +241,8 @@ ASTRA-010 coverage:
 - ASTRA-001 through ASTRA-009 inheritance is explicit;
 - the Astra Constitution model is documented;
 - constitutional authority and precedence are documented;
+- Product Owner authorization is bounded by binding legal, regulatory,
+  security, privacy, ownership, authorization, and constitutional constraints;
 - lower-precedence inputs cannot override higher-precedence authority;
 - constitutional enforcement is documented;
 - safety boundaries are classified conservatively;
@@ -249,6 +251,8 @@ ASTRA-010 coverage:
 - parent-architecture gates are linked for context, capability, planning,
   execution, providers, memory, and adaptation;
 - audit evidence is bounded, reviewable, and privacy-minimized;
+- audit evidence integrity, provenance, tamper protection, and
+  non-destructive correction governance are documented;
 - secrets, raw private payloads, hidden reasoning, unrelated user data, tokens,
   and unsafe provider payloads are excluded from evidence;
 - explainability requirements are documented without unsafe disclosure;

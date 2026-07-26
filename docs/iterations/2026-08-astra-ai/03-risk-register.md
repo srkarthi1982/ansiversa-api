@@ -85,6 +85,8 @@
 | ASTRA-R79 | Safety restriction silently grants new authority | Critical | ASTRA-010 states safety controls may restrict capability but must never silently expand authority | Open |
 | ASTRA-R80 | Frozen constitutional rules are silently rewritten | Critical | ASTRA-010 requires amendment proposal, review, Product Owner approval, ADR acceptance, versioning, and freeze | Open |
 | ASTRA-R81 | Cross-architecture conflicts resolve implicitly | High | ASTRA-010 requires constitutional precedence, specific-rule precedence, stricter safety outcome, clarification, or fail-closed behavior | Open |
+| ASTRA-R82 | Ad hoc approval is interpreted as bypassing binding constraints | Critical | ASTRA-010 states Product Owner authorization is valid only within binding legal, regulatory, security, privacy, ownership, authorization, and constitutional constraints | Open |
+| ASTRA-R83 | Audit corrections overwrite original evidence | High | ASTRA-010 requires non-destructive correction governance with original evidence or permitted integrity reference, correction reason, authority, timestamp, amended value, and retention/privacy treatment | Open |
 
 ---
 
@@ -151,6 +153,10 @@
 - safety controls that silently expand authority;
 - frozen constitutional rules rewritten without amendment governance;
 - cross-architecture conflicts resolved by hidden merge behavior;
+- ad hoc approval used as an alternative to constitutional compliance or
+  binding legal/security/privacy constraints;
+- audit evidence silently modified, backdated, replaced, or corrected by
+  overwrite;
 - opaque or low-confidence adaptation used for high-impact decisions;
 - provider output treated as learned behavior by default;
 - cross-app adaptation that centralizes app data;
