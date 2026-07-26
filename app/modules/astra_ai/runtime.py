@@ -3,11 +3,19 @@ from __future__ import annotations
 from copy import deepcopy
 from datetime import datetime, timezone
 from enum import StrEnum
+from typing import Any
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
+from app.modules.astra_ai.capability_discovery import (
+    AstraCapabilityDiscoveryEngine,
+    AstraCapabilityDiscoveryResult,
+    AstraCapabilityHealthSnapshot,
+    AstraCapabilityMetadata,
+    AstraCapabilityVisibility,
+)
 from app.modules.astra_ai.constitutional_contracts import (
     AuditEvidenceBehavior,
     BoundedEvidence,
@@ -64,12 +72,14 @@ class AstraRuntimeComponentIdentifier(StrEnum):
     CONFIGURATION = "configuration"
     GOVERNANCE = "governance"
     EVIDENCE_SINK = "evidence_sink"
+    CAPABILITY_DISCOVERY = "capability_discovery"
 
 
 AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
     AstraRuntimeComponentIdentifier.CONFIGURATION,
     AstraRuntimeComponentIdentifier.GOVERNANCE,
     AstraRuntimeComponentIdentifier.EVIDENCE_SINK,
+    AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
 )
 
 ALLOWED_RUNTIME_TRANSITIONS = {
@@ -140,7 +150,7 @@ class AstraRuntimeComponentRegistration(BaseModel):
     component_identifier: AstraRuntimeComponentIdentifier
     component_type: str = Field(min_length=4, max_length=80)
     registered_at: datetime
-    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-00[1-5]$")
+    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-00[1-7]$")
     certified_parent_reference: str = Field(min_length=8, max_length=80)
 
     @model_validator(mode="after")
@@ -159,6 +169,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     configuration_valid: bool
     governance_available: bool
     evidence_sink_available: bool
+    capability_discovery_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
     environment_scope: EnvironmentScope | None = None
@@ -240,6 +251,43 @@ class AstraRuntimeEvidenceInterface:
         return self._runtime.evidence_count()
 
 
+class AstraRuntimeCapabilityDiscoveryInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def discover(
+        self,
+        *,
+        visibility: AstraCapabilityVisibility | None = None,
+        include_disabled: bool = False,
+        include_deprecated: bool = False,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityDiscoveryResult:
+        return self._runtime.discover_capabilities(
+            visibility=visibility,
+            include_disabled=include_disabled,
+            include_deprecated=include_deprecated,
+            discovered_at=discovered_at,
+        )
+
+    def get(self, capability_id: str, *, discovered_at: datetime | None = None) -> AstraCapabilityMetadata:
+        return self._runtime.get_capability(capability_id, discovered_at=discovered_at)
+
+    def discover_for_conversation(
+        self,
+        *,
+        conversation_snapshot: Any,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityDiscoveryResult:
+        return self._runtime.discover_capabilities_for_conversation(
+            conversation_snapshot=conversation_snapshot,
+            discovered_at=discovered_at,
+        )
+
+    def health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
+        return self._runtime.capability_discovery_health(observed_at=observed_at)
+
+
 class AstraRuntime:
     """Minimal internal owner for certified Astra foundations.
 
@@ -272,11 +320,13 @@ class AstraRuntime:
         self._configuration: LoadedAstraConfiguration | None = None
         self._governance = None
         self._evidence_sink: InMemoryEvidenceSink | None = None
+        self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
         self._registry = _ComponentRegistry()
         self._fault: AstraRuntimeFault | None = None
         self._startup_metadata: AstraRuntimeStartupMetadata | None = None
         self._governance_interface = AstraRuntimeGovernanceInterface(self)
         self._evidence_interface = AstraRuntimeEvidenceInterface(self)
+        self._capability_discovery_interface = AstraRuntimeCapabilityDiscoveryInterface(self)
 
     @property
     def identity(self) -> AstraRuntimeIdentity:
@@ -307,6 +357,10 @@ class AstraRuntime:
     def evidence_sink(self) -> AstraRuntimeEvidenceInterface:
         return self._evidence_interface
 
+    @property
+    def capability_discovery(self) -> AstraRuntimeCapabilityDiscoveryInterface:
+        return self._capability_discovery_interface
+
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
         return self._governance(input_contract)
@@ -322,6 +376,42 @@ class AstraRuntime:
     def evidence_count(self) -> int:
         self._require_ready_component(self._evidence_sink, "evidence sink")
         return self._evidence_sink.count()
+
+    def discover_capabilities(
+        self,
+        *,
+        visibility: AstraCapabilityVisibility | None = None,
+        include_disabled: bool = False,
+        include_deprecated: bool = False,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityDiscoveryResult:
+        self._require_ready_component(self._capability_discovery, "capability discovery")
+        return self._capability_discovery.discover_capabilities(
+            visibility=visibility,
+            include_disabled=include_disabled,
+            include_deprecated=include_deprecated,
+            discovered_at=discovered_at,
+        )
+
+    def get_capability(self, capability_id: str, *, discovered_at: datetime | None = None) -> AstraCapabilityMetadata:
+        self._require_ready_component(self._capability_discovery, "capability discovery")
+        return self._capability_discovery.get_capability(capability_id, discovered_at=discovered_at)
+
+    def discover_capabilities_for_conversation(
+        self,
+        *,
+        conversation_snapshot: Any,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityDiscoveryResult:
+        self._require_ready_component(self._capability_discovery, "capability discovery")
+        return self._capability_discovery.discover_for_conversation(
+            conversation_snapshot=conversation_snapshot,
+            discovered_at=discovered_at,
+        )
+
+    def capability_discovery_health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
+        self._require_ready_component(self._capability_discovery, "capability discovery")
+        return self._capability_discovery.health(observed_at=observed_at)
 
     def startup(self) -> AstraRuntimeHealthSnapshot:
         if self._state is not AstraRuntimeState.UNINITIALIZED:
@@ -355,11 +445,20 @@ class AstraRuntime:
                 certified_parent_reference="ASTRA-IMP-004 Certified / Approved",
                 registered_at=startup_timestamp,
             )
+            capability_discovery = self._create_capability_discovery_engine()
+            registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
+                component_type="AstraCapabilityDiscoveryEngine",
+                implementation_reference="ASTRA-IMP-007",
+                certified_parent_reference="ASTRA-IMP-007 Implemented / Pending Certification",
+                registered_at=startup_timestamp,
+            )
             registry.seal()
 
             self._configuration = loaded_configuration
             self._governance = evaluate_governance
             self._evidence_sink = evidence_sink
+            self._capability_discovery = capability_discovery
             self._registry = registry
             self._startup_metadata = self._startup_metadata_from_configuration(loaded_configuration)
             self._fault = None
@@ -406,11 +505,13 @@ class AstraRuntime:
         configuration_valid = configuration_loaded and self._is_configuration_valid(self._configuration)
         governance_available = self._governance is not None
         evidence_sink_available = self._evidence_sink is not None
+        capability_discovery_available = self._capability_discovery is not None
         identifiers = self._registry.identifiers
         outcome = self._health_outcome(
             configuration_valid=configuration_valid,
             governance_available=governance_available,
             evidence_sink_available=evidence_sink_available,
+            capability_discovery_available=capability_discovery_available,
             identifiers=identifiers,
         )
         return AstraRuntimeHealthSnapshot(
@@ -420,6 +521,7 @@ class AstraRuntime:
             configuration_valid=configuration_valid,
             governance_available=governance_available,
             evidence_sink_available=evidence_sink_available,
+            capability_discovery_available=capability_discovery_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
@@ -440,6 +542,9 @@ class AstraRuntime:
             loaded_configuration=loaded_configuration,
         )
 
+    def _create_capability_discovery_engine(self) -> AstraCapabilityDiscoveryEngine:
+        return AstraCapabilityDiscoveryEngine(runtime=self)
+
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
         if next_state not in ALLOWED_RUNTIME_TRANSITIONS[self._state]:
             raise AstraRuntimeError("Runtime lifecycle transition is not authorized.")
@@ -449,6 +554,7 @@ class AstraRuntime:
         self._configuration = None
         self._governance = None
         self._evidence_sink = None
+        self._capability_discovery = None
         self._registry = _ComponentRegistry()
         self._startup_metadata = None
 
@@ -496,6 +602,7 @@ class AstraRuntime:
         configuration_valid: bool,
         governance_available: bool,
         evidence_sink_available: bool,
+        capability_discovery_available: bool,
         identifiers: tuple[AstraRuntimeComponentIdentifier, ...],
     ) -> AstraRuntimeHealthOutcome:
         if self._state is AstraRuntimeState.FAULTED:
@@ -509,6 +616,7 @@ class AstraRuntime:
             and configuration_valid
             and governance_available
             and evidence_sink_available
+            and capability_discovery_available
             and identifiers == AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS
         ):
             return AstraRuntimeHealthOutcome.HEALTHY

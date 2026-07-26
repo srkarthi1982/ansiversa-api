@@ -102,11 +102,12 @@ class AstraRuntimeCoreTests(unittest.TestCase):
                 AstraRuntimeComponentIdentifier.CONFIGURATION,
                 AstraRuntimeComponentIdentifier.GOVERNANCE,
                 AstraRuntimeComponentIdentifier.EVIDENCE_SINK,
+                AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
             ),
         )
         self.assertEqual(
             tuple(registration.implementation_reference for registration in runtime.component_registrations),
-            ("ASTRA-IMP-002", "ASTRA-IMP-003", "ASTRA-IMP-004"),
+            ("ASTRA-IMP-002", "ASTRA-IMP-003", "ASTRA-IMP-004", "ASTRA-IMP-007"),
         )
 
     def test_governance_component_decides_but_disabled_configuration_does_not_allow(self):
@@ -215,6 +216,7 @@ class AstraRuntimeCoreTests(unittest.TestCase):
         self.assertFalse(health.configuration_loaded)
         self.assertFalse(health.governance_available)
         self.assertFalse(health.evidence_sink_available)
+        self.assertFalse(health.capability_discovery_available)
         self.assertIsNone(health.startup_metadata)
         self.assertIsNone(health.environment_scope)
         self.assertIsNone(health.production_authorization_state)
@@ -233,6 +235,7 @@ class AstraRuntimeCoreTests(unittest.TestCase):
         self.assertFalse(health.configuration_loaded)
         self.assertFalse(health.governance_available)
         self.assertFalse(health.evidence_sink_available)
+        self.assertFalse(health.capability_discovery_available)
 
     def test_repeated_startup_and_restart_are_rejected(self):
         runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
@@ -254,6 +257,7 @@ class AstraRuntimeCoreTests(unittest.TestCase):
         self.assertEqual(runtime.state, AstraRuntimeState.STOPPED)
         self.assertEqual(health.health_outcome, AstraRuntimeHealthOutcome.STOPPED)
         self.assertFalse(health.configuration_loaded)
+        self.assertFalse(health.capability_discovery_available)
         self.assertEqual(runtime.registered_component_identifiers, ())
         self.assertIsNone(health.startup_metadata)
 
@@ -345,6 +349,12 @@ class AstraRuntimeCoreTests(unittest.TestCase):
         self.assertEqual(degraded.health_outcome, AstraRuntimeHealthOutcome.DEGRADED)
         self.assertFalse(degraded.evidence_sink_available)
 
+        runtime._evidence_sink = object()
+        runtime._capability_discovery = None
+        degraded = runtime.health(observed_at=TIMESTAMP)
+        self.assertEqual(degraded.health_outcome, AstraRuntimeHealthOutcome.DEGRADED)
+        self.assertFalse(degraded.capability_discovery_available)
+
     def test_handles_obtained_before_shutdown_cannot_operate_after_shutdown(self):
         runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
         runtime.startup()
@@ -362,6 +372,8 @@ class AstraRuntimeCoreTests(unittest.TestCase):
             evidence.retrieve()
         with self.assertRaises(AstraRuntimeError):
             evidence.count()
+        with self.assertRaises(AstraRuntimeError):
+            runtime.capability_discovery.health(observed_at=TIMESTAMP)
 
     def test_shutdown_prevents_all_later_component_operations(self):
         runtime = AstraRuntime(created_at=TIMESTAMP, startup_instance_id=INSTANCE_ID)
@@ -374,6 +386,8 @@ class AstraRuntimeCoreTests(unittest.TestCase):
             runtime.evidence_count()
         with self.assertRaises(AstraRuntimeError):
             runtime.retrieve_evidence()
+        with self.assertRaises(AstraRuntimeError):
+            runtime.capability_discovery.health(observed_at=TIMESTAMP)
 
     def test_multiple_runtimes_have_isolated_evidence_sinks(self):
         first = AstraRuntime(created_at=TIMESTAMP, startup_instance_id="astra_rt_" + "b" * 32)

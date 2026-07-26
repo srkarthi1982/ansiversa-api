@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-006 Certified / Approved
+**Status:** ASTRA-IMP-007 Implemented / Pending Astra Source Review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -206,3 +206,34 @@ frontend work, deployment, production configuration, production authorization,
 or production behavior. Astra re-review approved commit `e6e51af3`, Product
 Owner approval is recorded, certification passed, and ASTRA-IMP-006 is closed.
 ASTRA-IMP-007 requires separate authorization.
+
+---
+
+# ASTRA-IMP-007
+
+```text
+ASTRA-IMP-007               Implemented
+Implementation Scope        Capability Discovery Engine
+Implementation Direction    Pending Astra Source Review
+Constitutional Conformance  Pending
+Product Owner Approval      Pending
+Certification               Pending
+
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-IMP-008               Not authorized
+Requires separate authorization
+```
+
+ASTRA-IMP-007 implements the provider-independent Capability Discovery Engine.
+It adds immutable capability metadata, a sealed internal registry, deterministic
+discovery, duplicate and unknown capability rejection, Runtime-owned component
+registration, governance evidence emission through Runtime Core, structural
+capability health, and conversation-scoped informational discovery.
+
+Discovery remains separate from planning, execution, provider interaction,
+memory, and learning. The implementation does not add providers, prompts,
+model invocation, Tool Executor behavior, APIs, routes, databases, migrations,
+frontend work, deployment, production configuration, production authorization,
+or production behavior. ASTRA-IMP-008 requires separate authorization.
