@@ -35,7 +35,7 @@ anything.
 - deterministic capacity enforcement;
 - deterministic insertion-order retrieval;
 - copy-safe immutable retrieval snapshots;
-- correction-chain preservation;
+- append-only correction-chain validation and preservation;
 - focused tests;
 - implementation review package;
 - Constitution-to-code mapping;

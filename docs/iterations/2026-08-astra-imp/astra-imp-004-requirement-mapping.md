@@ -12,9 +12,9 @@
 | Constitutional source | Requirement area | Code support | Evidence/test support |
 |---|---|---|---|
 | ASTRA-003 | Context minimization boundaries | sink accepts only certified `BoundedEvidence` and no raw context payloads | `test_secret_bearing_evidence_input_is_rejected`; `test_malformed_evidence_is_rejected` |
-| ASTRA-010 | Evidence integrity | evidence is revalidated before storage, duplicate IDs fail, insertion order is deterministic | `test_append_success_returns_copy_and_tracks_count`; `test_duplicate_evidence_identifier_is_rejected`; `test_retrieval_preserves_deterministic_insertion_order` |
+| ASTRA-010 | Evidence integrity | evidence is revalidated before storage, duplicate IDs fail, insertion order is deterministic, and no public clear/reset surface exists | `test_append_success_returns_copy_and_tracks_count`; `test_duplicate_evidence_identifier_is_rejected`; `test_retrieval_preserves_deterministic_insertion_order`; `test_production_facing_sink_exposes_no_public_clear_or_reset` |
 | ASTRA-010 | Audit minimization | sink stores only metadata-only bounded evidence in memory and does not call audit storage | `test_no_persistent_audit_database_or_route_side_effects` |
-| ASTRA-010 | Non-destructive correction | correction metadata is preserved through append and retrieval | `test_correction_chain_is_preserved` |
+| ASTRA-010 | Non-destructive correction | correction links require an existing predecessor, reject self-reference and cycles, preserve original evidence, and remain append-only | `test_valid_correction_after_original_evidence_succeeds`; `test_orphan_correction_fails`; `test_self_superseding_correction_fails`; `test_cyclic_correction_fails`; `test_original_evidence_remains_unchanged_after_correction`; `test_retrieval_contains_original_followed_by_correction`; `test_capacity_failure_does_not_partially_add_correction_link` |
 | ASTRA-010 | No silent mutation or backdating | retrieval returns copy-safe snapshots rather than mutable internal records | `test_retrieval_is_immutable_copy_safe` |
 | ASTRA-IR-001 | Stage 3 Minimal Evidence Sink | `InMemoryEvidenceSink` receives bounded evidence without authority | `tests/test_astra_evidence_sink.py` |
 | ASTRA-IMP-001 | Certified evidence contracts | sink accepts only `BoundedEvidence` and revalidates through the contract | `test_malformed_evidence_is_rejected` |

@@ -183,7 +183,8 @@ ASTRA-IR-001 readiness plan, and certified/approved ASTRA-IMP-001 through
 ASTRA-IMP-003 foundations. The implementation adds a bounded in-memory receiver
 under `app/modules/astra_ai/evidence_sink.py` for certified `BoundedEvidence`,
 with duplicate rejection, deterministic capacity failure, insertion-order
-retrieval, copy-safe snapshots, and correction-chain preservation. The sink
+retrieval, copy-safe snapshots, no public clear/reset surface, and append-only
+correction-chain validation. The sink
 receives evidence only. It does not decide, authorize, persist, write audit
 storage, access databases, expose APIs or routes, call providers, execute
 tools, plan, use memory, learn, deploy, or change production. Implementation

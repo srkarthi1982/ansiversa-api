@@ -57,13 +57,19 @@ def governance_evidence(evaluation_id="GOV-EVAL-001"):
     return evaluate_governance(governance_input(evaluation_id)).evidence
 
 
-def correction_evidence():
+def correction_evidence(
+    *,
+    evidence_id="evd_correction_0001",
+    supersedes_evidence_id: str | None = None,
+    operation_reference="GOV-EVAL-002",
+):
+    superseded_id = supersedes_evidence_id or governance_evidence("GOV-EVAL-002").evidence_id
     return BoundedEvidence(
-        evidence_id="evd_correction_0001",
+        evidence_id=evidence_id,
         evidence_type=EvidenceType.AUDIT_INTEGRITY,
         requirement_references=(requirement(),),
         actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
-        decision_or_operation_reference="GOV-EVAL-002",
+        decision_or_operation_reference=operation_reference,
         timestamp=TIMESTAMP,
         sensitivity_class=SensitivityClass.INTERNAL,
         minimization_class=MinimizationClass.METADATA_ONLY,
@@ -75,7 +81,7 @@ def correction_evidence():
         ),
         correction=EvidenceCorrectionMetadata(
             evidence_version="1.0.0",
-            supersedes_evidence_id=governance_evidence("GOV-EVAL-002").evidence_id,
+            supersedes_evidence_id=superseded_id,
             correction_reason="Corrected bounded governance evidence reference.",
             correcting_actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
             correction_timestamp=TIMESTAMP,
@@ -149,25 +155,121 @@ class AstraEvidenceSinkTests(unittest.TestCase):
 
         self.assertEqual(sink.retrieve()[0].decision_or_operation_reference, original.decision_or_operation_reference)
 
-    def test_correction_chain_is_preserved(self):
+    def test_valid_correction_after_original_evidence_succeeds(self):
         sink = InMemoryEvidenceSink()
-        evidence = correction_evidence()
+        original = governance_evidence("GOV-EVAL-002")
+        evidence = correction_evidence(supersedes_evidence_id=original.evidence_id)
 
+        sink.append(original)
         sink.append(evidence)
-        stored = sink.retrieve()[0]
+        stored = sink.retrieve()[1]
 
-        self.assertEqual(stored.correction.supersedes_evidence_id, governance_evidence("GOV-EVAL-002").evidence_id)
+        self.assertEqual(stored.correction.supersedes_evidence_id, original.evidence_id)
         self.assertEqual(stored.correction.correction_reason, "Corrected bounded governance evidence reference.")
         self.assertEqual(stored.correction.correcting_actor_or_service_class, ActorOrServiceClass.ASTRA_REVIEW)
 
-    def test_clear_for_test_removes_in_memory_records_only(self):
+    def test_orphan_correction_fails(self):
         sink = InMemoryEvidenceSink()
-        sink.append(governance_evidence())
 
-        sink.clear_for_test()
+        with self.assertRaises(AstraEvidenceSinkError):
+            sink.append(correction_evidence())
 
-        self.assertEqual(sink.count(), 0)
-        self.assertEqual(sink.retrieve(), ())
+    def test_self_superseding_correction_fails(self):
+        sink = InMemoryEvidenceSink()
+
+        with self.assertRaises(AstraEvidenceSinkError):
+            sink.append(
+                correction_evidence(
+                    evidence_id="evd_self_supersede",
+                    supersedes_evidence_id="evd_self_supersede",
+                    operation_reference="GOV-EVAL-003",
+                )
+            )
+
+    def test_cyclic_correction_fails(self):
+        sink = InMemoryEvidenceSink()
+        first = governance_evidence("GOV-EVAL-001")
+        second = correction_evidence(
+            evidence_id="evd_cycle_second",
+            supersedes_evidence_id=first.evidence_id,
+            operation_reference="GOV-EVAL-002",
+        )
+        sink.append(first)
+        sink.append(second)
+
+        first.correction.supersedes_evidence_id = "evd_cycle_third"
+        sink._records[0] = first
+
+        with self.assertRaises(AstraEvidenceSinkError):
+            sink.append(
+                correction_evidence(
+                    evidence_id="evd_cycle_third",
+                    supersedes_evidence_id=second.evidence_id,
+                    operation_reference="GOV-EVAL-003",
+                )
+            )
+
+    def test_original_evidence_remains_unchanged_after_correction(self):
+        sink = InMemoryEvidenceSink()
+        original = governance_evidence("GOV-EVAL-002")
+        correction = correction_evidence(supersedes_evidence_id=original.evidence_id)
+
+        sink.append(original)
+        sink.append(correction)
+
+        stored_original = sink.retrieve()[0]
+        self.assertEqual(stored_original, original)
+        self.assertIsNone(stored_original.correction.supersedes_evidence_id)
+
+    def test_retrieval_contains_original_followed_by_correction(self):
+        sink = InMemoryEvidenceSink()
+        original = governance_evidence("GOV-EVAL-002")
+        correction = correction_evidence(supersedes_evidence_id=original.evidence_id)
+
+        sink.append(original)
+        sink.append(correction)
+
+        self.assertEqual(tuple(item.evidence_id for item in sink.retrieve()), (original.evidence_id, correction.evidence_id))
+
+    def test_capacity_failure_does_not_partially_add_correction_link(self):
+        sink = InMemoryEvidenceSink(capacity=1)
+        original = governance_evidence("GOV-EVAL-002")
+        correction = correction_evidence(supersedes_evidence_id=original.evidence_id)
+        sink.append(original)
+
+        with self.assertRaises(AstraEvidenceSinkError):
+            sink.append(correction)
+
+        self.assertEqual(sink.retrieve(), (original,))
+
+    def test_production_facing_sink_exposes_no_public_clear_or_reset(self):
+        public_methods = {
+            name
+            for name, member in inspect.getmembers(InMemoryEvidenceSink, inspect.isfunction)
+            if not name.startswith("_")
+        }
+
+        self.assertEqual(public_methods, {"append", "count", "retrieve"})
+
+    def test_stored_evidence_cannot_be_deleted_through_normal_interface(self):
+        sink = InMemoryEvidenceSink()
+        evidence = governance_evidence()
+        sink.append(evidence)
+
+        self.assertFalse(hasattr(sink, "clear_for_test"))
+        self.assertFalse(hasattr(sink, "clear"))
+        self.assertFalse(hasattr(sink, "reset"))
+        self.assertEqual(sink.retrieve(), (evidence,))
+
+    def test_isolated_tests_obtain_fresh_empty_sink_without_mutating_existing_sink(self):
+        existing = InMemoryEvidenceSink()
+        existing.append(governance_evidence())
+
+        fresh = InMemoryEvidenceSink()
+
+        self.assertEqual(existing.count(), 1)
+        self.assertEqual(fresh.count(), 0)
+        self.assertEqual(fresh.retrieve(), ())
 
     def test_no_persistent_audit_database_or_route_side_effects(self):
         sink = InMemoryEvidenceSink()

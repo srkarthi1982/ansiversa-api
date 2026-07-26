@@ -21,7 +21,7 @@ The implementation is limited to:
 - bounded capacity enforcement;
 - deterministic insertion-order retrieval;
 - copy-safe immutable retrieval snapshots;
-- correction-chain preservation;
+- append-only correction-chain validation and preservation;
 - focused tests and implementation mapping documentation.
 
 The sink receives only. It does not make governance decisions, authorize
@@ -82,7 +82,13 @@ AGENTS.md
 - Does capacity overflow fail deterministically without silent discard?
 - Does retrieval preserve insertion order?
 - Does retrieval return copy-safe immutable snapshots?
-- Is correction metadata preserved without destructive overwrite?
+- Is there no public clear or reset method on the production-facing sink?
+- Is stored evidence undeletable through the normal sink interface?
+- Do correction links require an existing stored predecessor?
+- Are orphan, self-superseding, and cyclic corrections rejected?
+- Does the original evidence remain unchanged and retrievable after a
+  correction is appended?
+- Does capacity failure avoid partially adding a correction link?
 - Does the sink consume certified configuration without enabling Astra?
 - Does evidence collection avoid creating runtime authority?
 - Does the sink avoid audit persistence, databases, APIs, routes, providers,

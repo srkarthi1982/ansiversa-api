@@ -74,7 +74,6 @@ The sink exposes only internal methods:
 append(evidence)
 retrieve()
 count()
-clear_for_test()
 ```
 
 Rules:
@@ -86,7 +85,10 @@ Rules:
 - retrieval returns an immutable tuple of copy-safe evidence objects;
 - insertion order is preserved;
 - correction metadata is preserved;
-- clear is named `clear_for_test()` and is intended only for isolated tests.
+- correction links require an existing predecessor;
+- self-superseding corrections are rejected;
+- cyclic correction chains are rejected;
+- original evidence remains unchanged and retrievable.
 
 ---
 

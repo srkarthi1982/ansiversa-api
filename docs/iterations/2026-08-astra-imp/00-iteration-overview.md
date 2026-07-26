@@ -127,6 +127,6 @@ ASTRA-IMP-005               Not authorized
 ASTRA-IMP-004 implements the Stage 3 Minimal Evidence Sink. It adds a bounded
 in-memory receiver for certified `BoundedEvidence`, deterministic insertion
 ordering, duplicate identifier rejection, capacity enforcement, copy-safe
-retrieval, and correction-chain preservation. It does not authorize runtime
-behavior, write audit storage, access databases, expose APIs or routes, or
-change production.
+retrieval, no public clear/reset surface, and append-only correction-chain
+validation. It does not authorize runtime behavior, write audit storage, access
+databases, expose APIs or routes, or change production.

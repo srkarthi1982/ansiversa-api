@@ -47,6 +47,7 @@ class InMemoryEvidenceSink:
             raise AstraEvidenceSinkError("Evidence sink rejects duplicate evidence identifiers.")
         if len(self._records) >= self._capacity:
             raise AstraEvidenceSinkError("Evidence sink capacity exceeded.")
+        self._validate_correction_chain(normalized)
 
         self._records.append(normalized)
         self._evidence_ids.add(normalized.evidence_id)
@@ -57,10 +58,6 @@ class InMemoryEvidenceSink:
 
     def count(self) -> int:
         return len(self._records)
-
-    def clear_for_test(self) -> None:
-        self._records.clear()
-        self._evidence_ids.clear()
 
     def _validate_configuration_boundary(self) -> None:
         configuration = self._configuration.configuration
@@ -86,3 +83,35 @@ class InMemoryEvidenceSink:
             raise AstraEvidenceSinkError("Evidence sink rejected malformed evidence.") from exc
         assert_no_prohibited_contract_material(normalized.model_dump(mode="json"))
         return normalized
+
+    def _validate_correction_chain(self, evidence: BoundedEvidence) -> None:
+        superseded_id = evidence.correction.supersedes_evidence_id
+        if superseded_id is None:
+            return
+        if evidence.evidence_id == superseded_id:
+            raise AstraEvidenceSinkError("Evidence correction cannot supersede itself.")
+        if superseded_id not in self._evidence_ids:
+            raise AstraEvidenceSinkError("Evidence correction must reference an existing stored record.")
+        if self._creates_correction_cycle(evidence.evidence_id, superseded_id):
+            raise AstraEvidenceSinkError("Evidence correction cannot create a correction cycle.")
+
+    def _creates_correction_cycle(self, evidence_id: str, superseded_id: str) -> bool:
+        current_id = superseded_id
+        visited: set[str] = set()
+        while current_id is not None:
+            if current_id == evidence_id:
+                return True
+            if current_id in visited:
+                return True
+            visited.add(current_id)
+            current = self._record_by_id(current_id)
+            if current is None:
+                return False
+            current_id = current.correction.supersedes_evidence_id
+        return False
+
+    def _record_by_id(self, evidence_id: str) -> BoundedEvidence | None:
+        for record in self._records:
+            if record.evidence_id == evidence_id:
+                return record
+        return None
