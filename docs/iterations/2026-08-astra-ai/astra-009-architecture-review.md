@@ -1,12 +1,12 @@
 # ASTRA-009 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-26
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -23,7 +23,7 @@ docs/architecture/decisions/astra-ai-learning-adaptation-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed Learning and Adaptation Architecture that inherits ASTRA-001
 through ASTRA-008 and defines how Astra may adapt behavior, preferences,
@@ -76,7 +76,7 @@ commit `b7163d5`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-009               Proposed
+ASTRA-009               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -90,11 +90,12 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-010               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-009 makes no implementation changes and does not reopen
@@ -121,7 +122,10 @@ frozen:
 - separate adaptation eligibility from adaptation activation; and
 - define adaptation conflict resolution using constitutional precedence.
 
-Those refinements are now applied. ASTRA-009 remains Proposed and is ready for
-Astra re-review.
+Astra re-reviewed commit `3db6222` and approved ASTRA-009. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-009 is Frozen.
+
+ASTRA-010 Safety, Audit And Governance Architecture is documentation-only next
+and requires separate Product Owner authorization before work begins.
 
 Implementation remains unauthorized. Production remains unchanged.

@@ -1,6 +1,6 @@
 # Astra AI Learning And Adaptation Architecture
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-009
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -11,12 +11,14 @@
 **Parent:** ASTRA-007 External Intelligence And Provider Architecture
 **Parent:** ASTRA-008 Memory Architecture
 **Created:** 2026-07-26
+**Approved:** 2026-07-26
+**Frozen:** 2026-07-26
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation, specification, and architecture review only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -775,13 +777,13 @@ behavior.
 
 # ADR
 
-The proposed ADR is:
+The accepted ADR is:
 
 ```text
 docs/architecture/decisions/astra-ai-learning-adaptation-architecture.md
 ```
 
-Decision proposed:
+Decision accepted:
 
 Adopt ASTRA-009 as the documentation-only architecture for how Astra may adapt
 behavior, preferences, explanations, and workflow assistance over time without
@@ -830,5 +832,5 @@ Required validation outcomes:
 - no Tool Executor, app, database, migration, frontend, test, deployment,
   generated artifact, production configuration, or production behavior changes;
 - AGENTS/docs-only boundary verified; and
-- ASTRA-009 recorded as Proposed with Astra review and Product Owner approval
-  pending.
+- ASTRA-009 recorded as Approved and Frozen with Astra re-review approved,
+  Product Owner approval recorded, and ADR accepted.

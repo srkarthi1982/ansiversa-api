@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -196,23 +196,23 @@ Implementation and production changes remain unauthorized. ASTRA-009 Learning
 And Adaptation Architecture is documentation-only next and requires separate
 authorization before work begins.
 
-ASTRA-009 Learning And Adaptation Architecture is Proposed. ASTRA-009 inherits
-ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007,
-and ASTRA-008 and defines how Astra may adapt behavior, preferences,
-explanations, and workflow assistance over time without becoming opaque,
-unpredictable, provider-defined, or constitutionally mutable. The proposed
-architecture separates learning from memory, makes correction and feedback
-classification explicit, requires adaptation eligibility, activation,
+ASTRA-009 Learning And Adaptation Architecture is approved and Frozen. Astra
+approved the architecture direction for commit `b7163d5`, requested two
+targeted documentation refinements, and approved the corrected source-level
+re-review for commit `3db6222`. Product Owner approval is recorded. The ADR is
+accepted. ASTRA-009 inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004,
+ASTRA-005, ASTRA-006, ASTRA-007, and ASTRA-008 and defines how Astra may adapt
+behavior, preferences, explanations, and workflow assistance over time without
+becoming opaque, unpredictable, provider-defined, or constitutionally mutable.
+The accepted architecture separates learning from memory, makes correction and
+feedback classification explicit, requires adaptation eligibility, activation,
 conflict resolution, confidence, evidence, explainability, user controls,
 drift prevention, reset/revocation, cross-app boundaries, provider/model
 boundaries, and preserves the permanent rule that Astra may adapt behavior but
-may never silently rewrite its constitution. Astra approved the architecture
-direction for commit `b7163d5` and requested two targeted documentation
-refinements before freeze. The current revision separates adaptation
-eligibility from adaptation activation and defines adaptation conflict
-resolution by constitutional precedence, with unresolved conflicts disabled or
-held for clarification. Implementation and production changes remain
-unauthorized.
+may never silently rewrite its constitution. Implementation and production
+changes remain unauthorized. ASTRA-010 Safety, Audit And Governance
+Architecture is documentation-only next and requires separate authorization
+before work begins.
 
 ---
 
