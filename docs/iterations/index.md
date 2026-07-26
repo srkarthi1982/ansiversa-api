@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-002 certified/approved; ASTRA-IMP-003 not authorized | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-003 implemented; pending Astra source review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -159,3 +159,14 @@ accepts arbitrary caller overrides. Astra re-review approved commit `d912aa1e`.
 Product Owner approval is recorded and certification passed. Production
 authorization is not approved. Production remains unchanged. ASTRA-IMP-003 is
 not authorized and requires separate authorization.
+
+ASTRA-IMP-003 Minimal Governance Kernel is implemented. It inherits the
+accepted/frozen ASTRA-001 through ASTRA-010 Constitution, accepted/frozen
+ASTRA-IR-001 readiness plan, and certified/approved ASTRA-IMP-001 and
+ASTRA-IMP-002 foundations. The implementation adds a deterministic internal
+governance evaluator under `app/modules/astra_ai/governance.py`, strict bounded
+input contracts, bounded policy facts, certified `GovernanceDecision` outputs,
+metadata-only in-memory evidence, and a documented rule matrix. The kernel may
+decide but does not act. Implementation direction, constitutional conformance,
+Product Owner approval, and certification are pending. Production authorization
+is not approved. Production remains unchanged. ASTRA-IMP-004 is not authorized.
