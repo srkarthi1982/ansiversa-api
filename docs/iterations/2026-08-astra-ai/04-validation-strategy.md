@@ -186,8 +186,13 @@ ASTRA-008 coverage:
 - conversation state and working memory are transient by default;
 - long-term memory and preference memory are governed explicitly;
 - unknown memory classes are prohibited until classified;
+- memory ownership is separated from governed references to information owned
+  elsewhere;
+- memory references cannot transfer ownership or create a second authoritative
+  datastore;
 - memory eligibility is defined before memory writes;
 - memory writes are governed actions rather than silent persistence;
+- memory retrieval authorization is separate from memory existence;
 - retrieval is need-driven, minimized, and purpose-bound;
 - memory cannot determine identity, authorization, capability existence,
   execution authority, app facts, or production truth;
@@ -258,6 +263,8 @@ Future implementation tasks must add executable validation for:
 - token and cost governance;
 - provider failure fallback;
 - memory class eligibility;
+- memory ownership versus memory reference classification;
+- retrieval authorization before memory retrieval;
 - no silent long-term memory writes;
 - memory retrieval minimization;
 - deletion, export, and retention behavior;

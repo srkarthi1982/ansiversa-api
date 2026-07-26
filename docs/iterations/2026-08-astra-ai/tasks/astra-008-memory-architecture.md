@@ -11,7 +11,8 @@
 **Parent:** ASTRA-006 Tool Execution Architecture
 **Parent:** ASTRA-007 External Intelligence And Provider Architecture
 **Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **ADR:** Proposed
 **Implementation Agent:** Codex
@@ -38,6 +39,13 @@ datastore.
 - updates to the Astra AI iteration overview, backlog, dependencies, risks,
   validation strategy, iteration index, and task log.
 
+Astra source-level review of commit `dcc0ec3` approved the architecture
+direction and required two targeted documentation refinements before freeze:
+
+- separate memory ownership from governed memory references; and
+- define memory retrieval authorization as a separate governed decision from
+  memory existence.
+
 ---
 
 # Scope
@@ -53,8 +61,10 @@ Allowed:
 - long-term memory boundary;
 - preference memory boundary;
 - app-owned data boundary;
+- memory ownership and references;
 - memory eligibility;
 - memory writing governance;
+- memory retrieval authorization;
 - memory retrieval governance;
 - forgetting, deletion, export, and retention governance;
 - memory conflict and freshness;
@@ -101,19 +111,21 @@ Not allowed:
 5. Memory Classification
 6. Conversation State And Working Memory
 7. Long-Term Memory And Preferences
-8. App-Owned Data Boundary
-9. Memory Eligibility
-10. Memory Writing Governance
-11. Memory Retrieval Governance
-12. Forgetting, Deletion, Export, And Retention
-13. Memory Conflict And Freshness
-14. Provider Interaction Boundary
-15. Memory Evidence Model
-16. Privacy And Security
-17. Future Implementation Notes
-18. ADR
-19. Risks
-20. Validation Strategy
+8. Memory Ownership And References
+9. App-Owned Data Boundary
+10. Memory Eligibility
+11. Memory Retrieval Authorization
+12. Memory Writing Governance
+13. Memory Retrieval Governance
+14. Forgetting, Deletion, Export, And Retention
+15. Memory Conflict And Freshness
+16. Provider Interaction Boundary
+17. Memory Evidence Model
+18. Privacy And Security
+19. Future Implementation Notes
+20. ADR
+21. Risks
+22. Validation Strategy
 
 ---
 
@@ -139,6 +151,14 @@ Law 5
 Memory may inform personalization and continuity, but it cannot determine
 identity, authorization, capability existence, execution authority, app facts,
 or production truth.
+
+Law 6
+Astra may retain governed references to information owned elsewhere, but those
+references never transfer ownership or create a second authoritative datastore.
+
+Law 7
+The existence of memory never authorizes retrieval. Retrieval requires a
+separate governed authorization decision.
 ```
 
 ---
@@ -156,9 +176,10 @@ Parent                  ASTRA-006 Accepted
 Parent                  ASTRA-007 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized

@@ -67,6 +67,8 @@
 | ASTRA-R61 | Provider output becomes durable memory truth | Critical | ASTRA-008 prohibits provider output from becoming memory by default and requires validation plus memory eligibility | Open |
 | ASTRA-R62 | Stale memory overrides current authoritative facts | High | ASTRA-008 requires authoritative sources to win and stale or conflicting memory to be ignored, clarified, or deleted | Open |
 | ASTRA-R63 | Memory retrieval over-collects private context | High | ASTRA-008 requires need-driven, minimized, purpose-bound retrieval | Open |
+| ASTRA-R64 | Memory references transfer ownership silently | Critical | ASTRA-008 separates Astra-owned memory from governed references and states references do not transfer ownership or create a second datastore | Open |
+| ASTRA-R65 | Memory existence is treated as retrieval permission | Critical | ASTRA-008 requires separate retrieval authorization before memory can be retrieved | Open |
 
 ---
 
@@ -113,6 +115,8 @@
 - runtime memory before ASTRA-008 approval and freeze;
 - memory stored without approved class, purpose, retention, deletion, export,
   and user controls;
+- memory references that transfer ownership or become alternate record truth;
+- memory retrieval based only on memory existence;
 - app-owned records copied into Astra memory;
 - memory used as identity, authorization, capability, execution, app, or
   production truth;

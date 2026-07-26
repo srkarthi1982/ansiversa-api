@@ -183,8 +183,12 @@ prevented from becoming an unauthorized cross-app datastore. The proposed
 architecture separates conversation state, working memory, long-term user
 memory, preference memory, app-owned data, Knowledge, provider output, and
 audit evidence. It makes forgetting, deletion, export, retention, owner scope,
-and memory evidence first-class governance requirements. Implementation and
-production changes remain unauthorized.
+and memory evidence first-class governance requirements. Astra approved the
+architecture direction for commit `dcc0ec3` and requested two targeted
+documentation refinements before freeze. The current revision separates
+Astra-owned memory from governed references to information owned elsewhere and
+defines memory retrieval authorization as a separate governed decision from
+memory existence. Implementation and production changes remain unauthorized.
 
 ---
 
@@ -341,8 +345,13 @@ ASTRA-008 succeeds when:
 - long-term memory and preference memory require approved class, purpose,
   retention, and controls;
 - unknown memory classes are prohibited until classified;
+- memory ownership is separated from governed references to information owned
+  elsewhere;
+- memory references cannot transfer ownership or create a second authoritative
+  datastore;
 - memory eligibility is checked before memory writes;
 - memory writes are governed actions rather than silent persistence;
+- memory retrieval authorization is separated from memory existence;
 - memory retrieval is need-driven, minimized, and purpose-bound;
 - memory cannot determine identity, authorization, capability existence,
   execution authority, app facts, or production truth;

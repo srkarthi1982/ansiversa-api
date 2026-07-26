@@ -13,7 +13,8 @@
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -32,7 +33,9 @@ Decision:
 Propose ASTRA-008 as the documentation-only architecture for what Astra may
 remember, what it must forget, and how memory is classified, owned, retrieved,
 retained, deleted, exported, audited, and prevented from becoming an
-unauthorized cross-app datastore.
+unauthorized cross-app datastore. The revised proposal separates Astra-owned
+memory from governed references to information owned elsewhere and defines
+memory retrieval authorization as a separate decision from memory existence.
 
 Canonical proposed specification:
 
@@ -115,12 +118,18 @@ minimized, and subordinate to authoritative platform and app sources.
 # Consequences If Accepted
 
 - Memory becomes a governed architecture object, not implicit storage.
+- Memory ownership is separated from governed references to externally owned
+  information.
+- References do not transfer ownership or create a second authoritative
+  datastore.
 - Conversation state remains transient unless memory eligibility is approved.
 - Working memory is bounded to active tasks.
 - Long-term memory requires approved class, purpose, retention, and controls.
 - Preferences are revocable and cannot silently expand into profiling.
 - App-owned data remains app-owned.
 - Memory retrieval is need-driven and minimized.
+- Memory retrieval requires authorization and is not implied by memory
+  existence.
 - Forgetting, deletion, export, and retention become required before
   production memory use.
 - Provider interaction with memory remains governed by ASTRA-007.
@@ -137,6 +146,10 @@ minimized, and subordinate to authoritative platform and app sources.
 - [ ] ADR accepted.
 - [ ] ASTRA-008 frozen.
 - [ ] Future implementation phase separately scoped.
+- [x] Astra architecture direction approved with targeted documentation
+  refinements recorded.
+- [x] Memory ownership and memory references refinement applied.
+- [x] Memory retrieval authorization refinement applied.
 - [x] Documentation authorization approved.
 - [x] Architecture authorization approved.
 - [x] Parent ASTRA-001 through ASTRA-007 inheritance recorded.
@@ -157,9 +170,10 @@ Parent                  ASTRA-006 Accepted
 Parent                  ASTRA-007 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 Implementation          Not authorized
 Production              Unchanged

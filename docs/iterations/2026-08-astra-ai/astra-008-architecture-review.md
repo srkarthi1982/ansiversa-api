@@ -4,7 +4,8 @@
 **Created:** 2026-07-26
 **ADR:** Proposed
 **Product Owner Authorization:** Approved for documentation and architecture only
-**Architecture Review:** Pending Astra Review
+**Architecture Direction:** Approved
+**Architecture Review:** Minor revisions applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -29,6 +30,14 @@ and defines what Astra may remember, what it must forget, how memory is
 classified, owned, retrieved, retained, deleted, exported, audited, and
 prevented from becoming an unauthorized cross-app datastore.
 
+This revision applies Astra's required refinements after source-level review of
+commit `dcc0ec3`:
+
+- memory ownership is separated from governed references to information owned
+  elsewhere; and
+- memory retrieval authorization is defined as a separate governed decision
+  from memory existence.
+
 ---
 
 # Review Questions
@@ -42,19 +51,24 @@ prevented from becoming an unauthorized cross-app datastore.
 7. Are unknown memory classes prohibited until classified?
 8. Is memory eligibility defined before memory writes?
 9. Are memory writes governed actions rather than silent persistence?
-10. Is retrieval need-driven, minimized, and purpose-bound?
-11. Is memory prohibited from determining identity, authorization, capability
+10. Is memory ownership separated from references to externally owned
+    information?
+11. Are memory references prohibited from transferring ownership or creating a
+    second authoritative datastore?
+12. Is memory retrieval authorization separated from memory existence?
+13. Is retrieval need-driven, minimized, and purpose-bound after authorization?
+14. Is memory prohibited from determining identity, authorization, capability
     existence, execution authority, app facts, or production truth?
-12. Are app-owned record copies and shadow summaries prohibited?
-13. Are forgetting, deletion, export, and retention first-class governance?
-14. Is stale or conflicting memory subordinate to authoritative sources?
-15. Does provider interaction inherit ASTRA-007 envelope and authority rules?
-16. Is memory evidence bounded and safe?
-17. Are privacy and security boundaries explicit?
-18. Is the documentation-only boundary complete?
-19. Does ASTRA-008 avoid authorizing runtime memory, storage, embeddings,
+15. Are app-owned record copies and shadow summaries prohibited?
+16. Are forgetting, deletion, export, and retention first-class governance?
+17. Is stale or conflicting memory subordinate to authoritative sources?
+18. Does provider interaction inherit ASTRA-007 envelope and authority rules?
+19. Is memory evidence bounded and safe?
+20. Are privacy and security boundaries explicit?
+21. Is the documentation-only boundary complete?
+22. Does ASTRA-008 avoid authorizing runtime memory, storage, embeddings,
     prompts, routes, APIs, database changes, frontend changes, or production?
-20. Does ASTRA-008 preserve the fixed 100-solution-app platform boundary?
+23. Does ASTRA-008 preserve the fixed 100-solution-app platform boundary?
 
 ---
 
@@ -71,9 +85,10 @@ Parent                  ASTRA-006 Accepted
 Parent                  ASTRA-007 Accepted
 Documentation Auth      Approved
 Architecture Auth       Approved
+Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Review
+Architecture Review     Pending Astra Re-review
 Product Owner Approval  Pending
 ADR                     Proposed
 Implementation          Not authorized
@@ -97,6 +112,15 @@ deployment, generated artifacts, or production behavior.
 
 # Astra Review Outcome
 
-Pending Astra architecture review.
+Astra reviewed commit `dcc0ec3` and approved the architecture direction with
+two targeted documentation refinements required before ASTRA-008 can be
+frozen:
+
+- separate memory ownership from governed memory references; and
+- define memory retrieval authorization as a separate governed decision from
+  memory existence.
+
+Those refinements are now applied. ASTRA-008 remains Proposed and is ready for
+Astra re-review.
 
 Implementation remains unauthorized. Production remains unchanged.
