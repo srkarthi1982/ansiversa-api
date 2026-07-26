@@ -1,5 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-001 implemented; pending Astra source review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -120,3 +121,19 @@ implementation risks, certification readiness, logical timeline, and future
 task candidates. Implementation Readiness is Complete. Implementation and
 production changes remain unauthorized. Component-contract planning is the next
 phase and requires separate authorization.
+
+Iteration 5 implementation package:
+
+```text
+docs/iterations/2026-08-astra-imp/
+```
+
+ASTRA-IMP-001 Constitutional Contracts Foundation is implemented. It inherits
+the accepted/frozen ASTRA-001 through ASTRA-010 Constitution and accepted/frozen
+ASTRA-IR-001 readiness plan. The implementation adds Stage 0 contracts for
+constitutional requirement identifiers, governance decisions, bounded evidence,
+and disabled-by-default configuration under the existing disabled Astra package.
+It adds focused validation tests and implementation mapping documentation.
+Constitutional conformance is pending Astra source review. Product Owner
+approval, certification, and production authorization remain pending or not
+approved. Production remains unchanged.
