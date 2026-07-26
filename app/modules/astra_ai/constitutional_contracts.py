@@ -168,6 +168,7 @@ class EnvironmentScope(StrEnum):
 
 class ImplementationPhase(StrEnum):
     ASTRA_IMP_001 = "astra_imp_001"
+    ASTRA_IMP_002 = "astra_imp_002"
 
 
 class ProductionAuthorizationState(StrEnum):
@@ -359,11 +360,11 @@ class AstraConfigurationContract(BaseModel):
     @model_validator(mode="after")
     def validate_stage_zero_configuration(self) -> Self:
         if self.feature_enabled:
-            raise ContractValidationError("ASTRA-IMP-001 configuration must remain disabled by default.")
+            raise ContractValidationError("Astra implementation configuration must remain disabled by default.")
         if self.production_authorization_state is ProductionAuthorizationState.APPROVED:
-            raise ContractValidationError("ASTRA-IMP-001 cannot record production authorization.")
+            raise ContractValidationError("Astra implementation configuration cannot record production authorization.")
         if not self.fail_closed_default:
-            raise ContractValidationError("ASTRA-IMP-001 configuration must fail closed by default.")
+            raise ContractValidationError("Astra implementation configuration must fail closed by default.")
         if self.environment_scope is EnvironmentScope.PRODUCTION and self.production_authorization_state is not (
             ProductionAuthorizationState.NOT_APPROVED
         ):

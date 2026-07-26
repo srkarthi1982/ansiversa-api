@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-001 certified/approved; ASTRA-IMP-002 not authorized | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-002 implemented; pending Astra source review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -143,3 +143,16 @@ privacy treatment. Astra re-review approved commit `21e99b84`. Product Owner
 approval is recorded and certification passed. Production authorization is not
 approved. Production remains unchanged. ASTRA-IMP-002 is not authorized and
 requires separate authorization.
+
+ASTRA-IMP-002 Minimal Configuration Foundation is implemented. It inherits the
+accepted/frozen ASTRA-001 through ASTRA-010 Constitution, accepted/frozen
+ASTRA-IR-001 readiness plan, and certified/approved ASTRA-IMP-001 contracts.
+The implementation adds a disabled-by-default internal Astra configuration
+loader under `app/modules/astra_ai/configuration.py`, uses the existing
+repository settings pattern for environment scope selection, records bounded
+configuration provenance, returns copy-safe validated configuration, and keeps
+provider, memory, adaptation, execution handoff, feature activation, and
+production authorization disabled. Implementation direction, constitutional
+conformance, Product Owner approval, and certification are pending. Production
+authorization is not approved. Production remains unchanged. ASTRA-IMP-003 is
+not authorized.
