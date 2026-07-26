@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, and ASTRA-008; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, and ASTRA-008; ASTRA-009 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -35,6 +35,9 @@ runtime behavior.
 - required ASTRA-008 documents exist;
 - ASTRA-008 status is approved and Frozen;
 - ASTRA-008 ADR is accepted;
+- required ASTRA-009 documents exist;
+- ASTRA-009 status is Proposed;
+- ASTRA-009 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -203,6 +206,29 @@ ASTRA-008 coverage:
 - memory evidence is bounded and reviewable; and
 - privacy and security boundaries are documented.
 
+ASTRA-009 coverage:
+
+- ASTRA-001 through ASTRA-008 inheritance is explicit;
+- learning is separated from memory;
+- adaptation is separated from authority;
+- personalization is bounded and explainable;
+- user correction outranks inferred preference;
+- explicit feedback outranks implicit behavior;
+- feedback classes are defined conservatively;
+- correction handling preserves authoritative ownership;
+- preference evolution is governed;
+- adaptation eligibility is checked before behavior changes;
+- confidence and evidence are represented;
+- users can inspect, correct, disable, reset, export, and remove adaptations;
+- behavioral drift is detected and prevented;
+- reset, revocation, export, and expiration are documented as governance;
+- cross-app adaptation boundaries are explicit;
+- provider and model boundaries are explicit;
+- private-data training is prohibited without separate governance;
+- the constitution cannot be learned or silently rewritten;
+- unknown adaptation risk fails closed; and
+- documentation-only boundaries are preserved.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -224,6 +250,10 @@ ASTRA-008 coverage:
 - memory architecture remains documentation-only and does not authorize runtime
   memory, storage, retrieval, embeddings, vector databases, APIs, routes,
   migrations, frontend behavior, or production personalization.
+- learning and adaptation architecture remains documentation-only and does not
+  authorize runtime learning, model training, fine-tuning, embeddings, vector
+  databases, providers, prompts, model invocation, APIs, routes, migrations,
+  frontend behavior, or production personalization.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -271,6 +301,14 @@ Future implementation tasks must add executable validation for:
 - app-owned data is not copied into Astra memory;
 - memory cannot authorize identity, permissions, capabilities, execution, app
   facts, or production truth;
+- learning versus memory separation;
+- no runtime learning before authorization;
+- no model training or fine-tuning without explicit governance;
+- adaptation eligibility and confidence thresholds;
+- explicit correction outranks inferred preference;
+- adaptation cannot rewrite the constitution;
+- adaptation cannot authorize identity, permissions, capabilities, execution,
+  app facts, or production truth;
 - stale plans cannot execute;
 - partial-success and compensation evidence is bounded;
 - rollback and restoration;

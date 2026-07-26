@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, and ASTRA-008; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007, and ASTRA-008; ASTRA-009 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -69,6 +69,14 @@
 | ASTRA-R63 | Memory retrieval over-collects private context | High | ASTRA-008 requires need-driven, minimized, purpose-bound retrieval | Open |
 | ASTRA-R64 | Memory references transfer ownership silently | Critical | ASTRA-008 separates Astra-owned memory from governed references and states references do not transfer ownership or create a second datastore | Open |
 | ASTRA-R65 | Memory existence is treated as retrieval permission | Critical | ASTRA-008 requires separate retrieval authorization before memory can be retrieved | Open |
+| ASTRA-R66 | Learning rewrites the constitution | Critical | ASTRA-009 states constitution and governance rules cannot be learned or silently rewritten | Open |
+| ASTRA-R67 | Adaptation creates hidden authority | Critical | ASTRA-009 states learning does not create identity, authorization, execution, app, provider, or production authority | Open |
+| ASTRA-R68 | Implicit behavior overrides user correction | High | ASTRA-009 makes user correction and explicit feedback outrank inferred preference | Open |
+| ASTRA-R69 | Opaque adaptation affects high-impact decisions | Critical | ASTRA-009 prohibits high-impact decisions from depending on opaque or low-confidence adaptation | Open |
+| ASTRA-R70 | Provider output becomes learned behavior | Critical | ASTRA-009 requires provider output validation and adaptation eligibility before use | Open |
+| ASTRA-R71 | Private data trains models silently | Critical | ASTRA-009 does not authorize model training or fine-tuning and requires separate governance | Open |
+| ASTRA-R72 | Cross-app adaptation centralizes app data | Critical | ASTRA-009 keeps app facts authoritative and prohibits unapproved cross-app adaptation | Open |
+| ASTRA-R73 | Users cannot inspect or reset adaptations | High | ASTRA-009 requires inspection, correction, disablement, reset, export, and deletion controls | Open |
 
 ---
 
@@ -121,5 +129,13 @@
 - memory used as identity, authorization, capability, execution, app, or
   production truth;
 - provider output stored as durable memory truth by default;
+- runtime learning before ASTRA-009 approval and freeze;
+- model training or fine-tuning without explicit governance;
+- learning that rewrites constitutional rules;
+- adaptation used as identity, authorization, capability, execution, app, or
+  production truth;
+- opaque or low-confidence adaptation used for high-impact decisions;
+- provider output treated as learned behavior by default;
+- cross-app adaptation that centralizes app data;
 - unknown execution risk treated as safe;
 - implementation before approved scope.

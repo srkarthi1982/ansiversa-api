@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen; ASTRA-009 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -53,6 +53,10 @@ be reviewed before implementation.
 - [Astra AI Memory Architecture ADR](../../architecture/decisions/astra-ai-memory-architecture.md)
 - [ASTRA-008 architecture review package](astra-008-architecture-review.md)
 - [ASTRA-008 task record](tasks/astra-008-memory-architecture.md)
+- [Astra AI Learning And Adaptation Architecture](../../astra-ai-learning-adaptation-architecture.md)
+- [Astra AI Learning And Adaptation Architecture ADR](../../architecture/decisions/astra-ai-learning-adaptation-architecture.md)
+- [ASTRA-009 architecture review package](astra-009-architecture-review.md)
+- [ASTRA-009 task record](tasks/astra-009-learning-adaptation-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -191,6 +195,18 @@ authorization, and memory evidence first-class governance requirements.
 Implementation and production changes remain unauthorized. ASTRA-009 Learning
 And Adaptation Architecture is documentation-only next and requires separate
 authorization before work begins.
+
+ASTRA-009 Learning And Adaptation Architecture is Proposed. ASTRA-009 inherits
+ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, ASTRA-007,
+and ASTRA-008 and defines how Astra may adapt behavior, preferences,
+explanations, and workflow assistance over time without becoming opaque,
+unpredictable, provider-defined, or constitutionally mutable. The proposed
+architecture separates learning from memory, makes correction and feedback
+classification explicit, requires adaptation eligibility, confidence,
+evidence, explainability, user controls, drift prevention, reset/revocation,
+cross-app boundaries, provider/model boundaries, and preserves the permanent
+rule that Astra may adapt behavior but may never silently rewrite its
+constitution. Implementation and production changes remain unauthorized.
 
 ---
 
@@ -363,6 +379,30 @@ ASTRA-008 succeeds when:
 - provider interaction inherits ASTRA-007 envelope and authority rules;
 - memory evidence is bounded and reviewable;
 - privacy and security boundaries are documented;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-009 succeeds when:
+
+- ASTRA-001 through ASTRA-008 inheritance is explicit;
+- learning is separated from memory;
+- adaptation is separated from authority;
+- personalization is bounded and explainable;
+- user correction outranks inferred preference;
+- explicit feedback outranks implicit behavior;
+- feedback classes are defined conservatively;
+- correction handling preserves authoritative ownership;
+- preference evolution is governed;
+- adaptation eligibility is checked before behavior changes;
+- confidence and evidence are represented;
+- users can inspect, correct, disable, reset, export, and remove adaptations;
+- behavioral drift is detected and prevented;
+- reset, revocation, export, and expiration are first-class governance;
+- cross-app adaptation boundaries are explicit;
+- provider and model boundaries are explicit;
+- private-data training is prohibited without separate governance;
+- the constitution cannot be learned or silently rewritten;
+- unknown adaptation risk fails closed;
 - no implementation occurs; and
 - production remains unchanged.
 
