@@ -1,6 +1,6 @@
 # ASTRA-IMP-003 Constitution-To-Code Mapping
 
-**Status:** Implemented; Pending Astra Source Review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-003
 **Production Authorization:** Not approved
 **Production:** Unchanged
@@ -11,7 +11,7 @@
 
 | Constitutional source | Requirement area | Code support | Evidence/test support |
 |---|---|---|---|
-| ASTRA-002 | Governed reasoning and local deterministic behavior | `evaluate_governance()` returns deterministic `GovernanceDecision` for bounded input | `test_valid_public_read_only_evaluation_allows_deterministically` |
+| ASTRA-002 | Governed reasoning and local deterministic behavior | `evaluate_governance()` returns deterministic `GovernanceDecision` for bounded input | `test_disabled_configuration_keeps_public_read_only_evaluation_non_authorizing` |
 | ASTRA-003 | Context minimization boundaries | `GovernanceEvaluationInput` excludes raw prompts, private payloads, and unrelated user data; evidence is metadata-only | `test_evidence_contains_no_secret_or_prompt_payloads` |
 | ASTRA-004 | Capability authority boundaries | Kernel does not discover or select capabilities; authority is represented only by `AuthorityClass` | `test_disabled_configuration_cannot_authorize_runtime_behavior` |
 | ASTRA-005 | Approval and planning boundaries | approval states required/pending/denied cannot allow; kernel does not plan | `test_required_pending_or_denied_approval_cannot_allow` |
@@ -19,7 +19,7 @@
 | ASTRA-007 | Provider advisory and eligibility | provider use and external exposure do not authorize provider calls | `test_disabled_configuration_cannot_authorize_runtime_behavior` |
 | ASTRA-008 | Memory authorization | memory-use requests fail closed while configuration disables memory | `test_disabled_configuration_cannot_authorize_runtime_behavior` |
 | ASTRA-009 | Adaptation activation | adaptation-use requests fail closed while configuration disables adaptation | `test_disabled_configuration_cannot_authorize_runtime_behavior` |
-| ASTRA-010 | Precedence and fail-closed behavior | unknown compliance, unknown/prohibited safety, lower-precedence conflicts, and config mismatches fail closed | `test_unknown_compliance_fails_closed`; `test_unknown_and_prohibited_safety_cannot_allow`; `test_lower_precedence_allow_cannot_override_constitutional_constraints` |
+| ASTRA-010 | Precedence and fail-closed behavior | unknown compliance, unknown/prohibited safety, highest-authority precedence conflicts, and config mismatches fail closed | `test_unknown_compliance_fails_closed`; `test_unknown_and_prohibited_safety_cannot_allow`; `test_binding_block_overrides_lower_allow`; `test_fact_ordering_does_not_change_precedence_result` |
 | ASTRA-010 | Safety classification | certified safety classes drive deterministic outcomes | `test_private_write_and_high_impact_require_explicit_approval` |
 | ASTRA-010 | Evidence minimization | decisions return in-memory `BoundedEvidence` with metadata-only minimization and integrity digest | `test_bounded_evidence_contains_required_metadata`; `test_no_persistent_audit_write_occurs` |
 | ASTRA-010 | Implementation and production separation | production boundary and production authorization do not allow production behavior | `test_production_boundary_requires_explicit_production_approval`; `test_environment_scope_does_not_create_authority` |

@@ -1,15 +1,16 @@
 # Astra Minimal Governance Kernel
 
-**Status:** Implemented
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-003
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementations:** ASTRA-IMP-001 and ASTRA-IMP-002 Certified / Approved
 **Implementation Scope:** Minimal Governance Kernel
-**Implementation Direction:** Pending Astra Source Review
-**Constitutional Conformance:** Pending
-**Product Owner Approval:** Pending
-**Certification:** Pending
+**Implementation Direction:** Approved
+**Astra Re-review:** Approved
+**Constitutional Conformance:** Approved
+**Product Owner Approval:** Approved
+**Certification:** Passed
 **Production Authorization:** Not approved
 **Production:** Unchanged
 **ASTRA-IMP-004:** Not authorized
@@ -137,15 +138,17 @@ audit-storage side effects.
 # Final Implementation State
 
 ```text
-ASTRA-IMP-003               Implemented
+ASTRA-IMP-003               Certified / Approved
 Implementation Scope        Minimal Governance Kernel
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-IMP-004               Not authorized
+Requires separate authorization
 ```

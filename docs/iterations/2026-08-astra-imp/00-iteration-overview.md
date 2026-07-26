@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-003 Implemented; Pending Astra Source Review
+**Status:** ASTRA-IMP-003 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -83,21 +83,25 @@ and ASTRA-IMP-002 is closed. ASTRA-IMP-003 requires separate authorization.
 # ASTRA-IMP-003
 
 ```text
-ASTRA-IMP-003               Implemented
+ASTRA-IMP-003               Certified / Approved
 Implementation Scope        Minimal Governance Kernel
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-IMP-004               Not authorized
+Requires separate authorization
 ```
 
 ASTRA-IMP-003 implements the Stage 2 Minimal Governance Kernel. It adds a
 deterministic internal evaluator that consumes certified contracts and
 configuration, returns a certified `GovernanceDecision`, and produces bounded
 in-memory decision evidence. It does not authorize runtime behavior or
-production.
+production. Astra re-review approved commit `dbee4445`, Product Owner approval
+is recorded, certification passed, and ASTRA-IMP-003 is closed. ASTRA-IMP-004
+requires separate authorization.
