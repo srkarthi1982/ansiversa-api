@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Proposed
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -49,6 +49,10 @@ be reviewed before implementation.
 - [Astra AI External Intelligence And Provider Architecture ADR](../../architecture/decisions/astra-ai-external-intelligence-provider-architecture.md)
 - [ASTRA-007 architecture review package](astra-007-architecture-review.md)
 - [ASTRA-007 task record](tasks/astra-007-external-intelligence-provider-architecture.md)
+- [Astra AI Memory Architecture](../../astra-ai-memory-architecture.md)
+- [Astra AI Memory Architecture ADR](../../architecture/decisions/astra-ai-memory-architecture.md)
+- [ASTRA-008 architecture review package](astra-008-architecture-review.md)
+- [ASTRA-008 task record](tasks/astra-008-memory-architecture.md)
 - [Priority backlog](01-priority-backlog.md)
 - [Dependencies](02-dependencies.md)
 - [Risk register](03-risk-register.md)
@@ -170,6 +174,17 @@ provider output remains advisory until validated by Astra and authoritative
 owners. Implementation and production changes remain unauthorized. ASTRA-008
 Memory Architecture is documentation-only next and requires separate
 authorization before work begins.
+
+ASTRA-008 Memory Architecture is Proposed. ASTRA-008 inherits ASTRA-001,
+ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007 and
+defines what Astra may remember, what it must forget, how memory is
+classified, owned, retrieved, retained, deleted, exported, audited, and
+prevented from becoming an unauthorized cross-app datastore. The proposed
+architecture separates conversation state, working memory, long-term user
+memory, preference memory, app-owned data, Knowledge, provider output, and
+audit evidence. It makes forgetting, deletion, export, retention, owner scope,
+and memory evidence first-class governance requirements. Implementation and
+production changes remain unauthorized.
 
 ---
 
@@ -313,6 +328,30 @@ ASTRA-007 succeeds when:
 - provider failure behavior preserves local deterministic behavior;
 - provider evidence is bounded and reviewable;
 - multi-provider support avoids constitutional vendor dependency;
+- no implementation occurs; and
+- production remains unchanged.
+
+ASTRA-008 succeeds when:
+
+- ASTRA-001 through ASTRA-007 inheritance is explicit;
+- memory is separated from conversation state;
+- memory is separated from Knowledge;
+- memory is separated from app-owned data;
+- conversation state and working memory are transient by default;
+- long-term memory and preference memory require approved class, purpose,
+  retention, and controls;
+- unknown memory classes are prohibited until classified;
+- memory eligibility is checked before memory writes;
+- memory writes are governed actions rather than silent persistence;
+- memory retrieval is need-driven, minimized, and purpose-bound;
+- memory cannot determine identity, authorization, capability existence,
+  execution authority, app facts, or production truth;
+- app-owned record copies and shadow summaries are prohibited;
+- forgetting, deletion, export, and retention are first-class governance;
+- stale or conflicting memory is subordinate to authoritative sources;
+- provider interaction inherits ASTRA-007 envelope and authority rules;
+- memory evidence is bounded and reviewable;
+- privacy and security boundaries are documented;
 - no implementation occurs; and
 - production remains unchanged.
 

@@ -1,6 +1,6 @@
 # Astra AI Architecture Validation Strategy
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007; future implementation validation pending
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007; ASTRA-008 proposed; future implementation validation pending
 
 This strategy validates Astra architecture tasks only. It does not claim
 runtime behavior.
@@ -32,6 +32,9 @@ runtime behavior.
 - required ASTRA-007 documents exist;
 - ASTRA-007 status is approved and Frozen;
 - ASTRA-007 ADR is accepted;
+- required ASTRA-008 documents exist;
+- ASTRA-008 status is Proposed;
+- ASTRA-008 ADR is Proposed;
 - links point to existing repository documents;
 - AGENTS task log records documentation-only scope; and
 - no implementation files are modified.
@@ -174,6 +177,27 @@ ASTRA-007 coverage:
 - provider evidence is bounded and reviewable; and
 - multi-provider independence is preserved.
 
+ASTRA-008 coverage:
+
+- ASTRA-001 through ASTRA-007 inheritance is explicit;
+- memory is separated from conversation state;
+- memory is separated from Knowledge;
+- memory is separated from app-owned data;
+- conversation state and working memory are transient by default;
+- long-term memory and preference memory are governed explicitly;
+- unknown memory classes are prohibited until classified;
+- memory eligibility is defined before memory writes;
+- memory writes are governed actions rather than silent persistence;
+- retrieval is need-driven, minimized, and purpose-bound;
+- memory cannot determine identity, authorization, capability existence,
+  execution authority, app facts, or production truth;
+- app-owned record copies and shadow summaries are prohibited;
+- forgetting, deletion, export, and retention are documented as governance;
+- stale or conflicting memory is subordinate to authoritative sources;
+- provider interaction inherits ASTRA-007 envelope and authority rules;
+- memory evidence is bounded and reviewable; and
+- privacy and security boundaries are documented.
+
 ## Tier 3 - Governance Coverage
 
 - Three-Level Review lifecycle is recorded;
@@ -192,6 +216,9 @@ ASTRA-007 coverage:
   runtime integration or execution.
 - external intelligence architecture remains documentation-only and does not
   authorize provider integration, prompts, model invocation, or production AI.
+- memory architecture remains documentation-only and does not authorize runtime
+  memory, storage, retrieval, embeddings, vector databases, APIs, routes,
+  migrations, frontend behavior, or production personalization.
 
 ## Tier 4 - Future Implementation Readiness
 
@@ -230,6 +257,13 @@ Future implementation tasks must add executable validation for:
 - provider response authority boundaries;
 - token and cost governance;
 - provider failure fallback;
+- memory class eligibility;
+- no silent long-term memory writes;
+- memory retrieval minimization;
+- deletion, export, and retention behavior;
+- app-owned data is not copied into Astra memory;
+- memory cannot authorize identity, permissions, capabilities, execution, app
+  facts, or production truth;
 - stale plans cannot execute;
 - partial-success and compensation evidence is bounded;
 - rollback and restoration;

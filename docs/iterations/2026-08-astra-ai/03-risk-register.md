@@ -1,6 +1,6 @@
 # Astra AI Architecture Risk Register
 
-**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007; future implementation risks remain open
+**Status:** Accepted for ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007; ASTRA-008 proposed; future implementation risks remain open
 
 | ID | Risk | Level | Mitigation | Status |
 |---|---|---|---|---|
@@ -60,6 +60,13 @@
 | ASTRA-R54 | Provider costs grow silently | High | ASTRA-007 requires token and cost governance before provider use | Open |
 | ASTRA-R55 | Provider selection occurs before eligibility is governed | Critical | ASTRA-007 separates provider eligibility from provider selection and restricts selection to eligible providers | Open |
 | ASTRA-R56 | Unvalidated provider output becomes authoritative truth | Critical | ASTRA-007 classifies provider output as advisory until validated by Astra and authoritative owners | Open |
+| ASTRA-R57 | Memory becomes silent surveillance | Critical | ASTRA-008 requires approved memory class, purpose, retention, and user controls before memory use | Open |
+| ASTRA-R58 | Memory becomes an unauthorized cross-app datastore | Critical | ASTRA-008 keeps app-owned data out of Astra memory and preserves owning-service authority | Open |
+| ASTRA-R59 | Memory bypasses authorization or execution governance | Critical | ASTRA-008 states memory cannot determine identity, authorization, capability existence, execution authority, app facts, or production truth | Open |
+| ASTRA-R60 | User cannot forget retained data | Critical | ASTRA-008 makes forgetting, deletion, export, and retention mandatory governance | Open |
+| ASTRA-R61 | Provider output becomes durable memory truth | Critical | ASTRA-008 prohibits provider output from becoming memory by default and requires validation plus memory eligibility | Open |
+| ASTRA-R62 | Stale memory overrides current authoritative facts | High | ASTRA-008 requires authoritative sources to win and stale or conflicting memory to be ignored, clarified, or deleted | Open |
+| ASTRA-R63 | Memory retrieval over-collects private context | High | ASTRA-008 requires need-driven, minimized, purpose-bound retrieval | Open |
 
 ---
 
@@ -103,5 +110,12 @@
 - raw internal context sent to providers by default;
 - prompt architecture that overrides parent architecture;
 - provider calls without token and cost governance;
+- runtime memory before ASTRA-008 approval and freeze;
+- memory stored without approved class, purpose, retention, deletion, export,
+  and user controls;
+- app-owned records copied into Astra memory;
+- memory used as identity, authorization, capability, execution, app, or
+  production truth;
+- provider output stored as durable memory truth by default;
 - unknown execution risk treated as safe;
 - implementation before approved scope.
