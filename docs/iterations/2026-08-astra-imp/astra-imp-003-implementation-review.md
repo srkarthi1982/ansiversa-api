@@ -85,6 +85,13 @@ AGENTS.md
   approval or fail closed?
 - Does disabled configuration prevent provider, memory, adaptation, and
   execution authorization?
+- Does disabled authoritative configuration prevent every
+  `GovernanceOutcome.ALLOW` result?
+- Does the precedence resolver use the highest-authority applicable fact rather
+  than an any-block rule?
+- Do same-level conflicts and unknown decisive facts fail closed?
+- Do lower-precedence facts and tuple ordering fail to override a resolved
+  higher-precedence result?
 - Does evidence remain bounded and in memory only?
 - Are ASTRA-001 through ASTRA-010, ASTRA-IR-001, ASTRA-IMP-001, and
   ASTRA-IMP-002 preserved?

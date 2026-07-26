@@ -67,16 +67,31 @@ def governance_input(**overrides):
     return GovernanceEvaluationInput(**values)
 
 
+def policy_fact(precedence_level, fact_value, fact_reference):
+    return GovernancePolicyFact(
+        precedence_level=precedence_level,
+        fact_value=fact_value,
+        fact_reference=fact_reference,
+        summary="Bounded governance fact.",
+    )
+
+
 class AstraGovernanceKernelTests(unittest.TestCase):
-    def test_valid_public_read_only_evaluation_allows_deterministically(self):
+    def test_disabled_configuration_keeps_public_read_only_evaluation_non_authorizing(self):
         first = evaluate_governance(governance_input())
         second = evaluate_governance(governance_input())
 
         self.assertEqual(first, second)
-        self.assertEqual(first.decision.outcome, GovernanceOutcome.ALLOW)
-        self.assertEqual(first.decision.decision_reason_class, DecisionReasonClass.LOCAL_SUFFICIENCY)
+        self.assertEqual(first.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(first.decision.decision_reason_class, DecisionReasonClass.FAIL_CLOSED_DEFAULT)
         self.assertEqual(first.decision.safety_classification, SafetyClassification.PUBLIC)
         self.assertEqual(first.evidence.decision_or_operation_reference, "GOV-EVAL-001")
+
+    def test_enabled_configuration_cannot_be_injected_through_input(self):
+        with self.assertRaises(ValidationError):
+            GovernanceEvaluationInput(**{**governance_input().model_dump(), "feature_enabled": True})
+
+        self.assertFalse(get_astra_configuration().configuration.feature_enabled)
 
     def test_unknown_compliance_fails_closed(self):
         result = evaluate_governance(
@@ -175,6 +190,14 @@ class AstraGovernanceKernelTests(unittest.TestCase):
         self.assertEqual(loaded.configuration.production_authorization_state, ProductionAuthorizationState.NOT_APPROVED)
         self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
 
+    def test_environment_scope_does_not_enable_disabled_configuration_allow(self):
+        loaded = get_astra_configuration()
+        result = evaluate_governance(governance_input())
+
+        self.assertFalse(loaded.configuration.feature_enabled)
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.FAIL_CLOSED_DEFAULT)
+
     def test_lower_precedence_allow_cannot_override_constitutional_constraints(self):
         result = evaluate_governance(
             governance_input(
@@ -208,6 +231,151 @@ class AstraGovernanceKernelTests(unittest.TestCase):
         )
 
         self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+
+    def test_binding_block_overrides_lower_allow(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.USER_INTENT,
+                        PolicyFactValue.ALLOW,
+                        "user:intent:allow",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.BINDING_CONSTRAINT,
+                        PolicyFactValue.BLOCK,
+                        "binding:constraint:block",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
+
+    def test_constitutional_block_overrides_user_allow(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.USER_INTENT,
+                        PolicyFactValue.ALLOW,
+                        "user:intent:allow",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.ACCEPTED_CONSTITUTION,
+                        PolicyFactValue.BLOCK,
+                        "constitution:block",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
+
+    def test_binding_allow_is_not_overridden_by_provider_block(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.PROVIDER_OUTPUT_OR_INFERENCE,
+                        PolicyFactValue.BLOCK,
+                        "provider:inference:block",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.BINDING_CONSTRAINT,
+                        PolicyFactValue.ALLOW,
+                        "binding:constraint:allow",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.FAIL_CLOSED_DEFAULT)
+
+    def test_same_level_allow_block_conflict_fails_closed(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.APPROVED_RUNTIME_POLICY,
+                        PolicyFactValue.ALLOW,
+                        "runtime:policy:allow",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.APPROVED_RUNTIME_POLICY,
+                        PolicyFactValue.BLOCK,
+                        "runtime:policy:block",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
+
+    def test_unknown_at_decisive_highest_level_fails_closed(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.ACCEPTED_CONSTITUTION,
+                        PolicyFactValue.UNKNOWN,
+                        "constitution:unknown",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.USER_INTENT,
+                        PolicyFactValue.ALLOW,
+                        "user:intent:allow",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
+
+    def test_lower_unknown_does_not_override_decisive_higher_allow(self):
+        result = evaluate_governance(
+            governance_input(
+                policy_facts=(
+                    policy_fact(
+                        PrecedenceLevel.APPROVED_RUNTIME_POLICY,
+                        PolicyFactValue.UNKNOWN,
+                        "runtime:policy:unknown",
+                    ),
+                    policy_fact(
+                        PrecedenceLevel.ACCEPTED_CONSTITUTION,
+                        PolicyFactValue.ALLOW,
+                        "constitution:allow",
+                    ),
+                )
+            )
+        )
+
+        self.assertEqual(result.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(result.decision.decision_reason_class, DecisionReasonClass.FAIL_CLOSED_DEFAULT)
+
+    def test_fact_ordering_does_not_change_precedence_result(self):
+        lower_block = policy_fact(
+            PrecedenceLevel.PROVIDER_OUTPUT_OR_INFERENCE,
+            PolicyFactValue.BLOCK,
+            "provider:inference:block",
+        )
+        higher_allow = policy_fact(
+            PrecedenceLevel.ACCEPTED_CONSTITUTION,
+            PolicyFactValue.ALLOW,
+            "constitution:allow",
+        )
+
+        first = evaluate_governance(governance_input(policy_facts=(lower_block, higher_allow)))
+        second = evaluate_governance(governance_input(policy_facts=(higher_allow, lower_block)))
+
+        self.assertEqual(first, second)
+        self.assertEqual(first.decision.outcome, GovernanceOutcome.FAIL_CLOSED)
+        self.assertEqual(first.decision.decision_reason_class, DecisionReasonClass.FAIL_CLOSED_DEFAULT)
 
     def test_bounded_evidence_contains_required_metadata(self):
         result = evaluate_governance(governance_input())

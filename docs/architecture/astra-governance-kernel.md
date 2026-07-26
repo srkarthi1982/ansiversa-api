@@ -84,7 +84,7 @@ Rules are evaluated in this order:
 |---|---|---|
 | 1 | Configuration does not fail closed | `fail_closed` |
 | 2 | Input configuration ID/version differs from authoritative configuration | `fail_closed` |
-| 3 | Configuration feature state is enabled | `fail_closed` |
+| 3 | Configuration feature state is enabled through a future uncertified path | `fail_closed` |
 | 4 | Constitutional compliance is unknown or conflicted | `fail_closed` |
 | 5 | Safety class is `unknown` or `prohibited` | `fail_closed` |
 | 6 | Approval is required, pending, or denied | `fail_closed` |
@@ -93,14 +93,21 @@ Rules are evaluated in this order:
 | 9 | Production boundary lacks production approval | `fail_closed` |
 | 10 | Private-write or high-impact safety lacks explicit approval | `fail_closed` |
 | 11 | Provider, memory, adaptation, or execution use is requested while disabled | `fail_closed` |
-| 12 | Bounded precedence facts contain block or unknown | `fail_closed` |
+| 12 | Highest-authority bounded precedence facts block, conflict, or remain unknown | `fail_closed` |
 | 13 | Execution or production authority is requested | `fail_closed` |
 | 14 | External exposure is requested | `defer` |
-| 15 | Public/private-read advisory or read-only request is otherwise valid | `allow` |
-| 16 | No deterministic allow path applies | `clarify` |
+| 15 | Authoritative Astra feature state is disabled | `fail_closed` |
+| 16 | Public/private-read advisory or read-only request is otherwise valid under an enabled certified configuration | `allow` |
+| 17 | No deterministic allow path applies | `clarify` |
 
-Lower-precedence facts cannot override higher-precedence constitutional,
-safety, configuration, or approval constraints.
+Bounded precedence facts are grouped by authority level. The highest-authority
+level containing facts governs. Same-level allow/block conflicts and unknown
+decisive facts fail closed. A resolved higher-precedence allow cannot be
+overridden by lower-precedence user, provider, inference, or runtime facts.
+
+The certified ASTRA-IMP-002 configuration remains disabled. While disabled, the
+kernel may perform deterministic governance assessment, but it must not return
+`GovernanceOutcome.ALLOW`.
 
 ---
 

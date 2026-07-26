@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from datetime import datetime
 from enum import IntEnum, StrEnum
 
@@ -126,6 +127,13 @@ class GovernanceEvaluationResult(BaseModel):
     evidence: BoundedEvidence
 
 
+class _PrecedenceResolution(StrEnum):
+    NO_APPLICABLE_FACT = "no_applicable_fact"
+    ALLOW = "allow"
+    BLOCK = "block"
+    UNRESOLVED = "unresolved"
+
+
 def evaluate_governance(input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
     loaded_configuration = get_astra_configuration()
     configuration = loaded_configuration.configuration
@@ -154,8 +162,6 @@ def _evaluate_outcome(input_contract, configuration) -> tuple[GovernanceOutcome,
         or input_contract.configuration_version != configuration.configuration_version
     ):
         return _fail_closed(DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
-    if configuration.feature_enabled:
-        return _fail_closed(DecisionReasonClass.FAIL_CLOSED_DEFAULT)
     if input_contract.constitutional_compliance is not ConstitutionalComplianceState.KNOWN_COMPLIANT:
         return _fail_closed(DecisionReasonClass.FAIL_CLOSED_DEFAULT)
     if input_contract.safety_classification in {SafetyClassification.UNKNOWN, SafetyClassification.PROHIBITED}:
@@ -178,12 +184,15 @@ def _evaluate_outcome(input_contract, configuration) -> tuple[GovernanceOutcome,
             return _fail_closed(DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
     if _runtime_use_requested(input_contract) or _configuration_runtime_enabled(configuration):
         return _fail_closed(_runtime_reason(input_contract))
-    if _has_blocking_or_unknown_precedence(input_contract.policy_facts):
+    precedence_resolution = _resolve_precedence(input_contract.policy_facts)
+    if precedence_resolution in {_PrecedenceResolution.BLOCK, _PrecedenceResolution.UNRESOLVED}:
         return _fail_closed(DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE)
     if input_contract.requested_authority_class in {AuthorityClass.EXECUTION_BOUNDARY, AuthorityClass.PRODUCTION_BOUNDARY}:
         return _fail_closed(DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY)
     if input_contract.safety_classification is SafetyClassification.EXTERNAL_EXPOSURE:
         return _non_allow(GovernanceOutcome.DEFER, DecisionReasonClass.PROVIDER_ELIGIBILITY, FailurePosture.DEFER)
+    if not configuration.feature_enabled:
+        return _fail_closed(DecisionReasonClass.FAIL_CLOSED_DEFAULT)
     if input_contract.requested_authority_class in {AuthorityClass.READ_ONLY, AuthorityClass.ADVISORY}:
         if input_contract.safety_classification in {SafetyClassification.PUBLIC, SafetyClassification.PRIVATE_READ}:
             return GovernanceOutcome.ALLOW, DecisionReasonClass.LOCAL_SUFFICIENCY, input_contract.requested_failure_posture
@@ -234,11 +243,21 @@ def _runtime_reason(input_contract: GovernanceEvaluationInput) -> DecisionReason
     return DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY
 
 
-def _has_blocking_or_unknown_precedence(facts: tuple[GovernancePolicyFact, ...]) -> bool:
-    for fact in facts:
-        if fact.fact_value in {PolicyFactValue.BLOCK, PolicyFactValue.UNKNOWN}:
-            return True
-    return False
+def _resolve_precedence(facts: tuple[GovernancePolicyFact, ...]) -> _PrecedenceResolution:
+    if not facts:
+        return _PrecedenceResolution.NO_APPLICABLE_FACT
+
+    highest_level = min(fact.precedence_level for fact in facts)
+    decisive_values = {fact.fact_value for fact in facts if fact.precedence_level == highest_level}
+    if PolicyFactValue.UNKNOWN in decisive_values:
+        return _PrecedenceResolution.UNRESOLVED
+    if PolicyFactValue.ALLOW in decisive_values and PolicyFactValue.BLOCK in decisive_values:
+        return _PrecedenceResolution.UNRESOLVED
+    if PolicyFactValue.BLOCK in decisive_values:
+        return _PrecedenceResolution.BLOCK
+    if PolicyFactValue.ALLOW in decisive_values:
+        return _PrecedenceResolution.ALLOW
+    return _PrecedenceResolution.NO_APPLICABLE_FACT
 
 
 def _build_decision_evidence(
@@ -248,7 +267,7 @@ def _build_decision_evidence(
 ) -> BoundedEvidence:
     payload_digest = hashlib.sha256(
         (
-            canonical_contract_json(input_contract)
+            _canonical_governance_input_json(input_contract)
             + canonical_contract_json(decision)
             + str(environment_scope)
         ).encode("utf-8")
@@ -278,3 +297,17 @@ def _evidence_id(input_contract: GovernanceEvaluationInput) -> str:
         f"{input_contract.evaluation_id}:{input_contract.evaluation_version}".encode("utf-8")
     ).hexdigest()[:24]
     return f"evd_gov_{digest}"
+
+
+def _canonical_governance_input_json(input_contract: GovernanceEvaluationInput) -> str:
+    payload = input_contract.model_dump(mode="json")
+    payload["policy_facts"] = sorted(
+        payload["policy_facts"],
+        key=lambda fact: (
+            fact["precedence_level"],
+            fact["fact_value"],
+            fact["fact_reference"],
+            fact["summary"],
+        ),
+    )
+    return json.dumps(payload, sort_keys=True, separators=(",", ":"))
