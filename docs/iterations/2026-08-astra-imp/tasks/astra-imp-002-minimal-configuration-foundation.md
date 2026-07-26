@@ -1,16 +1,16 @@
 # ASTRA-IMP-002 — Minimal Configuration Foundation
 
-**Status:** Implemented
+**Status:** Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementation:** ASTRA-IMP-001 Certified / Approved
 **Implementation Authorization:** Approved
 **Implementation Scope:** Minimal Configuration Foundation
 **Implementation Direction:** Approved
-**Constitutional Review:** Minor corrections applied; pending Astra re-review
-**Constitutional Conformance:** Pending
-**Product Owner Approval:** Pending
-**Certification:** Pending
+**Astra Re-review:** Approved
+**Constitutional Conformance:** Approved
+**Product Owner Approval:** Approved
+**Certification:** Passed
 **Production Authorization:** Not approved
 **Production:** Unchanged
 **ASTRA-IMP-003:** Not authorized
@@ -77,16 +77,17 @@ Explicitly not included:
 # Final Recorded State
 
 ```text
-ASTRA-IMP-002               Implemented
+ASTRA-IMP-002               Certified / Approved
 Implementation Scope        Minimal Configuration Foundation
 Implementation Direction    Approved
-Constitutional Review       Minor corrections applied; pending Astra re-review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-IMP-003               Not authorized
+Requires separate authorization
 ```
