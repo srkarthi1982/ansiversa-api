@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-004 Implemented; Pending Astra Source Review
+**Status:** ASTRA-IMP-004 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -111,17 +111,19 @@ was later separately authorized for implementation.
 # ASTRA-IMP-004
 
 ```text
-ASTRA-IMP-004               Implemented
+ASTRA-IMP-004               Certified / Approved
 Implementation Scope        Minimal Evidence Sink
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-IMP-005               Not authorized
+Requires separate authorization
 ```
 
 ASTRA-IMP-004 implements the Stage 3 Minimal Evidence Sink. It adds a bounded
@@ -129,4 +131,7 @@ in-memory receiver for certified `BoundedEvidence`, deterministic insertion
 ordering, duplicate identifier rejection, capacity enforcement, copy-safe
 retrieval, no public clear/reset surface, and append-only correction-chain
 validation. It does not authorize runtime behavior, write audit storage, access
-databases, expose APIs or routes, or change production.
+databases, expose APIs or routes, or change production. Astra re-review
+approved commit `42827d6f`, Product Owner approval is recorded, certification
+passed, and ASTRA-IMP-004 is closed. ASTRA-IMP-005 requires separate
+authorization.

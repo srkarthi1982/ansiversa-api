@@ -1,15 +1,16 @@
 # Astra Minimal Evidence Sink
 
-**Status:** Implemented
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-004
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementations:** ASTRA-IMP-001, ASTRA-IMP-002, and ASTRA-IMP-003 Certified / Approved
 **Implementation Scope:** Minimal Evidence Sink
-**Implementation Direction:** Pending Astra Source Review
-**Constitutional Conformance:** Pending
-**Product Owner Approval:** Pending
-**Certification:** Pending
+**Implementation Direction:** Approved
+**Astra Re-review:** Approved
+**Constitutional Conformance:** Approved
+**Product Owner Approval:** Approved
+**Certification:** Passed
 **Production Authorization:** Not approved
 **Production:** Unchanged
 **ASTRA-IMP-005:** Not authorized
@@ -125,15 +126,17 @@ Receiving evidence never authorizes action.
 # Final Implementation State
 
 ```text
-ASTRA-IMP-004               Implemented
+ASTRA-IMP-004               Certified / Approved
 Implementation Scope        Minimal Evidence Sink
-Implementation Direction    Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-IMP-005               Not authorized
+Requires separate authorization
 ```

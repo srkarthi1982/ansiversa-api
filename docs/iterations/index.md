@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-004 implemented; pending Astra source review | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-004 certified; ASTRA-IMP-005 not authorized | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -177,7 +177,7 @@ certification passed. Production authorization is not approved. Production
 remains unchanged. ASTRA-IMP-004 was later separately authorized for
 implementation.
 
-ASTRA-IMP-004 Minimal Evidence Sink is implemented. It inherits the
+ASTRA-IMP-004 Minimal Evidence Sink is certified and approved. It inherits the
 accepted/frozen ASTRA-001 through ASTRA-010 Constitution, accepted/frozen
 ASTRA-IR-001 readiness plan, and certified/approved ASTRA-IMP-001 through
 ASTRA-IMP-003 foundations. The implementation adds a bounded in-memory receiver
@@ -187,7 +187,11 @@ retrieval, copy-safe snapshots, no public clear/reset surface, and append-only
 correction-chain validation. The sink
 receives evidence only. It does not decide, authorize, persist, write audit
 storage, access databases, expose APIs or routes, call providers, execute
-tools, plan, use memory, learn, deploy, or change production. Implementation
-direction, constitutional conformance, Product Owner approval, and
-certification are pending. Production authorization is not approved. Production
-remains unchanged. ASTRA-IMP-005 is not authorized.
+tools, plan, use memory, learn, deploy, or change production. Astra approved
+implementation direction for commit `189a07be` and requested two evidence
+integrity corrections. The corrected source at commit `42827d6f` removes the
+public destructive reset surface and enforces append-only correction-chain
+integrity. Astra re-review is approved, Product Owner approval is recorded,
+constitutional conformance is approved, and certification passed. Production
+authorization is not approved. Production remains unchanged. ASTRA-IMP-005 is
+not authorized and requires separate authorization.
