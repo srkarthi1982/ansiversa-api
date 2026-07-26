@@ -1,12 +1,12 @@
 # ASTRA-IR-001 Implementation Review Package
 
-**Status:** Minor revisions applied; pending Astra re-review
+**Status:** Approved
 **Created:** 2026-07-26
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and engineering planning only
 **Engineering Direction:** Approved
-**Engineering Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -14,7 +14,7 @@
 
 # Review Subject
 
-ASTRA-IR-001 proposes the Implementation Readiness Planning package:
+ASTRA-IR-001 records the accepted Implementation Readiness Planning package:
 
 ```text
 docs/astra-ai-implementation-readiness-planning.md
@@ -24,7 +24,7 @@ docs/iterations/2026-08-astra-ir/
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt ASTRA-IR-001 as the documentation-only engineering-readiness bridge from
 the frozen Astra AI Constitution to future separately authorized
@@ -75,16 +75,18 @@ commit `2738bfec`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-IR-001            Proposed
+ASTRA-IR-001            Approved / Frozen
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
 Engineering Direction   Approved
-Engineering Review      Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+Readiness               Complete
 Implementation          Not authorized
 Production              Unchanged
+Next Phase              Component-contract planning; requires separate authorization
 ```
 
 Codex confirms ASTRA-IR-001 makes no implementation changes and does not edit
@@ -100,5 +102,9 @@ two targeted readiness refinements required before ASTRA-IR-001 can be frozen:
 - resolve bootstrap and circular-dependency semantics; and
 - add a Constitution-to-Engineering Conformance Matrix.
 
-The requested documentation refinements have been applied. Astra engineering
-re-review, Product Owner approval, ADR acceptance, and freeze remain pending.
+Astra re-reviewed commit `0f16dec4` and approved ASTRA-IR-001. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-IR-001 is Frozen.
+
+Implementation Readiness is Complete. Implementation remains unauthorized.
+Production remains unchanged. Component-contract planning is the next phase
+and requires separate authorization.

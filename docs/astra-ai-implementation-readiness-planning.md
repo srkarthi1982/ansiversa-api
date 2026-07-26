@@ -1,15 +1,17 @@
 # Astra AI Implementation Readiness Planning
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Task:** ASTRA-IR-001
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Created:** 2026-07-26
+**Approved:** 2026-07-26
+**Frozen:** 2026-07-26
 **Documentation Authorization:** Approved
 **Engineering Authorization:** Approved
 **Engineering Direction:** Approved
-**Engineering Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Scope:** Documentation and engineering planning only
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -88,7 +90,7 @@ Allowed:
 - implementation task breakdown;
 - Constitution-to-Engineering Conformance Matrix;
 - implementation review package;
-- ADR proposal;
+- ADR;
 - task document;
 - iteration updates;
 - AGENTS task-log update.
@@ -396,13 +398,13 @@ Production remains unchanged.
 
 # ADR
 
-The proposed ADR is:
+The accepted ADR is:
 
 ```text
 docs/architecture/decisions/astra-ir-001-implementation-readiness-planning.md
 ```
 
-Decision proposed:
+Decision accepted:
 
 Adopt ASTRA-IR-001 as the documentation-only engineering-readiness plan for
 turning the frozen Astra AI Constitution into implementation workstreams,
@@ -438,20 +440,21 @@ Required validation outcomes:
 - no APIs, providers, prompts, model invocation, Tool Executor changes,
   databases, migrations, frontend, tests, deployment, generated artifacts,
   production configuration, or production behavior changes;
-- ASTRA-IR-001 recorded as Proposed;
+- ASTRA-IR-001 recorded as Approved and Frozen;
 - Engineering Direction remains Approved;
-- Engineering Review remains Minor revisions applied; pending Astra re-review;
-- Product Owner Approval remains Pending;
-- ADR remains Proposed;
+- Astra Re-review remains Approved;
+- Product Owner Approval remains Approved;
+- ADR remains Accepted;
+- Implementation Readiness remains Complete;
 - Implementation remains Not authorized; and
 - Production remains Unchanged.
 
 ---
 
-# Current Draft Status
+# Final ASTRA-IR-001 Status
 
 ```text
-ASTRA-IR-001               Proposed
+ASTRA-IR-001               Approved / Frozen
 
 Parent Constitution        ASTRA-001 through ASTRA-010 Accepted / Frozen
 
@@ -459,10 +462,15 @@ Documentation Auth         Approved
 Engineering Auth           Approved
 
 Engineering Direction      Approved
-Engineering Review         Minor revisions applied; pending Astra re-review
-Product Owner Approval     Pending
-ADR                        Proposed
+Astra Re-review            Approved
+Product Owner Approval     Approved
+ADR                        Accepted
+
+Implementation Readiness   Complete
 
 Implementation             Not authorized
 Production                 Unchanged
+
+Next Phase                 Component-contract planning
+                           Requires separate authorization
 ```

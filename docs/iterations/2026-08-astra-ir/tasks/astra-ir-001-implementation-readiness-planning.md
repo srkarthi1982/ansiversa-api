@@ -1,14 +1,14 @@
 # ASTRA-IR-001 - Implementation Readiness Planning
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-26
 **Owner:** Karthikeyan Ramalingam
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Authorization:** Approved for documentation and engineering planning only
 **Engineering Direction:** Approved
-**Engineering Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -70,7 +70,7 @@ Allowed:
 - logical timeline;
 - task breakdown;
 - review package;
-- ADR proposal;
+- ADR;
 - task log.
 
 Not allowed:
@@ -95,17 +95,19 @@ Not allowed:
 
 ---
 
-# Final Draft State
+# Final ASTRA-IR-001 Status
 
 ```text
-ASTRA-IR-001            Proposed
+ASTRA-IR-001            Approved / Frozen
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
 Engineering Direction   Approved
-Engineering Review      Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
+Readiness               Complete
 Implementation          Not authorized
 Production              Unchanged
+Next Phase              Component-contract planning; requires separate authorization
 ```

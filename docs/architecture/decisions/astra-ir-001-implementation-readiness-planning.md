@@ -1,15 +1,17 @@
 # Architecture Decision: ASTRA-IR-001 Implementation Readiness Planning
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-26
+**Accepted:** 2026-07-26
+**Frozen:** 2026-07-26
 **Task:** ASTRA-IR-001
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Decision Owner:** Karthikeyan Ramalingam
 **Documentation Authorization:** Approved
 **Engineering Authorization:** Approved
 **Engineering Direction:** Approved
-**Engineering Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -21,16 +23,16 @@ Should Ansiversa create a documentation-only implementation-readiness planning
 phase before implementing Astra AI from the frozen ASTRA-001 through
 ASTRA-010 Constitution?
 
-Decision proposed:
+Decision:
 
 Adopt ASTRA-IR-001 as the engineering-readiness phase that maps the frozen
 Constitution into implementation components, workstreams, dependencies,
 interfaces, certification gates, risks, logical milestones, and review
-evidence without authorizing implementation or production. The revised
-proposal resolves bootstrap and circular-dependency semantics and adds a
+evidence without authorizing implementation or production. The accepted
+readiness package resolves bootstrap and circular-dependency semantics and adds a
 Constitution-to-Engineering Conformance Matrix.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-implementation-readiness-planning.md
@@ -84,10 +86,10 @@ interfaces, dependencies, risk, and certification.
 
 # Acceptance Checklist
 
-- [ ] Astra engineering review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-IR-001 frozen.
+- [x] Astra engineering review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-IR-001 frozen.
 - [x] Documentation authorization approved.
 - [x] Engineering authorization approved.
 - [x] Parent Constitution inheritance recorded.
@@ -102,14 +104,16 @@ interfaces, dependencies, risk, and certification.
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-IR-001            Proposed
+ADR                     Accepted
+ASTRA-IR-001            Approved and Frozen
 Parent Constitution     ASTRA-001 through ASTRA-010 Accepted / Frozen
 Documentation Auth      Approved
 Engineering Auth        Approved
 Engineering Direction   Approved
-Engineering Review      Minor revisions applied; pending Astra re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
+Readiness               Complete
 Implementation          Not authorized
 Production              Unchanged
+Next Phase              Component-contract planning; requires separate authorization
 ```

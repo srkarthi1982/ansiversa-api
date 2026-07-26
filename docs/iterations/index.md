@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 proposed; engineering direction approved; minor revisions applied | Begins Jul 26 |
+| Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
 | Iteration 2 | AI SEO Architecture                      | Architecture complete; readiness review complete | Begins Jul 23 |
@@ -107,13 +107,16 @@ Iteration 4 planning package:
 docs/iterations/2026-08-astra-ir/
 ```
 
-ASTRA-IR-001 Implementation Readiness Planning is Proposed after documentation
-and engineering authorization. Astra approved the engineering direction for
-commit `2738bfec` and requested two targeted readiness refinements. It inherits
-the accepted/frozen ASTRA-001 through ASTRA-010 Constitution without modifying
-it and defines the engineering-readiness bridge into future separately
-authorized implementation phases. ASTRA-IR-001 names required components,
-bootstrap dependency semantics, workstreams, interface contract categories, a
-Constitution-to-Engineering Conformance Matrix, implementation risks,
-certification readiness, logical timeline, and future task candidates.
-Implementation and production changes remain unauthorized.
+ASTRA-IR-001 Implementation Readiness Planning is approved and Frozen. Astra
+approved the engineering direction for commit `2738bfec`, requested two
+targeted readiness refinements, and approved the corrected engineering
+re-review for commit `0f16dec4`. Product Owner approval is recorded. The ADR
+is accepted. It inherits the accepted/frozen ASTRA-001 through ASTRA-010
+Constitution without modifying it and defines the engineering-readiness bridge
+into future separately authorized implementation phases. ASTRA-IR-001 names
+required components, bootstrap dependency semantics, workstreams, interface
+contract categories, a Constitution-to-Engineering Conformance Matrix,
+implementation risks, certification readiness, logical timeline, and future
+task candidates. Implementation Readiness is Complete. Implementation and
+production changes remain unauthorized. Component-contract planning is the next
+phase and requires separate authorization.

@@ -1,6 +1,6 @@
 # ASTRA-IR-001 Engineering Workstreams
 
-**Status:** Proposed
+**Status:** Approved and Frozen
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Implementation:** Not authorized
 **Production:** Unchanged
