@@ -4,7 +4,8 @@
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation Authorization:** Approved
-**Constitutional Conformance:** Pending Astra Source Review
+**Implementation Direction:** Approved
+**Constitutional Review:** Minor corrections applied; pending Astra re-review
 **Product Owner Approval:** Pending
 **Certification:** Pending
 **Production Authorization:** Not approved
@@ -75,7 +76,8 @@ Explicitly not included:
 ```text
 ASTRA-IMP-001               Implemented
 Implementation Scope        Constitutional Contracts Foundation
-Constitutional Conformance  Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Product Owner Approval      Pending
 Certification               Pending
 Production Authorization    Not approved

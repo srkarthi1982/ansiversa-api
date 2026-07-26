@@ -15,6 +15,7 @@ from app.modules.astra_ai.constitutional_contracts import (
     BoundedEvidence,
     ConstitutionalCoverageState,
     ConstitutionalRequirement,
+    CorrectionPrivacyTreatment,
     ContractValidationError,
     DecisionReasonClass,
     EnvironmentScope,
@@ -51,6 +52,19 @@ def integrity():
         source_system="astra_ai:contracts",
         provenance_reference="ASTRA-IMP-001",
         content_digest="sha256:" + "a" * 64,
+    )
+
+
+def complete_correction():
+    return EvidenceCorrectionMetadata(
+        evidence_version="1.0.1",
+        supersedes_evidence_id="evd_contract_001",
+        correction_reason="Corrected bounded metadata reference.",
+        correcting_actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
+        correction_timestamp=datetime(2026, 7, 26, 12, 0, tzinfo=timezone.utc),
+        replacement_reference="ASTRA-IMP-001:correction-001",
+        retention_treatment=RetentionClass.GOVERNANCE_RECORD,
+        privacy_treatment=CorrectionPrivacyTreatment.METADATA_ONLY,
     )
 
 
@@ -96,7 +110,7 @@ class AstraConstitutionalContractsTests(unittest.TestCase):
                 decision_id="GOV-DEC-002",
                 outcome=GovernanceOutcome.ALLOW,
                 requirement_references=(requirement().reference(),),
-                safety_classification=SafetyClassification.SENSITIVE,
+                safety_classification=SafetyClassification.PRIVATE_WRITE,
                 authority_class=AuthorityClass.APPROVAL_REQUIRED,
                 decision_reason_class=DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY,
                 required_approval_state=ApprovalState.PENDING,
@@ -110,7 +124,7 @@ class AstraConstitutionalContractsTests(unittest.TestCase):
                 decision_id="GOV-DEC-003",
                 outcome=GovernanceOutcome.REFUSE,
                 requirement_references=(),
-                safety_classification=SafetyClassification.RESTRICTED,
+                safety_classification=SafetyClassification.CONSTITUTIONAL,
                 authority_class=AuthorityClass.CONSTITUTIONAL,
                 decision_reason_class=DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE,
                 required_approval_state=ApprovalState.NOT_REQUIRED,
@@ -136,6 +150,66 @@ class AstraConstitutionalContractsTests(unittest.TestCase):
 
         self.assertEqual(evidence.evidence_type, EvidenceType.CONTRACT_VALIDATION)
         self.assertEqual(evidence.integrity.content_digest, "sha256:" + "a" * 64)
+
+    def test_every_astra_010_safety_class_serializes_correctly(self):
+        expected = {
+            "public",
+            "private_read",
+            "private_write",
+            "high_impact",
+            "cross_owner",
+            "external_exposure",
+            "constitutional",
+            "prohibited",
+            "unknown",
+        }
+
+        self.assertEqual({item.value for item in SafetyClassification}, expected)
+
+    def test_unknown_and_prohibited_safety_cannot_be_allowed(self):
+        for safety_classification in (SafetyClassification.UNKNOWN, SafetyClassification.PROHIBITED):
+            with self.subTest(safety_classification=safety_classification):
+                with self.assertRaises(ValidationError):
+                    GovernanceDecision(
+                        decision_id="GOV-DEC-004",
+                        outcome=GovernanceOutcome.ALLOW,
+                        requirement_references=(requirement().reference(),),
+                        safety_classification=safety_classification,
+                        authority_class=AuthorityClass.CONSTITUTIONAL,
+                        decision_reason_class=DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE,
+                        required_approval_state=ApprovalState.NOT_REQUIRED,
+                        failure_posture=FailurePosture.FAIL_CLOSED,
+                        version_marker="1.0.0",
+                    )
+
+    def test_high_impact_and_private_write_allow_require_explicit_approval(self):
+        for safety_classification in (SafetyClassification.HIGH_IMPACT, SafetyClassification.PRIVATE_WRITE):
+            with self.subTest(safety_classification=safety_classification):
+                with self.assertRaises(ValidationError):
+                    GovernanceDecision(
+                        decision_id="GOV-DEC-005",
+                        outcome=GovernanceOutcome.ALLOW,
+                        requirement_references=(requirement().reference(),),
+                        safety_classification=safety_classification,
+                        authority_class=AuthorityClass.APPROVAL_REQUIRED,
+                        decision_reason_class=DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY,
+                        required_approval_state=ApprovalState.NOT_REQUIRED,
+                        failure_posture=FailurePosture.FAIL_CLOSED,
+                        version_marker="1.0.0",
+                    )
+
+                approved = GovernanceDecision(
+                    decision_id="GOV-DEC-006",
+                    outcome=GovernanceOutcome.ALLOW,
+                    requirement_references=(requirement().reference(),),
+                    safety_classification=safety_classification,
+                    authority_class=AuthorityClass.APPROVAL_REQUIRED,
+                    decision_reason_class=DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY,
+                    required_approval_state=ApprovalState.APPROVED,
+                    failure_posture=FailurePosture.FAIL_CLOSED,
+                    version_marker="1.0.0",
+                )
+                self.assertEqual(approved.required_approval_state, ApprovalState.APPROVED)
 
     def test_evidence_rejects_secret_bearing_metadata_and_hidden_reasoning(self):
         with self.assertRaises(ValidationError):
@@ -167,6 +241,70 @@ class AstraConstitutionalContractsTests(unittest.TestCase):
                 integrity=integrity(),
                 correction=EvidenceCorrectionMetadata(evidence_version="1.0.0"),
                 redaction_status=RedactionStatus.NOT_REQUIRED,
+            )
+
+    def test_complete_non_destructive_correction_succeeds(self):
+        correction = complete_correction()
+
+        self.assertEqual(correction.supersedes_evidence_id, "evd_contract_001")
+        self.assertEqual(correction.correcting_actor_or_service_class, ActorOrServiceClass.ASTRA_REVIEW)
+        self.assertEqual(correction.retention_treatment, RetentionClass.GOVERNANCE_RECORD)
+        self.assertEqual(correction.privacy_treatment, CorrectionPrivacyTreatment.METADATA_ONLY)
+
+    def test_correction_without_authority_or_timestamp_fails(self):
+        with self.assertRaises(ValidationError):
+            EvidenceCorrectionMetadata(
+                evidence_version="1.0.1",
+                supersedes_evidence_id="evd_contract_001",
+                correction_reason="Corrected bounded metadata reference.",
+                correction_timestamp=datetime(2026, 7, 26, 12, 0, tzinfo=timezone.utc),
+                replacement_reference="ASTRA-IMP-001:correction-001",
+                retention_treatment=RetentionClass.GOVERNANCE_RECORD,
+                privacy_treatment=CorrectionPrivacyTreatment.METADATA_ONLY,
+            )
+
+        with self.assertRaises(ValidationError):
+            EvidenceCorrectionMetadata(
+                evidence_version="1.0.1",
+                supersedes_evidence_id="evd_contract_001",
+                correction_reason="Corrected bounded metadata reference.",
+                correcting_actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
+                replacement_reference="ASTRA-IMP-001:correction-001",
+                retention_treatment=RetentionClass.GOVERNANCE_RECORD,
+                privacy_treatment=CorrectionPrivacyTreatment.METADATA_ONLY,
+            )
+
+    def test_correction_reason_without_superseded_evidence_id_fails(self):
+        with self.assertRaises(ValidationError):
+            EvidenceCorrectionMetadata(
+                evidence_version="1.0.1",
+                correction_reason="Corrected bounded metadata reference.",
+            )
+
+    def test_naive_correction_timestamp_fails(self):
+        with self.assertRaises(ValidationError):
+            EvidenceCorrectionMetadata(
+                evidence_version="1.0.1",
+                supersedes_evidence_id="evd_contract_001",
+                correction_reason="Corrected bounded metadata reference.",
+                correcting_actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
+                correction_timestamp=datetime(2026, 7, 26, 12, 0),
+                replacement_reference="ASTRA-IMP-001:correction-001",
+                retention_treatment=RetentionClass.GOVERNANCE_RECORD,
+                privacy_treatment=CorrectionPrivacyTreatment.METADATA_ONLY,
+            )
+
+    def test_secret_bearing_correction_metadata_fails(self):
+        with self.assertRaises(ValidationError):
+            EvidenceCorrectionMetadata(
+                evidence_version="1.0.1",
+                supersedes_evidence_id="evd_contract_001",
+                correction_reason="Corrected bounded metadata reference.",
+                correcting_actor_or_service_class=ActorOrServiceClass.ASTRA_REVIEW,
+                correction_timestamp=datetime(2026, 7, 26, 12, 0, tzinfo=timezone.utc),
+                replacement_reference="token=abc123",
+                retention_treatment=RetentionClass.GOVERNANCE_RECORD,
+                privacy_treatment=CorrectionPrivacyTreatment.METADATA_ONLY,
             )
 
     def test_configuration_is_disabled_by_default_and_fail_closed(self):
@@ -235,6 +373,16 @@ class AstraConstitutionalContractsTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertIn('"feature_enabled":false', first)
         self.assertLess(first.index('"configuration_id"'), first.index('"configuration_version"'))
+
+    def test_canonical_serialization_preserves_correction_provenance(self):
+        correction = complete_correction()
+
+        payload = canonical_contract_json(correction)
+
+        self.assertIn('"correcting_actor_or_service_class":"astra_review"', payload)
+        self.assertIn('"correction_timestamp":"2026-07-26T12:00:00Z"', payload)
+        self.assertIn('"replacement_reference":"ASTRA-IMP-001:correction-001"', payload)
+        self.assertIn('"supersedes_evidence_id":"evd_contract_001"', payload)
 
     def test_extra_fields_cannot_expand_contract_authority(self):
         with self.assertRaises(ValidationError):

@@ -109,14 +109,36 @@ The contract validators reject:
 - invalid coverage states;
 - malformed requirement IDs, evidence IDs, versions, and stable identifiers;
 - allow decisions that bypass required, pending, or denied approval;
+- unknown safety classifications being allowed;
 - prohibited safety classifications being allowed;
+- private-write or high-impact allow decisions without explicit approval;
 - fail-closed outcomes without fail-closed posture;
 - evidence metadata containing secret, credential, raw prompt, hidden
   reasoning, full private payload, or unrelated-user-data markers;
+- correction metadata without a superseded evidence identifier;
+- evidence corrections that omit correcting authority, timestamp, replacement
+  reference, retention treatment, or privacy treatment;
+- evidence corrections with naive timestamps or secret-bearing metadata;
 - restricted evidence without redaction or no-payload minimization;
 - Stage 0 configuration that enables Astra runtime behavior;
 - Stage 0 configuration that records production authorization; and
 - Stage 0 configuration that disables fail-closed defaults.
+
+`SafetyClassification` uses the frozen ASTRA-010 safety classes:
+
+```text
+public
+private_read
+private_write
+high_impact
+cross_owner
+external_exposure
+constitutional
+prohibited
+unknown
+```
+
+Stage 0 does not introduce a second safety taxonomy.
 
 ---
 
@@ -164,10 +186,13 @@ Focused tests live at:
 tests/test_astra_constitutional_contracts.py
 ```
 
-They cover valid contract creation, invalid contract rejection, fail-closed
-defaults, disabled-by-default configuration, production authorization
-separation, evidence minimization, prohibited evidence categories, stable
-serialization, and extension-safe strict schema behavior.
+They cover valid contract creation, invalid contract rejection, every
+ASTRA-010 safety class, unknown/prohibited safety allow rejection,
+private-write/high-impact approval gates, fail-closed defaults,
+disabled-by-default configuration, production authorization separation,
+evidence minimization, prohibited evidence categories, non-destructive
+evidence-correction metadata, stable serialization, and extension-safe strict
+schema behavior.
 
 ---
 

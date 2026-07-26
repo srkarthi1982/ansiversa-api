@@ -50,9 +50,13 @@ class GovernanceOutcome(StrEnum):
 
 
 class SafetyClassification(StrEnum):
-    ROUTINE = "routine"
-    SENSITIVE = "sensitive"
-    RESTRICTED = "restricted"
+    PUBLIC = "public"
+    PRIVATE_READ = "private_read"
+    PRIVATE_WRITE = "private_write"
+    HIGH_IMPACT = "high_impact"
+    CROSS_OWNER = "cross_owner"
+    EXTERNAL_EXPOSURE = "external_exposure"
+    CONSTITUTIONAL = "constitutional"
     PROHIBITED = "prohibited"
     UNKNOWN = "unknown"
 
@@ -138,6 +142,13 @@ class RetentionClass(StrEnum):
     SHORT_TERM = "short_term"
     GOVERNANCE_RECORD = "governance_record"
     LEGAL_HOLD = "legal_hold"
+    DELETE_ELIGIBLE = "delete_eligible"
+
+
+class CorrectionPrivacyTreatment(StrEnum):
+    METADATA_ONLY = "metadata_only"
+    REDACTED_REFERENCE = "redacted_reference"
+    PRIVACY_MINIMIZED = "privacy_minimized"
     DELETE_ELIGIBLE = "delete_eligible"
 
 
@@ -234,6 +245,14 @@ class GovernanceDecision(BaseModel):
             raise ContractValidationError("Fail-closed decisions must carry a fail-closed posture.")
         if self.safety_classification is SafetyClassification.PROHIBITED and self.outcome is GovernanceOutcome.ALLOW:
             raise ContractValidationError("Prohibited safety classifications cannot be allowed.")
+        if self.safety_classification is SafetyClassification.UNKNOWN and self.outcome is GovernanceOutcome.ALLOW:
+            raise ContractValidationError("Unknown safety classifications cannot be allowed.")
+        if (
+            self.safety_classification in {SafetyClassification.PRIVATE_WRITE, SafetyClassification.HIGH_IMPACT}
+            and self.outcome is GovernanceOutcome.ALLOW
+            and self.required_approval_state is not ApprovalState.APPROVED
+        ):
+            raise ContractValidationError("Private-write and high-impact allow decisions require explicit approval.")
         if (
             self.authority_class is AuthorityClass.PRODUCTION_BOUNDARY
             and self.required_approval_state is not ApprovalState.APPROVED
@@ -263,11 +282,30 @@ class EvidenceCorrectionMetadata(BaseModel):
     evidence_version: str = Field(pattern=VERSION_PATTERN)
     supersedes_evidence_id: str | None = Field(default=None, pattern=EVIDENCE_ID_PATTERN)
     correction_reason: str | None = Field(default=None, max_length=240)
+    correcting_actor_or_service_class: ActorOrServiceClass | None = None
+    correction_timestamp: datetime | None = None
+    replacement_reference: str | None = Field(default=None, pattern=REFERENCE_PATTERN)
+    retention_treatment: RetentionClass | None = None
+    privacy_treatment: CorrectionPrivacyTreatment | None = None
 
     @model_validator(mode="after")
     def validate_correction_reference(self) -> Self:
-        if self.supersedes_evidence_id and not self.correction_reason:
-            raise ContractValidationError("Evidence correction requires a bounded correction reason.")
+        correction_fields = (
+            self.correction_reason,
+            self.correcting_actor_or_service_class,
+            self.correction_timestamp,
+            self.replacement_reference,
+            self.retention_treatment,
+            self.privacy_treatment,
+        )
+        has_correction_metadata = any(value is not None for value in correction_fields)
+        if self.supersedes_evidence_id is None and has_correction_metadata:
+            raise ContractValidationError("Evidence correction metadata requires a superseded evidence identifier.")
+        if self.supersedes_evidence_id is not None:
+            if any(value is None for value in correction_fields):
+                raise ContractValidationError("Evidence correction requires reason, authority, timestamp, replacement, retention, and privacy metadata.")
+            if self.correction_timestamp is None or self.correction_timestamp.tzinfo is None or self.correction_timestamp.utcoffset() is None:
+                raise ContractValidationError("Evidence correction timestamps must be timezone-aware.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 

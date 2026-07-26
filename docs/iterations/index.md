@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-001 implemented; pending Astra source review | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-001 corrections applied; pending Astra re-review | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -134,6 +134,11 @@ ASTRA-IR-001 readiness plan. The implementation adds Stage 0 contracts for
 constitutional requirement identifiers, governance decisions, bounded evidence,
 and disabled-by-default configuration under the existing disabled Astra package.
 It adds focused validation tests and implementation mapping documentation.
-Constitutional conformance is pending Astra source review. Product Owner
-approval, certification, and production authorization remain pending or not
-approved. Production remains unchanged.
+Astra approved the implementation direction for commit `5b5395da` and requested
+two targeted corrections. The safety classification contract now aligns with
+ASTRA-010, unknown/prohibited safety cannot allow, private-write/high-impact
+allow decisions require explicit approval, and evidence-correction metadata now
+preserves authority, timestamp, replacement reference, retention treatment, and
+privacy treatment. Astra re-review is pending. Product Owner approval,
+certification, and production authorization remain pending or not approved.
+Production remains unchanged.

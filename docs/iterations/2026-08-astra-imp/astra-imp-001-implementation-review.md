@@ -3,6 +3,8 @@
 **Status:** Pending Astra Source Review
 **Task:** ASTRA-IMP-001
 **Implementation Scope:** Constitutional Contracts Foundation
+**Implementation Direction:** Approved
+**Constitutional Review:** Minor corrections applied; pending Astra re-review
 **Production Authorization:** Not approved
 **Production:** Unchanged
 
@@ -19,6 +21,15 @@ The implementation is limited to:
 - focused contract tests;
 - implementation and mapping documentation; and
 - AGENTS/iteration tracking.
+
+After Astra source review of commit `5b5395da`, two targeted corrections were
+applied:
+
+- `SafetyClassification` now uses the frozen ASTRA-010 safety classes and
+  rejects `allow` for `unknown` and `prohibited` safety classifications.
+- `EvidenceCorrectionMetadata` now requires non-destructive correction
+  provenance when a correction is supplied: correcting authority, timezone-aware
+  timestamp, replacement reference, retention treatment, and privacy treatment.
 
 ---
 
@@ -73,6 +84,9 @@ AGENTS.md
   frontend, deployment, and production behavior unchanged?
 - Are evidence minimization and audit integrity represented without storing
   prohibited content?
+- Do evidence corrections preserve who corrected evidence, when it was
+  corrected, what replacement reference applies, and how retention/privacy are
+  governed?
 - Does disabled-by-default configuration prevent production authorization from
   being inferred?
 
@@ -83,7 +97,8 @@ AGENTS.md
 ```text
 ASTRA-IMP-001               Implemented
 Implementation Scope        Constitutional Contracts Foundation
-Constitutional Conformance  Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Product Owner Approval      Pending
 Certification               Pending
 Production Authorization    Not approved
