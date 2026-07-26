@@ -6,7 +6,8 @@
 **Parent Implementation:** ASTRA-IMP-001 Certified / Approved
 **Implementation Authorization:** Approved
 **Implementation Scope:** Minimal Configuration Foundation
-**Implementation Direction:** Pending Astra Source Review
+**Implementation Direction:** Approved
+**Constitutional Review:** Minor corrections applied; pending Astra re-review
 **Constitutional Conformance:** Pending
 **Product Owner Approval:** Pending
 **Certification:** Pending
@@ -78,7 +79,8 @@ Explicitly not included:
 ```text
 ASTRA-IMP-002               Implemented
 Implementation Scope        Minimal Configuration Foundation
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

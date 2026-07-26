@@ -6,7 +6,8 @@
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Parent Implementation:** ASTRA-IMP-001 Certified / Approved
 **Implementation Scope:** Minimal Configuration Foundation
-**Implementation Direction:** Pending Astra Source Review
+**Implementation Direction:** Approved
+**Constitutional Review:** Minor corrections applied; pending Astra re-review
 **Constitutional Conformance:** Pending
 **Product Owner Approval:** Pending
 **Certification:** Pending
@@ -72,6 +73,7 @@ Ownership:
   configuration contract.
 - The loader consumes only environment identity fields needed for scope
   selection: `APP_ENV` and `VERCEL_ENV`.
+- The authoritative loader accepts no arbitrary caller override path.
 - The loader does not read or expose provider keys, model settings, raw
   secrets, or unrelated environment values.
 
@@ -107,6 +109,9 @@ production
 Environment selection does not create authority. Production scope still records
 production authorization as `not_approved`.
 
+Unknown nonempty `APP_ENV` or `VERCEL_ENV` values fail closed instead of being
+silently downgraded to development.
+
 ---
 
 # Provenance
@@ -140,6 +145,9 @@ configuration is created.
 
 The loader rejects:
 
+- unknown `APP_ENV` values;
+- unknown nonempty `VERCEL_ENV` values;
+- public caller overrides of governed configuration identity;
 - unknown fields;
 - invalid enum values;
 - feature activation;
@@ -157,7 +165,8 @@ The loader rejects:
 ```text
 ASTRA-IMP-002               Implemented
 Implementation Scope        Minimal Configuration Foundation
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

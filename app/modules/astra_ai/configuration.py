@@ -21,6 +21,23 @@ from app.modules.astra_ai.constitutional_contracts import (
 
 ASTRA_CONFIGURATION_ID = "ASTRA-CONFIG-002"
 ASTRA_CONFIGURATION_VERSION = "1.0.0"
+APP_ENVIRONMENT_SCOPES = {
+    "local": EnvironmentScope.LOCAL,
+    "development": EnvironmentScope.DEVELOPMENT,
+    "qa": EnvironmentScope.QA,
+    "staging": EnvironmentScope.STAGING,
+    "production": EnvironmentScope.PRODUCTION,
+}
+VERCEL_ENVIRONMENT_SCOPES = {
+    "development": None,
+    "preview": EnvironmentScope.STAGING,
+    "staging": EnvironmentScope.STAGING,
+    "production": EnvironmentScope.PRODUCTION,
+}
+
+
+class AstraConfigurationError(ValueError):
+    """Raised when Astra configuration identity cannot be safely resolved."""
 
 
 class AstraConfigurationSourceClass(StrEnum):
@@ -54,18 +71,26 @@ class LoadedAstraConfiguration(BaseModel):
 def load_astra_configuration(
     *,
     app_settings: Settings = settings,
-    overrides: Mapping[str, Any] | None = None,
     loaded_at: datetime | None = None,
 ) -> LoadedAstraConfiguration:
     """Load the disabled-by-default Astra Stage 1 configuration.
 
-    The loader consumes only existing environment identity settings and
-    optional explicit test overrides. It never reads provider keys, model
-    settings, secrets, or unrelated environment values.
+    The loader consumes only existing environment identity settings. It never
+    accepts arbitrary caller overrides, reads provider keys, model settings,
+    secrets, or unrelated environment values.
     """
 
     environment_scope = _resolve_environment_scope(app_settings)
-    payload: dict[str, Any] = {
+    payload = _default_configuration_candidate(environment_scope)
+    return _load_validated_configuration(
+        payload,
+        source_class=AstraConfigurationSourceClass.EXISTING_APP_SETTINGS,
+        loaded_at=loaded_at,
+    )
+
+
+def _default_configuration_candidate(environment_scope: EnvironmentScope) -> dict[str, Any]:
+    return {
         "configuration_id": ASTRA_CONFIGURATION_ID,
         "feature_enabled": False,
         "environment_scope": environment_scope,
@@ -79,11 +104,26 @@ def load_astra_configuration(
         "fail_closed_default": True,
         "configuration_version": ASTRA_CONFIGURATION_VERSION,
     }
-    source_class = AstraConfigurationSourceClass.EXISTING_APP_SETTINGS
-    if overrides is not None:
-        payload.update(dict(overrides))
-        source_class = AstraConfigurationSourceClass.TEST_OVERRIDE
 
+
+def _validate_astra_configuration_candidate(
+    candidate: Mapping[str, Any],
+    *,
+    loaded_at: datetime | None = None,
+) -> LoadedAstraConfiguration:
+    return _load_validated_configuration(
+        dict(candidate),
+        source_class=AstraConfigurationSourceClass.TEST_OVERRIDE,
+        loaded_at=loaded_at,
+    )
+
+
+def _load_validated_configuration(
+    payload: Mapping[str, Any],
+    *,
+    source_class: AstraConfigurationSourceClass,
+    loaded_at: datetime | None,
+) -> LoadedAstraConfiguration:
     configuration = AstraConfigurationContract(**payload)
     timestamp = loaded_at or datetime.now(timezone.utc)
     if timestamp.tzinfo is None or timestamp.utcoffset() is None:
@@ -116,12 +156,13 @@ def get_astra_configuration() -> LoadedAstraConfiguration:
 def _resolve_environment_scope(app_settings: Settings) -> EnvironmentScope:
     vercel_env = (app_settings.VERCEL_ENV or "").strip().lower()
     app_env = app_settings.APP_ENV.strip().lower()
+    if app_env not in APP_ENVIRONMENT_SCOPES:
+        raise AstraConfigurationError("Unknown Astra APP_ENV value.")
+    if vercel_env and vercel_env not in VERCEL_ENVIRONMENT_SCOPES:
+        raise AstraConfigurationError("Unknown Astra VERCEL_ENV value.")
     if vercel_env == "production" or app_env == "production":
         return EnvironmentScope.PRODUCTION
-    if vercel_env in {"preview", "staging"} or app_env == "staging":
-        return EnvironmentScope.STAGING
-    if app_env == "qa":
-        return EnvironmentScope.QA
-    if app_env == "local":
-        return EnvironmentScope.LOCAL
-    return EnvironmentScope.DEVELOPMENT
+    vercel_scope = VERCEL_ENVIRONMENT_SCOPES.get(vercel_env)
+    if vercel_scope is not None:
+        return vercel_scope
+    return APP_ENVIRONMENT_SCOPES[app_env]

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import unittest
 from datetime import datetime, timezone
 
@@ -11,6 +12,8 @@ from app.modules.astra_ai.configuration import (
     ASTRA_CONFIGURATION_VERSION,
     AstraConfigurationSourceClass,
     AstraConfigurationValidationResult,
+    _default_configuration_candidate,
+    _validate_astra_configuration_candidate,
     get_astra_configuration,
     load_astra_configuration,
 )
@@ -25,6 +28,12 @@ from app.modules.astra_ai.constitutional_contracts import (
 
 def app_settings(app_env: str, vercel_env: str | None = None, **overrides):
     return Settings(APP_ENV=app_env, VERCEL_ENV=vercel_env, **overrides)
+
+
+def candidate(**overrides):
+    values = _default_configuration_candidate(EnvironmentScope.QA)
+    values.update(overrides)
+    return values
 
 
 class AstraConfigurationFoundationTests(unittest.TestCase):
@@ -53,7 +62,10 @@ class AstraConfigurationFoundationTests(unittest.TestCase):
             ("development", None, EnvironmentScope.DEVELOPMENT),
             ("qa", None, EnvironmentScope.QA),
             ("staging", None, EnvironmentScope.STAGING),
+            ("development", "", EnvironmentScope.DEVELOPMENT),
+            ("qa", "development", EnvironmentScope.QA),
             ("development", "preview", EnvironmentScope.STAGING),
+            ("qa", "staging", EnvironmentScope.STAGING),
             ("production", None, EnvironmentScope.PRODUCTION),
             ("development", "production", EnvironmentScope.PRODUCTION),
         )
@@ -81,62 +93,78 @@ class AstraConfigurationFoundationTests(unittest.TestCase):
         self.assertFalse(loaded.configuration.feature_enabled)
         self.assertEqual(loaded.configuration.production_authorization_state, ProductionAuthorizationState.NOT_APPROVED)
 
+    def test_unknown_app_env_fails_closed(self):
+        with self.assertRaises(ValueError):
+            load_astra_configuration(app_settings=app_settings("unknown"))
+
+    def test_misspelled_production_app_env_fails_closed(self):
+        with self.assertRaises(ValueError):
+            load_astra_configuration(app_settings=app_settings("prodution"))
+
+    def test_unknown_vercel_env_fails_closed(self):
+        with self.assertRaises(ValueError):
+            load_astra_configuration(app_settings=app_settings("development", "unexpected-value"))
+
+    def test_public_loader_exposes_no_arbitrary_override_path(self):
+        signature = inspect.signature(load_astra_configuration)
+
+        self.assertNotIn("overrides", signature.parameters)
+        with self.assertRaises(TypeError):
+            load_astra_configuration(
+                app_settings=app_settings("production"),
+                overrides={"environment_scope": "local"},
+            )
+
+    def test_environment_scope_comes_only_from_authoritative_settings(self):
+        loaded = load_astra_configuration(app_settings=app_settings("production"))
+
+        self.assertEqual(loaded.configuration.environment_scope, EnvironmentScope.PRODUCTION)
+        self.assertEqual(loaded.provenance.environment_scope, EnvironmentScope.PRODUCTION)
+
+    def test_configuration_identity_cannot_be_caller_overridden(self):
+        loaded = load_astra_configuration(app_settings=app_settings("qa"))
+
+        self.assertEqual(loaded.configuration.configuration_id, ASTRA_CONFIGURATION_ID)
+        self.assertEqual(loaded.configuration.configuration_version, ASTRA_CONFIGURATION_VERSION)
+        self.assertEqual(loaded.configuration.implementation_phase, ImplementationPhase.ASTRA_IMP_002)
+
     def test_unknown_fields_fail(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"provider_model": "gpt-x"},
-            )
+            _validate_astra_configuration_candidate(candidate(provider_model="gpt-x"))
 
     def test_invalid_enum_values_fail(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"provider_use": "enabled"},
-            )
+            _validate_astra_configuration_candidate(candidate(provider_use="enabled"))
 
     def test_provider_memory_adaptation_and_execution_cannot_be_enabled(self):
         for field in ("provider_use", "memory_use", "adaptation_use", "execution_handoff"):
             with self.subTest(field=field):
                 with self.assertRaises(ValidationError):
-                    load_astra_configuration(
-                        app_settings=app_settings("qa"),
-                        overrides={field: "enabled"},
-                    )
+                    _validate_astra_configuration_candidate(candidate(**{field: "enabled"}))
 
     def test_feature_activation_cannot_be_enabled(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"feature_enabled": True},
-            )
+            _validate_astra_configuration_candidate(candidate(feature_enabled=True))
 
     def test_production_authorization_cannot_be_inferred_or_overridden(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("production"),
-                overrides={"production_authorization_state": "approved"},
+            _validate_astra_configuration_candidate(
+                candidate(
+                    environment_scope=EnvironmentScope.PRODUCTION,
+                    production_authorization_state="approved",
+                )
             )
 
     def test_malformed_identifiers_and_versions_fail(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"configuration_id": "bad-id"},
-            )
+            _validate_astra_configuration_candidate(candidate(configuration_id="bad-id"))
 
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"configuration_version": "1"},
-            )
+            _validate_astra_configuration_candidate(candidate(configuration_version="1"))
 
     def test_non_fail_closed_configuration_fails(self):
         with self.assertRaises(ValidationError):
-            load_astra_configuration(
-                app_settings=app_settings("qa"),
-                overrides={"fail_closed_default": False},
-            )
+            _validate_astra_configuration_candidate(candidate(fail_closed_default=False))
 
     def test_provenance_is_bounded_and_contains_no_raw_secret_values(self):
         loaded = load_astra_configuration(

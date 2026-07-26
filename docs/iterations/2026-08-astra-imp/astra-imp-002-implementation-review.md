@@ -1,8 +1,10 @@
 # ASTRA-IMP-002 Implementation Review Package
 
-**Status:** Pending Astra Source Review
+**Status:** Minor corrections applied; pending Astra re-review
 **Task:** ASTRA-IMP-002
 **Implementation Scope:** Minimal Configuration Foundation
+**Implementation Direction:** Approved
+**Constitutional Review:** Minor corrections applied; pending Astra re-review
 **Production Authorization:** Not approved
 **Production:** Unchanged
 **ASTRA-IMP-003:** Not authorized
@@ -22,6 +24,15 @@ The implementation is limited to:
 - a minimal ASTRA-IMP-001 contract enum extension for `astra_imp_002`;
 - focused configuration and regression tests;
 - implementation documentation and requirement mapping.
+
+After Astra source review of commit `89cf5174`, two targeted corrections were
+applied:
+
+- environment identity parsing now explicitly accepts only governed `APP_ENV`
+  and `VERCEL_ENV` values and fails closed on unknown nonempty values; and
+- `load_astra_configuration()` no longer exposes arbitrary caller overrides,
+  while a private validation helper preserves focused invalid-candidate test
+  coverage.
 
 ---
 
@@ -73,7 +84,9 @@ AGENTS.md
 
 - Does the configuration loader preserve disabled-by-default behavior in every
   supported environment?
+- Does unknown environment identity fail closed?
 - Does production scope remain not approved?
+- Does the public loader expose no arbitrary override path?
 - Does the loader avoid exposing raw environment or secret values?
 - Is the `astra_imp_002` contract extension acceptable as the minimal required
   contract compatibility fix?
@@ -88,7 +101,8 @@ AGENTS.md
 ```text
 ASTRA-IMP-002               Implemented
 Implementation Scope        Minimal Configuration Foundation
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending

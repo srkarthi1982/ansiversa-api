@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-002 Implemented; Pending Astra Source Review
+**Status:** ASTRA-IMP-002 corrections applied; Pending Astra Re-review
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -53,7 +53,8 @@ and ASTRA-IMP-001 is closed. ASTRA-IMP-002 requires separate authorization.
 ```text
 ASTRA-IMP-002               Implemented
 Implementation Scope        Minimal Configuration Foundation
-Implementation Direction    Pending Astra Source Review
+Implementation Direction    Approved
+Constitutional Review       Minor corrections applied; pending Astra re-review
 Constitutional Conformance  Pending
 Product Owner Approval      Pending
 Certification               Pending
@@ -68,3 +69,9 @@ ASTRA-IMP-002 implements the Stage 1 Minimal Configuration Foundation. It adds
 a static, validated, disabled-by-default internal Astra configuration projection
 through existing repository settings patterns. It does not authorize runtime
 behavior or production.
+
+Astra source review approved the implementation direction for commit
+`89cf5174` and requested two targeted corrections. The correction updates make
+environment parsing fail closed for unknown identity values and remove the
+arbitrary override path from the authoritative loader. Astra re-review remains
+pending.
