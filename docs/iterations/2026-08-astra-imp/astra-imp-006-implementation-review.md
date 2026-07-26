@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 Implementation Review Package
 
-**Status:** Implemented / Corrections Applied / Pending Astra Re-review
+**Status:** Certified / Approved
 **Task:** ASTRA-IMP-006
 **Implementation Scope:** Conversation Context Engine
 **Production Authorization:** Not approved
@@ -98,15 +98,20 @@ The correction also enforces monotonic lifecycle and current-turn timestamps.
 
 ---
 
-# Review State
+# Certification Closure
+
+Astra source-level re-review approved commit `e6e51af3`. Product Owner approval
+is recorded, constitutional conformance is approved, certification passed,
+production authorization is not approved, production remains unchanged, and
+ASTRA-IMP-007 remains unauthorized.
 
 ```text
-ASTRA-IMP-006               Implemented
+ASTRA-IMP-006               Certified / Approved
 Implementation Direction    Approved
-Astra Re-review             Pending
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
 ASTRA-IMP-007               Not authorized

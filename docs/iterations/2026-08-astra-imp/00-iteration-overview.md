@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-006 Implemented / Corrections Applied / Pending Astra Re-review
+**Status:** ASTRA-IMP-006 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -177,13 +177,13 @@ ASTRA-IMP-005 is closed. ASTRA-IMP-006 requires separate authorization.
 # ASTRA-IMP-006
 
 ```text
-ASTRA-IMP-006               Implemented
+ASTRA-IMP-006               Certified / Approved
 Implementation Scope        Conversation Context Engine
 Implementation Direction    Approved
-Astra Re-review             Pending
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Production Authorization    Not approved
 Production                  Unchanged
@@ -203,4 +203,6 @@ Conversation remains separate from memory, planning, execution, provider
 interaction, and learning. The implementation does not add providers, prompts,
 model invocation, Tool Executor behavior, APIs, routes, databases, migrations,
 frontend work, deployment, production configuration, production authorization,
-or production behavior. ASTRA-IMP-007 requires separate authorization.
+or production behavior. Astra re-review approved commit `e6e51af3`, Product
+Owner approval is recorded, certification passed, and ASTRA-IMP-006 is closed.
+ASTRA-IMP-007 requires separate authorization.

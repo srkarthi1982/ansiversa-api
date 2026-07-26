@@ -1,6 +1,6 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
-| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-006 implemented; pending Astra source review | Begins Jul 26 |
+| Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-006 certified; ASTRA-IMP-007 not authorized | Begins Jul 26 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |
@@ -215,15 +215,19 @@ approved commit `50c02aad`, Product Owner approval is recorded,
 constitutional conformance is approved, and certification passed. ASTRA-IMP-006
 was later separately authorized for implementation.
 
-ASTRA-IMP-006 Conversation Context Engine is implemented and pending Astra
-source review. It inherits the accepted/frozen ASTRA-001 through ASTRA-010
+ASTRA-IMP-006 Conversation Context Engine is certified and approved. It
+inherits the accepted/frozen ASTRA-001 through ASTRA-010
 Constitution, accepted/frozen ASTRA-IR-001 readiness plan, and
 certified/approved ASTRA-IMP-001 through ASTRA-IMP-005 foundations. The
 implementation adds a provider-independent conversation context engine under
 `app/modules/astra_ai/conversation_context.py` with immutable conversation
 metadata, explicit lifecycle states, current-turn metadata, bounded rolling
 short-context history, runtime ownership enforcement, governance evidence
-emission through Runtime Core, and structural conversation health. It does not
+emission through Runtime Core, structural conversation health, immutable
+observation snapshots, and evidence-before-commit mutation atomicity. Astra
+source-level re-review approved commit `e6e51af3`, Product Owner approval is
+recorded, constitutional conformance is approved, and certification passed. It
+does not
 introduce providers, prompts, model invocation, planning, execution, Tool
 Executor behavior, long-term memory, learning, embeddings, vector databases,
 APIs, routes, frontend work, databases, migrations, deployment, production

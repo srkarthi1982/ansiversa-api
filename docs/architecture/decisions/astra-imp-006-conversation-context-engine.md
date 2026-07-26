@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-006 Conversation Context Engine
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-07-26
 **Task:** ASTRA-IMP-006
 **Production Authorization:** Not approved
@@ -55,12 +55,12 @@ ASTRA-IMP-007 remains unauthorized.
 # Review State
 
 ```text
-ASTRA-IMP-006               Implemented
+ASTRA-IMP-006               Certified / Approved
 Implementation Direction    Approved
-Astra Re-review             Pending
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 Production Authorization    Not approved
 Production                  Unchanged
 ASTRA-IMP-007               Not authorized

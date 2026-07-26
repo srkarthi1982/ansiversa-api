@@ -1,6 +1,6 @@
 # ASTRA-IMP-006 Conversation Lifecycle
 
-**Status:** Implemented / Corrections Applied / Pending Astra Re-review
+**Status:** Certified / Approved
 **Production Authorization:** Not approved
 
 ---
