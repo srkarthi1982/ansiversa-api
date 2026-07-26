@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -155,18 +155,21 @@ and production changes remain unauthorized. ASTRA-007 External Intelligence And
 Provider Architecture was authorized for documentation and architecture only on
 2026-07-25.
 
-ASTRA-007 External Intelligence and Provider Architecture is Proposed. Astra
-approved the architecture direction for commit `ad3340e` and requested two
-targeted documentation refinements before freeze. The ADR is Proposed.
-ASTRA-007 inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, and
-ASTRA-006 and defines how Astra determines whether external intelligence is
-necessary, constructs governed provider input envelopes, selects eligible
-providers, validates provider responses, controls cost and privacy risk,
-records bounded evidence, and remains provider-independent. The current
-revision separates provider eligibility from provider selection and defines
-provider response authority so provider output remains advisory until validated
-by Astra and authoritative owners. Implementation and production changes remain
-unauthorized.
+ASTRA-007 External Intelligence and Provider Architecture is approved and
+Frozen. Astra approved the architecture direction for commit `ad3340e`,
+requested two targeted documentation refinements, and approved the corrected
+source-level re-review for commit `fa0c6919`. Product Owner approval is
+recorded. The ADR is accepted. ASTRA-007 inherits ASTRA-001, ASTRA-002,
+ASTRA-003, ASTRA-004, ASTRA-005, and ASTRA-006 and defines how Astra
+determines whether external intelligence is necessary, constructs governed
+provider input envelopes, selects eligible providers, validates provider
+responses, controls cost and privacy risk, records bounded evidence, and
+remains provider-independent. The accepted architecture separates provider
+eligibility from provider selection and defines provider response authority so
+provider output remains advisory until validated by Astra and authoritative
+owners. Implementation and production changes remain unauthorized. ASTRA-008
+Memory Architecture is documentation-only next and requires separate
+authorization before work begins.
 
 ---
 

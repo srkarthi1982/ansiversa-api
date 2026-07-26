@@ -1,12 +1,12 @@
 # ASTRA-007 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-25
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -24,7 +24,7 @@ docs/architecture/decisions/astra-ai-external-intelligence-provider-architecture
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed External Intelligence and Provider Architecture that inherits
 ASTRA-001 through ASTRA-006 and defines when Astra may use external
@@ -71,7 +71,7 @@ commit `ad3340e`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-007               Proposed
+ASTRA-007               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -83,11 +83,13 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Architecture Review     Approved
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-008               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-007 makes no implementation changes and does not reopen
@@ -114,7 +116,10 @@ two targeted documentation refinements required before ASTRA-007 can be frozen:
 - define provider response authority, making provider output advisory until
   validated by Astra and authoritative owners.
 
-Those refinements are now applied. ASTRA-007 remains Proposed and is ready for
-Astra re-review.
+Astra re-reviewed commit `fa0c6919` and approved ASTRA-007. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-007 is Frozen.
+
+ASTRA-008 Memory Architecture is documentation-only next and requires separate
+Product Owner authorization before work begins.
 
 Implementation remains unauthorized. Production remains unchanged.

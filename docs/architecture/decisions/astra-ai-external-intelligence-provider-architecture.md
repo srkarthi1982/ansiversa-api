@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI External Intelligence And Provider Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-25
+**Accepted:** 2026-07-26
+**Frozen:** 2026-07-26
 **Task:** ASTRA-007
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -13,8 +15,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -29,7 +31,7 @@ production AI behavior?
 
 Decision:
 
-Propose ASTRA-007 as the documentation-only architecture for how Astra
+Adopt ASTRA-007 as the documentation-only architecture for how Astra
 determines whether external intelligence is necessary, constructs governed
 provider input envelopes, selects eligible providers, validates provider
 responses, controls cost and privacy risk, records bounded evidence, and
@@ -37,7 +39,7 @@ remains provider-independent. The revised proposal separates provider
 eligibility from provider selection and classifies provider output as advisory
 intelligence until validated by Astra and authoritative owners.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-external-intelligence-provider-architecture.md
@@ -72,7 +74,7 @@ constitutional dependency.
 
 ## Option 3 - Local-First Provider-Governed Architecture
 
-Recommendation: Accept if approved after Astra review.
+Recommendation: Accept.
 
 This keeps Astra self-defined, requires local sufficiency checks before
 provider selection, treats external intelligence as a governed capability,
@@ -81,7 +83,7 @@ risk, and preserves provider independence.
 
 ---
 
-# Proposed Engineering Laws
+# Accepted Engineering Laws
 
 ## Law 1
 
@@ -111,7 +113,7 @@ risk, and preserves provider independence.
 
 ---
 
-# Consequences If Accepted
+# Consequences
 
 - External intelligence becomes a governed capability, not the default path.
 - Provider eligibility is evaluated before provider selection.
@@ -136,23 +138,24 @@ risk, and preserves provider independence.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-007 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Astra architecture review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-007 frozen.
+- [x] Future implementation phase separately scoped.
 - [x] Astra architecture direction approved with targeted documentation
   refinements recorded.
 - [x] Provider eligibility and provider selection refinement applied.
 - [x] Provider response authority refinement applied.
+- [x] Astra re-review approved.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-007               Proposed
+ADR                     Accepted
+ASTRA-007               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -164,8 +167,10 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
+Architecture Review     Approved
+Astra Re-review         Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-008               Documentation only next; requires separate authorization
 ```

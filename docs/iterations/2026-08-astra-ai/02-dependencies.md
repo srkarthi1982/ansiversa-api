@@ -1,6 +1,6 @@
 # Astra AI Architecture Dependencies
 
-**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 proposed
+**Status:** ASTRA-001 frozen; ASTRA-002 frozen; ASTRA-003 frozen; ASTRA-004 frozen; ASTRA-005 frozen; ASTRA-006 frozen; ASTRA-007 frozen
 
 | Dependency | Current state | ASTRA-001 relationship |
 |---|---|---|
@@ -21,7 +21,7 @@
 | ASTRA-004 | Accepted and Frozen | Capability/tool parent for future execution-planning architecture |
 | ASTRA-005 | Accepted and Frozen | Execution-planning parent for future Tool Execution Architecture |
 | ASTRA-006 | Accepted and Frozen | Tool-execution parent for future provider, memory, learning, and governance architecture |
-| ASTRA-007 | Proposed | Provider architecture parent for future memory, learning, and governance architecture |
+| ASTRA-007 | Accepted and Frozen | Provider architecture parent for future memory, learning, and governance architecture |
 | External model providers | Not integrated by ASTRA-002 | Optional future capability, never the default path |
 
 ---
@@ -35,8 +35,9 @@
 - ASTRA-006 is frozen, but separate Product Owner authorization is still
   required before implementing Tool Executor handoff or execution monitoring
   behavior;
-- ASTRA-007 review, Product Owner approval, and freeze before implementing
-  provider routing, prompts, model invocation, or provider integration;
+- ASTRA-007 is frozen, but separate Product Owner authorization is still
+  required before implementing provider routing, prompts, model invocation, or
+  provider integration;
 - separate Product Owner authorization before implementing conversation or
   context behavior from ASTRA-003;
 - Product Owner authorization for a named implementation phase;
