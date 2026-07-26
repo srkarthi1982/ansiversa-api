@@ -1,7 +1,9 @@
 # Architecture Decision: Astra AI Memory Architecture
 
-**Status:** Proposed
+**Status:** Accepted
 **Created:** 2026-07-26
+**Accepted:** 2026-07-26
+**Frozen:** 2026-07-26
 **Task:** ASTRA-008
 **Parent:** ASTRA-001 Vision And Core Architecture
 **Parent:** ASTRA-002 Platform Intelligence Architecture
@@ -14,8 +16,8 @@
 **Documentation Authorization:** Approved
 **Architecture Authorization:** Approved
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -30,14 +32,14 @@ frontend controls, or production personalization behavior?
 
 Decision:
 
-Propose ASTRA-008 as the documentation-only architecture for what Astra may
+Adopt ASTRA-008 as the documentation-only architecture for what Astra may
 remember, what it must forget, and how memory is classified, owned, retrieved,
 retained, deleted, exported, audited, and prevented from becoming an
 unauthorized cross-app datastore. The revised proposal separates Astra-owned
 memory from governed references to information owned elsewhere and defines
 memory retrieval authorization as a separate decision from memory existence.
 
-Canonical proposed specification:
+Canonical accepted specification:
 
 ```text
 docs/astra-ai-memory-architecture.md
@@ -79,14 +81,14 @@ central cross-app datastore.
 
 ## Option 4 - Governed Memory Classes
 
-Recommendation: Accept if approved after Astra review.
+Recommendation: Accept.
 
 This defines memory as explicit, classified, purpose-bound, revocable,
 minimized, and subordinate to authoritative platform and app sources.
 
 ---
 
-# Proposed Engineering Laws
+# Accepted Engineering Laws
 
 ## Law 1
 
@@ -115,7 +117,7 @@ minimized, and subordinate to authoritative platform and app sources.
 
 ---
 
-# Consequences If Accepted
+# Consequences
 
 - Memory becomes a governed architecture object, not implicit storage.
 - Memory ownership is separated from governed references to externally owned
@@ -141,11 +143,11 @@ minimized, and subordinate to authoritative platform and app sources.
 
 # Acceptance Checklist
 
-- [ ] Astra architecture review completed.
-- [ ] Product Owner approval recorded.
-- [ ] ADR accepted.
-- [ ] ASTRA-008 frozen.
-- [ ] Future implementation phase separately scoped.
+- [x] Astra architecture review completed.
+- [x] Product Owner approval recorded.
+- [x] ADR accepted.
+- [x] ASTRA-008 frozen.
+- [x] Future implementation phase separately scoped.
 - [x] Astra architecture direction approved with targeted documentation
   refinements recorded.
 - [x] Memory ownership and memory references refinement applied.
@@ -153,14 +155,15 @@ minimized, and subordinate to authoritative platform and app sources.
 - [x] Documentation authorization approved.
 - [x] Architecture authorization approved.
 - [x] Parent ASTRA-001 through ASTRA-007 inheritance recorded.
+- [x] Astra re-review approved.
 
 ---
 
 # Current Status
 
 ```text
-ADR                     Proposed
-ASTRA-008               Proposed
+ADR                     Accepted
+ASTRA-008               Approved and Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -173,8 +176,9 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
+Astra Re-review         Approved
+Product Owner Approval  Approved
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-009               Documentation only next; requires separate authorization
 ```

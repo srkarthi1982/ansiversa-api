@@ -1,6 +1,6 @@
 # ASTRA-008 - Memory Architecture
 
-**Status:** Proposed
+**Status:** Frozen
 **Created:** 2026-07-26
 **Owner:** Karthikeyan Ramalingam
 **Parent:** ASTRA-001 Vision And Core Architecture
@@ -12,9 +12,9 @@
 **Parent:** ASTRA-007 External Intelligence And Provider Architecture
 **Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
-**ADR:** Proposed
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
+**ADR:** Accepted
 **Implementation Agent:** Codex
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -163,10 +163,10 @@ separate governed authorization decision.
 
 ---
 
-# Final ASTRA-008 Draft Status
+# Final ASTRA-008 Status
 
 ```text
-ASTRA-008               Proposed
+ASTRA-008               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -179,9 +179,10 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-009               Documentation only next; requires separate authorization
 ```

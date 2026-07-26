@@ -1,6 +1,6 @@
 # Iteration 3 - Astra AI Architecture
 
-**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Proposed
+**Status:** ASTRA-001 Frozen; ASTRA-002 Frozen; ASTRA-003 Frozen; ASTRA-004 Frozen; ASTRA-005 Frozen; ASTRA-006 Frozen; ASTRA-007 Frozen; ASTRA-008 Frozen
 **Created:** 2026-07-24
 **Implementation:** Not authorized
 **Production:** Unchanged
@@ -175,20 +175,22 @@ owners. Implementation and production changes remain unauthorized. ASTRA-008
 Memory Architecture is documentation-only next and requires separate
 authorization before work begins.
 
-ASTRA-008 Memory Architecture is Proposed. ASTRA-008 inherits ASTRA-001,
-ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005, ASTRA-006, and ASTRA-007 and
-defines what Astra may remember, what it must forget, how memory is
-classified, owned, retrieved, retained, deleted, exported, audited, and
-prevented from becoming an unauthorized cross-app datastore. The proposed
-architecture separates conversation state, working memory, long-term user
-memory, preference memory, app-owned data, Knowledge, provider output, and
-audit evidence. It makes forgetting, deletion, export, retention, owner scope,
-and memory evidence first-class governance requirements. Astra approved the
-architecture direction for commit `dcc0ec3` and requested two targeted
-documentation refinements before freeze. The current revision separates
-Astra-owned memory from governed references to information owned elsewhere and
-defines memory retrieval authorization as a separate governed decision from
-memory existence. Implementation and production changes remain unauthorized.
+ASTRA-008 Memory Architecture is approved and Frozen. Astra approved the
+architecture direction for commit `dcc0ec3`, requested two targeted
+documentation refinements, and approved the corrected source-level re-review
+for commit `ce14300`. Product Owner approval is recorded. The ADR is accepted.
+ASTRA-008 inherits ASTRA-001, ASTRA-002, ASTRA-003, ASTRA-004, ASTRA-005,
+ASTRA-006, and ASTRA-007 and defines what Astra may remember, what it must
+forget, how memory is classified, owned, retrieved, retained, deleted,
+exported, audited, and prevented from becoming an unauthorized cross-app
+datastore. The accepted architecture separates conversation state, working
+memory, long-term user memory, preference memory, app-owned data, Knowledge,
+provider output, and audit evidence. It makes forgetting, deletion, export,
+retention, owner scope, memory ownership, memory references, retrieval
+authorization, and memory evidence first-class governance requirements.
+Implementation and production changes remain unauthorized. ASTRA-009 Learning
+And Adaptation Architecture is documentation-only next and requires separate
+authorization before work begins.
 
 ---
 

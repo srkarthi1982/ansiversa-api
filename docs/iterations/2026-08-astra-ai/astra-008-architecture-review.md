@@ -1,12 +1,12 @@
 # ASTRA-008 Architecture Review Package
 
-**Status:** Proposed
+**Status:** Approved
 **Created:** 2026-07-26
-**ADR:** Proposed
+**ADR:** Accepted
 **Product Owner Authorization:** Approved for documentation and architecture only
 **Architecture Direction:** Approved
-**Architecture Review:** Minor revisions applied; pending Astra re-review
-**Product Owner Approval:** Pending
+**Astra Re-review:** Approved
+**Product Owner Approval:** Approved
 **Implementation:** Not authorized
 **Production:** Unchanged
 
@@ -23,7 +23,7 @@ docs/architecture/decisions/astra-ai-memory-architecture.md
 
 ---
 
-# Proposed Decision
+# Accepted Decision
 
 Adopt a governed Memory Architecture that inherits ASTRA-001 through ASTRA-007
 and defines what Astra may remember, what it must forget, how memory is
@@ -75,7 +75,7 @@ commit `dcc0ec3`:
 # Current Codex Self-Review
 
 ```text
-ASTRA-008               Proposed
+ASTRA-008               Approved / Frozen
 Parent                  ASTRA-001 Accepted
 Parent                  ASTRA-002 Accepted
 Parent                  ASTRA-003 Accepted
@@ -88,11 +88,12 @@ Architecture Auth       Approved
 Architecture Direction  Approved
 Discovery               Complete
 Specification           Complete
-Architecture Review     Pending Astra Re-review
-Product Owner Approval  Pending
-ADR                     Proposed
+Astra Re-review         Approved
+Product Owner Approval  Approved
+ADR                     Accepted
 Implementation          Not authorized
 Production              Unchanged
+ASTRA-009               Documentation only next; requires separate authorization
 ```
 
 Codex confirms ASTRA-008 makes no implementation changes and does not reopen
@@ -120,7 +121,10 @@ frozen:
 - define memory retrieval authorization as a separate governed decision from
   memory existence.
 
-Those refinements are now applied. ASTRA-008 remains Proposed and is ready for
-Astra re-review.
+Astra re-reviewed commit `ce14300` and approved ASTRA-008. Product Owner
+approval is recorded, the ADR is accepted, and ASTRA-008 is Frozen.
+
+ASTRA-009 Learning And Adaptation Architecture is documentation-only next and
+requires separate Product Owner authorization before work begins.
 
 Implementation remains unauthorized. Production remains unchanged.
