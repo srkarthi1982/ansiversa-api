@@ -260,10 +260,6 @@ class AstraDiagnosticsService:
         runtime = self._runtime_service.require_runtime()
         component_snapshots: list[Any] = []
         sections = [AstraDiagnosticSection.COMPONENT_HEALTH]
-        runtime_health = None
-        if "runtime" in payload.components:
-            runtime_health = runtime.health(observed_at=observed_at)
-            sections.insert(0, AstraDiagnosticSection.RUNTIME)
         if "capability_discovery" in payload.components:
             component_snapshots.append(runtime.capability_discovery_health(observed_at=observed_at))
         if "intent_resolution" in payload.components:
@@ -280,7 +276,6 @@ class AstraDiagnosticsService:
             maximum_timeline_entries=payload.maximum_timeline_entries,
             requested_redaction_posture=AstraDiagnosticRedactionPosture.STRICT,
             requested_at=observed_at,
-            runtime_health=runtime_health,
             component_health_snapshots=tuple(component_snapshots),
         )
         return _projection_envelope(runtime, request, observed_at=observed_at)

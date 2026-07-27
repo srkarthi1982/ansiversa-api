@@ -2,11 +2,15 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request, status
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 from app.modules.astra_ai.api.schemas import (
     AstraComponentHealthProjectionRequest,
     AstraDiagnosticsEnvelope,
+    AstraDiagnosticsErrorCode,
     AstraEvidenceProjectionRequest,
     AstraRequestDiagnosticRequest,
     AstraRuntimeProjectionRequest,
@@ -17,6 +21,28 @@ from app.modules.auth.models import User
 
 
 router = APIRouter(include_in_schema=False)
+DIAGNOSTICS_ROUTE_PREFIX = "/internal/astra/diagnostics"
+DIAGNOSTICS_VALIDATION_ERROR_MESSAGE = "Astra diagnostics request validation failed."
+
+
+def register_astra_diagnostics_validation_handler(app: FastAPI) -> None:
+    @app.exception_handler(RequestValidationError)
+    async def astra_diagnostics_validation_handler(
+        request: Request,
+        exc: RequestValidationError,
+    ):
+        if not request.url.path.startswith(DIAGNOSTICS_ROUTE_PREFIX):
+            return await request_validation_exception_handler(request, exc)
+
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={
+                "detail": {
+                    "code": AstraDiagnosticsErrorCode.PROJECTION_REQUEST_INVALID.value,
+                    "message": DIAGNOSTICS_VALIDATION_ERROR_MESSAGE,
+                }
+            },
+        )
 
 
 def require_astra_diagnostics_access(

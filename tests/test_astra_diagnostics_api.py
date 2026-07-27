@@ -8,7 +8,10 @@ from fastapi.testclient import TestClient
 
 from app.core.config import settings
 from app.main import create_app
-from app.modules.astra_ai.api.diagnostics import router
+from app.modules.astra_ai.api.diagnostics import (
+    register_astra_diagnostics_validation_handler,
+    router,
+)
 from app.modules.astra_ai.api.service import (
     AstraDiagnosticsApiError,
     diagnostics_service,
@@ -31,6 +34,7 @@ from app.modules.auth.models import User
 def _client_with_admin() -> TestClient:
     app = FastAPI()
     app.include_router(router, prefix="/internal/astra/diagnostics")
+    register_astra_diagnostics_validation_handler(app)
     app.dependency_overrides[require_admin_user] = lambda: User(
         id="admin-user",
         email="admin@example.com",
@@ -166,6 +170,70 @@ def test_runtime_projection_uses_strict_certified_projection_transport():
     _assert_no_private_material(body)
 
 
+def test_diagnostics_validation_errors_are_bounded_without_rejected_input():
+    cases = [
+        (
+            "/internal/astra/diagnostics/projections/runtime",
+            {"authority_token": "controlled"},
+        ),
+        (
+            "/internal/astra/diagnostics/projections/evidence",
+            {
+                "evidence_references": ["evd_missing_diag_0001"],
+                "query": "SELECT private_value FROM secrets",
+            },
+        ),
+        (
+            "/internal/astra/diagnostics/projections/runtime",
+            {
+                "provider_payload": {
+                    "messages": [
+                        {"role": "user", "content": "prompt text with credential secret"}
+                    ]
+                }
+            },
+        ),
+        (
+            "/internal/astra/diagnostics/projections/evidence",
+            {"evidence_references": ["credential-secret-reference"]},
+        ),
+        (
+            "/internal/astra/diagnostics/projections/components",
+            {"components": ["app.modules.astra_ai.runtime"]},
+        ),
+    ]
+
+    client = _client_with_admin()
+    for path, payload in cases:
+        response = client.post(path, json=payload)
+
+        assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+        body = response.json()
+        assert body == {
+            "detail": {
+                "code": "projection_request_invalid",
+                "message": "Astra diagnostics request validation failed.",
+            }
+        }
+        _assert_no_member_named_input(body)
+        _assert_no_private_material(body)
+
+
+def test_diagnostics_validation_handler_does_not_change_unrelated_api_validation():
+    app = FastAPI()
+    register_astra_diagnostics_validation_handler(app)
+
+    @app.post("/unrelated")
+    def unrelated(payload: AstraRuntimeProjectionRequest):
+        return payload
+
+    response = TestClient(app).post("/unrelated", json={"authority_token": "controlled"})
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert isinstance(response.json()["detail"], list)
+    assert "input" in response.json()["detail"][0]
+
+
 def test_metadata_only_redaction_is_not_authorized():
     response = _client_with_admin().post(
         "/internal/astra/diagnostics/projections/runtime",
@@ -215,7 +283,6 @@ def test_component_health_projection_uses_fixed_allowlist_and_strict_output():
         "/internal/astra/diagnostics/projections/components",
         json={
             "components": [
-                "runtime",
                 "capability_discovery",
                 "intent_resolution",
                 "planning",
@@ -229,13 +296,54 @@ def test_component_health_projection_uses_fixed_allowlist_and_strict_output():
     assert projection["projection_kind"] == "component_health_summary"
     assert projection["redaction_state"] == "redacted"
     assert {item["component_name"] for item in projection["component_states"]} >= {
-        "runtime",
         "component_health_1",
         "component_health_2",
         "component_health_3",
-        "component_health_4",
     }
     _assert_no_private_material(projection)
+
+
+def test_component_health_rejects_runtime_scope_and_unsupported_components():
+    client = _client_with_admin()
+    cases = [
+        {"components": ["runtime"]},
+        {"components": ["runtime", "planning"]},
+        {"components": ["planning", "planning"]},
+        {"components": ["unknown_component"]},
+    ]
+
+    for payload in cases:
+        response = client.post("/internal/astra/diagnostics/projections/components", json=payload)
+
+        assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+        body = response.json()
+        assert body["detail"]["code"] == "projection_request_invalid"
+        assert body["detail"]["message"] == "Astra diagnostics request validation failed."
+        _assert_no_member_named_input(body)
+        _assert_no_private_material(body)
+
+
+def test_each_component_health_scope_individually_succeeds():
+    client = _client_with_admin()
+    for component in (
+        "capability_discovery",
+        "intent_resolution",
+        "planning",
+        "read_access_authorization",
+    ):
+        response = client.post(
+            "/internal/astra/diagnostics/projections/components",
+            json={"components": [component]},
+        )
+
+        assert response.status_code == status.HTTP_200_OK
+        projection = response.json()["data"]["projection"]
+        assert projection["projection_kind"] == "component_health_summary"
+        assert any(
+            item["component_name"] == "component_health_1"
+            for item in projection["component_states"]
+        )
+        _assert_no_private_material(projection)
 
 
 def test_main_app_does_not_register_diagnostics_in_production():
@@ -451,3 +559,13 @@ def _assert_no_private_material(value):
         "app.modules.astra_ai",
     )
     assert not any(term in payload for term in forbidden)
+
+
+def _assert_no_member_named_input(value):
+    if isinstance(value, dict):
+        assert "input" not in value
+        for item in value.values():
+            _assert_no_member_named_input(item)
+    elif isinstance(value, list):
+        for item in value:
+            _assert_no_member_named_input(item)

@@ -126,7 +126,6 @@ class AstraComponentHealthProjectionRequest(BaseModel):
 
     components: tuple[
         Literal[
-            "runtime",
             "capability_discovery",
             "intent_resolution",
             "planning",
@@ -135,14 +134,13 @@ class AstraComponentHealthProjectionRequest(BaseModel):
         ...,
     ] = Field(
         default=(
-            "runtime",
             "capability_discovery",
             "intent_resolution",
             "planning",
             "read_access_authorization",
         ),
         min_length=1,
-        max_length=5,
+        max_length=4,
     )
     maximum_timeline_entries: int = Field(
         default=10,

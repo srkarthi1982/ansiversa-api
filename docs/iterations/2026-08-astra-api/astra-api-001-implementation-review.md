@@ -6,6 +6,8 @@ Final reviewed implementation commit: `b8989dbb`
 
 Certification closure: documentation-only.
 
+ASTRA-API-001-COR-001: Implemented / Pending Astra source-security re-review.
+
 ## Discovery Findings
 
 FastAPI route registration is centralized in `app/main.py`.
@@ -54,6 +56,10 @@ semantics. Transport adds only envelope metadata and redaction policy metadata.
 | missing evidence remains missing | `test_evidence_projection_rejects_duplicates_and_preserves_missing_state` |
 | request diagnostic unavailable | `test_request_diagnostic_endpoint_is_bounded_unavailable` |
 | component fixed allowlist | `test_component_health_projection_uses_fixed_allowlist_and_strict_output` |
+| sanitized diagnostics 422 boundary | `test_diagnostics_validation_errors_are_bounded_without_rejected_input` |
+| unrelated validation unchanged | `test_diagnostics_validation_handler_does_not_change_unrelated_api_validation` |
+| runtime component scope rejected | `test_component_health_rejects_runtime_scope_and_unsupported_components` |
+| component scopes individually succeed | `test_each_component_health_scope_individually_succeeds` |
 | recursive leak scan | `_assert_no_private_material` |
 
 ## Validation Status
@@ -81,6 +87,36 @@ and unexpected failures. Runtime failures map to `runtime_unavailable`,
 projection request failures map to `projection_request_invalid`, projection
 creation failures map to `projection_unavailable`, and unexpected failures map
 to `internal_diagnostic_failure`.
+
+## ASTRA-API-001-COR-001
+
+ASTRA-API-VAL-001 discovery found two API-contract defects. The correction is
+limited to diagnostics API source, focused ASTRA-API-001 tests, documentation,
+and AGENTS records.
+
+Validation-error handling design:
+
+The application registers a diagnostics-scoped `RequestValidationError`
+handler when the internal diagnostics router is registered. Requests under
+`/internal/astra/diagnostics` receive a fixed 422 response with
+`projection_request_invalid` and a bounded message. The response excludes raw
+Pydantic details, rejected input, request body excerpts, raw exception text,
+module paths, SQL-like strings, prompts, provider payloads, credentials, and
+secrets. Requests outside the diagnostics prefix continue through FastAPI's
+default validation handler.
+
+Chosen component-contract correction:
+
+The component-health schema no longer accepts `runtime`. Runtime diagnostics
+remain available through `POST /internal/astra/diagnostics/projections/runtime`.
+`POST /internal/astra/diagnostics/projections/components` accepts only actual
+component-health snapshots: capability discovery, intent resolution, planning,
+and read-access authorization. Runtime-only, mixed runtime/component, duplicate,
+and unknown component requests are rejected at the sanitized schema boundary.
+
+The CORS observation from ASTRA-API-VAL-001 is documented as ordering-only.
+There was no Astra-specific CORS expansion and no CORS ordering change in this
+correction.
 
 ## Certification Closure
 

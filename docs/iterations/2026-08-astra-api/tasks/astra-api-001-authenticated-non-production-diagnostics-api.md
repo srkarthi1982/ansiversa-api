@@ -14,6 +14,8 @@ Product Owner Approval: Approved
 
 Certification: Passed
 
+Correction: ASTRA-API-001-COR-001 Implemented / Pending Review
+
 ## Final Certified State
 
 ```text
@@ -41,6 +43,57 @@ Production                  Unchanged
 ASTRA-API-VAL-001           Not authorized
 ASTRA-UI-001                Not authorized
 ```
+
+## ASTRA-API-001-COR-001
+
+ASTRA-API-VAL-001 discovery identified two API-contract defects that could not
+be corrected inside an observational validation phase.
+
+Correction scope:
+
+```text
+ASTRA-API-001-COR-001       Implemented
+Correction Scope            Validation Errors and Component Semantics
+Astra Source Review         Pending
+Security Review             Pending
+Product Owner Approval      Pending
+Certification Update        Pending
+
+ASTRA-API-VAL-001           Paused
+ASTRA-UI-001                Not authorized
+Production                  Unchanged
+```
+
+Diagnostics request-validation failures under `/internal/astra/diagnostics`
+now return a bounded sanitized 422 response:
+
+```json
+{
+  "detail": {
+    "code": "projection_request_invalid",
+    "message": "Astra diagnostics request validation failed."
+  }
+}
+```
+
+The diagnostics validation boundary does not return rejected request values,
+raw Pydantic error objects, stack traces, module paths, SQL-like strings,
+prompts, provider payloads, credentials, or secrets. Unrelated API validation
+behavior remains delegated to FastAPI's default validation handler.
+
+Component-health diagnostics now accept only actual component-health scopes:
+
+```text
+capability_discovery
+intent_resolution
+planning
+read_access_authorization
+```
+
+Runtime diagnostics remain available through
+`POST /internal/astra/diagnostics/projections/runtime`. Runtime-only and mixed
+runtime component-health requests are rejected at the diagnostics schema
+boundary.
 
 ## Correction Status
 
