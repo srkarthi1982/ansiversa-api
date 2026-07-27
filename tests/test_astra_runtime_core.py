@@ -106,6 +106,7 @@ class AstraRuntimeCoreTests(unittest.TestCase):
                 AstraRuntimeComponentIdentifier.PLANNING,
                 AstraRuntimeComponentIdentifier.INTENT_RESOLUTION,
                 AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
+                AstraRuntimeComponentIdentifier.DIAGNOSTIC_PROJECTION,
             ),
         )
         self.assertEqual(
@@ -118,6 +119,7 @@ class AstraRuntimeCoreTests(unittest.TestCase):
                 "ASTRA-IMP-008",
                 "ASTRA-IMP-009",
                 "ASTRA-IMP-010",
+                "ASTRA-IMP-011",
             ),
         )
 

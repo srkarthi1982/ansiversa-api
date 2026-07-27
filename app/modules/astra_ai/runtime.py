@@ -26,6 +26,15 @@ from app.modules.astra_ai.constitutional_contracts import (
     assert_no_prohibited_contract_material,
 )
 from app.modules.astra_ai.evidence_sink import DEFAULT_EVIDENCE_SINK_CAPACITY, InMemoryEvidenceSink
+from app.modules.astra_ai.diagnostic_projection import (
+    AstraDiagnosticProjection,
+    AstraDiagnosticProjectionEngine,
+    AstraDiagnosticProjectionHealth,
+    AstraDiagnosticProjectionKind,
+    AstraDiagnosticProjectionRequest,
+    AstraDiagnosticRedactionPosture,
+    AstraDiagnosticSection,
+)
 from app.modules.astra_ai.governance import GovernanceEvaluationInput, GovernanceEvaluationResult, evaluate_governance
 from app.modules.astra_ai.intent_resolution import (
     AstraIntentHealthSnapshot,
@@ -96,6 +105,7 @@ class AstraRuntimeComponentIdentifier(StrEnum):
     PLANNING = "planning"
     INTENT_RESOLUTION = "intent_resolution"
     READ_ACCESS_AUTHORIZATION = "read_access_authorization"
+    DIAGNOSTIC_PROJECTION = "diagnostic_projection"
 
 
 AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
@@ -106,6 +116,7 @@ AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
     AstraRuntimeComponentIdentifier.PLANNING,
     AstraRuntimeComponentIdentifier.INTENT_RESOLUTION,
     AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
+    AstraRuntimeComponentIdentifier.DIAGNOSTIC_PROJECTION,
 )
 
 ALLOWED_RUNTIME_TRANSITIONS = {
@@ -176,7 +187,7 @@ class AstraRuntimeComponentRegistration(BaseModel):
     component_identifier: AstraRuntimeComponentIdentifier
     component_type: str = Field(min_length=4, max_length=80)
     registered_at: datetime
-    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-0(?:0[1-9]|10)$")
+    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-0(?:0[1-9]|1[01])$")
     certified_parent_reference: str = Field(min_length=8, max_length=80)
 
     @model_validator(mode="after")
@@ -199,6 +210,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     planning_available: bool
     intent_resolution_available: bool
     read_access_authorization_available: bool
+    diagnostic_projection_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
     environment_scope: EnvironmentScope | None = None
@@ -394,6 +406,22 @@ class AstraRuntimeReadAccessAuthorizationInterface:
         return self._runtime.read_access_authorization_health(observed_at=observed_at)
 
 
+class AstraRuntimeDiagnosticProjectionInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def issue_request(self, **values) -> AstraDiagnosticProjectionRequest:
+        return self._runtime.issue_diagnostic_projection_request(**values)
+
+    def project(
+        self, request: AstraDiagnosticProjectionRequest, *, created_at: datetime | None = None
+    ) -> AstraDiagnosticProjection:
+        return self._runtime.create_diagnostic_projection(request, created_at=created_at)
+
+    def health(self, *, observed_at=None) -> AstraDiagnosticProjectionHealth:
+        return self._runtime.diagnostic_projection_health(observed_at=observed_at)
+
+
 class AstraRuntime:
     """Minimal internal owner for certified Astra foundations.
 
@@ -430,6 +458,7 @@ class AstraRuntime:
         self._planning: AstraPlanningEngine | None = None
         self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
+        self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._read_issuer_authority = object()
         self._read_authority_issuers: dict[str, AstraAuthorityProofIssuer] = {}
         self._registry = _ComponentRegistry()
@@ -441,6 +470,7 @@ class AstraRuntime:
         self._planning_interface = AstraRuntimePlanningInterface(self)
         self._intent_resolution_interface = AstraRuntimeIntentResolutionInterface(self)
         self._read_access_authorization_interface = AstraRuntimeReadAccessAuthorizationInterface(self)
+        self._diagnostic_projection_interface = AstraRuntimeDiagnosticProjectionInterface(self)
 
     @property
     def identity(self) -> AstraRuntimeIdentity:
@@ -486,6 +516,10 @@ class AstraRuntime:
     @property
     def read_access_authorization(self) -> AstraRuntimeReadAccessAuthorizationInterface:
         return self._read_access_authorization_interface
+
+    @property
+    def diagnostic_projection(self) -> AstraRuntimeDiagnosticProjectionInterface:
+        return self._diagnostic_projection_interface
 
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
@@ -553,7 +587,9 @@ class AstraRuntime:
 
     def capability_discovery_health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
         self._require_ready_component(self._capability_discovery, "capability discovery")
-        return self._capability_discovery.health(observed_at=observed_at)
+        result = self._capability_discovery.health(observed_at=observed_at)
+        self._register_diagnostic_output(result)
+        return result
 
     def internal_capability_discovery_context(self) -> AstraCapabilityDiscoveryRequestContext:
         self._require_ready_component(self._capability_discovery, "capability discovery")
@@ -568,45 +604,103 @@ class AstraRuntime:
         requester_context: AstraCapabilityDiscoveryRequestContext,
     ) -> AstraProposedPlan:
         self._require_ready_component(self._planning, "planning")
-        return self._planning.propose(
+        result = self._planning.propose(
             request,
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
             requester_context=requester_context,
         )
+        self._register_diagnostic_output(result)
+        return result
 
     def planning_health(self, *, observed_at: datetime | None = None) -> AstraPlanningHealthSnapshot:
         self._require_ready_component(self._planning, "planning")
-        return self._planning.health(observed_at=observed_at)
+        result = self._planning.health(observed_at=observed_at)
+        self._register_diagnostic_output(result)
+        return result
 
     def resolve_intent(self, request: AstraIntentRequest, *, conversation_engine, conversation_snapshot, requester_context):
         self._require_ready_component(self._intent_resolution, "intent resolution")
-        return self._intent_resolution.resolve(
+        result = self._intent_resolution.resolve(
             request,
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
             requester_context=requester_context,
         )
+        self._register_diagnostic_output(result)
+        return result
 
     def intent_resolution_health(self, *, observed_at=None) -> AstraIntentHealthSnapshot:
         self._require_ready_component(self._intent_resolution, "intent resolution")
-        return self._intent_resolution.health(observed_at=observed_at)
+        result = self._intent_resolution.health(observed_at=observed_at)
+        self._register_diagnostic_output(result)
+        return result
 
     def authorize_read_access(
         self, request: AstraReadAuthorizationRequest, *, conversation_engine, conversation_snapshot, intent_resolution, plan=None
     ) -> AstraReadAuthorizationDecision:
         self._require_ready_component(self._read_access_authorization, "read access authorization")
-        return self._read_access_authorization.authorize(
+        result = self._read_access_authorization.authorize(
             request,
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
             intent_resolution=intent_resolution,
             plan=plan,
         )
+        self._register_diagnostic_output(result)
+        return result
 
     def read_access_authorization_health(self, *, observed_at=None) -> AstraReadAuthorizationHealth:
         self._require_ready_component(self._read_access_authorization, "read access authorization")
-        return self._read_access_authorization.health(observed_at=observed_at)
+        result = self._read_access_authorization.health(observed_at=observed_at)
+        self._register_diagnostic_output(result)
+        return result
+
+    def issue_diagnostic_projection_request(
+        self,
+        *,
+        projection_request_id: str,
+        projection_kind: AstraDiagnosticProjectionKind,
+        requested_sections: tuple[AstraDiagnosticSection, ...],
+        maximum_timeline_entries: int,
+        requested_redaction_posture: AstraDiagnosticRedactionPosture,
+        requested_at: datetime,
+        runtime_health: Any = None,
+        conversation_snapshot: Any = None,
+        intent_resolution: Any = None,
+        plan: Any = None,
+        read_authorization_decision: Any = None,
+        evidence_references: tuple[str, ...] = (),
+        component_health_snapshots: tuple[Any, ...] = (),
+        conversation_engine: Any = None,
+    ) -> AstraDiagnosticProjectionRequest:
+        self._require_ready_component(self._diagnostic_projection, "diagnostic projection")
+        return self._diagnostic_projection.issue_request(
+            projection_request_id=projection_request_id,
+            projection_kind=projection_kind,
+            requested_sections=requested_sections,
+            maximum_timeline_entries=maximum_timeline_entries,
+            requested_redaction_posture=requested_redaction_posture,
+            requested_at=requested_at,
+            runtime_health=runtime_health,
+            conversation_snapshot=conversation_snapshot,
+            intent_resolution=intent_resolution,
+            plan=plan,
+            read_authorization_decision=read_authorization_decision,
+            evidence_references=evidence_references,
+            component_health_snapshots=component_health_snapshots,
+            conversation_engine=conversation_engine,
+        )
+
+    def create_diagnostic_projection(
+        self, request: AstraDiagnosticProjectionRequest, *, created_at: datetime | None = None
+    ) -> AstraDiagnosticProjection:
+        self._require_ready_component(self._diagnostic_projection, "diagnostic projection")
+        return self._diagnostic_projection.project(request, created_at=created_at)
+
+    def diagnostic_projection_health(self, *, observed_at=None) -> AstraDiagnosticProjectionHealth:
+        self._require_ready_component(self._diagnostic_projection, "diagnostic projection")
+        return self._diagnostic_projection.health(observed_at=observed_at)
 
     def startup(self) -> AstraRuntimeHealthSnapshot:
         if self._state is not AstraRuntimeState.UNINITIALIZED:
@@ -672,6 +766,14 @@ class AstraRuntime:
                 certified_parent_reference="ASTRA-IMP-001 through ASTRA-IMP-009 Certified",
                 registered_at=startup_timestamp,
             )
+            diagnostic_projection = self._create_diagnostic_projection_engine()
+            registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.DIAGNOSTIC_PROJECTION,
+                component_type="AstraDiagnosticProjectionEngine",
+                implementation_reference="ASTRA-IMP-011",
+                certified_parent_reference="ASTRA-IMP-001 through ASTRA-IMP-010 Certified",
+                registered_at=startup_timestamp,
+            )
             registry.seal()
 
             self._configuration = loaded_configuration
@@ -681,6 +783,7 @@ class AstraRuntime:
             self._planning = planning
             self._intent_resolution = intent_resolution
             self._read_access_authorization = read_access_authorization
+            self._diagnostic_projection = diagnostic_projection
             self._registry = registry
             self._startup_metadata = self._startup_metadata_from_configuration(loaded_configuration)
             self._fault = None
@@ -731,6 +834,7 @@ class AstraRuntime:
         planning_available = self._planning is not None
         intent_resolution_available = self._intent_resolution is not None
         read_access_authorization_available = self._read_access_authorization is not None
+        diagnostic_projection_available = self._diagnostic_projection is not None
         identifiers = self._registry.identifiers
         outcome = self._health_outcome(
             configuration_valid=configuration_valid,
@@ -740,9 +844,10 @@ class AstraRuntime:
             planning_available=planning_available,
             intent_resolution_available=intent_resolution_available,
             read_access_authorization_available=read_access_authorization_available,
+            diagnostic_projection_available=diagnostic_projection_available,
             identifiers=identifiers,
         )
-        return AstraRuntimeHealthSnapshot(
+        result = AstraRuntimeHealthSnapshot(
             runtime_state=self._state,
             runtime_identity=self._identity,
             configuration_loaded=configuration_loaded,
@@ -753,6 +858,7 @@ class AstraRuntime:
             planning_available=planning_available,
             intent_resolution_available=intent_resolution_available,
             read_access_authorization_available=read_access_authorization_available,
+            diagnostic_projection_available=diagnostic_projection_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
@@ -763,6 +869,8 @@ class AstraRuntime:
             fault=self._fault,
             health_timestamp=timestamp,
         )
+        self._register_diagnostic_output(result)
+        return result
 
     def _load_configuration(self) -> LoadedAstraConfiguration:
         return get_astra_configuration()
@@ -784,6 +892,13 @@ class AstraRuntime:
 
     def _create_read_access_authorization_engine(self) -> AstraReadAccessAuthorizationEngine:
         return AstraReadAccessAuthorizationEngine(runtime=self)
+
+    def _create_diagnostic_projection_engine(self) -> AstraDiagnosticProjectionEngine:
+        return AstraDiagnosticProjectionEngine(runtime=self)
+
+    def _register_diagnostic_output(self, value: Any) -> None:
+        if self._diagnostic_projection is not None and self._state is AstraRuntimeState.READY:
+            self._diagnostic_projection.register_certified_output(value)
 
     def _issue_read_authority_issuer(
         self, proof_class: str, issuer_reference: str, *, capacity: int = 100
@@ -822,6 +937,7 @@ class AstraRuntime:
         self._planning = None
         self._intent_resolution = None
         self._read_access_authorization = None
+        self._diagnostic_projection = None
         self._read_authority_issuers = {}
         self._registry = _ComponentRegistry()
         self._startup_metadata = None
@@ -874,6 +990,7 @@ class AstraRuntime:
         planning_available: bool,
         intent_resolution_available: bool,
         read_access_authorization_available: bool,
+        diagnostic_projection_available: bool,
         identifiers: tuple[AstraRuntimeComponentIdentifier, ...],
     ) -> AstraRuntimeHealthOutcome:
         if self._state is AstraRuntimeState.FAULTED:
@@ -891,6 +1008,7 @@ class AstraRuntime:
             and planning_available
             and intent_resolution_available
             and read_access_authorization_available
+            and diagnostic_projection_available
             and identifiers == AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS
         ):
             return AstraRuntimeHealthOutcome.HEALTHY
