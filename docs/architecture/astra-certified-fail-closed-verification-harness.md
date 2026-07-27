@@ -1,5 +1,7 @@
 # ASTRA-VAL-001 — Certified Fail-Closed Integration Verification
 
+Status: Certified / Approved.
+
 ## Purpose and architecture
 
 ASTRA-VAL-001 is a local/test-only validation package under `validation/astra_val_001`. It imports certified Astra components, but application startup never imports it. A single deterministic runner serves pytest and a thin CLI.

@@ -1,6 +1,6 @@
 # ASTRA-VAL-001 Implementation Review Package
 
-Status: Implemented; pending Astra source review, constitutional conformance, Product Owner approval, and certification.
+Status: Certified / Approved. Validation direction, Astra re-review of `f262c743`, constitutional conformance, Product Owner approval, and certification are approved/passed.
 
 Review the runner and CLI for deterministic ordering/output, use of real certified paths, absence of governance monkeypatches and private registry mutation, evidence reference integrity, lifecycle invalidation, truthful degraded health, ephemeral reporting, and fixed operational prohibitions.
 
