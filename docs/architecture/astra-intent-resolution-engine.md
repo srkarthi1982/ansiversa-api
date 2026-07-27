@@ -6,7 +6,7 @@ The runtime owns one lifecycle-bound `intent_resolution` component. It resolves 
 
 ## Contracts and deterministic rules
 
-`AstraIntentRequest`, parameters, `AstraIntentResolution`, and structural health are frozen, extra-forbidden metadata contracts. The action vocabulary is fixed:
+`AstraIntentRequest`, parameters, `AstraIntentResolution`, and structural health are frozen, extra-forbidden metadata contracts. Declared meaning must carry an immutable `AstraDeclaredIntentBinding` issued by the exact certified Conversation Context Engine. Its opaque engine-owned token, runtime/conversation/turn/request identity, and declared fields are validated before discovery. IDs alone cannot mint or reuse authority. The action vocabulary is fixed:
 
 | Declared action | Category | Planning candidate |
 |---|---|---|

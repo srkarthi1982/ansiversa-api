@@ -5,6 +5,7 @@ from pydantic import ValidationError
 
 from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference, GovernanceOutcome
 from app.modules.astra_ai.conversation_context import (
+    AstraDeclaredIntentBinding,
     AstraConversationContextEngine,
     AstraConversationLifecycleState,
     AstraConversationTurnKind,
@@ -23,6 +24,7 @@ from app.modules.astra_ai.runtime import AstraRuntime, AstraRuntimeComponentIden
 
 NOW = datetime(2026, 7, 27, 8, 0, tzinfo=timezone.utc)
 CAPABILITY = "cap_conversation_context_0001"
+_CONVERSATION_ENGINES = {}
 
 
 def ready(suffix="9", capacity=100):
@@ -70,10 +72,21 @@ def context(runtime, conversation_id="conv_intent_0001"):
         history_entry_id="ctx_intent_0001",
         summary_reference="intent:declared",
     )
-    return engine, engine.get_conversation(conversation_id)
+    snapshot = engine.get_conversation(conversation_id)
+    _CONVERSATION_ENGINES[(runtime.identity.startup_instance_id, conversation_id)] = engine
+    return engine, snapshot
 
 
 def request(runtime, snapshot, action="request_plan", subject="capability", target=CAPABILITY):
+    engine = _CONVERSATION_ENGINES[
+        (runtime.identity.startup_instance_id, snapshot.metadata.conversation_id)
+    ]
+    binding = engine.issue_declared_intent_binding(
+        conversation_snapshot=snapshot,
+        declared_action=action,
+        declared_subject=subject,
+        declared_target=target,
+    )
     return AstraIntentRequest(
         intent_request_id="intent_req_resolution_0001",
         runtime_instance_id=runtime.identity.startup_instance_id,
@@ -83,6 +96,7 @@ def request(runtime, snapshot, action="request_plan", subject="capability", targ
         declared_action=action,
         declared_subject=subject,
         declared_target=target,
+        declared_intent_binding=binding,
         constitutional_requirements=(
             ConstitutionalRequirementReference(
                 constitutional_source="ASTRA-002",
@@ -183,6 +197,7 @@ def test_current_turn_stale_foreign_and_closed_conversations_are_rejected():
         resolve(runtime, engine, snapshot, request(runtime, snapshot).model_copy(update={"current_turn_reference": "turn_wrong_0001"}))
 
     stale = snapshot
+    stale_request = request(runtime, stale)
     engine.record_current_turn(
         snapshot.metadata.conversation_id,
         AstraCurrentTurnContext(
@@ -195,16 +210,61 @@ def test_current_turn_stale_foreign_and_closed_conversations_are_rejected():
         summary_reference="intent:new",
     )
     with pytest.raises(AstraIntentResolutionError):
-        resolve(runtime, engine, stale, request(runtime, stale))
+        resolve(runtime, engine, stale, stale_request)
 
     foreign = ready("7")
     allow(foreign)
     with pytest.raises(AstraIntentResolutionError):
-        foreign.intent_resolution.resolve(
-            request(runtime, stale),
+            foreign.intent_resolution.resolve(
+                stale_request,
             conversation_engine=engine,
             conversation_snapshot=stale,
             requester_context=foreign.capability_discovery.internal_request_context(),
+        )
+
+
+def test_forged_foreign_and_mismatched_declared_intent_bindings_are_rejected():
+    runtime = ready()
+    allow(runtime)
+    engine, snapshot = context(runtime)
+    intent_request = request(runtime, snapshot)
+    valid_request = request(runtime, snapshot)
+    valid_binding = valid_request.declared_intent_binding
+
+    forged = AstraDeclaredIntentBinding(
+        **valid_binding.model_dump(),
+        authority_token=object(),
+    )
+    with pytest.raises(AstraIntentResolutionError):
+        resolve(
+            runtime,
+            engine,
+            snapshot,
+            valid_request.model_copy(update={"declared_intent_binding": forged}),
+        )
+
+    foreign = ready("6")
+    foreign_engine, foreign_snapshot = context(foreign, "conv_foreign_binding_0001")
+    foreign_binding = foreign_engine.issue_declared_intent_binding(
+        conversation_snapshot=foreign_snapshot,
+        declared_action="request_plan",
+        declared_subject="capability",
+        declared_target=CAPABILITY,
+    )
+    with pytest.raises(AstraIntentResolutionError):
+        resolve(
+            runtime,
+            engine,
+            snapshot,
+            valid_request.model_copy(update={"declared_intent_binding": foreign_binding}),
+        )
+
+    with pytest.raises(AstraIntentResolutionError):
+        resolve(
+            runtime,
+            engine,
+            snapshot,
+            valid_request.model_copy(update={"declared_action": "lookup_capability"}),
         )
 
 
@@ -212,6 +272,7 @@ def test_closed_conversation_is_rejected():
     runtime = ready()
     allow(runtime)
     engine, snapshot = context(runtime)
+    intent_request = request(runtime, snapshot)
     engine.transition_conversation(
         snapshot.metadata.conversation_id,
         AstraConversationLifecycleState.IDLE,
@@ -235,7 +296,7 @@ def test_closed_conversation_is_rejected():
     )
     closed = engine.get_conversation(snapshot.metadata.conversation_id)
     with pytest.raises(AstraIntentResolutionError):
-        resolve(runtime, engine, closed, request(runtime, closed))
+        resolve(runtime, engine, closed, intent_request)
 
 
 def test_evidence_before_release_and_failure_atomicity():

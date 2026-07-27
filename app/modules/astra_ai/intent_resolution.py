@@ -83,7 +83,7 @@ class AstraDeclaredIntentParameter(BaseModel):
 
 
 class AstraIntentRequest(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
     intent_request_id: str = Field(pattern=r"^intent_req_[a-z0-9][a-z0-9_-]{7,120}$")
     runtime_instance_id: str = Field(pattern=r"^astra_rt_[a-f0-9]{32}$")
     conversation_id: str = Field(pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
@@ -93,6 +93,7 @@ class AstraIntentRequest(BaseModel):
     declared_subject: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_target: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_parameters: tuple[AstraDeclaredIntentParameter, ...] = Field(default_factory=tuple, max_length=12)
+    declared_intent_binding: Any = Field(exclude=True)
     constitutional_requirements: tuple[ConstitutionalRequirementReference, ...] = Field(min_length=1, max_length=20)
     timestamp: datetime
     version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
@@ -176,6 +177,7 @@ class AstraIntentResolutionEngine:
         if not isinstance(request, AstraIntentRequest):
             raise AstraIntentResolutionError("Intent resolution requires a validated request.")
         self._validate_conversation(request, conversation_engine, conversation_snapshot)
+        self._validate_declared_intent_binding(request, conversation_engine, conversation_snapshot)
         discovery = self._runtime.discover_capabilities_for_conversation(
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
@@ -330,6 +332,43 @@ class AstraIntentResolutionEngine:
             raise AstraIntentResolutionError("Conversation snapshot is stale or fabricated.")
         if owned.metadata.lifecycle_state is not AstraConversationLifecycleState.ACTIVE:
             raise AstraIntentResolutionError("Intent resolution requires an active conversation.")
+
+    def _validate_declared_intent_binding(self, request, engine, snapshot):
+        from app.modules.astra_ai.conversation_context import AstraDeclaredIntentBinding
+
+        binding = request.declared_intent_binding
+        if not isinstance(binding, AstraDeclaredIntentBinding):
+            raise AstraIntentResolutionError("Owner-issued declared intent binding is required.")
+        if not engine.validates_declared_intent_binding(binding):
+            raise AstraIntentResolutionError("Declared intent binding was not issued by this conversation engine.")
+        expected_identity = (
+            self._runtime_instance_id,
+            snapshot.metadata.conversation_id,
+            snapshot.current_turn.turn_id,
+            snapshot.current_turn.request_reference,
+        )
+        actual_identity = (
+            binding.runtime_instance_id,
+            binding.conversation_id,
+            binding.current_turn_reference,
+            binding.request_reference,
+        )
+        if actual_identity != expected_identity:
+            raise AstraIntentResolutionError("Declared intent binding is stale or belongs to another turn.")
+        request_signal = (
+            request.declared_action,
+            request.declared_subject,
+            request.declared_target,
+            tuple((item.name, item.value_reference) for item in request.declared_parameters),
+        )
+        bound_signal = (
+            binding.declared_action,
+            binding.declared_subject,
+            binding.declared_target,
+            tuple((item.name, item.value_reference) for item in binding.declared_parameters),
+        )
+        if request_signal != bound_signal:
+            raise AstraIntentResolutionError("Declared intent fields do not match the owner-issued binding.")
 
     def _release(
         self,

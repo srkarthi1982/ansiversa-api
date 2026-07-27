@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 from datetime import datetime, timezone
 from enum import StrEnum
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -85,6 +86,39 @@ ALLOWED_CONVERSATION_TRANSITIONS = {
 class _ConversationOwnershipToken:
     def __init__(self, runtime_instance_id: str) -> None:
         self.runtime_instance_id = runtime_instance_id
+
+
+class _DeclaredIntentAuthorityToken:
+    pass
+
+
+class AstraBoundDeclaredIntentParameter(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    name: str = Field(pattern=r"^[a-z][a-z0-9_]{1,60}$")
+    value_reference: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9:._/-]{2,160}$")
+
+
+class AstraDeclaredIntentBinding(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
+
+    runtime_instance_id: str = Field(pattern=r"^astra_rt_[a-f0-9]{32}$")
+    conversation_id: str = Field(pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
+    current_turn_reference: str = Field(pattern=r"^turn_[a-z0-9][a-z0-9_-]{7,120}$")
+    request_reference: str = Field(pattern=r"^[A-Za-z0-9][A-Za-z0-9:._/-]{2,160}$")
+    declared_action: str = Field(pattern=r"^[a-z][a-z0-9_]{1,60}$")
+    declared_subject: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
+    declared_target: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
+    declared_parameters: tuple[AstraBoundDeclaredIntentParameter, ...] = Field(default_factory=tuple, max_length=12)
+    authority_token: Any = Field(exclude=True)
+
+    @model_validator(mode="after")
+    def validate_binding(self):
+        names = tuple(item.name for item in self.declared_parameters)
+        if len(names) != len(set(names)):
+            raise AstraConversationContextError("Declared intent binding parameter names must be unique.")
+        assert_no_prohibited_contract_material(self.model_dump(mode="json"))
+        return self
 
 
 class AstraConversationMetadata(BaseModel):
@@ -320,6 +354,7 @@ class AstraConversationContextEngine:
         self._runtime = runtime
         self._short_context_limit = short_context_limit
         self._ownership_token = _ConversationOwnershipToken(runtime.identity.startup_instance_id)
+        self._declared_intent_authority_token = _DeclaredIntentAuthorityToken()
         self._conversations: dict[str, _AstraConversationSession] = {}
         self._operation_sequence = 0
 
@@ -353,6 +388,42 @@ class AstraConversationContextEngine:
     def get_conversation(self, conversation_id: str) -> AstraConversationSnapshot:
         self._require_runtime_ready()
         return self._conversation(conversation_id).snapshot()
+
+    def issue_declared_intent_binding(
+        self,
+        *,
+        conversation_snapshot: AstraConversationSnapshot,
+        declared_action: str,
+        declared_subject: str | None = None,
+        declared_target: str | None = None,
+        declared_parameters: tuple[AstraBoundDeclaredIntentParameter, ...] = (),
+    ) -> AstraDeclaredIntentBinding:
+        self._require_runtime_ready()
+        owned = self.get_conversation(conversation_snapshot.metadata.conversation_id)
+        if owned != conversation_snapshot:
+            raise AstraConversationContextError("Declared intent binding requires the current owned snapshot.")
+        if owned.current_turn is None:
+            raise AstraConversationContextError("Declared intent binding requires a current turn.")
+        if owned.metadata.lifecycle_state is not AstraConversationLifecycleState.ACTIVE:
+            raise AstraConversationContextError("Declared intent binding requires an active conversation.")
+        return AstraDeclaredIntentBinding(
+            runtime_instance_id=self._runtime.identity.startup_instance_id,
+            conversation_id=owned.metadata.conversation_id,
+            current_turn_reference=owned.current_turn.turn_id,
+            request_reference=owned.current_turn.request_reference,
+            declared_action=declared_action,
+            declared_subject=declared_subject,
+            declared_target=declared_target,
+            declared_parameters=declared_parameters,
+            authority_token=self._declared_intent_authority_token,
+        )
+
+    def validates_declared_intent_binding(self, binding: AstraDeclaredIntentBinding) -> bool:
+        return (
+            isinstance(binding, AstraDeclaredIntentBinding)
+            and binding.authority_token is self._declared_intent_authority_token
+            and binding.runtime_instance_id == self._runtime.identity.startup_instance_id
+        )
 
     def transition_conversation(
         self,
