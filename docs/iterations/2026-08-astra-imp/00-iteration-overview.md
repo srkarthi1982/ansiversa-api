@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-009 Certified / Approved
+**Status:** ASTRA-IMP-010 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -251,4 +251,4 @@ frontend work, deployment, production configuration, production authorization,
 or production behavior. ASTRA-IMP-008 requires separate authorization.
 # ASTRA-IMP-010 checkpoint
 
-ASTRA-IMP-010 is implemented pending Astra source review. Database and SQL are not authorized; retrieval is not performed; mutation/schema changes are prohibited; production reads are not approved; production is unchanged; ASTRA-IMP-011 is not authorized.
+ASTRA-IMP-010 Read-Only Data Access Authorization Engine is Certified / Approved. Implementation direction, Astra re-review, constitutional conformance, Product Owner approval, and certification are approved/passed. Database and SQL are not authorized; retrieval is not performed; mutation/schema changes are prohibited; production reads are not approved; production is unchanged; ASTRA-IMP-011 is not authorized and requires separate authorization.
