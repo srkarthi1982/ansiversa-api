@@ -1,6 +1,6 @@
 # ASTRA-API-VAL-001 — Authenticated Diagnostics API Security and Contract Validation
 
-Status: Implemented / Pending Astra Review.
+Status: Implemented / Pending Astra Re-review.
 
 Validated parent: ASTRA-API-001 Certified / Approved with
 ASTRA-API-001-COR-001 Certified / Approved.
@@ -37,7 +37,7 @@ ASTRA-API-VAL-001           Implemented
 Validation Scope            Authenticated Diagnostics API Security and Contract Validation
 
 Validation Direction        Approved
-Astra Review                Pending
+Astra Review                Corrections applied / Pending final re-review
 Security Review             Pending
 Product Owner Approval      Pending
 Certification               Pending
@@ -57,3 +57,11 @@ Production                  Unchanged
 
 ASTRA-UI-001                Not authorized
 ```
+
+Source-review corrections after commit `597ebc72`:
+
+- semantic HTTP comparison now normalizes variable values without deleting
+  meaningful fields such as `evidence_references`;
+- text CLI output is independently parsed and compared against runner and JSON
+  semantics for a successful strict projection scenario and a bounded
+  unavailable scenario.

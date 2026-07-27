@@ -46,9 +46,9 @@ def test_all_scenarios_pass_fixed_expectations():
             "component_health_validation",
             "response_contract_integrity",
             "deterministic_semantic_http",
-        "security_forbidden_surfaces_absent",
-        "diagnostics_validation_route_scope",
-    }
+            "security_forbidden_surfaces_absent",
+            "diagnostics_validation_route_scope",
+        }
         for item in results
     )
 
@@ -147,12 +147,42 @@ def test_deterministic_semantic_comparison_contract_is_explicit():
         "observed_at",
         "projection_id",
         "projection_request_id",
-        "evidence_references",
     ):
         assert field in runner.VARIABLE_FIELDS
+    assert "evidence_references" not in runner.VARIABLE_FIELDS
+    assert "evidence_references" in runner.VARIABLE_SEQUENCE_FIELDS
     result = runner.run_scenario("deterministic_semantic_http")
     assert result.passed
     assert result.response_contract_status == "variable_transport_fields_excluded"
+
+
+def test_semantic_http_preserves_meaningful_evidence_reference_structure():
+    empty = {"projection": {"evidence_references": []}}
+    populated = {"projection": {"evidence_references": ["evd_api_val001_0001"]}}
+    same_shape_a = {
+        "projection": {
+            "request_id": "api_diag_aaaaaaaaaaaaaaaaaaaaaaaa",
+            "evidence_references": ["evd_api_val001_0001", "[redacted]"],
+        }
+    }
+    same_shape_b = {
+        "projection": {
+            "request_id": "api_diag_bbbbbbbbbbbbbbbbbbbbbbbb",
+            "evidence_references": ["evd_api_val001_9999", "[redacted]"],
+        }
+    }
+    different_order = {
+        "projection": {
+            "request_id": "api_diag_bbbbbbbbbbbbbbbbbbbbbbbb",
+            "evidence_references": ["[redacted]", "evd_api_val001_9999"],
+        }
+    }
+
+    assert runner.semantic_http(empty) != runner.semantic_http(populated)
+    assert runner.semantic_http(same_shape_a) == runner.semantic_http(same_shape_b)
+    assert runner.semantic_http(same_shape_a) != runner.semantic_http(different_order)
+    assert runner.semantic_http({"request_id": "a"}) != runner.semantic_http({})
+    assert runner.semantic_http({"request_id": "a"}) == runner.semantic_http({"request_id": "b"})
 
 
 def test_cli_list_text_json_all_and_exit_codes_are_stable(capsys):
@@ -180,13 +210,49 @@ def test_cli_list_text_json_all_and_exit_codes_are_stable(capsys):
 
 
 def test_runner_and_cli_outputs_are_semantically_equivalent(capsys):
-    name = "request_diagnostic_bounded_unavailable"
-    expected = runner.run_scenario(name).model_dump(mode="json")
+    for name in ("strict_runtime_projection", "request_diagnostic_bounded_unavailable"):
+        expected = runner.run_scenario(name).model_dump(mode="json")
 
-    assert main(["--scenario", name, "--format", "json"]) == 0
-    actual = json.loads(capsys.readouterr().out)
+        assert main(["--scenario", name, "--format", "json"]) == 0
+        json_actual = json.loads(capsys.readouterr().out)
 
-    assert actual == expected
+        assert main(["--scenario", name, "--format", "text"]) == 0
+        text_actual = _parse_text_result(capsys.readouterr().out)
+
+        assert json_actual == expected
+        assert text_actual == _expected_text_contract(expected)
+
+
+def _parse_text_result(output: str) -> dict[str, str]:
+    values = {}
+    for line in output.splitlines():
+        if not line.strip():
+            continue
+        values[line[:24].strip()] = line[24:].strip()
+    return values
+
+
+def _expected_text_contract(result: dict) -> dict[str, str]:
+    return {
+        "Scenario": result["scenario_name"],
+        "Group": result["scenario_group"],
+        "Result": "passed" if result["passed"] else "failed",
+        "Expected HTTP": str(result["expected_http_status"]),
+        "Actual HTTP": str(result["actual_http_status"]),
+        "Expected error": result["expected_error_code"] or "none",
+        "Actual error": result["actual_error_code"] or "none",
+        "Authentication": result["authentication_status"],
+        "Admin authorization": result["developer_authorization_status"],
+        "Environment": result["environment_status"],
+        "Route registration": result["route_registration_status"],
+        "Runtime lifecycle": result["runtime_lifecycle_status"],
+        "Projection transport": result["projection_transport_status"],
+        "Strict redaction": result["strict_redaction_status"],
+        "Privacy": result["privacy_status"],
+        "Bounded error": result["bounded_error_status"],
+        "Response contract": result["response_contract_status"],
+        "Production boundary": result["production_boundary_status"],
+    }
 
 
 def test_no_generated_reports_are_present():

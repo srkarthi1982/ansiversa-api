@@ -26,7 +26,8 @@ Status: Implemented / Pending Astra Review.
 | Runtime/projection/API/unexpected failures mapped | `runtime_failure_boundary`, `projection_request_failure_boundary`, `existing_api_error_boundary`, `unexpected_failure_boundary`, `component_failure_boundary` |
 | Unauthorized requests do not start Runtime | `unauthorized_requests_do_not_start_runtime` |
 | Runtime lifecycle cleanup | `runtime_lifecycle` |
-| Deterministic semantic HTTP | `deterministic_semantic_http` |
+| Deterministic semantic HTTP | `deterministic_semantic_http`, `test_semantic_http_preserves_meaningful_evidence_reference_structure` |
+| CLI text/JSON/runner equivalence | `test_runner_and_cli_outputs_are_semantically_equivalent` |
 | CORS unchanged semantically | `cors_configuration_unchanged` |
 | Forbidden surfaces absent | `security_forbidden_surfaces_absent` |
 

@@ -1,6 +1,6 @@
 # ASTRA-API-VAL-001 Implementation Review Package
 
-Status: Implemented / Pending Astra Review.
+Status: Implemented / Pending Astra Re-review.
 
 Validated parent: ASTRA-API-001 Certified / Approved with
 ASTRA-API-001-COR-001 Certified / Approved.
@@ -71,3 +71,30 @@ tests/test_astra_api_val_001_diagnostics_api_validation.py
 
 The validation phase is implemented and awaits Astra source/security review,
 Product Owner approval, and certification.
+
+## Source Review Correction
+
+After Astra source/security review of commit `597ebc72`, two validator
+corrections were applied.
+
+Semantic HTTP comparison now preserves response structure. It no longer deletes
+the full `evidence_references` field. It preserves field presence, list count,
+ordering, empty versus populated state, redacted markers, and meaningful
+structure while normalizing only opaque evidence IDs proven to be variable
+issuance metadata. Scalar transport metadata such as request IDs and timestamps
+is normalized by value rather than removed, so field presence remains
+meaningful.
+
+The focused tests prove:
+
+- zero evidence references and one evidence reference are semantically
+  different;
+- same structure with different opaque issued evidence IDs is semantically
+  equal;
+- order differences remain semantically different;
+- scalar identity field presence is preserved.
+
+CLI text equivalence is now independently parsed and compared against runner
+and JSON output. The comparison covers every field rendered by the text
+contract for one successful strict projection scenario and one bounded
+unavailable scenario.

@@ -49,6 +49,9 @@ VARIABLE_FIELDS = (
     "timestamp",
     "health_timestamp",
     "manifest_id",
+)
+
+VARIABLE_SEQUENCE_FIELDS = (
     "evidence_references",
 )
 
@@ -217,16 +220,42 @@ def inspect_privacy_leaks(
     return tuple(dict.fromkeys(findings))
 
 
-def semantic_http(value: Any) -> Any:
+def semantic_http(value: Any, *, path: str = "$") -> Any:
     if isinstance(value, dict):
         result = {}
         for key, child in value.items():
+            child_path = f"{path}.{key}"
             if key in VARIABLE_FIELDS:
-                continue
-            result[key] = semantic_http(child)
+                result[key] = _variable_scalar_placeholder(key, child)
+            elif key in VARIABLE_SEQUENCE_FIELDS:
+                result[key] = _normalize_variable_sequence(key, child, path=child_path)
+            else:
+                result[key] = semantic_http(child, path=child_path)
         return result
     if isinstance(value, list):
-        return [semantic_http(item) for item in value]
+        return [semantic_http(item, path=f"{path}[{index}]") for index, item in enumerate(value)]
+    return value
+
+
+def _variable_scalar_placeholder(field_name: str, value: Any) -> str | None:
+    if value is None:
+        return None
+    return f"<variable-{field_name}>"
+
+
+def _normalize_variable_sequence(field_name: str, value: Any, *, path: str) -> Any:
+    _ = path
+    if not isinstance(value, list):
+        return semantic_http(value, path=path)
+    return [_normalize_variable_sequence_item(field_name, item) for item in value]
+
+
+def _normalize_variable_sequence_item(field_name: str, value: Any) -> Any:
+    if field_name == "evidence_references":
+        if value == "[redacted]":
+            return value
+        if isinstance(value, str) and value.startswith("evd_"):
+            return "<variable-evidence-reference>"
     return value
 
 
