@@ -129,12 +129,16 @@ def register_middleware(app: FastAPI) -> None:
 def register_routes(app: FastAPI) -> None:
     if _should_register_astra_diagnostics_routes():
         from app.modules.astra_ai.api.diagnostics import router as astra_diagnostics_router
+        from app.modules.astra_ai.api.service import runtime_service
 
         app.include_router(
             astra_diagnostics_router,
             prefix="/internal/astra/diagnostics",
             tags=["Internal Astra Diagnostics"],
         )
+
+        app.router.on_shutdown.append(runtime_service.shutdown)
+
     app.include_router(
         knowledge_public_router,
         tags=["AI Knowledge"],

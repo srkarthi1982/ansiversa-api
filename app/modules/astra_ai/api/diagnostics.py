@@ -36,7 +36,7 @@ def require_astra_diagnostics_access(
 def get_diagnostics_health(
     _current_admin: Annotated[User, Depends(require_astra_diagnostics_access)],
 ) -> AstraDiagnosticsEnvelope:
-    return diagnostics_service.health()
+    return _call_service(diagnostics_service.health)
 
 
 @router.post("/projections/runtime", response_model=AstraDiagnosticsEnvelope)

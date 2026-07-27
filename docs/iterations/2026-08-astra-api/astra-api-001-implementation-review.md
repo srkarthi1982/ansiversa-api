@@ -57,3 +57,20 @@ Focused ASTRA-API-001 tests passed locally with `.venv/bin/python -m pytest`.
 Broader ASTRA-IMP and ASTRA-VAL regressions remain required before commit and
 push.
 
+## Source Review Corrections
+
+After Astra source review of commit `f7594b48`, two corrections were applied.
+
+The diagnostics Runtime remains lazy-started, but application shutdown now calls
+`runtime_service.shutdown()` when the internal diagnostics router is registered.
+Tests verify enabled non-production app shutdown, captured interface
+invalidation, issued projection request invalidation, disabled/production
+non-startup, repeated app lifecycle isolation, and idempotent shutdown.
+
+The diagnostics service now wraps full operations with a deterministic error
+boundary. The boundary covers Runtime access, Runtime health generation,
+component health generation, projection request issuance, projection creation,
+and unexpected failures. Runtime failures map to `runtime_unavailable`,
+projection request failures map to `projection_request_invalid`, projection
+creation failures map to `projection_unavailable`, and unexpected failures map
+to `internal_diagnostic_failure`.

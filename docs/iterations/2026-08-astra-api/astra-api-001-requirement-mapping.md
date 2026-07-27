@@ -23,4 +23,11 @@
 | No database, SQL, provider, execution | no imports or code paths added |
 | Production route absence | `should_register_diagnostics_routes()` |
 | Focused tests | `tests/test_astra_diagnostics_api.py` |
-
+| Application shutdown cleanup | `app.router.on_shutdown.append(runtime_service.shutdown)` |
+| Captured interface invalidation | Runtime shutdown tests in `tests/test_astra_diagnostics_api.py` |
+| Issued request invalidation | Runtime shutdown tests in `tests/test_astra_diagnostics_api.py` |
+| Full operation error boundary | `AstraDiagnosticsService._run_operation()` |
+| Bounded Runtime errors | `runtime_unavailable` tests |
+| Bounded projection request errors | `projection_request_invalid` tests |
+| Bounded projection creation errors | `projection_unavailable` tests |
+| Bounded unexpected errors | `internal_diagnostic_failure` tests |

@@ -10,10 +10,19 @@ from app.core.config import settings
 from app.main import create_app
 from app.modules.astra_ai.api.diagnostics import router
 from app.modules.astra_ai.api.service import (
+    AstraDiagnosticsApiError,
     diagnostics_service,
     runtime_service,
     should_register_diagnostics_routes,
 )
+from app.modules.astra_ai.api.schemas import AstraDiagnosticsErrorCode
+from app.modules.astra_ai.diagnostic_projection import (
+    AstraDiagnosticProjectionError,
+    AstraDiagnosticProjectionKind,
+    AstraDiagnosticRedactionPosture,
+    AstraDiagnosticSection,
+)
+from app.modules.astra_ai.runtime import AstraRuntimeError
 from app.modules.auth.constants import ADMIN_ROLE_ID, DEFAULT_MEMBER_ROLE_ID
 from app.modules.auth.dependencies import require_admin_user
 from app.modules.auth.models import User
@@ -33,6 +42,21 @@ def _client_with_admin() -> TestClient:
         updated_at=datetime.now(),
     )
     return TestClient(app)
+
+
+def _main_app_with_admin() -> FastAPI:
+    app = create_app()
+    app.dependency_overrides[require_admin_user] = lambda: User(
+        id="admin-user",
+        email="admin@example.com",
+        name="Admin",
+        password_hash="hash",
+        role_id=ADMIN_ROLE_ID,
+        status="active",
+        created_at=datetime.now(),
+        updated_at=datetime.now(),
+    )
+    return app
 
 
 def setup_function():
@@ -221,6 +245,194 @@ def test_main_app_does_not_register_diagnostics_in_production():
     paths = {route.path for route in app.routes}
 
     assert "/internal/astra/diagnostics/health" not in paths
+
+
+def test_enabled_app_shutdown_stops_runtime_and_invalidates_captured_interface():
+    app = _main_app_with_admin()
+
+    with TestClient(app) as client:
+        response = client.get("/internal/astra/diagnostics/health")
+        assert response.status_code == status.HTTP_200_OK
+        captured_interface = runtime_service.require_runtime().diagnostic_projection
+
+    with pytest_raises_runtime_error():
+        captured_interface.health()
+    with pytest_raises_api_error("runtime_unavailable"):
+        runtime_service.require_runtime()
+
+
+def test_issued_projection_request_cannot_be_reused_after_app_shutdown():
+    app = _main_app_with_admin()
+
+    with TestClient(app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_200_OK
+        runtime = runtime_service.require_runtime()
+        observed_at = datetime.now().astimezone()
+        runtime_health = runtime.health(observed_at=observed_at)
+        issued_request = runtime.diagnostic_projection.issue_request(
+            projection_request_id="diag_req_api_shutdown_reuse_0001",
+            projection_kind=AstraDiagnosticProjectionKind.RUNTIME_SUMMARY,
+            requested_sections=(AstraDiagnosticSection.RUNTIME,),
+            maximum_timeline_entries=10,
+            requested_redaction_posture=AstraDiagnosticRedactionPosture.STRICT,
+            requested_at=observed_at,
+            runtime_health=runtime_health,
+        )
+        captured_interface = runtime.diagnostic_projection
+
+    with pytest_raises_runtime_error():
+        captured_interface.project(issued_request, created_at=datetime.now().astimezone())
+
+
+def test_disabled_and_production_apps_do_not_start_diagnostics_runtime():
+    settings.ASTRA_DIAGNOSTICS_API_ENABLED = False
+    disabled_app = create_app()
+    with TestClient(disabled_app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_404_NOT_FOUND
+    with pytest_raises_api_error("runtime_unavailable"):
+        runtime_service.require_runtime()
+
+    settings.ASTRA_DIAGNOSTICS_API_ENABLED = True
+    settings.APP_ENV = "production"
+    production_app = create_app()
+    with TestClient(production_app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_404_NOT_FOUND
+    with pytest_raises_api_error("runtime_unavailable"):
+        runtime_service.require_runtime()
+
+
+def test_multiple_app_lifecycles_do_not_retain_runtime_state():
+    first_app = _main_app_with_admin()
+    with TestClient(first_app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_200_OK
+        first_runtime_id = runtime_service.require_runtime().identity.startup_instance_id
+    with pytest_raises_api_error("runtime_unavailable"):
+        runtime_service.require_runtime()
+
+    second_app = _main_app_with_admin()
+    with TestClient(second_app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_200_OK
+        second_runtime_id = runtime_service.require_runtime().identity.startup_instance_id
+
+    assert first_runtime_id != second_runtime_id
+
+
+def test_shutdown_is_idempotent():
+    app = _main_app_with_admin()
+    with TestClient(app) as client:
+        assert client.get("/internal/astra/diagnostics/health").status_code == status.HTTP_200_OK
+
+    runtime_service.shutdown()
+    runtime_service.shutdown()
+    with pytest_raises_api_error("runtime_unavailable"):
+        runtime_service.require_runtime()
+
+
+def test_request_issuance_failure_returns_bounded_error(monkeypatch):
+    def fail(_payload):
+        raise AstraDiagnosticProjectionError(
+            "raw app.modules.astra_ai authority_token stack trace should not leak"
+        )
+
+    monkeypatch.setattr(diagnostics_service, "_runtime_projection", fail)
+
+    response = _client_with_admin().post(
+        "/internal/astra/diagnostics/projections/runtime",
+        json={},
+    )
+
+    assert_bounded_failure(response, "projection_request_invalid")
+
+
+def test_runtime_lifecycle_failure_returns_bounded_error(monkeypatch):
+    def fail():
+        raise AstraRuntimeError(
+            "raw app.modules.astra_ai runtime handle stack trace should not leak"
+        )
+
+    monkeypatch.setattr(diagnostics_service, "_health", fail)
+
+    response = _client_with_admin().get("/internal/astra/diagnostics/health")
+
+    assert_bounded_failure(response, "runtime_unavailable")
+
+
+def test_component_health_failure_returns_bounded_error(monkeypatch):
+    def fail(_payload):
+        raise AstraRuntimeError(
+            "raw app.modules.astra_ai component authority state should not leak"
+        )
+
+    monkeypatch.setattr(diagnostics_service, "_component_health_projection", fail)
+
+    response = _client_with_admin().post(
+        "/internal/astra/diagnostics/projections/components",
+        json={},
+    )
+
+    assert_bounded_failure(response, "runtime_unavailable")
+
+
+def test_projection_creation_failure_returns_bounded_error(monkeypatch):
+    def fail(_runtime, _request, *, observed_at):
+        raise AstraDiagnosticsApiError(
+            code=AstraDiagnosticsErrorCode.PROJECTION_UNAVAILABLE,
+            message="Astra certified diagnostic projection is unavailable.",
+        )
+
+    monkeypatch.setattr("app.modules.astra_ai.api.service._projection_envelope", fail)
+
+    response = _client_with_admin().post(
+        "/internal/astra/diagnostics/projections/runtime",
+        json={},
+    )
+
+    assert_bounded_failure(response, "projection_unavailable")
+
+
+def test_unexpected_service_exception_returns_internal_failure(monkeypatch):
+    def fail(_payload):
+        raise RuntimeError(
+            "raw app.modules.astra_ai provider_payload stack trace should not leak"
+        )
+
+    monkeypatch.setattr(diagnostics_service, "_runtime_projection", fail)
+
+    response = _client_with_admin().post(
+        "/internal/astra/diagnostics/projections/runtime",
+        json={},
+    )
+
+    assert_bounded_failure(response, "internal_diagnostic_failure")
+
+
+def assert_bounded_failure(response, expected_code: str):
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+    body = response.json()
+    assert body["detail"]["code"] == expected_code
+    _assert_no_private_material(body)
+
+
+class pytest_raises_api_error:
+    def __init__(self, expected_code: str) -> None:
+        self.expected_code = expected_code
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, _traceback):
+        assert exc_type is AstraDiagnosticsApiError
+        assert exc_value.code.value == self.expected_code
+        return True
+
+
+class pytest_raises_runtime_error:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, _exc_value, _traceback):
+        assert exc_type is AstraRuntimeError
+        return True
 
 
 def _assert_no_private_material(value):

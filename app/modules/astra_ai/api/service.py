@@ -139,6 +139,60 @@ class AstraDiagnosticsService:
             ) from exc
 
     def health(self) -> AstraDiagnosticsEnvelope:
+        return self._run_operation(self._health)
+
+    def runtime_projection(
+        self,
+        payload: AstraRuntimeProjectionRequest,
+    ) -> AstraDiagnosticsEnvelope:
+        return self._run_operation(lambda: self._runtime_projection(payload))
+
+    def evidence_projection(
+        self,
+        payload: AstraEvidenceProjectionRequest,
+    ) -> AstraDiagnosticsEnvelope:
+        return self._run_operation(lambda: self._evidence_projection(payload))
+
+    def request_diagnostic(
+        self,
+        payload: AstraRequestDiagnosticRequest,
+    ) -> AstraDiagnosticsEnvelope:
+        _ = payload
+        observed_at = _now()
+        return _unavailable(
+            code=AstraDiagnosticsErrorCode.PROJECTION_UNAVAILABLE,
+            message=REQUEST_DIAGNOSTIC_UNAVAILABLE,
+            observed_at=observed_at,
+        )
+
+    def component_health_projection(
+        self,
+        payload: AstraComponentHealthProjectionRequest,
+    ) -> AstraDiagnosticsEnvelope:
+        return self._run_operation(lambda: self._component_health_projection(payload))
+
+    def _run_operation(self, operation):
+        try:
+            return operation()
+        except AstraDiagnosticsApiError:
+            raise
+        except AstraRuntimeError as exc:
+            raise AstraDiagnosticsApiError(
+                AstraDiagnosticsErrorCode.RUNTIME_UNAVAILABLE,
+                "Astra diagnostics Runtime operation is unavailable.",
+            ) from exc
+        except AstraDiagnosticProjectionError as exc:
+            raise AstraDiagnosticsApiError(
+                AstraDiagnosticsErrorCode.PROJECTION_REQUEST_INVALID,
+                "Astra diagnostics projection request is invalid.",
+            ) from exc
+        except Exception as exc:
+            raise AstraDiagnosticsApiError(
+                AstraDiagnosticsErrorCode.INTERNAL_DIAGNOSTIC_FAILURE,
+                "Astra diagnostics operation failed closed.",
+            ) from exc
+
+    def _health(self) -> AstraDiagnosticsEnvelope:
         observed_at = _now()
         runtime = self._runtime_service.require_runtime()
         runtime_health = runtime.health(observed_at=observed_at)
@@ -160,7 +214,7 @@ class AstraDiagnosticsService:
             observed_at=observed_at,
         )
 
-    def runtime_projection(
+    def _runtime_projection(
         self,
         payload: AstraRuntimeProjectionRequest,
     ) -> AstraDiagnosticsEnvelope:
@@ -179,7 +233,7 @@ class AstraDiagnosticsService:
         )
         return _projection_envelope(runtime, request, observed_at=observed_at)
 
-    def evidence_projection(
+    def _evidence_projection(
         self,
         payload: AstraEvidenceProjectionRequest,
     ) -> AstraDiagnosticsEnvelope:
@@ -197,19 +251,7 @@ class AstraDiagnosticsService:
         )
         return _projection_envelope(runtime, request, observed_at=observed_at)
 
-    def request_diagnostic(
-        self,
-        payload: AstraRequestDiagnosticRequest,
-    ) -> AstraDiagnosticsEnvelope:
-        _ = payload
-        observed_at = _now()
-        return _unavailable(
-            code=AstraDiagnosticsErrorCode.PROJECTION_UNAVAILABLE,
-            message=REQUEST_DIAGNOSTIC_UNAVAILABLE,
-            observed_at=observed_at,
-        )
-
-    def component_health_projection(
+    def _component_health_projection(
         self,
         payload: AstraComponentHealthProjectionRequest,
     ) -> AstraDiagnosticsEnvelope:

@@ -2,7 +2,9 @@
 
 Status: Implemented
 
-Implementation Direction: Pending Astra Source Review
+Implementation Direction: Approved
+
+Astra Source Review: Corrections applied; re-review pending
 
 Security Review: Pending
 
@@ -11,6 +13,16 @@ Constitutional Conformance: Pending
 Product Owner Approval: Pending
 
 Certification: Pending
+
+## Correction Status
+
+The source-review corrections after commit `f7594b48` have been applied:
+
+1. The diagnostics Runtime is bound to FastAPI application shutdown whenever
+   the diagnostics router is registered. Lazy startup remains preserved.
+2. Diagnostics operations now use a service-level bounded error boundary around
+   Runtime access, health generation, projection request issuance, component
+   health generation, projection creation, and unexpected failures.
 
 ## Scope
 
@@ -49,4 +61,3 @@ global enumeration, Runtime reflection, persistence, database access, SQL,
 provider invocation, prompts, model calls, Tool Executor, telemetry exporter,
 CORS expansion, migration, deployment change, or production activation is
 included.
-
