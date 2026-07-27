@@ -1,0 +1,51 @@
+# ASTRA-API-VAL-001 Scenario Catalog
+
+Status: Implemented / Pending Astra Review.
+
+The scenario catalog is fixed and deterministic. The pytest suite verifies that
+the runner exposes exactly these scenarios in this order.
+
+```text
+flag_disabled_routes_absent
+allowed_non_production_routes_registered_hidden
+production_routes_absent
+unknown_environment_fails_closed
+cors_configuration_unchanged
+diagnostics_validation_route_scope
+anonymous_rejected
+invalid_token_rejected
+authenticated_member_rejected
+admin_accepted_non_production
+caller_supplied_identity_cannot_authorize
+activation_does_not_enable_operational_astra
+health_endpoint_bounded
+strict_runtime_projection
+runtime_projection_input_validation
+evidence_projection_validation
+request_diagnostic_bounded_unavailable
+component_health_validation
+response_contract_integrity
+privacy_inspector_controls
+error_taxonomy_declared_reachability
+runtime_failure_boundary
+projection_request_failure_boundary
+existing_api_error_boundary
+unexpected_failure_boundary
+component_failure_boundary
+runtime_lifecycle
+unauthorized_requests_do_not_start_runtime
+deterministic_semantic_http
+security_forbidden_surfaces_absent
+```
+
+Coverage groups:
+
+- route and environment registration;
+- authentication and developer authorization;
+- activation and Runtime lifecycle;
+- health and projection contracts;
+- sanitized validation errors and exact diagnostics route scope;
+- strict redaction and privacy leak inspection;
+- bounded error taxonomy and injected failure mapping;
+- deterministic semantic HTTP comparison;
+- forbidden-surface absence.
