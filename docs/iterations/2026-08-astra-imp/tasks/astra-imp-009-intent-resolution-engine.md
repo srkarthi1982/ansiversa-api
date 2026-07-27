@@ -2,13 +2,13 @@
 
 | Field | State |
 |---|---|
-| ASTRA-IMP-009 | Implemented |
+| ASTRA-IMP-009 | Certified / Approved |
 | Scope | Intent Resolution Engine |
 | Implementation direction | Approved |
-| Astra re-review | Pending after exact-binding correction |
-| Constitutional conformance | Pending |
-| Product Owner approval | Pending |
-| Certification | Pending |
+| Astra re-review | Approved (`96dbacda`) |
+| Constitutional conformance | Approved |
+| Product Owner approval | Approved |
+| Certification | Passed |
 | Production authorization | Not approved |
 | Production | Unchanged |
 | ASTRA-IMP-010 | Not authorized |

@@ -1,6 +1,6 @@
 # Astra Intent Resolution Engine
 
-Status: ASTRA-IMP-009 implemented; source review pending. Production authorization is not approved and production is unchanged.
+Status: ASTRA-IMP-009 Certified / Approved. Production authorization is not approved and production is unchanged.
 
 The runtime owns one lifecycle-bound `intent_resolution` component. It resolves an explicit bounded declared signal from the certified current turn; it never parses natural language, guesses hidden meaning, plans, executes, invokes providers, or creates authority.
 

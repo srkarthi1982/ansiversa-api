@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-009 Intent Resolution Engine
 
-Status: proposed for Astra source review. Date: 2026-07-27.
+Status: accepted and frozen for ASTRA-IMP-009 certification. Date: 2026-07-27.
 
 Implement one runtime-owned deterministic resolver between certified current-turn context and planning eligibility. Input is a declared action/subject/target/reference signal, not raw text. Fixed exact rules and governed discovered metadata produce immutable intent metadata. Ambiguity clarifies; unsupported signals do not guess.
 

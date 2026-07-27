@@ -1,6 +1,6 @@
 # ASTRA-IMP-009 Implementation Review
 
-Status: implementation direction approved; authority-binding correction applied and pending Astra re-review. Production is unchanged and not approved.
+Status: Certified / Approved. Implementation direction, final Astra re-review of `96dbacda`, constitutional conformance, Product Owner approval, and certification are approved/passed. Production is unchanged and not approved. ASTRA-IMP-010 is not authorized.
 
 | Boundary | Enforcement |
 |---|---|
