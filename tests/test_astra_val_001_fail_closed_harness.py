@@ -30,9 +30,11 @@ def test_real_pipeline_reaches_invalid_intent_and_non_actionable_plan():
 
 
 def test_read_authorization_and_health_remain_unavailable():
-    read = runner.run_scenario("read_authorization_unavailable")
+    read = runner.run_scenario("read_request_without_proofs")
     health = runner.run_scenario("health_degraded")
-    assert read.read_authorization_status == "unavailable"
+    assert read.actual_outcome == "request_contract_rejected"
+    assert read.read_authorization_status == "not_reached"
+    assert read.failure_reference == "proofs_required_by_contract"
     assert health.actual_outcome == "degraded"
 
 
@@ -44,9 +46,11 @@ def test_tamper_freshness_and_foreign_runtime_scenarios_reject():
 
 
 def test_evidence_failure_and_shutdown_release_no_success():
-    evidence = runner.run_scenario("evidence_capacity_failure")
+    evidence = runner.run_scenario("current_turn_evidence_atomicity")
     shutdown = runner.run_scenario("shutdown_invalidation")
-    assert evidence.actual_outcome == "released_no_success"
+    assert evidence.actual_outcome == "failed_operation_atomic"
+    assert evidence.conversation_state == "active"
+    assert evidence.failure_reference == "current_turn_evidence_append_capacity"
     assert shutdown.actual_outcome == "invalidated"
     assert shutdown.runtime_state == "stopped"
 

@@ -7,12 +7,12 @@
 | `forged_intent_binding` | rejected |
 | `stale_turn` | rejected |
 | `foreign_runtime` | rejected |
-| `read_authorization_unavailable` | no decision released |
+| `read_request_without_proofs` | rejected at request-contract boundary; engine not reached |
 | `health_degraded` | degraded |
 | `shutdown_invalidation` | captured interface invalidated |
-| `evidence_capacity_failure` | no successful operation released |
+| `current_turn_evidence_atomicity` | failed current-turn append commits no mutation |
 | `production_boundaries` | all prohibitions preserved |
 
 Ordering is the table order and is stable. All scenarios are certified-default scenarios; there are no fixture authorities or capabilities.
 
-Expired/copied authority-proof evaluation is not reachable in the certified-default assembly because no certified proof issuer exists and the request contract rejects an empty proof set. Existing ASTRA-IMP-010 unit regressions continue to verify exact-object and expiration behavior; this harness does not fabricate a proof to repeat it.
+The empty-proof scenario proves only request-contract rejection and records `read_authorization_status=not_reached` plus `failure_reference=proofs_required_by_contract`. Engine-level authorization is unavailable by certified design because no capability or issuer exists. Expired/copied proof evaluation is likewise unreachable. ASTRA-IMP-010 unit regressions cover exact-object and expiration behavior without this harness fabricating authority.

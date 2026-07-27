@@ -21,7 +21,6 @@ from app.modules.astra_ai.planning import (
     AstraRequestedPlanStep,
 )
 from app.modules.astra_ai.read_access_authorization import (
-    AstraReadAuthorizationError,
     AstraReadAuthorizationRequest,
     AstraReadPurpose,
 )
@@ -326,7 +325,7 @@ def _foreign_runtime():
     return _result("foreign_runtime", "rejected", actual, conversation_state="foreign", intent_status="invalid")
 
 
-def _read_authorization_unavailable():
+def _read_request_contract_rejected():
     assembly = _Assembly()
     snapshot = assembly.active_turn()
     intent = assembly.resolve(snapshot, assembly.intent_request(snapshot))
@@ -349,22 +348,17 @@ def _read_authorization_unavailable():
             requested_at=NOW,
             request_version="1.0.0",
         )
-        assembly.runtime.read_access_authorization.authorize(
-            request,
-            conversation_engine=assembly.engine,
-            conversation_snapshot=snapshot,
-            intent_resolution=intent,
-        )
-        actual = "authorized_metadata_only"
-    except (AstraReadAuthorizationError, ValueError):
-        actual = "unavailable"
+        actual = "unexpected_contract_acceptance"
+    except ValueError:
+        actual = "request_contract_rejected"
     return _result(
-        "read_authorization_unavailable",
-        "unavailable",
+        "read_request_without_proofs",
+        "request_contract_rejected",
         actual,
         conversation_state="active",
         intent_status=intent.intent_status.value,
-        read_authorization_status=actual,
+        read_authorization_status="not_reached",
+        failure_reference="proofs_required_by_contract",
     )
 
 
@@ -398,18 +392,48 @@ def _shutdown_invalidation():
     )
 
 
-def _evidence_capacity_failure():
-    assembly = _Assembly(capacity=1)
+def _current_turn_evidence_atomicity():
+    assembly = _Assembly(capacity=2)
+    assembly.engine.create_conversation(conversation_id=assembly.conversation_id, created_at=NOW)
+    assembly.engine.transition_conversation(
+        assembly.conversation_id,
+        AstraConversationLifecycleState.ACTIVE,
+        transitioned_at=NOW,
+        summary_reference="validation:active",
+        entry_id="ctx_validation_active_0001",
+    )
+    baseline = assembly.engine.get_conversation(assembly.conversation_id)
+    baseline_evidence_count = assembly.runtime.evidence_sink.count()
     try:
-        assembly.active_turn()
+        assembly.engine.record_current_turn(
+            assembly.conversation_id,
+            AstraCurrentTurnContext(
+                turn_id="turn_validation_atomicity_0001",
+                received_at=NOW,
+                request_reference="request:validation:atomicity",
+                turn_kind=AstraConversationTurnKind.USER_REQUEST,
+                route_reference="validation:local",
+            ),
+            history_entry_id="ctx_validation_atomicity_0001",
+            summary_reference="validation:atomicity",
+        )
         actual = "unexpected_success"
     except Exception:
-        actual = "released_no_success"
+        after = assembly.engine.get_conversation(assembly.conversation_id)
+        evidence_count = assembly.runtime.evidence_sink.count()
+        actual = (
+            "failed_operation_atomic"
+            if after == baseline
+            and after.current_turn is None
+            and evidence_count == baseline_evidence_count == 2
+            else "partial_mutation_detected"
+        )
     return _result(
-        "evidence_capacity_failure",
-        "released_no_success",
+        "current_turn_evidence_atomicity",
+        "failed_operation_atomic",
         actual,
-        conversation_state="not_released",
+        conversation_state=baseline.metadata.lifecycle_state.value,
+        failure_reference="current_turn_evidence_append_capacity",
     )
 
 
@@ -436,10 +460,10 @@ _SCENARIOS: tuple[tuple[str, Callable[[], AstraValidationScenarioResult]], ...] 
     ("forged_intent_binding", _forged_binding),
     ("stale_turn", _stale_turn),
     ("foreign_runtime", _foreign_runtime),
-    ("read_authorization_unavailable", _read_authorization_unavailable),
+    ("read_request_without_proofs", _read_request_contract_rejected),
     ("health_degraded", _health_degraded),
     ("shutdown_invalidation", _shutdown_invalidation),
-    ("evidence_capacity_failure", _evidence_capacity_failure),
+    ("current_turn_evidence_atomicity", _current_turn_evidence_atomicity),
     ("production_boundaries", _production_boundaries),
 )
 SCENARIO_NAMES = tuple(name for name, _ in _SCENARIOS)

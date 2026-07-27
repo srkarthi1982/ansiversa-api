@@ -7,3 +7,5 @@ Review the runner and CLI for deterministic ordering/output, use of real certifi
 The successful downstream path must remain unavailable by certified design. No result may claim resolved intent, actionable plan, `authorized_metadata_only`, data access, production authority, or external capability.
 
 Forbidden-surface review: frontend, API routes, database/ORM/SQL, retrieval, mutation, migrations, providers/models/prompts, Tool Executor, memory/learning, deployment, production configuration/activation, or ASTRA-IMP-011.
+
+Corrections after review of `e26d3112`: empty-proof construction is now reported precisely as request-contract rejection with the authorization engine not reached; evidence atomicity now establishes an active baseline, exhausts capacity, attempts one current-turn mutation, and verifies the public snapshot and evidence count remain unchanged.
