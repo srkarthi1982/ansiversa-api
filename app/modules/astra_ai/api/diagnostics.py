@@ -31,7 +31,7 @@ def register_astra_diagnostics_validation_handler(app: FastAPI) -> None:
         request: Request,
         exc: RequestValidationError,
     ):
-        if not request.url.path.startswith(DIAGNOSTICS_ROUTE_PREFIX):
+        if not _is_astra_diagnostics_path(request.url.path):
             return await request_validation_exception_handler(request, exc)
 
         return JSONResponse(
@@ -43,6 +43,10 @@ def register_astra_diagnostics_validation_handler(app: FastAPI) -> None:
                 }
             },
         )
+
+
+def _is_astra_diagnostics_path(path: str) -> bool:
+    return path == DIAGNOSTICS_ROUTE_PREFIX or path.startswith(f"{DIAGNOSTICS_ROUTE_PREFIX}/")
 
 
 def require_astra_diagnostics_access(

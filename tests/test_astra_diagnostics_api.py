@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from app.core.config import settings
 from app.main import create_app
 from app.modules.astra_ai.api.diagnostics import (
+    DIAGNOSTICS_ROUTE_PREFIX,
     register_astra_diagnostics_validation_handler,
     router,
 )
@@ -223,15 +224,48 @@ def test_diagnostics_validation_handler_does_not_change_unrelated_api_validation
     app = FastAPI()
     register_astra_diagnostics_validation_handler(app)
 
+    @app.post(DIAGNOSTICS_ROUTE_PREFIX)
+    def diagnostics_root(payload: AstraRuntimeProjectionRequest):
+        return payload
+
+    @app.post(f"{DIAGNOSTICS_ROUTE_PREFIX}/projections/runtime")
+    def diagnostics_nested(payload: AstraRuntimeProjectionRequest):
+        return payload
+
+    @app.post("/internal/astra/diagnostics-other")
+    def diagnostics_other(payload: AstraRuntimeProjectionRequest):
+        return payload
+
+    @app.post("/internal/astra/diagnostics2")
+    def diagnostics2(payload: AstraRuntimeProjectionRequest):
+        return payload
+
     @app.post("/unrelated")
     def unrelated(payload: AstraRuntimeProjectionRequest):
         return payload
 
-    response = TestClient(app).post("/unrelated", json={"authority_token": "controlled"})
+    client = TestClient(app)
+    for path in (DIAGNOSTICS_ROUTE_PREFIX, f"{DIAGNOSTICS_ROUTE_PREFIX}/projections/runtime"):
+        response = client.post(path, json={"authority_token": "controlled"})
 
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
-    assert isinstance(response.json()["detail"], list)
-    assert "input" in response.json()["detail"][0]
+        assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+        assert response.json() == {
+            "detail": {
+                "code": "projection_request_invalid",
+                "message": "Astra diagnostics request validation failed.",
+            }
+        }
+
+    for path in (
+        "/internal/astra/diagnostics-other",
+        "/internal/astra/diagnostics2",
+        "/unrelated",
+    ):
+        response = client.post(path, json={"authority_token": "controlled"})
+
+        assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+        assert isinstance(response.json()["detail"], list)
+        assert "input" in response.json()["detail"][0]
 
 
 def test_metadata_only_redaction_is_not_authorized():
