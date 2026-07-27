@@ -127,6 +127,14 @@ def register_middleware(app: FastAPI) -> None:
 
 
 def register_routes(app: FastAPI) -> None:
+    if _should_register_astra_diagnostics_routes():
+        from app.modules.astra_ai.api.diagnostics import router as astra_diagnostics_router
+
+        app.include_router(
+            astra_diagnostics_router,
+            prefix="/internal/astra/diagnostics",
+            tags=["Internal Astra Diagnostics"],
+        )
     app.include_router(
         knowledge_public_router,
         tags=["AI Knowledge"],
@@ -629,6 +637,17 @@ def register_routes(app: FastAPI) -> None:
             "status": "running",
             "version": settings.APP_VERSION,
         }
+
+
+def _should_register_astra_diagnostics_routes() -> bool:
+    if not settings.ASTRA_DIAGNOSTICS_API_ENABLED:
+        return False
+    app_env = settings.APP_ENV.strip().lower()
+    vercel_env = (settings.VERCEL_ENV or "").strip().lower()
+    if app_env == "production" or vercel_env == "production":
+        return False
+    environment = vercel_env or app_env
+    return environment in {"local", "development", "test", "qa", "preview", "staging"}
 
 
 def create_app() -> FastAPI:
