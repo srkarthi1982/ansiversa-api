@@ -34,6 +34,7 @@ from app.modules.astra_ai.planning import (
     AstraPlanStatus,
     AstraPlanningEngine,
     AstraPlanningError,
+    AstraPlanningHealthOutcome,
     AstraPlanningRequest,
     AstraRequestedCompletionPosture,
     AstraRequestedPlanStep,
@@ -334,6 +335,138 @@ def test_success_emits_one_planning_record_and_does_not_mutate_dependencies():
     assert plan.evidence_references[-1] == planning_records[0].evidence_id
     assert engine.get_conversation(snapshot.metadata.conversation_id) == conversation_before
     assert runtime._capability_discovery.registry.capability_count == registry_before.capability_count
+
+
+def test_allowed_plan_persists_all_referenced_evidence_in_deterministic_order():
+    runtime = ready_runtime()
+    allow_governance(runtime)
+    engine, snapshot = conversation(runtime)
+    before = runtime.evidence_count()
+
+    plan = propose(runtime, engine, snapshot, request(runtime, snapshot))
+
+    added = runtime.retrieve_evidence()[before:]
+    assert tuple(item.evidence_id for item in added) == plan.evidence_references
+    assert tuple(item.integrity.source_system for item in added) == (
+        "astra_ai:governance",
+        "astra_ai:governance",
+        "astra_ai:planning",
+    )
+    stored_ids = {item.evidence_id for item in runtime.retrieve_evidence()}
+    assert all(reference in stored_ids for reference in plan.evidence_references)
+
+
+def test_blocked_plan_governance_persists_governance_and_planning_evidence():
+    runtime = ready_runtime()
+    original = runtime.evaluate_governance
+
+    def governed(contract):
+        result = original(contract)
+        outcome = GovernanceOutcome.REFUSE if contract.evaluation_id.startswith("PLAN-GOV") else GovernanceOutcome.ALLOW
+        return result.model_copy(update={"decision": result.decision.model_copy(update={"outcome": outcome})})
+
+    runtime.evaluate_governance = governed
+    engine, snapshot = conversation(runtime)
+    before = runtime.evidence_count()
+
+    plan = propose(runtime, engine, snapshot, request(runtime, snapshot))
+
+    added = runtime.retrieve_evidence()[before:]
+    assert plan.plan_status is AstraPlanStatus.REFUSED
+    assert plan.proposed_steps == ()
+    assert tuple(item.evidence_id for item in added) == plan.evidence_references
+    assert tuple(item.integrity.source_system for item in added) == (
+        "astra_ai:governance",
+        "astra_ai:governance",
+        "astra_ai:planning",
+    )
+
+
+def test_plan_governance_evidence_failure_releases_no_plan_or_sequence():
+    runtime = ready_runtime()
+    allow_governance(runtime)
+    engine, snapshot = conversation(runtime)
+    original_append = runtime.append_evidence
+
+    def fail_plan_governance(evidence):
+        if evidence.decision_or_operation_reference.startswith("PLAN-GOV"):
+            raise RuntimeError("plan governance evidence unavailable")
+        return original_append(evidence)
+
+    runtime.append_evidence = fail_plan_governance
+    before_sequence = runtime._planning._operation_sequence
+    with pytest.raises(RuntimeError):
+        propose(runtime, engine, snapshot, request(runtime, snapshot))
+    assert runtime._planning._operation_sequence == before_sequence
+    assert runtime._planning._conversation_context_engine is None
+    assert all(
+        not item.decision_or_operation_reference.startswith("PLAN-GOV")
+        for item in runtime.retrieve_evidence()
+    )
+
+
+def test_planning_evidence_failure_returns_no_plan_and_keeps_sequence():
+    runtime = ready_runtime()
+    allow_governance(runtime)
+    engine, snapshot = conversation(runtime)
+    original_append = runtime.append_evidence
+
+    def fail_planning_evidence(evidence):
+        if evidence.integrity.source_system == "astra_ai:planning":
+            raise RuntimeError("planning evidence unavailable")
+        return original_append(evidence)
+
+    runtime.append_evidence = fail_planning_evidence
+    before_sequence = runtime._planning._operation_sequence
+    with pytest.raises(RuntimeError):
+        propose(runtime, engine, snapshot, request(runtime, snapshot))
+    assert runtime._planning._operation_sequence == before_sequence
+    assert runtime._planning._conversation_context_engine is None
+    assert any(
+        item.decision_or_operation_reference.startswith("PLAN-GOV")
+        for item in runtime.retrieve_evidence()
+    )
+    assert all(
+        item.integrity.source_system != "astra_ai:planning"
+        for item in runtime.retrieve_evidence()
+    )
+
+
+def test_health_is_degraded_until_valid_conversation_dependency_is_bound():
+    runtime = ready_runtime()
+    health = runtime.planning.health(observed_at=NOW)
+    assert health.conversation_context_dependency_available is False
+    assert health.health_outcome is AstraPlanningHealthOutcome.DEGRADED
+
+    engine, snapshot = conversation(runtime)
+    propose(runtime, engine, snapshot, request(runtime, snapshot))
+    health = runtime.planning.health(observed_at=NOW)
+    assert health.conversation_context_dependency_available is True
+    assert health.health_outcome is AstraPlanningHealthOutcome.HEALTHY
+
+
+def test_foreign_or_invalid_conversation_dependency_does_not_satisfy_health():
+    runtime = ready_runtime()
+    foreign = ready_runtime("2")
+    foreign_engine, _ = conversation(foreign, "conv_foreign_health_0001")
+    runtime._planning._conversation_context_engine = foreign_engine
+    health = runtime.planning.health(observed_at=NOW)
+    assert health.conversation_context_dependency_available is False
+    assert health.health_outcome is AstraPlanningHealthOutcome.DEGRADED
+
+    runtime._planning._conversation_context_engine = object()
+    assert runtime.planning.health(observed_at=NOW).conversation_context_dependency_available is False
+
+
+def test_stopped_runtime_planning_health_is_stopped_and_payload_free():
+    runtime = ready_runtime()
+    engine = runtime._planning
+    runtime.shutdown()
+    health = engine.health(observed_at=NOW)
+    assert health.health_outcome is AstraPlanningHealthOutcome.STOPPED
+    assert health.conversation_context_dependency_available is False
+    assert "conversation_id" not in health.model_dump()
+    assert "conversation_payload" not in health.model_dump()
 
 
 def test_contracts_and_source_have_no_executable_or_provider_surface():

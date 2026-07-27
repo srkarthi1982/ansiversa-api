@@ -39,7 +39,7 @@ validated request -> ready runtime -> current owned conversation
   -> plan governance -> immutable plan -> bounded evidence append -> release
 ```
 
-Capability data comes only through governed Capability Discovery with runtime-issued authority, never registry private storage. Evidence is references-only and append-before-release. Append failure releases no plan and does not advance the successful sequence or mutate dependencies.
+Capability data comes only through governed Capability Discovery with runtime-issued authority, never registry private storage. Discovery evidence is already appended by that engine. Planning then evaluates and appends plan-governance evidence before preparing either an allowed or blocked plan, appends the final references-only planning evidence, and only then releases the plan. Every returned evidence reference resolves to a stored record. Append failure releases no plan and does not advance the successful sequence or mutate dependencies; earlier valid evidence need not be rolled back.
 
 ## Registration and structural health
 
@@ -47,4 +47,4 @@ Capability data comes only through governed Capability Discovery with runtime-is
 |---|---|---|---|
 | `planning` | Astra Runtime Core | ASTRA-IMP-008 | lifecycle-bound interface |
 
-Health covers registration/availability, configuration, discovery, conversation dependency, governance, evidence, last successful sequence, outcome, and timestamp. It contains no provider, execution, model, database, workflow, or user-content health.
+Health covers registration/availability, configuration, discovery, conversation dependency, governance, evidence, last successful sequence, outcome, and timestamp. The required conversation dependency begins unbound, so a ready runtime is degraded. It becomes available only after a certified same-runtime engine and current owned snapshot pass proposal validation. Foreign, invalid, or stopped dependencies do not satisfy health. Health contains no provider, execution, model, database, workflow, conversation payload, or user-content health.

@@ -210,6 +210,7 @@ class AstraPlanningEngine:
     def __init__(self, *, runtime: Any) -> None:
         self._runtime = runtime
         self._runtime_instance_id = runtime.identity.startup_instance_id
+        self._conversation_context_engine: Any | None = None
         self._operation_sequence = 0
 
     def propose(
@@ -233,7 +234,11 @@ class AstraPlanningEngine:
         )
         if discovery.governance_outcome is not GovernanceOutcome.ALLOW:
             return self._blocked_plan(
-                request, conversation_snapshot, discovery.governance_outcome, discovery.evidence_reference
+                request,
+                conversation_snapshot,
+                discovery.governance_outcome,
+                (discovery.evidence_reference,),
+                conversation_engine=conversation_engine,
             )
 
         metadata_by_id = {item.capability_id: item for item in discovery.capabilities}
@@ -249,14 +254,16 @@ class AstraPlanningEngine:
             capabilities.append(capability)
 
         governance = self._evaluate_plan_governance(request)
+        self._runtime.append_evidence(governance.evidence)
         if governance.decision.outcome is not GovernanceOutcome.ALLOW:
             return self._blocked_plan(
                 request,
                 conversation_snapshot,
                 governance.decision.outcome,
-                governance.evidence.evidence_id,
+                (discovery.evidence_reference, governance.evidence.evidence_id),
                 governance.decision.decision_id,
                 governance.decision.failure_posture,
+                conversation_engine,
             )
 
         steps = tuple(
@@ -272,23 +279,39 @@ class AstraPlanningEngine:
             steps=steps,
             prior_evidence=(discovery.evidence_reference, governance.evidence.evidence_id),
         )
-        return self._append_evidence_then_release(plan, request)
+        return self._append_evidence_then_release(plan, request, conversation_engine)
 
     def health(self, *, observed_at: datetime | None = None) -> AstraPlanningHealthSnapshot:
         timestamp = observed_at or _utc_now()
         runtime_health = self._runtime.health(observed_at=timestamp)
         available = getattr(getattr(self._runtime, "state", None), "value", None) == "ready"
+        conversation_available = self._conversation_dependency_available()
+        dependencies_available = all(
+            (
+                runtime_health.configuration_valid,
+                runtime_health.capability_discovery_available,
+                conversation_available,
+                runtime_health.governance_available,
+                runtime_health.evidence_sink_available,
+            )
+        )
+        if not available:
+            outcome = AstraPlanningHealthOutcome.STOPPED
+        elif dependencies_available:
+            outcome = AstraPlanningHealthOutcome.HEALTHY
+        else:
+            outcome = AstraPlanningHealthOutcome.DEGRADED
         return AstraPlanningHealthSnapshot(
             runtime_instance_id=self._runtime_instance_id,
             engine_registered="planning" in tuple(item.value for item in self._runtime.registered_component_identifiers),
             engine_available=available,
             configuration_valid=runtime_health.configuration_valid,
             capability_discovery_available=runtime_health.capability_discovery_available,
-            conversation_context_dependency_available=True,
+            conversation_context_dependency_available=conversation_available,
             governance_available=runtime_health.governance_available,
             evidence_sink_available=runtime_health.evidence_sink_available,
             last_successful_planning_sequence=self._operation_sequence or None,
-            health_outcome=AstraPlanningHealthOutcome.HEALTHY if available else AstraPlanningHealthOutcome.STOPPED,
+            health_outcome=outcome,
             observed_at=timestamp,
         )
 
@@ -297,9 +320,10 @@ class AstraPlanningEngine:
         request: AstraPlanningRequest,
         snapshot: AstraConversationSnapshot,
         outcome: GovernanceOutcome,
-        evidence_reference: str,
+        evidence_references: tuple[str, ...],
         decision_reference: str = "CAP-DISC-GOVERNANCE",
         failure_posture: FailurePosture = FailurePosture.FAIL_CLOSED,
+        conversation_engine: Any | None = None,
     ) -> AstraProposedPlan:
         plan = self._prepare_plan(
             request=request,
@@ -308,9 +332,9 @@ class AstraPlanningEngine:
             decision_reference=decision_reference,
             failure_posture=failure_posture,
             steps=(),
-            prior_evidence=(evidence_reference,),
+            prior_evidence=evidence_references,
         )
-        return self._append_evidence_then_release(plan, request)
+        return self._append_evidence_then_release(plan, request, conversation_engine)
 
     def _prepare_plan(self, *, request, snapshot, outcome, decision_reference, failure_posture, steps, prior_evidence):
         semantic = {
@@ -351,7 +375,7 @@ class AstraPlanningEngine:
             provenance_reference=f"{PLANNING_IMPLEMENTATION_REFERENCE}:{PLANNING_ENGINE_VERSION}",
         )
 
-    def _append_evidence_then_release(self, plan, request):
+    def _append_evidence_then_release(self, plan, request, conversation_engine):
         next_sequence = self._operation_sequence + 1
         digest = hashlib.sha256(
             _canonical(
@@ -390,6 +414,7 @@ class AstraPlanningEngine:
             redaction_status=RedactionStatus.NOT_REQUIRED,
         )
         self._runtime.append_evidence(evidence)
+        self._conversation_context_engine = conversation_engine
         self._operation_sequence = next_sequence
         return plan.model_copy(update={"evidence_references": plan.evidence_references + (evidence_id,)})
 
@@ -456,6 +481,17 @@ class AstraPlanningEngine:
             AstraConversationLifecycleState.FAULTED,
         }:
             raise AstraPlanningError("Conversation lifecycle state is not eligible for planning.")
+    def _conversation_dependency_available(self) -> bool:
+        from app.modules.astra_ai.conversation_context import AstraConversationContextEngine
+
+        engine = self._conversation_context_engine
+        return (
+            isinstance(engine, AstraConversationContextEngine)
+            and getattr(engine, "_runtime", None) is self._runtime
+            and getattr(getattr(self._runtime, "state", None), "value", None) == "ready"
+            and getattr(getattr(engine, "_runtime", None), "identity", None) is not None
+            and engine._runtime.identity.startup_instance_id == self._runtime_instance_id
+        )
 
     def _validate_graph(self, request):
         steps = request.requested_steps
