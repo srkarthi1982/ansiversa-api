@@ -103,11 +103,12 @@ class AstraRuntimeCoreTests(unittest.TestCase):
                 AstraRuntimeComponentIdentifier.GOVERNANCE,
                 AstraRuntimeComponentIdentifier.EVIDENCE_SINK,
                 AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
+                AstraRuntimeComponentIdentifier.PLANNING,
             ),
         )
         self.assertEqual(
             tuple(registration.implementation_reference for registration in runtime.component_registrations),
-            ("ASTRA-IMP-002", "ASTRA-IMP-003", "ASTRA-IMP-004", "ASTRA-IMP-007"),
+            ("ASTRA-IMP-002", "ASTRA-IMP-003", "ASTRA-IMP-004", "ASTRA-IMP-007", "ASTRA-IMP-008"),
         )
 
     def test_governance_component_decides_but_disabled_configuration_does_not_allow(self):
