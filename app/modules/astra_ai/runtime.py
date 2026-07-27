@@ -27,6 +27,12 @@ from app.modules.astra_ai.constitutional_contracts import (
 )
 from app.modules.astra_ai.evidence_sink import DEFAULT_EVIDENCE_SINK_CAPACITY, InMemoryEvidenceSink
 from app.modules.astra_ai.governance import GovernanceEvaluationInput, GovernanceEvaluationResult, evaluate_governance
+from app.modules.astra_ai.intent_resolution import (
+    AstraIntentHealthSnapshot,
+    AstraIntentRequest,
+    AstraIntentResolution,
+    AstraIntentResolutionEngine,
+)
 from app.modules.astra_ai.planning import (
     AstraPlanningEngine,
     AstraPlanningHealthSnapshot,
@@ -81,6 +87,7 @@ class AstraRuntimeComponentIdentifier(StrEnum):
     EVIDENCE_SINK = "evidence_sink"
     CAPABILITY_DISCOVERY = "capability_discovery"
     PLANNING = "planning"
+    INTENT_RESOLUTION = "intent_resolution"
 
 
 AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
@@ -89,6 +96,7 @@ AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
     AstraRuntimeComponentIdentifier.EVIDENCE_SINK,
     AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
     AstraRuntimeComponentIdentifier.PLANNING,
+    AstraRuntimeComponentIdentifier.INTENT_RESOLUTION,
 )
 
 ALLOWED_RUNTIME_TRANSITIONS = {
@@ -159,7 +167,7 @@ class AstraRuntimeComponentRegistration(BaseModel):
     component_identifier: AstraRuntimeComponentIdentifier
     component_type: str = Field(min_length=4, max_length=80)
     registered_at: datetime
-    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-00[1-8]$")
+    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-00[1-9]$")
     certified_parent_reference: str = Field(min_length=8, max_length=80)
 
     @model_validator(mode="after")
@@ -180,6 +188,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     evidence_sink_available: bool
     capability_discovery_available: bool
     planning_available: bool
+    intent_resolution_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
     environment_scope: EnvironmentScope | None = None
@@ -340,6 +349,22 @@ class AstraRuntimePlanningInterface:
         return self._runtime.planning_health(observed_at=observed_at)
 
 
+class AstraRuntimeIntentResolutionInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def resolve(self, request: AstraIntentRequest, *, conversation_engine, conversation_snapshot, requester_context):
+        return self._runtime.resolve_intent(
+            request,
+            conversation_engine=conversation_engine,
+            conversation_snapshot=conversation_snapshot,
+            requester_context=requester_context,
+        )
+
+    def health(self, *, observed_at=None) -> AstraIntentHealthSnapshot:
+        return self._runtime.intent_resolution_health(observed_at=observed_at)
+
+
 class AstraRuntime:
     """Minimal internal owner for certified Astra foundations.
 
@@ -374,6 +399,7 @@ class AstraRuntime:
         self._evidence_sink: InMemoryEvidenceSink | None = None
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
         self._planning: AstraPlanningEngine | None = None
+        self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._registry = _ComponentRegistry()
         self._fault: AstraRuntimeFault | None = None
         self._startup_metadata: AstraRuntimeStartupMetadata | None = None
@@ -381,6 +407,7 @@ class AstraRuntime:
         self._evidence_interface = AstraRuntimeEvidenceInterface(self)
         self._capability_discovery_interface = AstraRuntimeCapabilityDiscoveryInterface(self)
         self._planning_interface = AstraRuntimePlanningInterface(self)
+        self._intent_resolution_interface = AstraRuntimeIntentResolutionInterface(self)
 
     @property
     def identity(self) -> AstraRuntimeIdentity:
@@ -418,6 +445,10 @@ class AstraRuntime:
     @property
     def planning(self) -> AstraRuntimePlanningInterface:
         return self._planning_interface
+
+    @property
+    def intent_resolution(self) -> AstraRuntimeIntentResolutionInterface:
+        return self._intent_resolution_interface
 
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
@@ -511,6 +542,19 @@ class AstraRuntime:
         self._require_ready_component(self._planning, "planning")
         return self._planning.health(observed_at=observed_at)
 
+    def resolve_intent(self, request: AstraIntentRequest, *, conversation_engine, conversation_snapshot, requester_context):
+        self._require_ready_component(self._intent_resolution, "intent resolution")
+        return self._intent_resolution.resolve(
+            request,
+            conversation_engine=conversation_engine,
+            conversation_snapshot=conversation_snapshot,
+            requester_context=requester_context,
+        )
+
+    def intent_resolution_health(self, *, observed_at=None) -> AstraIntentHealthSnapshot:
+        self._require_ready_component(self._intent_resolution, "intent resolution")
+        return self._intent_resolution.health(observed_at=observed_at)
+
     def startup(self) -> AstraRuntimeHealthSnapshot:
         if self._state is not AstraRuntimeState.UNINITIALIZED:
             raise AstraRuntimeError("Runtime startup is allowed only from the uninitialized state.")
@@ -559,6 +603,14 @@ class AstraRuntime:
                 certified_parent_reference="ASTRA-IMP-005/006/007 Certified / Approved",
                 registered_at=startup_timestamp,
             )
+            intent_resolution = self._create_intent_resolution_engine()
+            registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.INTENT_RESOLUTION,
+                component_type="AstraIntentResolutionEngine",
+                implementation_reference="ASTRA-IMP-009",
+                certified_parent_reference="ASTRA-IMP-005 through ASTRA-IMP-008 Certified",
+                registered_at=startup_timestamp,
+            )
             registry.seal()
 
             self._configuration = loaded_configuration
@@ -566,6 +618,7 @@ class AstraRuntime:
             self._evidence_sink = evidence_sink
             self._capability_discovery = capability_discovery
             self._planning = planning
+            self._intent_resolution = intent_resolution
             self._registry = registry
             self._startup_metadata = self._startup_metadata_from_configuration(loaded_configuration)
             self._fault = None
@@ -614,6 +667,7 @@ class AstraRuntime:
         evidence_sink_available = self._evidence_sink is not None
         capability_discovery_available = self._capability_discovery is not None
         planning_available = self._planning is not None
+        intent_resolution_available = self._intent_resolution is not None
         identifiers = self._registry.identifiers
         outcome = self._health_outcome(
             configuration_valid=configuration_valid,
@@ -621,6 +675,7 @@ class AstraRuntime:
             evidence_sink_available=evidence_sink_available,
             capability_discovery_available=capability_discovery_available,
             planning_available=planning_available,
+            intent_resolution_available=intent_resolution_available,
             identifiers=identifiers,
         )
         return AstraRuntimeHealthSnapshot(
@@ -632,6 +687,7 @@ class AstraRuntime:
             evidence_sink_available=evidence_sink_available,
             capability_discovery_available=capability_discovery_available,
             planning_available=planning_available,
+            intent_resolution_available=intent_resolution_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
@@ -658,6 +714,9 @@ class AstraRuntime:
     def _create_planning_engine(self) -> AstraPlanningEngine:
         return AstraPlanningEngine(runtime=self)
 
+    def _create_intent_resolution_engine(self) -> AstraIntentResolutionEngine:
+        return AstraIntentResolutionEngine(runtime=self)
+
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
         if next_state not in ALLOWED_RUNTIME_TRANSITIONS[self._state]:
             raise AstraRuntimeError("Runtime lifecycle transition is not authorized.")
@@ -669,6 +728,7 @@ class AstraRuntime:
         self._evidence_sink = None
         self._capability_discovery = None
         self._planning = None
+        self._intent_resolution = None
         self._registry = _ComponentRegistry()
         self._startup_metadata = None
 
@@ -718,6 +778,7 @@ class AstraRuntime:
         evidence_sink_available: bool,
         capability_discovery_available: bool,
         planning_available: bool,
+        intent_resolution_available: bool,
         identifiers: tuple[AstraRuntimeComponentIdentifier, ...],
     ) -> AstraRuntimeHealthOutcome:
         if self._state is AstraRuntimeState.FAULTED:
@@ -733,6 +794,7 @@ class AstraRuntime:
             and evidence_sink_available
             and capability_discovery_available
             and planning_available
+            and intent_resolution_available
             and identifiers == AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS
         ):
             return AstraRuntimeHealthOutcome.HEALTHY
