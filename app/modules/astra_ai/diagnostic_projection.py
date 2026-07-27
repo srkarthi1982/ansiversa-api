@@ -288,20 +288,32 @@ class AstraDiagnosticProjectionHealth(BaseModel):
 
 
 class AstraDiagnosticProjectionEngine:
-    def __init__(self, *, runtime: Any) -> None:
+    def __init__(self, *, runtime: Any, registration_authority: Any) -> None:
         self._runtime = runtime
         self._runtime_instance_id = runtime.identity.startup_instance_id
+        self._registration_authority = registration_authority
         self._authority_token = object()
         self._requests: dict[str, AstraDiagnosticProjectionRequest] = {}
         self._certified_outputs: dict[int, Any] = {}
         self._conversation_validated_requests: set[str] = set()
         self._sequence = 0
 
-    def register_certified_output(self, value: Any) -> None:
-        if value is not None:
-            if len(self._certified_outputs) >= 500:
-                self._certified_outputs.pop(next(iter(self._certified_outputs)))
-            self._certified_outputs[id(value)] = value
+    def _register_runtime_output(self, value: Any, *, registration_authority: Any) -> None:
+        if registration_authority is not self._registration_authority:
+            raise AstraDiagnosticProjectionError(
+                "Runtime-owned diagnostic output registration authority required."
+            )
+        if not isinstance(value, _certified_output_types()):
+            raise AstraDiagnosticProjectionError(
+                "Supported certified Runtime output required."
+            )
+        if _input_runtime_id(value) != self._runtime_instance_id:
+            raise AstraDiagnosticProjectionError(
+                "Certified diagnostic output belongs to a foreign Runtime."
+            )
+        if len(self._certified_outputs) >= 500:
+            self._certified_outputs.pop(next(iter(self._certified_outputs)))
+        self._certified_outputs[id(value)] = value
 
     def issue_request(
         self,
@@ -387,6 +399,13 @@ class AstraDiagnosticProjectionEngine:
         manifest = self._manifest(request, inputs, declared_evidence, timestamp)
         components = self._component_states(request, inputs)
         timeline, truncated = self._timeline(request, inputs, evidence_records)
+        if request.requested_redaction_posture is AstraDiagnosticRedactionPosture.STRICT:
+            manifest = _strict_manifest(manifest)
+            components = _strict_component_states(components)
+            evidence_summaries = _strict_evidence_summaries(evidence_summaries)
+            timeline = _strict_timeline(timeline)
+            resolved_evidence_references = ()
+            redacted = True
         completeness = self._completeness(
             request=request,
             manifest=manifest,
@@ -397,7 +416,13 @@ class AstraDiagnosticProjectionEngine:
         )
         reasons = self._reason_codes(request, manifest, evidence_summaries, truncated)
         semantic = {
-            "request": request.model_dump(mode="json"),
+            "request": {
+                "projection_request_id": request.projection_request_id,
+                "projection_kind": request.projection_kind.value,
+                "requested_sections": tuple(item.value for item in request.requested_sections),
+                "maximum_timeline_entries": request.maximum_timeline_entries,
+                "requested_redaction_posture": request.requested_redaction_posture.value,
+            },
             "manifest": manifest.model_dump(mode="json"),
             "components": tuple(item.model_dump(mode="json") for item in components),
             "evidence": tuple(item.model_dump(mode="json") for item in evidence_summaries),
@@ -842,6 +867,8 @@ class AstraDiagnosticProjectionEngine:
 
     def _reason_codes(self, request, manifest, evidence_summaries, truncated):
         reasons = []
+        if request.requested_redaction_posture is AstraDiagnosticRedactionPosture.STRICT:
+            reasons.append(AstraDiagnosticReasonCode.REDACTED_BY_SENSITIVITY)
         for link in manifest.link_results:
             if link.reason_code and link.reason_code not in reasons:
                 reasons.append(link.reason_code)
@@ -925,6 +952,71 @@ def _invalid_evidence_summary(reference, timestamp):
     )
 
 
+def _strict_manifest(
+    manifest: AstraDiagnosticCorrelationManifest,
+) -> AstraDiagnosticCorrelationManifest:
+    return manifest.model_copy(
+        update={
+            "conversation_reference": None,
+            "current_turn_reference": None,
+            "intent_reference": None,
+            "plan_reference": None,
+            "read_authorization_reference": None,
+            "evidence_references": (),
+            "link_results": tuple(
+                link.model_copy(
+                    update={
+                        "source_reference": "[redacted]",
+                        "target_reference": (
+                            "[redacted]" if link.target_reference is not None else None
+                        ),
+                    }
+                )
+                for link in manifest.link_results
+            ),
+            "completeness": AstraDiagnosticCompleteness.REDACTED,
+        }
+    )
+
+
+def _strict_component_states(
+    components: tuple[AstraDiagnosticComponentState, ...],
+) -> tuple[AstraDiagnosticComponentState, ...]:
+    return tuple(component.model_copy(update={"reference": None}) for component in components)
+
+
+def _strict_evidence_summaries(
+    summaries: tuple[AstraDiagnosticEvidenceSummary, ...],
+) -> tuple[AstraDiagnosticEvidenceSummary, ...]:
+    return tuple(
+        summary.model_copy(
+            update={
+                "evidence_reference": "[redacted]",
+                "source_system": None,
+                "provenance_reference": None,
+                "recorded_digest_reference": None,
+                "redaction_status": "redacted",
+            }
+        )
+        for summary in summaries
+    )
+
+
+def _strict_timeline(
+    timeline: tuple[AstraDiagnosticTimelineEntry, ...],
+) -> tuple[AstraDiagnosticTimelineEntry, ...]:
+    return tuple(
+        entry.model_copy(
+            update={
+                "reference": "[redacted]",
+                "evidence_reference": None,
+                "redaction_state": "redacted",
+            }
+        )
+        for entry in timeline
+    )
+
+
 def _input_runtime_id(value):
     if hasattr(value, "runtime_instance_id"):
         return value.runtime_instance_id
@@ -971,6 +1063,23 @@ def _component_health_types():
         AstraPlanningHealthSnapshot,
         AstraReadAuthorizationHealth,
         AstraDiagnosticProjectionHealth,
+    )
+
+
+def _certified_output_types():
+    from app.modules.astra_ai.intent_resolution import AstraIntentResolution
+    from app.modules.astra_ai.planning import AstraProposedPlan
+    from app.modules.astra_ai.read_access_authorization import (
+        AstraReadAuthorizationDecision,
+    )
+    from app.modules.astra_ai.runtime import AstraRuntimeHealthSnapshot
+
+    return (
+        AstraRuntimeHealthSnapshot,
+        AstraIntentResolution,
+        AstraProposedPlan,
+        AstraReadAuthorizationDecision,
+        *_component_health_types(),
     )
 
 

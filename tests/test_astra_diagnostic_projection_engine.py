@@ -24,6 +24,7 @@ from app.modules.astra_ai.diagnostic_projection import (
     AstraDiagnosticProjectionKind,
     AstraDiagnosticProjectionRequest,
     AstraDiagnosticProofState,
+    AstraDiagnosticReasonCode,
     AstraDiagnosticRedactionPosture,
     AstraDiagnosticSection,
 )
@@ -296,6 +297,148 @@ def test_mutable_runtime_payload_and_unregistered_health_copy_are_rejected():
     )
     with pytest.raises(AstraDiagnosticProjectionError, match="Exact Runtime-produced"):
         value.diagnostic_projection.project(copied, created_at=NOW)
+
+
+def test_output_registration_requires_runtime_authority_and_supported_type():
+    value = runtime()
+    engine = value._diagnostic_projection
+    health = value.health(observed_at=NOW)
+    with pytest.raises(AstraDiagnosticProjectionError, match="registration authority"):
+        engine._register_runtime_output(health, registration_authority=object())
+    with pytest.raises(AstraDiagnosticProjectionError, match="Supported certified"):
+        engine._register_runtime_output(
+            object(),
+            registration_authority=value._diagnostic_output_registration_authority,
+        )
+
+
+def test_fabricated_intent_plan_and_read_decision_cannot_self_certify():
+    from app.modules.astra_ai.read_access_authorization import AstraReadAuthorizationDecision
+
+    assembly = _Assembly()
+    snapshot = assembly.active_turn()
+    intent = assembly.resolve(snapshot, assembly.intent_request(snapshot))
+    plan = assembly.plan(snapshot)
+    fabricated_values = (
+        ("intent_resolution", intent.model_copy(), AstraDiagnosticSection.INTENT),
+        ("plan", plan.model_copy(), AstraDiagnosticSection.PLANNING),
+        (
+            "read_authorization_decision",
+            AstraReadAuthorizationDecision.model_construct(
+                runtime_instance_id=assembly.runtime.identity.startup_instance_id,
+                authorization_decision_id="read_decision_fabricated",
+            ),
+            AstraDiagnosticSection.READ_AUTHORIZATION,
+        ),
+    )
+    for index, (field, fabricated, section) in enumerate(fabricated_values, start=1):
+        request = assembly.runtime.diagnostic_projection.issue_request(
+            projection_request_id=f"diag_req_fabricated_{index:04d}",
+            projection_kind=AstraDiagnosticProjectionKind.REQUEST_DIAGNOSTIC,
+            requested_sections=(section,),
+            maximum_timeline_entries=10,
+            requested_redaction_posture=AstraDiagnosticRedactionPosture.METADATA_ONLY,
+            requested_at=NOW,
+            **{field: fabricated},
+        )
+        with pytest.raises(AstraDiagnosticProjectionError, match="Exact Runtime-produced"):
+            assembly.runtime.diagnostic_projection.project(request, created_at=NOW)
+
+
+def test_registration_rejects_foreign_runtime_output_even_with_internal_authority():
+    value = runtime()
+    foreign = runtime(suffix="e")
+    foreign_health = foreign.health(observed_at=NOW)
+    with pytest.raises(AstraDiagnosticProjectionError, match="foreign Runtime"):
+        value._diagnostic_projection._register_runtime_output(
+            foreign_health,
+            registration_authority=value._diagnostic_output_registration_authority,
+        )
+
+
+def test_strict_posture_redacts_all_scoped_references_before_release():
+    assembly = _Assembly()
+    snapshot = assembly.active_turn()
+    intent = assembly.resolve(snapshot, assembly.intent_request(snapshot))
+    plan = assembly.plan(snapshot)
+    stored_reference = intent.evidence_references[0]
+    strict_request = assembly.runtime.diagnostic_projection.issue_request(
+        projection_request_id="diag_req_strict_0001",
+        projection_kind=AstraDiagnosticProjectionKind.REQUEST_DIAGNOSTIC,
+        requested_sections=(
+            AstraDiagnosticSection.CONVERSATION,
+            AstraDiagnosticSection.INTENT,
+            AstraDiagnosticSection.PLANNING,
+            AstraDiagnosticSection.EVIDENCE,
+        ),
+        maximum_timeline_entries=50,
+        requested_redaction_posture=AstraDiagnosticRedactionPosture.STRICT,
+        requested_at=NOW,
+        conversation_snapshot=snapshot,
+        conversation_engine=assembly.engine,
+        intent_resolution=intent,
+        plan=plan,
+    )
+    projection = assembly.runtime.diagnostic_projection.project(strict_request, created_at=NOW)
+    manifest = projection.correlation_manifest
+    assert projection.completeness is AstraDiagnosticCompleteness.REDACTED
+    assert projection.redaction_state == "redacted"
+    assert AstraDiagnosticReasonCode.REDACTED_BY_SENSITIVITY in projection.reason_codes
+    assert manifest.conversation_reference is None
+    assert manifest.current_turn_reference is None
+    assert manifest.intent_reference is None
+    assert manifest.plan_reference is None
+    assert manifest.evidence_references == ()
+    assert all(link.source_reference == "[redacted]" for link in manifest.link_results)
+    assert all(item.reference is None for item in projection.component_states)
+    assert all(item.reference == "[redacted]" for item in projection.timeline_entries)
+    assert all(item.evidence_reference is None for item in projection.timeline_entries)
+    assert all(item.evidence_reference == "[redacted]" for item in projection.evidence_summaries)
+    assert all(item.source_system is None for item in projection.evidence_summaries)
+    assert all(item.provenance_reference is None for item in projection.evidence_summaries)
+    assert all(item.recorded_digest_reference is None for item in projection.evidence_summaries)
+    assert stored_reference not in projection.model_dump_json()
+
+
+def test_metadata_only_preserves_approved_bounded_evidence_references():
+    value = runtime()
+    stored = value.evidence_sink.append(evidence(12))
+    request = value.diagnostic_projection.issue_request(
+        projection_request_id="diag_req_metadata_0001",
+        projection_kind=AstraDiagnosticProjectionKind.EVIDENCE_SUMMARY,
+        requested_sections=(AstraDiagnosticSection.EVIDENCE,),
+        maximum_timeline_entries=10,
+        requested_redaction_posture=AstraDiagnosticRedactionPosture.METADATA_ONLY,
+        requested_at=NOW,
+        evidence_references=(stored.evidence_id,),
+    )
+    projection = value.diagnostic_projection.project(request, created_at=NOW)
+    assert projection.evidence_summaries[0].evidence_reference == stored.evidence_id
+    assert projection.evidence_summaries[0].source_system == "astra_ai:test_fixture"
+    assert projection.redaction_state == "metadata_only"
+
+
+def test_unknown_evidence_sensitivity_fails_closed_under_strict_posture():
+    value = runtime()
+    stored = value.evidence_sink.append(evidence(13))
+    value._evidence_sink._records[0] = stored.model_copy(
+        update={"sensitivity_class": "unknown_future_class"}
+    )
+    request = value.diagnostic_projection.issue_request(
+        projection_request_id="diag_req_strict_0002",
+        projection_kind=AstraDiagnosticProjectionKind.EVIDENCE_SUMMARY,
+        requested_sections=(AstraDiagnosticSection.EVIDENCE,),
+        maximum_timeline_entries=10,
+        requested_redaction_posture=AstraDiagnosticRedactionPosture.STRICT,
+        requested_at=NOW,
+        evidence_references=(stored.evidence_id,),
+    )
+    with pytest.warns(UserWarning, match="Pydantic serializer warnings"):
+        projection = value.diagnostic_projection.project(request, created_at=NOW)
+    assert projection.completeness is AstraDiagnosticCompleteness.UNAVAILABLE
+    assert projection.redaction_state == "redacted"
+    assert projection.evidence_summaries[0].evidence_reference == "[redacted]"
+    assert projection.evidence_summaries[0].sensitivity_class is None
 
 
 def test_component_health_summary_requires_exact_runtime_output_and_health_stops():

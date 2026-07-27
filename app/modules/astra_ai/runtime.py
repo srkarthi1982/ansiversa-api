@@ -459,6 +459,7 @@ class AstraRuntime:
         self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
+        self._diagnostic_output_registration_authority = object()
         self._read_issuer_authority = object()
         self._read_authority_issuers: dict[str, AstraAuthorityProofIssuer] = {}
         self._registry = _ComponentRegistry()
@@ -894,11 +895,17 @@ class AstraRuntime:
         return AstraReadAccessAuthorizationEngine(runtime=self)
 
     def _create_diagnostic_projection_engine(self) -> AstraDiagnosticProjectionEngine:
-        return AstraDiagnosticProjectionEngine(runtime=self)
+        return AstraDiagnosticProjectionEngine(
+            runtime=self,
+            registration_authority=self._diagnostic_output_registration_authority,
+        )
 
     def _register_diagnostic_output(self, value: Any) -> None:
         if self._diagnostic_projection is not None and self._state is AstraRuntimeState.READY:
-            self._diagnostic_projection.register_certified_output(value)
+            self._diagnostic_projection._register_runtime_output(
+                value,
+                registration_authority=self._diagnostic_output_registration_authority,
+            )
 
     def _issue_read_authority_issuer(
         self, proof_class: str, issuer_reference: str, *, capacity: int = 100

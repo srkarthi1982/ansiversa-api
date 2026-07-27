@@ -12,7 +12,7 @@ Certified tests and ASTRA-VAL-001 retain direct Runtime access. Future APIs, UIs
 
 Runtime issues an exact request object backed by an opaque engine-owned token and bounded private issuance registry. Copies, reconstructions, field changes, foreign Runtime requests, expired requests, unknown requests, and post-shutdown requests fail. Requests expire after 15 minutes, select fixed projection kinds/sections, and allow at most 50 timeline entries.
 
-Accepted inputs are exact Runtime-produced `AstraRuntimeHealthSnapshot`, `AstraIntentResolution`, `AstraProposedPlan`, `AstraReadAuthorizationDecision`, and certified component-health contracts. A conversation snapshot additionally requires current ownership validation through its certified Conversation Context Engine at request issuance. Dictionaries, Runtime objects, stores, registries, proof issuers, tokens, and mutable interfaces are rejected.
+Accepted inputs are exact Runtime-produced `AstraRuntimeHealthSnapshot`, `AstraIntentResolution`, `AstraProposedPlan`, `AstraReadAuthorizationDecision`, and certified component-health contracts. Registration is a private Runtime-owned operation requiring an opaque exact authority token, a supported output contract, and matching Runtime identity; projection consumers cannot self-register outputs. A conversation snapshot additionally requires current ownership validation through its certified Conversation Context Engine at request issuance. Dictionaries, Runtime objects, stores, registries, proof issuers, tokens, copied outputs, fabricated contracts, foreign-Runtime outputs, and mutable interfaces are rejected.
 
 Projection kinds are `runtime_summary`, `request_diagnostic`, `evidence_summary`, and `component_health_summary`. There is no list-all or global enumeration operation.
 
@@ -50,7 +50,9 @@ Overall precedence is:
 unavailable > redacted > partial > complete
 ```
 
-Missing required evidence is unavailable. Sensitivity-required omission is redacted. Missing optional evidence/correlation or timeline truncation is partial. `not_applicable` is a stage state, not overall completeness. Strict minimization permits references, fixed states, timestamps, reason codes, and structural metadata only.
+Missing required evidence is unavailable. Sensitivity-required omission is redacted. Missing optional evidence/correlation or timeline truncation is partial. `not_applicable` is a stage state, not overall completeness.
+
+`metadata_only` preserves approved bounded references and structural metadata. `strict` deterministically removes conversation, turn, intent, plan, read-authorization, component, evidence source/provenance/digest, and timeline object references before the semantic projection digest and projection-operation evidence are computed. It preserves stage names, bounded states, reason codes, integrity statuses, and permitted timestamps; sets completeness and redaction state to `redacted`; and records `redacted_by_sensitivity`. Unknown or invalid sensitivity fails closed to unavailable and remains redacted.
 
 ## Timeline
 
