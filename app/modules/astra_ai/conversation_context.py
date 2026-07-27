@@ -24,6 +24,7 @@ from app.modules.astra_ai.runtime import AstraRuntime, AstraRuntimeHealthOutcome
 CONVERSATION_CONTEXT_ENGINE_VERSION = "1.0.0"
 CONVERSATION_CONTEXT_IMPLEMENTATION_REFERENCE = "ASTRA-IMP-006"
 DEFAULT_SHORT_CONTEXT_LIMIT = 8
+MAXIMUM_DECLARED_INTENT_BINDINGS = 200
 
 
 class AstraConversationContextError(ValueError):
@@ -102,6 +103,7 @@ class AstraBoundDeclaredIntentParameter(BaseModel):
 class AstraDeclaredIntentBinding(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
 
+    binding_id: str = Field(pattern=r"^intent_binding_[0-9]{8}$")
     runtime_instance_id: str = Field(pattern=r"^astra_rt_[a-f0-9]{32}$")
     conversation_id: str = Field(pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
     current_turn_reference: str = Field(pattern=r"^turn_[a-z0-9][a-z0-9_-]{7,120}$")
@@ -355,6 +357,8 @@ class AstraConversationContextEngine:
         self._short_context_limit = short_context_limit
         self._ownership_token = _ConversationOwnershipToken(runtime.identity.startup_instance_id)
         self._declared_intent_authority_token = _DeclaredIntentAuthorityToken()
+        self._declared_intent_bindings: dict[str, AstraDeclaredIntentBinding] = {}
+        self._declared_intent_binding_sequence = 0
         self._conversations: dict[str, _AstraConversationSession] = {}
         self._operation_sequence = 0
 
@@ -406,7 +410,11 @@ class AstraConversationContextEngine:
             raise AstraConversationContextError("Declared intent binding requires a current turn.")
         if owned.metadata.lifecycle_state is not AstraConversationLifecycleState.ACTIVE:
             raise AstraConversationContextError("Declared intent binding requires an active conversation.")
-        return AstraDeclaredIntentBinding(
+        if len(self._declared_intent_bindings) >= MAXIMUM_DECLARED_INTENT_BINDINGS:
+            raise AstraConversationContextError("Declared intent binding capacity is exhausted.")
+        next_sequence = self._declared_intent_binding_sequence + 1
+        binding = AstraDeclaredIntentBinding(
+            binding_id=f"intent_binding_{next_sequence:08d}",
             runtime_instance_id=self._runtime.identity.startup_instance_id,
             conversation_id=owned.metadata.conversation_id,
             current_turn_reference=owned.current_turn.turn_id,
@@ -417,10 +425,19 @@ class AstraConversationContextEngine:
             declared_parameters=declared_parameters,
             authority_token=self._declared_intent_authority_token,
         )
+        self._declared_intent_bindings[binding.binding_id] = binding
+        self._declared_intent_binding_sequence = next_sequence
+        return binding
 
     def validates_declared_intent_binding(self, binding: AstraDeclaredIntentBinding) -> bool:
+        issued = (
+            self._declared_intent_bindings.get(binding.binding_id)
+            if isinstance(binding, AstraDeclaredIntentBinding)
+            else None
+        )
         return (
             isinstance(binding, AstraDeclaredIntentBinding)
+            and issued is binding
             and binding.authority_token is self._declared_intent_authority_token
             and binding.runtime_instance_id == self._runtime.identity.startup_instance_id
         )

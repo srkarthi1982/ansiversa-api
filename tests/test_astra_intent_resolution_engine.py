@@ -5,6 +5,7 @@ from pydantic import ValidationError
 
 from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference, GovernanceOutcome
 from app.modules.astra_ai.conversation_context import (
+    AstraBoundDeclaredIntentParameter,
     AstraDeclaredIntentBinding,
     AstraConversationContextEngine,
     AstraConversationLifecycleState,
@@ -12,6 +13,7 @@ from app.modules.astra_ai.conversation_context import (
     AstraCurrentTurnContext,
 )
 from app.modules.astra_ai.intent_resolution import (
+    AstraDeclaredIntentParameter,
     AstraIntentCategory,
     AstraIntentConfidence,
     AstraIntentHealthOutcome,
@@ -242,6 +244,75 @@ def test_forged_foreign_and_mismatched_declared_intent_bindings_are_rejected():
             snapshot,
             valid_request.model_copy(update={"declared_intent_binding": forged}),
         )
+
+
+@pytest.mark.parametrize(
+    "update",
+    (
+        {"declared_action": "lookup_capability"},
+        {"declared_subject": "different_subject"},
+        {"declared_target": "cap_evidence_metadata_0001"},
+        {
+            "declared_parameters": (
+                AstraBoundDeclaredIntentParameter(name="scope", value_reference="scope:other"),
+            )
+        },
+    ),
+)
+def test_copying_valid_binding_with_any_declared_field_change_is_rejected(update):
+    runtime = ready()
+    allow(runtime)
+    engine, snapshot = context(runtime)
+    valid_request = request(runtime, snapshot)
+    copied = valid_request.declared_intent_binding.model_copy(update=update)
+    before = runtime.evidence_count()
+
+    with pytest.raises(AstraIntentResolutionError):
+        resolve(
+            runtime,
+            engine,
+            snapshot,
+            valid_request.model_copy(
+                update={
+                    "declared_action": copied.declared_action,
+                    "declared_subject": copied.declared_subject,
+                    "declared_target": copied.declared_target,
+                    "declared_parameters": tuple(
+                        AstraDeclaredIntentParameter(
+                            name=item.name,
+                            value_reference=item.value_reference,
+                        )
+                        for item in copied.declared_parameters
+                    ),
+                    "declared_intent_binding": copied,
+                }
+            ),
+        )
+    assert runtime.evidence_count() == before
+
+
+def test_reconstructed_valid_token_and_unknown_binding_id_are_rejected():
+    runtime = ready()
+    allow(runtime)
+    engine, snapshot = context(runtime)
+    valid_request = request(runtime, snapshot)
+    binding = valid_request.declared_intent_binding
+    reconstructed = AstraDeclaredIntentBinding(
+        **binding.model_dump(),
+        authority_token=binding.authority_token,
+    )
+    unknown = binding.model_copy(update={"binding_id": "intent_binding_99999999"})
+
+    for candidate in (reconstructed, unknown):
+        before = runtime.evidence_count()
+        with pytest.raises(AstraIntentResolutionError):
+            resolve(
+                runtime,
+                engine,
+                snapshot,
+                valid_request.model_copy(update={"declared_intent_binding": candidate}),
+            )
+        assert runtime.evidence_count() == before
 
     foreign = ready("6")
     foreign_engine, foreign_snapshot = context(foreign, "conv_foreign_binding_0001")
