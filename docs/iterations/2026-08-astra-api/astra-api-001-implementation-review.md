@@ -1,5 +1,11 @@
 # ASTRA-API-001 Implementation Review Package
 
+Status: Certified / Approved
+
+Final reviewed implementation commit: `b8989dbb`
+
+Certification closure: documentation-only.
+
 ## Discovery Findings
 
 FastAPI route registration is centralized in `app/main.py`.
@@ -54,8 +60,9 @@ semantics. Transport adds only envelope metadata and redaction policy metadata.
 
 Focused ASTRA-API-001 tests passed locally with `.venv/bin/python -m pytest`.
 
-Broader ASTRA-IMP and ASTRA-VAL regressions remain required before commit and
-push.
+Full Astra regressions and full backend tests passed before Product Owner
+approval. Certification closure is documentation-only and does not modify
+implementation or test files.
 
 ## Source Review Corrections
 
@@ -74,3 +81,26 @@ and unexpected failures. Runtime failures map to `runtime_unavailable`,
 projection request failures map to `projection_request_invalid`, projection
 creation failures map to `projection_unavailable`, and unexpected failures map
 to `internal_diagnostic_failure`.
+
+## Certification Closure
+
+ASTRA-API-001 is Certified / Approved.
+
+Implementation direction, Astra re-review, security review, constitutional
+conformance, Product Owner approval, and certification are all approved/passed.
+
+The certified boundary remains:
+
+```text
+Authentication              Required
+Developer Authorization     Required
+Environment                 Non-production only
+Default Redaction           Strict
+Projection Authority        ASTRA-IMP-011 only
+Frontend Integration        Not authorized
+Database / SQL              Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+ASTRA-API-VAL-001           Not authorized
+ASTRA-UI-001                Not authorized
+```

@@ -1,18 +1,46 @@
 # ASTRA-API-001 Authenticated Non-Production Diagnostics API
 
-Status: Implemented
+Status: Certified / Approved
 
 Implementation Direction: Approved
 
-Astra Source Review: Corrections applied; re-review pending
+Astra Re-review: Approved
 
-Security Review: Pending
+Security Review: Approved
 
-Constitutional Conformance: Pending
+Constitutional Conformance: Approved
 
-Product Owner Approval: Pending
+Product Owner Approval: Approved
 
-Certification: Pending
+Certification: Passed
+
+## Final Certified State
+
+```text
+ASTRA-API-001               Certified / Approved
+Implementation Scope        Authenticated Non-Production Diagnostics API
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Authentication              Required
+Developer Authorization     Required
+Environment                 Non-production only
+Default Redaction           Strict
+Projection Authority        ASTRA-IMP-011 only
+
+Frontend Integration        Not authorized
+Database / SQL              Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-API-VAL-001           Not authorized
+ASTRA-UI-001                Not authorized
+```
 
 ## Correction Status
 
@@ -23,6 +51,9 @@ The source-review corrections after commit `f7594b48` have been applied:
 2. Diagnostics operations now use a service-level bounded error boundary around
    Runtime access, health generation, projection request issuance, component
    health generation, projection creation, and unexpected failures.
+
+Product Owner approval was granted after Astra final source-level and
+security-boundary re-review of commit `b8989dbb`.
 
 ## Scope
 
