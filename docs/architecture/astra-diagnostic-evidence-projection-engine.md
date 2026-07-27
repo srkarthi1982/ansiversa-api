@@ -1,6 +1,6 @@
 # ASTRA-IMP-011 — Diagnostic Evidence Projection Engine
 
-Status: Implemented; pending Astra source review.
+Status: Certified / Approved.
 
 ## Boundary
 

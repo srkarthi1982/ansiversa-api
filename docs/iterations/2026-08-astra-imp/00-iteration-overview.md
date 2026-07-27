@@ -1,6 +1,6 @@
 # ASTRA Implementation Iteration
 
-**Status:** ASTRA-IMP-011 Implemented / Pending Astra Source Review
+**Status:** ASTRA-IMP-011 Certified / Approved
 **Parent Constitution:** ASTRA-001 through ASTRA-010 Accepted / Frozen
 **Parent Readiness:** ASTRA-IR-001 Accepted / Frozen
 **Implementation:** Separately authorized tasks only
@@ -254,4 +254,4 @@ or production behavior. ASTRA-IMP-008 requires separate authorization.
 ASTRA-IMP-010 Read-Only Data Access Authorization Engine is Certified / Approved. Implementation direction, Astra re-review, constitutional conformance, Product Owner approval, and certification are approved/passed. Database and SQL are not authorized; retrieval is not performed; mutation/schema changes are prohibited; production reads are not approved; production is unchanged; ASTRA-IMP-011 is not authorized and requires separate authorization.
 # ASTRA-IMP-011 checkpoint
 
-ASTRA-IMP-011 Diagnostic Evidence Projection Engine is implemented pending Astra source review. Correlation uses explicit certified links only; output is internal only; APIs, UI, persistence, and production exposure are not authorized; production is unchanged; ASTRA-VAL-002, ASTRA-API-001, and ASTRA-UI-001 are not authorized.
+ASTRA-IMP-011 Diagnostic Evidence Projection Engine is Certified / Approved. Implementation direction, Astra re-review, constitutional conformance, Product Owner approval, and certification are approved/passed. Correlation uses explicit certified links only; output remains internal only; APIs, UI, telemetry, persistence, and production exposure are not authorized; production authorization is not approved and production is unchanged. ASTRA-VAL-002, ASTRA-API-001, and ASTRA-UI-001 are not authorized and require separate authorization.
