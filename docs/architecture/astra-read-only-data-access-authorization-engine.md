@@ -6,9 +6,13 @@ Named capabilities declare the owner, fixed purposes, sensitivity, subject/tenan
 
 Identifiers are never authority. The bounded proof issuer validates the exact immutable object it issued, same Runtime and issuer, known proof ID, and current expiration. Copies, reconstructions, foreign, altered, unknown, and expired proofs fail. Required issuers are currently unavailable, so default health is truthfully degraded and authorization fails closed.
 
+Issuer registration is also Runtime-owned. Runtime records the exact issuer identity under its proof class and supplies opaque registration authority. Caller-created, copied, reconstructed, foreign, or merely same-runtime issuers cannot bind as certified.
+
 Purpose must be allowed. Fields must be explicit allowed subsets and retain required fields; wildcards fail. Row/time limits and aggregations stay within bounds. Cross-app access is prohibited by default. Owner acceptance requires an exact owner-issued proof. Governance ALLOW never bypasses scope, minimization, acceptance, or production authorization.
 
-The order is validation, proof validation, metadata resolution, governance, scope/minimization, immutable decision preparation, evidence append, then release. Append failure releases no decision or sequence advancement. Runtime owns exactly one lifecycle-bound component and health contains structural metadata only.
+Requested filters must independently be a subset of the named capability allowlist. Duplicate filters and aggregations are rejected at the request boundary.
+
+The order is validation, proof validation, metadata resolution, governance, scope/minimization, immutable decision preparation, evidence append, then release. Append failure releases no decision or sequence advancement. Runtime owns exactly one lifecycle-bound component and health contains structural metadata only. Healthy requires every declared dependency, all mandatory certified issuers, and a nonempty registry containing an available app-owned capability; empty and disabled-only registries remain degraded.
 
 ```text
 database_connection_state  not_authorized

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime, timedelta, timezone
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from pydantic import ValidationError
 
@@ -121,9 +123,9 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
             )
 
     def test_owner_issued_proof_rejects_copy_foreign_expired_and_unknown(self):
-        issuer = AstraAuthorityProofIssuer(
-            runtime_instance_id=RUNTIME_ID, issuer_reference="owner:identity", capacity=2
-        )
+        with self.assertRaises(AstraReadAuthorizationError):
+            AstraAuthorityProofIssuer(runtime_instance_id=RUNTIME_ID, issuer_reference="caller:identity")
+        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:identity", capacity=2)
         proof = issuer.issue(
             proof_id="proof_principal_0001",
             proof_class="principal",
@@ -136,16 +138,19 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
         self.assertTrue(issuer.validates(proof, observed_at=NOW))
         self.assertFalse(issuer.validates(proof.model_copy(), observed_at=NOW))
         self.assertFalse(issuer.validates(proof, observed_at=NOW + timedelta(minutes=6)))
-        foreign = AstraAuthorityProofIssuer(
-            runtime_instance_id="astra_rt_" + "b" * 32, issuer_reference="owner:identity"
+        foreign_runtime = AstraRuntime(
+            created_at=NOW, startup_instance_id="astra_rt_" + "b" * 32
         )
+        foreign_runtime.startup()
+        foreign = foreign_runtime._issue_read_authority_issuer("principal", "owner:identity")
         self.assertFalse(foreign.validates(proof, observed_at=NOW))
+        foreign_runtime.shutdown()
 
     def test_missing_certified_authorities_fail_before_evidence(self):
         engine = AstraReadAccessAuthorizationEngine(
             runtime=self.runtime, registry=AstraNamedReadCapabilityRegistry((capability(),))
         )
-        issuer = AstraAuthorityProofIssuer(runtime_instance_id=RUNTIME_ID, issuer_reference="owner:identity")
+        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:identity")
         principal = issuer.issue(
             proof_id="proof_principal_0001",
             proof_class="principal",
@@ -184,6 +189,115 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
                 intent_resolution=None,
             )
         self.assertEqual(self.runtime.evidence_sink.count(), before)
+
+    def test_only_exact_runtime_registered_issuer_can_bind(self):
+        engine = AstraReadAccessAuthorizationEngine(runtime=self.runtime)
+        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:principal")
+        engine.bind_certified_issuer("principal", issuer)
+        copied = object.__new__(AstraAuthorityProofIssuer)
+        copied.__dict__.update(issuer.__dict__)
+        with self.assertRaisesRegex(AstraReadAuthorizationError, "exact Runtime-owned"):
+            AstraReadAccessAuthorizationEngine(runtime=self.runtime).bind_certified_issuer(
+                "principal", copied
+            )
+
+    def test_filter_and_aggregation_contract_validation(self):
+        base = dict(
+            authorization_request_id="read_req_request_0002",
+            runtime_instance_id=RUNTIME_ID,
+            conversation_id="conv_conversation_0001",
+            current_turn_reference="turn_current_0001",
+            intent_resolution_reference="intent_" + "b" * 24,
+            read_capability_id="read_cap_expense_summary_0001",
+            authenticated_principal_reference="principal:current",
+            requested_field_references=("expense.currency",),
+            requested_row_limit=10,
+            requested_time_range_days=30,
+            declared_purpose=AstraReadPurpose.USER_REQUESTED_SUMMARY,
+            requester_authority_context="authority:current",
+            constitutional_requirement_references=(REQ,),
+            proofs=(
+                self.runtime._issue_read_authority_issuer("principal", "owner:principal").issue(
+                    proof_id="proof_principal_0002",
+                    proof_class="principal",
+                    subject_reference="principal:current",
+                    scope_references=("principal:current",),
+                    issued_at=NOW,
+                    expires_at=NOW + timedelta(minutes=5),
+                    version="1.0.0",
+                ),
+            ),
+            requested_at=NOW,
+            request_version="1.0.0",
+        )
+        with self.assertRaises(ValidationError):
+            AstraReadAuthorizationRequest(
+                **base,
+                requested_filter_references=("expense.date_range", "expense.date_range"),
+            )
+        with self.assertRaises(ValidationError):
+            AstraReadAuthorizationRequest(
+                **base,
+                requested_aggregation_references=("expense.sum", "expense.sum"),
+            )
+
+    def test_filter_scope_is_independent_and_unknown_filter_is_denied(self):
+        engine = AstraReadAccessAuthorizationEngine(runtime=self.runtime)
+        request = type(
+            "Request",
+            (),
+            {
+                "requested_field_references": ("expense.currency",),
+                "requested_filter_references": ("expense.unknown",),
+                "requested_aggregation_references": (),
+                "requested_row_limit": 10,
+                "requested_time_range_days": 30,
+                "declared_purpose": AstraReadPurpose.USER_REQUESTED_SUMMARY,
+            },
+        )()
+        checks = engine._evaluate_scope(request, capability())
+        self.assertEqual(checks[3].value, "denied")
+        request.requested_filter_references = ()
+        self.assertEqual(engine._evaluate_scope(request, capability())[3].value, "satisfied")
+
+    def test_health_requires_usable_registry_all_issuers_and_dependencies(self):
+        empty = AstraReadAccessAuthorizationEngine(runtime=self.runtime)
+        self.assertEqual(empty.health(observed_at=NOW).health_outcome, AstraReadHealthOutcome.DEGRADED)
+        disabled = AstraReadAccessAuthorizationEngine(
+            runtime=self.runtime,
+            registry=AstraNamedReadCapabilityRegistry(
+                (capability(status=AstraReadCapabilityStatus.DISABLED),)
+            ),
+        )
+        self.assertFalse(disabled.health(observed_at=NOW).read_capability_registry_valid)
+
+        engine = AstraReadAccessAuthorizationEngine(
+            runtime=self.runtime, registry=AstraNamedReadCapabilityRegistry((capability(),))
+        )
+        for proof_class in (*engine.REQUIRED_PROOFS, "owner_acceptance"):
+            issuer = self.runtime._issue_read_authority_issuer(
+                proof_class, f"owner:{proof_class}"
+            )
+            engine.bind_certified_issuer(proof_class, issuer)
+        with (
+            patch.object(
+                self.runtime,
+                "intent_resolution_health",
+                return_value=SimpleNamespace(
+                    conversation_dependency_available=True, engine_available=True
+                ),
+            ),
+            patch.object(
+                self.runtime,
+                "planning_health",
+                return_value=SimpleNamespace(engine_available=True),
+            ),
+        ):
+            health = engine.health(observed_at=NOW)
+        self.assertEqual(health.health_outcome, AstraReadHealthOutcome.HEALTHY)
+        self.assertNotIn("user", health.model_dump())
+        self.runtime.shutdown()
+        self.assertEqual(engine.health(observed_at=NOW).health_outcome, AstraReadHealthOutcome.STOPPED)
 
     def test_contract_surface_is_metadata_only(self):
         fields = set(AstraReadAuthorizationRequest.model_fields)

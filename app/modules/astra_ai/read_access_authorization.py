@@ -173,11 +173,21 @@ class AstraAuthorityProof(BaseModel):
 class AstraAuthorityProofIssuer:
     """Bounded exact-object issuer for a future certified owning authority."""
 
-    def __init__(self, *, runtime_instance_id: str, issuer_reference: str, capacity: int = 100) -> None:
+    def __init__(
+        self,
+        *,
+        runtime_instance_id: str,
+        issuer_reference: str,
+        capacity: int = 100,
+        _runtime_authority: Any = None,
+    ) -> None:
+        if _runtime_authority is None:
+            raise AstraReadAuthorizationError("Proof issuers require Runtime-owned registration authority.")
         if capacity < 1 or capacity > 1000:
             raise AstraReadAuthorizationError("Proof issuer capacity is invalid.")
         self.runtime_instance_id = runtime_instance_id
         self.issuer_reference = issuer_reference
+        self._runtime_authority = _runtime_authority
         self._capacity = capacity
         self._issued: dict[str, AstraAuthorityProof] = {}
 
@@ -233,6 +243,10 @@ class AstraReadAuthorizationRequest(BaseModel):
         _aware(self.requested_at)
         if len(self.requested_field_references) != len(set(self.requested_field_references)):
             raise AstraReadAuthorizationError("Requested fields must be unique.")
+        if len(self.requested_filter_references) != len(set(self.requested_filter_references)):
+            raise AstraReadAuthorizationError("Requested filters must be unique.")
+        if len(self.requested_aggregation_references) != len(set(self.requested_aggregation_references)):
+            raise AstraReadAuthorizationError("Requested aggregations must be unique.")
         if "*" in self.requested_field_references:
             raise AstraReadAuthorizationError("Wildcard fields are prohibited.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
@@ -253,6 +267,7 @@ class AstraReadAuthorizationDecision(BaseModel):
     app_scope_result: AstraReadCheckResult
     record_scope_result: AstraReadCheckResult
     field_scope_result: AstraReadCheckResult
+    filter_scope_result: AstraReadCheckResult
     minimization_result: AstraReadCheckResult
     row_limit_result: AstraReadCheckResult
     time_range_result: AstraReadCheckResult
@@ -319,6 +334,10 @@ class AstraNamedReadCapabilityRegistry:
     def valid(self) -> bool:
         return self._sealed and len(self._items) <= MAX_READ_CAPABILITIES
 
+    @property
+    def has_available_capability(self) -> bool:
+        return any(item.status is AstraReadCapabilityStatus.AVAILABLE for item in self._items.values())
+
 
 class AstraReadAccessAuthorizationEngine:
     REQUIRED_PROOFS = ("principal", "user", "tenant", "app", "record", "field", "purpose")
@@ -336,6 +355,8 @@ class AstraReadAccessAuthorizationEngine:
             raise AstraReadAuthorizationError("Unknown proof issuer class.")
         if issuer.runtime_instance_id != self._runtime_instance_id:
             raise AstraReadAuthorizationError("Foreign-runtime proof issuer.")
+        if not self._runtime._validates_read_authority_issuer(proof_class, issuer):
+            raise AstraReadAuthorizationError("Proof issuer lacks exact Runtime-owned registration authority.")
         if proof_class in self._issuers:
             raise AstraReadAuthorizationError("Proof issuer already bound.")
         self._issuers[proof_class] = issuer
@@ -474,8 +495,27 @@ class AstraReadAccessAuthorizationEngine:
         timestamp = observed_at or datetime.now(timezone.utc)
         runtime_health = self._runtime.health(observed_at=timestamp)
         ready = getattr(self._runtime.state, "value", None) == "ready"
+        intent_health = self._runtime.intent_resolution_health(observed_at=timestamp) if ready else None
+        planning_health = self._runtime.planning_health(observed_at=timestamp) if ready else None
         issuer_ready = all(name in self._issuers for name in self.REQUIRED_PROOFS)
-        all_ready = issuer_ready and "owner_acceptance" in self._issuers
+        registry_usable = self._registry.valid and self._registry.has_available_capability
+        owner_required = any(
+            item.status is AstraReadCapabilityStatus.AVAILABLE and item.owner_service_acceptance_required
+            for item in self._registry.capabilities
+        )
+        owner_ready = not owner_required or "owner_acceptance" in self._issuers
+        dependencies_ready = all(
+            (
+                runtime_health.configuration_valid,
+                runtime_health.governance_available,
+                runtime_health.evidence_sink_available,
+                bool(intent_health and intent_health.conversation_dependency_available),
+                bool(intent_health and intent_health.engine_available),
+                bool(planning_health and planning_health.engine_available),
+                registry_usable,
+            )
+        )
+        all_ready = dependencies_ready and issuer_ready and owner_ready
         return AstraReadAuthorizationHealth(
             runtime_instance_reference=self._runtime_instance_id,
             engine_registered="read_access_authorization"
@@ -484,10 +524,10 @@ class AstraReadAccessAuthorizationEngine:
             configuration_valid=runtime_health.configuration_valid,
             governance_available=runtime_health.governance_available,
             evidence_sink_available=runtime_health.evidence_sink_available,
-            conversation_dependency_available=runtime_health.intent_resolution_available,
-            intent_dependency_available=runtime_health.intent_resolution_available,
-            planning_dependency_available=runtime_health.planning_available,
-            read_capability_registry_valid=self._registry.valid,
+            conversation_dependency_available=bool(intent_health and intent_health.conversation_dependency_available),
+            intent_dependency_available=bool(intent_health and intent_health.engine_available),
+            planning_dependency_available=bool(planning_health and planning_health.engine_available),
+            read_capability_registry_valid=registry_usable,
             principal_proof_issuer_available="principal" in self._issuers,
             tenant_proof_issuer_available="tenant" in self._issuers,
             app_scope_issuer_available="app" in self._issuers,
@@ -513,6 +553,9 @@ class AstraReadAccessAuthorizationEngine:
             else AstraReadCheckResult.DENIED,
             AstraReadCheckResult.SATISFIED if fields.issubset(allowed) else AstraReadCheckResult.DENIED,
             AstraReadCheckResult.SATISFIED if required.issubset(fields) else AstraReadCheckResult.DENIED,
+            AstraReadCheckResult.SATISFIED
+            if set(request.requested_filter_references).issubset(capability.allowed_filter_references)
+            else AstraReadCheckResult.DENIED,
             AstraReadCheckResult.SATISFIED
             if request.requested_row_limit <= capability.maximum_row_count
             else AstraReadCheckResult.DENIED,
@@ -558,7 +601,7 @@ class AstraReadAccessAuthorizationEngine:
             redaction_status=RedactionStatus.NOT_REQUIRED,
         )
         self._runtime.append_evidence(evidence)
-        purpose, fields, required, rows, time_range, aggregation, cross_app = checks
+        purpose, fields, required, filters, rows, time_range, aggregation, cross_app = checks
         decision = AstraReadAuthorizationDecision(
             authorization_decision_id=decision_id,
             authorization_request_id=request.authorization_request_id,
@@ -572,6 +615,7 @@ class AstraReadAccessAuthorizationEngine:
             app_scope_result=AstraReadCheckResult.SATISFIED,
             record_scope_result=AstraReadCheckResult.SATISFIED,
             field_scope_result=fields,
+            filter_scope_result=filters,
             minimization_result=required,
             row_limit_result=rows,
             time_range_result=time_range,

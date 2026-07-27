@@ -40,6 +40,7 @@ from app.modules.astra_ai.planning import (
     AstraProposedPlan,
 )
 from app.modules.astra_ai.read_access_authorization import (
+    AstraAuthorityProofIssuer,
     AstraReadAccessAuthorizationEngine,
     AstraReadAuthorizationDecision,
     AstraReadAuthorizationHealth,
@@ -429,6 +430,8 @@ class AstraRuntime:
         self._planning: AstraPlanningEngine | None = None
         self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
+        self._read_issuer_authority = object()
+        self._read_authority_issuers: dict[str, AstraAuthorityProofIssuer] = {}
         self._registry = _ComponentRegistry()
         self._fault: AstraRuntimeFault | None = None
         self._startup_metadata: AstraRuntimeStartupMetadata | None = None
@@ -782,6 +785,30 @@ class AstraRuntime:
     def _create_read_access_authorization_engine(self) -> AstraReadAccessAuthorizationEngine:
         return AstraReadAccessAuthorizationEngine(runtime=self)
 
+    def _issue_read_authority_issuer(
+        self, proof_class: str, issuer_reference: str, *, capacity: int = 100
+    ) -> AstraAuthorityProofIssuer:
+        """Internal bridge reserved for a future certified authority component."""
+        self._require_ready_component(self._read_access_authorization, "read access authorization")
+        if proof_class in self._read_authority_issuers:
+            raise AstraRuntimeError("Read authority issuer class is already registered.")
+        issuer = AstraAuthorityProofIssuer(
+            runtime_instance_id=self._identity.startup_instance_id,
+            issuer_reference=issuer_reference,
+            capacity=capacity,
+            _runtime_authority=self._read_issuer_authority,
+        )
+        self._read_authority_issuers[proof_class] = issuer
+        return issuer
+
+    def _validates_read_authority_issuer(self, proof_class: str, issuer: Any) -> bool:
+        return (
+            self._state is AstraRuntimeState.READY
+            and isinstance(issuer, AstraAuthorityProofIssuer)
+            and issuer._runtime_authority is self._read_issuer_authority
+            and self._read_authority_issuers.get(proof_class) is issuer
+        )
+
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
         if next_state not in ALLOWED_RUNTIME_TRANSITIONS[self._state]:
             raise AstraRuntimeError("Runtime lifecycle transition is not authorized.")
@@ -795,6 +822,7 @@ class AstraRuntime:
         self._planning = None
         self._intent_resolution = None
         self._read_access_authorization = None
+        self._read_authority_issuers = {}
         self._registry = _ComponentRegistry()
         self._startup_metadata = None
 
