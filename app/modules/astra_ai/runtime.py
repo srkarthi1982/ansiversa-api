@@ -39,6 +39,12 @@ from app.modules.astra_ai.planning import (
     AstraPlanningRequest,
     AstraProposedPlan,
 )
+from app.modules.astra_ai.read_access_authorization import (
+    AstraReadAccessAuthorizationEngine,
+    AstraReadAuthorizationDecision,
+    AstraReadAuthorizationHealth,
+    AstraReadAuthorizationRequest,
+)
 
 
 ASTRA_RUNTIME_ID = "ASTRA-RUNTIME-005"
@@ -88,6 +94,7 @@ class AstraRuntimeComponentIdentifier(StrEnum):
     CAPABILITY_DISCOVERY = "capability_discovery"
     PLANNING = "planning"
     INTENT_RESOLUTION = "intent_resolution"
+    READ_ACCESS_AUTHORIZATION = "read_access_authorization"
 
 
 AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
@@ -97,6 +104,7 @@ AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS = (
     AstraRuntimeComponentIdentifier.CAPABILITY_DISCOVERY,
     AstraRuntimeComponentIdentifier.PLANNING,
     AstraRuntimeComponentIdentifier.INTENT_RESOLUTION,
+    AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
 )
 
 ALLOWED_RUNTIME_TRANSITIONS = {
@@ -167,7 +175,7 @@ class AstraRuntimeComponentRegistration(BaseModel):
     component_identifier: AstraRuntimeComponentIdentifier
     component_type: str = Field(min_length=4, max_length=80)
     registered_at: datetime
-    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-00[1-9]$")
+    implementation_reference: str = Field(pattern=r"^ASTRA-IMP-0(?:0[1-9]|10)$")
     certified_parent_reference: str = Field(min_length=8, max_length=80)
 
     @model_validator(mode="after")
@@ -189,6 +197,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     capability_discovery_available: bool
     planning_available: bool
     intent_resolution_available: bool
+    read_access_authorization_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
     environment_scope: EnvironmentScope | None = None
@@ -365,6 +374,25 @@ class AstraRuntimeIntentResolutionInterface:
         return self._runtime.intent_resolution_health(observed_at=observed_at)
 
 
+class AstraRuntimeReadAccessAuthorizationInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def authorize(
+        self, request: AstraReadAuthorizationRequest, *, conversation_engine, conversation_snapshot, intent_resolution, plan=None
+    ) -> AstraReadAuthorizationDecision:
+        return self._runtime.authorize_read_access(
+            request,
+            conversation_engine=conversation_engine,
+            conversation_snapshot=conversation_snapshot,
+            intent_resolution=intent_resolution,
+            plan=plan,
+        )
+
+    def health(self, *, observed_at=None) -> AstraReadAuthorizationHealth:
+        return self._runtime.read_access_authorization_health(observed_at=observed_at)
+
+
 class AstraRuntime:
     """Minimal internal owner for certified Astra foundations.
 
@@ -400,6 +428,7 @@ class AstraRuntime:
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
         self._planning: AstraPlanningEngine | None = None
         self._intent_resolution: AstraIntentResolutionEngine | None = None
+        self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
         self._registry = _ComponentRegistry()
         self._fault: AstraRuntimeFault | None = None
         self._startup_metadata: AstraRuntimeStartupMetadata | None = None
@@ -408,6 +437,7 @@ class AstraRuntime:
         self._capability_discovery_interface = AstraRuntimeCapabilityDiscoveryInterface(self)
         self._planning_interface = AstraRuntimePlanningInterface(self)
         self._intent_resolution_interface = AstraRuntimeIntentResolutionInterface(self)
+        self._read_access_authorization_interface = AstraRuntimeReadAccessAuthorizationInterface(self)
 
     @property
     def identity(self) -> AstraRuntimeIdentity:
@@ -449,6 +479,10 @@ class AstraRuntime:
     @property
     def intent_resolution(self) -> AstraRuntimeIntentResolutionInterface:
         return self._intent_resolution_interface
+
+    @property
+    def read_access_authorization(self) -> AstraRuntimeReadAccessAuthorizationInterface:
+        return self._read_access_authorization_interface
 
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
@@ -555,6 +589,22 @@ class AstraRuntime:
         self._require_ready_component(self._intent_resolution, "intent resolution")
         return self._intent_resolution.health(observed_at=observed_at)
 
+    def authorize_read_access(
+        self, request: AstraReadAuthorizationRequest, *, conversation_engine, conversation_snapshot, intent_resolution, plan=None
+    ) -> AstraReadAuthorizationDecision:
+        self._require_ready_component(self._read_access_authorization, "read access authorization")
+        return self._read_access_authorization.authorize(
+            request,
+            conversation_engine=conversation_engine,
+            conversation_snapshot=conversation_snapshot,
+            intent_resolution=intent_resolution,
+            plan=plan,
+        )
+
+    def read_access_authorization_health(self, *, observed_at=None) -> AstraReadAuthorizationHealth:
+        self._require_ready_component(self._read_access_authorization, "read access authorization")
+        return self._read_access_authorization.health(observed_at=observed_at)
+
     def startup(self) -> AstraRuntimeHealthSnapshot:
         if self._state is not AstraRuntimeState.UNINITIALIZED:
             raise AstraRuntimeError("Runtime startup is allowed only from the uninitialized state.")
@@ -611,6 +661,14 @@ class AstraRuntime:
                 certified_parent_reference="ASTRA-IMP-005 through ASTRA-IMP-008 Certified",
                 registered_at=startup_timestamp,
             )
+            read_access_authorization = self._create_read_access_authorization_engine()
+            registry.register(
+                component_identifier=AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
+                component_type="AstraReadAccessAuthorizationEngine",
+                implementation_reference="ASTRA-IMP-010",
+                certified_parent_reference="ASTRA-IMP-001 through ASTRA-IMP-009 Certified",
+                registered_at=startup_timestamp,
+            )
             registry.seal()
 
             self._configuration = loaded_configuration
@@ -619,6 +677,7 @@ class AstraRuntime:
             self._capability_discovery = capability_discovery
             self._planning = planning
             self._intent_resolution = intent_resolution
+            self._read_access_authorization = read_access_authorization
             self._registry = registry
             self._startup_metadata = self._startup_metadata_from_configuration(loaded_configuration)
             self._fault = None
@@ -668,6 +727,7 @@ class AstraRuntime:
         capability_discovery_available = self._capability_discovery is not None
         planning_available = self._planning is not None
         intent_resolution_available = self._intent_resolution is not None
+        read_access_authorization_available = self._read_access_authorization is not None
         identifiers = self._registry.identifiers
         outcome = self._health_outcome(
             configuration_valid=configuration_valid,
@@ -676,6 +736,7 @@ class AstraRuntime:
             capability_discovery_available=capability_discovery_available,
             planning_available=planning_available,
             intent_resolution_available=intent_resolution_available,
+            read_access_authorization_available=read_access_authorization_available,
             identifiers=identifiers,
         )
         return AstraRuntimeHealthSnapshot(
@@ -688,6 +749,7 @@ class AstraRuntime:
             capability_discovery_available=capability_discovery_available,
             planning_available=planning_available,
             intent_resolution_available=intent_resolution_available,
+            read_access_authorization_available=read_access_authorization_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
@@ -717,6 +779,9 @@ class AstraRuntime:
     def _create_intent_resolution_engine(self) -> AstraIntentResolutionEngine:
         return AstraIntentResolutionEngine(runtime=self)
 
+    def _create_read_access_authorization_engine(self) -> AstraReadAccessAuthorizationEngine:
+        return AstraReadAccessAuthorizationEngine(runtime=self)
+
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
         if next_state not in ALLOWED_RUNTIME_TRANSITIONS[self._state]:
             raise AstraRuntimeError("Runtime lifecycle transition is not authorized.")
@@ -729,6 +794,7 @@ class AstraRuntime:
         self._capability_discovery = None
         self._planning = None
         self._intent_resolution = None
+        self._read_access_authorization = None
         self._registry = _ComponentRegistry()
         self._startup_metadata = None
 
@@ -779,6 +845,7 @@ class AstraRuntime:
         capability_discovery_available: bool,
         planning_available: bool,
         intent_resolution_available: bool,
+        read_access_authorization_available: bool,
         identifiers: tuple[AstraRuntimeComponentIdentifier, ...],
     ) -> AstraRuntimeHealthOutcome:
         if self._state is AstraRuntimeState.FAULTED:
@@ -795,6 +862,7 @@ class AstraRuntime:
             and capability_discovery_available
             and planning_available
             and intent_resolution_available
+            and read_access_authorization_available
             and identifiers == AUTHORIZED_RUNTIME_COMPONENT_IDENTIFIERS
         ):
             return AstraRuntimeHealthOutcome.HEALTHY
