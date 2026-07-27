@@ -1,6 +1,6 @@
 # ASTRA-API-VAL-001 — Authenticated Diagnostics API Security and Contract Validation
 
-Status: Implemented / Pending Astra Re-review.
+Status: Certified / Approved.
 
 Validated parent: ASTRA-API-001 Certified / Approved with
 ASTRA-API-001-COR-001 Certified / Approved.
@@ -33,14 +33,20 @@ Delivered:
   note.
 
 ```text
-ASTRA-API-VAL-001           Implemented
+ASTRA-API-VAL-001           Certified / Approved
 Validation Scope            Authenticated Diagnostics API Security and Contract Validation
 
 Validation Direction        Approved
-Astra Review                Corrections applied / Pending final re-review
-Security Review             Pending
-Product Owner Approval      Pending
-Certification               Pending
+Astra Re-review             Approved
+Security Validation         Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Validated Parent            ASTRA-API-001 Certified / Approved / Frozen
+Runtime Changes             None
+API Changes                 None
+Projection Changes          None
 
 Authentication              Validated
 Developer Authorization     Validated
@@ -65,3 +71,33 @@ Source-review corrections after commit `597ebc72`:
 - text CLI output is independently parsed and compared against runner and JSON
   semantics for a successful strict projection scenario and a bounded
   unavailable scenario.
+
+Final recorded state:
+
+```text
+ASTRA-API-001               Certified / Approved
+ASTRA-API-001-COR-001       Certified / Approved
+ASTRA-API-VAL-001           Certified / Approved
+
+Validation Direction        Approved
+Astra Re-review             Approved
+Security Validation         Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Validated Parent            ASTRA-API-001 Certified / Approved / Frozen
+Runtime Changes             None
+API Changes                 None
+Projection Changes          None
+
+Authentication              Required
+Developer Authorization     Required
+Environment                 Non-production only
+Strict Redaction            Required
+
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-UI-001                Not authorized
+```
