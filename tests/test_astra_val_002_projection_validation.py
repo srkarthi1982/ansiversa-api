@@ -126,6 +126,72 @@ def test_cli_list_scenario_text_json_and_all_are_same_runner(capsys):
     assert len(json.loads(capsys.readouterr().out)) == len(runner.SCENARIO_NAMES)
 
 
+def test_runner_text_cli_and_json_cli_are_semantically_equivalent(capsys):
+    name = "strict_redaction_no_leak"
+    expected = runner.semantic_result(runner.run_scenario(name))
+
+    assert main(["--scenario", name, "--format", "text"]) == 0
+    text_rows = {}
+    for line in capsys.readouterr().out.splitlines():
+        label, value = line[:24].strip(), line[24:].strip()
+        text_rows[label] = value
+    text_semantics = {
+        "passed": text_rows["Result"] == "passed",
+        "expected_outcome": text_rows["Expected"],
+        "actual_outcome": text_rows["Actual"],
+        "projection_kind": text_rows["Projection"],
+        "completeness": text_rows["Completeness"],
+        "redaction_state": text_rows["Redaction"],
+    }
+
+    assert main(["--scenario", name, "--format", "json"]) == 0
+    json_result = json.loads(capsys.readouterr().out)
+    json_semantics = {
+        field: json_result[field]
+        for field in (
+            "passed",
+            "expected_outcome",
+            "actual_outcome",
+            "projection_kind",
+            "completeness",
+            "redaction_state",
+        )
+    }
+
+    assert expected == text_semantics
+    assert expected == json_semantics
+    assert text_semantics == json_semantics
+
+
+def test_recursive_privacy_inspector_detects_controlled_negative_fixtures():
+    protected_evidence = "evd_controlled_protected_0001"
+    protected_conversation = "conv_controlled_protected_0001"
+    controlled = (
+        ({"nested": {"authority_token": "opaque-control"}}, (), ()),
+        ({"nested": [{"proof_object": {"kind": "control"}}]}, (), ()),
+        ({"credential": "controlled-credential"}, (), ()),
+        ({"query": "SELECT controlled_private_value"}, (), ("SELECT controlled_private_value",)),
+        ({"nested": {"provider_payload": "controlled-provider-value"}}, (), ()),
+        ({"evidence_reference": protected_evidence}, (protected_evidence,), ()),
+        ({"manifest": {"conversation_reference": protected_conversation}}, (protected_conversation,), ()),
+        ({"nested": {"runtime_handle": "controlled-runtime"}}, (), ()),
+    )
+    for fixture, protected_values, forbidden_values in controlled:
+        findings = runner.inspect_privacy_leaks(
+            fixture,
+            protected_values=protected_values,
+            forbidden_values=forbidden_values,
+        )
+        assert findings, fixture
+
+    clean = {
+        "conversation_reference": None,
+        "evidence_reference": "[redacted]",
+        "state": "redacted",
+    }
+    assert runner.inspect_privacy_leaks(clean) == ()
+
+
 def test_cli_exit_codes_and_json_are_stable(capsys):
     assert main(["--scenario", "unknown_scenario"]) == 2
     assert "unknown scenario" in capsys.readouterr().err.lower()

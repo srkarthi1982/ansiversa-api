@@ -38,6 +38,12 @@ reason metadata. Tests search for actual protected fixture references and
 prohibited authority, credential, raw-message, prompt, hidden-reasoning,
 database, provider, and Runtime-handle vocabulary.
 
+The inspector is itself validated with controlled test-only negative fixtures
+for authority tokens, proof objects, credentials, query strings, provider
+payloads, protected evidence/conversation references, and Runtime handles.
+Every injected violation must produce a deterministic finding path; a clean
+redacted control must produce none.
+
 | Strict field | Expected |
 |---|---|
 | conversation/current-turn/intent/plan/read references | `null` |
@@ -106,3 +112,8 @@ Exit codes are 0 pass, 1 expectation mismatch, 2 invalid use/unknown scenario,
 and 3 setup failure. The harness adds no API, route, UI, telemetry, monitoring,
 persistence, database, ORM, SQL, retrieval, mutation, provider, prompt, model,
 execution, deployment, production configuration, or production activation.
+
+Tests independently parse the runner contract, text CLI rows, and JSON CLI
+object for the same strict scenario and require exact equality across passed
+state, expected/actual outcome, projection kind, completeness, and redaction.
+This proves the CLI is presentation only.

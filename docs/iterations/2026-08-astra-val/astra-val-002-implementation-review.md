@@ -3,6 +3,11 @@
 Status: Implemented; pending Astra source review, constitutional conformance,
 Product Owner approval, and certification.
 
+Two narrow source-review additions are applied: an independently parsed
+runner/text/JSON semantic-equivalence test, and controlled negative fixtures
+that prove the recursive privacy inspector detects every required forbidden
+value class without touching certified parent behavior.
+
 Review the exact source for:
 
 - one shared deterministic runner used by pytest and CLI;
@@ -21,8 +26,8 @@ Review the exact source for:
 Validation completed:
 
 ```text
-Focused VAL-002 + IMP-011 + VAL-001     47 passed
-Certified regression boundary           225 passed, 18 subtests
+Focused VAL-002 + IMP-011 + VAL-001     49 passed
+Certified regression boundary           227 passed, 18 subtests
 Expanded selected regression             268 passed, 29 subtests; 2 known
                                           unrelated audit import-order failures
 CLI list/scenario/all text+JSON           passed

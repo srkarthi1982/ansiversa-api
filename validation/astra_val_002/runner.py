@@ -69,6 +69,21 @@ FORBIDDEN_LEAK_TERMS = (
     "database_record",
     "runtime_handle",
 )
+FORBIDDEN_LEAK_KEYS = (
+    "authority_token",
+    "issuer_authority",
+    "proof_object",
+    "password",
+    "credential",
+    "secret",
+    "raw_user_message",
+    "conversation_content",
+    "prompt",
+    "hidden_reasoning",
+    "database_record",
+    "provider_payload",
+    "runtime_handle",
+)
 
 
 class ScenarioGroup(StrEnum):
@@ -329,6 +344,58 @@ def semantic_projection(projection) -> dict:
             projection.production_exposure_approved,
         ),
     }
+
+
+def semantic_result(result: AstraVal002ScenarioResult) -> dict:
+    """Fields rendered by both text and JSON CLI views."""
+    return {
+        "passed": result.passed,
+        "expected_outcome": result.expected_outcome,
+        "actual_outcome": result.actual_outcome,
+        "projection_kind": result.projection_kind,
+        "completeness": result.completeness,
+        "redaction_state": result.redaction_state,
+    }
+
+
+def inspect_privacy_leaks(
+    value,
+    *,
+    protected_values: tuple[str, ...] = (),
+    forbidden_values: tuple[str, ...] = (),
+) -> tuple[str, ...]:
+    """Return deterministic paths containing prohibited keys or values."""
+    findings: list[str] = []
+    prohibited = tuple(
+        item.casefold()
+        for item in (*protected_values, *forbidden_values)
+        if isinstance(item, str) and item
+    )
+
+    def visit(item, path: str) -> None:
+        if isinstance(item, BaseModel):
+            visit(item.model_dump(mode="json"), path)
+            return
+        if isinstance(item, dict):
+            for key in sorted(item, key=str):
+                child_path = f"{path}.{key}"
+                normalized_key = str(key).casefold()
+                child = item[key]
+                if normalized_key in FORBIDDEN_LEAK_KEYS and child not in (None, "", (), [], {}):
+                    findings.append(child_path)
+                visit(child, child_path)
+            return
+        if isinstance(item, (list, tuple)):
+            for index, child in enumerate(item):
+                visit(child, f"{path}[{index}]")
+            return
+        if isinstance(item, str):
+            normalized = item.casefold()
+            if any(prohibited_value in normalized for prohibited_value in prohibited):
+                findings.append(path)
+
+    visit(value, "$")
+    return tuple(dict.fromkeys(findings))
 
 
 def _result(name, group, expected, actual, **updates):
@@ -615,7 +682,6 @@ def _strict_redaction_no_leak():
         plan=plan,
     )
     projection = assembly.runtime.diagnostic_projection.project(request, created_at=NOW)
-    serialized = projection.model_dump_json().lower()
     protected = (
         snapshot.metadata.conversation_id,
         snapshot.current_turn.turn_id,
@@ -624,10 +690,14 @@ def _strict_redaction_no_leak():
         *intent.evidence_references,
         *plan.evidence_references,
     )
-    operation_evidence = assembly.runtime.evidence_sink.retrieve()[-1].model_dump_json().lower()
-    absent = not any(
-        value.lower() in serialized or value.lower() in operation_evidence
-        for value in protected + FORBIDDEN_LEAK_TERMS
+    operation_evidence = assembly.runtime.evidence_sink.retrieve()[-1]
+    absent = not inspect_privacy_leaks(
+        {
+            "projection": projection,
+            "projection_operation_evidence": operation_evidence,
+        },
+        protected_values=protected,
+        forbidden_values=FORBIDDEN_LEAK_TERMS,
     )
     matrix = (
         projection.correlation_manifest.conversation_reference is None
