@@ -1,6 +1,6 @@
 # Astra Governed Planning Engine
 
-Status: ASTRA-IMP-008 implemented; source review and certification pending. Production authorization is not approved and production is unchanged.
+Status: ASTRA-IMP-008 Certified / Approved. Production authorization is not approved and production is unchanged.
 
 ## Boundary and contracts
 

@@ -2,12 +2,13 @@
 
 | Field | State |
 |---|---|
-| ASTRA-IMP-008 | Implemented |
+| ASTRA-IMP-008 | Certified / Approved |
 | Scope | Governed Planning Engine |
 | Implementation direction | Approved |
-| Constitutional conformance | Corrections applied / Astra re-review pending |
-| Product Owner approval | Pending |
-| Certification | Pending |
+| Astra re-review | Approved (`504db12f`) |
+| Constitutional conformance | Approved |
+| Product Owner approval | Approved |
+| Certification | Passed |
 | Production authorization | Not approved |
 | Production | Unchanged |
 | ASTRA-IMP-009 | Not authorized |

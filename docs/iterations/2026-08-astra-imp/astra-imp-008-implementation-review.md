@@ -1,6 +1,6 @@
 # ASTRA-IMP-008 Implementation Review
 
-Status: implementation direction approved; source-review corrections applied and pending Astra re-review. Production authorization is not approved; production is unchanged.
+Status: Certified / Approved. Implementation direction, Astra re-review of `504db12f`, constitutional conformance, Product Owner approval, and certification are approved/passed. Production authorization is not approved; production is unchanged. ASTRA-IMP-009 is not authorized.
 
 The diff adds `planning.py`, focused tests, documentation, and the narrow Runtime Core registration/interface/health extension required by authorization. Certified configuration, governance, evidence, conversation, and discovery behavior is reused without weakening. Frozen constitutional and ASTRA-IR-001 documents are unchanged.
 

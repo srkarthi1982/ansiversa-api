@@ -1,6 +1,6 @@
 # ADR: ASTRA-IMP-008 Governed Planning Engine
 
-Status: proposed for Astra source review. Date: 2026-07-27.
+Status: accepted and frozen for ASTRA-IMP-008 certification. Date: 2026-07-27.
 
 ## Decision
 
