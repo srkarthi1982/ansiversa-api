@@ -1,6 +1,6 @@
 # ASTRA-VAL-002 — Projection Integrity and Privacy Validation
 
-Status: Implemented; pending Astra source review.
+Status: Certified / Approved.
 
 Validated parent: ASTRA-IMP-011 Certified / Approved / Frozen.
 
@@ -15,12 +15,13 @@ Delivered:
 - architecture, catalog, matrices, traceability, and review records.
 
 ```text
-ASTRA-VAL-002               Implemented
+ASTRA-VAL-002               Certified / Approved
 Implementation Scope        Projection Integrity and Privacy Validation
-Validation Direction        Pending Astra Source Review
-Constitutional Conformance  Pending
-Product Owner Approval      Pending
-Certification               Pending
+Validation Direction        Approved
+Astra Re-review             Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 Runtime Changes             None
 Projection Changes          None
@@ -32,4 +33,5 @@ Production                  Unchanged
 
 ASTRA-API-001               Not authorized
 ASTRA-UI-001                Not authorized
+Require separate authorization
 ```

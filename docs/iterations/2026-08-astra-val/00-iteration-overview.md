@@ -7,9 +7,11 @@ Production is unchanged.
 # ASTRA-VAL-002 checkpoint
 
 ASTRA-IMP-011 Diagnostic Evidence Projection Engine is Certified / Approved /
-Frozen. ASTRA-VAL-002 Projection Integrity and Privacy Validation is
-implemented pending Astra source review. It adds an observational deterministic
-runner, authoritative pytest coverage, and a thin ephemeral local text/JSON CLI
-without changing Runtime or projection behavior. APIs, UI, telemetry,
-persistence, production exposure, ASTRA-API-001, and ASTRA-UI-001 remain
-unauthorized; production is unchanged.
+Frozen. ASTRA-VAL-002 Projection Integrity and Privacy Validation is Certified
+/ Approved. Validation direction, Astra re-review, constitutional conformance,
+Product Owner approval, and certification are approved/passed. Its
+observational deterministic runner, authoritative pytest coverage, and thin
+ephemeral local text/JSON CLI do not change Runtime or projection behavior.
+APIs, UI, telemetry, persistence, production exposure, ASTRA-API-001, and
+ASTRA-UI-001 remain unauthorized and require separate authorization; production
+authorization is not approved and production is unchanged.

@@ -1,6 +1,6 @@
 # ASTRA-VAL-002 — Projection Integrity and Privacy Validation
 
-Status: Implemented; pending Astra source review.
+Status: Certified / Approved.
 
 ## Architecture
 

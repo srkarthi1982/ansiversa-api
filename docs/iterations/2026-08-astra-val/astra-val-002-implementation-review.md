@@ -1,7 +1,8 @@
 # ASTRA-VAL-002 Implementation Review Package
 
-Status: Implemented; pending Astra source review, constitutional conformance,
-Product Owner approval, and certification.
+Status: Certified / Approved. Validation direction, Astra re-review,
+constitutional conformance, and Product Owner approval are approved;
+certification passed.
 
 Two narrow source-review additions are applied: an independently parsed
 runner/text/JSON semantic-equivalence test, and controlled negative fixtures
