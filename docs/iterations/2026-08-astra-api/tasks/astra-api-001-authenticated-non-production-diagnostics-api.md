@@ -14,7 +14,7 @@ Product Owner Approval: Approved
 
 Certification: Passed
 
-Correction: ASTRA-API-001-COR-001 Implemented / Pending Review
+Correction: ASTRA-API-001-COR-001 Certified / Approved
 
 ## Final Certified State
 
@@ -40,7 +40,7 @@ Database / SQL              Not authorized
 Production Authorization    Not approved
 Production                  Unchanged
 
-ASTRA-API-VAL-001           Not authorized
+ASTRA-API-VAL-001           Paused
 ASTRA-UI-001                Not authorized
 ```
 
@@ -52,12 +52,13 @@ be corrected inside an observational validation phase.
 Correction scope:
 
 ```text
-ASTRA-API-001-COR-001       Implemented
+ASTRA-API-001-COR-001       Certified / Approved
 Correction Scope            Validation Errors and Component Semantics
-Astra Source Review         Pending
-Security Review             Pending
-Product Owner Approval      Pending
-Certification Update        Pending
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Product Owner Approval      Approved
+Certification               Passed
 
 ASTRA-API-VAL-001           Paused
 ASTRA-UI-001                Not authorized
@@ -94,6 +95,41 @@ Runtime diagnostics remain available through
 `POST /internal/astra/diagnostics/projections/runtime`. Runtime-only and mixed
 runtime component-health requests are rejected at the diagnostics schema
 boundary.
+
+Final recorded correction state:
+
+```text
+ASTRA-API-001               Certified / Approved
+
+ASTRA-API-001-COR-001       Certified / Approved
+Correction Scope            Validation Errors and Component Semantics
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Authentication              Required
+Developer Authorization     Required
+Environment                 Non-production only
+Default Redaction           Strict
+
+Runtime Diagnostics         Dedicated runtime endpoint only
+Component Diagnostics       capability_discovery
+                            intent_resolution
+                            planning
+                            read_access_authorization
+
+Validation Errors           Sanitized
+Rejected Input Echo         Prohibited
+
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-API-VAL-001           Paused
+ASTRA-UI-001                Not authorized
+```
 
 ## Correction Status
 

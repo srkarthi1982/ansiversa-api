@@ -6,7 +6,7 @@ Final reviewed implementation commit: `b8989dbb`
 
 Certification closure: documentation-only.
 
-ASTRA-API-001-COR-001: Implemented / Pending Astra source-security re-review.
+ASTRA-API-001-COR-001: Certified / Approved.
 
 ## Discovery Findings
 
@@ -94,6 +94,19 @@ ASTRA-API-VAL-001 discovery found two API-contract defects. The correction is
 limited to diagnostics API source, focused ASTRA-API-001 tests, documentation,
 and AGENTS records.
 
+Certification status:
+
+```text
+ASTRA-API-001-COR-001       Certified / Approved
+Correction Scope            Validation Errors and Component Semantics
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Product Owner Approval      Approved
+Certification               Passed
+```
+
 Validation-error handling design:
 
 The application registers a diagnostics-scoped `RequestValidationError`
@@ -117,6 +130,12 @@ and unknown component requests are rejected at the sanitized schema boundary.
 The CORS observation from ASTRA-API-VAL-001 is documented as ordering-only.
 There was no Astra-specific CORS expansion and no CORS ordering change in this
 correction.
+
+Product Owner approval was granted after Astra final source/security re-review
+of commit `e94ffa00`. This certification update is documentation-only and does
+not modify implementation, tests, validation handlers, component contracts,
+routes, configuration, production configuration, or certified ASTRA-IMP and
+ASTRA-VAL implementation files.
 
 ## Certification Closure
 
