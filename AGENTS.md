@@ -1754,7 +1754,7 @@ Next milestone:
 
 ## Task Log (Recent)
 
-* 2026-07-28: Applied final ASTRA-APP-001 grant-expiry correction by validating Subscription Manager read grants against an app-owned execution timestamp before repository access, rejecting naive, pre-issuance, exact-expiry, after-expiry, and replayed executions, preserving deterministic test injection only, and keeping frontend, API routes, schema, migrations, certified Astra parents, provider/model, executor, deployment, and production unchanged.
+* 2026-07-28: Applied final ASTRA-APP-001 execution-clock authority correction by removing unrestricted caller-selected execution timestamps, validating Subscription Manager read grants against an app-owned UTC clock before repository access, permitting deterministic boundary tests only through a private exact-object app-authorized clock seam, rejecting fake/copied clocks, and keeping frontend, API routes, schema, migrations, certified Astra parents, provider/model, executor, deployment, and production unchanged.
 
 * 2026-07-28: Applied ASTRA-APP-001 Astra review corrections for Subscription Manager App #071 by adding an app-owned exact-object read grant boundary, rejecting caller-created/copied/tampered/foreign/expired/reused/principal-mismatched grants, changing highest-cost answers to within-currency results only, separating raw recurring totals from normalized monthly estimates, updating ASTRA-APP-001 documentation, and preserving no frontend, API route, schema, migration, provider/model, executor, deployment, or production changes.
 

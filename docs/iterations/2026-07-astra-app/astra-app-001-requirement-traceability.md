@@ -10,7 +10,7 @@
 | App-owned read grant required | `SubscriptionAstraReadGrant` must be issued by the Subscription Manager grant issuer and validated by exact object identity. |
 | Grant user binding | Grant principal and authenticated user ID must match before repository access. |
 | Grant tamper/reuse denial | Caller-created, copied, reconstructed, tampered, foreign, expired, and reused grants fail closed. |
-| Execution-time expiry | Grants are checked against an app-owned execution timestamp before repository access; exact-expiry, after-expiry, pre-issuance, and naive execution timestamps fail closed. |
+| Execution-clock authority | Production execution uses the app-owned UTC clock; deterministic tests require a private exact-object app-authorized clock, and fake/copied/ordinary timestamp overrides fail closed. |
 | Fixed named capabilities | Ten fixed `subscription.*` capability IDs are versioned at `1.0.0`. |
 | No arbitrary SQL | Request contract has no SQL/table/column/predicate fields and forbids extra fields. |
 | Bounded parameters | Only `days`, `status`, and `category` parameter names are structurally valid; each capability allowlists the subset it accepts. |

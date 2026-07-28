@@ -23,6 +23,8 @@ CAPABILITY_VERSION = "1.0.0"
 MAX_RESULT_LIMIT = 50
 AUTHORIZATION_MAX_AGE = timedelta(minutes=15)
 _SUBSCRIPTION_ASTRA_GRANT_AUTHORITY = object()
+_SUBSCRIPTION_ASTRA_CLOCK_AUTHORITY = object()
+_SUBSCRIPTION_ASTRA_TEST_CLOCKS: set[int] = set()
 
 
 class SubscriptionAstraCapabilityError(ValueError):
@@ -191,6 +193,18 @@ class SubscriptionAstraReadResult(BaseModel):
     production_authorization_state: Literal["not_approved"]
 
 
+class _SubscriptionAstraExecutionClock:
+    def __init__(self, *, fixed_at: datetime | None = None, _clock_authority: object | None = None) -> None:
+        if _clock_authority is not _SUBSCRIPTION_ASTRA_CLOCK_AUTHORITY:
+            raise SubscriptionAstraCapabilityError("Subscription Manager execution clocks require app-owned authority.")
+        if fixed_at is not None:
+            _ensure_aware(fixed_at, "Grant execution")
+        self._fixed_at = fixed_at
+
+    def now(self) -> datetime:
+        return self._fixed_at or _utc_now()
+
+
 class SubscriptionAstraReadGrantIssuer:
     def __init__(self, *, _app_authority: object | None = None, capacity: int = 200) -> None:
         if _app_authority is not _SUBSCRIPTION_ASTRA_GRANT_AUTHORITY:
@@ -273,6 +287,9 @@ class SubscriptionAstraReadGrantIssuer:
 _SUBSCRIPTION_ASTRA_GRANT_ISSUER = SubscriptionAstraReadGrantIssuer(
     _app_authority=_SUBSCRIPTION_ASTRA_GRANT_AUTHORITY
 )
+_SUBSCRIPTION_ASTRA_EXECUTION_CLOCK = _SubscriptionAstraExecutionClock(
+    _clock_authority=_SUBSCRIPTION_ASTRA_CLOCK_AUTHORITY
+)
 
 
 def capability_catalog() -> tuple[SubscriptionAstraCapabilityDefinition, ...]:
@@ -304,13 +321,15 @@ def execute_read_capability(
     grant: SubscriptionAstraReadGrant,
     *,
     grant_issuer: SubscriptionAstraReadGrantIssuer | None = None,
-    execution_observed_at: datetime | None = None,
+    _execution_clock: _SubscriptionAstraExecutionClock | None = None,
 ) -> SubscriptionAstraReadResult:
     if authenticated_user is None or not getattr(authenticated_user, "id", None):
         raise SubscriptionAstraCapabilityError("Authenticated subscription owner is required.")
     if grant_issuer is not None and grant_issuer is not _SUBSCRIPTION_ASTRA_GRANT_ISSUER:
         raise SubscriptionAstraCapabilityError("Foreign Subscription Manager read grant issuer is prohibited.")
-    execution_time = execution_observed_at or _utc_now()
+    if _execution_clock is not None and not _validates_execution_clock(_execution_clock):
+        raise SubscriptionAstraCapabilityError("Foreign Subscription Manager execution clock is prohibited.")
+    execution_time = (_execution_clock or _SUBSCRIPTION_ASTRA_EXECUTION_CLOCK).now()
     _ensure_aware(execution_time, "Grant execution")
     if not _SUBSCRIPTION_ASTRA_GRANT_ISSUER.validates(grant, authenticated_user=authenticated_user, observed_at=execution_time):
         raise SubscriptionAstraCapabilityError("Valid app-owned Subscription Manager read grant is required.")
@@ -350,6 +369,15 @@ def execute_read_capability(
     if request.capability_id == "subscription.group_by_category":
         return _group_by_category(request, definition, active, reason_codes)
     raise SubscriptionAstraCapabilityError("Unsupported Subscription Manager capability.")
+
+
+def _deterministic_execution_clock_for_tests(*, observed_at: datetime) -> _SubscriptionAstraExecutionClock:
+    clock = _SubscriptionAstraExecutionClock(
+        fixed_at=observed_at,
+        _clock_authority=_SUBSCRIPTION_ASTRA_CLOCK_AUTHORITY,
+    )
+    _SUBSCRIPTION_ASTRA_TEST_CLOCKS.add(id(clock))
+    return clock
 
 
 def deterministic_answer(result: SubscriptionAstraReadResult) -> dict[str, Any]:
@@ -663,6 +691,12 @@ def _validate_principal_matches_user(principal_reference: str, user_id: str) -> 
     allowed = {user_id, f"user:{user_id}", f"principal:{user_id}"}
     if principal_reference not in allowed:
         raise SubscriptionAstraCapabilityError("Astra authorization principal does not match authenticated subscription owner.")
+
+
+def _validates_execution_clock(clock: Any) -> bool:
+    return isinstance(clock, _SubscriptionAstraExecutionClock) and (
+        clock is _SUBSCRIPTION_ASTRA_EXECUTION_CLOCK or id(clock) in _SUBSCRIPTION_ASTRA_TEST_CLOCKS
+    )
 
 
 def _parse_date(value: str | None) -> date | None:

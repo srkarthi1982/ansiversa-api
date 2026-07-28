@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
+from app.modules.subscription_manager import astra_read_capabilities as astra_capabilities
 from app.modules.subscription_manager.astra_read_capabilities import (
     CAPABILITY_VERSION,
     SubscriptionAstraAuthorizationReference,
@@ -120,14 +121,14 @@ def _denied(name: str, exc: Exception) -> dict[str, Any]:
 def _execute(fixture: _Fixture, capability_id: str, **kwargs) -> dict[str, Any]:
     request = fixture.request(capability_id, **kwargs)
     grant = issue_read_grant(authenticated_user=fixture.user, request=request)
-    result = execute_read_capability(fixture.db, fixture.user, grant, execution_observed_at=OBSERVED_AT)
+    result = execute_read_capability(fixture.db, fixture.user, grant, _execution_clock=_clock())
     return deterministic_answer(result)
 
 
 def _execute_for_user(fixture: _Fixture, user, capability_id: str, **kwargs) -> dict[str, Any]:
     request = fixture.request(capability_id, **kwargs)
     grant = issue_read_grant(authenticated_user=user, request=request)
-    result = execute_read_capability(fixture.db, user, grant, execution_observed_at=OBSERVED_AT)
+    result = execute_read_capability(fixture.db, user, grant, _execution_clock=_clock())
     return deterministic_answer(result)
 
 
@@ -175,7 +176,7 @@ def inactive_exclusion(f): return list_active(f)
 def archived_deleted_exclusion(f): return _ok("archived_deleted_exclusion", {"schema_has_archive_flag": False, "deleted_records_not_returned": True})
 def cross_user_denial(f):
     grant = issue_read_grant(authenticated_user=f.user, request=f.request("subscription.count_all"))
-    return _expect_denial("cross_user_denial", lambda: execute_read_capability(f.db, f.foreign_user, grant, execution_observed_at=OBSERVED_AT))
+    return _expect_denial("cross_user_denial", lambda: execute_read_capability(f.db, f.foreign_user, grant, _execution_clock=_clock()))
 def caller_supplied_ownership_denial(f): return _expect_denial("caller_supplied_ownership_denial", lambda: f.request("subscription.count_all", caller_supplied_user_id="user-b"))
 def unsupported_capability_denial(f): return _expect_denial("unsupported_capability_denial", lambda: issue_read_grant(authenticated_user=f.user, request=f.request("subscription.unknown")))
 def unsupported_parameter_denial(f): return _expect_denial("unsupported_parameter_denial", lambda: issue_read_grant(authenticated_user=f.user, request=f.request("subscription.count_active", parameters=(SubscriptionAstraParameter(name="days", value=30),))))
@@ -186,6 +187,10 @@ def deterministic_result_fixed_time(f): return monthly_estimate(f)
 def failure_does_not_release_success(f): return unsupported_capability_denial(f)
 def principal_mismatch_denial(f): return _expect_denial("principal_mismatch_denial", lambda: issue_read_grant(authenticated_user=f.foreign_user, request=f.request("subscription.count_all")))
 def direct_request_denial(f): return _expect_denial("direct_request_denial", lambda: execute_read_capability(f.db, f.user, f.request("subscription.count_active")))
+
+
+def _clock():
+    return astra_capabilities._deterministic_execution_clock_for_tests(observed_at=OBSERVED_AT)
 
 
 SCENARIOS = {
