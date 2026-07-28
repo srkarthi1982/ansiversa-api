@@ -210,10 +210,10 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         foreign_issuer = object.__new__(astra_capabilities.SubscriptionAstraReadGrantIssuer)
         with self.assertRaises(SubscriptionAstraCapabilityError):
             execute_read_capability(self.db, self.user_a, grant, grant_issuer=foreign_issuer)
-        result = execute_read_capability(self.db, self.user_a, grant)
+        result = execute_read_capability(self.db, self.user_a, grant, execution_observed_at=NOW)
         self.assertEqual(result.summary["count"], 5)
         with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, self.user_a, grant)
+            execute_read_capability(self.db, self.user_a, grant, execution_observed_at=NOW)
 
     def test_grant_rejects_user_mismatch_principal_mismatch_expiry_and_request_mismatch(self):
         user_a_grant = self._grant(self.user_a, "subscription.count_active")
@@ -230,6 +230,12 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         )
         with self.assertRaises(SubscriptionAstraCapabilityError):
             execute_read_capability(self.db, self.user_a, expired_grant)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            astra_capabilities.default_read_grant_issuer().issue(
+                authenticated_user=self.user_a,
+                request=self._request("subscription.count_active"),
+                issued_at=NOW + timedelta(minutes=1),
+            )
         mismatched_auth = self._authorization("subscription.count_active")
         with self.assertRaises(ValidationError):
             SubscriptionAstraReadRequest(
@@ -242,6 +248,62 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
                 purpose="user_requested_summary",
                 observed_at=NOW,
             )
+
+    def test_grant_expiry_uses_execution_timestamp_before_repository_access(self):
+        allowed = self._timed_grant()
+        result = execute_read_capability(
+            self.db,
+            self.user_a,
+            allowed,
+            execution_observed_at=NOW + timedelta(minutes=4),
+        )
+        self.assertEqual(result.summary["count"], 5)
+
+        exact_expiry = self._timed_grant()
+        with patch.object(astra_capabilities.repository, "list_subscriptions", wraps=astra_capabilities.repository.list_subscriptions) as list_subscriptions:
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(
+                    self.db,
+                    self.user_a,
+                    exact_expiry,
+                    execution_observed_at=NOW + timedelta(minutes=5),
+                )
+            list_subscriptions.assert_not_called()
+
+        after_expiry = self._timed_grant()
+        with patch.object(astra_capabilities.repository, "list_subscriptions", wraps=astra_capabilities.repository.list_subscriptions) as list_subscriptions:
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(
+                    self.db,
+                    self.user_a,
+                    after_expiry,
+                    execution_observed_at=NOW + timedelta(minutes=6),
+                )
+            list_subscriptions.assert_not_called()
+
+    def test_grant_execution_time_must_be_aware_not_before_issuance_and_replay_still_fails(self):
+        before_issuance = self._timed_grant()
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(
+                self.db,
+                self.user_a,
+                before_issuance,
+                execution_observed_at=NOW - timedelta(seconds=1),
+            )
+
+        naive = self._timed_grant()
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(
+                self.db,
+                self.user_a,
+                naive,
+                execution_observed_at=datetime(2026, 7, 28, 12, 4),
+            )
+
+        replay = self._timed_grant()
+        execute_read_capability(self.db, self.user_a, replay, execution_observed_at=NOW + timedelta(minutes=1))
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, replay, execution_observed_at=NOW + timedelta(minutes=2))
 
     def test_mutation_surface_and_raw_query_parameters_are_absent(self):
         self.assertTrue(mutation_surface_report()["mutation_surface_absent"])
@@ -319,7 +381,15 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         return issue_read_grant(authenticated_user=user, request=self._request(capability_id, **kwargs))
 
     def _execute(self, user, capability_id, **kwargs):
-        return execute_read_capability(self.db, user, self._grant(user, capability_id, **kwargs))
+        return execute_read_capability(self.db, user, self._grant(user, capability_id, **kwargs), execution_observed_at=NOW)
+
+    def _timed_grant(self):
+        return astra_capabilities.default_read_grant_issuer().issue(
+            authenticated_user=self.user_a,
+            request=self._request("subscription.count_active"),
+            issued_at=NOW,
+            expires_at=NOW + timedelta(minutes=5),
+        )
 
     def _category(self, id, name, owner_id):
         return SubscriptionCategory(id=id, owner_id=owner_id, name=name)

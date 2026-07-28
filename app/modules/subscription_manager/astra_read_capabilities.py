@@ -215,6 +215,8 @@ class SubscriptionAstraReadGrantIssuer:
             raise SubscriptionAstraCapabilityError("Subscription Manager read grant issuer capacity reached.")
         timestamp = issued_at or request.observed_at
         _ensure_aware(timestamp, "Grant issuance")
+        if timestamp > request.observed_at:
+            raise SubscriptionAstraCapabilityError("Read grant issuance cannot follow request observation.")
         expiration = expires_at or min(
             request.authorization_reference.expires_at or (timestamp + AUTHORIZATION_MAX_AGE),
             timestamp + AUTHORIZATION_MAX_AGE,
@@ -243,11 +245,14 @@ class SubscriptionAstraReadGrantIssuer:
         return grant
 
     def validates(self, grant: Any, *, authenticated_user: User, observed_at: datetime) -> bool:
+        _ensure_aware(observed_at, "Grant execution")
         if not isinstance(grant, SubscriptionAstraReadGrant):
             return False
         if self._issued.get(grant.grant_id) is not grant:
             return False
         if grant.grant_id in self._consumed:
+            return False
+        if observed_at < grant.issued_at or observed_at < grant.observed_at:
             return False
         if grant.expires_at <= observed_at:
             return False
@@ -299,12 +304,15 @@ def execute_read_capability(
     grant: SubscriptionAstraReadGrant,
     *,
     grant_issuer: SubscriptionAstraReadGrantIssuer | None = None,
+    execution_observed_at: datetime | None = None,
 ) -> SubscriptionAstraReadResult:
     if authenticated_user is None or not getattr(authenticated_user, "id", None):
         raise SubscriptionAstraCapabilityError("Authenticated subscription owner is required.")
     if grant_issuer is not None and grant_issuer is not _SUBSCRIPTION_ASTRA_GRANT_ISSUER:
         raise SubscriptionAstraCapabilityError("Foreign Subscription Manager read grant issuer is prohibited.")
-    if not _SUBSCRIPTION_ASTRA_GRANT_ISSUER.validates(grant, authenticated_user=authenticated_user, observed_at=grant.observed_at):
+    execution_time = execution_observed_at or _utc_now()
+    _ensure_aware(execution_time, "Grant execution")
+    if not _SUBSCRIPTION_ASTRA_GRANT_ISSUER.validates(grant, authenticated_user=authenticated_user, observed_at=execution_time):
         raise SubscriptionAstraCapabilityError("Valid app-owned Subscription Manager read grant is required.")
     _SUBSCRIPTION_ASTRA_GRANT_ISSUER.consume(grant)
     request = _request_from_grant(grant)
@@ -685,3 +693,7 @@ def _calculation_basis() -> str:
 def _ensure_aware(value: datetime, label: str) -> None:
     if value.tzinfo is None or value.utcoffset() is None:
         raise SubscriptionAstraCapabilityError(f"{label} timestamp must be timezone-aware.")
+
+
+def _utc_now() -> datetime:
+    return datetime.now(timezone.utc)

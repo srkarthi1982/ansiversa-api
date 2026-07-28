@@ -62,6 +62,8 @@ Actual app read execution requires a `SubscriptionAstraReadGrant` issued by the 
 
 The adapter rejects caller-created, copied, reconstructed, modified, foreign, expired, reused, or principal-mismatched grants. A grant is consumed during execution and cannot be used again.
 
+Grant expiry is validated against the actual execution timestamp, not the request's historical observed timestamp. Production execution uses an app-owned UTC clock. Focused tests may inject a timezone-aware execution timestamp for deterministic boundary validation. Execution before grant issuance, before request observation, exactly at expiry, after expiry, or with a naive timestamp is rejected before repository access.
+
 ## Result Contract
 
 Every result includes:
@@ -144,6 +146,9 @@ Rejected surfaces:
 - excessive limit
 - stale or expired authorization
 - expired app-owned read grant
+- execution before grant issuance or request observation
+- naive execution timestamp
+- grant execution exactly at or after expiry
 - disabled or non-authorized authorization state
 - raw SQL
 - arbitrary table, column, predicate, expression, aggregation, or sort field

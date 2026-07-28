@@ -39,7 +39,7 @@ The correction pass adds an app-owned exact-object read grant. Certified Astra `
 
 `SubscriptionAstraReadGrant` is the app-owned execution authority. It is issued only by the Subscription Manager grant issuer, validates by exact object identity, binds to the authenticated user and request shape, expires, and is consumed on execution.
 
-Direct requests, caller-created grants, copied grants, reconstructed grants, tampered grants, foreign issuers, expired grants, reused grants, and principal mismatches are rejected before repository reads.
+Execution validates grants against an authoritative execution timestamp from the app-owned UTC clock, with explicit injection used only by deterministic local tests. Direct requests, caller-created grants, copied grants, reconstructed grants, tampered grants, foreign issuers, expired grants, execution before issuance, naive execution timestamps, reused grants, and principal mismatches are rejected before repository reads.
 
 ## Runtime Integration Reachability
 
@@ -60,7 +60,7 @@ No app-read evidence sink type is certified. The implementation does not write f
 Focused ASTRA-APP-001 tests passed:
 
 ```text
-16 passed
+18 passed
 ```
 
 Local validation CLI scenarios passed:
