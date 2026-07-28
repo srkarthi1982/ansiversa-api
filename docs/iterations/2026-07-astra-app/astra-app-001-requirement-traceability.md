@@ -1,5 +1,9 @@
 # ASTRA-APP-001 Requirement Traceability
 
+Status: Certified / Approved for implementation commit `c0bde31ddd8032ff21a0996787e6012068e7d3f9`.
+
+Product Owner approval is recorded. Certification passed. Production authorization is not approved and production remains unchanged.
+
 | Requirement | Implementation |
 | --- | --- |
 | One app only | Scope limited to `app.modules.subscription_manager`. |
@@ -28,3 +32,15 @@
 | Local validation | `validation.astra_app_001.cli` provides list, single scenario, and all-scenario commands. |
 | Runtime execution boundary | Documentation records certified Runtime read execution as unavailable until a separate read executor phase. |
 | Evidence boundary | Documentation records app-read evidence integration as unavailable; no fabricated evidence is emitted. |
+
+## Unauthorized Follow-On Work
+
+```text
+ASTRA-APP-VAL-001           Not authorized
+ASTRA-READ-EXEC-001         Not authorized
+ASTRA-CHAT-001              Not authorized
+Frontend / Chat             Not authorized
+Provider / Model            Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+```

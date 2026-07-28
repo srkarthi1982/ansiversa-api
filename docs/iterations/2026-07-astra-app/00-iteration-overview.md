@@ -6,17 +6,23 @@ Subscription Manager Governed Read Capability
 
 ## Status
 
+ASTRA-APP-001: Certified / Approved
+
 Implementation Direction: Approved
 
-Security Review: Pending final re-review
+Astra Re-review: Approved
 
-Data Ownership Review: Corrections applied
+Security Review: Approved
 
-Constitutional Conformance: Pending final re-review
+Data Ownership Review: Approved
 
-Product Owner Approval: Pending
+Constitutional Conformance: Approved
 
-Certification: Pending
+Product Owner Approval: Approved
+
+Certification: Passed
+
+Implementation Commit: `c0bde31ddd8032ff21a0996787e6012068e7d3f9`
 
 ## Scope
 
@@ -51,3 +57,33 @@ module: subscription_manager
 The certified Astra Runtime currently exposes capability discovery, intent resolution, planning, and read authorization metadata. It does not expose a certified read executor. The default Runtime read registry is empty, and direct app read execution through Runtime is unavailable by certified design.
 
 ASTRA-APP-001 therefore certifies the app-owned adapter independently and records full Runtime execution as pending a separately authorized read executor phase.
+
+## Certification Closure
+
+```text
+ASTRA-APP-001               Certified / Approved
+Implementation Scope        Subscription Manager Governed Read Capability
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Data Ownership Review       Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Target App                  Subscription Manager / App #071
+Mode                        Read-only
+Ownership                   App-owned
+
+Frontend / Chat             Not authorized
+Provider / Model            Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-APP-VAL-001           Not authorized
+ASTRA-READ-EXEC-001         Not authorized
+ASTRA-CHAT-001              Not authorized
+```
+
+This certification closure is documentation-only. It does not modify implementation, tests, validation, Runtime, Subscription Manager capability code, routes, authentication, authorization, configuration, database schema, migrations, frontend, deployment, production configuration, ASTRA-IMP-001 through ASTRA-IMP-011, ASTRA-VAL-001, ASTRA-VAL-002, ASTRA-API-001, ASTRA-API-VAL-001, or ASTRA-UI-001.

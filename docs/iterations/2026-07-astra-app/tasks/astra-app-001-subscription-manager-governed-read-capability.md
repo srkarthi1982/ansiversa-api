@@ -1,5 +1,35 @@
 # ASTRA-APP-001 Subscription Manager Governed Read Capability
 
+Status: Certified / Approved.
+
+Implementation commit: `c0bde31ddd8032ff21a0996787e6012068e7d3f9`.
+
+```text
+ASTRA-APP-001               Certified / Approved
+Implementation Scope        Subscription Manager Governed Read Capability
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Data Ownership Review       Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Target App                  Subscription Manager / App #071
+Mode                        Read-only
+Ownership                   App-owned
+
+Frontend / Chat             Not authorized
+Provider / Model            Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+
+ASTRA-APP-VAL-001           Not authorized
+ASTRA-READ-EXEC-001         Not authorized
+ASTRA-CHAT-001              Not authorized
+```
+
 ## Purpose
 
 Create a production-quality, app-owned, read-only capability foundation that allows deterministic retrieval of authenticated-user Subscription Manager data through fixed named capabilities.
@@ -162,6 +192,8 @@ No certified app-read evidence type exists for ASTRA-APP-001. The adapter remain
 ## Runtime Integration Status
 
 Full certified Runtime read execution is unavailable because ASTRA-READ-EXEC-001 is not authorized and no certified read executor exists. The app capability is ready for future connection through a separately approved executor that consumes certified read authorization decisions.
+
+ASTRA-APP-VAL-001 and ASTRA-CHAT-001 also remain not authorized. This task does not authorize frontend/chat integration, provider/model invocation, production authorization, or production behavior.
 
 ## Validation
 

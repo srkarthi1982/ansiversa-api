@@ -1,5 +1,7 @@
 # ASTRA-APP-001 Implementation Review
 
+Status: Certified / Approved. Implementation direction, Astra re-review, security review, data ownership review, constitutional conformance, Product Owner approval, and certification are approved/passed for implementation commit `c0bde31ddd8032ff21a0996787e6012068e7d3f9`.
+
 ## Implementation Summary
 
 ASTRA-APP-001 adds `app.modules.subscription_manager.astra_read_capabilities` as the Subscription Manager-owned read adapter for governed Astra questions.
@@ -45,6 +47,8 @@ Execution validates grants against an authoritative execution timestamp from the
 
 The certified Runtime cannot currently execute the app-owned read adapter without a separately authorized read executor. ASTRA-APP-001 does not bypass this. The app adapter can be called by focused tests and local validation only.
 
+ASTRA-APP-VAL-001, ASTRA-READ-EXEC-001, and ASTRA-CHAT-001 remain not authorized. Frontend/chat integration, provider/model invocation, production authorization, and production behavior remain unchanged.
+
 ## Evidence Integration
 
 No app-read evidence sink type is certified. The implementation does not write fabricated evidence. Evidence integration remains pending a future certified evidence contract.
@@ -68,3 +72,29 @@ Local validation CLI scenarios passed:
 ```text
 30 scenarios reported passed
 ```
+
+## Certification Decision
+
+```text
+ASTRA-APP-001               Certified / Approved
+Implementation Scope        Subscription Manager Governed Read Capability
+
+Implementation Direction    Approved
+Astra Re-review             Approved
+Security Review             Approved
+Data Ownership Review       Approved
+Constitutional Conformance  Approved
+Product Owner Approval      Approved
+Certification               Passed
+
+Target App                  Subscription Manager / App #071
+Mode                        Read-only
+Ownership                   App-owned
+
+Frontend / Chat             Not authorized
+Provider / Model            Not authorized
+Production Authorization    Not approved
+Production                  Unchanged
+```
+
+The certification closure is documentation-only and records approval without modifying the Subscription Manager read capability implementation, tests, validation runner, Runtime, routes, configuration, database schema, migrations, frontend, deployment, production configuration, or certified Astra parent implementations.
