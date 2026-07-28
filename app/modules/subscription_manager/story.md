@@ -60,6 +60,16 @@ List and dashboard responses return lightweight summaries and note previews. Det
 
 All queries are owner-scoped through the authenticated user. The service verifies that category, subscription, and renewal IDs belong to the current owner before linking or mutating records.
 
+## Astra Read Capability Design
+
+Subscription Manager owns an app-local Astra read capability adapter in `astra_read_capabilities.py`. The adapter is read-only, backend-only, and not exposed as an API route or chat surface.
+
+The capability catalog is fixed and versioned. It supports authenticated-user questions for subscription counts, active subscription lists, highest normalized recurring cost, recurring totals grouped by currency, monthly estimates, renewal windows, overdue renewals, and category grouping.
+
+The adapter reuses Subscription Manager ownership and calculation semantics. Records are loaded through the owner-scoped repository using the authenticated backend user, then rechecked so every returned subscription has `owner_id` equal to the authenticated user ID. Caller-supplied user IDs, arbitrary SQL, arbitrary filters, unsupported parameters, excessive result limits, stale authorization references, foreign app scopes, and mutation surfaces are rejected.
+
+Currency totals are grouped by currency code and never converted. Renewal windows use an injected observed timestamp and deterministic ISO-date parsing of `next_billing_date`. Missing or invalid renewal dates are excluded from renewal-window answers.
+
 ## Shared Components Used
 
 The frontend uses established Ansiversa shared components:
@@ -102,4 +112,4 @@ Potential future directions include renewal calendars, reminder scheduling, shar
 
 ## Current Implementation
 
-Subscription Manager V1 is implemented as an owner-scoped FastAPI module with isolated SQLAlchemy models, Alembic migration `20260713_0001_subscription_manager`, generated OpenAPI contracts, overview metadata routing Explore to `/subscription-manager/subscriptions`, and a React workflow under `src/modules/subscription-manager`.
+Subscription Manager V1 is implemented as an owner-scoped FastAPI module with isolated SQLAlchemy models, Alembic migration `20260713_0001_subscription_manager`, generated OpenAPI contracts, overview metadata routing Explore to `/subscription-manager/subscriptions`, a React workflow under `src/modules/subscription-manager`, and an app-owned ASTRA-APP-001 read-only capability adapter for local governed validation.
