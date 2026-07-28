@@ -6,13 +6,13 @@ Subscription Manager Governed Read Capability
 
 ## Status
 
-Implementation Direction: Pending Astra Source Review
+Implementation Direction: Approved
 
-Security Review: Pending
+Security Review: Pending final re-review
 
-Data Ownership Review: Pending
+Data Ownership Review: Corrections applied
 
-Constitutional Conformance: Pending
+Constitutional Conformance: Pending final re-review
 
 Product Owner Approval: Pending
 
@@ -24,6 +24,15 @@ ASTRA-APP-001 creates the first app-owned, read-only Application Intelligence La
 
 The implementation is backend-only and local/test-only. It does not create a public API route, frontend chat surface, provider/model call, database migration, execution framework, deployment, or production activation.
 
+Authoritative app identity:
+
+```text
+Subscription Manager
+App #071
+slug: subscription-manager
+module: subscription_manager
+```
+
 ## Discovery Findings
 
 - Subscription Manager data lives in the isolated `subscription_manager` backend module and database configured by `SUBSCRIPTION_MANAGER_DATABASE_URL`.
@@ -34,7 +43,8 @@ The implementation is backend-only and local/test-only. It does not create a pub
 - Renewal date semantics use the string field `next_billing_date`; the adapter parses the ISO date prefix deterministically.
 - Currency totals are grouped by `currency_code`; no FX conversion is performed.
 - Existing monthly normalization is reused from app semantics: weekly `amount * 52 / 12`, monthly `amount`, quarterly `amount / 3`, semiannual `amount / 6`, annual `amount / 12`, custom `amount`.
-- The approval note identifies Subscription Manager as App #063, while the existing module story identifies it as App #071. This identity mismatch is recorded for Astra/Partner review and was not changed by Codex.
+- App #071 is authoritative for ASTRA-APP-001 documentation. No catalog or production identity metadata change was required.
+- Certified Astra read authorization metadata is supporting metadata only. Actual app-owned read execution requires an exact-object Subscription Manager read grant issued by the app-owned grant issuer.
 
 ## Runtime Reachability
 

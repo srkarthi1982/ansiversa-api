@@ -4,7 +4,9 @@
 
 ASTRA-APP-001 adds `app.modules.subscription_manager.astra_read_capabilities` as the Subscription Manager-owned read adapter for governed Astra questions.
 
-The adapter provides fixed, versioned capabilities for counts, active lists, highest normalized cost, recurring totals, monthly estimates, renewal windows, overdue renewals, and category grouping.
+The adapter provides fixed, versioned capabilities for counts, active lists, highest normalized cost by currency, raw recurring totals by currency and frequency, monthly estimates by currency, renewal windows, overdue renewals, and category grouping.
+
+The correction pass adds an app-owned exact-object read grant. Certified Astra `authorized_metadata_only` references are retained only as supporting metadata; they do not authorize repository retrieval by themselves.
 
 ## Files
 
@@ -31,6 +33,14 @@ The adapter provides fixed, versioned capabilities for counts, active lists, hig
 - No mutation path.
 - No production activation.
 
+## Authority Boundary
+
+`SubscriptionAstraReadRequest` carries caller-supplied metadata and supporting Astra authorization metadata.
+
+`SubscriptionAstraReadGrant` is the app-owned execution authority. It is issued only by the Subscription Manager grant issuer, validates by exact object identity, binds to the authenticated user and request shape, expires, and is consumed on execution.
+
+Direct requests, caller-created grants, copied grants, reconstructed grants, tampered grants, foreign issuers, expired grants, reused grants, and principal mismatches are rejected before repository reads.
+
 ## Runtime Integration Reachability
 
 The certified Runtime cannot currently execute the app-owned read adapter without a separately authorized read executor. ASTRA-APP-001 does not bypass this. The app adapter can be called by focused tests and local validation only.
@@ -41,7 +51,7 @@ No app-read evidence sink type is certified. The implementation does not write f
 
 ## Known Review Items
 
-- Existing Subscription Manager story identifies the app as App #071; the ASTRA-APP-001 authorization text identifies it as App #063.
+- Subscription Manager is App #071. Earlier ASTRA-APP-001 authorization text used App #063 by mistake; ASTRA-APP-001 docs now use App #071 without catalog or production metadata changes.
 - `SubscriptionManagerSubscriptions.nextBillingDate` is stored as a string. The adapter uses deterministic ISO-prefix parsing and excludes invalid or missing dates from renewal windows.
 - Subscription Manager has no archive flag. Deleted records are absent by existing delete behavior.
 
@@ -50,11 +60,11 @@ No app-read evidence sink type is certified. The implementation does not write f
 Focused ASTRA-APP-001 tests passed:
 
 ```text
-11 passed
+16 passed
 ```
 
 Local validation CLI scenarios passed:
 
 ```text
-28 scenarios reported passed
+30 scenarios reported passed
 ```

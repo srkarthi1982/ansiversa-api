@@ -6,6 +6,10 @@
 | Read-only mode | Adapter exposes only list/aggregate reads and mutation-surface scan. |
 | App-owned business logic | Capability code lives inside Subscription Manager and reuses app repository/service semantics. |
 | Authenticated user ownership | Records are loaded with `repository.list_subscriptions(db, authenticated_user.id)` and rechecked against `owner_id`. |
+| Metadata is not execution authority | `SubscriptionAstraAuthorizationReference` is supporting metadata only and cannot be passed to `execute_read_capability`. |
+| App-owned read grant required | `SubscriptionAstraReadGrant` must be issued by the Subscription Manager grant issuer and validated by exact object identity. |
+| Grant user binding | Grant principal and authenticated user ID must match before repository access. |
+| Grant tamper/reuse denial | Caller-created, copied, reconstructed, tampered, foreign, expired, and reused grants fail closed. |
 | Fixed named capabilities | Ten fixed `subscription.*` capability IDs are versioned at `1.0.0`. |
 | No arbitrary SQL | Request contract has no SQL/table/column/predicate fields and forbids extra fields. |
 | Bounded parameters | Only `days`, `status`, and `category` parameter names are structurally valid; each capability allowlists the subset it accepts. |
@@ -14,8 +18,9 @@
 | Stale authorization denial | Authorization references older than 15 minutes are rejected. |
 | Foreign app denial | Authorization app scope must be `app:subscription_manager`. |
 | Production not approved | Request/result contracts require `production_authorization_state = not_approved`. |
-| Currency grouping | Totals are grouped by currency with no FX conversion. |
-| Monthly estimate | Uses existing app frequency semantics and decimal rounding. |
+| Highest-cost currency boundary | Highest-cost results are grouped by currency with `within_currency_only_no_fx`; no cross-currency numeric winner is selected. |
+| Raw recurring totals | `subscription.total_recurring_cost` preserves currency plus billing-frequency buckets. |
+| Monthly estimate | `subscription.monthly_cost_estimate` uses existing app frequency semantics and decimal rounding by currency. |
 | Renewal date determinism | Uses injected `observed_at` and deterministic date-window helpers. |
 | Deterministic answer contract | `deterministic_answer()` returns structured dictionaries only, not LLM prose. |
 | No frontend/API/schema/provider changes | No frontend files, routers, migrations, settings, or provider/model modules changed. |

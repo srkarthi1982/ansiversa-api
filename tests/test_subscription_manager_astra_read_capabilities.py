@@ -15,9 +15,11 @@ from app.modules.subscription_manager.astra_read_capabilities import (
     SubscriptionAstraCapabilityError,
     SubscriptionAstraCapabilityStatus,
     SubscriptionAstraParameter,
+    SubscriptionAstraReadGrant,
     SubscriptionAstraReadRequest,
     capability_catalog,
     deterministic_answer,
+    issue_read_grant,
     execute_read_capability,
     mutation_surface_report,
 )
@@ -64,9 +66,9 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         self.assertTrue(all(item.app_identity == "subscription_manager" for item in catalog))
 
     def test_count_all_and_active_are_owned_by_authenticated_user(self):
-        all_result = execute_read_capability(self.db, self.user_a, self._request("subscription.count_all"))
-        active_result = execute_read_capability(self.db, self.user_a, self._request("subscription.count_active"))
-        foreign_result = execute_read_capability(self.db, self.user_b, self._request("subscription.count_all"))
+        all_result = self._execute(self.user_a, "subscription.count_all")
+        active_result = self._execute(self.user_a, "subscription.count_active")
+        foreign_result = self._execute(self.user_b, "subscription.count_all", principal_reference="principal:user-b")
 
         self.assertEqual(all_result.summary["count"], 6)
         self.assertEqual(active_result.summary["count"], 5)
@@ -74,7 +76,7 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         self.assertEqual(deterministic_answer(active_result)["subject"], "active subscriptions")
 
     def test_list_active_excludes_inactive_and_is_deterministically_ordered(self):
-        result = execute_read_capability(self.db, self.user_a, self._request("subscription.list_active", limit=3))
+        result = self._execute(self.user_a, "subscription.list_active", limit=3)
 
         self.assertEqual(result.record_count, 5)
         self.assertEqual(result.returned_count, 3)
@@ -82,14 +84,27 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         self.assertEqual([record["id"] for record in result.records], ["sub-overdue", "sub-netflix", "sub-weekly"])
         self.assertNotIn("sub-inactive", [record["id"] for record in result.records])
 
-    def test_highest_cost_uses_monthly_normalization_and_deterministic_tie(self):
-        result = execute_read_capability(self.db, self.user_a, self._request("subscription.highest_cost"))
+    def test_highest_cost_is_grouped_by_currency_without_cross_currency_comparison(self):
+        result = self._execute(self.user_a, "subscription.highest_cost")
 
-        self.assertEqual(result.summary["subscription"]["id"], "sub-weekly")
-        self.assertEqual(result.summary["subscription"]["monthly_estimate"], "52.00")
+        self.assertEqual(result.summary["answer_type"], "highest_cost_by_currency")
+        self.assertEqual(result.summary["comparison_policy"], "within_currency_only_no_fx")
+        self.assertEqual(
+            [(item["currency"], item["subscription"]["id"], item["subscription"]["monthly_estimate"]) for item in result.records],
+            [("AED", "sub-weekly", "52.00"), ("USD", "sub-annual", "10.00")],
+        )
+        self.assertIn("within_currency_only_no_fx", result.reason_codes)
 
-    def test_totals_are_grouped_by_currency_without_fx_conversion(self):
-        result = execute_read_capability(self.db, self.user_a, self._request("subscription.monthly_cost_estimate"))
+    def test_highest_cost_single_currency_and_tie_are_deterministic(self):
+        self.db.add(self._subscription("sub-aed-tie", self.user_a.id, self.streaming.id, "Aardvark Music", "Music", 12, "AED", "weekly", "2026-08-26"))
+        self.db.commit()
+        result = self._execute(self.user_a, "subscription.highest_cost")
+
+        self.assertEqual(result.records[0]["currency"], "AED")
+        self.assertEqual(result.records[0]["subscription"]["id"], "sub-aed-tie")
+
+    def test_monthly_estimate_is_grouped_by_currency_without_fx_conversion(self):
+        result = self._execute(self.user_a, "subscription.monthly_cost_estimate")
 
         self.assertEqual(
             result.records,
@@ -100,21 +115,31 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         )
         self.assertIn("currency_grouped_no_fx", result.reason_codes)
 
-    def test_renewal_windows_include_exact_day_and_exclude_31_days(self):
-        within_30 = execute_read_capability(
-            self.db,
-            self.user_a,
-            self._request("subscription.renewing_within_days", parameters=(SubscriptionAstraParameter(name="days", value=30),)),
+    def test_total_recurring_cost_preserves_raw_frequency_buckets(self):
+        result = self._execute(self.user_a, "subscription.total_recurring_cost")
+
+        self.assertEqual(
+            result.records,
+            (
+                {"currency": "AED", "billing_frequency": "custom", "recurring_amount": "5.00", "subscription_count": 1},
+                {"currency": "AED", "billing_frequency": "monthly", "recurring_amount": "30.00", "subscription_count": 2},
+                {"currency": "AED", "billing_frequency": "weekly", "recurring_amount": "12.00", "subscription_count": 1},
+                {"currency": "USD", "billing_frequency": "annual", "recurring_amount": "120.00", "subscription_count": 1},
+            ),
         )
-        this_month = execute_read_capability(self.db, self.user_a, self._request("subscription.renewing_this_month"))
+        self.assertEqual(result.summary["aggregation_policy"], "raw_frequency_buckets_no_fx_no_frequency_merge")
+
+    def test_renewal_windows_include_exact_day_and_exclude_31_days(self):
+        within_30 = self._execute(self.user_a, "subscription.renewing_within_days", parameters=(SubscriptionAstraParameter(name="days", value=30),))
+        this_month = self._execute(self.user_a, "subscription.renewing_this_month")
 
         self.assertEqual([record["id"] for record in within_30.records], ["sub-netflix", "sub-weekly"])
         self.assertNotIn("sub-annual", [record["id"] for record in within_30.records])
         self.assertEqual([record["id"] for record in this_month.records], ["sub-netflix"])
 
     def test_overdue_and_category_grouping_exclude_inactive(self):
-        overdue = execute_read_capability(self.db, self.user_a, self._request("subscription.overdue_renewals"))
-        grouped = execute_read_capability(self.db, self.user_a, self._request("subscription.group_by_category"))
+        overdue = self._execute(self.user_a, "subscription.overdue_renewals")
+        grouped = self._execute(self.user_a, "subscription.group_by_category")
 
         self.assertEqual([record["id"] for record in overdue.records], ["sub-overdue"])
         self.assertEqual(
@@ -127,31 +152,27 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         )
 
     def test_empty_account_returns_empty_without_successful_records(self):
-        result = execute_read_capability(self.db, SimpleNamespace(id="empty-user"), self._request("subscription.count_active"))
+        result = self._execute(SimpleNamespace(id="empty-user"), "subscription.count_active", principal_reference="principal:empty-user")
 
         self.assertEqual(result.status.value, "empty")
         self.assertEqual(result.record_count, 0)
 
     def test_request_validation_fails_closed_for_unsupported_surfaces(self):
         with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, self.user_a, self._request("subscription.unknown"))
+            self._grant(self.user_a, "subscription.unknown")
         with self.assertRaises(ValidationError):
             self._request("subscription.list_active", limit=51)
         with self.assertRaises(ValidationError):
             self._request("subscription.count_active", caller_supplied_user_id="user-b")
         with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(
-                self.db,
-                self.user_a,
-                self._request("subscription.count_active", parameters=(SubscriptionAstraParameter(name="days", value=30),)),
-            )
+            self._grant(self.user_a, "subscription.count_active", parameters=(SubscriptionAstraParameter(name="days", value=30),))
         with self.assertRaises(ValidationError):
             self._request(
                 "subscription.renewing_within_days",
                 parameters=(SubscriptionAstraParameter(name="days", value=30), SubscriptionAstraParameter(name="days", value=31)),
             )
         with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, None, self._request("subscription.count_active"))
+            self._execute(None, "subscription.count_active")
 
     def test_authorization_fails_for_stale_foreign_or_disabled_decision(self):
         with self.assertRaises(ValidationError):
@@ -167,7 +188,60 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         disabled = capability_catalog()[1].model_copy(update={"status": SubscriptionAstraCapabilityStatus.DISABLED})
         with patch.object(astra_capabilities, "capability_catalog", return_value=(disabled,)):
             with self.assertRaises(SubscriptionAstraCapabilityError):
-                execute_read_capability(self.db, self.user_a, self._request("subscription.count_active"))
+                self._grant(self.user_a, "subscription.count_active")
+
+    def test_app_owned_read_grant_is_required_and_exact_object_bound(self):
+        request = self._request("subscription.count_active")
+        grant = issue_read_grant(authenticated_user=self.user_a, request=request)
+        caller_created = SubscriptionAstraReadGrant(**grant.model_dump())
+
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, request)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, caller_created)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, grant.model_copy())
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(
+                self.db,
+                self.user_a,
+                grant.model_copy(update={"authenticated_user_id": "user-b"}),
+            )
+        foreign_issuer = object.__new__(astra_capabilities.SubscriptionAstraReadGrantIssuer)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, grant, grant_issuer=foreign_issuer)
+        result = execute_read_capability(self.db, self.user_a, grant)
+        self.assertEqual(result.summary["count"], 5)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, grant)
+
+    def test_grant_rejects_user_mismatch_principal_mismatch_expiry_and_request_mismatch(self):
+        user_a_grant = self._grant(self.user_a, "subscription.count_active")
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_b, user_a_grant)
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            self._grant(self.user_b, "subscription.count_active", principal_reference="principal:user-a")
+        expired_request = self._request("subscription.count_active", issued_at=NOW - timedelta(minutes=10))
+        expired_grant = astra_capabilities.default_read_grant_issuer().issue(
+            authenticated_user=self.user_a,
+            request=expired_request,
+            issued_at=NOW - timedelta(minutes=10),
+            expires_at=NOW - timedelta(minutes=1),
+        )
+        with self.assertRaises(SubscriptionAstraCapabilityError):
+            execute_read_capability(self.db, self.user_a, expired_grant)
+        mismatched_auth = self._authorization("subscription.count_active")
+        with self.assertRaises(ValidationError):
+            SubscriptionAstraReadRequest(
+                capability_id="subscription.list_active",
+                capability_version=CAPABILITY_VERSION,
+                app_identity="subscription_manager",
+                request_reference="read-mismatch-0001",
+                requested_maximum_result_count=10,
+                authorization_reference=mismatched_auth,
+                purpose="user_requested_summary",
+                observed_at=NOW,
+            )
 
     def test_mutation_surface_and_raw_query_parameters_are_absent(self):
         self.assertTrue(mutation_surface_report()["mutation_surface_absent"])
@@ -197,6 +271,7 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         decision_status="authorized_metadata_only",
         production_state="not_approved",
         caller_supplied_user_id=None,
+        principal_reference="principal:user-a",
     ):
         return SubscriptionAstraReadRequest(
             capability_id=capability_id,
@@ -210,6 +285,7 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
                 app_scope=app_scope,
                 decision_status=decision_status,
                 production_state=production_state,
+                principal_reference=principal_reference,
             ),
             purpose="user_requested_summary",
             observed_at=NOW,
@@ -225,6 +301,7 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         app_scope="app:subscription_manager",
         decision_status="authorized_metadata_only",
         production_state="not_approved",
+        principal_reference="principal:user-a",
     ):
         return SubscriptionAstraAuthorizationReference(
             authorization_id=f"auth-ref-{capability_id.replace('.', '-')}",
@@ -232,11 +309,17 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
             capability_version=CAPABILITY_VERSION,
             app_scope=app_scope,
             decision_status=decision_status,
-            authenticated_principal_reference="principal:user-a",
+            authenticated_principal_reference=principal_reference,
             issued_at=issued_at,
             expires_at=NOW + timedelta(minutes=5),
             production_authorization_state=production_state,
         )
+
+    def _grant(self, user, capability_id, **kwargs):
+        return issue_read_grant(authenticated_user=user, request=self._request(capability_id, **kwargs))
+
+    def _execute(self, user, capability_id, **kwargs):
+        return execute_read_capability(self.db, user, self._grant(user, capability_id, **kwargs))
 
     def _category(self, id, name, owner_id):
         return SubscriptionCategory(id=id, owner_id=owner_id, name=name)

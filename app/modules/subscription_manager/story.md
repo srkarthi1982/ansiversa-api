@@ -64,11 +64,11 @@ All queries are owner-scoped through the authenticated user. The service verifie
 
 Subscription Manager owns an app-local Astra read capability adapter in `astra_read_capabilities.py`. The adapter is read-only, backend-only, and not exposed as an API route or chat surface.
 
-The capability catalog is fixed and versioned. It supports authenticated-user questions for subscription counts, active subscription lists, highest normalized recurring cost, recurring totals grouped by currency, monthly estimates, renewal windows, overdue renewals, and category grouping.
+The capability catalog is fixed and versioned. It supports authenticated-user questions for subscription counts, active subscription lists, highest normalized recurring cost grouped by currency, raw recurring totals grouped by currency and billing frequency, monthly estimates grouped by currency, renewal windows, overdue renewals, and category grouping.
 
-The adapter reuses Subscription Manager ownership and calculation semantics. Records are loaded through the owner-scoped repository using the authenticated backend user, then rechecked so every returned subscription has `owner_id` equal to the authenticated user ID. Caller-supplied user IDs, arbitrary SQL, arbitrary filters, unsupported parameters, excessive result limits, stale authorization references, foreign app scopes, and mutation surfaces are rejected.
+The adapter reuses Subscription Manager ownership and calculation semantics. Certified Astra read-authorization metadata is supporting metadata only; repository reads require an app-owned, exact-object Subscription Manager read grant issued by the module's private grant issuer. Records are loaded through the owner-scoped repository using the authenticated backend user, then rechecked so every returned subscription has `owner_id` equal to the authenticated user ID. Caller-supplied user IDs, caller-created grants, copied grants, tampered grants, reused grants, arbitrary SQL, arbitrary filters, unsupported parameters, excessive result limits, stale authorization references, foreign app scopes, and mutation surfaces are rejected.
 
-Currency totals are grouped by currency code and never converted. Renewal windows use an injected observed timestamp and deterministic ISO-date parsing of `next_billing_date`. Missing or invalid renewal dates are excluded from renewal-window answers.
+Currency totals are grouped by currency code and never converted. Highest-cost answers choose one deterministic record within each currency instead of comparing numeric amounts across currencies. Raw recurring totals preserve billing-frequency buckets, while monthly estimates use the app's documented normalization. Renewal windows use an injected observed timestamp and deterministic ISO-date parsing of `next_billing_date`. Missing or invalid renewal dates are excluded from renewal-window answers.
 
 ## Shared Components Used
 

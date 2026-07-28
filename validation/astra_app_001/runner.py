@@ -15,6 +15,7 @@ from app.modules.subscription_manager.astra_read_capabilities import (
     SubscriptionAstraCapabilityError,
     SubscriptionAstraParameter,
     SubscriptionAstraReadRequest,
+    issue_read_grant,
     deterministic_answer,
     execute_read_capability,
     mutation_surface_report,
@@ -83,6 +84,7 @@ class _Fixture:
         issued_at=OBSERVED_AT,
         decision_status="authorized_metadata_only",
         caller_supplied_user_id=None,
+        principal_reference="principal:user-a",
     ):
         return SubscriptionAstraReadRequest(
             capability_id=capability_id,
@@ -96,7 +98,7 @@ class _Fixture:
                 capability_version=CAPABILITY_VERSION,
                 app_scope="app:subscription_manager",
                 decision_status=decision_status,
-                authenticated_principal_reference="principal:user-a",
+                authenticated_principal_reference=principal_reference,
                 issued_at=issued_at,
                 expires_at=OBSERVED_AT + timedelta(minutes=5),
             ),
@@ -116,7 +118,16 @@ def _denied(name: str, exc: Exception) -> dict[str, Any]:
 
 
 def _execute(fixture: _Fixture, capability_id: str, **kwargs) -> dict[str, Any]:
-    result = execute_read_capability(fixture.db, fixture.user, fixture.request(capability_id, **kwargs))
+    request = fixture.request(capability_id, **kwargs)
+    grant = issue_read_grant(authenticated_user=fixture.user, request=request)
+    result = execute_read_capability(fixture.db, fixture.user, grant)
+    return deterministic_answer(result)
+
+
+def _execute_for_user(fixture: _Fixture, user, capability_id: str, **kwargs) -> dict[str, Any]:
+    request = fixture.request(capability_id, **kwargs)
+    grant = issue_read_grant(authenticated_user=user, request=request)
+    result = execute_read_capability(fixture.db, user, grant)
     return deterministic_answer(result)
 
 
@@ -156,21 +167,25 @@ def exactly_30_days(f): return renewals_next_30_days(f)
 def thirty_one_days_excluded(f): return renewals_next_30_days(f)
 def overdue_renewal(f): return _ok("overdue_renewal", _execute(f, "subscription.overdue_renewals"))
 def category_grouping(f): return _ok("category_grouping", _execute(f, "subscription.group_by_category"))
-def empty_account(f): return _ok("empty_account", deterministic_answer(execute_read_capability(f.db, SimpleNamespace(id="empty"), f.request("subscription.count_active"))))
+def empty_account(f): return _ok("empty_account", _execute_for_user(f, SimpleNamespace(id="empty"), "subscription.count_active", principal_reference="principal:empty"))
 def missing_cost(f): return monthly_estimate(f)
 def missing_currency(f): return monthly_estimate(f)
 def missing_renewal_date(f): return renewing_this_month(f)
 def inactive_exclusion(f): return list_active(f)
 def archived_deleted_exclusion(f): return _ok("archived_deleted_exclusion", {"schema_has_archive_flag": False, "deleted_records_not_returned": True})
-def cross_user_denial(f): return _ok("cross_user_denial", deterministic_answer(execute_read_capability(f.db, f.foreign_user, f.request("subscription.count_all"))))
+def cross_user_denial(f):
+    grant = issue_read_grant(authenticated_user=f.user, request=f.request("subscription.count_all"))
+    return _expect_denial("cross_user_denial", lambda: execute_read_capability(f.db, f.foreign_user, grant))
 def caller_supplied_ownership_denial(f): return _expect_denial("caller_supplied_ownership_denial", lambda: f.request("subscription.count_all", caller_supplied_user_id="user-b"))
-def unsupported_capability_denial(f): return _expect_denial("unsupported_capability_denial", lambda: execute_read_capability(f.db, f.user, f.request("subscription.unknown")))
-def unsupported_parameter_denial(f): return _expect_denial("unsupported_parameter_denial", lambda: execute_read_capability(f.db, f.user, f.request("subscription.count_active", parameters=(SubscriptionAstraParameter(name="days", value=30),))))
+def unsupported_capability_denial(f): return _expect_denial("unsupported_capability_denial", lambda: issue_read_grant(authenticated_user=f.user, request=f.request("subscription.unknown")))
+def unsupported_parameter_denial(f): return _expect_denial("unsupported_parameter_denial", lambda: issue_read_grant(authenticated_user=f.user, request=f.request("subscription.count_active", parameters=(SubscriptionAstraParameter(name="days", value=30),))))
 def excessive_limit_denial(f): return _expect_denial("excessive_limit_denial", lambda: f.request("subscription.count_active", limit=51))
 def mutation_surface_absence(f): return _ok("mutation_surface_absence", mutation_surface_report())
 def deterministic_ordering(f): return list_active(f)
 def deterministic_result_fixed_time(f): return monthly_estimate(f)
 def failure_does_not_release_success(f): return unsupported_capability_denial(f)
+def principal_mismatch_denial(f): return _expect_denial("principal_mismatch_denial", lambda: issue_read_grant(authenticated_user=f.foreign_user, request=f.request("subscription.count_all")))
+def direct_request_denial(f): return _expect_denial("direct_request_denial", lambda: execute_read_capability(f.db, f.user, f.request("subscription.count_active")))
 
 
 SCENARIOS = {
@@ -202,4 +217,6 @@ SCENARIOS = {
     "deterministic_ordering": deterministic_ordering,
     "deterministic_result_fixed_time": deterministic_result_fixed_time,
     "failure_does_not_release_success": failure_does_not_release_success,
+    "principal_mismatch_denial": principal_mismatch_denial,
+    "direct_request_denial": direct_request_denial,
 }

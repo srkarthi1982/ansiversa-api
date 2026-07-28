@@ -29,7 +29,7 @@ All capabilities are fixed at version `1.0.0`, app-owned by `subscription_manage
 
 ## Request Contract
 
-The request contract requires:
+The request contract is metadata only. It requires:
 
 - capability ID and version
 - app identity `subscription_manager`
@@ -42,6 +42,25 @@ The request contract requires:
 - optional plan reference
 
 Caller-supplied user IDs are rejected. Ownership must come from the authenticated backend user object.
+
+## App-Owned Read Grant Contract
+
+The certified Astra `authorized_metadata_only` reference is not treated as permission to retrieve data.
+
+Actual app read execution requires a `SubscriptionAstraReadGrant` issued by the private Subscription Manager grant issuer. The grant binds:
+
+- exact authenticated user identity
+- capability ID and version
+- app scope
+- request reference
+- exact permitted parameters
+- maximum result count
+- purpose
+- issuance and expiry
+- corresponding Astra authorization metadata reference
+- production state `not_approved`
+
+The adapter rejects caller-created, copied, reconstructed, modified, foreign, expired, reused, or principal-mismatched grants. A grant is consumed during execution and cannot be used again.
 
 ## Result Contract
 
@@ -70,9 +89,15 @@ The adapter uses only existing owner-scoped list repository behavior. It exposes
 
 A mutation-surface scan is available through `mutation_surface_report()`.
 
-## Currency Semantics
+## Currency And Cost Semantics
 
 Totals are grouped by currency. The adapter does not perform FX conversion and does not silently combine currencies.
+
+`subscription.highest_cost` returns `highest_cost_by_currency` and chooses one deterministic highest-cost subscription inside each currency only. It does not compare numeric values across currencies.
+
+`subscription.total_recurring_cost` returns raw recurring commitments grouped by currency and billing frequency. Incompatible frequencies are not added together.
+
+`subscription.monthly_cost_estimate` returns normalized monthly and annual estimates grouped by currency.
 
 Monthly normalization follows current Subscription Manager service semantics:
 
@@ -108,11 +133,17 @@ Rejected surfaces:
 - unauthenticated owner
 - caller-supplied user ID
 - foreign app scope
+- caller-created or copied read grant
+- reconstructed or tampered read grant
+- foreign read grant issuer
+- reused read grant
+- principal mismatch between grant metadata and authenticated user
 - unsupported capability
 - unsupported parameter
 - duplicate parameter
 - excessive limit
 - stale or expired authorization
+- expired app-owned read grant
 - disabled or non-authorized authorization state
 - raw SQL
 - arbitrary table, column, predicate, expression, aggregation, or sort field

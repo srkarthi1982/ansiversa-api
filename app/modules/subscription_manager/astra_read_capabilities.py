@@ -4,8 +4,10 @@ from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal, ROUND_HALF_UP
 from enum import StrEnum
+from hashlib import sha256
 from inspect import getmembers, isfunction
 from typing import Any, Literal
+from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy.orm import Session
@@ -20,6 +22,7 @@ APP_SCOPE = "app:subscription_manager"
 CAPABILITY_VERSION = "1.0.0"
 MAX_RESULT_LIMIT = 50
 AUTHORIZATION_MAX_AGE = timedelta(minutes=15)
+_SUBSCRIPTION_ASTRA_GRANT_AUTHORITY = object()
 
 
 class SubscriptionAstraCapabilityError(ValueError):
@@ -41,7 +44,8 @@ class SubscriptionAstraResultStatus(StrEnum):
 class SubscriptionAstraResultKind(StrEnum):
     COUNT = "count"
     LIST = "list"
-    HIGHEST_COST = "highest_cost"
+    HIGHEST_COST_BY_CURRENCY = "highest_cost_by_currency"
+    RECURRING_TOTALS = "recurring_totals"
     TOTALS_BY_CURRENCY = "totals_by_currency"
     GROUP_BY_CATEGORY = "group_by_category"
     VALIDATION = "validation"
@@ -129,6 +133,42 @@ class SubscriptionAstraReadRequest(BaseModel):
         return self
 
 
+class SubscriptionAstraReadGrant(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    grant_id: str = Field(pattern=r"^sub_astra_grant_[a-f0-9]{32}$")
+    authenticated_user_id: str = Field(min_length=1, max_length=160)
+    capability_id: str
+    capability_version: str
+    app_scope: Literal["app:subscription_manager"]
+    request_reference: str = Field(min_length=8, max_length=160)
+    parameter_digest: str = Field(pattern=r"^sha256:[a-f0-9]{64}$")
+    permitted_parameters: tuple[SubscriptionAstraParameter, ...] = ()
+    maximum_result_count: int = Field(ge=1, le=MAX_RESULT_LIMIT)
+    purpose: str = Field(min_length=8, max_length=120)
+    astra_authorization_reference: SubscriptionAstraAuthorizationReference
+    issued_at: datetime
+    expires_at: datetime
+    observed_at: datetime
+    production_authorization_state: Literal["not_approved"] = "not_approved"
+
+    @model_validator(mode="after")
+    def validate_grant(self) -> "SubscriptionAstraReadGrant":
+        _ensure_aware(self.issued_at, "Grant issuance")
+        _ensure_aware(self.expires_at, "Grant expiration")
+        _ensure_aware(self.observed_at, "Grant observed")
+        if self.expires_at <= self.issued_at:
+            raise SubscriptionAstraCapabilityError("Read grant expiration must follow issuance.")
+        auth = self.astra_authorization_reference
+        if auth.capability_id != self.capability_id or auth.capability_version != self.capability_version:
+            raise SubscriptionAstraCapabilityError("Read grant does not match Astra authorization metadata.")
+        if auth.app_scope != self.app_scope:
+            raise SubscriptionAstraCapabilityError("Read grant app scope does not match authorization metadata.")
+        if self.parameter_digest != _parameter_digest(self.permitted_parameters):
+            raise SubscriptionAstraCapabilityError("Read grant parameter digest does not match permitted parameters.")
+        return self
+
+
 class SubscriptionAstraReadResult(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -151,13 +191,92 @@ class SubscriptionAstraReadResult(BaseModel):
     production_authorization_state: Literal["not_approved"]
 
 
+class SubscriptionAstraReadGrantIssuer:
+    def __init__(self, *, _app_authority: object | None = None, capacity: int = 200) -> None:
+        if _app_authority is not _SUBSCRIPTION_ASTRA_GRANT_AUTHORITY:
+            raise SubscriptionAstraCapabilityError("Subscription Manager read grant issuers require app-owned authority.")
+        if capacity < 1 or capacity > 1000:
+            raise SubscriptionAstraCapabilityError("Subscription Manager read grant issuer capacity is invalid.")
+        self._capacity = capacity
+        self._issued: dict[str, SubscriptionAstraReadGrant] = {}
+        self._consumed: set[str] = set()
+
+    def issue(
+        self,
+        *,
+        authenticated_user: User,
+        request: SubscriptionAstraReadRequest,
+        issued_at: datetime | None = None,
+        expires_at: datetime | None = None,
+    ) -> SubscriptionAstraReadGrant:
+        if authenticated_user is None or not getattr(authenticated_user, "id", None):
+            raise SubscriptionAstraCapabilityError("Authenticated subscription owner is required for read grant issuance.")
+        if len(self._issued) >= self._capacity:
+            raise SubscriptionAstraCapabilityError("Subscription Manager read grant issuer capacity reached.")
+        timestamp = issued_at or request.observed_at
+        _ensure_aware(timestamp, "Grant issuance")
+        expiration = expires_at or min(
+            request.authorization_reference.expires_at or (timestamp + AUTHORIZATION_MAX_AGE),
+            timestamp + AUTHORIZATION_MAX_AGE,
+        )
+        _ensure_aware(expiration, "Grant expiration")
+        _validate_principal_matches_user(request.authorization_reference.authenticated_principal_reference, authenticated_user.id)
+        definition = _definition_for(request.capability_id)
+        _validate_request_against_definition(request, definition)
+        grant = SubscriptionAstraReadGrant(
+            grant_id=f"sub_astra_grant_{uuid4().hex}",
+            authenticated_user_id=authenticated_user.id,
+            capability_id=request.capability_id,
+            capability_version=request.capability_version,
+            app_scope=APP_SCOPE,
+            request_reference=request.request_reference,
+            parameter_digest=_parameter_digest(request.parameters),
+            permitted_parameters=request.parameters,
+            maximum_result_count=request.requested_maximum_result_count,
+            purpose=request.purpose,
+            astra_authorization_reference=request.authorization_reference,
+            issued_at=timestamp,
+            expires_at=expiration,
+            observed_at=request.observed_at,
+        )
+        self._issued[grant.grant_id] = grant
+        return grant
+
+    def validates(self, grant: Any, *, authenticated_user: User, observed_at: datetime) -> bool:
+        if not isinstance(grant, SubscriptionAstraReadGrant):
+            return False
+        if self._issued.get(grant.grant_id) is not grant:
+            return False
+        if grant.grant_id in self._consumed:
+            return False
+        if grant.expires_at <= observed_at:
+            return False
+        if authenticated_user is None or grant.authenticated_user_id != getattr(authenticated_user, "id", None):
+            return False
+        try:
+            _validate_principal_matches_user(grant.astra_authorization_reference.authenticated_principal_reference, grant.authenticated_user_id)
+        except SubscriptionAstraCapabilityError:
+            return False
+        return True
+
+    def consume(self, grant: SubscriptionAstraReadGrant) -> None:
+        if self._issued.get(grant.grant_id) is not grant or grant.grant_id in self._consumed:
+            raise SubscriptionAstraCapabilityError("Subscription Manager read grant cannot be consumed.")
+        self._consumed.add(grant.grant_id)
+
+
+_SUBSCRIPTION_ASTRA_GRANT_ISSUER = SubscriptionAstraReadGrantIssuer(
+    _app_authority=_SUBSCRIPTION_ASTRA_GRANT_AUTHORITY
+)
+
+
 def capability_catalog() -> tuple[SubscriptionAstraCapabilityDefinition, ...]:
     return (
         _capability("subscription.count_all", "Count all authenticated user subscriptions.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.COUNT),
         _capability("subscription.count_active", "Count active authenticated user subscriptions.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.COUNT),
         _capability("subscription.list_active", "List active authenticated user subscriptions.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.LIST),
-        _capability("subscription.highest_cost", "Return the highest normalized monthly cost subscription.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.HIGHEST_COST),
-        _capability("subscription.total_recurring_cost", "Return recurring totals grouped by currency.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.TOTALS_BY_CURRENCY),
+        _capability("subscription.highest_cost", "Return the highest normalized monthly cost subscription within each currency.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.HIGHEST_COST_BY_CURRENCY),
+        _capability("subscription.total_recurring_cost", "Return raw recurring totals grouped by currency and billing frequency.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.RECURRING_TOTALS),
         _capability("subscription.monthly_cost_estimate", "Return estimated monthly totals grouped by currency.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.TOTALS_BY_CURRENCY),
         _capability("subscription.renewing_this_month", "List active subscriptions renewing in the observed month.", (), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.LIST),
         _capability("subscription.renewing_within_days", "List active subscriptions renewing within an allowed day window.", ("days",), MAX_RESULT_LIMIT, SubscriptionAstraResultKind.LIST),
@@ -166,9 +285,29 @@ def capability_catalog() -> tuple[SubscriptionAstraCapabilityDefinition, ...]:
     )
 
 
-def execute_read_capability(db: Session, authenticated_user: User, request: SubscriptionAstraReadRequest) -> SubscriptionAstraReadResult:
+def default_read_grant_issuer() -> SubscriptionAstraReadGrantIssuer:
+    return _SUBSCRIPTION_ASTRA_GRANT_ISSUER
+
+
+def issue_read_grant(*, authenticated_user: User, request: SubscriptionAstraReadRequest) -> SubscriptionAstraReadGrant:
+    return _SUBSCRIPTION_ASTRA_GRANT_ISSUER.issue(authenticated_user=authenticated_user, request=request)
+
+
+def execute_read_capability(
+    db: Session,
+    authenticated_user: User,
+    grant: SubscriptionAstraReadGrant,
+    *,
+    grant_issuer: SubscriptionAstraReadGrantIssuer | None = None,
+) -> SubscriptionAstraReadResult:
     if authenticated_user is None or not getattr(authenticated_user, "id", None):
         raise SubscriptionAstraCapabilityError("Authenticated subscription owner is required.")
+    if grant_issuer is not None and grant_issuer is not _SUBSCRIPTION_ASTRA_GRANT_ISSUER:
+        raise SubscriptionAstraCapabilityError("Foreign Subscription Manager read grant issuer is prohibited.")
+    if not _SUBSCRIPTION_ASTRA_GRANT_ISSUER.validates(grant, authenticated_user=authenticated_user, observed_at=grant.observed_at):
+        raise SubscriptionAstraCapabilityError("Valid app-owned Subscription Manager read grant is required.")
+    _SUBSCRIPTION_ASTRA_GRANT_ISSUER.consume(grant)
+    request = _request_from_grant(grant)
     definition = _definition_for(request.capability_id)
     _validate_request_against_definition(request, definition)
     subscriptions = repository.list_subscriptions(db, authenticated_user.id)
@@ -187,7 +326,9 @@ def execute_read_capability(db: Session, authenticated_user: User, request: Subs
         return _record_result(request, definition, _sort_by_next_billing(active), reason_codes)
     if request.capability_id == "subscription.highest_cost":
         return _highest_cost(request, definition, active, reason_codes)
-    if request.capability_id in {"subscription.total_recurring_cost", "subscription.monthly_cost_estimate"}:
+    if request.capability_id == "subscription.total_recurring_cost":
+        return _recurring_totals_by_currency_and_frequency(request, definition, active, reason_codes)
+    if request.capability_id == "subscription.monthly_cost_estimate":
         return _totals_by_currency(request, definition, active, reason_codes)
     if request.capability_id == "subscription.renewing_this_month":
         return _record_result(request, definition, _renewing_this_month(active, request.observed_at), reason_codes)
@@ -322,12 +463,65 @@ def _record_result(
 
 
 def _highest_cost(request: SubscriptionAstraReadRequest, definition: SubscriptionAstraCapabilityDefinition, subscriptions: list[SubscriptionRecord], reason_codes: list[str]) -> SubscriptionAstraReadResult:
-    ordered = sorted(subscriptions, key=lambda item: (-_monthly_decimal(item), item.name.lower(), item.provider.lower(), item.id))
-    if not ordered:
-        return _result(request, definition, summary={"answer_type": "highest_cost", "subscription": None}, record_count=0, reason_codes=reason_codes)
-    top = ordered[0]
-    record = _subscription_record(top) | {"monthly_estimate": _money(_monthly_decimal(top))}
-    return _result(request, definition, summary={"answer_type": "highest_cost", "subscription": record}, record_count=1, records=(record,), reason_codes=reason_codes)
+    grouped: dict[str, list[SubscriptionRecord]] = defaultdict(list)
+    for item in subscriptions:
+        grouped[_currency(item.currency_code)].append(item)
+    records = []
+    for currency, items in sorted(grouped.items()):
+        ordered = sorted(items, key=lambda item: (-_monthly_decimal(item), item.name.lower(), item.provider.lower(), item.id))
+        top = ordered[0]
+        records.append(
+            {
+                "currency": currency,
+                "subscription": _subscription_record(top) | {"monthly_estimate": _money(_monthly_decimal(top))},
+            }
+        )
+    return _result(
+        request,
+        definition,
+        summary={
+            "answer_type": "highest_cost_by_currency",
+            "items": records,
+            "comparison_policy": "within_currency_only_no_fx",
+        },
+        record_count=len(records),
+        records=tuple(records),
+        reason_codes=[*reason_codes, "within_currency_only_no_fx"],
+    )
+
+
+def _recurring_totals_by_currency_and_frequency(
+    request: SubscriptionAstraReadRequest,
+    definition: SubscriptionAstraCapabilityDefinition,
+    subscriptions: list[SubscriptionRecord],
+    reason_codes: list[str],
+) -> SubscriptionAstraReadResult:
+    totals: dict[tuple[str, str], dict[str, Decimal | int]] = defaultdict(lambda: {"recurring_amount": Decimal("0.00"), "subscription_count": 0})
+    for item in subscriptions:
+        key = (_currency(item.currency_code), item.billing_frequency)
+        totals[key]["recurring_amount"] = totals[key]["recurring_amount"] + Decimal(str(item.billing_amount))
+        totals[key]["subscription_count"] = int(totals[key]["subscription_count"]) + 1
+    records = tuple(
+        {
+            "currency": currency,
+            "billing_frequency": billing_frequency,
+            "recurring_amount": _money(values["recurring_amount"]),
+            "subscription_count": values["subscription_count"],
+        }
+        for (currency, billing_frequency), values in sorted(totals.items())
+    )
+    return _result(
+        request,
+        definition,
+        summary={
+            "answer_type": "recurring_totals_by_currency_and_frequency",
+            "totals": list(records),
+            "aggregation_policy": "raw_frequency_buckets_no_fx_no_frequency_merge",
+        },
+        record_count=len(records),
+        records=records,
+        reason_codes=[*reason_codes, "raw_frequency_buckets", "currency_grouped_no_fx"],
+    )
 
 
 def _totals_by_currency(request: SubscriptionAstraReadRequest, definition: SubscriptionAstraCapabilityDefinition, subscriptions: list[SubscriptionRecord], reason_codes: list[str]) -> SubscriptionAstraReadResult:
@@ -433,6 +627,34 @@ def _int_parameter(request: SubscriptionAstraReadRequest, name: str, *, default:
                 raise SubscriptionAstraCapabilityError(f"{name} parameter must be an integer.")
             return parameter.value
     return default
+
+
+def _request_from_grant(grant: SubscriptionAstraReadGrant) -> SubscriptionAstraReadRequest:
+    return SubscriptionAstraReadRequest(
+        capability_id=grant.capability_id,
+        capability_version=grant.capability_version,
+        app_identity=APP_ID,
+        request_reference=grant.request_reference,
+        requested_maximum_result_count=grant.maximum_result_count,
+        authorization_reference=grant.astra_authorization_reference,
+        purpose=grant.purpose,
+        observed_at=grant.observed_at,
+        parameters=grant.permitted_parameters,
+    )
+
+
+def _parameter_digest(parameters: tuple[SubscriptionAstraParameter, ...]) -> str:
+    payload = [
+        parameter.model_dump(mode="json")
+        for parameter in sorted(parameters, key=lambda item: (item.name, str(item.value)))
+    ]
+    return f"sha256:{sha256(str(payload).encode()).hexdigest()}"
+
+
+def _validate_principal_matches_user(principal_reference: str, user_id: str) -> None:
+    allowed = {user_id, f"user:{user_id}", f"principal:{user_id}"}
+    if principal_reference not in allowed:
+        raise SubscriptionAstraCapabilityError("Astra authorization principal does not match authenticated subscription owner.")
 
 
 def _parse_date(value: str | None) -> date | None:
