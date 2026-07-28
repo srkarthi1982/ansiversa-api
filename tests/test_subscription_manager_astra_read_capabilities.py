@@ -210,10 +210,12 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         foreign_issuer = object.__new__(astra_capabilities.SubscriptionAstraReadGrantIssuer)
         with self.assertRaises(SubscriptionAstraCapabilityError):
             execute_read_capability(self.db, self.user_a, grant, grant_issuer=foreign_issuer)
-        result = execute_read_capability(self.db, self.user_a, grant, _execution_clock=self._clock(NOW))
+        with self._app_clock(NOW):
+            result = execute_read_capability(self.db, self.user_a, grant)
         self.assertEqual(result.summary["count"], 5)
-        with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, self.user_a, grant, _execution_clock=self._clock(NOW))
+        with self._app_clock(NOW):
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(self.db, self.user_a, grant)
 
     def test_grant_rejects_user_mismatch_principal_mismatch_expiry_and_request_mismatch(self):
         user_a_grant = self._grant(self.user_a, "subscription.count_active")
@@ -258,75 +260,73 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
                 grant,
                 execution_observed_at=NOW + timedelta(minutes=4),
             )
+        with self.assertRaises(TypeError):
+            execute_read_capability(
+                self.db,
+                self.user_a,
+                grant,
+                _execution_clock=SimpleNamespace(now=lambda: NOW + timedelta(minutes=4)),
+            )
+
+    def test_production_module_does_not_mint_authorized_historical_clocks(self):
+        self.assertFalse(hasattr(astra_capabilities, "_deterministic_execution_clock_for_tests"))
+        with self.assertRaises(TypeError):
+            astra_capabilities._SubscriptionAstraExecutionClock(fixed_at=NOW)
 
     def test_grant_expiry_uses_authorized_clock_before_repository_access(self):
         allowed = self._timed_grant()
-        result = execute_read_capability(
-            self.db,
-            self.user_a,
-            allowed,
-            _execution_clock=self._clock(NOW + timedelta(minutes=4)),
-        )
+        with self._app_clock(NOW + timedelta(minutes=4)):
+            result = execute_read_capability(self.db, self.user_a, allowed)
         self.assertEqual(result.summary["count"], 5)
 
         exact_expiry = self._timed_grant()
         with patch.object(astra_capabilities.repository, "list_subscriptions", wraps=astra_capabilities.repository.list_subscriptions) as list_subscriptions:
-            with self.assertRaises(SubscriptionAstraCapabilityError):
-                execute_read_capability(
-                    self.db,
-                    self.user_a,
-                    exact_expiry,
-                    _execution_clock=self._clock(NOW + timedelta(minutes=5)),
-                )
+            with self._app_clock(NOW + timedelta(minutes=5)):
+                with self.assertRaises(SubscriptionAstraCapabilityError):
+                    execute_read_capability(self.db, self.user_a, exact_expiry)
             list_subscriptions.assert_not_called()
 
         after_expiry = self._timed_grant()
         with patch.object(astra_capabilities.repository, "list_subscriptions", wraps=astra_capabilities.repository.list_subscriptions) as list_subscriptions:
-            with self.assertRaises(SubscriptionAstraCapabilityError):
-                execute_read_capability(
-                    self.db,
-                    self.user_a,
-                    after_expiry,
-                    _execution_clock=self._clock(NOW + timedelta(minutes=6)),
-                )
+            with self._app_clock(NOW + timedelta(minutes=6)):
+                with self.assertRaises(SubscriptionAstraCapabilityError):
+                    execute_read_capability(self.db, self.user_a, after_expiry)
             list_subscriptions.assert_not_called()
 
         app_clock_expiry = self._timed_grant()
         with (
-            patch.object(astra_capabilities, "_SUBSCRIPTION_ASTRA_EXECUTION_CLOCK", self._clock(NOW + timedelta(minutes=6))),
             patch.object(astra_capabilities.repository, "list_subscriptions", wraps=astra_capabilities.repository.list_subscriptions) as list_subscriptions,
         ):
-            with self.assertRaises(SubscriptionAstraCapabilityError):
-                execute_read_capability(self.db, self.user_a, app_clock_expiry)
+            with self._app_clock(NOW + timedelta(minutes=6)):
+                with self.assertRaises(SubscriptionAstraCapabilityError):
+                    execute_read_capability(self.db, self.user_a, app_clock_expiry)
             list_subscriptions.assert_not_called()
 
-    def test_grant_execution_clock_must_be_authorized_not_before_issuance_and_replay_still_fails(self):
+    def test_app_clock_rejects_naive_time_not_before_issuance_and_replay_still_fails(self):
         before_issuance = self._timed_grant()
-        with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(
-                self.db,
-                self.user_a,
-                before_issuance,
-                _execution_clock=self._clock(NOW - timedelta(seconds=1)),
-            )
+        with self._app_clock(NOW - timedelta(seconds=1)):
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(self.db, self.user_a, before_issuance)
 
-        with self.assertRaises(SubscriptionAstraCapabilityError):
-            self._clock(datetime(2026, 7, 28, 12, 4))
+        naive_time = self._timed_grant()
+        with self._app_clock(datetime(2026, 7, 28, 12, 4)):
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(self.db, self.user_a, naive_time)
 
-        fake_clock = object.__new__(astra_capabilities._SubscriptionAstraExecutionClock)
-        fake_clock._fixed_at = NOW
-        with self.assertRaises(SubscriptionAstraCapabilityError):
+        fake_clock = SimpleNamespace(now=lambda: NOW)
+        with self.assertRaises(TypeError):
             execute_read_capability(self.db, self.user_a, self._timed_grant(), _execution_clock=fake_clock)
 
-        copied_clock = object.__new__(astra_capabilities._SubscriptionAstraExecutionClock)
-        copied_clock.__dict__.update(self._clock(NOW).__dict__)
-        with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, self.user_a, self._timed_grant(), _execution_clock=copied_clock)
+        copied_default_clock = object.__new__(astra_capabilities._SubscriptionAstraExecutionClock)
+        with self.assertRaises(TypeError):
+            execute_read_capability(self.db, self.user_a, self._timed_grant(), _execution_clock=copied_default_clock)
 
         replay = self._timed_grant()
-        execute_read_capability(self.db, self.user_a, replay, _execution_clock=self._clock(NOW + timedelta(minutes=1)))
-        with self.assertRaises(SubscriptionAstraCapabilityError):
-            execute_read_capability(self.db, self.user_a, replay, _execution_clock=self._clock(NOW + timedelta(minutes=2)))
+        with self._app_clock(NOW + timedelta(minutes=1)):
+            execute_read_capability(self.db, self.user_a, replay)
+        with self._app_clock(NOW + timedelta(minutes=2)):
+            with self.assertRaises(SubscriptionAstraCapabilityError):
+                execute_read_capability(self.db, self.user_a, replay)
 
     def test_mutation_surface_and_raw_query_parameters_are_absent(self):
         self.assertTrue(mutation_surface_report()["mutation_surface_absent"])
@@ -404,7 +404,8 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
         return issue_read_grant(authenticated_user=user, request=self._request(capability_id, **kwargs))
 
     def _execute(self, user, capability_id, **kwargs):
-        return execute_read_capability(self.db, user, self._grant(user, capability_id, **kwargs), _execution_clock=self._clock(NOW))
+        with self._app_clock(NOW):
+            return execute_read_capability(self.db, user, self._grant(user, capability_id, **kwargs))
 
     def _timed_grant(self):
         return astra_capabilities.default_read_grant_issuer().issue(
@@ -414,8 +415,12 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
             expires_at=NOW + timedelta(minutes=5),
         )
 
-    def _clock(self, observed_at):
-        return astra_capabilities._deterministic_execution_clock_for_tests(observed_at=observed_at)
+    def _app_clock(self, observed_at):
+        return patch.object(
+            astra_capabilities,
+            "_SUBSCRIPTION_ASTRA_EXECUTION_CLOCK",
+            SimpleNamespace(now=lambda: observed_at),
+        )
 
     def _category(self, id, name, owner_id):
         return SubscriptionCategory(id=id, owner_id=owner_id, name=name)

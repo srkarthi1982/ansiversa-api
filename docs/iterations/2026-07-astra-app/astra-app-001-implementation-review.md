@@ -39,7 +39,7 @@ The correction pass adds an app-owned exact-object read grant. Certified Astra `
 
 `SubscriptionAstraReadGrant` is the app-owned execution authority. It is issued only by the Subscription Manager grant issuer, validates by exact object identity, binds to the authenticated user and request shape, expires, and is consumed on execution.
 
-Execution validates grants against an authoritative execution timestamp from the app-owned UTC clock. Deterministic local tests use only a private exact-object app-authorized clock seam; ordinary callers cannot pass execution timestamps, and fake or copied clock overrides are rejected. Direct requests, caller-created grants, copied grants, reconstructed grants, tampered grants, foreign issuers, expired grants, execution before issuance, naive deterministic clock timestamps, reused grants, and principal mismatches are rejected before repository reads.
+Execution validates grants against an authoritative execution timestamp from the app-owned UTC clock. Production code has no deterministic clock factory, trusted test-clock registry, or caller-selectable execution timestamp. Deterministic local tests patch the private app-owned clock inside the isolated test process. Direct requests, caller-created grants, copied grants, reconstructed grants, tampered grants, foreign issuers, expired grants, execution before issuance, naive app-clock timestamps, reused grants, ordinary timestamp overrides, and principal mismatches are rejected before repository reads.
 
 ## Runtime Integration Reachability
 
@@ -60,7 +60,7 @@ No app-read evidence sink type is certified. The implementation does not write f
 Focused ASTRA-APP-001 tests passed:
 
 ```text
-19 passed
+20 passed
 ```
 
 Local validation CLI scenarios passed:
