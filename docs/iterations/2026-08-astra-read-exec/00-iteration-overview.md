@@ -8,6 +8,8 @@ Governed Read Execution Bridge
 
 ASTRA-READ-EXEC-001: Implemented
 
+ASTRA-APP-VAL-001: Implemented
+
 Implementation Direction: Approved
 
 Astra Source Review: Pending
@@ -96,10 +98,17 @@ Focused tests cover:
 - redaction failure;
 - shutdown invalidation.
 
+ASTRA-APP-VAL-001 adds an observational validation runner under
+`validation/astra_app_val_001` with focused scenario coverage for Runtime
+request issuance, read authorization enforcement, adapter selection, app-owned
+read execution, response redaction, fail-closed behavior, database-session
+ownership, and unchanged production boundaries.
+
 ## Current Recorded State
 
 ```text
 ASTRA-READ-EXEC-001          Implemented
+ASTRA-APP-VAL-001            Implemented / pending review
 Implementation Scope         Governed Read Execution Bridge
 
 ASTRA-APP-001                Certified / Approved
@@ -110,6 +119,5 @@ Provider / Model             Not authorized
 Production Authorization     Not approved
 Production                   Unchanged
 
-ASTRA-APP-VAL-001            Not certified
 ASTRA-CHAT-001               Not authorized
 ```
