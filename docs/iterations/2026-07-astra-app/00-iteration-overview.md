@@ -56,7 +56,10 @@ module: subscription_manager
 
 The certified Astra Runtime currently exposes capability discovery, intent resolution, planning, and read authorization metadata. It does not expose a certified read executor. The default Runtime read registry is empty, and direct app read execution through Runtime is unavailable by certified design.
 
-ASTRA-APP-001 therefore certifies the app-owned adapter independently and records full Runtime execution as pending a separately authorized read executor phase.
+ASTRA-APP-001 therefore certifies the app-owned adapter independently.
+ASTRA-READ-EXEC-001 was later separately authorized and implemented as the
+narrow Runtime-owned bridge that can execute this certified app-owned adapter
+through an exact app grant. ASTRA-APP-001 itself remains frozen.
 
 ## Certification Closure
 
@@ -82,7 +85,7 @@ Production Authorization    Not approved
 Production                  Unchanged
 
 ASTRA-APP-VAL-001           Not authorized
-ASTRA-READ-EXEC-001         Not authorized
+ASTRA-READ-EXEC-001         Separately implemented / pending review
 ASTRA-CHAT-001              Not authorized
 ```
 

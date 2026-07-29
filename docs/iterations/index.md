@@ -1,6 +1,7 @@
 | Iteration   | Theme                                    | Status   | Dates          |
 | ----------- | ---------------------------------------- | -------- | -------------- |
 | Iteration 5 | Astra AI Implementation                  | ASTRA-IMP-007 certified; ASTRA-IMP-008 not authorized | Begins Jul 26 |
+| Iteration 6 | Astra Governed Read Execution            | ASTRA-READ-EXEC-001 implemented; review pending | Begins Jul 29 |
 | Iteration 4 | Astra AI Implementation Readiness        | ASTRA-IR-001 frozen; implementation readiness complete | Begins Jul 26 |
 | Iteration 3 | Astra AI Architecture                    | Constitutional architecture complete; ASTRA-001 through ASTRA-010 frozen | Begins Jul 24 |
 | Iteration 1 | Astra Intelligence & Platform Refinement | Implementation | Jul 26 – Aug 9 |

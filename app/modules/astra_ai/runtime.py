@@ -55,6 +55,11 @@ from app.modules.astra_ai.read_access_authorization import (
     AstraReadAuthorizationHealth,
     AstraReadAuthorizationRequest,
 )
+from app.modules.astra_ai.read_execution import (
+    AstraReadExecutionBridge,
+    AstraReadExecutionRequest,
+    AstraReadExecutionResult,
+)
 
 
 ASTRA_RUNTIME_ID = "ASTRA-RUNTIME-005"
@@ -406,6 +411,17 @@ class AstraRuntimeReadAccessAuthorizationInterface:
         return self._runtime.read_access_authorization_health(observed_at=observed_at)
 
 
+class AstraRuntimeReadExecutionInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def issue_request(self, **values: Any) -> AstraReadExecutionRequest:
+        return self._runtime.issue_read_execution_request(**values)
+
+    def execute(self, request: AstraReadExecutionRequest, *, db, authenticated_user) -> AstraReadExecutionResult:
+        return self._runtime.execute_read(request, db=db, authenticated_user=authenticated_user)
+
+
 class AstraRuntimeDiagnosticProjectionInterface:
     def __init__(self, runtime: AstraRuntime) -> None:
         self._runtime = runtime
@@ -458,9 +474,12 @@ class AstraRuntime:
         self._planning: AstraPlanningEngine | None = None
         self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
+        self._read_execution_bridge: AstraReadExecutionBridge | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
         self._read_issuer_authority = object()
+        self._read_execution_registration_authority = object()
+        self._read_execution_request_authority = object()
         self._read_authority_issuers: dict[str, AstraAuthorityProofIssuer] = {}
         self._registry = _ComponentRegistry()
         self._fault: AstraRuntimeFault | None = None
@@ -471,6 +490,7 @@ class AstraRuntime:
         self._planning_interface = AstraRuntimePlanningInterface(self)
         self._intent_resolution_interface = AstraRuntimeIntentResolutionInterface(self)
         self._read_access_authorization_interface = AstraRuntimeReadAccessAuthorizationInterface(self)
+        self._read_execution_interface = AstraRuntimeReadExecutionInterface(self)
         self._diagnostic_projection_interface = AstraRuntimeDiagnosticProjectionInterface(self)
 
     @property
@@ -517,6 +537,10 @@ class AstraRuntime:
     @property
     def read_access_authorization(self) -> AstraRuntimeReadAccessAuthorizationInterface:
         return self._read_access_authorization_interface
+
+    @property
+    def read_execution(self) -> AstraRuntimeReadExecutionInterface:
+        return self._read_execution_interface
 
     @property
     def diagnostic_projection(self) -> AstraRuntimeDiagnosticProjectionInterface:
@@ -649,6 +673,11 @@ class AstraRuntime:
             plan=plan,
         )
         self._register_diagnostic_output(result)
+        if self._read_execution_bridge is not None:
+            self._read_execution_bridge.register_read_authorization_decision(
+                result,
+                registration_authority=self._read_execution_registration_authority,
+            )
         return result
 
     def read_access_authorization_health(self, *, observed_at=None) -> AstraReadAuthorizationHealth:
@@ -656,6 +685,14 @@ class AstraRuntime:
         result = self._read_access_authorization.health(observed_at=observed_at)
         self._register_diagnostic_output(result)
         return result
+
+    def issue_read_execution_request(self, **values: Any) -> AstraReadExecutionRequest:
+        self._require_ready_component(self._read_execution_bridge, "read execution bridge")
+        return self._read_execution_bridge.issue_request(**values)
+
+    def execute_read(self, request: AstraReadExecutionRequest, *, db, authenticated_user) -> AstraReadExecutionResult:
+        self._require_ready_component(self._read_execution_bridge, "read execution bridge")
+        return self._read_execution_bridge.execute(request, db=db, authenticated_user=authenticated_user)
 
     def issue_diagnostic_projection_request(
         self,
@@ -760,6 +797,7 @@ class AstraRuntime:
                 registered_at=startup_timestamp,
             )
             read_access_authorization = self._create_read_access_authorization_engine()
+            read_execution_bridge = self._create_read_execution_bridge()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
                 component_type="AstraReadAccessAuthorizationEngine",
@@ -784,6 +822,7 @@ class AstraRuntime:
             self._planning = planning
             self._intent_resolution = intent_resolution
             self._read_access_authorization = read_access_authorization
+            self._read_execution_bridge = read_execution_bridge
             self._diagnostic_projection = diagnostic_projection
             self._registry = registry
             self._startup_metadata = self._startup_metadata_from_configuration(loaded_configuration)
@@ -894,6 +933,13 @@ class AstraRuntime:
     def _create_read_access_authorization_engine(self) -> AstraReadAccessAuthorizationEngine:
         return AstraReadAccessAuthorizationEngine(runtime=self)
 
+    def _create_read_execution_bridge(self) -> AstraReadExecutionBridge:
+        return AstraReadExecutionBridge(
+            runtime=self,
+            registration_authority=self._read_execution_registration_authority,
+            request_authority=self._read_execution_request_authority,
+        )
+
     def _create_diagnostic_projection_engine(self) -> AstraDiagnosticProjectionEngine:
         return AstraDiagnosticProjectionEngine(
             runtime=self,
@@ -944,6 +990,7 @@ class AstraRuntime:
         self._planning = None
         self._intent_resolution = None
         self._read_access_authorization = None
+        self._read_execution_bridge = None
         self._diagnostic_projection = None
         self._read_authority_issuers = {}
         self._registry = _ComponentRegistry()
