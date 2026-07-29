@@ -48,8 +48,8 @@ non-read operations, and subject mismatches fail closed.
 
 `database_session_boundary_proof`
 
-Verifies central Astra does not call database session methods before the
-registered app-owned adapter receives the session.
+Verifies no SQL execution occurs before the registered app-owned adapter
+receives the session.
 
 ### Production Boundary
 

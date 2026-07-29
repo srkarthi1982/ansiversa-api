@@ -28,12 +28,12 @@ production_boundaries_unchanged
 
 ## Database-Session Boundary Proof
 
-The validation runner uses a SQLAlchemy `Session` subclass that records database
-method access. A registered Subscription Manager adapter wrapper asserts the
-session has not been used before adapter entry, then delegates to the certified
-app-owned adapter. The test verifies the first session use occurs inside the app
-adapter and that no session object or session field appears in the returned
-Runtime result.
+The validation runner uses a SQLAlchemy `Session` subclass that records
+`Session.execute()` calls. A registered Subscription Manager adapter wrapper
+asserts that no SQL execution has occurred before adapter entry, then delegates
+to the certified app-owned adapter. The test verifies the first SQL execution
+occurs inside the app adapter and that no session object or session field
+appears in the returned Runtime result.
 
 This proves central Astra transports the session opaquely for the current
 implementation. A future stronger design may replace this transport with an
@@ -54,5 +54,5 @@ Database schema or migration changes
 
 ## Status
 
-Implemented and pending Astra source/security review, Product Owner approval,
-and certification.
+Certified / Approved after Astra source/security review, Partner review,
+Product Owner approval, and certification closure.

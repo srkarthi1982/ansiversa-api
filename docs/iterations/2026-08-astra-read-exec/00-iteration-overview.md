@@ -8,17 +8,21 @@ Governed Read Execution Bridge
 
 ASTRA-READ-EXEC-001: Implemented
 
-ASTRA-APP-VAL-001: Implemented
+ASTRA-APP-VAL-001: Certified / Approved
 
 Implementation Direction: Approved
 
-Astra Source Review: Pending
+Astra Source Review: Approved
 
-Security Review: Pending
+Security Review: Approved
 
-Product Owner Approval: Pending
+Partner Review: Approved
 
-Certification: Pending
+Product Owner Approval: Approved
+
+Certification: Passed
+
+Validation Commit: `19bc1e34feb4556f5dd7c4117536ba9d72ba8365`
 
 ## Scope
 
@@ -104,11 +108,15 @@ request issuance, read authorization enforcement, adapter selection, app-owned
 read execution, response redaction, fail-closed behavior, database-session
 ownership, and unchanged production boundaries.
 
+The database-session proof is recorded precisely as no SQL execution before the
+registered Subscription Manager adapter entry. The current bridge transports the
+session opaquely; it does not call SQL itself.
+
 ## Current Recorded State
 
 ```text
 ASTRA-READ-EXEC-001          Implemented
-ASTRA-APP-VAL-001            Implemented / pending review
+ASTRA-APP-VAL-001            Certified / Approved
 Implementation Scope         Governed Read Execution Bridge
 
 ASTRA-APP-001                Certified / Approved
