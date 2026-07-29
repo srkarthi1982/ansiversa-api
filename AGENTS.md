@@ -1,5 +1,7 @@
 # AGENTS.md — Ansiversa API
 
+2026-07-29 - Added the permanent Astra source-pack synchronization rule requiring `../astra/sources` to be updated whenever backend changes create or modify durable Astra/Ansiversa knowledge, and requiring the separate `srkarthi1982/astra` repository to be committed and pushed with or immediately after the backend change. No backend implementation, tests, validation, generated files, configuration, routes, authentication, authorization, runtime behavior, diagnostics API, database, SQL, migrations, frontend, deployment, production configuration, provider, or model behavior changed.
+
 2026-07-28 - Recorded Product Owner approval and certification closure for ASTRA-APP-001 Subscription Manager Governed Read Capability after Astra final re-review approval of commit `c0bde31d`. ASTRA-APP-001 is Certified / Approved with implementation direction approved, Astra re-review approved, security review approved, data ownership review approved, constitutional conformance approved, Product Owner approval approved, and certification passed. Target app remains Subscription Manager / App #071 in read-only, app-owned mode. Frontend/chat, provider/model invocation, ASTRA-APP-VAL-001, ASTRA-READ-EXEC-001, ASTRA-CHAT-001, production authorization, and production behavior remain not authorized or unchanged. This closure changes documentation and AGENTS records only; no implementation, tests, validation, Runtime, Subscription Manager capability implementation, routes, authentication, authorization, configuration, database schema, migrations, frontend, deployment, production configuration, ASTRA-IMP-001 through ASTRA-IMP-011, ASTRA-VAL-001, ASTRA-VAL-002, ASTRA-API-001, ASTRA-API-VAL-001, or ASTRA-UI-001 changed.
 
 2026-07-27 - Recorded Product Owner approval and certification closure for ASTRA-API-VAL-001 Authenticated Diagnostics API Security and Contract Validation after Astra final source/security re-review approval of commit `4c80c01e`. ASTRA-API-VAL-001 is Certified / Approved with validation direction approved, Astra re-review approved, security validation approved, constitutional conformance approved, Product Owner approval approved, and certification passed. Validated parent ASTRA-API-001 remains Certified / Approved / Frozen; ASTRA-API-001-COR-001 remains Certified / Approved. Authentication remains required; developer authorization remains required; environment remains non-production only; strict redaction remains required. Runtime changes, API changes, projection changes, production authorization, production behavior, and ASTRA-UI-001 remain unchanged or not authorized. This closure changes documentation and AGENTS records only; no Runtime, Diagnostics API, authentication, authorization, validation handler, projection engine, component contracts, tests, validation runner, validation CLI, configuration, routes, database, SQL, frontend, deployment, production configuration, ASTRA-IMP-001 through ASTRA-IMP-011, ASTRA-VAL-001, or ASTRA-VAL-002 implementation changed.
@@ -605,6 +607,37 @@ Permanent rule:
 ```text
 Verification does not imply release.
 ```
+
+## Astra Source-Pack Synchronization Rule
+
+The canonical Astra recovery/source pack lives outside this backend repository:
+
+```text
+../astra/sources
+https://github.com/srkarthi1982/astra.git
+```
+
+Whenever a backend change creates or changes durable Astra/Ansiversa knowledge,
+Codex must update the relevant `../astra/sources` file in the same task, or
+record why no source-pack update is required.
+
+Durable knowledge includes:
+
+* certified Astra, platform, API, UI, validation, app-read, or production-read
+  milestones;
+* governance, lifecycle, approval, certification, validation, or promotion
+  rules;
+* repository, route, catalog, documentation, database, migration, package, API,
+  or capability ownership memory;
+* backend contracts that future Astra/Codex sessions must remember;
+* source-of-truth changes that a new ChatGPT/Codex account would otherwise
+  lose.
+
+After updating `../astra/sources`, commit and push the separate Astra repository
+with or immediately after the backend repository commit. Do not store secrets,
+tokens, credentials, production user data, raw diagnostic payloads, private
+prompts, provider payloads, cookies, database URLs, or environment values in the
+source pack.
 
 Operational-readiness gates cover:
 
