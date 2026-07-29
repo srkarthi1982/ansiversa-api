@@ -52,7 +52,21 @@ The bridge fails closed for:
 
 All bridge-raised failures use bounded `AstraReadExecutionError` messages.
 
-## Implementation Status
+## Certification Status
 
-Implemented and pending Astra source/security review, Product Owner approval,
-and certification.
+Certified / Approved.
+
+Certification records:
+
+```text
+Implementation Commit        15c017b327635f29fe9ebc30132fb6a39a87d0ef
+Validation Milestone         ASTRA-APP-VAL-001 Certified / Approved
+Validation Commit            19bc1e34feb4556f5dd7c4117536ba9d72ba8365
+Production Authorization     Not approved
+Production                   Unchanged
+```
+
+The Subscription Manager execution path was formally validated by
+ASTRA-APP-VAL-001. The validated session-boundary claim is no SQL execution
+before registered Subscription Manager adapter entry, and Runtime results expose
+no session, SQL, database handle, or private authority material.

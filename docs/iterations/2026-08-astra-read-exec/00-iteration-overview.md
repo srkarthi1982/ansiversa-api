@@ -6,7 +6,7 @@ Governed Read Execution Bridge
 
 ## Status
 
-ASTRA-READ-EXEC-001: Implemented
+ASTRA-READ-EXEC-001: Certified / Approved
 
 ASTRA-APP-VAL-001: Certified / Approved
 
@@ -21,6 +21,8 @@ Partner Review: Approved
 Product Owner Approval: Approved
 
 Certification: Passed
+
+Implementation Commit: `15c017b327635f29fe9ebc30132fb6a39a87d0ef`
 
 Validation Commit: `19bc1e34feb4556f5dd7c4117536ba9d72ba8365`
 
@@ -112,10 +114,13 @@ The database-session proof is recorded precisely as no SQL execution before the
 registered Subscription Manager adapter entry. The current bridge transports the
 session opaquely; it does not call SQL itself.
 
+ASTRA-APP-VAL-001 is certified and approved, and formally validates the
+Subscription Manager execution path for ASTRA-READ-EXEC-001.
+
 ## Current Recorded State
 
 ```text
-ASTRA-READ-EXEC-001          Implemented
+ASTRA-READ-EXEC-001          Certified / Approved
 ASTRA-APP-VAL-001            Certified / Approved
 Implementation Scope         Governed Read Execution Bridge
 
