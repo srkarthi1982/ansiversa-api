@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any, Literal
@@ -16,6 +15,7 @@ from app.modules.astra_ai.conversation_context import (
     AstraConversationTurnKind,
     AstraCurrentTurnContext,
 )
+from app.modules.astra_ai.activation import SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE
 from app.modules.astra_ai.constitutional_contracts import (
     ConstitutionalRequirementReference,
     FailurePosture,
@@ -135,7 +135,6 @@ class AstraChatResponse(BaseModel):
     @model_validator(mode="after")
     def validate_response(self) -> "AstraChatResponse":
         _ensure_aware(self.observed_at, "Chat response")
-        _validate_safe_payload(self.model_dump(mode="json"))
         return self
 
 
@@ -207,7 +206,13 @@ class AstraChatGateway:
 
         try:
             snapshot = self._conversation_engine.get_conversation(conversation_id)
-            requester_context = self._runtime.capability_discovery.internal_request_context()
+            requester_context = self._runtime.capability_discovery.internal_request_context().model_copy(
+                update={
+                    "governance_app_id": SUBSCRIPTION_MANAGER_APP_ID,
+                    "governance_capability_scope": SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+                    "governance_capability_id": declared.capability_id,
+                }
+            )
             intent_resolution = self._resolve_declared_intent(
                 declared,
                 conversation_snapshot=snapshot,
@@ -221,6 +226,8 @@ class AstraChatGateway:
                     intent_resolution=intent_resolution,
                     observed_at=timestamp,
                 )
+            if tuple(intent_resolution.resolved_capability_ids) != (declared.capability_id,):
+                raise AstraChatGatewayError("Resolved intent capability lineage does not match declared execution capability.")
             bound = self._runtime.read_authority.authorize_subscription_manager_read(
                 authenticated_context=authenticated_context,
                 conversation_engine=self._conversation_engine,
@@ -248,6 +255,25 @@ class AstraChatGateway:
                 db=subscription_manager_db,
                 authenticated_user=authenticated_context.authenticated_user,
             )
+            structured = _structured_result(result)
+            return AstraChatResponse(
+                conversation_id=conversation_id,
+                turn_id=turn_id,
+                status=AstraChatStatus.OK,
+                resolved_intent=intent_resolution.intent_id,
+                capability_id=declared.capability_id,
+                response_kind=AstraChatResponseKind.SUBSCRIPTION_READ_RESULT,
+                message=_message(result),
+                structured_result=structured,
+                reason_codes=tuple(_bounded_reason_codes((*result.reason_codes, "astra_chat_orchestration"))),
+                clarification_required=False,
+                evidence_references=tuple(
+                    _bounded_references((*intent_resolution.evidence_references, *result.evidence_references))
+                ),
+                authorization_decision_reference=bound.authorization_decision.authorization_decision_id,
+                governance_decision_reference=bound.authorization_decision.governance_decision_reference,
+                observed_at=timestamp,
+            )
         except (
             AstraChatGatewayError,
             AstraConversationContextError,
@@ -266,26 +292,6 @@ class AstraChatGateway:
                 reason_codes=("governed_read_denied",),
                 observed_at=timestamp,
             )
-
-        structured = _structured_result(result)
-        return AstraChatResponse(
-            conversation_id=conversation_id,
-            turn_id=turn_id,
-            status=AstraChatStatus.OK,
-            resolved_intent=intent_resolution.intent_id,
-            capability_id=declared.capability_id,
-            response_kind=AstraChatResponseKind.SUBSCRIPTION_READ_RESULT,
-            message=_message(result),
-            structured_result=structured,
-            reason_codes=tuple(_bounded_reason_codes((*result.reason_codes, "astra_chat_orchestration"))),
-            clarification_required=False,
-            evidence_references=tuple(
-                _bounded_references((*intent_resolution.evidence_references, *result.evidence_references))
-            ),
-            authorization_decision_reference=bound.authorization_decision.authorization_decision_id,
-            governance_decision_reference=bound.authorization_decision.governance_decision_reference,
-            observed_at=timestamp,
-        )
 
     def _prepare_turn(
         self,
@@ -336,7 +342,7 @@ class AstraChatGateway:
             conversation_snapshot=conversation_snapshot,
             declared_action=declared.declared_action,
             declared_subject=declared.declared_subject,
-            declared_target=None,
+            declared_target=declared.capability_id,
             declared_parameters=tuple(
                 AstraBoundDeclaredIntentParameter(name=item.name, value_reference=item.value_reference)
                 for item in parameters
@@ -351,8 +357,11 @@ class AstraChatGateway:
             request_reference=current_turn.request_reference,
             declared_action=declared.declared_action,
             declared_subject=declared.declared_subject,
-            declared_target=None,
+            declared_target=declared.capability_id,
             declared_parameters=parameters,
+            declared_capability_ids=(declared.capability_id,),
+            governance_app_id=SUBSCRIPTION_MANAGER_APP_ID,
+            governance_capability_scope=SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
             declared_intent_binding=binding,
             constitutional_requirements=_chat_requirements(),
             timestamp=observed_at,
@@ -468,11 +477,13 @@ def _value_reference(parameter: AstraChatDeclaredParameter) -> str:
 
 
 def _structured_result(result: AstraReadExecutionResult) -> dict[str, Any]:
+    summary = _project_mapping(result.summary, allowed_keys=_ALLOWED_SUMMARY_KEYS)
+    records = [_project_mapping(record, allowed_keys=_ALLOWED_RECORD_KEYS) for record in result.records]
     return {
         "status": result.status.value,
         "result_kind": result.result_kind,
-        "summary": dict(result.summary),
-        "records": [dict(record) for record in result.records],
+        "summary": summary,
+        "records": records,
         "record_count": result.record_count,
         "returned_count": result.returned_count,
         "truncated": result.truncated,
@@ -514,23 +525,68 @@ def _bounded_references(values: tuple[str, ...]) -> tuple[str, ...]:
     return tuple(value for value in values if isinstance(value, str) and len(value) <= 160)[:20]
 
 
-def _validate_safe_payload(value: Any) -> None:
-    serialized = json.dumps(value, default=str, sort_keys=True).lower()
-    prohibited = (
-        "authorization: bearer",
-        "api_key",
-        "password",
-        "private_key",
-        "provider_" + "payload",
-        "raw_" + "pro" + "mpt",
-        "secret",
-        "ses" + "sion",
-        "s" + "ql",
-        "token",
-        "traceback",
-    )
-    if any(item in serialized for item in prohibited):
-        raise AstraChatGatewayError("Astra chat response contains prohibited private material.")
+_ALLOWED_SUMMARY_KEYS = frozenset(
+    {
+        "aggregation_policy",
+        "annual_estimate",
+        "answer_type",
+        "calculation_basis",
+        "category",
+        "comparison_policy",
+        "count",
+        "currency",
+        "groups",
+        "items",
+        "mixed_currency_policy",
+        "monthly_estimate",
+        "record_count",
+        "returned_count",
+        "subject",
+        "totals",
+        "truncated",
+    }
+)
+_ALLOWED_RECORD_KEYS = frozenset(
+    {
+        "annual_estimate",
+        "auto_renew",
+        "billing_amount",
+        "billing_frequency",
+        "category",
+        "currency",
+        "id",
+        "monthly_estimate",
+        "name",
+        "next_billing_date",
+        "provider",
+        "recurring_amount",
+        "status",
+        "subscription",
+    "subscription_count",
+    }
+)
+_ALLOWED_PROJECT_KEYS = _ALLOWED_SUMMARY_KEYS | _ALLOWED_RECORD_KEYS
+
+
+def _project_mapping(value: dict[str, Any], *, allowed_keys: frozenset[str]) -> dict[str, Any]:
+    projected = {}
+    for key, item in value.items():
+        if key not in allowed_keys:
+            raise AstraChatGatewayError("Astra chat response projection contains an unsupported field.")
+        projected[key] = _project_value(item, allowed_keys=_ALLOWED_PROJECT_KEYS)
+    return projected
+
+
+def _project_value(value: Any, *, allowed_keys: frozenset[str]) -> Any:
+    if isinstance(value, dict):
+        return _project_mapping(value, allowed_keys=allowed_keys)
+    if isinstance(value, list):
+        return [_project_value(item, allowed_keys=allowed_keys) for item in value]
+    if isinstance(value, tuple):
+        return [_project_value(item, allowed_keys=allowed_keys) for item in value]
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    raise AstraChatGatewayError("Astra chat response projection contains unsupported value material.")
 
 
 def _digest(value: str) -> str:

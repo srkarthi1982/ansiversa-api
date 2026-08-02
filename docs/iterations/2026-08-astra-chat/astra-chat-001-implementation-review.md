@@ -1,8 +1,11 @@
 # ASTRA-CHAT-001 Implementation Review
 
-Status: Implemented / Pending Astra Review
+Status: Changes Required / Pending Astra Re-Review
 
 Product Owner authorization: Approved on 2026-08-02.
+
+Astra re-review `4838627730` required corrections against backend commit
+`d5c4c127c7c2fed254f7ee5463331306ca4d413b`.
 
 ## Summary
 
@@ -79,7 +82,10 @@ subscription.group_by_category
 ```
 
 Intent Resolution remains the certified declared-intent resolver. Capability
-Discovery remains metadata-only. For this initial simple read path:
+Discovery remains metadata-only. The declared capability is bound as the
+declared target, carried in the intent request's bounded declared capability
+set, resolved into `resolved_capability_ids`, and revalidated by Read Authority
+Binding before execution. For this initial simple read path:
 
 ```text
 plan_reference = None
@@ -121,11 +127,33 @@ ASTRA-READ-EXEC-001 remains certified/approved.
 Capability Discovery remains metadata-only. Intent Resolution remains
 declared-intent only. Planning remains metadata-only and non-executable.
 
-The only parent-adjacent adjustment is narrow metadata governance binding:
-Runtime-internal Capability Discovery and declared Subscription Manager
-`get_information` intent governance now carry the certified
-`subscription_manager:private_read` activation context, without adding
-execution authority to either component.
+The parent-adjacent correction removes ambient Subscription Manager activation
+from generic metadata engines. Capability Discovery and Intent Resolution stay
+app-agnostic by default. Chat supplies explicit per-request orchestration
+context for `subscription_manager`, `subscription_manager:private_read`, and
+the exact declared capability only for the bounded chat request.
+
+Read Authority Binding now requires exact resolved capability lineage:
+
+```text
+declared capability
+    -> declared-intent binding target
+    -> AstraIntentRequest declared target
+    -> resolved_capability_ids
+    -> Read Authority adapter_capability_id
+    -> Read Execution adapter_capability_id
+```
+
+Mismatched, changed, or reused capability lineage fails closed.
+
+## Response Projection
+
+Chat response protection is structural. The gateway projects Subscription
+Manager results through allowlisted summary and record fields and rejects
+unsupported private metadata keys. It does not keyword-scan app-owned business
+values, so legitimate values such as `1Password` and `SQL Server` remain
+returnable when the governed capability authorizes those fields. Projection
+failures are converted to bounded non-success chat responses.
 
 ## Failure Behavior
 
@@ -141,19 +169,19 @@ No fallback ungoverned execution exists.
 
 ```text
 .venv/bin/python -m pytest tests/test_astra_chat_gateway.py -q
-12 passed, 1 warning
+21 passed, 1 warning
 
 .venv/bin/python -m pytest tests/test_astra_intent_resolution_engine.py tests/test_astra_capability_discovery_engine.py -q
 48 passed
 
 .venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_conversation_context_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_capability_discovery_engine.py tests/test_astra_planning_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_chat_gateway.py -q
-261 passed, 1 warning, 11 subtests passed
+270 passed, 1 warning, 11 subtests passed
 
 .venv/bin/python -m compileall app/modules/astra_ai app/modules/auth app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_chat_gateway.py
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-417 passed, 147 warnings, 33 subtests passed in 438.66s
+426 passed, 147 warnings, 33 subtests passed in 463.16s
 ```
 
 ## Explicit Non-Goals

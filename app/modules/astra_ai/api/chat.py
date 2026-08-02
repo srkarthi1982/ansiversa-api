@@ -23,8 +23,12 @@ from app.modules.subscription_manager.dependencies import SubscriptionManagerDB
 
 router = APIRouter()
 ASTRA_CHAT_ROUTE_PREFIX = "/astra/chat"
-ALLOWED_CHAT_ENVIRONMENTS = {"local", "development", "test", "qa", "preview", "staging"}
-PRODUCTION_ENVIRONMENTS = {"production"}
+ALLOWED_CHAT_ENVIRONMENT_SCOPES = {
+    EnvironmentScope.LOCAL,
+    EnvironmentScope.DEVELOPMENT,
+    EnvironmentScope.QA,
+    EnvironmentScope.STAGING,
+}
 
 
 class AstraChatRuntimeService:
@@ -60,12 +64,6 @@ chat_runtime_service = AstraChatRuntimeService()
 
 
 def validate_astra_chat_access(app_settings: Settings = settings) -> None:
-    environment = astra_chat_environment(app_settings)
-    if environment not in ALLOWED_CHAT_ENVIRONMENTS:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail={"code": "astra_chat_unavailable", "message": "Astra chat is unavailable in this environment."},
-        )
     try:
         loaded = load_astra_configuration(app_settings=app_settings)
     except AstraConfigurationError as exc:
@@ -73,7 +71,7 @@ def validate_astra_chat_access(app_settings: Settings = settings) -> None:
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"code": "astra_chat_unavailable", "message": "Astra chat requires a valid environment boundary."},
         ) from exc
-    if loaded.configuration.environment_scope is EnvironmentScope.PRODUCTION:
+    if loaded.configuration.environment_scope not in ALLOWED_CHAT_ENVIRONMENT_SCOPES:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail={"code": "astra_chat_unavailable", "message": "Astra chat is not available in production."},
@@ -92,18 +90,15 @@ def validate_astra_chat_access(app_settings: Settings = settings) -> None:
         ) from exc
 
 
-def astra_chat_environment(app_settings: Settings = settings) -> str | None:
-    app_env = app_settings.APP_ENV.strip().lower()
-    vercel_env = (app_settings.VERCEL_ENV or "").strip().lower()
-    if app_env in PRODUCTION_ENVIRONMENTS or vercel_env in PRODUCTION_ENVIRONMENTS:
-        return "production"
-    if vercel_env:
-        return vercel_env if vercel_env in ALLOWED_CHAT_ENVIRONMENTS else None
-    return app_env if app_env in ALLOWED_CHAT_ENVIRONMENTS else None
+def astra_chat_environment(app_settings: Settings = settings) -> EnvironmentScope | None:
+    try:
+        return load_astra_configuration(app_settings=app_settings).configuration.environment_scope
+    except AstraConfigurationError:
+        return None
 
 
 def should_register_astra_chat_routes(app_settings: Settings = settings) -> bool:
-    return astra_chat_environment(app_settings) in ALLOWED_CHAT_ENVIRONMENTS
+    return astra_chat_environment(app_settings) in ALLOWED_CHAT_ENVIRONMENT_SCOPES
 
 
 def require_astra_chat_gateway() -> AstraChatGateway:

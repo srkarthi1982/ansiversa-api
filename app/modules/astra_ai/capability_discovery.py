@@ -7,10 +7,6 @@ from typing import TYPE_CHECKING, Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from app.modules.astra_ai.activation import (
-    SUBSCRIPTION_MANAGER_APP_ID,
-    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
-)
 from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
 from app.modules.astra_ai.constitutional_contracts import (
     ApprovalState,
@@ -102,6 +98,9 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
     conversation_id: str | None = Field(default=None, pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
     maximum_visibility: AstraCapabilityVisibility
     governance_reference: ConstitutionalRequirementReference
+    governance_app_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.-]{2,80}$")
+    governance_capability_scope: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{2,120}$")
+    governance_capability_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{2,120}$")
     authority_token: Any | None = Field(default=None, exclude=True)
 
     @model_validator(mode="after")
@@ -120,6 +119,16 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
         if self.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
             if not self.authenticated or self.runtime_instance_id is None or self.authority_token is None:
                 raise AstraCapabilityDiscoveryError("Internal runtime discovery context requires trusted runtime ownership.")
+        context_values = (
+            self.governance_app_id,
+            self.governance_capability_scope,
+            self.governance_capability_id,
+        )
+        if any(value is not None for value in context_values):
+            if self.requester_class is not AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
+                raise AstraCapabilityDiscoveryError("Governed discovery context requires internal runtime ownership.")
+            if any(value is None for value in context_values):
+                raise AstraCapabilityDiscoveryError("Governed discovery context must bind app, scope, and capability.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 
@@ -332,7 +341,7 @@ class AstraCapabilityDiscoveryEngine:
         request_context: AstraCapabilityDiscoveryRequestContext,
     ):
         operation_sequence = self._operation_sequence + 1
-        internal_runtime = request_context.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME
+        governed_context = request_context.governance_app_id is not None
         result = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"{operation_prefix}-{operation_sequence:03d}",
@@ -346,16 +355,14 @@ class AstraCapabilityDiscoveryEngine:
                 requested_authority_class=AuthorityClass.READ_ONLY,
                 safety_classification=(
                     SafetyClassification.PRIVATE_READ
-                    if internal_runtime
+                    if governed_context
                     else SafetyClassification.PUBLIC
                 ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
-                requested_app_id=SUBSCRIPTION_MANAGER_APP_ID if internal_runtime else None,
-                requested_capability_scope=(
-                    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE if internal_runtime else None
-                ),
+                requested_app_id=request_context.governance_app_id,
+                requested_capability_scope=request_context.governance_capability_scope,
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=timestamp,
             )

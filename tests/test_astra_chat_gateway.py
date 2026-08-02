@@ -12,10 +12,12 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 from starlette.requests import Request
 
-from app.core.config import Settings
-from app.core.database import ParentBase
+from app.core.config import Settings, settings
+from app.core.database import ParentBase, get_parent_db
 from app.main import create_app
 from app.modules.astra_ai.activation import load_runtime_activation
+from app.modules.astra_ai import configuration as configuration_module
+from app.modules.astra_ai.api.chat import chat_runtime_service, should_register_astra_chat_routes
 from app.modules.astra_ai.chat_gateway import (
     AstraChatDeclaredIntent,
     AstraChatDeclaredParameter,
@@ -28,12 +30,28 @@ from app.modules.astra_ai.configuration import _validate_astra_configuration_can
 from app.modules.astra_ai.runtime import AstraRuntime
 from app.modules.auth.models import Role, User
 from app.modules.auth.service import create_user_token, get_authenticated_user_context
-from app.modules.subscription_manager.db import SubscriptionManagerBase
+from app.modules.subscription_manager.db import SubscriptionManagerBase, get_subscription_manager_db
 from app.modules.subscription_manager.models import SubscriptionCategory, SubscriptionRecord
 
 
 NOW = datetime(2026, 8, 2, 13, 0, tzinfo=timezone.utc)
 RUNTIME_ID = "astra_rt_" + "d" * 32
+
+
+def setup_function():
+    chat_runtime_service.shutdown()
+    configuration_module._authoritative_astra_configuration.cache_clear()
+    settings.APP_ENV = "development"
+    settings.VERCEL_ENV = None
+    settings.ASTRA_NONPROD_READ_ENABLED = "true"
+
+
+def teardown_function():
+    chat_runtime_service.shutdown()
+    configuration_module._authoritative_astra_configuration.cache_clear()
+    settings.APP_ENV = "development"
+    settings.VERCEL_ENV = None
+    settings.ASTRA_NONPROD_READ_ENABLED = "false"
 
 
 def runtime() -> AstraRuntime:
@@ -89,7 +107,12 @@ def auth_context(user_id: str = "user-a", *, status: str = "active"):
     return get_authenticated_user_context(request, bearer_token=token, db=db)
 
 
-def subscription_db(owner_id: str = "user-a"):
+def subscription_db(
+    owner_id: str = "user-a",
+    *,
+    active_name: str = "Netflix",
+    active_provider: str = "Netflix",
+):
     engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
     SubscriptionManagerBase.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
@@ -102,8 +125,8 @@ def subscription_db(owner_id: str = "user-a"):
                 id=f"sub-active-{owner_id}",
                 owner_id=owner_id,
                 category_id=category.id,
-                name="Netflix",
-                provider="Netflix",
+                name=active_name,
+                provider=active_provider,
                 billing_amount=10,
                 currency_code="AED",
                 billing_frequency="monthly",
@@ -139,6 +162,13 @@ def gateway():
     return AstraChatGateway(runtime=runtime())
 
 
+def http_client(parent_db, subscriptions_db) -> TestClient:
+    app = create_app()
+    app.dependency_overrides[get_parent_db] = lambda: parent_db
+    app.dependency_overrides[get_subscription_manager_db] = lambda: subscriptions_db
+    return TestClient(app)
+
+
 def test_authenticated_declared_subscription_intent_executes_real_governed_path():
     instance = runtime()
     chat = AstraChatGateway(runtime=instance)
@@ -157,6 +187,8 @@ def test_authenticated_declared_subscription_intent_executes_real_governed_path(
     assert response.structured_result["summary"]["count"] == 1
     assert response.authorization_decision_reference
     assert response.governance_decision_reference
+    assert response.resolved_intent
+    assert response.structured_result["records"] == []
     assert "astra_chat_orchestration" in response.reason_codes
     assert "governed_read_execution_bridge" in response.reason_codes
 
@@ -269,6 +301,46 @@ def test_chat_gateway_cannot_bypass_read_authority_or_read_execution():
     assert "governed_read_denied" in denied.reason_codes
 
 
+def test_exact_resolved_capability_lineage_is_required_for_read_authority():
+    chat = gateway()
+    context = auth_context("user-a")
+    db = subscription_db("user-a")
+    original = chat.runtime.intent_resolution.resolve
+
+    def mismatched_resolution(*args, **kwargs):
+        resolution = original(*args, **kwargs)
+        return resolution.model_copy(update={"resolved_capability_ids": ("subscription.count_all",)})
+
+    with patch.object(chat.runtime.intent_resolution, "resolve", side_effect=mismatched_resolution):
+        denied = chat.handle(
+            chat_request("subscription.count_active"),
+            authenticated_context=context,
+            subscription_manager_db=db,
+        )
+
+    assert denied.status is AstraChatStatus.DENIED
+    assert "governed_read_denied" in denied.reason_codes
+
+
+def test_reusing_resolved_intent_for_another_subscription_capability_fails_closed():
+    chat = gateway()
+    context = auth_context("user-a")
+    db = subscription_db("user-a")
+
+    with patch.object(chat.runtime.read_authority, "authorize_subscription_manager_read") as authorize:
+        authorize.side_effect = lambda **values: chat.runtime.authorize_subscription_manager_read(
+            **(values | {"adapter_capability_id": "subscription.count_all"})
+        )
+        denied = chat.handle(
+            chat_request("subscription.count_active"),
+            authenticated_context=context,
+            subscription_manager_db=db,
+        )
+
+    assert denied.status is AstraChatStatus.DENIED
+    assert "governed_read_denied" in denied.reason_codes
+
+
 def test_caller_supplied_user_or_owner_id_cannot_change_ownership():
     with pytest.raises(ValidationError):
         AstraChatRequest.model_validate(
@@ -294,6 +366,42 @@ def test_caller_supplied_user_or_owner_id_cannot_change_ownership():
     )
     assert response.status is AstraChatStatus.OK
     assert response.structured_result["summary"]["count"] == 0
+
+
+def test_legitimate_business_values_are_not_rejected_by_keyword_scanning():
+    response = gateway().handle(
+        chat_request("subscription.list_active"),
+        authenticated_context=auth_context("user-a"),
+        subscription_manager_db=subscription_db("user-a", active_name="1Password", active_provider="SQL Server"),
+    )
+
+    assert response.status is AstraChatStatus.OK
+    assert response.structured_result is not None
+    record = response.structured_result["records"][0]
+    assert record["name"] == "1Password"
+    assert record["provider"] == "SQL Server"
+
+
+def test_response_projection_failure_returns_bounded_non_success():
+    chat = gateway()
+    context = auth_context("user-a")
+    db = subscription_db("user-a")
+    original = chat.runtime.read_execution.execute
+
+    def unsupported_projection(*args, **kwargs):
+        result = original(*args, **kwargs)
+        return result.model_copy(update={"summary": dict(result.summary) | {"runtime_handle": "private"}})
+
+    with patch.object(chat.runtime.read_execution, "execute", side_effect=unsupported_projection):
+        response = chat.handle(
+            chat_request("subscription.count_active"),
+            authenticated_context=context,
+            subscription_manager_db=db,
+        )
+
+    assert response.status is AstraChatStatus.DENIED
+    assert response.response_kind.value == "governed_denial"
+    assert "governed_read_denied" in response.reason_codes
 
 
 def test_parameter_field_and_row_limit_escalation_fail_closed():
@@ -351,3 +459,98 @@ def test_unauthenticated_api_request_fails_before_chat_gateway_authority():
     )
 
     assert response.status_code == 401
+
+
+def test_authenticated_http_chat_success_uses_real_dependency_wiring():
+    parent_db, authenticated_user = auth_db_user("user-http")
+    token = create_user_token(authenticated_user).access_token
+    subscriptions = subscription_db(
+        "user-http",
+        active_name="1Password",
+        active_provider="SQL Server",
+    )
+    client = http_client(parent_db, subscriptions)
+
+    response = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"declared_intent": {"capability_id": "subscription.list_active"}},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "ok"
+    assert body["capability_id"] == "subscription.list_active"
+    assert body["structured_result"]["returned_count"] == 1
+    assert body["structured_result"]["records"][0]["name"] == "1Password"
+    assert body["structured_result"]["records"][0]["provider"] == "SQL Server"
+    assert body["authorization_decision_reference"]
+    assert body["governance_decision_reference"]
+
+
+def test_http_chat_disabled_activation_fails_closed_without_success():
+    settings.ASTRA_NONPROD_READ_ENABLED = "false"
+    configuration_module._authoritative_astra_configuration.cache_clear()
+    parent_db, authenticated_user = auth_db_user("user-disabled")
+    token = create_user_token(authenticated_user).access_token
+    client = http_client(parent_db, subscription_db("user-disabled"))
+
+    response = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"declared_intent": {"capability_id": "subscription.count_active"}},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] != "ok"
+    assert body["structured_result"] is None
+
+
+def test_http_chat_production_route_is_not_registered():
+    chat_runtime_service.shutdown()
+    settings.APP_ENV = "production"
+    settings.VERCEL_ENV = None
+    configuration_module._authoritative_astra_configuration.cache_clear()
+
+    assert not should_register_astra_chat_routes(settings)
+    response = TestClient(create_app()).post(
+        "/api/v1/astra/chat",
+        json={"declared_intent": {"capability_id": "subscription.count_active"}},
+    )
+
+    assert response.status_code == 404
+
+
+def test_authenticated_http_chat_does_not_return_foreign_user_data():
+    parent_db, authenticated_user = auth_db_user("user-http-foreign")
+    token = create_user_token(authenticated_user).access_token
+    client = http_client(parent_db, subscription_db("other-user"))
+
+    response = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"declared_intent": {"capability_id": "subscription.count_active"}},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "ok"
+    assert body["structured_result"]["summary"]["count"] == 0
+
+
+def test_authenticated_http_chat_unsupported_capability_is_bounded():
+    parent_db, authenticated_user = auth_db_user("user-http-unsupported")
+    token = create_user_token(authenticated_user).access_token
+    client = http_client(parent_db, subscription_db("user-http-unsupported"))
+
+    response = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"declared_intent": {"capability_id": "subscription.unknown"}},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "capability_unavailable"
+    assert "unsupported_capability" in body["reason_codes"]

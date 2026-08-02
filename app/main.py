@@ -672,12 +672,9 @@ def _should_register_astra_diagnostics_routes() -> bool:
 
 
 def _should_register_astra_chat_routes() -> bool:
-    app_env = settings.APP_ENV.strip().lower()
-    vercel_env = (settings.VERCEL_ENV or "").strip().lower()
-    if app_env == "production" or vercel_env == "production":
-        return False
-    environment = vercel_env or app_env
-    return environment in {"local", "development", "test", "qa", "preview", "staging"}
+    from app.modules.astra_ai.api.chat import should_register_astra_chat_routes
+
+    return should_register_astra_chat_routes(settings)
 
 
 def create_app() -> FastAPI:

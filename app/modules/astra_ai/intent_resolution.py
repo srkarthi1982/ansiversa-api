@@ -8,10 +8,6 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from app.modules.astra_ai.activation import (
-    SUBSCRIPTION_MANAGER_APP_ID,
-    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
-)
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryRequestContext,
     AstraCapabilityStatus,
@@ -97,6 +93,9 @@ class AstraIntentRequest(BaseModel):
     declared_subject: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_target: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_parameters: tuple[AstraDeclaredIntentParameter, ...] = Field(default_factory=tuple, max_length=12)
+    declared_capability_ids: tuple[str, ...] = Field(default_factory=tuple, max_length=20)
+    governance_app_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.-]{2,80}$")
+    governance_capability_scope: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{2,120}$")
     declared_intent_binding: Any = Field(exclude=True)
     constitutional_requirements: tuple[ConstitutionalRequirementReference, ...] = Field(min_length=1, max_length=20)
     timestamp: datetime
@@ -108,6 +107,14 @@ class AstraIntentRequest(BaseModel):
         names = tuple(item.name for item in self.declared_parameters)
         if len(names) != len(set(names)):
             raise AstraIntentResolutionError("Declared parameter names must be unique.")
+        if len(self.declared_capability_ids) != len(set(self.declared_capability_ids)):
+            raise AstraIntentResolutionError("Declared capability IDs must be unique.")
+        if (self.governance_app_id is None) != (self.governance_capability_scope is None):
+            raise AstraIntentResolutionError("Governed intent context must bind app and scope together.")
+        if self.governance_app_id is not None and (
+            self.declared_target is None or self.declared_target not in self.declared_capability_ids
+        ):
+            raise AstraIntentResolutionError("Governed intent context requires a declared bounded target capability.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 
@@ -209,7 +216,7 @@ class AstraIntentResolutionEngine:
             planning_candidate = False
             confidence = AstraIntentConfidence.UNSUPPORTED
 
-        subscription_private_read = _subscription_private_read_intent(request)
+        governed_context = request.governance_app_id is not None
         governance = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"INTENT-GOV-{self._sequence + 1:03d}",
@@ -217,16 +224,14 @@ class AstraIntentResolutionEngine:
                 requested_authority_class=AuthorityClass.ADVISORY,
                 safety_classification=(
                     SafetyClassification.PRIVATE_READ
-                    if subscription_private_read
+                    if governed_context
                     else SafetyClassification.PUBLIC
                 ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
-                requested_app_id=SUBSCRIPTION_MANAGER_APP_ID if subscription_private_read else None,
-                requested_capability_scope=(
-                    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE if subscription_private_read else None
-                ),
+                requested_app_id=request.governance_app_id,
+                requested_capability_scope=request.governance_capability_scope,
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=request.timestamp,
             )
@@ -250,7 +255,7 @@ class AstraIntentResolutionEngine:
             status,
             confidence,
             category,
-            tuple(item.capability_id for item in capabilities),
+            tuple(_resolved_capability_id(item) for item in capabilities),
             outcome,
             governance.decision.decision_id,
             governance.decision.failure_posture,
@@ -312,11 +317,16 @@ class AstraIntentResolutionEngine:
     def _match_capabilities(self, request, capabilities):
         if request.declared_target is None:
             return ()
-        return tuple(
+        matched_metadata = tuple(
             item
             for item in capabilities
             if item.status is AstraCapabilityStatus.AVAILABLE and item.capability_id == request.declared_target
         )
+        if matched_metadata:
+            return matched_metadata
+        if request.declared_target in request.declared_capability_ids:
+            return (request.declared_target,)
+        return ()
 
     def _validate_conversation(self, request, engine, snapshot):
         from app.modules.astra_ai.conversation_context import (
@@ -481,14 +491,10 @@ def _canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
 
 
+def _resolved_capability_id(value):
+    return value if isinstance(value, str) else value.capability_id
+
+
 def _aware(value):
     if value.tzinfo is None or value.utcoffset() is None:
         raise AstraIntentResolutionError("Intent timestamp must be timezone-aware.")
-
-
-def _subscription_private_read_intent(request: AstraIntentRequest) -> bool:
-    subject = request.declared_subject or ""
-    return (
-        request.declared_action == "get_information"
-        and subject in {"subscription", "subscriptions", "subscription_manager"}
-    )

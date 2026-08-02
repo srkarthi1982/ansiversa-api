@@ -132,7 +132,12 @@ def conversation(instance: AstraRuntime):
     return engine, engine.get_conversation("conv_read_auth_0001")
 
 
-def resolved_intent(instance: AstraRuntime, engine: AstraConversationContextEngine, snapshot):
+def resolved_intent(
+    instance: AstraRuntime,
+    engine: AstraConversationContextEngine,
+    snapshot,
+    capability_id: str = "subscription.count_active",
+):
     return AstraIntentResolution(
         intent_id="intent_" + "1" * 24,
         intent_request_id="intent_req_read_auth_0001",
@@ -142,7 +147,7 @@ def resolved_intent(instance: AstraRuntime, engine: AstraConversationContextEngi
         intent_status=AstraIntentStatus.RESOLVED,
         intent_confidence=AstraIntentConfidence.EXACT_MATCH,
         intent_category=AstraIntentCategory.INFORMATION_REQUEST,
-        resolved_capability_ids=(),
+        resolved_capability_ids=(capability_id,),
         clarification_required=False,
         planning_eligible=False,
         governance_outcome=GovernanceOutcome.ALLOW,
