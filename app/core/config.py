@@ -190,6 +190,7 @@ class Settings(BaseSettings):
     ASSISTANT_MAX_CONTEXT_CHARS: int = Field(default=3500, ge=500, le=10000)
     ASTRA_PERSONAL_DATA_TOOLS_ENABLED: bool = False
     ASTRA_DIAGNOSTICS_API_ENABLED: bool = False
+    ASTRA_NONPROD_READ_ENABLED: str = "false"
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )
