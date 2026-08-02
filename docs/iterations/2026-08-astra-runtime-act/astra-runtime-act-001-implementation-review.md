@@ -1,14 +1,25 @@
 # ASTRA-RUNTIME-ACT-001 Implementation Review
 
-Status: Implemented / Changes Required / Pending Astra Re-Review.
+Status: Certified / Approved.
 
 Date: 2026-08-02.
+
+Certification Commit: `a15b3192572cd5a1f3e265652e4778967755b787`.
+
+Certification Review: PR #2 Astra review `4837966223`.
+
+Repository State At Certification: PR #2 open, draft, unmerged, and mergeable.
 
 ## Summary
 
 ASTRA-RUNTIME-ACT-001 adds a separate governed non-production activation layer
 for the first narrow Astra operational capability. It preserves the Stage-0
 global disabled baseline and does not turn Astra on globally.
+
+Final Astra re-review certified the implementation after the exact Runtime
+owner binding correction. Activation issuer ownership requires a nominal
+`AstraRuntime`, matching startup instance id, and exact Runtime-owned activation
+authority; owner-shaped fake objects are rejected.
 
 ## Changed Runtime Surface
 

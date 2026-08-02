@@ -1,8 +1,14 @@
 # ASTRA-RUNTIME-ACT-001 — Governed Non-Production Runtime Activation
 
-Status: Implemented / Changes Required / Pending Astra Re-Review.
+Status: Certified / Approved.
 
 Date: 2026-08-02.
+
+Certification Commit: `a15b3192572cd5a1f3e265652e4778967755b787`.
+
+Certification Review: PR #2 Astra review `4837966223`.
+
+Repository State At Certification: PR #2 open, draft, unmerged, and mergeable.
 
 ## Objective
 
@@ -87,7 +93,7 @@ checks still apply.
 ## Current Downstream State
 
 ```text
-ASTRA-READ-AUTH-BIND-001    Paused pending activation review/certification
+ASTRA-READ-AUTH-BIND-001    May resume from preserved stash / Paused
 ASTRA-CHAT-001              Authorized / Paused
 Production                  NOT APPROVED
 ```
