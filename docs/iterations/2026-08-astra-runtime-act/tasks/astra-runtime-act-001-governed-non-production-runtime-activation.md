@@ -1,6 +1,6 @@
 # ASTRA-RUNTIME-ACT-001 — Governed Non-Production Runtime Activation
 
-Status: Implemented / Pending Astra Review.
+Status: Implemented / Changes Required / Pending Astra Re-Review.
 
 Date: 2026-08-02.
 
@@ -46,6 +46,12 @@ Runtime loads activation at startup and injects Runtime-owned activation context
 into governance evaluation. Callers cannot activate Runtime behavior through API
 input, mutable Runtime state, database rows, frontend controls, or caller-owned
 tokens.
+
+After Astra review, activation authority is exact-object Runtime ownership, not
+matching metadata. The Runtime-owned issuer creates the activation, the
+Governance Kernel validates the exact issued object plus safe
+`activation_reference` and `activation_digest`, and Runtime shutdown invalidates
+the issuer. There is no short TTL or restart-dependent renewal path.
 
 ## Governance Boundary
 

@@ -104,6 +104,8 @@ class GovernanceEvaluationInput(BaseModel):
     runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
     requested_app_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.-]{2,80}$")
     requested_capability_scope: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{2,120}$")
+    activation_reference: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9:._/-]{2,200}$")
+    activation_digest: str | None = Field(default=None, pattern=r"^sha256:[a-f0-9]{64}$")
     consent_state: ConsentState = ConsentState.NOT_REQUIRED
     configuration_id: str = Field(pattern=r"^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d{3}$")
     configuration_version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
@@ -213,6 +215,11 @@ def _activation_covers(input_contract: GovernanceEvaluationInput) -> bool:
         return False
     if input_contract.requested_capability_scope != SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE:
         return False
+    if not activation.validates_runtime_ownership(
+        activation_reference=input_contract.activation_reference,
+        activation_digest_value=input_contract.activation_digest,
+    ):
+        return False
     return activation.covers(
         runtime_instance_id=input_contract.runtime_instance_id,
         authority_class=input_contract.requested_authority_class,
@@ -313,12 +320,19 @@ def _build_decision_evidence(
         retention_class=RetentionClass.GOVERNANCE_RECORD,
         integrity=EvidenceIntegrityMetadata(
             source_system="astra_ai:governance",
-            provenance_reference=f"{input_contract.configuration_id}:{input_contract.configuration_version}",
+            provenance_reference=_governance_provenance_reference(input_contract),
             content_digest=f"sha256:{payload_digest}",
         ),
         correction=EvidenceCorrectionMetadata(evidence_version=GOVERNANCE_KERNEL_VERSION),
         redaction_status=RedactionStatus.NOT_REQUIRED,
     )
+
+
+def _governance_provenance_reference(input_contract: GovernanceEvaluationInput) -> str:
+    configuration = f"{input_contract.configuration_id}:{input_contract.configuration_version}"
+    if input_contract.activation_reference is None:
+        return configuration
+    return f"{configuration}/{input_contract.activation_reference}"
 
 
 def _evidence_id(input_contract: GovernanceEvaluationInput) -> str:

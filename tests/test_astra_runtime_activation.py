@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 import pytest
@@ -14,8 +14,10 @@ from app.modules.astra_ai.activation import (
     SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
     AstraRuntimeActivationContract,
     AstraRuntimeActivationError,
+    AstraRuntimeActivationIssuer,
     AstraRuntimeActivationSource,
     AstraRuntimeActivationStatus,
+    activation_digest,
     load_runtime_activation,
 )
 from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
@@ -53,11 +55,11 @@ def activation(
     runtime_instance_id: str = RUNTIME_ID,
     environment_scope: EnvironmentScope = EnvironmentScope.DEVELOPMENT,
     issued_at: datetime = NOW,
-    expires_at: datetime | None = None,
 ) -> AstraRuntimeActivationContract:
     return AstraRuntimeActivationContract(
         activation_id=ASTRA_RUNTIME_ACTIVATION_ID,
         activation_version=ASTRA_RUNTIME_ACTIVATION_VERSION,
+        activation_instance_id="astra_act_" + "1" * 32,
         enabled=True,
         status=AstraRuntimeActivationStatus.ACTIVE,
         runtime_instance_id=runtime_instance_id,
@@ -72,9 +74,31 @@ def activation(
         adaptation_use=RuntimeUseState.DISABLED,
         write_use=RuntimeUseState.DISABLED,
         issued_at=issued_at,
-        expires_at=expires_at or issued_at + timedelta(minutes=15),
-        source=AstraRuntimeActivationSource.TEST_OVERRIDE,
+        source=AstraRuntimeActivationSource.SERVER_CONFIGURATION,
+        issuer_reference="runtime-activation:test",
     )
+
+
+def issued_activation(
+    *,
+    runtime_instance_id: str = RUNTIME_ID,
+    environment_scope: EnvironmentScope = EnvironmentScope.DEVELOPMENT,
+    issued_at: datetime = NOW,
+) -> AstraRuntimeActivationContract:
+    issuer = AstraRuntimeActivationIssuer(
+        runtime_instance_id=runtime_instance_id,
+        issuer_reference="runtime-activation:test",
+        _runtime_authority=object(),
+    )
+    return issuer.issue(environment_scope=environment_scope, issued_at=issued_at)
+
+
+def activation_context_values(value: AstraRuntimeActivationContract) -> dict[str, object]:
+    return {
+        "activation_context": value,
+        "activation_reference": value.activation_reference,
+        "activation_digest": f"sha256:{activation_digest(value)}",
+    }
 
 
 def governance_input(**changes) -> GovernanceEvaluationInput:
@@ -87,6 +111,8 @@ def governance_input(**changes) -> GovernanceEvaluationInput:
         runtime_instance_id=RUNTIME_ID,
         requested_app_id=SUBSCRIPTION_MANAGER_APP_ID,
         requested_capability_scope=SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+        activation_reference=None,
+        activation_digest=None,
         configuration_id=ASTRA_CONFIGURATION_ID,
         configuration_version=ASTRA_CONFIGURATION_VERSION,
         production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
@@ -129,11 +155,17 @@ def test_malformed_activation_flag_fails_closed():
     ),
 )
 def test_nonproduction_activation_loads_for_allowed_environments(environment_scope):
+    issuer = AstraRuntimeActivationIssuer(
+        runtime_instance_id=RUNTIME_ID,
+        issuer_reference="runtime-activation:test",
+        _runtime_authority=object(),
+    )
     loaded = load_runtime_activation(
         runtime_instance_id=RUNTIME_ID,
         environment_scope=environment_scope,
         app_settings=settings_for(enabled="true"),
         loaded_at=NOW,
+        activation_issuer=issuer,
     )
     assert loaded is not None
     assert loaded.enabled is True
@@ -158,6 +190,11 @@ def test_production_activation_is_always_prohibited():
             environment_scope=EnvironmentScope.PRODUCTION,
             app_settings=settings_for(app_env="production", enabled="true"),
             loaded_at=NOW,
+            activation_issuer=AstraRuntimeActivationIssuer(
+                runtime_instance_id=RUNTIME_ID,
+                issuer_reference="runtime-activation:test",
+                _runtime_authority=object(),
+            ),
         )
 
 
@@ -172,8 +209,65 @@ def test_real_governance_fails_without_activation_and_allows_exact_valid_activat
     no_activation = evaluate_governance(governance_input())
     assert no_activation.decision.outcome is GovernanceOutcome.FAIL_CLOSED
 
-    with_activation = evaluate_governance(governance_input(activation_context=activation()))
+    exact = issued_activation()
+    with_activation = evaluate_governance(governance_input(**activation_context_values(exact)))
     assert with_activation.decision.outcome is GovernanceOutcome.ALLOW
+
+
+def test_reconstructed_and_copied_activation_do_not_authorize_direct_governance():
+    reconstructed = activation()
+    assert evaluate_governance(
+        governance_input(**activation_context_values(reconstructed))
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+
+    exact = issued_activation()
+    copied = exact.model_copy()
+    assert evaluate_governance(
+        governance_input(**activation_context_values(copied))
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+
+    tampered = exact.model_copy(update={"requested_app_id": "subscription_manager"})
+    assert evaluate_governance(
+        governance_input(**activation_context_values(tampered))
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+
+
+def test_modified_activation_reference_or_digest_fails():
+    exact = issued_activation()
+    assert evaluate_governance(
+        governance_input(
+            **(
+                activation_context_values(exact)
+                | {"activation_reference": "ASTRA-RUNTIME-ACT-001:1.0.0:astra_rt_77777777777777777777777777777777:astra_act_22222222222222222222222222222222"}
+            )
+        )
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+    assert evaluate_governance(
+        governance_input(
+            **(
+                activation_context_values(exact)
+                | {"activation_digest": "sha256:" + "0" * 64}
+            )
+        )
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+
+
+def test_activation_evidence_contains_safe_provenance_without_authority_material():
+    exact = issued_activation()
+    result = evaluate_governance(governance_input(**activation_context_values(exact)))
+    assert result.decision.outcome is GovernanceOutcome.ALLOW
+    assert exact.activation_reference in result.evidence.integrity.provenance_reference
+    payload = result.evidence.model_dump_json()
+    assert exact.activation_reference in payload
+    assert f"sha256:{activation_digest(exact)}" in governance_input(**activation_context_values(exact)).model_dump_json()
+    assert "_runtime_activation_issuer" not in payload
+    assert "runtime_authority" not in payload
+
+
+def test_no_activation_evidence_does_not_claim_activation():
+    result = evaluate_governance(governance_input())
+    assert result.decision.outcome is GovernanceOutcome.FAIL_CLOSED
+    assert "ASTRA-RUNTIME-ACT-001" not in result.evidence.integrity.provenance_reference
 
 
 @pytest.mark.parametrize(
@@ -193,38 +287,34 @@ def test_real_governance_fails_without_activation_and_allows_exact_valid_activat
     ),
 )
 def test_real_governance_rejects_invalid_activated_scope(changes):
-    result = evaluate_governance(governance_input(activation_context=activation(), **changes))
+    result = evaluate_governance(governance_input(**activation_context_values(issued_activation()), **changes))
     assert result.decision.outcome is not GovernanceOutcome.ALLOW
 
 
-def test_real_governance_rejects_foreign_and_expired_activation():
+def test_real_governance_rejects_foreign_activation():
     foreign = evaluate_governance(
-        governance_input(activation_context=activation(runtime_instance_id="astra_rt_" + "8" * 32))
+        governance_input(**activation_context_values(issued_activation(runtime_instance_id="astra_rt_" + "8" * 32)))
     )
     assert foreign.decision.outcome is GovernanceOutcome.FAIL_CLOSED
 
-    expired = evaluate_governance(
-        governance_input(
-            activation_context=activation(
-                issued_at=NOW - timedelta(minutes=20),
-                expires_at=NOW - timedelta(minutes=1),
-            )
-        )
-    )
-    assert expired.decision.outcome is GovernanceOutcome.FAIL_CLOSED
-
 
 def test_runtime_owns_loaded_activation_and_ignores_forged_input_context():
-    active = activation(runtime_instance_id=RUNTIME_ID)
-    forged = activation(runtime_instance_id="astra_rt_" + "9" * 32)
-    with patch("app.modules.astra_ai.runtime.load_runtime_activation", return_value=active):
+    forged = issued_activation(runtime_instance_id="astra_rt_" + "9" * 32)
+
+    def enabled_loader(**values):
+        return load_runtime_activation(
+            **values,
+            app_settings=settings_for(enabled="true"),
+        )
+
+    with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
         runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
         runtime.startup()
     try:
         snapshot = runtime.health(observed_at=NOW).activation
         assert snapshot is not None
         assert snapshot.status is AstraRuntimeActivationStatus.ACTIVE
-        result = runtime.evaluate_governance(governance_input(activation_context=forged))
+        result = runtime.evaluate_governance(governance_input(**activation_context_values(forged)))
         assert result.decision.outcome is GovernanceOutcome.ALLOW
     finally:
         runtime.shutdown()
@@ -241,3 +331,29 @@ def test_runtime_without_loaded_activation_keeps_governance_fail_closed():
         assert result.decision.outcome is GovernanceOutcome.FAIL_CLOSED
     finally:
         runtime.shutdown()
+
+
+def test_runtime_lifecycle_bound_activation_remains_available_and_shutdown_invalidates_it():
+    captured: dict[str, AstraRuntimeActivationContract] = {}
+
+    def enabled_loader(**values):
+        result = load_runtime_activation(
+            **values,
+            app_settings=settings_for(enabled="true"),
+        )
+        captured["activation"] = result
+        return result
+
+    with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
+        runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
+        runtime.startup()
+    exact = captured["activation"]
+    try:
+        later = datetime(2026, 8, 3, 10, 0, tzinfo=timezone.utc)
+        result = runtime.evaluate_governance(governance_input(evaluation_timestamp=later))
+        assert result.decision.outcome is GovernanceOutcome.ALLOW
+    finally:
+        runtime.shutdown()
+
+    after_shutdown = evaluate_governance(governance_input(**activation_context_values(exact)))
+    assert after_shutdown.decision.outcome is GovernanceOutcome.FAIL_CLOSED

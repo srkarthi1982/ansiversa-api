@@ -10,7 +10,9 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.modules.astra_ai.activation import (
     AstraRuntimeActivationContract,
+    AstraRuntimeActivationIssuer,
     AstraRuntimeActivationSnapshot,
+    activation_digest,
     activation_snapshot,
     load_runtime_activation,
 )
@@ -476,6 +478,7 @@ class AstraRuntime:
         self._evidence_sink_capacity = evidence_sink_capacity
         self._configuration: LoadedAstraConfiguration | None = None
         self._activation: AstraRuntimeActivationContract | None = None
+        self._activation_issuer: AstraRuntimeActivationIssuer | None = None
         self._governance = None
         self._evidence_sink: InMemoryEvidenceSink | None = None
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
@@ -485,6 +488,7 @@ class AstraRuntime:
         self._read_execution_bridge: AstraReadExecutionBridge | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
+        self._activation_authority = object()
         self._read_issuer_authority = object()
         self._read_execution_registration_authority = object()
         self._read_execution_request_authority = object()
@@ -570,6 +574,8 @@ class AstraRuntime:
             update={
                 "runtime_instance_id": self._identity.startup_instance_id,
                 "activation_context": self._activation,
+                "activation_reference": self._activation.activation_reference if self._activation else None,
+                "activation_digest": f"sha256:{activation_digest(self._activation)}" if self._activation else None,
             }
         )
         return self._governance(runtime_owned_input)
@@ -773,7 +779,8 @@ class AstraRuntime:
             loaded_configuration = self._load_configuration()
             self._validate_configuration_boundary(loaded_configuration)
             startup_timestamp = loaded_configuration.provenance.loaded_at
-            activation = self._load_activation(loaded_configuration, startup_timestamp)
+            activation_issuer = self._create_activation_issuer()
+            activation = self._load_activation(loaded_configuration, startup_timestamp, activation_issuer)
             registry = _ComponentRegistry()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
@@ -842,6 +849,7 @@ class AstraRuntime:
 
             self._configuration = loaded_configuration
             self._activation = activation
+            self._activation_issuer = activation_issuer
             self._governance = evaluate_governance
             self._evidence_sink = evidence_sink
             self._capability_discovery = capability_discovery
@@ -956,11 +964,20 @@ class AstraRuntime:
         self,
         loaded_configuration: LoadedAstraConfiguration,
         loaded_at: datetime,
+        activation_issuer: AstraRuntimeActivationIssuer,
     ) -> AstraRuntimeActivationContract | None:
         return load_runtime_activation(
             runtime_instance_id=self._identity.startup_instance_id,
             environment_scope=loaded_configuration.configuration.environment_scope,
             loaded_at=loaded_at,
+            activation_issuer=activation_issuer,
+        )
+
+    def _create_activation_issuer(self) -> AstraRuntimeActivationIssuer:
+        return AstraRuntimeActivationIssuer(
+            runtime_instance_id=self._identity.startup_instance_id,
+            issuer_reference="runtime-activation:astra-runtime-act-001",
+            _runtime_authority=self._activation_authority,
         )
 
     def _create_evidence_sink(self, loaded_configuration: LoadedAstraConfiguration) -> InMemoryEvidenceSink:
@@ -1031,8 +1048,11 @@ class AstraRuntime:
         self._state = next_state
 
     def _clear_owned_components(self) -> None:
+        if self._activation_issuer is not None:
+            self._activation_issuer.invalidate()
         self._configuration = None
         self._activation = None
+        self._activation_issuer = None
         self._governance = None
         self._evidence_sink = None
         self._capability_discovery = None
