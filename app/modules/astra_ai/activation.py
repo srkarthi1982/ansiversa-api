@@ -47,6 +47,21 @@ class AstraRuntimeActivationSource(StrEnum):
     SERVER_CONFIGURATION = "server_configuration"
 
 
+def _is_exact_runtime_owner(
+    value: object | None,
+    *,
+    runtime_instance_id: str,
+    runtime_authority: object,
+) -> bool:
+    from app.modules.astra_ai.runtime import AstraRuntime
+
+    return (
+        isinstance(value, AstraRuntime)
+        and value.identity.startup_instance_id == runtime_instance_id
+        and value._activation_issuer_authority is runtime_authority
+    )
+
+
 class AstraRuntimeActivationIssuer:
     def __init__(
         self,
@@ -58,8 +73,11 @@ class AstraRuntimeActivationIssuer:
     ) -> None:
         if (
             _runtime_authority is None
-            or _runtime_owner is None
-            or getattr(_runtime_owner, "_activation_issuer_authority", None) is not _runtime_authority
+            or not _is_exact_runtime_owner(
+                _runtime_owner,
+                runtime_instance_id=runtime_instance_id,
+                runtime_authority=_runtime_authority,
+            )
         ):
             raise AstraRuntimeActivationError("Runtime activation issuers require Runtime-owned authority.")
         self.runtime_instance_id = runtime_instance_id
@@ -129,6 +147,12 @@ class AstraRuntimeActivationIssuer:
         )
 
     def _runtime_owner_validates_issuer(self) -> bool:
+        if not _is_exact_runtime_owner(
+            self._runtime_owner,
+            runtime_instance_id=self.runtime_instance_id,
+            runtime_authority=self._runtime_authority,
+        ):
+            return False
         validator = getattr(self._runtime_owner, "_validates_activation_issuer", None)
         return bool(callable(validator) and validator(self))
 

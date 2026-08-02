@@ -48,12 +48,14 @@ input, mutable Runtime state, database rows, frontend controls, or caller-owned
 tokens.
 
 After Astra review, activation authority is exact-object Runtime ownership, not
-matching metadata. The activation issuer itself is bound to the exact opaque
-activation issuer authority owned by the live `AstraRuntime` startup instance;
-caller-created issuers using caller-owned `_runtime_authority=object()` are
-rejected, and the standalone trusted issuer factory was removed. Direct issuer
-issuance also requires Runtime authority, so activation minting remains behind
-`load_runtime_activation()` and the server-owned activation flag. The
+matching metadata. The activation issuer itself is bound to a nominal
+`AstraRuntime` owner, the Runtime owner's startup instance id, and the exact
+opaque activation issuer authority owned by the live `AstraRuntime` startup
+instance; caller-created issuers using caller-owned
+`_runtime_authority=object()` are rejected, owner-shaped fake Runtime objects
+are rejected, and the standalone trusted issuer factory was removed. Direct
+issuer issuance also requires Runtime authority, so activation minting remains
+behind `load_runtime_activation()` and the server-owned activation flag. The
 Governance Kernel validates the exact issued object plus safe
 `activation_reference` and `activation_digest`, the exact issuer must be
 registered to the live Runtime, and Runtime shutdown invalidates the issuer.

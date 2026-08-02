@@ -155,6 +155,24 @@ def test_caller_created_activation_issuer_is_rejected():
         )
 
 
+def test_owner_shaped_fake_runtime_cannot_create_activation_issuer():
+    authority = object()
+
+    class FakeOwner:
+        _activation_issuer_authority = authority
+
+        def _validates_activation_issuer(self, issuer):
+            return True
+
+    with pytest.raises(AstraRuntimeActivationError):
+        AstraRuntimeActivationIssuer(
+            runtime_instance_id=RUNTIME_ID,
+            issuer_reference="caller",
+            _runtime_authority=authority,
+            _runtime_owner=FakeOwner(),
+        )
+
+
 def test_standalone_activation_issuer_factory_is_not_exposed():
     assert not hasattr(activation_module, "create_runtime_activation_issuer")
 
