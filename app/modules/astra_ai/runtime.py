@@ -14,6 +14,7 @@ from app.modules.astra_ai.activation import (
     AstraRuntimeActivationSnapshot,
     activation_digest,
     activation_snapshot,
+    create_runtime_activation_issuer,
     load_runtime_activation,
 )
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
@@ -488,7 +489,6 @@ class AstraRuntime:
         self._read_execution_bridge: AstraReadExecutionBridge | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
-        self._activation_authority = object()
         self._read_issuer_authority = object()
         self._read_execution_registration_authority = object()
         self._read_execution_request_authority = object()
@@ -974,10 +974,9 @@ class AstraRuntime:
         )
 
     def _create_activation_issuer(self) -> AstraRuntimeActivationIssuer:
-        return AstraRuntimeActivationIssuer(
+        return create_runtime_activation_issuer(
             runtime_instance_id=self._identity.startup_instance_id,
             issuer_reference="runtime-activation:astra-runtime-act-001",
-            _runtime_authority=self._activation_authority,
         )
 
     def _create_evidence_sink(self, loaded_configuration: LoadedAstraConfiguration) -> InMemoryEvidenceSink:

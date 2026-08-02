@@ -48,10 +48,12 @@ input, mutable Runtime state, database rows, frontend controls, or caller-owned
 tokens.
 
 After Astra review, activation authority is exact-object Runtime ownership, not
-matching metadata. The Runtime-owned issuer creates the activation, the
-Governance Kernel validates the exact issued object plus safe
-`activation_reference` and `activation_digest`, and Runtime shutdown invalidates
-the issuer. There is no short TTL or restart-dependent renewal path.
+matching metadata. The activation issuer itself is bound to a module-private
+Runtime activation issuer root-of-trust; caller-created issuers using
+caller-owned `_runtime_authority=object()` are rejected. The Runtime factory
+creates the issuer, the Governance Kernel validates the exact issued object plus
+safe `activation_reference` and `activation_digest`, and Runtime shutdown
+invalidates the issuer. There is no short TTL or restart-dependent renewal path.
 
 ## Governance Boundary
 
