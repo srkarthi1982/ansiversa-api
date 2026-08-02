@@ -238,6 +238,25 @@ class AstraCapabilityDiscoveryEngine:
         include_deprecated: bool = False,
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
+        if request_context.governed_metadata_context is not None:
+            raise AstraCapabilityDiscoveryError("Governed metadata discovery requires conversation-bound validation.")
+        return self._discover_capabilities(
+            request_context=request_context,
+            requested_visibility=requested_visibility,
+            include_disabled=include_disabled,
+            include_deprecated=include_deprecated,
+            discovered_at=discovered_at,
+        )
+
+    def _discover_capabilities(
+        self,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        requested_visibility: AstraCapabilityVisibility | None = None,
+        include_disabled: bool = False,
+        include_deprecated: bool = False,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityDiscoveryResult:
         timestamp = discovered_at or _utc_now()
         _ensure_timezone_aware(timestamp, "Capability discovery timestamp")
         self._require_runtime_ready()
@@ -261,6 +280,21 @@ class AstraCapabilityDiscoveryEngine:
         )
 
     def get_capability(
+        self,
+        capability_id: str,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        discovered_at: datetime | None = None,
+    ) -> AstraCapabilityMetadata:
+        if request_context.governed_metadata_context is not None:
+            raise AstraCapabilityDiscoveryError("Governed metadata lookup requires conversation-bound validation.")
+        return self._get_capability(
+            capability_id,
+            request_context=request_context,
+            discovered_at=discovered_at,
+        )
+
+    def _get_capability(
         self,
         capability_id: str,
         *,
@@ -301,7 +335,7 @@ class AstraCapabilityDiscoveryEngine:
             )
         context = request_context.model_copy(update=context_update)
         self._validate_request_context(context)
-        return self.discover_capabilities(request_context=context, discovered_at=discovered_at)
+        return self._discover_capabilities(request_context=context, discovered_at=discovered_at)
 
     def health(self, *, observed_at: datetime | None = None) -> AstraCapabilityHealthSnapshot:
         timestamp = observed_at or _utc_now()

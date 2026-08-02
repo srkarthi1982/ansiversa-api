@@ -30,6 +30,17 @@ carry the same exact Runtime-issued metadata context object as the intent
 request. Two separately valid contexts cannot be split across the same metadata
 governance lineage.
 
+Astra review `4839092431` found one alternate raw entry-point gap at backend
+commit `ea8ff94d04dffd22c249de181c3145c2817f8e36`.
+
+The final correction keeps raw generic Capability Discovery APIs generic but
+makes them fail closed when a governed metadata context is supplied. Raw
+`discover_capabilities(...)` and `get_capability(...)` do not receive a
+certified conversation snapshot, so they cannot establish current-turn/request
+truth for PRIVATE_READ metadata Governance. Governed metadata context is accepted
+only through `discover_for_conversation(...)` after exact conversation snapshot
+validation.
+
 ## Backend Surface
 
 New module:
@@ -100,6 +111,10 @@ the context against the actual current conversation turn and request reference
 from the certified snapshot. It still returns only generic metadata registry
 entries and does not register executable app capabilities.
 
+Raw generic Capability Discovery entry points reject governed metadata contexts.
+They remain available for existing app-agnostic metadata behavior when no
+governed context is supplied.
+
 Intent Resolution remains declared-intent only. It may resolve the exact
 certified app capability only when:
 
@@ -130,16 +145,16 @@ ASTRA-CHAT-001 remains Changes Required / paused.
 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py -q
-11 passed
+14 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py tests/test_astra_runtime_activation.py tests/test_astra_capability_discovery_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_conversation_context_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py -q
-166 passed, 11 subtests passed
+169 passed, 11 subtests passed
 
 .venv/bin/python -m pytest tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py -q
 64 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py tests/test_astra_runtime_activation.py tests/test_astra_capability_discovery_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_conversation_context_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_planning_engine.py tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py -q
-260 passed, 11 subtests passed
+263 passed, 11 subtests passed
 
 .venv/bin/python -m compileall app/modules/astra_ai app/modules/auth app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_metadata_activation_binding.py
 passed
@@ -148,7 +163,7 @@ git diff --check
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-416 passed, 147 warnings, 33 subtests passed
+419 passed, 147 warnings, 33 subtests passed
 ```
 
 ## Explicit Non-Goals

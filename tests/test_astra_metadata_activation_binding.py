@@ -141,6 +141,17 @@ def request_context(instance: AstraRuntime, context: AstraGovernedMetadataContex
     return base.model_copy(update={"governed_metadata_context": context})
 
 
+def raw_replay_request_context(instance: AstraRuntime, context: AstraGovernedMetadataContext):
+    return instance.capability_discovery.internal_request_context().model_copy(
+        update={
+            "governed_metadata_context": context,
+            "conversation_id": context.conversation_id,
+            "current_turn_reference": context.current_turn_reference,
+            "request_reference": context.request_reference,
+        }
+    )
+
+
 def intent_request(instance: AstraRuntime, engine: AstraConversationContextEngine, snapshot, context, target=None):
     current_turn = snapshot.current_turn
     target = target or context.capability_id
@@ -328,6 +339,69 @@ def test_capability_discovery_rejects_stale_turn_and_request_contexts():
             conversation_snapshot=snapshot_c,
             request_context=request_context(instance, context_a),
             discovered_at=NOW + timedelta(seconds=4),
+        )
+
+
+def test_raw_metadata_entry_points_reject_stale_governed_context_replay():
+    instance = runtime()
+    engine, snapshot_a = conversation(instance, "0001")
+    context_a = issue_context(instance, engine, snapshot_a)
+    conversation_id = snapshot_a.metadata.conversation_id
+    record_turn(engine, conversation_id, suffix="0002", received_at=NOW + timedelta(seconds=1))
+    replay_context = raw_replay_request_context(instance, context_a)
+
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.discover_capabilities(
+            request_context=replay_context,
+            discovered_at=NOW + timedelta(seconds=2),
+        )
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.get_capability(
+            "cap_conversation_context_0001",
+            request_context=replay_context,
+            discovered_at=NOW + timedelta(seconds=2),
+        )
+
+
+@pytest.mark.parametrize(
+    "terminal_state",
+    (AstraConversationLifecycleState.CLOSED, AstraConversationLifecycleState.FAULTED),
+)
+def test_raw_metadata_entry_points_reject_closed_or_faulted_conversation_replay(terminal_state):
+    instance = runtime()
+    engine, snapshot = conversation(instance, f"{terminal_state.value}_0001")
+    context = issue_context(instance, engine, snapshot)
+    conversation_id = snapshot.metadata.conversation_id
+    if terminal_state is AstraConversationLifecycleState.CLOSED:
+        engine.transition_conversation(
+            conversation_id,
+            AstraConversationLifecycleState.CLOSING,
+            transitioned_at=NOW + timedelta(seconds=1),
+            summary_reference="conversation:closing",
+            entry_id=f"ctx_meta_bind_closing_{terminal_state.value}",
+        )
+        transitioned_at = NOW + timedelta(seconds=2)
+    else:
+        transitioned_at = NOW + timedelta(seconds=1)
+    engine.transition_conversation(
+        conversation_id,
+        terminal_state,
+        transitioned_at=transitioned_at,
+        summary_reference=f"conversation:{terminal_state.value}",
+        entry_id=f"ctx_meta_bind_{terminal_state.value}",
+    )
+    replay_context = raw_replay_request_context(instance, context)
+
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.discover_capabilities(
+            request_context=replay_context,
+            discovered_at=NOW + timedelta(seconds=3),
+        )
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.get_capability(
+            "cap_conversation_context_0001",
+            request_context=replay_context,
+            discovered_at=NOW + timedelta(seconds=3),
         )
 
 
