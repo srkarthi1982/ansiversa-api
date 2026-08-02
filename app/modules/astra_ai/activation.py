@@ -30,7 +30,6 @@ ALLOWED_NONPRODUCTION_ENVIRONMENTS = (
     EnvironmentScope.QA,
     EnvironmentScope.STAGING,
 )
-_RUNTIME_ACTIVATION_ISSUER_AUTHORITY = object()
 _REGISTERED_RUNTIME_ACTIVATION_ISSUERS: dict[tuple[str, str], set["AstraRuntimeActivationIssuer"]] = {}
 
 
@@ -55,12 +54,18 @@ class AstraRuntimeActivationIssuer:
         runtime_instance_id: str,
         issuer_reference: str,
         _runtime_authority: object | None = None,
+        _runtime_owner: object | None = None,
     ) -> None:
-        if _runtime_authority is not _RUNTIME_ACTIVATION_ISSUER_AUTHORITY:
+        if (
+            _runtime_authority is None
+            or _runtime_owner is None
+            or getattr(_runtime_owner, "_activation_issuer_authority", None) is not _runtime_authority
+        ):
             raise AstraRuntimeActivationError("Runtime activation issuers require Runtime-owned authority.")
         self.runtime_instance_id = runtime_instance_id
         self.issuer_reference = issuer_reference
         self._runtime_authority = _runtime_authority
+        self._runtime_owner = _runtime_owner
         self._issued: dict[str, AstraRuntimeActivationContract] = {}
         self._active = True
         registry_key = (self.runtime_instance_id, self.issuer_reference)
@@ -72,9 +77,12 @@ class AstraRuntimeActivationIssuer:
         environment_scope: EnvironmentScope,
         issued_at: datetime,
         source: AstraRuntimeActivationSource = AstraRuntimeActivationSource.SERVER_CONFIGURATION,
+        _runtime_authority: object | None = None,
     ) -> "AstraRuntimeActivationContract":
         if not self._active:
             raise AstraRuntimeActivationError("Runtime activation issuer is inactive.")
+        if _runtime_authority is not self._runtime_authority:
+            raise AstraRuntimeActivationError("Runtime activation issuance requires Runtime-owned authority.")
         activation = AstraRuntimeActivationContract(
             activation_id=ASTRA_RUNTIME_ACTIVATION_ID,
             activation_version=ASTRA_RUNTIME_ACTIVATION_VERSION,
@@ -111,6 +119,7 @@ class AstraRuntimeActivationIssuer:
             self._active
             and isinstance(activation, AstraRuntimeActivationContract)
             and activation._runtime_activation_issuer is self
+            and self._runtime_owner_validates_issuer()
             and self in _REGISTERED_RUNTIME_ACTIVATION_ISSUERS.get(
                 (self.runtime_instance_id, self.issuer_reference), set()
             )
@@ -118,6 +127,10 @@ class AstraRuntimeActivationIssuer:
             and activation_digest_value == f"sha256:{activation_digest(activation)}"
             and self._issued.get(activation.activation_reference) is activation
         )
+
+    def _runtime_owner_validates_issuer(self) -> bool:
+        validator = getattr(self._runtime_owner, "_validates_activation_issuer", None)
+        return bool(callable(validator) and validator(self))
 
     def invalidate(self) -> None:
         self._active = False
@@ -270,6 +283,7 @@ def load_runtime_activation(
     loaded_at: datetime | None = None,
     source: AstraRuntimeActivationSource = AstraRuntimeActivationSource.SERVER_CONFIGURATION,
     activation_issuer: AstraRuntimeActivationIssuer | None = None,
+    activation_issue_authority: object | None = None,
 ) -> AstraRuntimeActivationContract | None:
     flag = _parse_activation_flag(getattr(app_settings, "ASTRA_NONPROD_READ_ENABLED", "false"))
     if not flag:
@@ -282,18 +296,7 @@ def load_runtime_activation(
         environment_scope=environment_scope,
         issued_at=timestamp,
         source=source,
-    )
-
-
-def create_runtime_activation_issuer(
-    *,
-    runtime_instance_id: str,
-    issuer_reference: str,
-) -> AstraRuntimeActivationIssuer:
-    return AstraRuntimeActivationIssuer(
-        runtime_instance_id=runtime_instance_id,
-        issuer_reference=issuer_reference,
-        _runtime_authority=_RUNTIME_ACTIVATION_ISSUER_AUTHORITY,
+        _runtime_authority=activation_issue_authority,
     )
 
 

@@ -44,12 +44,15 @@ overrides caller-supplied activation material.
 ## Astra Review Corrections
 
 Activation is exact Runtime-owned authority. `AstraRuntimeActivationIssuer`
-construction requires a module-private Runtime activation issuer root-of-trust,
-so caller-created issuers using caller-owned objects are rejected before they
-can issue activation. Runtime creates issuers through the private factory,
-issued activation contracts retain exact issuer identity, validation checks that
-the exact issuer remains registered, and Runtime shutdown invalidates the
-issuer registry entry. A structurally valid activation object is not sufficient.
+construction requires the exact opaque activation issuer authority owned by an
+`AstraRuntime` instance. Direct issuer issuance also requires that exact Runtime
+authority, and normal activation issuance happens only through
+`load_runtime_activation()` after the server-owned `ASTRA_NONPROD_READ_ENABLED`
+gate passes. The standalone trusted issuer factory was removed. Runtime startup
+registers the exact issuer, issued activation contracts retain exact issuer
+identity, validation checks that the exact issuer belongs to the live Runtime
+and remains registered, and Runtime shutdown invalidates the issuer registry
+entry. A structurally valid activation object is not sufficient.
 
 Governance requires all three pieces before activation can cover a disabled
 Stage-0 request:
@@ -112,7 +115,10 @@ No governance monkeypatch is used.
 Additional correction tests prove:
 
 ```text
+standalone trusted issuer factory is not exposed
 caller-created activation issuer with caller-owned authority -> construction rejected
+direct issuer issuance without Runtime authority -> rejected
+server-flag-disabled Runtime issuer activation -> FAIL_CLOSED
 caller/reconstructed activation -> direct Governance -> FAIL_CLOSED
 copied activation -> direct Governance -> FAIL_CLOSED
 tampered activation -> direct Governance -> FAIL_CLOSED

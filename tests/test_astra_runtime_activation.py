@@ -7,6 +7,7 @@ import pytest
 from pydantic import ValidationError
 
 from app.core.config import Settings
+from app.modules.astra_ai import activation as activation_module
 from app.modules.astra_ai.activation import (
     ASTRA_RUNTIME_ACTIVATION_ID,
     ASTRA_RUNTIME_ACTIVATION_VERSION,
@@ -18,7 +19,6 @@ from app.modules.astra_ai.activation import (
     AstraRuntimeActivationSource,
     AstraRuntimeActivationStatus,
     activation_digest,
-    create_runtime_activation_issuer,
     load_runtime_activation,
 )
 from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
@@ -151,7 +151,33 @@ def test_caller_created_activation_issuer_is_rejected():
             runtime_instance_id=RUNTIME_ID,
             issuer_reference="caller",
             _runtime_authority=object(),
+            _runtime_owner=object(),
         )
+
+
+def test_standalone_activation_issuer_factory_is_not_exposed():
+    assert not hasattr(activation_module, "create_runtime_activation_issuer")
+
+
+def test_caller_accessible_issuer_cannot_issue_or_authorize_without_runtime_startup():
+    runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
+    issuer = runtime._create_activation_issuer()
+
+    with pytest.raises(AstraRuntimeActivationError):
+        issuer.issue(
+            environment_scope=EnvironmentScope.DEVELOPMENT,
+            issued_at=NOW,
+        )
+
+    activation_from_runtime_authority = issuer.issue(
+        environment_scope=EnvironmentScope.DEVELOPMENT,
+        issued_at=NOW,
+        _runtime_authority=runtime._activation_issuer_authority,
+    )
+    assert evaluate_governance(
+        governance_input(**activation_context_values(activation_from_runtime_authority))
+    ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
+    issuer.invalidate()
 
 
 @pytest.mark.parametrize(
@@ -170,10 +196,8 @@ def test_nonproduction_activation_loads_for_allowed_environments(environment_sco
         EnvironmentScope.QA: "c",
         EnvironmentScope.STAGING: "d",
     }[environment_scope]
-    issuer = create_runtime_activation_issuer(
-        runtime_instance_id=f"astra_rt_{runtime_hex * 32}",
-        issuer_reference="runtime-activation:test",
-    )
+    runtime = AstraRuntime(created_at=NOW, startup_instance_id=f"astra_rt_{runtime_hex * 32}")
+    issuer = runtime._create_activation_issuer()
     try:
         loaded = load_runtime_activation(
             runtime_instance_id=issuer.runtime_instance_id,
@@ -181,6 +205,7 @@ def test_nonproduction_activation_loads_for_allowed_environments(environment_sco
             app_settings=settings_for(enabled="true"),
             loaded_at=NOW,
             activation_issuer=issuer,
+            activation_issue_authority=runtime._activation_issuer_authority,
         )
         assert loaded is not None
         assert loaded.enabled is True
@@ -201,17 +226,18 @@ def test_production_activation_is_always_prohibited():
         app_settings=settings_for(enabled="false"),
         loaded_at=NOW,
     ) is None
+    runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
+    issuer = runtime._create_activation_issuer()
     with pytest.raises((AstraRuntimeActivationError, ValidationError)):
         load_runtime_activation(
             runtime_instance_id=RUNTIME_ID,
             environment_scope=EnvironmentScope.PRODUCTION,
             app_settings=settings_for(app_env="production", enabled="true"),
             loaded_at=NOW,
-            activation_issuer=create_runtime_activation_issuer(
-                runtime_instance_id=RUNTIME_ID,
-                issuer_reference="runtime-activation:test",
-            ),
+            activation_issuer=issuer,
+            activation_issue_authority=runtime._activation_issuer_authority,
         )
+    issuer.invalidate()
 
 
 def test_unknown_environment_fails_closed_in_stage_zero_loader():
@@ -392,6 +418,30 @@ def test_runtime_without_loaded_activation_keeps_governance_fail_closed():
         assert snapshot.status is AstraRuntimeActivationStatus.DISABLED
         result = runtime.evaluate_governance(governance_input())
         assert result.decision.outcome is GovernanceOutcome.FAIL_CLOSED
+    finally:
+        runtime.shutdown()
+
+
+def test_disabled_server_flag_keeps_runtime_issuer_from_authorizing_activation():
+    runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
+    runtime.startup()
+    try:
+        assert runtime._activation is None
+        assert runtime._activation_issuer is not None
+        with pytest.raises(AstraRuntimeActivationError):
+            runtime._activation_issuer.issue(
+                environment_scope=EnvironmentScope.DEVELOPMENT,
+                issued_at=NOW,
+            )
+
+        activation_from_runtime_authority = runtime._activation_issuer.issue(
+            environment_scope=EnvironmentScope.DEVELOPMENT,
+            issued_at=NOW,
+            _runtime_authority=runtime._activation_issuer_authority,
+        )
+        assert evaluate_governance(
+            governance_input(**activation_context_values(activation_from_runtime_authority))
+        ).decision.outcome is GovernanceOutcome.FAIL_CLOSED
     finally:
         runtime.shutdown()
 

@@ -14,7 +14,6 @@ from app.modules.astra_ai.activation import (
     AstraRuntimeActivationSnapshot,
     activation_digest,
     activation_snapshot,
-    create_runtime_activation_issuer,
     load_runtime_activation,
 )
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
@@ -489,6 +488,7 @@ class AstraRuntime:
         self._read_execution_bridge: AstraReadExecutionBridge | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
+        self._activation_issuer_authority = object()
         self._read_issuer_authority = object()
         self._read_execution_registration_authority = object()
         self._read_execution_request_authority = object()
@@ -971,12 +971,15 @@ class AstraRuntime:
             environment_scope=loaded_configuration.configuration.environment_scope,
             loaded_at=loaded_at,
             activation_issuer=activation_issuer,
+            activation_issue_authority=self._activation_issuer_authority,
         )
 
     def _create_activation_issuer(self) -> AstraRuntimeActivationIssuer:
-        return create_runtime_activation_issuer(
+        return AstraRuntimeActivationIssuer(
             runtime_instance_id=self._identity.startup_instance_id,
             issuer_reference="runtime-activation:astra-runtime-act-001",
+            _runtime_authority=self._activation_issuer_authority,
+            _runtime_owner=self,
         )
 
     def _create_evidence_sink(self, loaded_configuration: LoadedAstraConfiguration) -> InMemoryEvidenceSink:
@@ -1039,6 +1042,15 @@ class AstraRuntime:
             and isinstance(issuer, AstraAuthorityProofIssuer)
             and issuer._runtime_authority is self._read_issuer_authority
             and self._read_authority_issuers.get(proof_class) is issuer
+        )
+
+    def _validates_activation_issuer(self, issuer: Any) -> bool:
+        return (
+            self._state is AstraRuntimeState.READY
+            and isinstance(issuer, AstraRuntimeActivationIssuer)
+            and issuer._runtime_authority is self._activation_issuer_authority
+            and self._activation_issuer is issuer
+            and self._activation is not None
         )
 
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
