@@ -7,6 +7,10 @@ from enum import IntEnum, StrEnum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.modules.astra_ai.activation import (
+    AstraRuntimeActivationContract,
+    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+)
 from app.modules.astra_ai.configuration import get_astra_configuration
 from app.modules.astra_ai.constitutional_contracts import (
     ActorOrServiceClass,
@@ -90,13 +94,16 @@ class GovernancePolicyFact(BaseModel):
 
 
 class GovernanceEvaluationInput(BaseModel):
-    model_config = ConfigDict(extra="forbid", frozen=True)
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
 
     evaluation_id: str = Field(pattern=r"^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d{3}$")
     requirement_references: tuple[ConstitutionalRequirementReference, ...] = Field(min_length=1, max_length=20)
     requested_authority_class: AuthorityClass
     safety_classification: SafetyClassification
     approval_state: ApprovalState
+    runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
+    requested_app_id: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.-]{2,80}$")
+    requested_capability_scope: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{2,120}$")
     consent_state: ConsentState = ConsentState.NOT_REQUIRED
     configuration_id: str = Field(pattern=r"^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*-\d{3}$")
     configuration_version: str = Field(pattern=r"^\d+\.\d+\.\d+$")
@@ -109,6 +116,7 @@ class GovernanceEvaluationInput(BaseModel):
     memory_use_requested: bool = False
     adaptation_use_requested: bool = False
     execution_handoff_requested: bool = False
+    activation_context: AstraRuntimeActivationContract | None = Field(default=None, exclude=True)
     evaluation_timestamp: datetime
     evaluation_version: str = Field(default=GOVERNANCE_KERNEL_VERSION, pattern=r"^\d+\.\d+\.\d+$")
 
@@ -191,12 +199,33 @@ def _evaluate_outcome(input_contract, configuration) -> tuple[GovernanceOutcome,
         return _fail_closed(DecisionReasonClass.EXECUTION_AUTHORITY_BOUNDARY)
     if input_contract.safety_classification is SafetyClassification.EXTERNAL_EXPOSURE:
         return _non_allow(GovernanceOutcome.DEFER, DecisionReasonClass.PROVIDER_ELIGIBILITY, FailurePosture.DEFER)
-    if not configuration.feature_enabled:
+    if not configuration.feature_enabled and not _activation_covers(input_contract):
         return _fail_closed(DecisionReasonClass.FAIL_CLOSED_DEFAULT)
     if input_contract.requested_authority_class in {AuthorityClass.READ_ONLY, AuthorityClass.ADVISORY}:
         if input_contract.safety_classification in {SafetyClassification.PUBLIC, SafetyClassification.PRIVATE_READ}:
             return GovernanceOutcome.ALLOW, DecisionReasonClass.LOCAL_SUFFICIENCY, input_contract.requested_failure_posture
     return _non_allow(GovernanceOutcome.CLARIFY, DecisionReasonClass.CONSTITUTIONAL_PRECEDENCE, FailurePosture.CLARIFY)
+
+
+def _activation_covers(input_contract: GovernanceEvaluationInput) -> bool:
+    activation = input_contract.activation_context
+    if activation is None:
+        return False
+    if input_contract.requested_capability_scope != SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE:
+        return False
+    return activation.covers(
+        runtime_instance_id=input_contract.runtime_instance_id,
+        authority_class=input_contract.requested_authority_class,
+        safety_classification=input_contract.safety_classification,
+        app_id=input_contract.requested_app_id,
+        capability_scope=input_contract.requested_capability_scope,
+        production_authorization_state=input_contract.production_authorization_state,
+        provider_requested=input_contract.provider_use_requested,
+        memory_requested=input_contract.memory_use_requested,
+        adaptation_requested=input_contract.adaptation_use_requested,
+        execution_handoff_requested=input_contract.execution_handoff_requested,
+        observed_at=input_contract.evaluation_timestamp,
+    )
 
 
 def _fail_closed(reason_class: DecisionReasonClass) -> tuple[GovernanceOutcome, DecisionReasonClass, FailurePosture]:

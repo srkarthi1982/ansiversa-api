@@ -8,6 +8,12 @@ from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.modules.astra_ai.activation import (
+    AstraRuntimeActivationContract,
+    AstraRuntimeActivationSnapshot,
+    activation_snapshot,
+    load_runtime_activation,
+)
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryEngine,
@@ -218,6 +224,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     diagnostic_projection_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
+    activation: AstraRuntimeActivationSnapshot | None = None
     environment_scope: EnvironmentScope | None = None
     production_authorization_state: ProductionAuthorizationState | None = None
     health_outcome: AstraRuntimeHealthOutcome
@@ -468,6 +475,7 @@ class AstraRuntime:
         self._state = AstraRuntimeState.UNINITIALIZED
         self._evidence_sink_capacity = evidence_sink_capacity
         self._configuration: LoadedAstraConfiguration | None = None
+        self._activation: AstraRuntimeActivationContract | None = None
         self._governance = None
         self._evidence_sink: InMemoryEvidenceSink | None = None
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
@@ -515,6 +523,16 @@ class AstraRuntime:
         return deepcopy(self._configuration)
 
     @property
+    def activation(self) -> AstraRuntimeActivationSnapshot:
+        self._require_ready_component(self._configuration, "configuration")
+        return activation_snapshot(
+            self._activation,
+            runtime_instance_id=self._identity.startup_instance_id,
+            environment_scope=self._configuration.configuration.environment_scope,
+            observed_at=_utc_now(),
+        )
+
+    @property
     def governance(self) -> AstraRuntimeGovernanceInterface:
         return self._governance_interface
 
@@ -548,7 +566,13 @@ class AstraRuntime:
 
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
-        return self._governance(input_contract)
+        runtime_owned_input = input_contract.model_copy(
+            update={
+                "runtime_instance_id": self._identity.startup_instance_id,
+                "activation_context": self._activation,
+            }
+        )
+        return self._governance(runtime_owned_input)
 
     def append_evidence(self, evidence: BoundedEvidence) -> BoundedEvidence:
         self._require_ready_component(self._evidence_sink, "evidence sink")
@@ -749,6 +773,7 @@ class AstraRuntime:
             loaded_configuration = self._load_configuration()
             self._validate_configuration_boundary(loaded_configuration)
             startup_timestamp = loaded_configuration.provenance.loaded_at
+            activation = self._load_activation(loaded_configuration, startup_timestamp)
             registry = _ComponentRegistry()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
@@ -816,6 +841,7 @@ class AstraRuntime:
             registry.seal()
 
             self._configuration = loaded_configuration
+            self._activation = activation
             self._governance = evaluate_governance
             self._evidence_sink = evidence_sink
             self._capability_discovery = capability_discovery
@@ -868,6 +894,16 @@ class AstraRuntime:
         _ensure_timezone_aware(timestamp, "Runtime health timestamp")
         configuration_loaded = self._configuration is not None
         configuration_valid = configuration_loaded and self._is_configuration_valid(self._configuration)
+        activation = (
+            activation_snapshot(
+                self._activation,
+                runtime_instance_id=self._identity.startup_instance_id,
+                environment_scope=self._configuration.configuration.environment_scope,
+                observed_at=timestamp,
+            )
+            if self._configuration is not None
+            else None
+        )
         governance_available = self._governance is not None
         evidence_sink_available = self._evidence_sink is not None
         capability_discovery_available = self._capability_discovery is not None
@@ -901,6 +937,7 @@ class AstraRuntime:
             diagnostic_projection_available=diagnostic_projection_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
+            activation=activation,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
             production_authorization_state=(
                 self._startup_metadata.production_authorization_state if self._startup_metadata is not None else None
@@ -914,6 +951,17 @@ class AstraRuntime:
 
     def _load_configuration(self) -> LoadedAstraConfiguration:
         return get_astra_configuration()
+
+    def _load_activation(
+        self,
+        loaded_configuration: LoadedAstraConfiguration,
+        loaded_at: datetime,
+    ) -> AstraRuntimeActivationContract | None:
+        return load_runtime_activation(
+            runtime_instance_id=self._identity.startup_instance_id,
+            environment_scope=loaded_configuration.configuration.environment_scope,
+            loaded_at=loaded_at,
+        )
 
     def _create_evidence_sink(self, loaded_configuration: LoadedAstraConfiguration) -> InMemoryEvidenceSink:
         return InMemoryEvidenceSink(
@@ -984,6 +1032,7 @@ class AstraRuntime:
 
     def _clear_owned_components(self) -> None:
         self._configuration = None
+        self._activation = None
         self._governance = None
         self._evidence_sink = None
         self._capability_discovery = None
