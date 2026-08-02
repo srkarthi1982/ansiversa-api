@@ -96,6 +96,8 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
     authenticated: bool
     runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
     conversation_id: str | None = Field(default=None, pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
+    current_turn_reference: str | None = Field(default=None, pattern=r"^turn_[a-z0-9][a-z0-9_-]{7,120}$")
+    request_reference: str | None = Field(default=None, pattern=r"^[A-Za-z0-9][A-Za-z0-9:._/-]{2,160}$")
     maximum_visibility: AstraCapabilityVisibility
     governance_reference: ConstitutionalRequirementReference
     governed_metadata_context: Any | None = Field(default=None, exclude=True)
@@ -286,9 +288,18 @@ class AstraCapabilityDiscoveryEngine:
         discovered_at: datetime | None = None,
     ) -> AstraCapabilityDiscoveryResult:
         self._validate_conversation_ownership(conversation_engine, conversation_snapshot)
-        context = request_context.model_copy(
-            update={"conversation_id": conversation_snapshot.metadata.conversation_id}
-        )
+        current_turn = conversation_snapshot.current_turn
+        if request_context.governed_metadata_context is not None and current_turn is None:
+            raise AstraCapabilityDiscoveryError("Governed conversation discovery requires a current turn.")
+        context_update = {"conversation_id": conversation_snapshot.metadata.conversation_id}
+        if current_turn is not None:
+            context_update.update(
+                {
+                    "current_turn_reference": current_turn.turn_id,
+                    "request_reference": current_turn.request_reference,
+                }
+            )
+        context = request_context.model_copy(update=context_update)
         self._validate_request_context(context)
         return self.discover_capabilities(request_context=context, discovered_at=discovered_at)
 
@@ -390,8 +401,8 @@ class AstraCapabilityDiscoveryEngine:
             metadata_context,
             observed_at=timestamp,
             conversation_id=request_context.conversation_id,
-            current_turn_reference=getattr(metadata_context, "current_turn_reference", None),
-            request_reference=getattr(metadata_context, "request_reference", None),
+            current_turn_reference=request_context.current_turn_reference,
+            request_reference=request_context.request_reference,
             app_id=getattr(metadata_context, "app_id", None),
             capability_scope=getattr(metadata_context, "capability_scope", None),
             capability_id=getattr(metadata_context, "capability_id", None),

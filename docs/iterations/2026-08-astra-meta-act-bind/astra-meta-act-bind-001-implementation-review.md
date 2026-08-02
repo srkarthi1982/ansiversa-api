@@ -1,6 +1,6 @@
 # ASTRA-META-ACT-BIND-001 Implementation Review
 
-Status: Implemented / Pending Astra Review
+Status: Changes Required / Pending Astra Re-Review
 
 Product Owner authorization: Approved on 2026-08-02.
 
@@ -13,6 +13,22 @@ non-production activation.
 
 This prerequisite exists so ASTRA-CHAT-001 does not hide parent metadata
 activation changes inside chat.
+
+## Re-Review Correction
+
+Astra review `4839027629` found two missing lifecycle proofs at backend commit
+`7af01bb81a7bfa96d0e3b2d208ea9b4392b54517`.
+
+The correction binds governed Capability Discovery validation to the
+independently verified conversation snapshot current turn and request reference,
+not to values read back from the metadata context being validated. A
+still-unexpired context from turn A cannot govern discovery after the same
+conversation advances to turn B, and stale request-reference reuse fails closed.
+
+Intent Resolution now requires the Capability Discovery requester context to
+carry the same exact Runtime-issued metadata context object as the intent
+request. Two separately valid contexts cannot be split across the same metadata
+governance lineage.
 
 ## Backend Surface
 
@@ -79,9 +95,10 @@ existing certified Stage-0 behavior and do not gain Subscription Manager
 private-read activation.
 
 When a valid context is supplied, Capability Discovery may evaluate metadata
-governance with the context's exact app and capability scope. It still returns
-only generic metadata registry entries and does not register executable app
-capabilities.
+governance with the context's exact app and capability scope only after checking
+the context against the actual current conversation turn and request reference
+from the certified snapshot. It still returns only generic metadata registry
+entries and does not register executable app capabilities.
 
 Intent Resolution remains declared-intent only. It may resolve the exact
 certified app capability only when:
@@ -92,6 +109,7 @@ conversation/turn/request == context
 Runtime/app/scope/version == context
 context is exact Runtime-issued object
 context is not expired
+Capability Discovery requester context carries the same exact context object
 ```
 
 ## Parent Preservation
@@ -112,16 +130,16 @@ ASTRA-CHAT-001 remains Changes Required / paused.
 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py -q
-9 passed
+11 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py tests/test_astra_runtime_activation.py tests/test_astra_capability_discovery_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_conversation_context_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py -q
-164 passed, 11 subtests passed
+166 passed, 11 subtests passed
 
 .venv/bin/python -m pytest tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py -q
 64 passed
 
 .venv/bin/python -m pytest tests/test_astra_metadata_activation_binding.py tests/test_astra_runtime_activation.py tests/test_astra_capability_discovery_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_conversation_context_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_planning_engine.py tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py -q
-258 passed, 11 subtests passed
+260 passed, 11 subtests passed
 
 .venv/bin/python -m compileall app/modules/astra_ai app/modules/auth app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_metadata_activation_binding.py
 passed
@@ -130,7 +148,7 @@ git diff --check
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-414 passed, 147 warnings, 33 subtests passed
+416 passed, 147 warnings, 33 subtests passed
 ```
 
 ## Explicit Non-Goals

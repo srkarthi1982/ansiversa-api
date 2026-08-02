@@ -182,6 +182,7 @@ class AstraIntentResolutionEngine:
         self._validate_conversation(request, conversation_engine, conversation_snapshot)
         self._validate_declared_intent_binding(request, conversation_engine, conversation_snapshot)
         self._validate_governed_metadata_context(request, conversation_snapshot)
+        self._validate_discovery_context_binding(request, requester_context)
         discovery = self._runtime.discover_capabilities_for_conversation(
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
@@ -405,6 +406,17 @@ class AstraIntentResolutionEngine:
             raise AstraIntentResolutionError("Governed metadata context is not valid for intent resolution.")
         if snapshot.current_turn is None or metadata_context.current_turn_reference != snapshot.current_turn.turn_id:
             raise AstraIntentResolutionError("Governed metadata context turn does not match intent resolution.")
+        if metadata_context.request_reference != snapshot.current_turn.request_reference:
+            raise AstraIntentResolutionError("Governed metadata context request does not match intent resolution.")
+
+    def _validate_discovery_context_binding(self, request, requester_context):
+        discovery_context = getattr(requester_context, "governed_metadata_context", None)
+        if request.governed_metadata_context is None:
+            if discovery_context is not None:
+                raise AstraIntentResolutionError("Governed discovery context requires matching governed intent context.")
+            return
+        if discovery_context is not request.governed_metadata_context:
+            raise AstraIntentResolutionError("Intent resolution and capability discovery must use the same metadata context.")
 
     def _release(
         self,

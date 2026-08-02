@@ -96,6 +96,30 @@ def conversation(instance: AstraRuntime, suffix: str = "0001"):
     return engine, engine.get_conversation(conversation_id)
 
 
+def record_turn(
+    engine: AstraConversationContextEngine,
+    conversation_id: str,
+    *,
+    suffix: str,
+    received_at: datetime,
+    turn_id: str | None = None,
+    request_reference: str | None = None,
+):
+    engine.record_current_turn(
+        conversation_id,
+        AstraCurrentTurnContext(
+            turn_id=turn_id or f"turn_meta_bind_{suffix}",
+            received_at=received_at,
+            request_reference=request_reference or f"request:meta-bind:{suffix}",
+            turn_kind=AstraConversationTurnKind.USER_REQUEST,
+            route_reference="route:/astra/metadata-context",
+        ),
+        history_entry_id=f"ctx_meta_bind_turn_{suffix}",
+        summary_reference="metadata-context:declared",
+    )
+    return engine.get_conversation(conversation_id)
+
+
 def issue_context(
     instance: AstraRuntime,
     engine: AstraConversationContextEngine,
@@ -264,6 +288,49 @@ def test_foreign_runtime_conversation_turn_and_expired_contexts_fail_closed():
     )
 
 
+def test_capability_discovery_rejects_stale_turn_and_request_contexts():
+    instance = runtime()
+    engine, snapshot_a = conversation(instance, "0001")
+    context_a = issue_context(instance, engine, snapshot_a)
+    conversation_id = snapshot_a.metadata.conversation_id
+
+    snapshot_b = record_turn(engine, conversation_id, suffix="0002", received_at=NOW + timedelta(seconds=1))
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.capability_discovery.discover_for_conversation(
+            conversation_engine=engine,
+            conversation_snapshot=snapshot_b,
+            request_context=request_context(instance, context_a),
+            discovered_at=NOW + timedelta(seconds=2),
+        )
+    assert not instance.validates_governed_metadata_context(
+        context_a,
+        observed_at=NOW + timedelta(seconds=2),
+        conversation_id=snapshot_b.metadata.conversation_id,
+        current_turn_reference=snapshot_b.current_turn.turn_id,
+        request_reference=snapshot_b.current_turn.request_reference,
+        app_id=context_a.app_id,
+        capability_scope=context_a.capability_scope,
+        capability_id=context_a.capability_id,
+        capability_version=context_a.capability_version,
+    )
+
+    snapshot_c = record_turn(
+        engine,
+        conversation_id,
+        suffix="0003",
+        received_at=NOW + timedelta(seconds=3),
+        turn_id=context_a.current_turn_reference,
+        request_reference="request:meta-bind:stale-request",
+    )
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.capability_discovery.discover_for_conversation(
+            conversation_engine=engine,
+            conversation_snapshot=snapshot_c,
+            request_context=request_context(instance, context_a),
+            discovered_at=NOW + timedelta(seconds=4),
+        )
+
+
 def test_wrong_app_scope_capability_and_version_fail_closed():
     instance = runtime()
     engine, snapshot = conversation(instance)
@@ -290,6 +357,36 @@ def test_declared_capability_must_match_trusted_context():
             conversation_engine=engine,
             conversation_snapshot=snapshot,
             requester_context=request_context(instance, context),
+        )
+
+
+def test_intent_resolution_requires_same_exact_context_as_capability_discovery():
+    instance = runtime()
+    engine, snapshot = conversation(instance)
+    context_a = issue_context(instance, engine, snapshot, "subscription.count_active")
+    context_b = issue_context(instance, engine, snapshot, "subscription.count_all")
+
+    with pytest.raises(AstraIntentResolutionError):
+        instance.intent_resolution.resolve(
+            intent_request(instance, engine, snapshot, context_a, target="subscription.count_active"),
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            requester_context=request_context(instance, context_b),
+        )
+
+    request_without_context = intent_request(
+        instance,
+        engine,
+        snapshot,
+        context_a,
+        target="subscription.count_active",
+    ).model_copy(update={"governed_metadata_context": None})
+    with pytest.raises(AstraIntentResolutionError):
+        instance.intent_resolution.resolve(
+            request_without_context,
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            requester_context=request_context(instance, context_a),
         )
 
 
