@@ -21,7 +21,11 @@ from app.modules.astra_ai.activation import (
     activation_digest,
     load_runtime_activation,
 )
-from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
+from app.modules.astra_ai.configuration import (
+    ASTRA_CONFIGURATION_ID,
+    ASTRA_CONFIGURATION_VERSION,
+    _validate_astra_configuration_candidate,
+)
 from app.modules.astra_ai.constitutional_contracts import AstraConfigurationContract
 from app.modules.astra_ai.configuration import get_astra_configuration
 from app.modules.astra_ai.constitutional_contracts import (
@@ -110,16 +114,26 @@ def governance_input(**changes) -> GovernanceEvaluationInput:
 
 
 def runtime_with_activation() -> AstraRuntime:
+    loaded = _stage_zero_test_configuration()
+
     def enabled_loader(**values):
         return load_runtime_activation(
             **values,
             app_settings=settings_for(enabled="true"),
         )
 
-    with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
+    with (
+        patch("app.modules.astra_ai.runtime.get_astra_configuration", return_value=loaded),
+        patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader),
+    ):
         runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
         runtime.startup()
     return runtime
+
+
+def _stage_zero_test_configuration():
+    candidate = get_astra_configuration().configuration.model_dump(mode="json")
+    return _validate_astra_configuration_candidate(candidate, loaded_at=NOW)
 
 
 def test_activation_defaults_disabled_and_stage_zero_remains_disabled():
@@ -381,13 +395,18 @@ def test_real_governance_rejects_invalid_activated_scope(changes):
 def test_real_governance_rejects_foreign_activation():
     foreign_runtime = None
     try:
+        loaded = _stage_zero_test_configuration()
+
         def enabled_loader(**values):
             return load_runtime_activation(
                 **values,
                 app_settings=settings_for(enabled="true"),
             )
 
-        with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
+        with (
+            patch("app.modules.astra_ai.runtime.get_astra_configuration", return_value=loaded),
+            patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader),
+        ):
             foreign_runtime = AstraRuntime(created_at=NOW, startup_instance_id="astra_rt_" + "8" * 32)
             foreign_runtime.startup()
         foreign_activation = foreign_runtime._activation
@@ -402,13 +421,18 @@ def test_real_governance_rejects_foreign_activation():
 def test_runtime_owns_loaded_activation_and_ignores_forged_input_context():
     foreign_runtime = runtime = None
     try:
+        loaded = _stage_zero_test_configuration()
+
         def enabled_loader(**values):
             return load_runtime_activation(
                 **values,
                 app_settings=settings_for(enabled="true"),
             )
 
-        with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
+        with (
+            patch("app.modules.astra_ai.runtime.get_astra_configuration", return_value=loaded),
+            patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader),
+        ):
             foreign_runtime = AstraRuntime(created_at=NOW, startup_instance_id="astra_rt_" + "9" * 32)
             foreign_runtime.startup()
             runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)

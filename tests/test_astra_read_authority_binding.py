@@ -6,8 +6,12 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
 from app.core.config import Settings
+from app.core.database import ParentBase
 from app.modules.astra_ai.activation import load_runtime_activation
 from app.modules.astra_ai.capability_discovery import default_capabilities
 from app.modules.astra_ai.capability_discovery import AstraCapabilityExecutionAuthority
@@ -32,6 +36,8 @@ from app.modules.astra_ai.read_access_authorization import (
     AstraReadPurpose,
 )
 from app.modules.auth.models import User
+from app.modules.auth.models import Role
+from app.modules.auth.service import issue_authenticated_user_context
 import app.modules.astra_ai.read_authority_binding as read_authority_binding_module
 from app.modules.astra_ai.read_authority_binding import (
     AstraReadAuthorityBindingError,
@@ -71,6 +77,18 @@ def _stage_zero_test_configuration():
 
 def user(user_id: str = "user-a") -> User:
     return User(id=user_id, email=f"{user_id}@example.com", name="User A", password_hash="hash", status="active")
+
+
+def auth_context(user_id: str = "user-a"):
+    engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+    ParentBase.metadata.create_all(engine)
+    Session = sessionmaker(bind=engine)
+    db = Session()
+    db.add(Role(id=2, name="Member", key="member"))
+    db.add(user(user_id))
+    db.commit()
+    authenticated_user = db.get(User, user_id)
+    return issue_authenticated_user_context(authenticated_user, issued_at=NOW)
 
 
 def conversation(instance: AstraRuntime):
@@ -176,11 +194,11 @@ def test_normal_runtime_path_authorizes_subscription_read_without_private_fixtur
     instance = runtime()
     engine, snapshot = conversation(instance)
     intent = resolved_intent(instance, engine, snapshot)
-    authenticated_user = user()
+    authenticated_context = auth_context()
 
     with patch.object(instance._read_execution_bridge, "register_read_authorization_decision") as register:
         bound = instance.read_authority.authorize_subscription_manager_read(
-            authenticated_user=authenticated_user,
+            authenticated_context=authenticated_context,
             conversation_engine=engine,
             conversation_snapshot=snapshot,
             intent_resolution=intent,
@@ -197,6 +215,10 @@ def test_normal_runtime_path_authorizes_subscription_read_without_private_fixtur
         bound.app_read_grant.astra_authorization_reference.authorization_id
         == bound.authorization_decision.authorization_decision_id
     )
+    assert (
+        bound.app_read_grant.astra_authorization_reference.governance_decision_reference
+        == bound.authorization_decision.governance_decision_reference
+    )
     register.assert_called_once_with(
         bound.authorization_decision,
         registration_authority=instance._read_execution_registration_authority,
@@ -207,11 +229,11 @@ def test_authority_binding_rejects_mismatches_and_uses_no_database_surface():
     instance = runtime()
     engine, snapshot = conversation(instance)
     intent = resolved_intent(instance, engine, snapshot)
-    authenticated_user = user()
+    authenticated_context = auth_context()
 
     with pytest.raises(AstraReadAuthorityBindingError):
         instance.read_authority.authorize_subscription_manager_read(
-            authenticated_user=authenticated_user,
+            authenticated_context=authenticated_context,
             conversation_engine=engine,
             conversation_snapshot=snapshot,
             intent_resolution=intent.model_copy(update={"intent_status": AstraIntentStatus.UNSUPPORTED}),
@@ -221,7 +243,7 @@ def test_authority_binding_rejects_mismatches_and_uses_no_database_surface():
 
     with pytest.raises(AstraReadAuthorityBindingError):
         instance.read_authority.authorize_subscription_manager_read(
-            authenticated_user=authenticated_user,
+            authenticated_context=authenticated_context,
             conversation_engine=engine,
             conversation_snapshot=snapshot,
             intent_resolution=intent,
@@ -244,7 +266,17 @@ def test_fake_user_and_foreign_principal_cannot_establish_authentication_authori
     intent = resolved_intent(instance, engine, snapshot)
     with pytest.raises(AstraReadAuthorityBindingError):
         instance.read_authority.authorize_subscription_manager_read(
-            authenticated_user=SimpleNamespace(id="user-a"),
+            authenticated_context=user("victim-user"),
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            intent_resolution=intent,
+            adapter_capability_id="subscription.count_active",
+            requested_at=NOW,
+        )
+
+    with pytest.raises(AstraReadAuthorityBindingError):
+        instance.read_authority.authorize_subscription_manager_read(
+            authenticated_context=SimpleNamespace(id="user-a"),
             conversation_engine=engine,
             conversation_snapshot=snapshot,
             intent_resolution=intent,
@@ -303,16 +335,21 @@ def test_owner_acceptance_rejects_copy_expiry_and_foreign_app_tampering():
     ("patch_values", "error"),
     (
         ({"accepted_tenant_scope": "current_tenant"}, "tenant"),
+        ({"request_reference": "subscription/read-authority/other"}, "request reference"),
+        ({"capability_id": "subscription.count_all"}, "capability"),
+        ({"capability_version": "9.9.9"}, "version"),
         ({"accepted_record_scope": "all_records"}, "record"),
         ({"accepted_field_references": ("subscription.count", "subscription.secret")}, "field"),
         ({"accepted_purpose": AstraReadPurpose.COMPLIANCE_REVIEW}, "purpose"),
+        ({"accepted_parameters": (subscription_reads.SubscriptionAstraParameter(name="days", value=7),)}, "parameter"),
+        ({"maximum_result_count": 1}, "limit"),
     ),
 )
 def test_app_authority_scope_escalation_is_rejected(patch_values, error):
     instance = runtime()
     engine, snapshot = conversation(instance)
     intent = resolved_intent(instance, engine, snapshot)
-    authenticated_user = user()
+    authenticated_context = auth_context()
     original = subscription_reads.issue_owner_acceptance
 
     def tampered_acceptance(**values):
@@ -321,7 +358,30 @@ def test_app_authority_scope_escalation_is_rejected(patch_values, error):
     with patch.object(subscription_reads, "issue_owner_acceptance", side_effect=tampered_acceptance):
         with pytest.raises((AstraReadAuthorityBindingError, Exception), match=error):
             instance.read_authority.authorize_subscription_manager_read(
-                authenticated_user=authenticated_user,
+                authenticated_context=authenticated_context,
+                conversation_engine=engine,
+                conversation_snapshot=snapshot,
+                intent_resolution=intent,
+                adapter_capability_id="subscription.count_active",
+                requested_at=NOW,
+            )
+
+
+def test_copied_or_tampered_read_decision_cannot_issue_app_grant():
+    instance = runtime()
+    engine, snapshot = conversation(instance)
+    intent = resolved_intent(instance, engine, snapshot)
+    authenticated_context = auth_context()
+
+    def tampered_authorize(*args, **kwargs):
+        decision = original_authorize(*args, **kwargs)
+        return decision.model_copy(update={"governance_decision_reference": "READ-AUTH-GOV-FORGED"})
+
+    original_authorize = instance.authorize_read_access
+    with patch.object(instance, "authorize_read_access", side_effect=tampered_authorize):
+        with pytest.raises(AstraReadAuthorityBindingError, match="exact issued"):
+            instance.read_authority.authorize_subscription_manager_read(
+                authenticated_context=authenticated_context,
                 conversation_engine=engine,
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
@@ -334,12 +394,12 @@ def test_static_matching_strings_without_app_owner_acceptance_do_not_authorize()
     instance = runtime()
     engine, snapshot = conversation(instance)
     intent = resolved_intent(instance, engine, snapshot)
-    authenticated_user = user()
+    authenticated_context = auth_context()
 
     with patch.object(subscription_reads, "issue_owner_acceptance", side_effect=RuntimeError("no app authority")):
         with pytest.raises(AstraReadAuthorityBindingError):
             instance.read_authority.authorize_subscription_manager_read(
-                authenticated_user=authenticated_user,
+                authenticated_context=authenticated_context,
                 conversation_engine=engine,
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
@@ -352,7 +412,7 @@ def test_field_purpose_and_parameter_escalation_rejected_before_authorization():
     instance = runtime()
     engine, snapshot = conversation(instance)
     intent = resolved_intent(instance, engine, snapshot)
-    authenticated_user = user()
+    authenticated_context = auth_context()
 
     for values in (
         {"requested_field_references": ("subscription.secret",)},
@@ -361,7 +421,7 @@ def test_field_purpose_and_parameter_escalation_rejected_before_authorization():
     ):
         with pytest.raises(AstraReadAuthorityBindingError):
             instance.read_authority.authorize_subscription_manager_read(
-                authenticated_user=authenticated_user,
+                authenticated_context=authenticated_context,
                 conversation_engine=engine,
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,

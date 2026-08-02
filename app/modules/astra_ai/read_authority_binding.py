@@ -19,7 +19,7 @@ from app.modules.astra_ai.read_access_authorization import (
     AstraReadDecisionStatus,
     AstraReadPurpose,
 )
-from app.modules.auth.models import User
+from app.modules.auth.service import AuthenticatedUserContext, validates_authenticated_user_context
 from app.modules.subscription_manager import astra_read_capabilities as subscription_reads
 from app.modules.subscription_manager.astra_read_capabilities import (
     APP_ID as SUBSCRIPTION_MANAGER_APP_ID,
@@ -127,7 +127,7 @@ class AstraReadAuthorityBinding:
     def authorize_subscription_manager_read(
         self,
         *,
-        authenticated_user: Any,
+        authenticated_context: AuthenticatedUserContext,
         conversation_engine: Any,
         conversation_snapshot: Any,
         intent_resolution: AstraIntentResolution,
@@ -144,7 +144,8 @@ class AstraReadAuthorityBinding:
         self._require_ready()
         timestamp = requested_at or _utc_now()
         _ensure_aware(timestamp, "Read authority binding")
-        user_id = _authenticated_user_id(authenticated_user)
+        user_id = _authenticated_user_id(authenticated_context, observed_at=timestamp)
+        authenticated_user = authenticated_context.authenticated_user
         capability = self._capability_for_adapter(adapter_capability_id)
         fields = requested_field_references or capability.allowed_field_references
         row_limit = requested_row_limit or min(capability.maximum_row_count, 50)
@@ -262,7 +263,7 @@ class AstraReadAuthorityBinding:
     def _issue_owner_acceptance(
         self,
         *,
-        authenticated_user: User,
+        authenticated_user: Any,
         capability: AstraNamedReadCapability,
         adapter_capability_id: str,
         principal_reference: str,
@@ -291,9 +292,13 @@ class AstraReadAuthorityBinding:
         self._validate_owner_acceptance_scope(
             acceptance=acceptance,
             capability=capability,
+            adapter_capability_id=adapter_capability_id,
             principal_reference=principal_reference,
+            request_reference=request_reference,
             fields=fields,
             purpose=purpose,
+            row_limit=row_limit,
+            parameters=parameters,
         )
         if not subscription_reads.default_read_grant_issuer().validates_owner_acceptance(
             acceptance,
@@ -308,16 +313,28 @@ class AstraReadAuthorityBinding:
         *,
         acceptance: SubscriptionAstraOwnerAcceptance,
         capability: AstraNamedReadCapability,
+        adapter_capability_id: str,
         principal_reference: str,
+        request_reference: str,
         fields: tuple[str, ...],
         purpose: AstraReadPurpose,
+        row_limit: int,
+        parameters: tuple[SubscriptionAstraParameter, ...],
     ) -> None:
+        if acceptance.app_identity != SUBSCRIPTION_MANAGER_APP_ID:
+            raise AstraReadAuthorityBindingError("Unsupported app owner acceptance identity.")
         if acceptance.app_scope != SUBSCRIPTION_MANAGER_APP_SCOPE:
             raise AstraReadAuthorityBindingError("Unsupported app owner acceptance scope.")
+        if acceptance.capability_id != adapter_capability_id:
+            raise AstraReadAuthorityBindingError("Owner acceptance capability mismatch.")
+        if acceptance.capability_version != SUBSCRIPTION_MANAGER_CAPABILITY_VERSION:
+            raise AstraReadAuthorityBindingError("Owner acceptance capability version mismatch.")
         if acceptance.read_capability_id != capability.read_capability_id:
             raise AstraReadAuthorityBindingError("Owner acceptance read capability mismatch.")
         if acceptance.authenticated_principal_reference != principal_reference:
             raise AstraReadAuthorityBindingError("Owner acceptance principal mismatch.")
+        if acceptance.request_reference != request_reference:
+            raise AstraReadAuthorityBindingError("Owner acceptance request reference mismatch.")
         if acceptance.accepted_subject_scope != capability.allowed_subject_scope:
             raise AstraReadAuthorityBindingError("Owner acceptance subject scope mismatch.")
         if acceptance.accepted_tenant_scope != capability.allowed_tenant_scope:
@@ -326,8 +343,12 @@ class AstraReadAuthorityBinding:
             raise AstraReadAuthorityBindingError("Owner acceptance record scope mismatch.")
         if acceptance.accepted_field_references != fields:
             raise AstraReadAuthorityBindingError("Owner acceptance field scope mismatch.")
-        if acceptance.accepted_purpose is not purpose:
+        if acceptance.accepted_purpose != purpose:
             raise AstraReadAuthorityBindingError("Owner acceptance purpose mismatch.")
+        if acceptance.accepted_parameters != parameters:
+            raise AstraReadAuthorityBindingError("Owner acceptance parameter mismatch.")
+        if acceptance.maximum_result_count != row_limit:
+            raise AstraReadAuthorityBindingError("Owner acceptance result limit mismatch.")
 
     def _issue_proofs_from_authority(
         self,
@@ -403,6 +424,11 @@ class AstraReadAuthorityBinding:
     ) -> SubscriptionAstraReadGrant:
         if authorization_decision.decision_status is not AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY:
             raise AstraReadAuthorityBindingError("Execution grant requires an authorized read decision.")
+        if not self._read_access_authorization.validates_authorization_decision(
+            authorization_decision,
+            observed_at=observed_at,
+        ):
+            raise AstraReadAuthorityBindingError("Execution grant requires exact issued read authorization decision.")
         try:
             request = SubscriptionAstraReadRequest(
                 capability_id=adapter_capability_id,
@@ -412,6 +438,7 @@ class AstraReadAuthorityBinding:
                 requested_maximum_result_count=maximum_result_count,
                 authorization_reference=SubscriptionAstraAuthorizationReference(
                     authorization_id=authorization_decision.authorization_decision_id,
+                    governance_decision_reference=authorization_decision.governance_decision_reference,
                     capability_id=adapter_capability_id,
                     capability_version=SUBSCRIPTION_MANAGER_CAPABILITY_VERSION,
                     app_scope=SUBSCRIPTION_MANAGER_APP_SCOPE,
@@ -509,15 +536,10 @@ def _adapter_capability_id(capability: AstraNamedReadCapability) -> str:
     raise AstraReadAuthorityBindingError("Unsupported Subscription Manager read capability identity.")
 
 
-def _authenticated_user_id(user: Any) -> str:
-    if not isinstance(user, User):
-        raise AstraReadAuthorityBindingError("Authenticated backend User is required for read authority binding.")
-    user_id = getattr(user, "id", None)
-    if not isinstance(user_id, str) or not user_id:
-        raise AstraReadAuthorityBindingError("Authenticated user is required for read authority binding.")
-    if getattr(user, "status", "active") != "active":
-        raise AstraReadAuthorityBindingError("Active authenticated user is required for read authority binding.")
-    return user_id
+def _authenticated_user_id(context: Any, *, observed_at: datetime) -> str:
+    if not validates_authenticated_user_context(context, observed_at=observed_at):
+        raise AstraReadAuthorityBindingError("Backend auth-owned user context is required for read authority binding.")
+    return context.authenticated_user_id
 
 
 def _authorization_request_id(

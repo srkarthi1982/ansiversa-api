@@ -1,6 +1,6 @@
 # ASTRA-READ-AUTH-BIND-001 - Governed Read Authority & Capability Binding
 
-Status: Corrected / Pending Astra Re-Review
+Status: Changes Required / Pending Astra Re-Review
 
 Product Owner authorization: Approved on 2026-08-02.
 
@@ -50,10 +50,12 @@ For a non-planning read authorization request:
 Conversation Context
     -> Intent Resolution
     -> Read Authority Binding
+    -> existing backend auth-owned user context
     -> app-owned Subscription Manager owner acceptance
     -> Runtime-owned authority proofs
     -> ASTRA-IMP-010 authorization
-    -> app-owned Subscription Manager read grant with actual decision identity
+    -> app-owned Subscription Manager read grant with actual read and
+       Governance decision identity
     -> Runtime registration with ASTRA-READ-EXEC-001
 ```
 
@@ -104,9 +106,9 @@ is app-owned, principal-bound, capability-bound, field-bound, purpose-bound,
 request-bound, and time-bounded.
 
 The app-owned execution grant is issued only after ASTRA-IMP-010 returns the
-actual `AUTHORIZED_METADATA_ONLY` decision. The grant binds that actual
-authorization decision identifier; the binding component does not predict or
-manufacture Governance decision IDs.
+actual `AUTHORIZED_METADATA_ONLY` decision. The grant binds that actual read
+authorization decision identifier and the actual Governance decision reference;
+the binding component does not predict or manufacture Governance decision IDs.
 
 The Governance authorization input is bound to the certified
 ASTRA-RUNTIME-ACT-001 Subscription Manager private-read activation scope:
@@ -116,6 +118,15 @@ requested_app_id = subscription_manager
 requested_capability_scope = subscription_manager:private_read
 owner_authority_status = verified
 ```
+
+Principal/user authority comes from a sealed backend-auth-owned
+`AuthenticatedUserContext` issued by the existing auth service for the
+persistent DB-loaded user returned by `get_current_user`. A transient
+caller-created `User(...)` cannot establish read authority.
+
+Subscription Manager has no tenant or organization authority model in this
+repository. Read capability tenant scope is therefore represented explicitly as
+`tenant:not_applicable`, not as a fabricated platform tenant.
 
 ## Boundaries
 
@@ -142,9 +153,10 @@ authorization without validation-only private mutation, no Planning execution
 shortcut, no Capability Discovery executable shortcut, no SQL surface in the
 binding module, exact authenticated `User` requirement, app-owned owner
 acceptance object identity, copied/expired/foreign/tampered owner acceptance
-rejection, field/purpose/parameter escalation rejection, actual Governance
-decision identity binding, shutdown invalidation, and bounded rejection
-behavior.
+rejection, different request reference/capability/version/parameters/result
+limit rejection, field/purpose/parameter escalation rejection, exact issued
+read decision validation, actual Governance decision identity binding, shutdown
+invalidation, and bounded rejection behavior.
 
 Existing certified parent tests for Runtime, Conversation Context, Capability
 Discovery, Planning, Intent Resolution, Read Access Authorization, Read
@@ -154,17 +166,17 @@ Latest local validation:
 
 ```text
 .venv/bin/python -m pytest tests/test_astra_read_authority_binding.py -q
-14 passed
+20 passed
 
-.venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_read_execution_bridge.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_configuration_foundation.py tests/test_astra_evidence_sink.py -q
-161 passed, 25 subtests passed
+.venv/bin/python -m pytest tests/test_subscription_manager_astra_read_capabilities.py -q
+20 passed
 
-.venv/bin/python -m pytest tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_read_authority_binding.py -q
-34 passed
+.venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_read_execution_bridge.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_configuration_foundation.py tests/test_astra_evidence_sink.py tests/test_astra_conversation_context_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_planning_engine.py -q
+256 passed, 25 subtests passed
 
-.venv/bin/python -m compileall app/modules/astra_ai app/modules/subscription_manager tests/test_astra_read_authority_binding.py
+.venv/bin/python -m compileall app/modules/auth app/modules/astra_ai app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_read_authority_binding.py tests/test_astra_runtime_activation.py tests/test_astra_read_execution_bridge.py tests/test_subscription_manager_astra_read_capabilities.py
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-396 passed, 147 warnings, 33 subtests passed
+402 passed, 147 warnings, 33 subtests passed
 ```

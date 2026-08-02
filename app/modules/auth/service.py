@@ -1,11 +1,14 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
+from uuid import uuid4
 
 from fastapi import Depends, HTTPException, Request, Response, status
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 from jwt.exceptions import InvalidTokenError
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from sqlalchemy import inspect as sqlalchemy_inspect
 
 from app.core.config import settings
 from app.core.timing import set_timing_user_id, timing_span
@@ -43,6 +46,36 @@ FORGOT_PASSWORD_MESSAGE = (
 RESET_PASSWORD_MESSAGE = "Password has been reset successfully."
 CHANGE_PASSWORD_MESSAGE = "Password changed successfully."
 PASSWORD_REUSE_ERROR = "New password must be different from the current password."
+_AUTHENTICATED_USER_CONTEXT_AUTHORITY = object()
+_ISSUED_AUTHENTICATED_USER_CONTEXTS: dict[str, "AuthenticatedUserContext"] = {}
+
+
+class AuthenticatedUserContext(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
+
+    context_id: str = Field(pattern=r"^auth_ctx_[a-f0-9]{32}$")
+    authenticated_user_id: str = Field(min_length=1, max_length=160)
+    authenticated_principal_reference: str = Field(pattern=r"^principal:[A-Za-z0-9][A-Za-z0-9:._/-]{0,150}$")
+    authentication_source: str = Field(pattern=r"^backend_auth:get_current_user$")
+    issued_at: datetime
+    authenticated_user: User = Field(exclude=True)
+    _authority: object = PrivateAttr()
+
+    def __init__(self, **data):
+        authority = data.pop("_authority", None)
+        if authority is not _AUTHENTICATED_USER_CONTEXT_AUTHORITY:
+            raise ValueError("Authenticated user context requires backend auth authority.")
+        super().__init__(**data)
+        self._authority = authority
+
+    @model_validator(mode="after")
+    def validate_context(self) -> "AuthenticatedUserContext":
+        _ensure_user_is_auth_owned(self.authenticated_user)
+        if self.authenticated_user.id != self.authenticated_user_id:
+            raise ValueError("Authenticated user context does not match user.")
+        if self.authenticated_principal_reference != f"principal:{self.authenticated_user_id}":
+            raise ValueError("Authenticated principal reference does not match user.")
+        return self
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -58,6 +91,40 @@ def is_login_allowed_status(value: str | None) -> bool:
     normalized = (value or ACTIVE_STATUS).strip().lower()
 
     return normalized not in BLOCKED_LOGIN_STATUSES
+
+
+def issue_authenticated_user_context(
+    user: User,
+    *,
+    issued_at: datetime | None = None,
+) -> AuthenticatedUserContext:
+    _ensure_user_is_auth_owned(user)
+    timestamp = issued_at or datetime.now(timezone.utc)
+    if timestamp.tzinfo is None or timestamp.utcoffset() is None:
+        raise ValueError("Authenticated user context timestamp must be timezone-aware.")
+    context = AuthenticatedUserContext(
+        context_id=f"auth_ctx_{uuid4().hex}",
+        authenticated_user_id=user.id,
+        authenticated_principal_reference=f"principal:{user.id}",
+        authentication_source="backend_auth:get_current_user",
+        issued_at=timestamp,
+        authenticated_user=user,
+        _authority=_AUTHENTICATED_USER_CONTEXT_AUTHORITY,
+    )
+    _ISSUED_AUTHENTICATED_USER_CONTEXTS[context.context_id] = context
+    return context
+
+
+def validates_authenticated_user_context(context: object, *, observed_at: datetime) -> bool:
+    if observed_at.tzinfo is None or observed_at.utcoffset() is None:
+        return False
+    if not isinstance(context, AuthenticatedUserContext):
+        return False
+    if _ISSUED_AUTHENTICATED_USER_CONTEXTS.get(context.context_id) is not context:
+        return False
+    if context.issued_at > observed_at:
+        return False
+    return context.authenticated_user_id == context.authenticated_user.id
 
 
 def get_user_by_email(db: Session, email: str) -> User | None:
@@ -271,6 +338,21 @@ def _as_utc(value: datetime) -> datetime:
         return value.replace(tzinfo=timezone.utc)
 
     return value.astimezone(timezone.utc)
+
+
+def _ensure_user_is_auth_owned(user: User) -> None:
+    if not isinstance(user, User):
+        raise ValueError("Authenticated backend User is required.")
+    if not user.id:
+        raise ValueError("Authenticated user ID is required.")
+    if not is_login_allowed_status(user.status):
+        raise ValueError("Authenticated user status is not allowed.")
+    try:
+        state = sqlalchemy_inspect(user)
+    except Exception as exc:
+        raise ValueError("Authenticated user state cannot be inspected.") from exc
+    if not state.persistent:
+        raise ValueError("Authenticated user must be loaded from the backend auth database.")
 
 
 def create_user_token(user: User) -> TokenResponse:

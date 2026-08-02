@@ -260,6 +260,7 @@ class AstraReadAuthorizationDecision(BaseModel):
     runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
     authorization_decision_id: str
     authorization_request_id: str
+    governance_decision_reference: str
     read_capability_id: str
     owning_app_id: str
     decision_status: AstraReadDecisionStatus
@@ -356,6 +357,7 @@ class AstraReadAccessAuthorizationEngine:
         self._runtime_instance_id = runtime.identity.startup_instance_id
         self._registry = registry or AstraNamedReadCapabilityRegistry()
         self._issuers: dict[str, AstraAuthorityProofIssuer] = {}
+        self._issued_decisions: dict[str, AstraReadAuthorizationDecision] = {}
         self._sequence = 0
         for proof_class, issuer in (certified_issuers or {}).items():
             self.bind_certified_issuer(proof_class, issuer)
@@ -469,6 +471,20 @@ class AstraReadAccessAuthorizationEngine:
             elif capability.owner_service_acceptance_required and owner_accepted:
                 status = AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
         return self._release(request, capability, governance, status, checks)
+
+    def validates_authorization_decision(
+        self,
+        decision: Any,
+        *,
+        observed_at: datetime,
+    ) -> bool:
+        return (
+            isinstance(decision, AstraReadAuthorizationDecision)
+            and decision.runtime_instance_id == self._runtime_instance_id
+            and decision.decision_status is AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
+            and decision.issued_at <= observed_at
+            and self._issued_decisions.get(decision.authorization_decision_id) is decision
+        )
 
     def _validate_proof_scopes(self, request, capability, proofs):
         required_scopes = {
@@ -620,6 +636,7 @@ class AstraReadAccessAuthorizationEngine:
             capability=capability,
             status=status,
             governance_outcome=governance.decision.outcome,
+            governance_decision_reference=governance.decision.decision_id,
             checks=checks,
         )
         digest = _authorization_decision_digest(
@@ -627,6 +644,7 @@ class AstraReadAccessAuthorizationEngine:
             capability=capability,
             status=status,
             governance_outcome=governance.decision.outcome,
+            governance_decision_reference=governance.decision.decision_id,
             checks=checks,
         )
         next_sequence = self._sequence + 1
@@ -655,6 +673,7 @@ class AstraReadAccessAuthorizationEngine:
             runtime_instance_id=self._runtime_instance_id,
             authorization_decision_id=decision_id,
             authorization_request_id=request.authorization_request_id,
+            governance_decision_reference=governance.decision.decision_id,
             read_capability_id=capability.read_capability_id,
             owning_app_id=capability.owning_app_id,
             decision_status=status,
@@ -682,6 +701,7 @@ class AstraReadAccessAuthorizationEngine:
             issued_at=request.requested_at,
             version=READ_ACCESS_AUTHORIZATION_VERSION,
         )
+        self._issued_decisions[decision.authorization_decision_id] = decision
         self._sequence = next_sequence
         return decision
 
@@ -712,12 +732,14 @@ def preview_authorization_decision_id(
     status: AstraReadDecisionStatus,
     governance_outcome: GovernanceOutcome,
     checks: tuple[AstraReadCheckResult, ...],
+    governance_decision_reference: str,
 ) -> str:
     digest = _authorization_decision_digest(
         request=request,
         capability=capability,
         status=status,
         governance_outcome=governance_outcome,
+        governance_decision_reference=governance_decision_reference,
         checks=checks,
     )
     return f"read_auth_{digest[:24]}"
@@ -730,12 +752,14 @@ def _authorization_decision_digest(
     status: AstraReadDecisionStatus,
     governance_outcome: GovernanceOutcome,
     checks: tuple[AstraReadCheckResult, ...],
+    governance_decision_reference: str,
 ) -> str:
     semantic = {
         "request": request.model_dump(mode="json", exclude={"proofs", "requested_at"}),
         "capability": capability.model_dump(mode="json"),
         "status": status.value,
         "governance": governance_outcome.value,
+        "governance_decision_reference": governance_decision_reference,
         "checks": tuple(item.value for item in checks),
     }
     return hashlib.sha256(_canonical(semantic).encode()).hexdigest()

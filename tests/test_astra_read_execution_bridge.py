@@ -288,6 +288,7 @@ class AstraReadExecutionBridgeTests(unittest.TestCase):
         return AstraReadAuthorizationDecision(
             authorization_decision_id=authorization_id,
             authorization_request_id="read_req_subscription_0001",
+            governance_decision_reference="READ-EXEC-GOV-001",
             read_capability_id="read_cap_subscription_count_active_0001",
             owning_app_id=owning_app_id,
             decision_status=AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY,
@@ -315,6 +316,7 @@ class AstraReadExecutionBridgeTests(unittest.TestCase):
     def _authorization_reference(self, capability_id):
         return SubscriptionAstraAuthorizationReference(
             authorization_id=self.decision.authorization_decision_id,
+            governance_decision_reference=self.decision.governance_decision_reference,
             capability_id=capability_id,
             capability_version=CAPABILITY_VERSION,
             app_scope="app:subscription_manager",

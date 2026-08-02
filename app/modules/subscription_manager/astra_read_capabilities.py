@@ -27,6 +27,7 @@ from app.modules.subscription_manager.service import ACTIVE_STATUSES, FREQUENCY_
 
 APP_ID = "subscription_manager"
 APP_SCOPE = "app:subscription_manager"
+TENANT_SCOPE_NOT_APPLICABLE = "tenant:not_applicable"
 CAPABILITY_VERSION = "1.0.0"
 MAX_RESULT_LIMIT = 50
 AUTHORIZATION_MAX_AGE = timedelta(minutes=15)
@@ -89,6 +90,7 @@ class SubscriptionAstraAuthorizationReference(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     authorization_id: str = Field(min_length=8, max_length=160)
+    governance_decision_reference: str = Field(min_length=8, max_length=160)
     capability_id: str
     capability_version: str
     app_scope: Literal["app:subscription_manager"]
@@ -154,7 +156,7 @@ class SubscriptionAstraOwnerAcceptance(BaseModel):
     read_capability_id: str
     request_reference: str = Field(min_length=8, max_length=160)
     accepted_subject_scope: Literal["current_user"]
-    accepted_tenant_scope: Literal["ansiversa_platform"]
+    accepted_tenant_scope: Literal["tenant:not_applicable"]
     accepted_record_scope: Literal["owned_records"]
     accepted_field_references: tuple[str, ...] = Field(min_length=1, max_length=50)
     accepted_purpose: AstraReadPurpose
@@ -212,6 +214,8 @@ class SubscriptionAstraReadGrant(BaseModel):
         auth = self.astra_authorization_reference
         if auth.capability_id != self.capability_id or auth.capability_version != self.capability_version:
             raise SubscriptionAstraCapabilityError("Read grant does not match Astra authorization metadata.")
+        if not auth.governance_decision_reference:
+            raise SubscriptionAstraCapabilityError("Read grant requires Governance decision reference.")
         if auth.app_scope != self.app_scope:
             raise SubscriptionAstraCapabilityError("Read grant app scope does not match authorization metadata.")
         if self.parameter_digest != _parameter_digest(self.permitted_parameters):
@@ -619,7 +623,7 @@ def _read_authorization_capability(definition: SubscriptionAstraCapabilityDefini
         allowed_purposes=_read_purposes_for(definition),
         sensitivity_classification=AstraReadSensitivity.PERSONAL,
         allowed_subject_scope="current_user",
-        allowed_tenant_scope="ansiversa_platform",
+        allowed_tenant_scope=TENANT_SCOPE_NOT_APPLICABLE,
         allowed_record_scope="owned_records",
         allowed_field_references=fields,
         required_field_references=fields,
