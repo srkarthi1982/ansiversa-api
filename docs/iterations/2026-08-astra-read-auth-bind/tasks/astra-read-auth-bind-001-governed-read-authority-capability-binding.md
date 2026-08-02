@@ -1,8 +1,17 @@
 # ASTRA-READ-AUTH-BIND-001 - Governed Read Authority & Capability Binding
 
-Status: Changes Required / Pending Astra Re-Review
+Status: Certified / Approved
 
 Product Owner authorization: Approved on 2026-08-02.
+
+Certified backend implementation:
+`6bf9e9e983711dbe65b18c98e6c47a45e117b02c`.
+
+Certification review: `4838496452`.
+
+Certification closure records approval only. PR #1 remains open, draft,
+unmerged, and mergeable at certification time. No merge or production
+authorization is included.
 
 ## Objective
 

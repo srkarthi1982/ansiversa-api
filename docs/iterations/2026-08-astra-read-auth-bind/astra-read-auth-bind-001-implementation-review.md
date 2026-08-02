@@ -1,6 +1,15 @@
 # ASTRA-READ-AUTH-BIND-001 Implementation Review
 
-Status: Changes Required / Pending Astra Re-Review
+Status: Certified / Approved
+
+Certified backend implementation:
+`6bf9e9e983711dbe65b18c98e6c47a45e117b02c`.
+
+Certification review: `4838496452`.
+
+Certification closure records approval only. PR #1 remains open, draft,
+unmerged, and mergeable at certification time. No merge or production
+authorization is included.
 
 ## Summary
 
@@ -121,8 +130,7 @@ passed
 
 ## Remaining Limitations
 
-ASTRA-CHAT-001 remains paused until this prerequisite is reviewed, approved,
-and certified.
+ASTRA-CHAT-001 remains authorized / paused until explicitly resumed.
 
 No provider/model integration exists.
 
