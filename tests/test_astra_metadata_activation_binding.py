@@ -405,6 +405,60 @@ def test_raw_metadata_entry_points_reject_closed_or_faulted_conversation_replay(
         )
 
 
+@pytest.mark.parametrize(
+    "paused_state",
+    (AstraConversationLifecycleState.IDLE, AstraConversationLifecycleState.CLOSING),
+)
+def test_governed_conversation_discovery_requires_active_lifecycle(paused_state):
+    instance = runtime()
+    engine, snapshot = conversation(instance, f"{paused_state.value}_0001")
+    context = issue_context(instance, engine, snapshot)
+    conversation_id = snapshot.metadata.conversation_id
+    engine.transition_conversation(
+        conversation_id,
+        paused_state,
+        transitioned_at=NOW + timedelta(seconds=1),
+        summary_reference=f"conversation:{paused_state.value}",
+        entry_id=f"ctx_meta_bind_{paused_state.value}",
+    )
+    paused_snapshot = engine.get_conversation(conversation_id)
+
+    with pytest.raises(AstraCapabilityDiscoveryError):
+        instance.capability_discovery.discover_for_conversation(
+            conversation_engine=engine,
+            conversation_snapshot=paused_snapshot,
+            request_context=request_context(instance, context),
+            discovered_at=NOW + timedelta(seconds=2),
+        )
+
+
+@pytest.mark.parametrize(
+    "paused_state",
+    (AstraConversationLifecycleState.IDLE, AstraConversationLifecycleState.CLOSING),
+)
+def test_generic_conversation_discovery_without_governed_context_preserves_lifecycle_behavior(paused_state):
+    instance = runtime()
+    engine, snapshot = conversation(instance, f"generic_{paused_state.value}")
+    engine.transition_conversation(
+        snapshot.metadata.conversation_id,
+        paused_state,
+        transitioned_at=NOW + timedelta(seconds=1),
+        summary_reference=f"conversation:{paused_state.value}",
+        entry_id=f"ctx_meta_bind_generic_{paused_state.value}",
+    )
+    paused_snapshot = engine.get_conversation(snapshot.metadata.conversation_id)
+
+    discovery = instance.capability_discovery.discover_for_conversation(
+        conversation_engine=engine,
+        conversation_snapshot=paused_snapshot,
+        request_context=request_context(instance),
+        discovered_at=NOW + timedelta(seconds=2),
+    )
+
+    assert discovery.governance_outcome is GovernanceOutcome.FAIL_CLOSED
+    assert discovery.capabilities == ()
+
+
 def test_wrong_app_scope_capability_and_version_fail_closed():
     instance = runtime()
     engine, snapshot = conversation(instance)

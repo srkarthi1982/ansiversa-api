@@ -323,8 +323,10 @@ class AstraCapabilityDiscoveryEngine:
     ) -> AstraCapabilityDiscoveryResult:
         self._validate_conversation_ownership(conversation_engine, conversation_snapshot)
         current_turn = conversation_snapshot.current_turn
-        if request_context.governed_metadata_context is not None and current_turn is None:
-            raise AstraCapabilityDiscoveryError("Governed conversation discovery requires a current turn.")
+        if request_context.governed_metadata_context is not None:
+            self._validate_governed_conversation_snapshot(conversation_snapshot)
+            if current_turn is None:
+                raise AstraCapabilityDiscoveryError("Governed conversation discovery requires a current turn.")
         context_update = {"conversation_id": conversation_snapshot.metadata.conversation_id}
         if current_turn is not None:
             context_update.update(
@@ -422,6 +424,12 @@ class AstraCapabilityDiscoveryEngine:
             raise AstraCapabilityDiscoveryError("Authenticated discovery context has no authorized issuer in ASTRA-IMP-007.")
         if requested_visibility is not None and requested_visibility not in _allowed_visibilities(request_context.maximum_visibility):
             raise AstraCapabilityDiscoveryError("Requested visibility exceeds requester context.")
+
+    def _validate_governed_conversation_snapshot(self, conversation_snapshot: "AstraConversationSnapshot") -> None:
+        from app.modules.astra_ai.conversation_context import AstraConversationLifecycleState
+
+        if conversation_snapshot.metadata.lifecycle_state is not AstraConversationLifecycleState.ACTIVE:
+            raise AstraCapabilityDiscoveryError("Governed conversation discovery requires an active conversation.")
 
     def _validate_governed_metadata_context(
         self,
