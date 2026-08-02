@@ -143,6 +143,19 @@ def register_routes(app: FastAPI) -> None:
 
         app.router.on_shutdown.append(runtime_service.shutdown)
 
+    if _should_register_astra_chat_routes():
+        from app.modules.astra_ai.api.chat import (
+            chat_runtime_service,
+            router as astra_chat_router,
+        )
+
+        app.include_router(
+            astra_chat_router,
+            prefix=f"{settings.API_V1_PREFIX}/astra/chat",
+            tags=["Astra Chat"],
+        )
+        app.router.on_shutdown.append(chat_runtime_service.shutdown)
+
     app.include_router(
         knowledge_public_router,
         tags=["AI Knowledge"],
@@ -650,6 +663,15 @@ def register_routes(app: FastAPI) -> None:
 def _should_register_astra_diagnostics_routes() -> bool:
     if not settings.ASTRA_DIAGNOSTICS_API_ENABLED:
         return False
+    app_env = settings.APP_ENV.strip().lower()
+    vercel_env = (settings.VERCEL_ENV or "").strip().lower()
+    if app_env == "production" or vercel_env == "production":
+        return False
+    environment = vercel_env or app_env
+    return environment in {"local", "development", "test", "qa", "preview", "staging"}
+
+
+def _should_register_astra_chat_routes() -> bool:
     app_env = settings.APP_ENV.strip().lower()
     vercel_env = (settings.VERCEL_ENV or "").strip().lower()
     if app_env == "production" or vercel_env == "production":

@@ -7,6 +7,10 @@ from typing import TYPE_CHECKING, Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.modules.astra_ai.activation import (
+    SUBSCRIPTION_MANAGER_APP_ID,
+    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+)
 from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
 from app.modules.astra_ai.constitutional_contracts import (
     ApprovalState,
@@ -237,7 +241,7 @@ class AstraCapabilityDiscoveryEngine:
         _ensure_timezone_aware(timestamp, "Capability discovery timestamp")
         self._require_runtime_ready()
         self._validate_request_context(request_context, requested_visibility)
-        governance = self._emit_governance_evidence("CAP-DISC", timestamp)
+        governance = self._emit_governance_evidence("CAP-DISC", timestamp, request_context=request_context)
         capabilities = ()
         if governance.decision.outcome is GovernanceOutcome.ALLOW:
             capabilities = self._registry.discover(
@@ -266,7 +270,7 @@ class AstraCapabilityDiscoveryEngine:
         _ensure_timezone_aware(timestamp, "Capability lookup timestamp")
         self._require_runtime_ready()
         self._validate_request_context(request_context)
-        governance = self._emit_governance_evidence("CAP-LOOKUP", timestamp)
+        governance = self._emit_governance_evidence("CAP-LOOKUP", timestamp, request_context=request_context)
         if governance.decision.outcome is not GovernanceOutcome.ALLOW:
             raise AstraCapabilityDiscoveryError("Capability lookup denied by governance outcome.")
         capability = self._registry.get(capability_id)
@@ -320,8 +324,15 @@ class AstraCapabilityDiscoveryEngine:
             authority_token=self._internal_authority_token,
         )
 
-    def _emit_governance_evidence(self, operation_prefix: str, timestamp: datetime):
+    def _emit_governance_evidence(
+        self,
+        operation_prefix: str,
+        timestamp: datetime,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+    ):
         operation_sequence = self._operation_sequence + 1
+        internal_runtime = request_context.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME
         result = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"{operation_prefix}-{operation_sequence:03d}",
@@ -333,10 +344,18 @@ class AstraCapabilityDiscoveryEngine:
                     ),
                 ),
                 requested_authority_class=AuthorityClass.READ_ONLY,
-                safety_classification=SafetyClassification.PUBLIC,
+                safety_classification=(
+                    SafetyClassification.PRIVATE_READ
+                    if internal_runtime
+                    else SafetyClassification.PUBLIC
+                ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
+                requested_app_id=SUBSCRIPTION_MANAGER_APP_ID if internal_runtime else None,
+                requested_capability_scope=(
+                    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE if internal_runtime else None
+                ),
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=timestamp,
             )

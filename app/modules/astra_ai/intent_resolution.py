@@ -8,6 +8,10 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.modules.astra_ai.activation import (
+    SUBSCRIPTION_MANAGER_APP_ID,
+    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+)
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryRequestContext,
     AstraCapabilityStatus,
@@ -205,15 +209,24 @@ class AstraIntentResolutionEngine:
             planning_candidate = False
             confidence = AstraIntentConfidence.UNSUPPORTED
 
+        subscription_private_read = _subscription_private_read_intent(request)
         governance = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"INTENT-GOV-{self._sequence + 1:03d}",
                 requirement_references=request.constitutional_requirements,
                 requested_authority_class=AuthorityClass.ADVISORY,
-                safety_classification=SafetyClassification.PUBLIC,
+                safety_classification=(
+                    SafetyClassification.PRIVATE_READ
+                    if subscription_private_read
+                    else SafetyClassification.PUBLIC
+                ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
+                requested_app_id=SUBSCRIPTION_MANAGER_APP_ID if subscription_private_read else None,
+                requested_capability_scope=(
+                    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE if subscription_private_read else None
+                ),
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=request.timestamp,
             )
@@ -471,3 +484,11 @@ def _canonical(value):
 def _aware(value):
     if value.tzinfo is None or value.utcoffset() is None:
         raise AstraIntentResolutionError("Intent timestamp must be timezone-aware.")
+
+
+def _subscription_private_read_intent(request: AstraIntentRequest) -> bool:
+    subject = request.declared_subject or ""
+    return (
+        request.declared_action == "get_information"
+        and subject in {"subscription", "subscriptions", "subscription_manager"}
+    )
