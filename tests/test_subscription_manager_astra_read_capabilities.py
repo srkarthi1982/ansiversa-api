@@ -390,6 +390,7 @@ class SubscriptionManagerAstraReadCapabilityTests(unittest.TestCase):
     ):
         return SubscriptionAstraAuthorizationReference(
             authorization_id=f"auth-ref-{capability_id.replace('.', '-')}",
+            governance_decision_reference=f"gov-ref-{capability_id.replace('.', '-')}",
             capability_id=capability_id,
             capability_version=CAPABILITY_VERSION,
             app_scope=app_scope,

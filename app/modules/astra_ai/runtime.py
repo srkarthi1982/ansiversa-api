@@ -8,6 +8,14 @@ from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from app.modules.astra_ai.activation import (
+    AstraRuntimeActivationContract,
+    AstraRuntimeActivationIssuer,
+    AstraRuntimeActivationSnapshot,
+    activation_digest,
+    activation_snapshot,
+    load_runtime_activation,
+)
 from app.modules.astra_ai.configuration import LoadedAstraConfiguration, get_astra_configuration
 from app.modules.astra_ai.capability_discovery import (
     AstraCapabilityDiscoveryEngine,
@@ -54,6 +62,13 @@ from app.modules.astra_ai.read_access_authorization import (
     AstraReadAuthorizationDecision,
     AstraReadAuthorizationHealth,
     AstraReadAuthorizationRequest,
+)
+from app.modules.astra_ai.read_authority_binding import (
+    AstraBoundReadAuthorization,
+    AstraReadAuthorityBinding,
+    AstraReadAuthorityCapabilitySummary,
+    certified_subscription_manager_read_registry,
+    create_runtime_read_authority_issuers,
 )
 from app.modules.astra_ai.read_execution import (
     AstraReadExecutionBridge,
@@ -218,6 +233,7 @@ class AstraRuntimeHealthSnapshot(BaseModel):
     diagnostic_projection_available: bool
     registered_component_identifiers: tuple[AstraRuntimeComponentIdentifier, ...]
     startup_metadata: AstraRuntimeStartupMetadata | None = None
+    activation: AstraRuntimeActivationSnapshot | None = None
     environment_scope: EnvironmentScope | None = None
     production_authorization_state: ProductionAuthorizationState | None = None
     health_outcome: AstraRuntimeHealthOutcome
@@ -411,6 +427,17 @@ class AstraRuntimeReadAccessAuthorizationInterface:
         return self._runtime.read_access_authorization_health(observed_at=observed_at)
 
 
+class AstraRuntimeReadAuthorityInterface:
+    def __init__(self, runtime: AstraRuntime) -> None:
+        self._runtime = runtime
+
+    def capabilities(self) -> tuple[AstraReadAuthorityCapabilitySummary, ...]:
+        return self._runtime.read_authority_capabilities()
+
+    def authorize_subscription_manager_read(self, **values: Any) -> AstraBoundReadAuthorization:
+        return self._runtime.authorize_subscription_manager_read(**values)
+
+
 class AstraRuntimeReadExecutionInterface:
     def __init__(self, runtime: AstraRuntime) -> None:
         self._runtime = runtime
@@ -468,15 +495,19 @@ class AstraRuntime:
         self._state = AstraRuntimeState.UNINITIALIZED
         self._evidence_sink_capacity = evidence_sink_capacity
         self._configuration: LoadedAstraConfiguration | None = None
+        self._activation: AstraRuntimeActivationContract | None = None
+        self._activation_issuer: AstraRuntimeActivationIssuer | None = None
         self._governance = None
         self._evidence_sink: InMemoryEvidenceSink | None = None
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
         self._planning: AstraPlanningEngine | None = None
         self._intent_resolution: AstraIntentResolutionEngine | None = None
         self._read_access_authorization: AstraReadAccessAuthorizationEngine | None = None
+        self._read_authority_binding: AstraReadAuthorityBinding | None = None
         self._read_execution_bridge: AstraReadExecutionBridge | None = None
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
+        self._activation_issuer_authority = object()
         self._read_issuer_authority = object()
         self._read_execution_registration_authority = object()
         self._read_execution_request_authority = object()
@@ -490,6 +521,7 @@ class AstraRuntime:
         self._planning_interface = AstraRuntimePlanningInterface(self)
         self._intent_resolution_interface = AstraRuntimeIntentResolutionInterface(self)
         self._read_access_authorization_interface = AstraRuntimeReadAccessAuthorizationInterface(self)
+        self._read_authority_interface = AstraRuntimeReadAuthorityInterface(self)
         self._read_execution_interface = AstraRuntimeReadExecutionInterface(self)
         self._diagnostic_projection_interface = AstraRuntimeDiagnosticProjectionInterface(self)
 
@@ -513,6 +545,16 @@ class AstraRuntime:
     def configuration(self) -> LoadedAstraConfiguration:
         self._require_ready_component(self._configuration, "configuration")
         return deepcopy(self._configuration)
+
+    @property
+    def activation(self) -> AstraRuntimeActivationSnapshot:
+        self._require_ready_component(self._configuration, "configuration")
+        return activation_snapshot(
+            self._activation,
+            runtime_instance_id=self._identity.startup_instance_id,
+            environment_scope=self._configuration.configuration.environment_scope,
+            observed_at=_utc_now(),
+        )
 
     @property
     def governance(self) -> AstraRuntimeGovernanceInterface:
@@ -539,6 +581,10 @@ class AstraRuntime:
         return self._read_access_authorization_interface
 
     @property
+    def read_authority(self) -> AstraRuntimeReadAuthorityInterface:
+        return self._read_authority_interface
+
+    @property
     def read_execution(self) -> AstraRuntimeReadExecutionInterface:
         return self._read_execution_interface
 
@@ -548,7 +594,15 @@ class AstraRuntime:
 
     def evaluate_governance(self, input_contract: GovernanceEvaluationInput) -> GovernanceEvaluationResult:
         self._require_ready_component(self._governance, "governance")
-        return self._governance(input_contract)
+        runtime_owned_input = input_contract.model_copy(
+            update={
+                "runtime_instance_id": self._identity.startup_instance_id,
+                "activation_context": self._activation,
+                "activation_reference": self._activation.activation_reference if self._activation else None,
+                "activation_digest": f"sha256:{activation_digest(self._activation)}" if self._activation else None,
+            }
+        )
+        return self._governance(runtime_owned_input)
 
     def append_evidence(self, evidence: BoundedEvidence) -> BoundedEvidence:
         self._require_ready_component(self._evidence_sink, "evidence sink")
@@ -686,6 +740,14 @@ class AstraRuntime:
         self._register_diagnostic_output(result)
         return result
 
+    def read_authority_capabilities(self) -> tuple[AstraReadAuthorityCapabilitySummary, ...]:
+        self._require_ready_component(self._read_authority_binding, "read authority binding")
+        return self._read_authority_binding.capabilities()
+
+    def authorize_subscription_manager_read(self, **values: Any) -> AstraBoundReadAuthorization:
+        self._require_ready_component(self._read_authority_binding, "read authority binding")
+        return self._read_authority_binding.authorize_subscription_manager_read(**values)
+
     def issue_read_execution_request(self, **values: Any) -> AstraReadExecutionRequest:
         self._require_ready_component(self._read_execution_bridge, "read execution bridge")
         return self._read_execution_bridge.issue_request(**values)
@@ -749,6 +811,8 @@ class AstraRuntime:
             loaded_configuration = self._load_configuration()
             self._validate_configuration_boundary(loaded_configuration)
             startup_timestamp = loaded_configuration.provenance.loaded_at
+            activation_issuer = self._create_activation_issuer()
+            activation = self._load_activation(loaded_configuration, startup_timestamp, activation_issuer)
             registry = _ComponentRegistry()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.CONFIGURATION,
@@ -796,7 +860,11 @@ class AstraRuntime:
                 certified_parent_reference="ASTRA-IMP-005 through ASTRA-IMP-008 Certified",
                 registered_at=startup_timestamp,
             )
-            read_access_authorization = self._create_read_access_authorization_engine()
+            read_authority_issuers = self._create_read_authority_issuers()
+            read_access_authorization = self._create_read_access_authorization_engine(
+                certified_issuers=read_authority_issuers,
+            )
+            read_authority_binding = self._create_read_authority_binding(read_access_authorization)
             read_execution_bridge = self._create_read_execution_bridge()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
@@ -816,12 +884,15 @@ class AstraRuntime:
             registry.seal()
 
             self._configuration = loaded_configuration
+            self._activation = activation
+            self._activation_issuer = activation_issuer
             self._governance = evaluate_governance
             self._evidence_sink = evidence_sink
             self._capability_discovery = capability_discovery
             self._planning = planning
             self._intent_resolution = intent_resolution
             self._read_access_authorization = read_access_authorization
+            self._read_authority_binding = read_authority_binding
             self._read_execution_bridge = read_execution_bridge
             self._diagnostic_projection = diagnostic_projection
             self._registry = registry
@@ -868,6 +939,16 @@ class AstraRuntime:
         _ensure_timezone_aware(timestamp, "Runtime health timestamp")
         configuration_loaded = self._configuration is not None
         configuration_valid = configuration_loaded and self._is_configuration_valid(self._configuration)
+        activation = (
+            activation_snapshot(
+                self._activation,
+                runtime_instance_id=self._identity.startup_instance_id,
+                environment_scope=self._configuration.configuration.environment_scope,
+                observed_at=timestamp,
+            )
+            if self._configuration is not None
+            else None
+        )
         governance_available = self._governance is not None
         evidence_sink_available = self._evidence_sink is not None
         capability_discovery_available = self._capability_discovery is not None
@@ -901,6 +982,7 @@ class AstraRuntime:
             diagnostic_projection_available=diagnostic_projection_available,
             registered_component_identifiers=identifiers,
             startup_metadata=self._startup_metadata,
+            activation=activation,
             environment_scope=self._startup_metadata.environment_scope if self._startup_metadata is not None else None,
             production_authorization_state=(
                 self._startup_metadata.production_authorization_state if self._startup_metadata is not None else None
@@ -914,6 +996,28 @@ class AstraRuntime:
 
     def _load_configuration(self) -> LoadedAstraConfiguration:
         return get_astra_configuration()
+
+    def _load_activation(
+        self,
+        loaded_configuration: LoadedAstraConfiguration,
+        loaded_at: datetime,
+        activation_issuer: AstraRuntimeActivationIssuer,
+    ) -> AstraRuntimeActivationContract | None:
+        return load_runtime_activation(
+            runtime_instance_id=self._identity.startup_instance_id,
+            environment_scope=loaded_configuration.configuration.environment_scope,
+            loaded_at=loaded_at,
+            activation_issuer=activation_issuer,
+            activation_issue_authority=self._activation_issuer_authority,
+        )
+
+    def _create_activation_issuer(self) -> AstraRuntimeActivationIssuer:
+        return AstraRuntimeActivationIssuer(
+            runtime_instance_id=self._identity.startup_instance_id,
+            issuer_reference="runtime-activation:astra-runtime-act-001",
+            _runtime_authority=self._activation_issuer_authority,
+            _runtime_owner=self,
+        )
 
     def _create_evidence_sink(self, loaded_configuration: LoadedAstraConfiguration) -> InMemoryEvidenceSink:
         return InMemoryEvidenceSink(
@@ -930,8 +1034,37 @@ class AstraRuntime:
     def _create_intent_resolution_engine(self) -> AstraIntentResolutionEngine:
         return AstraIntentResolutionEngine(runtime=self)
 
-    def _create_read_access_authorization_engine(self) -> AstraReadAccessAuthorizationEngine:
-        return AstraReadAccessAuthorizationEngine(runtime=self)
+    def _create_read_access_authorization_engine(
+        self,
+        *,
+        certified_issuers: dict[str, AstraAuthorityProofIssuer] | None = None,
+    ) -> AstraReadAccessAuthorizationEngine:
+        return AstraReadAccessAuthorizationEngine(
+            runtime=self,
+            registry=certified_subscription_manager_read_registry(),
+            certified_issuers=certified_issuers,
+        )
+
+    def _create_read_authority_binding(
+        self,
+        read_access_authorization: AstraReadAccessAuthorizationEngine,
+    ) -> AstraReadAuthorityBinding:
+        return AstraReadAuthorityBinding(
+            runtime=self,
+            read_access_authorization=read_access_authorization,
+            read_capability_registry=certified_subscription_manager_read_registry(),
+        )
+
+    def _create_read_authority_issuers(self) -> dict[str, AstraAuthorityProofIssuer]:
+        issuers = create_runtime_read_authority_issuers(
+            runtime=self,
+            issuer_authority=self._read_issuer_authority,
+        )
+        for proof_class, issuer in issuers.items():
+            if proof_class in self._read_authority_issuers:
+                raise AstraRuntimeError("Read authority issuer class is already registered.")
+            self._read_authority_issuers[proof_class] = issuer
+        return issuers
 
     def _create_read_execution_bridge(self) -> AstraReadExecutionBridge:
         return AstraReadExecutionBridge(
@@ -971,10 +1104,19 @@ class AstraRuntime:
 
     def _validates_read_authority_issuer(self, proof_class: str, issuer: Any) -> bool:
         return (
-            self._state is AstraRuntimeState.READY
+            self._state in {AstraRuntimeState.INITIALIZING, AstraRuntimeState.READY}
             and isinstance(issuer, AstraAuthorityProofIssuer)
             and issuer._runtime_authority is self._read_issuer_authority
             and self._read_authority_issuers.get(proof_class) is issuer
+        )
+
+    def _validates_activation_issuer(self, issuer: Any) -> bool:
+        return (
+            self._state is AstraRuntimeState.READY
+            and isinstance(issuer, AstraRuntimeActivationIssuer)
+            and issuer._runtime_authority is self._activation_issuer_authority
+            and self._activation_issuer is issuer
+            and self._activation is not None
         )
 
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
@@ -983,13 +1125,18 @@ class AstraRuntime:
         self._state = next_state
 
     def _clear_owned_components(self) -> None:
+        if self._activation_issuer is not None:
+            self._activation_issuer.invalidate()
         self._configuration = None
+        self._activation = None
+        self._activation_issuer = None
         self._governance = None
         self._evidence_sink = None
         self._capability_discovery = None
         self._planning = None
         self._intent_resolution = None
         self._read_access_authorization = None
+        self._read_authority_binding = None
         self._read_execution_bridge = None
         self._diagnostic_projection = None
         self._read_authority_issuers = {}

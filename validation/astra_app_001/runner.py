@@ -96,6 +96,7 @@ class _Fixture:
             requested_maximum_result_count=limit,
             authorization_reference=SubscriptionAstraAuthorizationReference(
                 authorization_id=f"auth-{capability_id.replace('.', '-')}",
+                governance_decision_reference=f"gov-{capability_id.replace('.', '-')}",
                 capability_id=capability_id,
                 capability_version=CAPABILITY_VERSION,
                 app_scope="app:subscription_manager",

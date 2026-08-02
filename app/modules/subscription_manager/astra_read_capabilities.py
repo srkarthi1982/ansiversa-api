@@ -12,6 +12,14 @@ from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy.orm import Session
 
+from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference
+from app.modules.astra_ai.read_access_authorization import (
+    AstraCrossAppPolicy,
+    AstraNamedReadCapability,
+    AstraReadCapabilityStatus,
+    AstraReadPurpose,
+    AstraReadSensitivity,
+)
 from app.modules.auth.models import User
 from app.modules.subscription_manager import repository
 from app.modules.subscription_manager.models import SubscriptionRecord
@@ -19,6 +27,7 @@ from app.modules.subscription_manager.service import ACTIVE_STATUSES, FREQUENCY_
 
 APP_ID = "subscription_manager"
 APP_SCOPE = "app:subscription_manager"
+TENANT_SCOPE_NOT_APPLICABLE = "tenant:not_applicable"
 CAPABILITY_VERSION = "1.0.0"
 MAX_RESULT_LIMIT = 50
 AUTHORIZATION_MAX_AGE = timedelta(minutes=15)
@@ -81,6 +90,7 @@ class SubscriptionAstraAuthorizationReference(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     authorization_id: str = Field(min_length=8, max_length=160)
+    governance_decision_reference: str = Field(min_length=8, max_length=160)
     capability_id: str
     capability_version: str
     app_scope: Literal["app:subscription_manager"]
@@ -133,6 +143,48 @@ class SubscriptionAstraReadRequest(BaseModel):
         return self
 
 
+class SubscriptionAstraOwnerAcceptance(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    acceptance_id: str = Field(pattern=r"^sub_astra_accept_[a-f0-9]{32}$")
+    authenticated_user_id: str = Field(min_length=1, max_length=160)
+    authenticated_principal_reference: str = Field(min_length=3, max_length=160)
+    app_identity: Literal["subscription_manager"]
+    app_scope: Literal["app:subscription_manager"]
+    capability_id: str
+    capability_version: str
+    read_capability_id: str
+    request_reference: str = Field(min_length=8, max_length=160)
+    accepted_subject_scope: Literal["current_user"]
+    accepted_tenant_scope: Literal["tenant:not_applicable"]
+    accepted_record_scope: Literal["owned_records"]
+    accepted_field_references: tuple[str, ...] = Field(min_length=1, max_length=50)
+    accepted_purpose: AstraReadPurpose
+    accepted_parameters: tuple[SubscriptionAstraParameter, ...] = ()
+    maximum_result_count: int = Field(ge=1, le=MAX_RESULT_LIMIT)
+    issued_at: datetime
+    expires_at: datetime
+    observed_at: datetime
+    production_authorization_state: Literal["not_approved"] = "not_approved"
+
+    @model_validator(mode="after")
+    def validate_acceptance(self) -> "SubscriptionAstraOwnerAcceptance":
+        _ensure_aware(self.issued_at, "Owner acceptance issuance")
+        _ensure_aware(self.expires_at, "Owner acceptance expiration")
+        _ensure_aware(self.observed_at, "Owner acceptance observation")
+        if self.expires_at <= self.issued_at:
+            raise SubscriptionAstraCapabilityError("Owner acceptance expiration must follow issuance.")
+        if self.expires_at <= self.observed_at:
+            raise SubscriptionAstraCapabilityError("Owner acceptance cannot be expired at observation.")
+        if self.observed_at - self.issued_at > AUTHORIZATION_MAX_AGE:
+            raise SubscriptionAstraCapabilityError("Owner acceptance is stale.")
+        if len(self.accepted_field_references) != len(set(self.accepted_field_references)):
+            raise SubscriptionAstraCapabilityError("Owner acceptance fields must be unique.")
+        if self.read_capability_id != read_capability_id_for_adapter(self.capability_id):
+            raise SubscriptionAstraCapabilityError("Owner acceptance read capability does not match adapter capability.")
+        return self
+
+
 class SubscriptionAstraReadGrant(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -162,6 +214,8 @@ class SubscriptionAstraReadGrant(BaseModel):
         auth = self.astra_authorization_reference
         if auth.capability_id != self.capability_id or auth.capability_version != self.capability_version:
             raise SubscriptionAstraCapabilityError("Read grant does not match Astra authorization metadata.")
+        if not auth.governance_decision_reference:
+            raise SubscriptionAstraCapabilityError("Read grant requires Governance decision reference.")
         if auth.app_scope != self.app_scope:
             raise SubscriptionAstraCapabilityError("Read grant app scope does not match authorization metadata.")
         if self.parameter_digest != _parameter_digest(self.permitted_parameters):
@@ -204,7 +258,111 @@ class SubscriptionAstraReadGrantIssuer:
             raise SubscriptionAstraCapabilityError("Subscription Manager read grant issuer capacity is invalid.")
         self._capacity = capacity
         self._issued: dict[str, SubscriptionAstraReadGrant] = {}
+        self._accepted: dict[str, SubscriptionAstraOwnerAcceptance] = {}
         self._consumed: set[str] = set()
+
+    def issue_owner_acceptance(
+        self,
+        *,
+        authenticated_user: User,
+        principal_reference: str,
+        capability_id: str,
+        read_capability_id: str,
+        request_reference: str,
+        requested_fields: tuple[str, ...],
+        requested_purpose: AstraReadPurpose,
+        requested_maximum_result_count: int,
+        parameters: tuple[SubscriptionAstraParameter, ...],
+        observed_at: datetime,
+        issued_at: datetime | None = None,
+        expires_at: datetime | None = None,
+    ) -> SubscriptionAstraOwnerAcceptance:
+        if authenticated_user is None or not getattr(authenticated_user, "id", None):
+            raise SubscriptionAstraCapabilityError("Authenticated subscription owner is required for owner acceptance.")
+        if len(self._accepted) >= self._capacity:
+            raise SubscriptionAstraCapabilityError("Subscription Manager owner acceptance issuer capacity reached.")
+        timestamp = issued_at or observed_at
+        _ensure_aware(timestamp, "Owner acceptance issuance")
+        _ensure_aware(observed_at, "Owner acceptance observation")
+        if timestamp > observed_at:
+            raise SubscriptionAstraCapabilityError("Owner acceptance issuance cannot follow request observation.")
+        expiration = expires_at or timestamp + AUTHORIZATION_MAX_AGE
+        _ensure_aware(expiration, "Owner acceptance expiration")
+        _validate_principal_matches_user(principal_reference, authenticated_user.id)
+        definition = _definition_for(capability_id)
+        read_capability = _read_authorization_capability(definition)
+        if read_capability.read_capability_id != read_capability_id:
+            raise SubscriptionAstraCapabilityError("Owner acceptance read capability mismatch.")
+        _validate_acceptance_against_definition(
+            capability_id=capability_id,
+            capability_version=CAPABILITY_VERSION,
+            requested_fields=requested_fields,
+            requested_purpose=requested_purpose,
+            requested_maximum_result_count=requested_maximum_result_count,
+            parameters=parameters,
+            definition=definition,
+            read_capability=read_capability,
+        )
+        acceptance = SubscriptionAstraOwnerAcceptance(
+            acceptance_id=f"sub_astra_accept_{uuid4().hex}",
+            authenticated_user_id=authenticated_user.id,
+            authenticated_principal_reference=principal_reference,
+            app_identity=APP_ID,
+            app_scope=APP_SCOPE,
+            capability_id=capability_id,
+            capability_version=CAPABILITY_VERSION,
+            read_capability_id=read_capability_id,
+            request_reference=request_reference,
+            accepted_subject_scope=read_capability.allowed_subject_scope,
+            accepted_tenant_scope=read_capability.allowed_tenant_scope,
+            accepted_record_scope=read_capability.allowed_record_scope,
+            accepted_field_references=requested_fields,
+            accepted_purpose=requested_purpose,
+            accepted_parameters=parameters,
+            maximum_result_count=requested_maximum_result_count,
+            issued_at=timestamp,
+            expires_at=expiration,
+            observed_at=observed_at,
+        )
+        self._accepted[acceptance.acceptance_id] = acceptance
+        return acceptance
+
+    def validates_owner_acceptance(
+        self,
+        acceptance: Any,
+        *,
+        authenticated_user: User,
+        observed_at: datetime,
+    ) -> bool:
+        _ensure_aware(observed_at, "Owner acceptance validation")
+        if not isinstance(acceptance, SubscriptionAstraOwnerAcceptance):
+            return False
+        if self._accepted.get(acceptance.acceptance_id) is not acceptance:
+            return False
+        if observed_at < acceptance.issued_at or observed_at < acceptance.observed_at:
+            return False
+        if acceptance.expires_at <= observed_at:
+            return False
+        if acceptance.app_identity != APP_ID or acceptance.app_scope != APP_SCOPE:
+            return False
+        if authenticated_user is None or acceptance.authenticated_user_id != getattr(authenticated_user, "id", None):
+            return False
+        try:
+            _validate_principal_matches_user(acceptance.authenticated_principal_reference, acceptance.authenticated_user_id)
+            definition = _definition_for(acceptance.capability_id)
+            _validate_acceptance_against_definition(
+                capability_id=acceptance.capability_id,
+                capability_version=acceptance.capability_version,
+                requested_fields=acceptance.accepted_field_references,
+                requested_purpose=acceptance.accepted_purpose,
+                requested_maximum_result_count=acceptance.maximum_result_count,
+                parameters=acceptance.accepted_parameters,
+                definition=definition,
+                read_capability=_read_authorization_capability(definition),
+            )
+        except SubscriptionAstraCapabilityError:
+            return False
+        return True
 
     def issue(
         self,
@@ -296,12 +454,65 @@ def capability_catalog() -> tuple[SubscriptionAstraCapabilityDefinition, ...]:
     )
 
 
+def read_authorization_capabilities() -> tuple[AstraNamedReadCapability, ...]:
+    return tuple(_read_authorization_capability(definition) for definition in capability_catalog())
+
+
+def read_capability_id_for_adapter(adapter_capability_id: str) -> str:
+    _definition_for(adapter_capability_id)
+    return f"read_cap_{adapter_capability_id.replace('.', '_')}_0001"
+
+
+def default_read_fields_for_adapter(adapter_capability_id: str) -> tuple[str, ...]:
+    return _read_fields_for(_definition_for(adapter_capability_id))
+
+
+def default_read_purpose_for_adapter(adapter_capability_id: str) -> AstraReadPurpose:
+    definition = _definition_for(adapter_capability_id)
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return AstraReadPurpose.USER_REQUESTED_LOOKUP
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+        SubscriptionAstraResultKind.GROUP_BY_CATEGORY,
+    }:
+        return AstraReadPurpose.GOVERNED_AGGREGATION
+    return AstraReadPurpose.USER_REQUESTED_SUMMARY
+
+
 def default_read_grant_issuer() -> SubscriptionAstraReadGrantIssuer:
     return _SUBSCRIPTION_ASTRA_GRANT_ISSUER
 
 
 def issue_read_grant(*, authenticated_user: User, request: SubscriptionAstraReadRequest) -> SubscriptionAstraReadGrant:
     return _SUBSCRIPTION_ASTRA_GRANT_ISSUER.issue(authenticated_user=authenticated_user, request=request)
+
+
+def issue_owner_acceptance(
+    *,
+    authenticated_user: User,
+    principal_reference: str,
+    capability_id: str,
+    read_capability_id: str,
+    request_reference: str,
+    requested_fields: tuple[str, ...],
+    requested_purpose: AstraReadPurpose,
+    requested_maximum_result_count: int,
+    parameters: tuple[SubscriptionAstraParameter, ...],
+    observed_at: datetime,
+) -> SubscriptionAstraOwnerAcceptance:
+    return _SUBSCRIPTION_ASTRA_GRANT_ISSUER.issue_owner_acceptance(
+        authenticated_user=authenticated_user,
+        principal_reference=principal_reference,
+        capability_id=capability_id,
+        read_capability_id=read_capability_id,
+        request_reference=request_reference,
+        requested_fields=requested_fields,
+        requested_purpose=requested_purpose,
+        requested_maximum_result_count=requested_maximum_result_count,
+        parameters=parameters,
+        observed_at=observed_at,
+    )
 
 
 def execute_read_capability(
@@ -395,6 +606,104 @@ def _capability(capability_id: str, purpose: str, parameters: tuple[str, ...], m
     )
 
 
+def _read_authorization_capability(definition: SubscriptionAstraCapabilityDefinition) -> AstraNamedReadCapability:
+    fields = _read_fields_for(definition)
+    return AstraNamedReadCapability(
+        read_capability_id=read_capability_id_for_adapter(definition.capability_id),
+        capability_name=definition.capability_id.replace(".", "_"),
+        owning_app_id=APP_ID,
+        owning_module="subscription_manager.astra_read_capabilities",
+        version=definition.capability_version,
+        status=(
+            AstraReadCapabilityStatus.AVAILABLE
+            if definition.status is SubscriptionAstraCapabilityStatus.ENABLED
+            else AstraReadCapabilityStatus.DISABLED
+        ),
+        description=definition.purpose,
+        allowed_purposes=_read_purposes_for(definition),
+        sensitivity_classification=AstraReadSensitivity.PERSONAL,
+        allowed_subject_scope="current_user",
+        allowed_tenant_scope=TENANT_SCOPE_NOT_APPLICABLE,
+        allowed_record_scope="owned_records",
+        allowed_field_references=fields,
+        required_field_references=fields,
+        maximum_row_count=definition.maximum_result_count,
+        maximum_time_range_days=366,
+        timeout_class="short",
+        cross_app_policy=AstraCrossAppPolicy.PROHIBITED,
+        owner_service_acceptance_required=True,
+        governance_requirement_references=(_read_requirement(),),
+    )
+
+
+def _read_purposes_for(definition: SubscriptionAstraCapabilityDefinition) -> tuple[AstraReadPurpose, ...]:
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return (AstraReadPurpose.USER_REQUESTED_LOOKUP, AstraReadPurpose.USER_REQUESTED_SUMMARY)
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+        SubscriptionAstraResultKind.GROUP_BY_CATEGORY,
+        SubscriptionAstraResultKind.HIGHEST_COST_BY_CURRENCY,
+    }:
+        return (AstraReadPurpose.USER_REQUESTED_SUMMARY, AstraReadPurpose.GOVERNED_AGGREGATION)
+    return (AstraReadPurpose.USER_REQUESTED_SUMMARY,)
+
+
+def _read_fields_for(definition: SubscriptionAstraCapabilityDefinition) -> tuple[str, ...]:
+    common = ("subscription.status",)
+    if definition.result_kind is SubscriptionAstraResultKind.COUNT:
+        return ("subscription.count",)
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return (
+            "subscription.name",
+            "subscription.provider",
+            "subscription.category",
+            "subscription.billing_amount",
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.next_billing_date",
+            "subscription.status",
+            "subscription.auto_renew",
+        )
+    if definition.result_kind is SubscriptionAstraResultKind.HIGHEST_COST_BY_CURRENCY:
+        return (
+            "subscription.name",
+            "subscription.provider",
+            "subscription.billing_amount",
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.monthly_estimate",
+        )
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+    }:
+        return (
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.recurring_amount",
+            "subscription.monthly_estimate",
+            "subscription.annual_estimate",
+            "subscription.count",
+        )
+    if definition.result_kind is SubscriptionAstraResultKind.GROUP_BY_CATEGORY:
+        return (
+            "subscription.category",
+            "subscription.currency",
+            "subscription.monthly_estimate",
+            "subscription.count",
+        )
+    return common
+
+
+def _read_requirement() -> ConstitutionalRequirementReference:
+    return ConstitutionalRequirementReference(
+        constitutional_source="ASTRA-010",
+        requirement_id="AIR-CM-009",
+        requirement_version="1.0.0",
+    )
+
+
 def _definition_for(capability_id: str) -> SubscriptionAstraCapabilityDefinition:
     for definition in capability_catalog():
         if definition.capability_id == capability_id:
@@ -414,6 +723,36 @@ def _validate_request_against_definition(request: SubscriptionAstraReadRequest, 
         raise SubscriptionAstraCapabilityError("Unsupported capability parameter.")
     if request.requested_maximum_result_count > definition.maximum_result_count:
         raise SubscriptionAstraCapabilityError("Requested result limit exceeds capability bound.")
+
+
+def _validate_acceptance_against_definition(
+    *,
+    capability_id: str,
+    capability_version: str,
+    requested_fields: tuple[str, ...],
+    requested_purpose: AstraReadPurpose,
+    requested_maximum_result_count: int,
+    parameters: tuple[SubscriptionAstraParameter, ...],
+    definition: SubscriptionAstraCapabilityDefinition,
+    read_capability: AstraNamedReadCapability,
+) -> None:
+    if definition.status is not SubscriptionAstraCapabilityStatus.ENABLED:
+        raise SubscriptionAstraCapabilityError("Subscription Manager capability is disabled.")
+    if capability_id != definition.capability_id:
+        raise SubscriptionAstraCapabilityError("Owner acceptance capability mismatch.")
+    if capability_version != definition.capability_version:
+        raise SubscriptionAstraCapabilityError("Unsupported Subscription Manager capability version.")
+    if requested_maximum_result_count > definition.maximum_result_count:
+        raise SubscriptionAstraCapabilityError("Requested result limit exceeds capability bound.")
+    if not set(requested_fields).issubset(read_capability.allowed_field_references):
+        raise SubscriptionAstraCapabilityError("Owner acceptance field scope exceeds app declaration.")
+    if not set(read_capability.required_field_references).issubset(requested_fields):
+        raise SubscriptionAstraCapabilityError("Owner acceptance omitted required fields.")
+    if requested_purpose not in read_capability.allowed_purposes:
+        raise SubscriptionAstraCapabilityError("Owner acceptance purpose is not permitted.")
+    requested_parameters = {parameter.name for parameter in parameters}
+    if not requested_parameters.issubset(definition.allowed_parameters):
+        raise SubscriptionAstraCapabilityError("Unsupported capability parameter.")
 
 
 def _result(

@@ -10,6 +10,7 @@ from typing import Any, Mapping
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.modules.astra_ai.configuration import ASTRA_CONFIGURATION_ID, ASTRA_CONFIGURATION_VERSION
+from app.modules.astra_ai.activation import SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE
 from app.modules.astra_ai.constitutional_contracts import (
     ActorOrServiceClass,
     ApprovalState,
@@ -30,6 +31,7 @@ from app.modules.astra_ai.constitutional_contracts import (
     assert_no_prohibited_contract_material,
 )
 from app.modules.astra_ai.governance import GovernanceEvaluationInput
+from app.modules.astra_ai.governance import OwnerAuthorityStatus
 
 READ_ACCESS_AUTHORIZATION_VERSION = "1.0.0"
 MAX_READ_CAPABILITIES = 100
@@ -255,8 +257,10 @@ class AstraReadAuthorizationRequest(BaseModel):
 
 class AstraReadAuthorizationDecision(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
+    runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
     authorization_decision_id: str
     authorization_request_id: str
+    governance_decision_reference: str
     read_capability_id: str
     owning_app_id: str
     decision_status: AstraReadDecisionStatus
@@ -342,15 +346,24 @@ class AstraNamedReadCapabilityRegistry:
 class AstraReadAccessAuthorizationEngine:
     REQUIRED_PROOFS = ("principal", "user", "tenant", "app", "record", "field", "purpose")
 
-    def __init__(self, *, runtime: Any, registry: AstraNamedReadCapabilityRegistry | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        runtime: Any,
+        registry: AstraNamedReadCapabilityRegistry | None = None,
+        certified_issuers: Mapping[str, AstraAuthorityProofIssuer] | None = None,
+    ) -> None:
         self._runtime = runtime
         self._runtime_instance_id = runtime.identity.startup_instance_id
         self._registry = registry or AstraNamedReadCapabilityRegistry()
         self._issuers: dict[str, AstraAuthorityProofIssuer] = {}
+        self._issued_decisions: dict[str, AstraReadAuthorizationDecision] = {}
         self._sequence = 0
+        for proof_class, issuer in (certified_issuers or {}).items():
+            self.bind_certified_issuer(proof_class, issuer)
 
     def bind_certified_issuer(self, proof_class: str, issuer: AstraAuthorityProofIssuer) -> None:
-        self._require_ready()
+        self._require_runtime_eligible_for_issuer_binding()
         if proof_class not in (*self.REQUIRED_PROOFS, "owner_acceptance"):
             raise AstraReadAuthorizationError("Unknown proof issuer class.")
         if issuer.runtime_instance_id != self._runtime_instance_id:
@@ -360,6 +373,31 @@ class AstraReadAccessAuthorizationEngine:
         if proof_class in self._issuers:
             raise AstraReadAuthorizationError("Proof issuer already bound.")
         self._issuers[proof_class] = issuer
+
+    def issue_authority_proof(
+        self,
+        proof_class: str,
+        *,
+        proof_id: str,
+        subject_reference: str,
+        scope_references: tuple[str, ...],
+        issued_at: datetime,
+        expires_at: datetime,
+        version: str,
+    ) -> AstraAuthorityProof:
+        self._require_ready()
+        issuer = self._issuers.get(proof_class)
+        if issuer is None:
+            raise AstraReadAuthorizationError("Runtime-owned proof issuer is unavailable.")
+        return issuer.issue(
+            proof_id=proof_id,
+            proof_class=proof_class,
+            subject_reference=subject_reference,
+            scope_references=scope_references,
+            issued_at=issued_at,
+            expires_at=expires_at,
+            version=version,
+        )
 
     def authorize(
         self,
@@ -393,13 +431,29 @@ class AstraReadAccessAuthorizationEngine:
                 raise AstraReadAuthorizationError(f"Authoritative {proof_class} proof is unavailable or invalid.")
         self._validate_proof_scopes(request, capability, proofs)
 
+        owner_issuer = self._issuers.get("owner_acceptance")
+        owner_proof = proofs.get("owner_acceptance")
+        owner_accepted = bool(
+            owner_issuer
+            and owner_proof
+            and owner_issuer.validates(owner_proof, observed_at=request.requested_at)
+            and capability.read_capability_id in owner_proof.scope_references
+        )
+
         governance = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"READ-AUTH-GOV-{self._sequence + 1:03d}",
                 requirement_references=request.constitutional_requirement_references,
                 requested_authority_class=AuthorityClass.ADVISORY,
-                safety_classification=SafetyClassification.SENSITIVE,
-                approval_state=ApprovalState.REQUIRED,
+                safety_classification=SafetyClassification.PRIVATE_READ,
+                requested_app_id=capability.owning_app_id,
+                requested_capability_scope=SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+                approval_state=ApprovalState.NOT_REQUIRED,
+                owner_authority_status=(
+                    OwnerAuthorityStatus.VERIFIED
+                    if owner_accepted
+                    else OwnerAuthorityStatus.UNVERIFIED
+                ),
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
@@ -414,17 +468,23 @@ class AstraReadAccessAuthorizationEngine:
             status = AstraReadDecisionStatus.OWNER_ACCEPTANCE_REQUIRED
             if AstraReadCheckResult.DENIED in checks:
                 status = AstraReadDecisionStatus.MINIMIZATION_FAILED
-            elif capability.owner_service_acceptance_required:
-                owner_issuer = self._issuers.get("owner_acceptance")
-                owner_proof = proofs.get("owner_acceptance")
-                if (
-                    owner_issuer
-                    and owner_proof
-                    and owner_issuer.validates(owner_proof, observed_at=request.requested_at)
-                    and capability.read_capability_id in owner_proof.scope_references
-                ):
-                    status = AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
+            elif capability.owner_service_acceptance_required and owner_accepted:
+                status = AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
         return self._release(request, capability, governance, status, checks)
+
+    def validates_authorization_decision(
+        self,
+        decision: Any,
+        *,
+        observed_at: datetime,
+    ) -> bool:
+        return (
+            isinstance(decision, AstraReadAuthorizationDecision)
+            and decision.runtime_instance_id == self._runtime_instance_id
+            and decision.decision_status is AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
+            and decision.issued_at <= observed_at
+            and self._issued_decisions.get(decision.authorization_decision_id) is decision
+        )
 
     def _validate_proof_scopes(self, request, capability, proofs):
         required_scopes = {
@@ -571,15 +631,22 @@ class AstraReadAccessAuthorizationEngine:
         )
 
     def _release(self, request, capability, governance, status, checks):
-        semantic = {
-            "request": request.model_dump(mode="json", exclude={"proofs", "requested_at"}),
-            "capability": capability.model_dump(mode="json"),
-            "status": status.value,
-            "governance": governance.decision.outcome.value,
-            "checks": tuple(item.value for item in checks),
-        }
-        digest = hashlib.sha256(_canonical(semantic).encode()).hexdigest()
-        decision_id = f"read_auth_{digest[:24]}"
+        decision_id = preview_authorization_decision_id(
+            request=request,
+            capability=capability,
+            status=status,
+            governance_outcome=governance.decision.outcome,
+            governance_decision_reference=governance.decision.decision_id,
+            checks=checks,
+        )
+        digest = _authorization_decision_digest(
+            request=request,
+            capability=capability,
+            status=status,
+            governance_outcome=governance.decision.outcome,
+            governance_decision_reference=governance.decision.decision_id,
+            checks=checks,
+        )
         next_sequence = self._sequence + 1
         evidence_id = f"evd_read_auth_{hashlib.sha256(f'{decision_id}:{next_sequence}'.encode()).hexdigest()[:20]}"
         evidence = BoundedEvidence(
@@ -603,8 +670,10 @@ class AstraReadAccessAuthorizationEngine:
         self._runtime.append_evidence(evidence)
         purpose, fields, required, filters, rows, time_range, aggregation, cross_app = checks
         decision = AstraReadAuthorizationDecision(
+            runtime_instance_id=self._runtime_instance_id,
             authorization_decision_id=decision_id,
             authorization_request_id=request.authorization_request_id,
+            governance_decision_reference=governance.decision.decision_id,
             read_capability_id=capability.read_capability_id,
             owning_app_id=capability.owning_app_id,
             decision_status=status,
@@ -632,12 +701,17 @@ class AstraReadAccessAuthorizationEngine:
             issued_at=request.requested_at,
             version=READ_ACCESS_AUTHORIZATION_VERSION,
         )
+        self._issued_decisions[decision.authorization_decision_id] = decision
         self._sequence = next_sequence
         return decision
 
     def _require_ready(self):
         if getattr(self._runtime.state, "value", None) != "ready":
             raise AstraReadAuthorizationError("Read authorization requires ready Runtime.")
+
+    def _require_runtime_eligible_for_issuer_binding(self):
+        if getattr(self._runtime.state, "value", None) not in {"initializing", "ready"}:
+            raise AstraReadAuthorizationError("Read authorization issuer binding requires Runtime startup or ready state.")
 
 
 def _governance_status(outcome: GovernanceOutcome) -> AstraReadDecisionStatus:
@@ -649,6 +723,46 @@ def _governance_status(outcome: GovernanceOutcome) -> AstraReadDecisionStatus:
         GovernanceOutcome.CONTAIN: AstraReadDecisionStatus.GOVERNANCE_BLOCKED,
         GovernanceOutcome.FAIL_CLOSED: AstraReadDecisionStatus.INVALID,
     }[outcome]
+
+
+def preview_authorization_decision_id(
+    *,
+    request: AstraReadAuthorizationRequest,
+    capability: AstraNamedReadCapability,
+    status: AstraReadDecisionStatus,
+    governance_outcome: GovernanceOutcome,
+    checks: tuple[AstraReadCheckResult, ...],
+    governance_decision_reference: str,
+) -> str:
+    digest = _authorization_decision_digest(
+        request=request,
+        capability=capability,
+        status=status,
+        governance_outcome=governance_outcome,
+        governance_decision_reference=governance_decision_reference,
+        checks=checks,
+    )
+    return f"read_auth_{digest[:24]}"
+
+
+def _authorization_decision_digest(
+    *,
+    request: AstraReadAuthorizationRequest,
+    capability: AstraNamedReadCapability,
+    status: AstraReadDecisionStatus,
+    governance_outcome: GovernanceOutcome,
+    checks: tuple[AstraReadCheckResult, ...],
+    governance_decision_reference: str,
+) -> str:
+    semantic = {
+        "request": request.model_dump(mode="json", exclude={"proofs", "requested_at"}),
+        "capability": capability.model_dump(mode="json"),
+        "status": status.value,
+        "governance": governance_outcome.value,
+        "governance_decision_reference": governance_decision_reference,
+        "checks": tuple(item.value for item in checks),
+    }
+    return hashlib.sha256(_canonical(semantic).encode()).hexdigest()
 
 
 def _canonical(value: Any) -> str:

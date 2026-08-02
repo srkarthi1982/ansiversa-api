@@ -194,6 +194,7 @@ class _Fixture:
         return AstraReadAuthorizationDecision(
             authorization_decision_id=authorization_id,
             authorization_request_id="read_req_subscription_app_val_0001",
+            governance_decision_reference="APP-VAL-GOV-001",
             read_capability_id="read_cap_subscription_count_active_0001",
             owning_app_id=owning_app_id,
             decision_status=status,
@@ -227,6 +228,7 @@ class _Fixture:
             requested_maximum_result_count=50,
             authorization_reference=SubscriptionAstraAuthorizationReference(
                 authorization_id=self.decision.authorization_decision_id,
+                governance_decision_reference=self.decision.governance_decision_reference,
                 capability_id=capability_id,
                 capability_version=CAPABILITY_VERSION,
                 app_scope="app:subscription_manager",

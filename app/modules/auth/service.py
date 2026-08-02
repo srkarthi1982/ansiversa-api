@@ -1,11 +1,14 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
+from uuid import uuid4
 
 from fastapi import Depends, HTTPException, Request, Response, status
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 from jwt.exceptions import InvalidTokenError
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from sqlalchemy import inspect as sqlalchemy_inspect
 
 from app.core.config import settings
 from app.core.timing import set_timing_user_id, timing_span
@@ -37,12 +40,47 @@ from app.modules.auth.schemas import (
 
 ACTIVE_STATUS = "active"
 BLOCKED_LOGIN_STATUSES = {"disabled", "inactive", "suspended"}
+AUTHENTICATED_USER_CONTEXT_CAPACITY = 1000
 FORGOT_PASSWORD_MESSAGE = (
     "If the account exists, password reset instructions will be available."
 )
 RESET_PASSWORD_MESSAGE = "Password has been reset successfully."
 CHANGE_PASSWORD_MESSAGE = "Password changed successfully."
 PASSWORD_REUSE_ERROR = "New password must be different from the current password."
+_AUTHENTICATED_USER_CONTEXT_AUTHORITY = object()
+_AUTHENTICATED_REQUEST_BOUNDARY_AUTHORITY = object()
+_ISSUED_AUTHENTICATED_USER_CONTEXTS: dict[str, "AuthenticatedUserContext"] = {}
+
+
+class AuthenticatedUserContext(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True, extra="forbid", frozen=True)
+
+    context_id: str = Field(pattern=r"^auth_ctx_[a-f0-9]{32}$")
+    authenticated_user_id: str = Field(min_length=1, max_length=160)
+    authenticated_principal_reference: str = Field(pattern=r"^principal:[A-Za-z0-9][A-Za-z0-9:._/-]{0,150}$")
+    authentication_source: str = Field(pattern=r"^backend_auth:get_current_user$")
+    issued_at: datetime
+    expires_at: datetime
+    authenticated_user: User = Field(exclude=True)
+    _authority: object = PrivateAttr()
+
+    def __init__(self, **data):
+        authority = data.pop("_authority", None)
+        if authority is not _AUTHENTICATED_USER_CONTEXT_AUTHORITY:
+            raise ValueError("Authenticated user context requires backend auth authority.")
+        super().__init__(**data)
+        self._authority = authority
+
+    @model_validator(mode="after")
+    def validate_context(self) -> "AuthenticatedUserContext":
+        _ensure_user_is_auth_owned(self.authenticated_user)
+        if self.authenticated_user.id != self.authenticated_user_id:
+            raise ValueError("Authenticated user context does not match user.")
+        if self.authenticated_principal_reference != f"principal:{self.authenticated_user_id}":
+            raise ValueError("Authenticated principal reference does not match user.")
+        if self.expires_at <= self.issued_at:
+            raise ValueError("Authenticated user context expiration must follow issuance.")
+        return self
 
 
 def get_auth_status() -> AuthStatusResponse:
@@ -58,6 +96,82 @@ def is_login_allowed_status(value: str | None) -> bool:
     normalized = (value or ACTIVE_STATUS).strip().lower()
 
     return normalized not in BLOCKED_LOGIN_STATUSES
+
+
+def get_authenticated_user_context(
+    request: Request,
+    bearer_token: Annotated[str | None, Depends(oauth2_scheme)],
+    db: Annotated[Session, Depends(get_parent_db)],
+) -> AuthenticatedUserContext:
+    user, token_expires_at = _resolve_authenticated_user_from_request(
+        request=request,
+        bearer_token=bearer_token,
+        db=db,
+    )
+    return _issue_authenticated_user_context(
+        user,
+        token_expires_at=token_expires_at,
+        _auth_boundary_authority=_AUTHENTICATED_REQUEST_BOUNDARY_AUTHORITY,
+    )
+
+
+def _issue_authenticated_user_context(
+    user: User,
+    *,
+    token_expires_at: datetime,
+    _auth_boundary_authority: object | None = None,
+) -> AuthenticatedUserContext:
+    if _auth_boundary_authority is not _AUTHENTICATED_REQUEST_BOUNDARY_AUTHORITY:
+        raise ValueError("Authenticated user context requires the backend request auth boundary.")
+    _ensure_user_is_auth_owned(user)
+    timestamp = datetime.now(timezone.utc)
+    if timestamp.tzinfo is None or timestamp.utcoffset() is None:
+        raise ValueError("Authenticated user context timestamp must be timezone-aware.")
+    if token_expires_at <= timestamp:
+        raise ValueError("Authenticated user context requires an unexpired auth credential.")
+    _cleanup_authenticated_user_contexts(observed_at=timestamp)
+    if len(_ISSUED_AUTHENTICATED_USER_CONTEXTS) >= AUTHENTICATED_USER_CONTEXT_CAPACITY:
+        raise ValueError("Authenticated user context registry capacity reached.")
+    context = AuthenticatedUserContext(
+        context_id=f"auth_ctx_{uuid4().hex}",
+        authenticated_user_id=user.id,
+        authenticated_principal_reference=f"principal:{user.id}",
+        authentication_source="backend_auth:get_current_user",
+        issued_at=timestamp,
+        expires_at=token_expires_at,
+        authenticated_user=user,
+        _authority=_AUTHENTICATED_USER_CONTEXT_AUTHORITY,
+    )
+    _ISSUED_AUTHENTICATED_USER_CONTEXTS[context.context_id] = context
+    return context
+
+
+def validates_authenticated_user_context(context: object, *, observed_at: datetime) -> bool:
+    if observed_at.tzinfo is None or observed_at.utcoffset() is None:
+        return False
+    if not isinstance(context, AuthenticatedUserContext):
+        return False
+    if _ISSUED_AUTHENTICATED_USER_CONTEXTS.get(context.context_id) is not context:
+        return False
+    if context.issued_at > observed_at:
+        return False
+    if context.expires_at <= observed_at:
+        _ISSUED_AUTHENTICATED_USER_CONTEXTS.pop(context.context_id, None)
+        return False
+    return (
+        context.authenticated_user_id == context.authenticated_user.id
+        and is_login_allowed_status(context.authenticated_user.status)
+    )
+
+
+def _cleanup_authenticated_user_contexts(*, observed_at: datetime) -> None:
+    expired = [
+        context_id
+        for context_id, context in _ISSUED_AUTHENTICATED_USER_CONTEXTS.items()
+        if context.expires_at <= observed_at
+    ]
+    for context_id in expired:
+        _ISSUED_AUTHENTICATED_USER_CONTEXTS.pop(context_id, None)
 
 
 def get_user_by_email(db: Session, email: str) -> User | None:
@@ -273,6 +387,85 @@ def _as_utc(value: datetime) -> datetime:
     return value.astimezone(timezone.utc)
 
 
+def _ensure_user_is_auth_owned(user: User) -> None:
+    if not isinstance(user, User):
+        raise ValueError("Authenticated backend User is required.")
+    if not user.id:
+        raise ValueError("Authenticated user ID is required.")
+    if not is_login_allowed_status(user.status):
+        raise ValueError("Authenticated user status is not allowed.")
+    try:
+        state = sqlalchemy_inspect(user)
+    except Exception as exc:
+        raise ValueError("Authenticated user state cannot be inspected.") from exc
+    if not state.persistent:
+        raise ValueError("Authenticated user must be loaded from the backend auth database.")
+
+
+def _credentials_exception() -> HTTPException:
+    return HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials.",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+
+def _token_from_request(request: Request, bearer_token: str | None) -> str:
+    token = bearer_token or request.cookies.get(settings.AUTH_COOKIE_NAME)
+    if not token:
+        raise _credentials_exception()
+    return token
+
+
+def _token_expiration(payload: dict) -> datetime:
+    raw = payload.get("exp")
+    if isinstance(raw, datetime):
+        return _as_utc(raw)
+    if isinstance(raw, (int, float)):
+        return datetime.fromtimestamp(raw, timezone.utc)
+    raise _credentials_exception()
+
+
+def _resolve_authenticated_user_from_request(
+    *,
+    request: Request,
+    bearer_token: str | None,
+    db: Session,
+) -> tuple[User, datetime]:
+    credentials_exception = _credentials_exception()
+    token = _token_from_request(request, bearer_token)
+
+    try:
+        with timing_span("auth.decode_access_token"):
+            payload = decode_access_token(token)
+        if payload.get("type") != "access":
+            raise credentials_exception
+
+        user_id = payload.get("sub")
+        email = payload.get("email")
+        if isinstance(user_id, str) and user_id:
+            with timing_span("auth.current_user_lookup_by_id"):
+                user = get_user_by_id(db, user_id)
+        elif isinstance(email, str) and email:
+            with timing_span("auth.current_user_lookup_by_email"):
+                user = get_user_by_email(db, email)
+        else:
+            raise credentials_exception
+        token_expires_at = _token_expiration(payload)
+    except InvalidTokenError as exc:
+        raise credentials_exception from exc
+
+    with timing_span("auth.status_check"):
+        is_allowed = bool(user and is_login_allowed_status(user.status))
+
+    if not user or not is_allowed:
+        raise credentials_exception
+
+    _ensure_user_is_auth_owned(user)
+    set_timing_user_id(user.id)
+    return user, token_expires_at
+
+
 def create_user_token(user: User) -> TokenResponse:
     expires_delta = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -330,42 +523,11 @@ def get_current_user(
     bearer_token: Annotated[str | None, Depends(oauth2_scheme)],
     db: Annotated[Session, Depends(get_parent_db)],
 ) -> User:
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials.",
-        headers={"WWW-Authenticate": "Bearer"},
+    user, _token_expires_at = _resolve_authenticated_user_from_request(
+        request=request,
+        bearer_token=bearer_token,
+        db=db,
     )
-    token = bearer_token or request.cookies.get(settings.AUTH_COOKIE_NAME)
-    if not token:
-        raise credentials_exception
-
-    try:
-        with timing_span("auth.decode_access_token"):
-            payload = decode_access_token(token)
-        if payload.get("type") != "access":
-            raise credentials_exception
-
-        user_id = payload.get("sub")
-        email = payload.get("email")
-        if isinstance(user_id, str) and user_id:
-            with timing_span("auth.current_user_lookup_by_id"):
-                user = get_user_by_id(db, user_id)
-        elif isinstance(email, str) and email:
-            with timing_span("auth.current_user_lookup_by_email"):
-                user = get_user_by_email(db, email)
-        else:
-            raise credentials_exception
-    except InvalidTokenError as exc:
-        raise credentials_exception from exc
-
-    with timing_span("auth.status_check"):
-        is_allowed = bool(user and is_login_allowed_status(user.status))
-
-    if not user or not is_allowed:
-        raise credentials_exception
-
-    set_timing_user_id(user.id)
-
     return user
 
 
