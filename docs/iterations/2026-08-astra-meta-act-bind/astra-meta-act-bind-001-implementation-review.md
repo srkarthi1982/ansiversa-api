@@ -1,8 +1,17 @@
 # ASTRA-META-ACT-BIND-001 Implementation Review
 
-Status: Changes Required / Pending Astra Re-Review
+Status: Certified / Approved
 
 Product Owner authorization: Approved on 2026-08-02.
+
+Certification: Approved on 2026-08-02 by Astra review `4839188883`.
+
+Certified backend implementation:
+`0715483147d5a1a0ba6180d5a63e489f3b6fd982`.
+
+PR #4 remains open, draft, unmerged, and not merge-authorized. This prerequisite
+is frozen at the certified implementation. Production authorization is not
+approved.
 
 ## Summary
 
@@ -149,7 +158,8 @@ not modify `read_authority_binding.py` or its certified tests.
 
 ASTRA-READ-EXEC-001 remains certified/approved.
 
-ASTRA-CHAT-001 remains Changes Required / paused.
+ASTRA-CHAT-001 remains Changes Required / paused pending explicit Product
+Owner/Astra resume and branch reconciliation onto this certified prerequisite.
 
 ## Validation Evidence
 

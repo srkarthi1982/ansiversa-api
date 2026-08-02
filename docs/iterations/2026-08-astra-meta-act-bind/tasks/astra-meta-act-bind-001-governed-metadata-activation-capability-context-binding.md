@@ -1,8 +1,18 @@
 # ASTRA-META-ACT-BIND-001 - Governed Metadata Activation & Capability Context Binding
 
-Status: Changes Required / Pending Astra Re-Review
+Status: Certified / Approved
 
 Product Owner authorization: Approved on 2026-08-02.
+
+Certification: Approved on 2026-08-02 by Astra review `4839188883`.
+
+Certified backend implementation:
+`0715483147d5a1a0ba6180d5a63e489f3b6fd982`.
+
+PR #4 remains open, draft, unmerged, and not merge-authorized. This prerequisite
+is frozen at the certified implementation. Production authorization is not
+approved. ASTRA-CHAT-001 remains paused pending explicit Product Owner/Astra
+resume and branch reconciliation onto this certified prerequisite.
 
 ## Objective
 
