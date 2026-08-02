@@ -6,6 +6,8 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
+from fastapi import HTTPException
+from starlette.requests import Request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -37,7 +39,8 @@ from app.modules.astra_ai.read_access_authorization import (
 )
 from app.modules.auth.models import User
 from app.modules.auth.models import Role
-from app.modules.auth.service import issue_authenticated_user_context
+import app.modules.auth.service as auth_service_module
+from app.modules.auth.service import AuthenticatedUserContext, create_user_token, get_authenticated_user_context
 import app.modules.astra_ai.read_authority_binding as read_authority_binding_module
 from app.modules.astra_ai.read_authority_binding import (
     AstraReadAuthorityBindingError,
@@ -75,20 +78,32 @@ def _stage_zero_test_configuration():
     return _validate_astra_configuration_candidate(candidate, loaded_at=NOW)
 
 
-def user(user_id: str = "user-a") -> User:
-    return User(id=user_id, email=f"{user_id}@example.com", name="User A", password_hash="hash", status="active")
+def user(user_id: str = "user-a", *, status: str = "active") -> User:
+    return User(id=user_id, email=f"{user_id}@example.com", name="User A", password_hash="hash", status=status)
 
 
-def auth_context(user_id: str = "user-a"):
+def auth_db_user(user_id: str = "user-a", *, status: str = "active"):
     engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
     ParentBase.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     db = Session()
     db.add(Role(id=2, name="Member", key="member"))
-    db.add(user(user_id))
+    db.add(user(user_id, status=status))
     db.commit()
-    authenticated_user = db.get(User, user_id)
-    return issue_authenticated_user_context(authenticated_user, issued_at=NOW)
+    return db, db.get(User, user_id)
+
+
+def persistent_user(user_id: str = "user-a", *, status: str = "active") -> User:
+    _db, authenticated_user = auth_db_user(user_id, status=status)
+    return authenticated_user
+
+
+def auth_context(user_id: str = "user-a", *, status: str = "active"):
+    db, authenticated_user = auth_db_user(user_id, status=status)
+    assert authenticated_user is not None
+    token = create_user_token(authenticated_user).access_token
+    request = Request({"type": "http", "headers": []})
+    return get_authenticated_user_context(request, bearer_token=token, db=db)
 
 
 def conversation(instance: AstraRuntime):
@@ -203,7 +218,7 @@ def test_normal_runtime_path_authorizes_subscription_read_without_private_fixtur
             conversation_snapshot=snapshot,
             intent_resolution=intent,
             adapter_capability_id="subscription.count_active",
-            requested_at=NOW,
+            requested_at=authenticated_context.issued_at,
         )
 
     assert bound.authorization_decision.decision_status is AstraReadDecisionStatus.AUTHORIZED_METADATA_ONLY
@@ -238,7 +253,7 @@ def test_authority_binding_rejects_mismatches_and_uses_no_database_surface():
             conversation_snapshot=snapshot,
             intent_resolution=intent.model_copy(update={"intent_status": AstraIntentStatus.UNSUPPORTED}),
             adapter_capability_id="subscription.count_active",
-            requested_at=NOW,
+            requested_at=authenticated_context.issued_at,
         )
 
     with pytest.raises(AstraReadAuthorityBindingError):
@@ -248,7 +263,7 @@ def test_authority_binding_rejects_mismatches_and_uses_no_database_surface():
             conversation_snapshot=snapshot,
             intent_resolution=intent,
             adapter_capability_id="subscription.unknown",
-            requested_at=NOW,
+            requested_at=authenticated_context.issued_at,
         )
 
     source = inspect.getsource(read_authority_binding_module)
@@ -301,6 +316,100 @@ def test_fake_user_and_foreign_principal_cannot_establish_authentication_authori
         authenticated_user=user("user-b"),
         observed_at=NOW,
     )
+
+
+def test_auth_context_requires_existing_authenticated_request_boundary():
+    instance = runtime()
+    engine, snapshot = conversation(instance)
+    intent = resolved_intent(instance, engine, snapshot)
+    db, persistent = auth_db_user("victim-user")
+    assert persistent is not None
+
+    with pytest.raises(HTTPException):
+        get_authenticated_user_context(Request({"type": "http", "headers": []}), bearer_token=None, db=db)
+
+    with pytest.raises(ValueError):
+        AuthenticatedUserContext(
+            context_id="auth_ctx_" + "1" * 32,
+            authenticated_user_id=persistent.id,
+            authenticated_principal_reference=f"principal:{persistent.id}",
+            authentication_source="backend_auth:get_current_user",
+            issued_at=NOW,
+            expires_at=NOW + timedelta(minutes=5),
+            authenticated_user=persistent,
+        )
+
+    with pytest.raises(ValueError):
+        auth_service_module._issue_authenticated_user_context(
+            persistent,
+            token_expires_at=datetime.now(timezone.utc) + timedelta(minutes=5),
+        )
+
+    with pytest.raises(AstraReadAuthorityBindingError):
+        instance.read_authority.authorize_subscription_manager_read(
+            authenticated_context=persistent,
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            intent_resolution=intent,
+            adapter_capability_id="subscription.count_active",
+            requested_at=NOW,
+        )
+
+
+def test_copied_tampered_foreign_or_expired_auth_context_rejected():
+    instance = runtime()
+    engine, snapshot = conversation(instance)
+    intent = resolved_intent(instance, engine, snapshot)
+    context = auth_context("user-a")
+
+    for candidate in (
+        context.model_copy(),
+        context.model_copy(update={"authenticated_user_id": "user-b"}),
+        context.model_copy(update={"authenticated_principal_reference": "principal:user-b"}),
+    ):
+        with pytest.raises(AstraReadAuthorityBindingError):
+            instance.read_authority.authorize_subscription_manager_read(
+                authenticated_context=candidate,
+                conversation_engine=engine,
+                conversation_snapshot=snapshot,
+                intent_resolution=intent,
+                adapter_capability_id="subscription.count_active",
+                requested_at=context.issued_at,
+            )
+
+    object.__setattr__(context, "expires_at", context.issued_at - timedelta(seconds=1))
+    with pytest.raises(AstraReadAuthorityBindingError):
+        instance.read_authority.authorize_subscription_manager_read(
+            authenticated_context=context,
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            intent_resolution=intent,
+            adapter_capability_id="subscription.count_active",
+            requested_at=context.issued_at,
+        )
+
+
+def test_disabled_or_later_suspended_auth_user_context_rejected():
+    db, disabled_user = auth_db_user("disabled-user", status="disabled")
+    assert disabled_user is not None
+    token = create_user_token(disabled_user).access_token
+    with pytest.raises(HTTPException):
+        get_authenticated_user_context(Request({"type": "http", "headers": []}), bearer_token=token, db=db)
+
+    instance = runtime()
+    engine, snapshot = conversation(instance)
+    intent = resolved_intent(instance, engine, snapshot)
+    context = auth_context("user-a")
+    context.authenticated_user.status = "suspended"
+    with pytest.raises(AstraReadAuthorityBindingError):
+        instance.read_authority.authorize_subscription_manager_read(
+            authenticated_context=context,
+            conversation_engine=engine,
+            conversation_snapshot=snapshot,
+            intent_resolution=intent,
+            adapter_capability_id="subscription.count_active",
+            requested_at=context.issued_at,
+        )
 
 
 def test_owner_acceptance_rejects_copy_expiry_and_foreign_app_tampering():
@@ -363,7 +472,7 @@ def test_app_authority_scope_escalation_is_rejected(patch_values, error):
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
                 adapter_capability_id="subscription.count_active",
-                requested_at=NOW,
+                requested_at=authenticated_context.issued_at,
             )
 
 
@@ -386,7 +495,7 @@ def test_copied_or_tampered_read_decision_cannot_issue_app_grant():
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
                 adapter_capability_id="subscription.count_active",
-                requested_at=NOW,
+                requested_at=authenticated_context.issued_at,
             )
 
 
@@ -404,7 +513,7 @@ def test_static_matching_strings_without_app_owner_acceptance_do_not_authorize()
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
                 adapter_capability_id="subscription.count_active",
-                requested_at=NOW,
+                requested_at=authenticated_context.issued_at,
             )
 
 
@@ -426,7 +535,7 @@ def test_field_purpose_and_parameter_escalation_rejected_before_authorization():
                 conversation_snapshot=snapshot,
                 intent_resolution=intent,
                 adapter_capability_id=values.pop("adapter_capability_id", "subscription.count_active"),
-                requested_at=NOW,
+                requested_at=authenticated_context.issued_at,
                 **values,
             )
 

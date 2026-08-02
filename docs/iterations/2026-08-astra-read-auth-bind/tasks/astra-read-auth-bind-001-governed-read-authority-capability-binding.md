@@ -120,9 +120,14 @@ owner_authority_status = verified
 ```
 
 Principal/user authority comes from a sealed backend-auth-owned
-`AuthenticatedUserContext` issued by the existing auth service for the
-persistent DB-loaded user returned by `get_current_user`. A transient
-caller-created `User(...)` cannot establish read authority.
+`AuthenticatedUserContext` issued only by the existing authenticated backend
+request boundary. The context issuer requires bearer token or auth cookie
+resolution, access-token decoding, token expiration binding, existing DB user
+lookup by token subject/email, login-status validation, auth-owned SQLAlchemy
+persistence validation, timing user binding, and a module-private
+authenticated-request-boundary authority. A persistent user obtained directly
+from `db.get(...)`, a transient caller-created `User(...)`, or a
+caller-constructed context cannot establish read authority.
 
 Subscription Manager has no tenant or organization authority model in this
 repository. Read capability tenant scope is therefore represented explicitly as
@@ -151,12 +156,15 @@ Focused tests prove Runtime startup registry binding, exact proof issuer
 ownership, duplicate/foreign issuer rejection, normal Runtime-owned
 authorization without validation-only private mutation, no Planning execution
 shortcut, no Capability Discovery executable shortcut, no SQL surface in the
-binding module, exact authenticated `User` requirement, app-owned owner
-acceptance object identity, copied/expired/foreign/tampered owner acceptance
-rejection, different request reference/capability/version/parameters/result
-limit rejection, field/purpose/parameter escalation rejection, exact issued
-read decision validation, actual Governance decision identity binding, shutdown
-invalidation, and bounded rejection behavior.
+binding module, exact authenticated request-boundary context issuance,
+persistent-DB-user-without-request rejection, direct context construction
+rejection, copied/tampered/foreign/expired auth context rejection,
+disabled/later-suspended user rejection, app-owned owner acceptance object
+identity, copied/expired/foreign/tampered owner acceptance rejection, different
+request reference/capability/version/parameters/result limit rejection,
+field/purpose/parameter escalation rejection, exact issued read decision
+validation, actual Governance decision identity binding, shutdown invalidation,
+and bounded rejection behavior.
 
 Existing certified parent tests for Runtime, Conversation Context, Capability
 Discovery, Planning, Intent Resolution, Read Access Authorization, Read
@@ -166,17 +174,17 @@ Latest local validation:
 
 ```text
 .venv/bin/python -m pytest tests/test_astra_read_authority_binding.py -q
-20 passed
+23 passed
 
 .venv/bin/python -m pytest tests/test_subscription_manager_astra_read_capabilities.py -q
 20 passed
 
 .venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_read_execution_bridge.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_configuration_foundation.py tests/test_astra_evidence_sink.py tests/test_astra_conversation_context_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_planning_engine.py -q
-256 passed, 25 subtests passed
+259 passed, 25 subtests passed
 
 .venv/bin/python -m compileall app/modules/auth app/modules/astra_ai app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_read_authority_binding.py tests/test_astra_runtime_activation.py tests/test_astra_read_execution_bridge.py tests/test_subscription_manager_astra_read_capabilities.py
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-402 passed, 147 warnings, 33 subtests passed
+405 passed, 147 warnings, 33 subtests passed
 ```

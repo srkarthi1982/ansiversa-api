@@ -68,8 +68,14 @@ scope into Governance input through `requested_app_id=subscription_manager` and
 `requested_capability_scope=subscription_manager:private_read`.
 
 Principal/user authority comes from a sealed `AuthenticatedUserContext` issued
-by the existing backend auth service for a persistent DB-loaded user. A
-transient caller-created `User(...)` does not establish read authority.
+only by the existing backend authenticated request boundary. The context issuer
+requires a bearer token or auth cookie, access-token decoding, token expiration
+binding, existing DB user lookup by token subject/email, login-status
+validation, auth-owned SQLAlchemy persistence validation, timing user binding,
+and a module-private authenticated-request-boundary authority before the
+context is minted. A persistent user obtained directly from `db.get(...)`, a
+transient caller-created `User(...)`, or a caller-constructed context does not
+establish read authority.
 
 Subscription Manager read capabilities express the absence of a tenant model as
 `tenant:not_applicable`. This is not a tenant, organization, workspace, or role
@@ -79,32 +85,38 @@ authority.
 
 The binding component fails closed for unsupported capabilities, unresolved
 intents, mismatched app authority, missing backend auth-owned context,
-transient caller-created users, inactive users, copied/expired/foreign/tampered
-owner acceptance, different request reference, different capability/version,
-different parameters, different result limit, copied/tampered read decisions,
-foreign Runtime issuers, duplicate issuer classes, field/purpose/parameter
-escalation, and shutdown Runtime handles.
+persistent users presented outside an authenticated request, transient
+caller-created users, caller-constructed contexts, copied/tampered/foreign auth
+contexts, expired/stale auth contexts, inactive/disabled/suspended users,
+copied/expired/foreign/tampered owner acceptance, different request reference,
+different capability/version, different parameters, different result limit,
+copied/tampered read decisions, foreign Runtime issuers, duplicate issuer
+classes, field/purpose/parameter escalation, and shutdown Runtime handles.
 
 The binding module does not import SQLAlchemy, own a database session, execute
 SQL, or call Subscription Manager repositories.
+
+The auth-owned context registry is bounded and removes expired contexts during
+issuance and expiration validation. It is not a durable global authorization
+store.
 
 ## Validation Evidence
 
 ```text
 .venv/bin/python -m pytest tests/test_astra_read_authority_binding.py -q
-20 passed
+23 passed
 
 .venv/bin/python -m pytest tests/test_subscription_manager_astra_read_capabilities.py -q
 20 passed
 
 .venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_read_execution_bridge.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_configuration_foundation.py tests/test_astra_evidence_sink.py tests/test_astra_conversation_context_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_planning_engine.py -q
-256 passed, 25 subtests passed
+259 passed, 25 subtests passed
 
 .venv/bin/python -m compileall app/modules/auth app/modules/astra_ai app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_read_authority_binding.py tests/test_astra_runtime_activation.py tests/test_astra_read_execution_bridge.py tests/test_subscription_manager_astra_read_capabilities.py
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-402 passed, 147 warnings, 33 subtests passed
+405 passed, 147 warnings, 33 subtests passed
 ```
 
 ## Remaining Limitations
