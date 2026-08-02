@@ -12,6 +12,8 @@ from app.modules.astra_ai.activation import (
     AstraRuntimeActivationContract,
     AstraRuntimeActivationIssuer,
     AstraRuntimeActivationSnapshot,
+    SUBSCRIPTION_MANAGER_APP_ID,
+    SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
     activation_digest,
     activation_snapshot,
     load_runtime_activation,
@@ -49,6 +51,10 @@ from app.modules.astra_ai.intent_resolution import (
     AstraIntentRequest,
     AstraIntentResolution,
     AstraIntentResolutionEngine,
+)
+from app.modules.astra_ai.metadata_activation_binding import (
+    AstraGovernedMetadataContext,
+    AstraGovernedMetadataContextIssuer,
 )
 from app.modules.astra_ai.planning import (
     AstraPlanningEngine,
@@ -497,6 +503,7 @@ class AstraRuntime:
         self._configuration: LoadedAstraConfiguration | None = None
         self._activation: AstraRuntimeActivationContract | None = None
         self._activation_issuer: AstraRuntimeActivationIssuer | None = None
+        self._metadata_context_issuer: AstraGovernedMetadataContextIssuer | None = None
         self._governance = None
         self._evidence_sink: InMemoryEvidenceSink | None = None
         self._capability_discovery: AstraCapabilityDiscoveryEngine | None = None
@@ -508,6 +515,7 @@ class AstraRuntime:
         self._diagnostic_projection: AstraDiagnosticProjectionEngine | None = None
         self._diagnostic_output_registration_authority = object()
         self._activation_issuer_authority = object()
+        self._metadata_context_issuer_authority = object()
         self._read_issuer_authority = object()
         self._read_execution_registration_authority = object()
         self._read_execution_request_authority = object()
@@ -709,6 +717,71 @@ class AstraRuntime:
         self._register_diagnostic_output(result)
         return result
 
+    def issue_subscription_manager_governed_metadata_context(
+        self,
+        *,
+        conversation_engine: Any,
+        conversation_snapshot: Any,
+        adapter_capability_id: str,
+        requested_at: datetime,
+    ) -> AstraGovernedMetadataContext:
+        self._require_ready_component(self._metadata_context_issuer, "governed metadata context issuer")
+        self._require_ready_component(self._activation, "runtime activation")
+        self._validate_governed_metadata_conversation(conversation_engine, conversation_snapshot)
+        current_turn = conversation_snapshot.current_turn
+        if current_turn is None:
+            raise AstraRuntimeError("Governed metadata context requires a current conversation turn.")
+        capability = self._subscription_manager_capability_summary(adapter_capability_id)
+        return self._metadata_context_issuer.issue(
+            conversation_id=conversation_snapshot.metadata.conversation_id,
+            current_turn_reference=current_turn.turn_id,
+            request_reference=current_turn.request_reference,
+            app_id=SUBSCRIPTION_MANAGER_APP_ID,
+            capability_scope=SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+            capability_id=capability.adapter_capability_id,
+            capability_version=capability.version,
+            activation=self._activation,
+            issued_at=requested_at,
+            _runtime_authority=self._metadata_context_issuer_authority,
+        )
+
+    def validates_governed_metadata_context(
+        self,
+        context: Any,
+        *,
+        observed_at: datetime,
+        conversation_id: str | None,
+        current_turn_reference: str | None,
+        request_reference: str | None,
+        app_id: str | None,
+        capability_scope: str | None,
+        capability_id: str | None,
+        capability_version: str | None,
+    ) -> bool:
+        if self._metadata_context_issuer is None or self._state is not AstraRuntimeState.READY:
+            return False
+        if None in (
+            conversation_id,
+            current_turn_reference,
+            request_reference,
+            app_id,
+            capability_scope,
+            capability_id,
+            capability_version,
+        ):
+            return False
+        return self._metadata_context_issuer.validates(
+            context,
+            observed_at=observed_at,
+            conversation_id=conversation_id,
+            current_turn_reference=current_turn_reference,
+            request_reference=request_reference,
+            app_id=app_id,
+            capability_scope=capability_scope,
+            capability_id=capability_id,
+            capability_version=capability_version,
+        )
+
     def intent_resolution_health(self, *, observed_at=None) -> AstraIntentHealthSnapshot:
         self._require_ready_component(self._intent_resolution, "intent resolution")
         result = self._intent_resolution.health(observed_at=observed_at)
@@ -866,6 +939,7 @@ class AstraRuntime:
             )
             read_authority_binding = self._create_read_authority_binding(read_access_authorization)
             read_execution_bridge = self._create_read_execution_bridge()
+            metadata_context_issuer = self._create_governed_metadata_context_issuer()
             registry.register(
                 component_identifier=AstraRuntimeComponentIdentifier.READ_ACCESS_AUTHORIZATION,
                 component_type="AstraReadAccessAuthorizationEngine",
@@ -886,6 +960,7 @@ class AstraRuntime:
             self._configuration = loaded_configuration
             self._activation = activation
             self._activation_issuer = activation_issuer
+            self._metadata_context_issuer = metadata_context_issuer
             self._governance = evaluate_governance
             self._evidence_sink = evidence_sink
             self._capability_discovery = capability_discovery
@@ -1073,6 +1148,14 @@ class AstraRuntime:
             request_authority=self._read_execution_request_authority,
         )
 
+    def _create_governed_metadata_context_issuer(self) -> AstraGovernedMetadataContextIssuer:
+        return AstraGovernedMetadataContextIssuer(
+            runtime_instance_id=self._identity.startup_instance_id,
+            issuer_reference="runtime-metadata-context:astra-meta-act-bind-001",
+            _runtime_authority=self._metadata_context_issuer_authority,
+            _runtime_owner=self,
+        )
+
     def _create_diagnostic_projection_engine(self) -> AstraDiagnosticProjectionEngine:
         return AstraDiagnosticProjectionEngine(
             runtime=self,
@@ -1119,6 +1202,48 @@ class AstraRuntime:
             and self._activation is not None
         )
 
+    def _validates_metadata_context_issuer(self, issuer: Any) -> bool:
+        return (
+            self._state is AstraRuntimeState.READY
+            and isinstance(issuer, AstraGovernedMetadataContextIssuer)
+            and issuer._runtime_authority is self._metadata_context_issuer_authority
+            and self._metadata_context_issuer is issuer
+            and self._activation is not None
+        )
+
+    def _subscription_manager_capability_summary(self, adapter_capability_id: str) -> AstraReadAuthorityCapabilitySummary:
+        for capability in self.read_authority_capabilities():
+            if (
+                capability.owning_app_id == SUBSCRIPTION_MANAGER_APP_ID
+                and capability.adapter_capability_id == adapter_capability_id
+            ):
+                return capability
+        raise AstraRuntimeError("Governed metadata context requires a certified Subscription Manager capability.")
+
+    def _validate_governed_metadata_conversation(self, conversation_engine: Any, conversation_snapshot: Any) -> None:
+        from app.modules.astra_ai.conversation_context import (
+            AstraConversationContextEngine,
+            AstraConversationLifecycleState,
+            AstraConversationSnapshot,
+        )
+
+        if not isinstance(conversation_engine, AstraConversationContextEngine):
+            raise AstraRuntimeError("Governed metadata context requires certified Conversation Context.")
+        if not isinstance(conversation_snapshot, AstraConversationSnapshot):
+            raise AstraRuntimeError("Governed metadata context requires a certified conversation snapshot.")
+        if conversation_snapshot.metadata.runtime_instance_id != self._identity.startup_instance_id:
+            raise AstraRuntimeError("Governed metadata context conversation belongs to a foreign Runtime.")
+        if conversation_snapshot.current_turn is None:
+            raise AstraRuntimeError("Governed metadata context requires a current turn.")
+        if conversation_snapshot.metadata.lifecycle_state is not AstraConversationLifecycleState.ACTIVE:
+            raise AstraRuntimeError("Governed metadata context requires an active conversation.")
+        try:
+            owned_snapshot = conversation_engine.get_conversation(conversation_snapshot.metadata.conversation_id)
+        except Exception as exc:
+            raise AstraRuntimeError("Governed metadata context conversation is not Runtime-owned.") from exc
+        if owned_snapshot != conversation_snapshot:
+            raise AstraRuntimeError("Governed metadata context conversation snapshot is stale or fabricated.")
+
     def _transition_to(self, next_state: AstraRuntimeState) -> None:
         if next_state not in ALLOWED_RUNTIME_TRANSITIONS[self._state]:
             raise AstraRuntimeError("Runtime lifecycle transition is not authorized.")
@@ -1127,9 +1252,12 @@ class AstraRuntime:
     def _clear_owned_components(self) -> None:
         if self._activation_issuer is not None:
             self._activation_issuer.invalidate()
+        if self._metadata_context_issuer is not None:
+            self._metadata_context_issuer.invalidate()
         self._configuration = None
         self._activation = None
         self._activation_issuer = None
+        self._metadata_context_issuer = None
         self._governance = None
         self._evidence_sink = None
         self._capability_discovery = None

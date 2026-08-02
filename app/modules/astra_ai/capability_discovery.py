@@ -98,6 +98,7 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
     conversation_id: str | None = Field(default=None, pattern=r"^conv_[a-z0-9][a-z0-9_-]{7,120}$")
     maximum_visibility: AstraCapabilityVisibility
     governance_reference: ConstitutionalRequirementReference
+    governed_metadata_context: Any | None = Field(default=None, exclude=True)
     authority_token: Any | None = Field(default=None, exclude=True)
 
     @model_validator(mode="after")
@@ -116,6 +117,8 @@ class AstraCapabilityDiscoveryRequestContext(BaseModel):
         if self.requester_class is AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
             if not self.authenticated or self.runtime_instance_id is None or self.authority_token is None:
                 raise AstraCapabilityDiscoveryError("Internal runtime discovery context requires trusted runtime ownership.")
+        if self.governed_metadata_context is not None and self.requester_class is not AstraCapabilityRequesterClass.INTERNAL_RUNTIME:
+            raise AstraCapabilityDiscoveryError("Governed metadata context requires internal runtime discovery.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 
@@ -237,7 +240,7 @@ class AstraCapabilityDiscoveryEngine:
         _ensure_timezone_aware(timestamp, "Capability discovery timestamp")
         self._require_runtime_ready()
         self._validate_request_context(request_context, requested_visibility)
-        governance = self._emit_governance_evidence("CAP-DISC", timestamp)
+        governance = self._emit_governance_evidence("CAP-DISC", timestamp, request_context=request_context)
         capabilities = ()
         if governance.decision.outcome is GovernanceOutcome.ALLOW:
             capabilities = self._registry.discover(
@@ -266,7 +269,7 @@ class AstraCapabilityDiscoveryEngine:
         _ensure_timezone_aware(timestamp, "Capability lookup timestamp")
         self._require_runtime_ready()
         self._validate_request_context(request_context)
-        governance = self._emit_governance_evidence("CAP-LOOKUP", timestamp)
+        governance = self._emit_governance_evidence("CAP-LOOKUP", timestamp, request_context=request_context)
         if governance.decision.outcome is not GovernanceOutcome.ALLOW:
             raise AstraCapabilityDiscoveryError("Capability lookup denied by governance outcome.")
         capability = self._registry.get(capability_id)
@@ -320,8 +323,17 @@ class AstraCapabilityDiscoveryEngine:
             authority_token=self._internal_authority_token,
         )
 
-    def _emit_governance_evidence(self, operation_prefix: str, timestamp: datetime):
+    def _emit_governance_evidence(
+        self,
+        operation_prefix: str,
+        timestamp: datetime,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+    ):
         operation_sequence = self._operation_sequence + 1
+        metadata_context = request_context.governed_metadata_context
+        if metadata_context is not None:
+            self._validate_governed_metadata_context(metadata_context, request_context=request_context, timestamp=timestamp)
         result = self._runtime.evaluate_governance(
             GovernanceEvaluationInput(
                 evaluation_id=f"{operation_prefix}-{operation_sequence:03d}",
@@ -333,10 +345,16 @@ class AstraCapabilityDiscoveryEngine:
                     ),
                 ),
                 requested_authority_class=AuthorityClass.READ_ONLY,
-                safety_classification=SafetyClassification.PUBLIC,
+                safety_classification=(
+                    SafetyClassification.PRIVATE_READ
+                    if metadata_context is not None
+                    else SafetyClassification.PUBLIC
+                ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
+                requested_app_id=getattr(metadata_context, "app_id", None),
+                requested_capability_scope=getattr(metadata_context, "capability_scope", None),
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=timestamp,
             )
@@ -359,6 +377,27 @@ class AstraCapabilityDiscoveryEngine:
             raise AstraCapabilityDiscoveryError("Authenticated discovery context has no authorized issuer in ASTRA-IMP-007.")
         if requested_visibility is not None and requested_visibility not in _allowed_visibilities(request_context.maximum_visibility):
             raise AstraCapabilityDiscoveryError("Requested visibility exceeds requester context.")
+
+    def _validate_governed_metadata_context(
+        self,
+        metadata_context: Any,
+        *,
+        request_context: AstraCapabilityDiscoveryRequestContext,
+        timestamp: datetime,
+    ) -> None:
+        validator = getattr(self._runtime, "validates_governed_metadata_context", None)
+        if not callable(validator) or not validator(
+            metadata_context,
+            observed_at=timestamp,
+            conversation_id=request_context.conversation_id,
+            current_turn_reference=getattr(metadata_context, "current_turn_reference", None),
+            request_reference=getattr(metadata_context, "request_reference", None),
+            app_id=getattr(metadata_context, "app_id", None),
+            capability_scope=getattr(metadata_context, "capability_scope", None),
+            capability_id=getattr(metadata_context, "capability_id", None),
+            capability_version=getattr(metadata_context, "capability_version", None),
+        ):
+            raise AstraCapabilityDiscoveryError("Governed metadata context is not valid for capability discovery.")
 
     def _validate_conversation_ownership(
         self,
