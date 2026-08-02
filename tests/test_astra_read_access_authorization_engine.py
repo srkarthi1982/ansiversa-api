@@ -78,8 +78,8 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
         interface = self.runtime.read_access_authorization
         health = interface.health(observed_at=NOW)
         self.assertEqual(health.health_outcome, AstraReadHealthOutcome.DEGRADED)
-        self.assertFalse(health.principal_proof_issuer_available)
-        self.assertFalse(health.owner_acceptance_issuer_available)
+        self.assertTrue(health.principal_proof_issuer_available)
+        self.assertTrue(health.owner_acceptance_issuer_available)
         self.runtime.shutdown()
         with self.assertRaises(AstraRuntimeError):
             interface.health(observed_at=NOW)
@@ -125,7 +125,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
     def test_owner_issued_proof_rejects_copy_foreign_expired_and_unknown(self):
         with self.assertRaises(AstraReadAuthorizationError):
             AstraAuthorityProofIssuer(runtime_instance_id=RUNTIME_ID, issuer_reference="caller:identity")
-        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:identity", capacity=2)
+        issuer = self.runtime._read_access_authorization._issuers["principal"]
         proof = issuer.issue(
             proof_id="proof_principal_0001",
             proof_class="principal",
@@ -142,7 +142,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
             created_at=NOW, startup_instance_id="astra_rt_" + "b" * 32
         )
         foreign_runtime.startup()
-        foreign = foreign_runtime._issue_read_authority_issuer("principal", "owner:identity")
+        foreign = foreign_runtime._read_access_authorization._issuers["principal"]
         self.assertFalse(foreign.validates(proof, observed_at=NOW))
         foreign_runtime.shutdown()
 
@@ -150,7 +150,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
         engine = AstraReadAccessAuthorizationEngine(
             runtime=self.runtime, registry=AstraNamedReadCapabilityRegistry((capability(),))
         )
-        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:identity")
+        issuer = self.runtime._read_access_authorization._issuers["principal"]
         principal = issuer.issue(
             proof_id="proof_principal_0001",
             proof_class="principal",
@@ -192,7 +192,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
 
     def test_only_exact_runtime_registered_issuer_can_bind(self):
         engine = AstraReadAccessAuthorizationEngine(runtime=self.runtime)
-        issuer = self.runtime._issue_read_authority_issuer("principal", "owner:principal")
+        issuer = self.runtime._read_access_authorization._issuers["principal"]
         engine.bind_certified_issuer("principal", issuer)
         copied = object.__new__(AstraAuthorityProofIssuer)
         copied.__dict__.update(issuer.__dict__)
@@ -217,7 +217,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
             requester_authority_context="authority:current",
             constitutional_requirement_references=(REQ,),
             proofs=(
-                self.runtime._issue_read_authority_issuer("principal", "owner:principal").issue(
+                self.runtime._read_access_authorization._issuers["principal"].issue(
                     proof_id="proof_principal_0002",
                     proof_class="principal",
                     subject_reference="principal:current",
@@ -275,9 +275,7 @@ class AstraReadAccessAuthorizationTests(unittest.TestCase):
             runtime=self.runtime, registry=AstraNamedReadCapabilityRegistry((capability(),))
         )
         for proof_class in (*engine.REQUIRED_PROOFS, "owner_acceptance"):
-            issuer = self.runtime._issue_read_authority_issuer(
-                proof_class, f"owner:{proof_class}"
-            )
+            issuer = self.runtime._read_access_authorization._issuers[proof_class]
             engine.bind_certified_issuer(proof_class, issuer)
         with (
             patch.object(

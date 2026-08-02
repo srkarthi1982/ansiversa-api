@@ -12,6 +12,14 @@ from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy.orm import Session
 
+from app.modules.astra_ai.constitutional_contracts import ConstitutionalRequirementReference
+from app.modules.astra_ai.read_access_authorization import (
+    AstraCrossAppPolicy,
+    AstraNamedReadCapability,
+    AstraReadCapabilityStatus,
+    AstraReadPurpose,
+    AstraReadSensitivity,
+)
 from app.modules.auth.models import User
 from app.modules.subscription_manager import repository
 from app.modules.subscription_manager.models import SubscriptionRecord
@@ -296,6 +304,32 @@ def capability_catalog() -> tuple[SubscriptionAstraCapabilityDefinition, ...]:
     )
 
 
+def read_authorization_capabilities() -> tuple[AstraNamedReadCapability, ...]:
+    return tuple(_read_authorization_capability(definition) for definition in capability_catalog())
+
+
+def read_capability_id_for_adapter(adapter_capability_id: str) -> str:
+    _definition_for(adapter_capability_id)
+    return f"read_cap_{adapter_capability_id.replace('.', '_')}_0001"
+
+
+def default_read_fields_for_adapter(adapter_capability_id: str) -> tuple[str, ...]:
+    return _read_fields_for(_definition_for(adapter_capability_id))
+
+
+def default_read_purpose_for_adapter(adapter_capability_id: str) -> AstraReadPurpose:
+    definition = _definition_for(adapter_capability_id)
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return AstraReadPurpose.USER_REQUESTED_LOOKUP
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+        SubscriptionAstraResultKind.GROUP_BY_CATEGORY,
+    }:
+        return AstraReadPurpose.GOVERNED_AGGREGATION
+    return AstraReadPurpose.USER_REQUESTED_SUMMARY
+
+
 def default_read_grant_issuer() -> SubscriptionAstraReadGrantIssuer:
     return _SUBSCRIPTION_ASTRA_GRANT_ISSUER
 
@@ -392,6 +426,104 @@ def _capability(capability_id: str, purpose: str, parameters: tuple[str, ...], m
         allowed_parameters=parameters,
         maximum_result_count=maximum,
         result_kind=kind,
+    )
+
+
+def _read_authorization_capability(definition: SubscriptionAstraCapabilityDefinition) -> AstraNamedReadCapability:
+    fields = _read_fields_for(definition)
+    return AstraNamedReadCapability(
+        read_capability_id=read_capability_id_for_adapter(definition.capability_id),
+        capability_name=definition.capability_id.replace(".", "_"),
+        owning_app_id=APP_ID,
+        owning_module="subscription_manager.astra_read_capabilities",
+        version=definition.capability_version,
+        status=(
+            AstraReadCapabilityStatus.AVAILABLE
+            if definition.status is SubscriptionAstraCapabilityStatus.ENABLED
+            else AstraReadCapabilityStatus.DISABLED
+        ),
+        description=definition.purpose,
+        allowed_purposes=_read_purposes_for(definition),
+        sensitivity_classification=AstraReadSensitivity.PERSONAL,
+        allowed_subject_scope="current_user",
+        allowed_tenant_scope="current_tenant",
+        allowed_record_scope="owned_records",
+        allowed_field_references=fields,
+        required_field_references=fields,
+        maximum_row_count=definition.maximum_result_count,
+        maximum_time_range_days=366,
+        timeout_class="short",
+        cross_app_policy=AstraCrossAppPolicy.PROHIBITED,
+        owner_service_acceptance_required=True,
+        governance_requirement_references=(_read_requirement(),),
+    )
+
+
+def _read_purposes_for(definition: SubscriptionAstraCapabilityDefinition) -> tuple[AstraReadPurpose, ...]:
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return (AstraReadPurpose.USER_REQUESTED_LOOKUP, AstraReadPurpose.USER_REQUESTED_SUMMARY)
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+        SubscriptionAstraResultKind.GROUP_BY_CATEGORY,
+        SubscriptionAstraResultKind.HIGHEST_COST_BY_CURRENCY,
+    }:
+        return (AstraReadPurpose.USER_REQUESTED_SUMMARY, AstraReadPurpose.GOVERNED_AGGREGATION)
+    return (AstraReadPurpose.USER_REQUESTED_SUMMARY,)
+
+
+def _read_fields_for(definition: SubscriptionAstraCapabilityDefinition) -> tuple[str, ...]:
+    common = ("subscription.status",)
+    if definition.result_kind is SubscriptionAstraResultKind.COUNT:
+        return ("subscription.count",)
+    if definition.result_kind is SubscriptionAstraResultKind.LIST:
+        return (
+            "subscription.name",
+            "subscription.provider",
+            "subscription.category",
+            "subscription.billing_amount",
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.next_billing_date",
+            "subscription.status",
+            "subscription.auto_renew",
+        )
+    if definition.result_kind is SubscriptionAstraResultKind.HIGHEST_COST_BY_CURRENCY:
+        return (
+            "subscription.name",
+            "subscription.provider",
+            "subscription.billing_amount",
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.monthly_estimate",
+        )
+    if definition.result_kind in {
+        SubscriptionAstraResultKind.RECURRING_TOTALS,
+        SubscriptionAstraResultKind.TOTALS_BY_CURRENCY,
+    }:
+        return (
+            "subscription.currency",
+            "subscription.billing_frequency",
+            "subscription.recurring_amount",
+            "subscription.monthly_estimate",
+            "subscription.annual_estimate",
+            "subscription.count",
+        )
+    if definition.result_kind is SubscriptionAstraResultKind.GROUP_BY_CATEGORY:
+        return (
+            "subscription.category",
+            "subscription.currency",
+            "subscription.monthly_estimate",
+            "subscription.count",
+        )
+    return common
+
+
+def _read_requirement() -> ConstitutionalRequirementReference:
+    return ConstitutionalRequirementReference(
+        constitutional_source="ASTRA-010",
+        requirement_id="AIR-CM-009",
+        requirement_version="1.0.0",
     )
 
 

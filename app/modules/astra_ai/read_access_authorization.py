@@ -255,6 +255,7 @@ class AstraReadAuthorizationRequest(BaseModel):
 
 class AstraReadAuthorizationDecision(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
+    runtime_instance_id: str | None = Field(default=None, pattern=r"^astra_rt_[a-f0-9]{32}$")
     authorization_decision_id: str
     authorization_request_id: str
     read_capability_id: str
@@ -342,15 +343,23 @@ class AstraNamedReadCapabilityRegistry:
 class AstraReadAccessAuthorizationEngine:
     REQUIRED_PROOFS = ("principal", "user", "tenant", "app", "record", "field", "purpose")
 
-    def __init__(self, *, runtime: Any, registry: AstraNamedReadCapabilityRegistry | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        runtime: Any,
+        registry: AstraNamedReadCapabilityRegistry | None = None,
+        certified_issuers: Mapping[str, AstraAuthorityProofIssuer] | None = None,
+    ) -> None:
         self._runtime = runtime
         self._runtime_instance_id = runtime.identity.startup_instance_id
         self._registry = registry or AstraNamedReadCapabilityRegistry()
         self._issuers: dict[str, AstraAuthorityProofIssuer] = {}
         self._sequence = 0
+        for proof_class, issuer in (certified_issuers or {}).items():
+            self.bind_certified_issuer(proof_class, issuer)
 
     def bind_certified_issuer(self, proof_class: str, issuer: AstraAuthorityProofIssuer) -> None:
-        self._require_ready()
+        self._require_runtime_eligible_for_issuer_binding()
         if proof_class not in (*self.REQUIRED_PROOFS, "owner_acceptance"):
             raise AstraReadAuthorizationError("Unknown proof issuer class.")
         if issuer.runtime_instance_id != self._runtime_instance_id:
@@ -398,7 +407,7 @@ class AstraReadAccessAuthorizationEngine:
                 evaluation_id=f"READ-AUTH-GOV-{self._sequence + 1:03d}",
                 requirement_references=request.constitutional_requirement_references,
                 requested_authority_class=AuthorityClass.ADVISORY,
-                safety_classification=SafetyClassification.SENSITIVE,
+                safety_classification=SafetyClassification.PRIVATE_READ,
                 approval_state=ApprovalState.REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
@@ -571,15 +580,20 @@ class AstraReadAccessAuthorizationEngine:
         )
 
     def _release(self, request, capability, governance, status, checks):
-        semantic = {
-            "request": request.model_dump(mode="json", exclude={"proofs", "requested_at"}),
-            "capability": capability.model_dump(mode="json"),
-            "status": status.value,
-            "governance": governance.decision.outcome.value,
-            "checks": tuple(item.value for item in checks),
-        }
-        digest = hashlib.sha256(_canonical(semantic).encode()).hexdigest()
-        decision_id = f"read_auth_{digest[:24]}"
+        decision_id = preview_authorization_decision_id(
+            request=request,
+            capability=capability,
+            status=status,
+            governance_outcome=governance.decision.outcome,
+            checks=checks,
+        )
+        digest = _authorization_decision_digest(
+            request=request,
+            capability=capability,
+            status=status,
+            governance_outcome=governance.decision.outcome,
+            checks=checks,
+        )
         next_sequence = self._sequence + 1
         evidence_id = f"evd_read_auth_{hashlib.sha256(f'{decision_id}:{next_sequence}'.encode()).hexdigest()[:20]}"
         evidence = BoundedEvidence(
@@ -603,6 +617,7 @@ class AstraReadAccessAuthorizationEngine:
         self._runtime.append_evidence(evidence)
         purpose, fields, required, filters, rows, time_range, aggregation, cross_app = checks
         decision = AstraReadAuthorizationDecision(
+            runtime_instance_id=self._runtime_instance_id,
             authorization_decision_id=decision_id,
             authorization_request_id=request.authorization_request_id,
             read_capability_id=capability.read_capability_id,
@@ -639,6 +654,10 @@ class AstraReadAccessAuthorizationEngine:
         if getattr(self._runtime.state, "value", None) != "ready":
             raise AstraReadAuthorizationError("Read authorization requires ready Runtime.")
 
+    def _require_runtime_eligible_for_issuer_binding(self):
+        if getattr(self._runtime.state, "value", None) not in {"initializing", "ready"}:
+            raise AstraReadAuthorizationError("Read authorization issuer binding requires Runtime startup or ready state.")
+
 
 def _governance_status(outcome: GovernanceOutcome) -> AstraReadDecisionStatus:
     return {
@@ -649,6 +668,42 @@ def _governance_status(outcome: GovernanceOutcome) -> AstraReadDecisionStatus:
         GovernanceOutcome.CONTAIN: AstraReadDecisionStatus.GOVERNANCE_BLOCKED,
         GovernanceOutcome.FAIL_CLOSED: AstraReadDecisionStatus.INVALID,
     }[outcome]
+
+
+def preview_authorization_decision_id(
+    *,
+    request: AstraReadAuthorizationRequest,
+    capability: AstraNamedReadCapability,
+    status: AstraReadDecisionStatus,
+    governance_outcome: GovernanceOutcome,
+    checks: tuple[AstraReadCheckResult, ...],
+) -> str:
+    digest = _authorization_decision_digest(
+        request=request,
+        capability=capability,
+        status=status,
+        governance_outcome=governance_outcome,
+        checks=checks,
+    )
+    return f"read_auth_{digest[:24]}"
+
+
+def _authorization_decision_digest(
+    *,
+    request: AstraReadAuthorizationRequest,
+    capability: AstraNamedReadCapability,
+    status: AstraReadDecisionStatus,
+    governance_outcome: GovernanceOutcome,
+    checks: tuple[AstraReadCheckResult, ...],
+) -> str:
+    semantic = {
+        "request": request.model_dump(mode="json", exclude={"proofs", "requested_at"}),
+        "capability": capability.model_dump(mode="json"),
+        "status": status.value,
+        "governance": governance_outcome.value,
+        "checks": tuple(item.value for item in checks),
+    }
+    return hashlib.sha256(_canonical(semantic).encode()).hexdigest()
 
 
 def _canonical(value: Any) -> str:
