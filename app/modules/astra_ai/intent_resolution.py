@@ -93,6 +93,7 @@ class AstraIntentRequest(BaseModel):
     declared_subject: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_target: str | None = Field(default=None, pattern=r"^[a-z][a-z0-9_.:-]{1,100}$")
     declared_parameters: tuple[AstraDeclaredIntentParameter, ...] = Field(default_factory=tuple, max_length=12)
+    governed_metadata_context: Any | None = Field(default=None, exclude=True)
     declared_intent_binding: Any = Field(exclude=True)
     constitutional_requirements: tuple[ConstitutionalRequirementReference, ...] = Field(min_length=1, max_length=20)
     timestamp: datetime
@@ -104,6 +105,8 @@ class AstraIntentRequest(BaseModel):
         names = tuple(item.name for item in self.declared_parameters)
         if len(names) != len(set(names)):
             raise AstraIntentResolutionError("Declared parameter names must be unique.")
+        if self.governed_metadata_context is not None and self.declared_target is None:
+            raise AstraIntentResolutionError("Governed intent metadata context requires a declared target.")
         assert_no_prohibited_contract_material(self.model_dump(mode="json"))
         return self
 
@@ -178,6 +181,8 @@ class AstraIntentResolutionEngine:
             raise AstraIntentResolutionError("Intent resolution requires a validated request.")
         self._validate_conversation(request, conversation_engine, conversation_snapshot)
         self._validate_declared_intent_binding(request, conversation_engine, conversation_snapshot)
+        self._validate_governed_metadata_context(request, conversation_snapshot)
+        self._validate_discovery_context_binding(request, requester_context)
         discovery = self._runtime.discover_capabilities_for_conversation(
             conversation_engine=conversation_engine,
             conversation_snapshot=conversation_snapshot,
@@ -210,10 +215,16 @@ class AstraIntentResolutionEngine:
                 evaluation_id=f"INTENT-GOV-{self._sequence + 1:03d}",
                 requirement_references=request.constitutional_requirements,
                 requested_authority_class=AuthorityClass.ADVISORY,
-                safety_classification=SafetyClassification.PUBLIC,
+                safety_classification=(
+                    SafetyClassification.PRIVATE_READ
+                    if request.governed_metadata_context is not None
+                    else SafetyClassification.PUBLIC
+                ),
                 approval_state=ApprovalState.NOT_REQUIRED,
                 configuration_id=ASTRA_CONFIGURATION_ID,
                 configuration_version=ASTRA_CONFIGURATION_VERSION,
+                requested_app_id=getattr(request.governed_metadata_context, "app_id", None),
+                requested_capability_scope=getattr(request.governed_metadata_context, "capability_scope", None),
                 production_authorization_state=ProductionAuthorizationState.NOT_APPROVED,
                 evaluation_timestamp=request.timestamp,
             )
@@ -237,7 +248,7 @@ class AstraIntentResolutionEngine:
             status,
             confidence,
             category,
-            tuple(item.capability_id for item in capabilities),
+            tuple(_resolved_capability_id(item) for item in capabilities),
             outcome,
             governance.decision.decision_id,
             governance.decision.failure_posture,
@@ -299,11 +310,17 @@ class AstraIntentResolutionEngine:
     def _match_capabilities(self, request, capabilities):
         if request.declared_target is None:
             return ()
-        return tuple(
+        matched_metadata = tuple(
             item
             for item in capabilities
             if item.status is AstraCapabilityStatus.AVAILABLE and item.capability_id == request.declared_target
         )
+        if matched_metadata:
+            return matched_metadata
+        metadata_context = request.governed_metadata_context
+        if metadata_context is not None and request.declared_target == metadata_context.capability_id:
+            return (metadata_context.capability_id,)
+        return ()
 
     def _validate_conversation(self, request, engine, snapshot):
         from app.modules.astra_ai.conversation_context import (
@@ -369,6 +386,37 @@ class AstraIntentResolutionEngine:
         )
         if request_signal != bound_signal:
             raise AstraIntentResolutionError("Declared intent fields do not match the owner-issued binding.")
+
+    def _validate_governed_metadata_context(self, request, snapshot):
+        metadata_context = request.governed_metadata_context
+        if metadata_context is None:
+            return
+        validator = getattr(self._runtime, "validates_governed_metadata_context", None)
+        if not callable(validator) or not validator(
+            metadata_context,
+            observed_at=request.timestamp,
+            conversation_id=request.conversation_id,
+            current_turn_reference=request.current_turn_reference,
+            request_reference=request.request_reference,
+            app_id=getattr(metadata_context, "app_id", None),
+            capability_scope=getattr(metadata_context, "capability_scope", None),
+            capability_id=request.declared_target,
+            capability_version=getattr(metadata_context, "capability_version", None),
+        ):
+            raise AstraIntentResolutionError("Governed metadata context is not valid for intent resolution.")
+        if snapshot.current_turn is None or metadata_context.current_turn_reference != snapshot.current_turn.turn_id:
+            raise AstraIntentResolutionError("Governed metadata context turn does not match intent resolution.")
+        if metadata_context.request_reference != snapshot.current_turn.request_reference:
+            raise AstraIntentResolutionError("Governed metadata context request does not match intent resolution.")
+
+    def _validate_discovery_context_binding(self, request, requester_context):
+        discovery_context = getattr(requester_context, "governed_metadata_context", None)
+        if request.governed_metadata_context is None:
+            if discovery_context is not None:
+                raise AstraIntentResolutionError("Governed discovery context requires matching governed intent context.")
+            return
+        if discovery_context is not request.governed_metadata_context:
+            raise AstraIntentResolutionError("Intent resolution and capability discovery must use the same metadata context.")
 
     def _release(
         self,
@@ -466,6 +514,10 @@ def _status(outcome):
 
 def _canonical(value):
     return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _resolved_capability_id(value):
+    return value if isinstance(value, str) else value.capability_id
 
 
 def _aware(value):
