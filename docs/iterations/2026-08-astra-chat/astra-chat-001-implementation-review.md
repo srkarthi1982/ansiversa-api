@@ -1,6 +1,16 @@
 # ASTRA-CHAT-001 Implementation Review
 
-Status: Implemented / Pending Astra Re-Review
+Status: Certified / Approved
+
+Certified executable:
+`4d7d25fd1f95ef7fd3912a1cdc21ef43729e8646`.
+
+Astra certification review: `4876497721`.
+
+PR #3: Open, draft, unmerged; based on certified
+ASTRA-META-ACT-BIND-001.
+
+Production authorization: Not approved.
 
 Product Owner/Astra resume authorization: Approved on 2026-08-06 for controlled
 non-production development and QA only.
