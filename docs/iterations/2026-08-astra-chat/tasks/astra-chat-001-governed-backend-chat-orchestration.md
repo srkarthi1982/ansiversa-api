@@ -1,11 +1,19 @@
 # ASTRA-CHAT-001 - Governed Backend Chat Orchestration
 
-Status: Changes Required / Pending Astra Re-Review
+Status: Implemented / Pending Astra Re-Review
 
-Product Owner authorization: Approved on 2026-08-02.
+Product Owner/Astra resume authorization: Approved on 2026-08-06 for controlled
+non-production development and QA only.
 
-Astra re-review `4838627730` required corrections against backend commit
-`d5c4c127c7c2fed254f7ee5463331306ca4d413b`.
+Reconciliation commit:
+`4d7d25fd1f95ef7fd3912a1cdc21ef43729e8646`.
+
+Certified prerequisite branch head:
+`06de785da513e04c19f1c59c1ec4a72ac0d42d28`.
+
+Astra blocker review `4838708303` required reconciliation onto certified
+ASTRA-META-ACT-BIND-001. Both reviewed histories are preserved by the
+non-destructive reconciliation merge.
 
 ## Objective
 
@@ -90,9 +98,11 @@ subscription.group_by_category
 Unsupported, missing, ambiguous, or invalid declared intent does not trigger
 inference. It returns a bounded clarification or unavailable response.
 
-The declared capability is bound into the intent lineage as the declared target,
-resolved by Intent Resolution, and revalidated by Read Authority Binding before
-execution. Mismatched, changed, or reused capability lineage fails closed.
+The declared capability is validated against the app-owned certified catalog.
+Runtime then issues an exact governed metadata context for the current active
+conversation turn. Intent Resolution and conversation-bound Capability
+Discovery receive the same exact context object. The declared target must
+resolve to exactly that capability before read authority is requested.
 
 ## Security Boundary
 
@@ -105,10 +115,10 @@ The chat gateway does not directly execute SQL and does not call Subscription
 Manager repositories. The only app data path is the certified Read Execution
 bridge invoking the registered Subscription Manager adapter.
 
-Capability Discovery and Intent Resolution no longer infer Subscription Manager
-private-read activation merely from Runtime ownership or subscription-looking
-subject strings. Chat supplies explicit per-request orchestration context for
-the exact app, capability scope, and declared capability.
+Capability Discovery and Intent Resolution use the certified metadata context
+contract. The old chat-owned parent workarounds were removed, including
+request-carried capability provenance and the Read Authority Binding lineage
+modification. Certified parent source and fixtures match the prerequisite branch.
 
 Response protection uses structural allowlisted projection of Subscription
 Manager result fields rather than keyword scanning app-owned business values.
@@ -125,27 +135,39 @@ surface in the gateway, no bypass of Read Authority Binding, no bypass of Read
 Execution, caller-supplied owner/user ID rejection, parameter/field/row-limit
 escalation rejection, bounded read authorization/Governance denial, no
 provider/model/NLP path, and unauthenticated API rejection.
-The correction tests also cover exact resolved capability lineage, mismatched
+The correction tests also cover one exact Runtime-issued metadata context across
+Intent Resolution and Capability Discovery, exact resolved capability lineage, mismatched
 or reused capability failures, legitimate business values that contain
 sensitive-looking words, bounded projection failure, authenticated HTTP success
 through real dependency wiring, disabled activation non-success, production
-route absence, foreign-user isolation, and bounded unsupported capability.
+route absence, foreign-user isolation, malformed authentication,
+disabled/inactive/suspended users, bounded unsupported capability, and a real
+database mutation proof. The provenance test receives `Subscriptions: 2.`,
+commits a third owner-scoped database row, repeats the same governed HTTP request,
+and receives `Subscriptions: 3.`.
+
+The activation lifecycle test now freezes Runtime configuration loading to its
+scenario clock. No production activation or freshness semantics changed, and
+expired/stale governed metadata contexts remain fail closed.
 
 Latest validation:
 
 ```text
 .venv/bin/python -m pytest tests/test_astra_chat_gateway.py -q
-21 passed, 1 warning
+27 passed, 1 warning
 
-.venv/bin/python -m pytest tests/test_astra_intent_resolution_engine.py tests/test_astra_capability_discovery_engine.py -q
-48 passed
-
-.venv/bin/python -m pytest tests/test_astra_runtime_activation.py tests/test_astra_read_authority_binding.py tests/test_astra_read_execution_bridge.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py tests/test_astra_conversation_context_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_capability_discovery_engine.py tests/test_astra_planning_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_chat_gateway.py -q
-270 passed, 1 warning, 11 subtests passed
+.venv/bin/python -m pytest tests/test_astra_chat_gateway.py tests/test_astra_metadata_activation_binding.py tests/test_astra_runtime_activation.py tests/test_astra_capability_discovery_engine.py tests/test_astra_intent_resolution_engine.py tests/test_astra_conversation_context_engine.py tests/test_astra_governance_kernel.py tests/test_astra_runtime_core.py tests/test_astra_read_authority_binding.py tests/test_astra_read_access_authorization_engine.py tests/test_astra_read_execution_bridge.py tests/test_astra_app_val_001_read_execution_validation.py tests/test_subscription_manager_astra_read_capabilities.py -q
+264 passed, 1 warning, 11 subtests passed in 53.90s
 
 .venv/bin/python -m compileall app/modules/astra_ai app/modules/auth app/modules/subscription_manager validation/astra_app_001 validation/astra_app_val_001 tests/test_astra_chat_gateway.py
 passed
 
 .venv/bin/python -m pytest tests/test_astra*.py -q
-426 passed, 147 warnings, 33 subtests passed in 463.16s
+450 passed, 147 warnings, 33 subtests passed in 427.11s
+
+git diff --check
+passed
 ```
+
+Frontend integration has not started. Merge, deployment, production
+configuration, and production authorization remain not approved.
