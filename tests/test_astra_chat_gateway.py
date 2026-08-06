@@ -193,6 +193,45 @@ def test_authenticated_declared_subscription_intent_executes_real_governed_path(
     assert "governed_read_execution_bridge" in response.reason_codes
 
 
+def test_chat_uses_one_exact_runtime_issued_metadata_context_for_discovery_and_intent():
+    chat = gateway()
+    context = auth_context("user-a")
+    db = subscription_db("user-a")
+
+    with (
+        patch.object(
+            chat.runtime,
+            "issue_subscription_manager_governed_metadata_context",
+            wraps=chat.runtime.issue_subscription_manager_governed_metadata_context,
+        ) as issue_context,
+        patch.object(
+            chat.runtime._capability_discovery,
+            "discover_for_conversation",
+            wraps=chat.runtime._capability_discovery.discover_for_conversation,
+        ) as discover,
+        patch.object(
+            chat.runtime,
+            "resolve_intent",
+            wraps=chat.runtime.resolve_intent,
+        ) as resolve,
+    ):
+        response = chat.handle(
+            chat_request("subscription.count_active"),
+            authenticated_context=context,
+            subscription_manager_db=db,
+        )
+
+    assert response.status is AstraChatStatus.OK
+    intent_request = resolve.call_args.args[0]
+    issued_context = intent_request.governed_metadata_context
+    requester_context = resolve.call_args.kwargs["requester_context"]
+    discovery_context = discover.call_args.kwargs["request_context"]
+    assert issue_context.call_count == 1
+    assert intent_request.governed_metadata_context is issued_context
+    assert requester_context.governed_metadata_context is issued_context
+    assert discovery_context.governed_metadata_context is issued_context
+
+
 def test_positive_path_uses_no_governance_monkeypatch_or_force_allow_fixture():
     source = inspect.getsource(chat_gateway_module)
     assert "force_allow" not in source.lower()
@@ -305,13 +344,13 @@ def test_exact_resolved_capability_lineage_is_required_for_read_authority():
     chat = gateway()
     context = auth_context("user-a")
     db = subscription_db("user-a")
-    original = chat.runtime.intent_resolution.resolve
+    original = chat.runtime.resolve_intent
 
     def mismatched_resolution(*args, **kwargs):
         resolution = original(*args, **kwargs)
         return resolution.model_copy(update={"resolved_capability_ids": ("subscription.count_all",)})
 
-    with patch.object(chat.runtime.intent_resolution, "resolve", side_effect=mismatched_resolution):
+    with patch.object(chat.runtime, "resolve_intent", side_effect=mismatched_resolution):
         denied = chat.handle(
             chat_request("subscription.count_active"),
             authenticated_context=context,
@@ -461,6 +500,31 @@ def test_unauthenticated_api_request_fails_before_chat_gateway_authority():
     assert response.status_code == 401
 
 
+def test_malformed_auth_api_request_fails_before_chat_gateway_authority():
+    response = TestClient(create_app()).post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": "Bearer malformed-token"},
+        json={"declared_intent": {"capability_id": "subscription.count_active"}},
+    )
+
+    assert response.status_code == 401
+
+
+@pytest.mark.parametrize("blocked_status", ["disabled", "inactive", "suspended"])
+def test_blocked_user_api_request_fails_at_authenticated_boundary(blocked_status):
+    parent_db, blocked_user = auth_db_user(f"user-{blocked_status}", status=blocked_status)
+    token = create_user_token(blocked_user).access_token
+    client = http_client(parent_db, subscription_db(blocked_user.id))
+
+    response = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"declared_intent": {"capability_id": "subscription.count_active"}},
+    )
+
+    assert response.status_code == 401
+
+
 def test_authenticated_http_chat_success_uses_real_dependency_wiring():
     parent_db, authenticated_user = auth_db_user("user-http")
     token = create_user_token(authenticated_user).access_token
@@ -486,6 +550,61 @@ def test_authenticated_http_chat_success_uses_real_dependency_wiring():
     assert body["structured_result"]["records"][0]["provider"] == "SQL Server"
     assert body["authorization_decision_reference"]
     assert body["governance_decision_reference"]
+
+
+def test_authenticated_http_chat_answer_tracks_subscription_database_mutation():
+    parent_db, authenticated_user = auth_db_user("user-http-db-proof")
+    token = create_user_token(authenticated_user).access_token
+    subscriptions = subscription_db("user-http-db-proof")
+    client = http_client(parent_db, subscriptions)
+    request = {
+        "declared_intent": {
+            "app_id": "subscription_manager",
+            "declared_action": "get_information",
+            "declared_subject": "subscription",
+            "capability_id": "subscription.count_all",
+        }
+    }
+
+    first = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json=request,
+    )
+    assert first.status_code == 200
+    first_body = first.json()
+    assert first_body["status"] == "ok"
+    assert first_body["message"] == "Subscriptions: 2."
+    assert first_body["structured_result"]["summary"]["count"] == 2
+
+    subscriptions.add(
+        SubscriptionRecord(
+            id="sub-db-proof-added",
+            owner_id="user-http-db-proof",
+            category_id="cat-user-http-db-proof",
+            name="Database Proof",
+            provider="Database Proof",
+            billing_amount=25,
+            currency_code="AED",
+            billing_frequency="monthly",
+            next_billing_date="2026-08-20",
+            status="active",
+        )
+    )
+    subscriptions.commit()
+
+    second = client.post(
+        "/api/v1/astra/chat",
+        headers={"Authorization": f"Bearer {token}"},
+        json=request,
+    )
+    assert second.status_code == 200
+    second_body = second.json()
+    assert second_body["status"] == "ok"
+    assert second_body["message"] == "Subscriptions: 3."
+    assert second_body["structured_result"]["summary"]["count"] == 3
+    assert second_body["authorization_decision_reference"]
+    assert second_body["governance_decision_reference"]
 
 
 def test_http_chat_disabled_activation_fails_closed_without_success():

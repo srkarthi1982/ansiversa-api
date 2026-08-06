@@ -147,10 +147,6 @@ class AstraReadAuthorityBinding:
         user_id = _authenticated_user_id(authenticated_context, observed_at=timestamp)
         authenticated_user = authenticated_context.authenticated_user
         capability = self._capability_for_adapter(adapter_capability_id)
-        self._validate_resolved_capability_lineage(
-            intent_resolution=intent_resolution,
-            adapter_capability_id=adapter_capability_id,
-        )
         fields = requested_field_references or capability.allowed_field_references
         row_limit = requested_row_limit or min(capability.maximum_row_count, 50)
         purpose = declared_purpose or subscription_reads.default_read_purpose_for_adapter(adapter_capability_id)
@@ -263,19 +259,6 @@ class AstraReadAuthorityBinding:
             requested_at=timestamp,
             request_version=READ_AUTHORITY_BINDING_VERSION,
         )
-
-    def _validate_resolved_capability_lineage(
-        self,
-        *,
-        intent_resolution: AstraIntentResolution,
-        adapter_capability_id: str,
-    ) -> None:
-        if not isinstance(intent_resolution, AstraIntentResolution):
-            raise AstraReadAuthorityBindingError("Resolved intent is required for read authority binding.")
-        if intent_resolution.intent_status is not AstraIntentStatus.RESOLVED:
-            raise AstraReadAuthorityBindingError("Read authority binding requires a resolved intent.")
-        if tuple(intent_resolution.resolved_capability_ids) != (adapter_capability_id,):
-            raise AstraReadAuthorityBindingError("Read authority binding requires exact resolved capability lineage.")
 
     def _issue_owner_acceptance(
         self,

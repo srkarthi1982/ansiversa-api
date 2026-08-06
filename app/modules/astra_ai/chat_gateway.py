@@ -15,7 +15,6 @@ from app.modules.astra_ai.conversation_context import (
     AstraConversationTurnKind,
     AstraCurrentTurnContext,
 )
-from app.modules.astra_ai.activation import SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE
 from app.modules.astra_ai.constitutional_contracts import (
     ConstitutionalRequirementReference,
     FailurePosture,
@@ -206,17 +205,22 @@ class AstraChatGateway:
 
         try:
             snapshot = self._conversation_engine.get_conversation(conversation_id)
+            governed_metadata_context = (
+                self._runtime.issue_subscription_manager_governed_metadata_context(
+                    conversation_engine=self._conversation_engine,
+                    conversation_snapshot=snapshot,
+                    adapter_capability_id=declared.capability_id,
+                    requested_at=timestamp,
+                )
+            )
             requester_context = self._runtime.capability_discovery.internal_request_context().model_copy(
-                update={
-                    "governance_app_id": SUBSCRIPTION_MANAGER_APP_ID,
-                    "governance_capability_scope": SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
-                    "governance_capability_id": declared.capability_id,
-                }
+                update={"governed_metadata_context": governed_metadata_context}
             )
             intent_resolution = self._resolve_declared_intent(
                 declared,
                 conversation_snapshot=snapshot,
                 requester_context=requester_context,
+                governed_metadata_context=governed_metadata_context,
                 observed_at=timestamp,
             )
             if intent_resolution.intent_status is not AstraIntentStatus.RESOLVED:
@@ -239,6 +243,13 @@ class AstraChatGateway:
                 parameters=_subscription_parameters(declared.parameters),
                 requested_at=timestamp,
             )
+            if (
+                bound.adapter_capability_id != declared.capability_id
+                or bound.adapter_capability_version != governed_metadata_context.capability_version
+            ):
+                raise AstraChatGatewayError(
+                    "Read authority binding does not match the governed capability lineage."
+                )
             execution_request = self._runtime.read_execution.issue_request(
                 execution_request_id=self._execution_request_id(timestamp),
                 read_authorization_decision=bound.authorization_decision,
@@ -335,6 +346,7 @@ class AstraChatGateway:
         *,
         conversation_snapshot: Any,
         requester_context: Any,
+        governed_metadata_context: Any,
         observed_at: datetime,
     ) -> AstraIntentResolution:
         parameters = _intent_parameters(declared.parameters)
@@ -359,15 +371,13 @@ class AstraChatGateway:
             declared_subject=declared.declared_subject,
             declared_target=declared.capability_id,
             declared_parameters=parameters,
-            declared_capability_ids=(declared.capability_id,),
-            governance_app_id=SUBSCRIPTION_MANAGER_APP_ID,
-            governance_capability_scope=SUBSCRIPTION_MANAGER_PRIVATE_READ_SCOPE,
+            governed_metadata_context=governed_metadata_context,
             declared_intent_binding=binding,
             constitutional_requirements=_chat_requirements(),
             timestamp=observed_at,
             version=ASTRA_CHAT_VERSION,
         )
-        return self._runtime.intent_resolution.resolve(
+        return self._runtime.resolve_intent(
             request,
             conversation_engine=self._conversation_engine,
             conversation_snapshot=conversation_snapshot,

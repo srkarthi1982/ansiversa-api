@@ -490,6 +490,7 @@ def test_disabled_server_flag_keeps_runtime_issuer_from_authorizing_activation()
 
 def test_runtime_lifecycle_bound_activation_remains_available_and_shutdown_invalidates_it():
     captured: dict[str, AstraRuntimeActivationContract] = {}
+    loaded = _stage_zero_test_configuration()
 
     def enabled_loader(**values):
         result = load_runtime_activation(
@@ -499,7 +500,10 @@ def test_runtime_lifecycle_bound_activation_remains_available_and_shutdown_inval
         captured["activation"] = result
         return result
 
-    with patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader):
+    with (
+        patch("app.modules.astra_ai.runtime.get_astra_configuration", return_value=loaded),
+        patch("app.modules.astra_ai.runtime.load_runtime_activation", side_effect=enabled_loader),
+    ):
         runtime = AstraRuntime(created_at=NOW, startup_instance_id=RUNTIME_ID)
         runtime.startup()
     exact = captured["activation"]
