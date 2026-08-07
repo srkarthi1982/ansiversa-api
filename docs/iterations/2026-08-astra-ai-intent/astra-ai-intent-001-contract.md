@@ -1,6 +1,17 @@
-# ASTRA-AI-INTENT-ARCH-001 — Proposed Contract
+# ASTRA-AI-INTENT-ARCH-001 — Certified Architecture Contract
 
-Status: Proposed / Non-Executable / Pending Astra Review
+Status: Architecture Approved / Certified / Non-Executable
+
+Certified architecture:
+`cc65502990e69c39bc542933d6d8d28aac5b0291`.
+
+Astra architecture review: `4881828844`.
+
+PR #6: open, draft, unmerged.
+
+Implementation: **NOT AUTHORIZED**.
+
+Production: **NOT APPROVED**.
 
 ## Endpoint
 

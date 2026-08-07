@@ -1,6 +1,15 @@
 # ASTRA-AI-INTENT-ARCH-001 — Governed Natural-Language Intent Architecture
 
-Status: Architecture Proposed / Pending Astra Review
+Status: Architecture Approved / Certified / Closed
+
+Certified architecture:
+`cc65502990e69c39bc542933d6d8d28aac5b0291`.
+
+Astra architecture review: `4881828844`.
+
+PR #6: open, draft, unmerged.
+
+Implementation: **NOT AUTHORIZED**.
 
 Authorization: GitHub issue `srkarthi1982/ansiversa-api#5`, gate-release comment
 `5215395273`.
@@ -379,11 +388,15 @@ databases, schemas, and migrations
 18. All certified Runtime, metadata, authority, execution, chat, frontend,
     authentication, and Subscription Manager executable components are untouched.
 
-## Stop Point
+## Certified State
 
 ```text
-ASTRA-AI-INTENT-ARCH-001 — Architecture Proposed / Pending Astra Review
+ASTRA-AI-INTENT-ARCH-001 — Architecture Approved / Certified / Closed
+Implementation — NOT AUTHORIZED
+Production — NOT APPROVED
 ```
 
-No implementation begins until Product Owner/Astra explicitly approves this
-architecture after live GitHub review.
+The architecture was certified at the commit above. This documentation-only
+closure is not a new architecture target. No implementation begins until a
+separate GitHub implementation issue is explicitly authorized by Product
+Owner/Astra.

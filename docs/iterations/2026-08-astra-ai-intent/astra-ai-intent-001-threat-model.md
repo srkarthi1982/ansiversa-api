@@ -1,6 +1,17 @@
 # ASTRA-AI-INTENT-ARCH-001 — Threat Model
 
-Status: Architecture Proposed / Pending Astra Review
+Status: Architecture Approved / Certified / Non-Executable
+
+Certified architecture:
+`cc65502990e69c39bc542933d6d8d28aac5b0291`.
+
+Astra architecture review: `4881828844`.
+
+PR #6: open, draft, unmerged.
+
+Implementation: **NOT AUTHORIZED**.
+
+Production: **NOT APPROVED**.
 
 Every candidate is untrusted. Any failed check produces a bounded non-success
 outcome and no `AstraChatRequest`.

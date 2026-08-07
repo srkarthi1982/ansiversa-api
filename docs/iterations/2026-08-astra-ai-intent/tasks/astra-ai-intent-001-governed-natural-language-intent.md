@@ -1,6 +1,13 @@
 # ASTRA-AI-INTENT-ARCH-001 — Governed Natural-Language Intent Boundary
 
-Status: Architecture Proposed / Pending Astra Review
+Status: Architecture Approved / Certified / Closed
+
+Certified architecture:
+`cc65502990e69c39bc542933d6d8d28aac5b0291`
+
+Astra architecture review: `4881828844`
+
+PR #6: open / draft / unmerged
 
 Canonical task: `srkarthi1982/ansiversa-api#5`
 
@@ -25,7 +32,7 @@ independently validates it before invoking unchanged ASTRA-CHAT-001.
 - permanent GitHub-first governed capability-delivery workflow source; and
 - required backend and Astra task-log updates.
 
-## Proposed Decisions
+## Certified Architecture Decisions
 
 - separate `POST /api/v1/astra/agent/query` endpoint;
 - current-turn, intent-only provider boundary;
@@ -78,12 +85,17 @@ configuration, dependency, tool/function calling, RAG, embedding, vector DB,
 memory, autonomous agent, write, adapter, deployment, merge, or production
 change is authorized.
 
-## Completion Gate
+## Architecture Closure
 
-Commit and push backend documentation, synchronize and separately push Astra
-sources, open a draft architecture PR, report exact commits/files/findings in
-issue #5, then stop.
+The documentation-only architecture was certified at the immutable architecture
+commit above. The certification-record closure is not a new architecture target.
 
 ```text
-ASTRA-AI-INTENT-ARCH-001 — Architecture Proposed / Pending Astra Review
+ASTRA-AI-INTENT-ARCH-001 — Architecture Approved / Certified / Closed
+ASTRA-AI-INTENT implementation — NOT AUTHORIZED
+Production — NOT APPROVED
 ```
+
+A separate Product Owner/Astra-authorized GitHub implementation issue is
+required before any executable, configuration, dependency, route,
+provider/model, or frontend change begins.
