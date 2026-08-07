@@ -1,6 +1,6 @@
 # ASTRA-AI-INTENT-001 — Governed Natural-Language Intent Implementation
 
-Status: Implemented / Pending Astra Review
+Status: Changes Corrected / NOT CERTIFIED / Pending Astra Re-Review
 
 Canonical task: `srkarthi1982/ansiversa-api#8`
 
@@ -11,6 +11,10 @@ Branch: `feature/astra-ai-intent-001`
 Certified architecture: `cc65502990e69c39bc542933d6d8d28aac5b0291`
 
 Astra architecture review: `4881828844`
+
+Astra implementation review: `4886169635`
+
+Issue #8 correction gate: `5221470917`
 
 Frontend agent integration: NOT AUTHORIZED
 
@@ -87,6 +91,30 @@ Focused automated coverage includes:
   after a committed owner-scoped database insert; and
 - a secondary authenticated user result of 1, proving owner isolation.
 
+The Astra correction gate additionally proves all four previously missing
+acceptance forms:
+
+- a genuinely foreign `app_id` candidate returns invalid-provider-response and
+  cannot invoke certified chat;
+- an otherwise catalog-valid read capability omitted from the exact metadata
+  projection supplied for the request is rejected before `AstraChatRequest`
+  construction and chat execution;
+- authenticated FastAPI requests carrying client-supplied app, capability,
+  parameters, user, authority, grant, Runtime, or Governance fields return 422
+  before provider or chat execution; and
+- a real JSON array containing two candidate objects fails closed after one
+  bounded provider attempt and cannot invoke chat.
+
+Observed correction validation:
+
+```text
+focused intent/provider/agent       101 passed, 1 credential-gated skip
+full tests/test_astra*.py           551 passed, 33 subtests passed,
+                                    1 credential-gated skip
+compileall                          passed
+git diff --check                    passed
+```
+
 The real OpenAI smoke test is credential-gated and non-default. Without
 `OPENAI_API_KEY`, its recorded status is `not run — credential gated`.
 
@@ -99,5 +127,5 @@ MCP/plugin, RAG, embedding, memory, autonomous loop, write/action, merge,
 manual deployment, production configuration, or production authorization is
 included.
 
-This implementation is not self-certified. It stops at Astra live GitHub
-review.
+This implementation is not self-certified. The correction stops at Astra live
+GitHub re-review.

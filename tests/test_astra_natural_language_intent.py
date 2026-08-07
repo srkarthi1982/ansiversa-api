@@ -10,6 +10,7 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
+import app.modules.astra_ai.natural_language_intent as intent_module
 from app.core.config import settings
 from app.core.database import get_parent_db
 from app.main import create_app
@@ -314,6 +315,57 @@ def test_invalid_provider_candidate_never_reaches_certified_chat():
     chat.handle.assert_not_called()
 
 
+def test_foreign_app_id_provider_candidate_never_reaches_certified_chat():
+    candidate = resolved_candidate("subscription.count_active")
+    candidate["app_id"] = "expense_tracker"
+    provider = FakeIntentProvider(candidate)
+    chat = Mock()
+
+    response = AstraNaturalLanguageIntentInterpreter(gateway=chat, provider=provider).handle(
+        AstraAgentQueryRequest(question="Count my current recurring services"),
+        authenticated_context=auth_context(),
+        subscription_manager_db=object(),
+    )
+
+    assert response.status is AstraAgentStatus.INVALID_PROVIDER_RESPONSE
+    assert provider.envelopes[0]["question"] == "Count my current recurring services"
+    chat.handle.assert_not_called()
+
+
+def test_capability_absent_from_supplied_projection_never_reaches_certified_chat():
+    full_projection = project_subscription_capabilities()
+    projection_without_count_active = full_projection.model_copy(
+        update={
+            "capabilities": tuple(
+                capability
+                for capability in full_projection.capabilities
+                if capability.capability_id != "subscription.count_active"
+            )
+        }
+    )
+    provider = FakeIntentProvider(resolved_candidate("subscription.count_active"))
+    chat = Mock()
+
+    with patch.object(
+        intent_module,
+        "project_subscription_capabilities",
+        return_value=projection_without_count_active,
+    ):
+        response = AstraNaturalLanguageIntentInterpreter(gateway=chat, provider=provider).handle(
+            AstraAgentQueryRequest(question="Count my current recurring services"),
+            authenticated_context=auth_context(),
+            subscription_manager_db=object(),
+        )
+
+    supplied_capabilities = {
+        capability["capability_id"]
+        for capability in provider.envelopes[0]["eligible_capabilities"]
+    }
+    assert "subscription.count_active" not in supplied_capabilities
+    assert response.status is AstraAgentStatus.INVALID_PROVIDER_RESPONSE
+    chat.handle.assert_not_called()
+
+
 @pytest.mark.parametrize(
     "question",
     [
@@ -370,11 +422,10 @@ def test_openai_provider_uses_one_responses_structured_output_attempt_without_to
     [
         {"output_text": "not-json"},
         {"output_text": ""},
-        {"output_text": "[]"},
         {"output_text": "x" * (MAX_PROVIDER_OUTPUT_CHARS + 1)},
     ],
 )
-def test_openai_provider_malformed_empty_multiple_or_oversized_output_fails_once(payload):
+def test_openai_provider_malformed_empty_or_oversized_output_fails_once(payload):
     response = Mock()
     response.content = b"{}"
     response.raise_for_status.return_value = None
@@ -389,6 +440,37 @@ def test_openai_provider_malformed_empty_multiple_or_oversized_output_fails_once
                 provider_envelope("Count active services", project_subscription_capabilities())
             )
     client.post.assert_called_once()
+
+
+def test_openai_provider_multiple_candidate_array_fails_once_before_chat_execution():
+    candidates = [
+        resolved_candidate("subscription.count_all"),
+        resolved_candidate("subscription.count_active"),
+    ]
+    response = Mock()
+    response.content = b"{}"
+    response.raise_for_status.return_value = None
+    response.json.return_value = {"output_text": json.dumps(candidates)}
+    client = Mock()
+    client.__enter__ = Mock(return_value=client)
+    client.__exit__ = Mock(return_value=False)
+    client.post.return_value = response
+    chat = Mock()
+
+    with patch("app.modules.astra_ai.intent_provider.httpx.Client", return_value=client):
+        agent_response = AstraNaturalLanguageIntentInterpreter(
+            gateway=chat,
+            provider=OpenAIIntentProvider(api_key="safe-test-key"),
+        ).handle(
+            AstraAgentQueryRequest(question="Tell me which subscription count applies"),
+            authenticated_context=auth_context(),
+            subscription_manager_db=object(),
+        )
+
+    assert len(candidates) == 2
+    assert agent_response.status is AstraAgentStatus.INVALID_PROVIDER_RESPONSE
+    client.post.assert_called_once()
+    chat.handle.assert_not_called()
 
 
 def test_openai_provider_timeout_is_unavailable_and_has_zero_retries():
@@ -428,22 +510,52 @@ def agent_http_client(
     return TestClient(app)
 
 
-def test_agent_http_requires_authentication_and_forbids_authority_fields():
+def test_agent_http_requires_authentication():
     unauthenticated = TestClient(create_app()).post(
         "/api/v1/astra/agent/query",
         json={"question": "How many subscriptions do I have?"},
     )
     assert unauthenticated.status_code == 401
 
+
+@pytest.mark.parametrize(
+    "extra_field, value",
+    [
+        ("userId", "victim"),
+        ("appId", "subscription_manager"),
+        ("capabilityId", "subscription.count_all"),
+        ("parameters", [{"name": "days", "value": 30}]),
+        ("authority", {"decision": "allow"}),
+        ("grant", "caller-supplied-grant"),
+        ("runtime", {"state": "ready"}),
+        ("governance", {"outcome": "allow"}),
+    ],
+)
+def test_agent_http_forbids_client_intent_or_authority_fields_before_execution(
+    extra_field,
+    value,
+):
     parent_db, authenticated_user = auth_db_user("user-extra")
     token = create_user_token(authenticated_user).access_token
-    client = agent_http_client(parent_db, subscription_db("user-extra"), chat_gateway=gateway())
+    provider = FakeIntentProvider()
+    chat = Mock()
+    client = agent_http_client(
+        parent_db,
+        subscription_db("user-extra"),
+        chat_gateway=chat,
+        provider=provider,
+    )
     response = client.post(
         "/api/v1/astra/agent/query",
         headers={"Authorization": f"Bearer {token}"},
-        json={"question": "How many subscriptions do I have?", "userId": "victim"},
+        json={
+            "question": "How many subscriptions do I have?",
+            extra_field: value,
+        },
     )
     assert response.status_code == 422
+    assert provider.envelopes == []
+    chat.handle.assert_not_called()
 
 
 def test_agent_http_rejects_malformed_auth_and_blocked_users():
