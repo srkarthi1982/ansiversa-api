@@ -156,6 +156,15 @@ def register_routes(app: FastAPI) -> None:
         )
         app.router.on_shutdown.append(chat_runtime_service.shutdown)
 
+    if _should_register_astra_agent_routes():
+        from app.modules.astra_ai.api.agent import router as astra_agent_router
+
+        app.include_router(
+            astra_agent_router,
+            prefix=f"{settings.API_V1_PREFIX}/astra/agent/query",
+            tags=["Astra Agent"],
+        )
+
     app.include_router(
         knowledge_public_router,
         tags=["AI Knowledge"],
@@ -675,6 +684,12 @@ def _should_register_astra_chat_routes() -> bool:
     from app.modules.astra_ai.api.chat import should_register_astra_chat_routes
 
     return should_register_astra_chat_routes(settings)
+
+
+def _should_register_astra_agent_routes() -> bool:
+    from app.modules.astra_ai.api.agent import should_register_astra_agent_routes
+
+    return should_register_astra_agent_routes(settings)
 
 
 def create_app() -> FastAPI:

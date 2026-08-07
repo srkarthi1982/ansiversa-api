@@ -191,6 +191,10 @@ class Settings(BaseSettings):
     ASTRA_PERSONAL_DATA_TOOLS_ENABLED: bool = False
     ASTRA_DIAGNOSTICS_API_ENABLED: bool = False
     ASTRA_NONPROD_READ_ENABLED: str = "false"
+    ASTRA_AI_INTENT_ENABLED: bool = False
+    ASTRA_AI_INTENT_MODEL: str = "gpt-4.1-mini"
+    ASTRA_AI_INTENT_TIMEOUT_SECONDS: float = Field(default=8.0, gt=0, le=30)
+    ASTRA_AI_INTENT_MAX_OUTPUT_TOKENS: int = Field(default=256, ge=64, le=512)
     CORS_ORIGINS: Annotated[list[str], NoDecode] = Field(
         default_factory=lambda: DEFAULT_CORS_ORIGINS.copy()
     )
